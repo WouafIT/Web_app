@@ -1,6 +1,6 @@
 //Slidebars
-require("./slidebars/0.10.3/dist/slidebars.js");
-require("./slidebars/0.10.3/dist/slidebars.min.css");
+require("../libs/slidebars/0.10.3/dist/slidebars.js");
+require("../libs/slidebars/0.10.3/dist/slidebars.min.css");
 //CSS
 require("../css/index.less");
 
