@@ -1,7 +1,8 @@
 {
-  "name": "wouafit",
-  "version": "0.0.0",
-  "description": "",
+  "name": "wouafit-web-app",
+  "repository": "WouafIT/Web_app",
+  "version": "0.0.1",
+  "description": "Wouaf IT Web Application",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

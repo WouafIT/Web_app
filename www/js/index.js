@@ -1,3 +1,5 @@
+//i18next
+var i18n = require("../libs/i18next/1.10.1/i18next-1.10.1.js");
 //Slidebars
 require("../libs/slidebars/0.10.3/dist/slidebars.js");
 require("../libs/slidebars/0.10.3/dist/slidebars.min.css");
@@ -6,8 +8,9 @@ require("../css/index.less");
 
 (function($) {
 	$(document).ready(function() {
-
+		i18n.init({ resStore: {dev: {translation: require("../../languages/" + LANGUAGE + ".json")} } });
 		$.slidebars();
+		console.info(i18n.t('test'));
 
 		var initialLocation;
 		var siberia = new google.maps.LatLng(60, 105);
