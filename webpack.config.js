@@ -7,17 +7,21 @@ var languages = [
 module.exports = languages.map(function(language) {
 	return {
 		name: language,
-		context: __dirname + "/www/js",
+		context: __dirname + "/app/js",
 		entry: "./index.js",
 		output: {
-			path: __dirname + "/www/js/build",
-			filename: "./bundle_" + language + ".js"
+			path: __dirname + "/www/",
+			filename: "./js/build-" + language + ".js"
 		},
 		module: {
 			loaders: [
 				{ test: /\.css$/, loader: "style!css" },
 				{ test: /\.less/, loader: "style!css!less" },
-				{ test: /\.json/, loader: "json-loader" }
+				{ test: /\.json/, loader: "json" },
+				{
+					test: /\.(eot|woff|woff2|ttf|svg|png|jpg)$/,
+					loader: 'file?prefix=js/&name=[path][name]-[hash:6].[ext]'
+				}
 			]
 		},
 		plugins: [

@@ -1,0 +1,58 @@
+@white: #FFF;
+@white-transparent: rgba(255,255,255,0.6);
+@grey: #CCC;
+@green: #2B9D48;
+
+@font-face {
+	font-family: "harlequinflfregular";
+	src:url('../fonts/harlequinflf-webfont.eot');
+	src:url('../fonts/harlequinflf-webfont.eot?#iefix') format('embedded-opentype'),
+	url('../fonts/harlequinflf-webfont.woff') format('woff'),
+	url('../fonts/harlequinflf-webfont.ttf') format('truetype'),
+	url('../fonts/harlequinflf-webfont.svg#RanchoRegular') format('svg');
+	font-weight: 		normal;
+	font-style: 		normal;
+	font-weight:		400;
+}
+
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	background-color: @white;
+}
+h1.logo {
+	font-family: 		'harlequinflfregular';
+	text-transform:		uppercase;
+}
+#sb-site {
+	height: 100%;
+}
+#map {
+	height: 100%;
+}
+#menu {
+	position: absolute;
+	top: 1em;
+	left: 1em;
+	z-index: 100;
+	background-color: @white-transparent;
+	padding: 0.3em;
+	border: 1px solid @grey;
+	border-radius: 0.3em;
+	cursor: pointer;
+}
+.sb-slidebar {
+	background-color: @white;
+	border-right: 2px solid @grey;
+
+	.tab-content {
+		padding: 0.3em;
+	}
+
+	footer {
+		position: fixed;
+		bottom: 0;
+		width: 100%;
+	}
+}
