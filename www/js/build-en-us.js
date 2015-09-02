@@ -48,16 +48,16 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	//i18next
-	var i18n = __webpack_require__(/*! ../libs/i18next/1.10.1/i18next-1.10.1.js */ 2);
+	var i18n = __webpack_require__(/*! ../libs/i18next/1.10.1/i18next-1.10.1.js */ 3);
 	//Slidebars
-	__webpack_require__(/*! ../libs/slidebars/0.10.3/dist/slidebars.js */ 3);
-	__webpack_require__(/*! ../libs/slidebars/0.10.3/dist/slidebars.css */ 4);
+	__webpack_require__(/*! ../libs/slidebars/0.10.3/dist/slidebars.js */ 4);
+	__webpack_require__(/*! ../libs/slidebars/0.10.3/dist/slidebars.css */ 5);
 	//CSS
-	__webpack_require__(/*! ../less/index.less */ 8);
+	__webpack_require__(/*! ../less/index.less */ 9);
 	
 	(function($) {
 		$(document).ready(function() {
-			i18n.init({ resStore: {dev: {translation: __webpack_require__(/*! ../../languages/en-us.json */ 15)} } });
+			i18n.init({ resStore: {dev: {translation: __webpack_require__(/*! ../../languages/en-us.json */ 16)} } });
 			$.slidebars();
 			console.info(i18n.t('test'));
 	
@@ -119,7 +119,8 @@
 
 /***/ },
 /* 1 */,
-/* 2 */
+/* 2 */,
+/* 3 */
 /*!************************************************!*\
   !*** ../libs/i18next/1.10.1/i18next-1.10.1.js ***!
   \************************************************/
@@ -2408,7 +2409,7 @@
 	})( false ? window : exports);
 
 /***/ },
-/* 3 */
+/* 4 */
 /*!**************************************************!*\
   !*** ../libs/slidebars/0.10.3/dist/slidebars.js ***!
   \**************************************************/
@@ -2779,7 +2780,7 @@
 	} ) ( jQuery );
 
 /***/ },
-/* 4 */
+/* 5 */
 /*!***************************************************!*\
   !*** ../libs/slidebars/0.10.3/dist/slidebars.css ***!
   \***************************************************/
@@ -2788,10 +2789,10 @@
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(/*! !./../../../../../~/css-loader!./../../../../../~/postcss-loader!./slidebars.css */ 5);
+	var content = __webpack_require__(/*! !./../../../../../~/css-loader!./../../../../../~/postcss-loader!./slidebars.css */ 6);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(/*! ./../../../../../~/style-loader/addStyles.js */ 7)(content, {});
+	var update = __webpack_require__(/*! ./../../../../../~/style-loader/addStyles.js */ 8)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -2808,13 +2809,13 @@
 	}
 
 /***/ },
-/* 5 */
+/* 6 */
 /*!***************************************************************************************************************************!*\
   !*** /mnt/windows/wouafit/~/css-loader!/mnt/windows/wouafit/~/postcss-loader!../libs/slidebars/0.10.3/dist/slidebars.css ***!
   \***************************************************************************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(/*! ./../../../../../~/css-loader/lib/css-base.js */ 6)();
+	exports = module.exports = __webpack_require__(/*! ./../../../../../~/css-loader/lib/css-base.js */ 7)();
 	// imports
 	
 	
@@ -2825,7 +2826,7 @@
 
 
 /***/ },
-/* 6 */
+/* 7 */
 /*!*********************************************************!*\
   !*** /mnt/windows/wouafit/~/css-loader/lib/css-base.js ***!
   \*********************************************************/
@@ -2884,7 +2885,7 @@
 
 
 /***/ },
-/* 7 */
+/* 8 */
 /*!********************************************************!*\
   !*** /mnt/windows/wouafit/~/style-loader/addStyles.js ***!
   \********************************************************/
@@ -3112,7 +3113,7 @@
 
 
 /***/ },
-/* 8 */
+/* 9 */
 /*!**************************!*\
   !*** ../less/index.less ***!
   \**************************/
@@ -3121,10 +3122,10 @@
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(/*! !./../../~/css-loader!./../../~/postcss-loader!./../../~/less-loader!./index.less */ 9);
+	var content = __webpack_require__(/*! !./../../~/css-loader!./../../~/postcss-loader!./../../~/less-loader!./index.less */ 10);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(/*! ./../../~/style-loader/addStyles.js */ 7)(content, {});
+	var update = __webpack_require__(/*! ./../../~/style-loader/addStyles.js */ 8)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -3141,24 +3142,24 @@
 	}
 
 /***/ },
-/* 9 */
+/* 10 */
 /*!*************************************************************************************************************************************!*\
   !*** /mnt/windows/wouafit/~/css-loader!/mnt/windows/wouafit/~/postcss-loader!/mnt/windows/wouafit/~/less-loader!../less/index.less ***!
   \*************************************************************************************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(/*! ./../../~/css-loader/lib/css-base.js */ 6)();
+	exports = module.exports = __webpack_require__(/*! ./../../~/css-loader/lib/css-base.js */ 7)();
 	// imports
 	
 	
 	// module
-	exports.push([module.id, "a {\n  color: #2b9d48;\n}\na:focus,\na:hover {\n  color: #154d23;\n}\n.btn-primary {\n  background-color: #2b9d48;\n  border-color: #2b9d48;\n}\n.btn-primary:hover {\n  background-color: #154d23;\n  border-color: #154d23;\n}\n.form-control:focus {\n  border-color: #5cd27a;\n}\n@font-face {\n  font-family: \"harlequinflfregular\";\n  src: url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.eot */ 10) + ");\n  src: url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.eot */ 10) + "?#iefix) format('embedded-opentype'), url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.woff */ 11) + ") format('woff'), url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.ttf */ 12) + ") format('truetype'), url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.svg */ 13) + "#RanchoRegular) format('svg');\n  font-weight: normal;\n  font-style: normal;\n  font-weight: 400;\n}\n::selection {\n  background: #5cd27a;\n}\nselect > option:hover {\n  box-shadow: 0 0 10px 100px #FED20F inset;\n  transition: all 0.2s ease-in-out;\n}\nhtml,\nbody {\n  height: 100%;\n  margin: 0;\n  padding: 0;\n  background-color: #ffffff;\n}\nheader {\n  color: #ffffff;\n}\nheader h1.logo {\n  font-family: 'harlequinflfregular';\n  text-transform: uppercase;\n  height: 75px;\n  background: #2b9d48 url(" + __webpack_require__(/*! ../img/logo-75.png */ 14) + ") top left no-repeat;\n  padding-left: 75px;\n  padding-top: 16px;\n}\nheader nav {\n  position: relative;\n  top: -75px;\n  right: 0.5rem;\n}\nheader nav a {\n  color: #ffffff;\n}\n#sb-site {\n  height: 100%;\n}\n#map {\n  height: 100%;\n}\n#menu {\n  position: absolute;\n  top: 1em;\n  left: 1em;\n  z-index: 100;\n  background-color: rgba(255, 255, 255, 0.6);\n  padding: 0.3em;\n  border: 1px solid #cccccc;\n  border-radius: 0.3em;\n  cursor: pointer;\n}\n.sb-slidebar {\n  background-color: #ffffff;\n  border-right: 2px solid #cccccc;\n}\n.sb-slidebar .tab-content {\n  padding: 0.3em;\n}\n.sb-slidebar footer {\n  position: fixed;\n  bottom: 0;\n  width: 100%;\n}\n", ""]);
+	exports.push([module.id, "a {\n  color: #2b9d48;\n}\na:focus,\na:hover {\n  color: #154d23;\n}\n.btn-primary {\n  background-color: #2b9d48;\n  border-color: #2b9d48;\n}\n.btn-primary:hover {\n  background-color: #154d23;\n  border-color: #154d23;\n}\n.form-control:focus {\n  border-color: #5cd27a;\n}\n@media (max-width: 480px) {\n  /* Slidebar widths on extra small screens. */\n  .sb-width-wide {\n    width: 85%;\n  }\n}\n@media (min-width: 481px) {\n  /* Slidebar widths on small screens. */\n  .sb-width-wide {\n    width: 400px;\n  }\n}\n@media (min-width: 768px) {\n  /* Slidebar widths on medium screens. */\n  .sb-width-wide {\n    width: 400px;\n  }\n}\n@media (min-width: 992px) {\n  /* Slidebar widths on large screens. */\n  .sb-width-wide {\n    width: 525px;\n  }\n}\n@media (min-width: 1200px) {\n  /* Slidebar widths on extra large screens. */\n  .sb-width-wide {\n    width: 525px;\n  }\n}\n@font-face {\n  font-family: \"harlequinflfregular\";\n  src: url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.eot */ 11) + ");\n  src: url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.eot */ 11) + "?#iefix) format('embedded-opentype'), url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.woff */ 12) + ") format('woff'), url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.ttf */ 13) + ") format('truetype'), url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.svg */ 14) + "#RanchoRegular) format('svg');\n  font-style: normal;\n  font-weight: 400;\n}\n::selection {\n  background: #5cd27a;\n}\nhtml,\nbody {\n  height: 100%;\n  margin: 0;\n  padding: 0;\n  background-color: #ffffff;\n}\nheader {\n  color: #ffffff;\n  background-color: #2b9d48;\n}\nheader h1.logo {\n  font-family: 'harlequinflfregular';\n  text-transform: uppercase;\n  height: 75px;\n  background: url(" + __webpack_require__(/*! ../img/logo-75.png */ 15) + ") top left no-repeat;\n  padding-left: 75px;\n  padding-top: 16px;\n}\nheader nav {\n  position: relative;\n  right: 0.5rem;\n}\nheader nav a {\n  color: #ffffff;\n}\n#sb-site {\n  height: 100%;\n}\n#map {\n  height: 100%;\n}\n#menu {\n  position: absolute;\n  top: 1em;\n  left: 1em;\n  z-index: 100;\n  background-color: rgba(255, 255, 255, 0.6);\n  padding: 0.3em;\n  border: 1px solid #cccccc;\n  border-radius: 0.3em;\n  cursor: pointer;\n}\n.sb-slidebar {\n  background-color: #ffffff;\n  border-right: 2px solid #cccccc;\n}\n.sb-slidebar .tab-content {\n  padding: 0.3em;\n}\n.sb-slidebar footer {\n  position: fixed;\n  bottom: 0;\n  width: 100%;\n}\n", ""]);
 	
 	// exports
 
 
 /***/ },
-/* 10 */
+/* 11 */
 /*!*****************************************!*\
   !*** ../fonts/harlequinflf-webfont.eot ***!
   \*****************************************/
@@ -3167,7 +3168,7 @@
 	module.exports = __webpack_require__.p + "_/fonts/harlequinflf-webfont-7cbc37.eot"
 
 /***/ },
-/* 11 */
+/* 12 */
 /*!******************************************!*\
   !*** ../fonts/harlequinflf-webfont.woff ***!
   \******************************************/
@@ -3176,7 +3177,7 @@
 	module.exports = __webpack_require__.p + "_/fonts/harlequinflf-webfont-f6d22e.woff"
 
 /***/ },
-/* 12 */
+/* 13 */
 /*!*****************************************!*\
   !*** ../fonts/harlequinflf-webfont.ttf ***!
   \*****************************************/
@@ -3185,7 +3186,7 @@
 	module.exports = __webpack_require__.p + "_/fonts/harlequinflf-webfont-59f502.ttf"
 
 /***/ },
-/* 13 */
+/* 14 */
 /*!*****************************************!*\
   !*** ../fonts/harlequinflf-webfont.svg ***!
   \*****************************************/
@@ -3194,7 +3195,7 @@
 	module.exports = __webpack_require__.p + "_/fonts/harlequinflf-webfont-33186d.svg"
 
 /***/ },
-/* 14 */
+/* 15 */
 /*!**************************!*\
   !*** ../img/logo-75.png ***!
   \**************************/
@@ -3203,7 +3204,7 @@
 	module.exports = __webpack_require__.p + "_/img/logo-75-d593fc.png"
 
 /***/ },
-/* 15 */
+/* 16 */
 /*!*************************************************!*\
   !*** /mnt/windows/wouafit/languages/en-us.json ***!
   \*************************************************/

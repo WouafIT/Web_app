@@ -6,6 +6,7 @@
 @lightgreen: darken(@green, -20%);
 
 @import 'bootstrap.less';
+@import 'slidebars.less';
 
 @font-face {
 	font-family: "harlequinflfregular";
@@ -30,19 +31,19 @@ html, body {
 }
 header {
 	color: @white;
+	background-color: @green;
 
 	h1.logo {
 		font-family: 'harlequinflfregular';
 		text-transform: uppercase;
 		height: 75px;
-		background: @green url('../img/logo-75.png') top left no-repeat;
+		background: url('../img/logo-75.png') top left no-repeat;
 		padding-left: 75px;
 		padding-top: 16px;
 	}
 
 	nav {
 		position: relative;
-		top: -75px;
 		right: 0.5rem;
 
 		a {
