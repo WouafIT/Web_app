@@ -2,7 +2,7 @@
 var i18n = require("../libs/i18next/1.10.1/i18next-1.10.1.js");
 //Slidebars
 require("../libs/slidebars/0.10.3/dist/slidebars.js");
-require("../libs/slidebars/0.10.3/dist/slidebars.min.css");
+require("../libs/slidebars/0.10.3/dist/slidebars.css");
 //CSS
 require("../less/index.less");
 
@@ -24,15 +24,15 @@ require("../less/index.less");
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		});
 		var myloc = new google.maps.Marker({
-											   clickable: false,
-											   icon: new google.maps.MarkerImage('//maps.gstatic.com/mapfiles/mobile/mobileimgs2.png',
-																				 new google.maps.Size(22,22),
-																				 new google.maps.Point(0,18),
-																				 new google.maps.Point(11,11)),
-											   shadow: null,
-											   zIndex: 999,
-											   map: map
-										   });
+		clickable: false,
+			icon: new google.maps.MarkerImage('//maps.gstatic.com/mapfiles/mobile/mobileimgs2.png',
+											 new google.maps.Size(22,22),
+											 new google.maps.Point(0,18),
+											 new google.maps.Point(11,11)),
+			shadow: null,
+			zIndex: 999,
+			map: map
+		});
 
 		// Try W3C Geolocation (Preferred)
 		if(navigator.geolocation) {

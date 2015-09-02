@@ -2,6 +2,10 @@
 @white-transparent: rgba(255,255,255,0.6);
 @grey: #CCC;
 @green: #2B9D48;
+@darkgreen: darken(@green, 20%);
+@lightgreen: darken(@green, -20%);
+
+@import 'bootstrap.less';
 
 @font-face {
 	font-family: "harlequinflfregular";
@@ -10,9 +14,12 @@
 	url('../fonts/harlequinflf-webfont.woff') format('woff'),
 	url('../fonts/harlequinflf-webfont.ttf') format('truetype'),
 	url('../fonts/harlequinflf-webfont.svg#RanchoRegular') format('svg');
-	font-weight: 		normal;
 	font-style: 		normal;
 	font-weight:		400;
+}
+
+::selection {
+	background: @lightgreen;
 }
 
 html, body {
@@ -21,9 +28,27 @@ html, body {
 	padding: 0;
 	background-color: @white;
 }
-h1.logo {
-	font-family: 		'harlequinflfregular';
-	text-transform:		uppercase;
+header {
+	color: @white;
+
+	h1.logo {
+		font-family: 'harlequinflfregular';
+		text-transform: uppercase;
+		height: 75px;
+		background: @green url('../img/logo-75.png') top left no-repeat;
+		padding-left: 75px;
+		padding-top: 16px;
+	}
+
+	nav {
+		position: relative;
+		top: -75px;
+		right: 0.5rem;
+
+		a {
+			color: @white;
+		}
+	}
 }
 #sb-site {
 	height: 100%;

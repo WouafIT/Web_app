@@ -15,13 +15,14 @@ module.exports = languages.map(function(language) {
 		},
 		module: {
 			loaders: [
-				{ test: /\.css$/, loader: "style!css" },
-				{ test: /\.less/, loader: "style!css!less" },
-				{ test: /\.json/, loader: "json" },
-				{
-					test: /\.(eot|woff|woff2|ttf|svg|png|jpg)$/,
-					loader: 'file?prefix=js/&name=[path][name]-[hash:6].[ext]'
-				}
+				{ test: /\.css$/, 						loader: "style!css!postcss" },
+				{ test: /\.less/, 						loader: "style!css!postcss!less" },
+				{ test: /\.json/, 						loader: "json" },
+				{ test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,  loader: "url?limit=10000&name=[path][name]-[hash:6].[ext]&mimetype=application/font-woff" },
+				{ test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,   loader: "url?limit=10000&name=[path][name]-[hash:6].[ext]&mimetype=application/octet-stream" },
+				{ test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,   loader: "file?name=[path][name]-[hash:6].[ext]" },
+				{ test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,   loader: "url?limit=10000&name=[path][name]-[hash:6].[ext]&mimetype=image/svg+xml" },
+				{ test: /\.(png|jpg|gif)$/, 			loader: 'file?name=[path][name]-[hash:6].[ext]' }
 			]
 		},
 		plugins: [
