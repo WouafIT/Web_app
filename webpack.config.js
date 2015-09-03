@@ -1,13 +1,14 @@
 var webpack = require("webpack");
-var languages = [
-	"fr-fr",
-	"en-us"
-];
+var languages = {
+	"fr-fr": require('./languages/fr-fr.json'),
+	"en-us": require('./languages/en-us.json')
+};
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
-module.exports = languages.map(function(language) {
+module.exports = Object.keys(languages).map(function(language) {
 	return {
 		name: language,
-		context: __dirname + "/app/js",
+		context: __dirname + "/src/js",
 		entry: "./index.js",
 		output: {
 			path: __dirname + "/www/",
@@ -28,7 +29,22 @@ module.exports = languages.map(function(language) {
 		plugins: [
 			new webpack.DefinePlugin({
 				"LANGUAGE": JSON.stringify(language)
+			}),
+			new HtmlWebpackPlugin({
+				filename: 'index-' + language + '.html',
+				template: 'src/html/index.html',
+				data: {
+					googleApi: 'AIzaSyCXCe5iWx-lVBv89H0teRMFjy8s24TMOiQ',
+					language: language,
+					time: Math.floor(Date.now() / 1000)
+				},
+				i18n: languages[language]
 			})
-		]
+		],
+		externals: {
+			// require("jquery") is external and available
+			//  on the global var jQuery
+			"jquery": "jQuery"
+		}
 	}
 });

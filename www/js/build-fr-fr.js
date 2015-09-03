@@ -47,19 +47,24 @@
   \******************/
 /***/ function(module, exports, __webpack_require__) {
 
-	//i18next
-	var i18n = __webpack_require__(/*! ../libs/i18next/1.10.1/i18next-1.10.1.js */ 3);
-	//Slidebars
-	__webpack_require__(/*! ../libs/slidebars/0.10.3/dist/slidebars.js */ 4);
-	__webpack_require__(/*! ../libs/slidebars/0.10.3/dist/slidebars.css */ 5);
-	//CSS
-	__webpack_require__(/*! ../less/index.less */ 9);
+	
 	
 	(function($) {
+		//i18next
+		var i18n = __webpack_require__(/*! ../libs/i18next/1.10.1/i18next-1.10.1.js */ 3);
+		//Slidebars
+		__webpack_require__(/*! ../libs/slidebars/0.10.3/dist/slidebars.js */ 4);
+		__webpack_require__(/*! ../libs/slidebars/0.10.3/dist/slidebars.css */ 5);
+		//CSS
+		__webpack_require__(/*! ../less/index.less */ 9);
+	
 		$(document).ready(function() {
-			i18n.init({ resStore: {dev: {translation: __webpack_require__(/*! ../../languages/fr-fr.json */ 16)} } });
+			var $ = __webpack_require__(/*! jquery */ 16);
+			//Translate HTML
+			i18n.init({ resStore: {dev: {translation: __webpack_require__(/*! ../../languages/fr-fr.json */ 17)} } });
+			$("body").i18n();
+			//Init Slidebars
 			$.slidebars();
-			console.info(i18n.t('test'));
 	
 			var initialLocation;
 			var siberia = new google.maps.LatLng(60, 105);
@@ -130,6 +135,9 @@
 	// Copyright (c)2015 Jan Mühlemann (jamuhl).
 	// Distributed under MIT license
 	// http://i18next.com
+	
+	exports.jQuery = jQuery;
+	
 	(function(root) {
 	
 	    // add indexOf to non ECMA-262 standard compliant browsers
@@ -3153,7 +3161,7 @@
 	
 	
 	// module
-	exports.push([module.id, "a {\n  color: #2b9d48;\n}\na:focus,\na:hover {\n  color: #154d23;\n}\n.btn-primary {\n  background-color: #2b9d48;\n  border-color: #2b9d48;\n}\n.btn-primary:hover {\n  background-color: #154d23;\n  border-color: #154d23;\n}\n.form-control:focus {\n  border-color: #5cd27a;\n}\n@media (max-width: 480px) {\n  /* Slidebar widths on extra small screens. */\n  .sb-width-wide {\n    width: 85%;\n  }\n}\n@media (min-width: 481px) {\n  /* Slidebar widths on small screens. */\n  .sb-width-wide {\n    width: 400px;\n  }\n}\n@media (min-width: 768px) {\n  /* Slidebar widths on medium screens. */\n  .sb-width-wide {\n    width: 400px;\n  }\n}\n@media (min-width: 992px) {\n  /* Slidebar widths on large screens. */\n  .sb-width-wide {\n    width: 525px;\n  }\n}\n@media (min-width: 1200px) {\n  /* Slidebar widths on extra large screens. */\n  .sb-width-wide {\n    width: 525px;\n  }\n}\n@font-face {\n  font-family: \"harlequinflfregular\";\n  src: url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.eot */ 11) + ");\n  src: url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.eot */ 11) + "?#iefix) format('embedded-opentype'), url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.woff */ 12) + ") format('woff'), url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.ttf */ 13) + ") format('truetype'), url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.svg */ 14) + "#RanchoRegular) format('svg');\n  font-style: normal;\n  font-weight: 400;\n}\n::selection {\n  background: #5cd27a;\n}\nhtml,\nbody {\n  height: 100%;\n  margin: 0;\n  padding: 0;\n  background-color: #ffffff;\n}\nheader {\n  color: #ffffff;\n  background-color: #2b9d48;\n}\nheader h1.logo {\n  font-family: 'harlequinflfregular';\n  text-transform: uppercase;\n  height: 75px;\n  background: url(" + __webpack_require__(/*! ../img/logo-75.png */ 15) + ") top left no-repeat;\n  padding-left: 75px;\n  padding-top: 16px;\n}\nheader nav {\n  position: relative;\n  right: 0.5rem;\n}\nheader nav a {\n  color: #ffffff;\n}\n#sb-site {\n  height: 100%;\n}\n#map {\n  height: 100%;\n}\n#menu {\n  position: absolute;\n  top: 1em;\n  left: 1em;\n  z-index: 100;\n  background-color: rgba(255, 255, 255, 0.6);\n  padding: 0.3em;\n  border: 1px solid #cccccc;\n  border-radius: 0.3em;\n  cursor: pointer;\n}\n.sb-slidebar {\n  background-color: #ffffff;\n  border-right: 2px solid #cccccc;\n}\n.sb-slidebar .tab-content {\n  padding: 0.3em;\n}\n.sb-slidebar footer {\n  position: fixed;\n  bottom: 0;\n  width: 100%;\n}\n", ""]);
+	exports.push([module.id, "a,\n.btn-link {\n  color: #2b9d48;\n}\na:focus,\n.btn-link:focus,\na:hover,\n.btn-link:hover,\na:active,\n.btn-link:active {\n  color: #154d23;\n}\n.btn-primary {\n  background-color: #2b9d48;\n  border-color: #2b9d48;\n}\n.btn-primary:hover,\n.btn-primary:active {\n  background-color: #154d23;\n  border-color: #154d23;\n}\n.form-control:focus {\n  border-color: #5cd27a;\n}\n@media (max-width: 480px) {\n  /* Slidebar widths on extra small screens. */\n  .sb-width-wide {\n    width: 85%;\n  }\n}\n@media (min-width: 481px) {\n  /* Slidebar widths on small screens. */\n  .sb-width-wide {\n    width: 400px;\n  }\n}\n@media (min-width: 768px) {\n  /* Slidebar widths on medium screens. */\n  .sb-width-wide {\n    width: 400px;\n  }\n}\n@media (min-width: 992px) {\n  /* Slidebar widths on large screens. */\n  .sb-width-wide {\n    width: 525px;\n  }\n}\n@media (min-width: 1200px) {\n  /* Slidebar widths on extra large screens. */\n  .sb-width-wide {\n    width: 525px;\n  }\n}\n@font-face {\n  font-family: \"harlequinflfregular\";\n  src: url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.eot */ 11) + ");\n  src: url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.eot */ 11) + "?#iefix) format('embedded-opentype'), url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.woff */ 12) + ") format('woff'), url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.ttf */ 13) + ") format('truetype'), url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.svg */ 14) + "#RanchoRegular) format('svg');\n  font-style: normal;\n  font-weight: 400;\n}\n::selection {\n  background: #5cd27a;\n}\nhtml,\nbody {\n  height: 100%;\n  margin: 0;\n  padding: 0;\n  background-color: #ffffff;\n}\n#sb-site,\n#map {\n  height: 100%;\n}\n#menu {\n  position: absolute;\n  top: 1em;\n  left: 1em;\n  z-index: 100;\n  background-color: rgba(255, 255, 255, 0.6);\n  padding: 0.3em;\n  border: 1px solid #cccccc;\n  border-radius: 0.3em;\n  cursor: pointer;\n}\n.sb-slidebar {\n  background-color: #ffffff;\n  border-right: 0, 125rem solid #cccccc;\n}\n.sb-slidebar .tab-content {\n  padding: 0.3em;\n}\n.sb-slidebar header {\n  color: #ffffff;\n  background-color: #2b9d48;\n  margin-bottom: 0.1rem;\n  border-bottom: 1px solid #26893f;\n}\n.sb-slidebar header h1.logo {\n  font-family: 'harlequinflfregular';\n  text-transform: uppercase;\n  height: 4.6875rem;\n  background: url(" + __webpack_require__(/*! ../img/logo-75.png */ 15) + ") top left no-repeat;\n  padding-left: 4.6875rem;\n  padding-top: 1.25rem;\n  margin-bottom: 0;\n  font-size: 2.3rem;\n}\n.sb-slidebar header nav {\n  position: relative;\n  right: 0.5rem;\n  z-index: 2;\n}\n.sb-slidebar header nav a,\n.sb-slidebar header nav .btn-link {\n  color: #ffffff;\n}\n.sb-slidebar header nav a:focus,\n.sb-slidebar header nav .btn-link:focus,\n.sb-slidebar header nav a:hover,\n.sb-slidebar header nav .btn-link:hover,\n.sb-slidebar header nav a:active,\n.sb-slidebar header nav .btn-link:active {\n  color: #154d23;\n}\n.sb-slidebar header nav .btn-link {\n  padding: 0;\n}\n.sb-slidebar footer {\n  position: fixed;\n  bottom: 0;\n  width: 100%;\n  background-color: #cccccc;\n  color: #2b9d48;\n}\n", ""]);
 	
 	// exports
 
@@ -3205,13 +3213,26 @@
 
 /***/ },
 /* 16 */
+/*!*************************!*\
+  !*** external "jQuery" ***!
+  \*************************/
+/***/ function(module, exports) {
+
+	module.exports = jQuery;
+
+/***/ },
+/* 17 */
 /*!*************************************************!*\
   !*** /mnt/windows/wouafit/languages/fr-fr.json ***!
   \*************************************************/
 /***/ function(module, exports) {
 
 	module.exports = {
-		"test": "test fr"
+		"languageShort": "fr",
+		"Search!": "Recherchez !",
+		"Contact": "Contact",
+		"About": "A Propos",
+		"Twitter": "Twitter"
 	}
 
 /***/ }

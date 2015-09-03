@@ -1,0 +1,98 @@
+@white: #FFF;
+@white-transparent: rgba(255,255,255,0.6);
+@grey: #CCC;
+@green: #2B9D48;
+@greener:darken(@green, 5%);
+@darkgreen: darken(@green, 20%);
+@lightgreen: lighten(@green, 20%);
+
+@import 'bootstrap.less';
+@import 'slidebars.less';
+
+@font-face {
+	font-family: "harlequinflfregular";
+	src:url('../fonts/harlequinflf-webfont.eot');
+	src:url('../fonts/harlequinflf-webfont.eot?#iefix') format('embedded-opentype'),
+	url('../fonts/harlequinflf-webfont.woff') format('woff'),
+	url('../fonts/harlequinflf-webfont.ttf') format('truetype'),
+	url('../fonts/harlequinflf-webfont.svg#RanchoRegular') format('svg');
+	font-style: 		normal;
+	font-weight:		400;
+}
+
+::selection {
+	background: @lightgreen;
+}
+
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	background-color: @white;
+}
+
+#sb-site, #map {
+	height: 100%;
+}
+#menu {
+	position: absolute;
+	top: 1em;
+	left: 1em;
+	z-index: 100;
+	background-color: @white-transparent;
+	padding: 0.3em;
+	border: 1px solid @grey;
+	border-radius: 0.3em;
+	cursor: pointer;
+}
+.sb-slidebar {
+	background-color: @white;
+	border-right: 0,125rem solid @grey;
+
+	.tab-content {
+		padding: 0.3em;
+	}
+
+	header {
+		color: @white;
+		background-color: @green;
+		margin-bottom: 0.1rem;
+		border-bottom: 1px solid @greener;
+
+		h1.logo {
+			font-family: 'harlequinflfregular';
+			text-transform: uppercase;
+			height: 4.6875rem;
+			background: url('../img/logo-75.png') top left no-repeat;
+			padding-left: 4.6875rem;
+			padding-top: 1.25rem;
+			margin-bottom: 0;
+			font-size: 2.3rem;
+		}
+
+		nav {
+			position: relative;
+			right: 0.5rem;
+			z-index: 2;
+
+			a, .btn-link {
+				color: @white;
+
+				&:focus, &:hover, &:active {
+					color: @darkgreen;
+				}
+			}
+			.btn-link {
+				padding: 0;
+			}
+		}
+	}
+
+	footer {
+		position: fixed;
+		bottom: 0;
+		width: 100%;
+		background-color: @grey;
+		color: @green;
+	}
+}

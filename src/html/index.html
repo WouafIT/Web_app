@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="{%= o.htmlWebpackPlugin.options.i18n.languageShort %}">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<title>Wouaf IT</title>
+	<meta name="description" content="Wouaf IT - Le premier réseau de micro-événements" />
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	<script src="/js/libs/modernizr.js?1"></script>
+</head>
+<body>
+<div id="sb-site">
+	<div id="menu" title="Menu" class="sb-toggle-left"><i class="fa fa-bars fa-lg"></i></div>
+	<div id="map"></div>
+</div>
+<div class="sb-slidebar sb-width-wide sb-left">
+	<header>
+		<nav class="nav pull-right">
+			<div class="anonymous" hidden>
+				<i class="fa fa-sign-in"></i> <a href="#">Connexion</a> |
+				<i class="fa fa-user-plus"></i> <a href="#">Créer un compte</a>
+			</div>
+			<div class="logged">
+				<i class="fa fa-user"></i> <a href="#">Mon compte</a> |
+				<i class="fa fa-cog"></i> <a href="#">Paramètres</a> |
+				<button class="btn btn-link"><i class="fa fa-power-off"></i></button>
+			</div>
+		</nav>
+		<h1 class="logo">Wouaf IT</h1>
+	</header>
+	<div class="container">
+		<div class="row">
+			<ul class="nav nav-tabs">
+				<li class="nav-item">
+					<a href="#search" class="nav-link active" role="tab" data-toggle="tab"><i class="fa fa-search"></i> Rechercher</a>
+				</li>
+				<li class="nav-item">
+					<a href="#wouafs" class="nav-link" role="tab" data-toggle="tab"><i class="fa fa-list"></i> Vos Wouafs</a>
+				</li>
+			</ul>
+		</div>
+		<!-- Tab panes -->
+		<div class="tab-content">
+			<div role="tabpanel" class="tab-pane active" id="search">
+				<form>
+					<fieldset class="form-group row">
+						<label for="where">Où ?</label>
+						<div class="input-group">
+							<div class="input-group-addon"><i class="fa fa-crosshairs"></i></div>
+							<input type="text" class="form-control" id="where" placeholder="Cherchez un endroit" />
+						</div>
+					</fieldset>
+					<fieldset class="form-group row">
+						<label for="when">Quand ?</label>
+						<div class="input-group">
+							<div class="input-group-addon"><i class="fa fa-calendar-o"></i></div>
+							<select class="form-control" id="when" placeholder="Cherchez une date">
+								<option value="today">Aujourd'hui</option>
+								<option value="tomorrow">Demain</option>
+								<option value="week" selected="selected">Cette semaine</option>
+								<option value="month">Ce mois ci</option>
+								<option value="custom">Dates spécifiques</option>
+							</select>
+						</div>
+					</fieldset>
+					<fieldset class="form-group row">
+						<div class="col-lg-6">
+							<label for="start">Du</label>
+							<div class="input-group">
+								<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+								<input type="date" class="form-control" id="start" placeholder="Début" />
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<label for="end">Au</label>
+							<div class="input-group">
+								<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+								<input type="date" class="form-control" id="end" placeholder="Fin" />
+							</div>
+						</div>
+					</fieldset>
+					<fieldset class="form-group row">
+						<label for="what">Quoi ?</label>
+						<div class="input-group">
+							<div class="input-group-addon"><i class="fa fa-question-circle"></i></div>
+							<select class="form-control" id="what" placeholder="Choississez une catégorie">
+								<option value="">Tous les évènements</option>
+							</select>
+						</div>
+					</fieldset>
+					<fieldset class="form-group row">
+						<label class="sr-only" for="hashtag">Hashtag</label>
+						<div class="input-group">
+							<div class="input-group-addon"><i class="fa fa-tag"></i></div>
+							<input type="text" class="form-control" id="hashtag" placeholder="Cherchez un hashtag" />
+						</div>
+					</fieldset>
+					<div class="row">
+						<div class="col-xs-4 col-xs-offset-4">
+							<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> {%= o.htmlWebpackPlugin.options.i18n['Search!'] %}</button>
+						</div>
+					</div>
+				</form>
+
+			</div>
+			<div role="tabpanel" class="tab-pane" id="wouafs">Wouafs</div>
+		</div>
+	</div>
+	<footer class="container">
+		<nav class="nav text-center small">
+			<i class="fa fa-info-circle"></i> <a href="#">{%= o.htmlWebpackPlugin.options.i18n.About %}</a> |
+			<i class="fa fa-envelope"></i> <a href="#">{%= o.htmlWebpackPlugin.options.i18n.Contact %}</a> |
+			<i class="fa fa-twitter"></i> <a href="https://twitter.com/wouaf_it">{%= o.htmlWebpackPlugin.options.i18n.Twitter %}</a>
+		</nav>
+	</footer>
+</div>
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.js"></script>
+<!-- GMaps -->
+<script src="https://maps.googleapis.com/maps/api/js?key={%= o.htmlWebpackPlugin.options.data.googleApi %}"></script>
+<script type="text/javascript" src="js/build-{%= o.htmlWebpackPlugin.options.data.language %}.js?{%= o.htmlWebpackPlugin.options.i18n.languageShort %}" charset="utf-8"></script>
+</body>
+</html>

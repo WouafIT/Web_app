@@ -4,7 +4,7 @@
     "type": "git",
     "url": "git+https://github.com/wouafit/Web_app.git"
   },
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Wouaf IT Web Application",
   "main": "index.js",
   "scripts": {
