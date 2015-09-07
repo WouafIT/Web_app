@@ -47,77 +47,34 @@
   \******************/
 /***/ function(module, exports, __webpack_require__) {
 
-	
-	
 	(function($) {
-		//i18next
-		var i18n = __webpack_require__(/*! ../libs/i18next/1.10.1/i18next-1.10.1.js */ 3);
 		//Slidebars
-		__webpack_require__(/*! ../libs/slidebars/0.10.3/dist/slidebars.js */ 4);
-		__webpack_require__(/*! ../libs/slidebars/0.10.3/dist/slidebars.css */ 5);
-		//CSS
-		__webpack_require__(/*! ../less/index.less */ 9);
+		var slidebars = __webpack_require__(/*! ./class/singleton/slidebars.js */ 3);
+		//Load CSS
+		__webpack_require__(/*! ../less/index.less */ 10);
+		//i18n
+		var i18n = __webpack_require__(/*! ./class/singleton/i18n.js */ 17);
+		//Map
+		var map = __webpack_require__(/*! ./class/singleton/map.js */ 20);
+		//User
+		var user = __webpack_require__(/*! ./class/singleton/user.js */ 21);
+		//user.set('uid', 'toto');
+		//user.set('token', 'test');
+		//Query
+		var query = __webpack_require__(/*! ./class/query.js */ 22)();
 	
 		$(document).ready(function() {
-			var $ = __webpack_require__(/*! jquery */ 16);
-			//Translate HTML
-			i18n.init({ resStore: {dev: {translation: __webpack_require__(/*! ../../languages/en-us.json */ 17)} } });
-			$("body").i18n();
 			//Init Slidebars
-			$.slidebars();
+			slidebars.init();
+			//Init Map
+			map.init();
+			//Translate HTML
+			//i18n.init(); //nothing to translate currently
+			//Init server Query
+			query.init(console.info);
 	
-			var initialLocation;
-			var siberia = new google.maps.LatLng(60, 105);
-			var newyork = new google.maps.LatLng(40.69847032728747, -73.9514422416687);
-			var browserSupportFlag = new Boolean();
-			var map = new google.maps.Map(document.getElementById('map'), {
-				zoom: 9,
-				panControl: false,
-				zoomControl: false,
-				streetViewControl: false,
-				mapTypeId: google.maps.MapTypeId.ROADMAP
-			});
-			var myloc = new google.maps.Marker({
-			clickable: false,
-				icon: new google.maps.MarkerImage('//maps.gstatic.com/mapfiles/mobile/mobileimgs2.png',
-												 new google.maps.Size(22,22),
-												 new google.maps.Point(0,18),
-												 new google.maps.Point(11,11)),
-				shadow: null,
-				zIndex: 999,
-				map: map
-			});
-	
-			// Try W3C Geolocation (Preferred)
-			if(navigator.geolocation) {
-				browserSupportFlag = true;
-				navigator.geolocation.getCurrentPosition(function(position) {
-					initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
-					map.setCenter(initialLocation);
-					myloc.setPosition(initialLocation);
-				}, function() {
-					handleNoGeolocation(browserSupportFlag);
-				});
-			}
-			// Browser doesn't support Geolocation
-			else {
-				browserSupportFlag = false;
-				handleNoGeolocation(browserSupportFlag);
-			}
-	
-			function handleNoGeolocation(errorFlag) {
-				//TODO: get the last position chosen by cookie or user account
-				// 		or ask user for position
-				//		or do a geo detection by IP (country / city / ...) => http://dev.maxmind.com/geoip/geoip2/geolite2/
-				if (errorFlag === true) {
-					alert("Geolocation service failed.");
-					initialLocation = newyork;
-				} else {
-					alert("Your browser doesn't support geolocation. We've placed you in Siberia.");
-					initialLocation = siberia;
-				}
-				map.setCenter(initialLocation);
-				myloc.setPosition(initialLocation);
+			if (true) {
+				console.info('all done (dev mode)');
 			}
 		});
 	}) (jQuery);
@@ -126,6 +83,883 @@
 /* 1 */,
 /* 2 */,
 /* 3 */
+/*!**************************************!*\
+  !*** ./class/singleton/slidebars.js ***!
+  \**************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var $ = __webpack_require__(/*! jquery */ 4);
+	//Slidebars
+	__webpack_require__(/*! ../../../libs/slidebars/0.10.3/dist/slidebars.js */ 5);
+	__webpack_require__(/*! ../../../libs/slidebars/0.10.3/dist/slidebars.css */ 6);
+	
+	module.exports = (function() {
+		// private functions
+		function init () {
+			$.slidebars();
+			//Dom Events
+			$('#when').on({
+				'change': showHideCustomDates
+			});
+			showHideCustomDates();
+	
+			$('#search form').on({
+				'submit': function() {
+					if(true) {
+						console.info('search');
+					}
+				}
+			});
+	
+		}
+	
+		//HTML Dom
+		function showHideCustomDates() {
+			if ($('#when').val() === 'custom') {
+				$('#search .specific-date').show('fast');
+			} else {
+				$('#search .specific-date').hide('fast');
+			}
+		}
+	
+		// API/data for end-user
+		return {
+			init: init
+		}
+	})();
+
+/***/ },
+/* 4 */
+/*!*************************!*\
+  !*** external "jQuery" ***!
+  \*************************/
+/***/ function(module, exports) {
+
+	module.exports = jQuery;
+
+/***/ },
+/* 5 */
+/*!**************************************************!*\
+  !*** ../libs/slidebars/0.10.3/dist/slidebars.js ***!
+  \**************************************************/
+/***/ function(module, exports) {
+
+	// -----------------------------------
+	// Slidebars
+	// Version 0.10.3
+	// http://plugins.adchsm.me/slidebars/
+	//
+	// Written by Adam Smith
+	// http://www.adchsm.me/
+	//
+	// Released under MIT License
+	// http://plugins.adchsm.me/slidebars/license.txt
+	//
+	// ---------------------
+	// Index of Slidebars.js
+	//
+	// 001 - Default Settings
+	// 002 - Feature Detection
+	// 003 - User Agents
+	// 004 - Setup
+	// 005 - Animation
+	// 006 - Operations
+	// 007 - API
+	// 008 - User Input
+	
+	;( function ( $ ) {
+	
+		$.slidebars = function ( options ) {
+	
+			// ----------------------
+			// 001 - Default Settings
+	
+			var settings = $.extend( {
+				siteClose: true, // true or false - Enable closing of Slidebars by clicking on #sb-site.
+				scrollLock: false, // true or false - Prevent scrolling of site when a Slidebar is open.
+				disableOver: false, // integer or false - Hide Slidebars over a specific width.
+				hideControlClasses: false // true or false - Hide controls at same width as disableOver.
+			}, options );
+	
+			// -----------------------
+			// 002 - Feature Detection
+	
+			var test = document.createElement( 'div' ).style, // Create element to test on.
+			supportTransition = false, // Variable for testing transitions.
+			supportTransform = false; // variable for testing transforms.
+	
+			// Test for CSS Transitions
+			if ( test.MozTransition === '' || test.WebkitTransition === '' || test.OTransition === '' || test.transition === '' ) supportTransition = true;
+	
+			// Test for CSS Transforms
+			if ( test.MozTransform === '' || test.WebkitTransform === '' || test.OTransform === '' || test.transform === '' ) supportTransform = true;
+	
+			// -----------------
+			// 003 - User Agents
+	
+			var ua = navigator.userAgent, // Get user agent string.
+			android = false, // Variable for storing android version.
+			iOS = false; // Variable for storing iOS version.
+			
+			if ( /Android/.test( ua ) ) { // Detect Android in user agent string.
+				android = ua.substr( ua.indexOf( 'Android' )+8, 3 ); // Set version of Android.
+			} else if ( /(iPhone|iPod|iPad)/.test( ua ) ) { // Detect iOS in user agent string.
+				iOS = ua.substr( ua.indexOf( 'OS ' )+3, 3 ).replace( '_', '.' ); // Set version of iOS.
+			}
+			
+			if ( android && android < 3 || iOS && iOS < 5 ) $( 'html' ).addClass( 'sb-static' ); // Add helper class for older versions of Android & iOS.
+	
+			// -----------
+			// 004 - Setup
+	
+			// Site container
+			var $site = $( '#sb-site, .sb-site-container' ); // Cache the selector.
+	
+			// Left Slidebar	
+			if ( $( '.sb-left' ).length ) { // Check if the left Slidebar exists.
+				var $left = $( '.sb-left' ), // Cache the selector.
+				leftActive = false; // Used to check whether the left Slidebar is open or closed.
+			}
+	
+			// Right Slidebar
+			if ( $( '.sb-right' ).length ) { // Check if the right Slidebar exists.
+				var $right = $( '.sb-right' ), // Cache the selector.
+				rightActive = false; // Used to check whether the right Slidebar is open or closed.
+			}
+					
+			var init = false, // Initialisation variable.
+			windowWidth = $( window ).width(), // Get width of window.
+			$controls = $( '.sb-toggle-left, .sb-toggle-right, .sb-open-left, .sb-open-right, .sb-close' ), // Cache the control classes.
+			$slide = $( '.sb-slide' ); // Cache users elements to animate.
+			
+			// Initailise Slidebars
+			function initialise () {
+				if ( ! settings.disableOver || ( typeof settings.disableOver === 'number' && settings.disableOver >= windowWidth ) ) { // False or larger than window size. 
+					init = true; // true enabled Slidebars to open.
+					$( 'html' ).addClass( 'sb-init' ); // Add helper class.
+					if ( settings.hideControlClasses ) $controls.removeClass( 'sb-hide' ); // Remove class just incase Slidebars was originally disabled.
+					css(); // Set required inline styles.
+				} else if ( typeof settings.disableOver === 'number' && settings.disableOver < windowWidth ) { // Less than window size.
+					init = false; // false stop Slidebars from opening.
+					$( 'html' ).removeClass( 'sb-init' ); // Remove helper class.
+					if ( settings.hideControlClasses ) $controls.addClass( 'sb-hide' ); // Hide controls
+					$site.css( 'minHeight', '' ); // Remove minimum height.
+					if ( leftActive || rightActive ) close(); // Close Slidebars if open.
+				}
+			}
+			initialise();
+			
+			// Inline CSS
+			function css() {
+				// Site container height.
+				$site.css( 'minHeight', '' );
+				var siteHeight = parseInt( $site.css( 'height' ), 10 ),
+				htmlHeight = parseInt( $( 'html' ).css( 'height' ), 10 );
+				if ( siteHeight < htmlHeight ) $site.css( 'minHeight', $( 'html' ).css( 'height' ) ); // Test height for vh support..
+				
+				// Custom Slidebar widths.
+				if ( $left && $left.hasClass( 'sb-width-custom' ) ) $left.css( 'width', $left.attr( 'data-sb-width' ) ); // Set user custom width.
+				if ( $right && $right.hasClass( 'sb-width-custom' ) ) $right.css( 'width', $right.attr( 'data-sb-width' ) ); // Set user custom width.
+				
+				// Set off-canvas margins for Slidebars with push and overlay animations.
+				if ( $left && ( $left.hasClass( 'sb-style-push' ) || $left.hasClass( 'sb-style-overlay' ) ) ) $left.css( 'marginLeft', '-' + $left.css( 'width' ) );
+				if ( $right && ( $right.hasClass( 'sb-style-push' ) || $right.hasClass( 'sb-style-overlay' ) ) ) $right.css( 'marginRight', '-' + $right.css( 'width' ) );
+				
+				// Site scroll locking.
+				if ( settings.scrollLock ) $( 'html' ).addClass( 'sb-scroll-lock' );
+			}
+			
+			// Resize Functions
+			$( window ).resize( function () {
+				var resizedWindowWidth = $( window ).width(); // Get resized window width.
+				if ( windowWidth !== resizedWindowWidth ) { // Slidebars is running and window was actually resized.
+					windowWidth = resizedWindowWidth; // Set the new window width.
+					initialise(); // Call initalise to see if Slidebars should still be running.
+					if ( leftActive ) open( 'left' ); // If left Slidebar is open, calling open will ensure it is the correct size.
+					if ( rightActive ) open( 'right' ); // If right Slidebar is open, calling open will ensure it is the correct size.
+				}
+			} );
+			// I may include a height check along side a width check here in future.
+	
+			// ---------------
+			// 005 - Animation
+	
+			var animation; // Animation type.
+	
+			// Set animation type.
+			if ( supportTransition && supportTransform ) { // Browser supports css transitions and transforms.
+				animation = 'translate'; // Translate for browsers that support it.
+				if ( android && android < 4.4 ) animation = 'side'; // Android supports both, but can't translate any fixed positions, so use left instead.
+			} else {
+				animation = 'jQuery'; // Browsers that don't support css transitions and transitions.
+			}
+	
+			// Animate mixin.
+			function animate( object, amount, side ) {
+				
+				// Choose selectors depending on animation style.
+				var selector;
+				
+				if ( object.hasClass( 'sb-style-push' ) ) {
+					selector = $site.add( object ).add( $slide ); // Push - Animate site, Slidebar and user elements.
+				} else if ( object.hasClass( 'sb-style-overlay' ) ) {
+					selector = object; // Overlay - Animate Slidebar only.
+				} else {
+					selector = $site.add( $slide ); // Reveal - Animate site and user elements.
+				}
+				
+				// Apply animation
+				if ( animation === 'translate' ) {
+					if ( amount === '0px' ) {
+						removeAnimation();
+					} else {
+						selector.css( 'transform', 'translate( ' + amount + ' )' ); // Apply the animation.
+					}
+	
+				} else if ( animation === 'side' ) {
+					if ( amount === '0px' ) {
+						removeAnimation();
+					} else {
+						if ( amount[0] === '-' ) amount = amount.substr( 1 ); // Remove the '-' from the passed amount for side animations.
+						selector.css( side, '0px' ); // Add a 0 value so css transition works.
+						setTimeout( function () { // Set a timeout to allow the 0 value to be applied above.
+							selector.css( side, amount ); // Apply the animation.
+						}, 1 );
+					}
+	
+				} else if ( animation === 'jQuery' ) {
+					if ( amount[0] === '-' ) amount = amount.substr( 1 ); // Remove the '-' from the passed amount for jQuery animations.
+					var properties = {};
+					properties[side] = amount;
+					selector.stop().animate( properties, 400 ); // Stop any current jQuery animation before starting another.
+				}
+				
+				// Remove animation
+				function removeAnimation () {
+					selector.removeAttr( 'style' );
+					css();
+				}
+			}
+	
+			// ----------------
+			// 006 - Operations
+	
+			// Open a Slidebar
+			function open( side ) {
+				// Check to see if opposite Slidebar is open.
+				if ( side === 'left' && $left && rightActive || side === 'right' && $right && leftActive ) { // It's open, close it, then continue.
+					close();
+					setTimeout( proceed, 400 );
+				} else { // Its not open, continue.
+					proceed();
+				}
+	
+				// Open
+				function proceed() {
+					if ( init && side === 'left' && $left ) { // Slidebars is initiated, left is in use and called to open.
+						$( 'html' ).addClass( 'sb-active sb-active-left' ); // Add active classes.
+						$left.addClass( 'sb-active' );
+						animate( $left, $left.css( 'width' ), 'left' ); // Animation
+						setTimeout( function () { leftActive = true; }, 400 ); // Set active variables.
+					} else if ( init && side === 'right' && $right ) { // Slidebars is initiated, right is in use and called to open.
+						$( 'html' ).addClass( 'sb-active sb-active-right' ); // Add active classes.
+						$right.addClass( 'sb-active' );
+						animate( $right, '-' + $right.css( 'width' ), 'right' ); // Animation
+						setTimeout( function () { rightActive = true; }, 400 ); // Set active variables.
+					}
+				}
+			}
+				
+			// Close either Slidebar
+			function close( url, target ) {
+				if ( leftActive || rightActive ) { // If a Slidebar is open.
+					if ( leftActive ) {
+						animate( $left, '0px', 'left' ); // Animation
+						leftActive = false;
+					}
+					if ( rightActive ) {
+						animate( $right, '0px', 'right' ); // Animation
+						rightActive = false;
+					}
+				
+					setTimeout( function () { // Wait for closing animation to finish.
+						$( 'html' ).removeClass( 'sb-active sb-active-left sb-active-right' ); // Remove active classes.
+						if ( $left ) $left.removeClass( 'sb-active' );
+						if ( $right ) $right.removeClass( 'sb-active' );
+						if ( typeof url !== 'undefined' ) { // If a link has been passed to the function, go to it.
+							if ( typeof target === undefined ) target = '_self'; // Set to _self if undefined.
+							window.open( url, target ); // Open the url.
+						}
+					}, 400 );
+				}
+			}
+			
+			// Toggle either Slidebar
+			function toggle( side ) {
+				if ( side === 'left' && $left ) { // If left Slidebar is called and in use.
+					if ( ! leftActive ) {
+						open( 'left' ); // Slidebar is closed, open it.
+					} else {
+						close(); // Slidebar is open, close it.
+					}
+				}
+				if ( side === 'right' && $right ) { // If right Slidebar is called and in use.
+					if ( ! rightActive ) {
+						open( 'right' ); // Slidebar is closed, open it.
+					} else {
+						close(); // Slidebar is open, close it.
+					}
+				}
+			}
+	
+			// ---------
+			// 007 - API
+			
+			this.slidebars = {
+				open: open, // Maps user variable name to the open method.
+				close: close, // Maps user variable name to the close method.
+				toggle: toggle, // Maps user variable name to the toggle method.
+				init: function () { // Returns true or false whether Slidebars are running or not.
+					return init; // Returns true or false whether Slidebars are running.
+				},
+				active: function ( side ) { // Returns true or false whether Slidebar is open or closed.
+					if ( side === 'left' && $left ) return leftActive;
+					if ( side === 'right' && $right ) return rightActive;
+				},
+				destroy: function ( side ) { // Removes the Slidebar from the DOM.
+					if ( side === 'left' && $left ) {
+						if ( leftActive ) close(); // Close if its open.
+						setTimeout( function () {
+							$left.remove(); // Remove it.
+							$left = false; // Set variable to false so it cannot be opened again.
+						}, 400 );
+					}
+					if ( side === 'right' && $right) {
+						if ( rightActive ) close(); // Close if its open.
+						setTimeout( function () {
+							$right.remove(); // Remove it.
+							$right = false; // Set variable to false so it cannot be opened again.
+						}, 400 );
+					}
+				}
+			};
+	
+			// ----------------
+			// 008 - User Input
+			
+			function eventHandler( event, selector ) {
+				event.stopPropagation(); // Stop event bubbling.
+				event.preventDefault(); // Prevent default behaviour.
+				if ( event.type === 'touchend' ) selector.off( 'click' ); // If event type was touch, turn off clicks to prevent phantom clicks.
+			}
+			
+			// Toggle left Slidebar
+			$( '.sb-toggle-left' ).on( 'touchend click', function ( event ) {
+				eventHandler( event, $( this ) ); // Handle the event.
+				toggle( 'left' ); // Toggle the left Slidbar.
+			} );
+			
+			// Toggle right Slidebar
+			$( '.sb-toggle-right' ).on( 'touchend click', function ( event ) {
+				eventHandler( event, $( this ) ); // Handle the event.
+				toggle( 'right' ); // Toggle the right Slidbar.
+			} );
+			
+			// Open left Slidebar
+			$( '.sb-open-left' ).on( 'touchend click', function ( event ) {
+				eventHandler( event, $( this ) ); // Handle the event.
+				open( 'left' ); // Open the left Slidebar.
+			} );
+			
+			// Open right Slidebar
+			$( '.sb-open-right' ).on( 'touchend click', function ( event ) {
+				eventHandler( event, $( this ) ); // Handle the event.
+				open( 'right' ); // Open the right Slidebar.
+			} );
+			
+			// Close Slidebar
+			$( '.sb-close' ).on( 'touchend click', function ( event ) {
+				if ( $( this ).is( 'a' ) || $( this ).children().is( 'a' ) ) { // Is a link or contains a link.
+					if ( event.type === 'click' ) { // Make sure the user wanted to follow the link.
+						event.stopPropagation(); // Stop events propagating
+						event.preventDefault(); // Stop default behaviour
+						
+						var link = ( $( this ).is( 'a' ) ? $( this ) : $( this ).find( 'a' ) ), // Get the link selector.
+						url = link.attr( 'href' ), // Get the link url.
+						target = ( link.attr( 'target' ) ? link.attr( 'target' ) : '_self' ); // Set target, default to _self if not provided
+						
+						close( url, target ); // Close Slidebar and pass link target.
+					}
+				} else { // Just a normal control class.
+					eventHandler( event, $( this ) ); // Handle the event.
+					close(); // Close Slidebar.
+				}
+			} );
+			
+			// Close Slidebar via site
+			$site.on( 'touchend click', function ( event ) {
+				if ( settings.siteClose && ( leftActive || rightActive ) ) { // If settings permit closing by site and left or right Slidebar is open.
+					eventHandler( event, $( this ) ); // Handle the event.
+					close(); // Close it.
+				}
+			} );
+			
+		}; // End Slidebars function.
+	
+	} ) ( jQuery );
+
+/***/ },
+/* 6 */
+/*!***************************************************!*\
+  !*** ../libs/slidebars/0.10.3/dist/slidebars.css ***!
+  \***************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(/*! !./../../../../../~/css-loader!./../../../../../~/postcss-loader!./slidebars.css */ 7);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(/*! ./../../../../../~/style-loader/addStyles.js */ 9)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../../../node_modules/css-loader/index.js!./../../../../../node_modules/postcss-loader/index.js!./slidebars.css", function() {
+				var newContent = require("!!./../../../../../node_modules/css-loader/index.js!./../../../../../node_modules/postcss-loader/index.js!./slidebars.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 7 */
+/*!***************************************************************************************************************************!*\
+  !*** /mnt/windows/wouafit/~/css-loader!/mnt/windows/wouafit/~/postcss-loader!../libs/slidebars/0.10.3/dist/slidebars.css ***!
+  \***************************************************************************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(/*! ./../../../../../~/css-loader/lib/css-base.js */ 8)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, "/* -----------------------------------\n * Slidebars\n * Version 0.10.3\n * http://plugins.adchsm.me/slidebars/\n *\n * Written by Adam Smith\n * http://www.adchsm.me/\n *\n * Released under MIT License\n * http://plugins.adchsm.me/slidebars/license.txt\n *\n * -------------------\n * Slidebars CSS Index\n *\n * 001 - Box Model, Html & Body\n * 002 - Site\n * 003 - Slidebars\n * 004 - Animation\n * 005 - Helper Classes\n *\n * ----------------------------\n * 001 - Box Model, Html & Body\n */\n\nhtml, body, #sb-site, .sb-site-container, .sb-slidebar {\n\t/* Set box model to prevent any user added margins or paddings from altering the widths or heights. */\n\tmargin: 0;\n\tpadding: 0;\n\t-webkit-box-sizing: border-box;\n\t   -moz-box-sizing: border-box;\n\t        box-sizing: border-box;\n}\n\nhtml, body {\n\twidth: 100%;\n\toverflow-x: hidden; /* Stops horizontal scrolling. */\n}\n\nhtml {\n\theight: 100%; /* Site is as tall as device. */\n}\n\nbody {\n\tmin-height: 100%;\n\theight: auto;\n\tposition: relative; /* Required for static Slidebars to function properly. */\n}\n\n/* Site scroll locking - prevent site from scrolling when a Slidebar is open, except when static Slidebars are only available. */\nhtml.sb-scroll-lock.sb-active:not(.sb-static) {\n\toverflow: hidden;\n}\n\n/* ----------\n * 002 - Site\n */\n\n#sb-site, .sb-site-container {\n\t/* You may now use class .sb-site-container instead of #sb-site and use your own id. However please make sure you don't set any of the following styles any differently on your id. */\n\twidth: 100%;\n\tmin-height: 100vh;\n\tposition: relative;\n\tz-index: 1; /* Site sits above Slidebars */\n\tbackground-color: #ffffff; /* Default background colour, overwrite this with your own css. I suggest moving your html or body background styling here. Making this transparent will allow the Slidebars beneath to be visible. */\n}\n\n/* Micro clearfix by Nicolas Gallagher, ensures the site container hits the top and bottom of the screen. */\n#sb-site:before, #sb-site:after, .sb-site-container:before, .sb-site-container:after {\n\tcontent: ' ';\n\tdisplay: table;\n}\n\n#sb-site:before, #sb-site:after, .sb-site-container:before, .sb-site-container:after {\n    clear: both;\n}\n\n/* ---------------\n * 003 - Slidebars\n */\n\n.sb-slidebar {\n\theight: 100%;\n\toverflow-y: auto; /* Enable vertical scrolling on Slidebars when needed. */\n\tposition: fixed;\n\ttop: 0;\n\tz-index: 0; /* Slidebars sit behind sb-site. */\n\tdisplay: none; /* Initially hide the Slidebars. Changed from visibility to display to allow -webkit-overflow-scrolling. */\n\tbackground-color: #222222; /* Default Slidebars background colour, overwrite this with your own css. */\n}\n\n.sb-slidebar, .sb-slidebar * {\n\t-webkit-transform: translateZ( 0px ); /* Fixes issues with translated and z-indexed elements on iOS 7. */\n}\n\n.sb-left {\n\tleft: 0; /* Set Slidebar to the left. */\n}\n\n.sb-right {\n\tright: 0; /* Set Slidebar to the right. */\n}\n\nhtml.sb-static .sb-slidebar,\n.sb-slidebar.sb-static {\n\tposition: absolute; /* Makes Slidebars scroll naturally with the site, and unfixes them for Android Browser < 3 and iOS < 5. */\n}\n\n.sb-slidebar.sb-active {\n\tdisplay: block; /* Makes Slidebars visibile when open. Changed from visibility to display to allow -webkit-overflow-scrolling. */\n}\n\n.sb-style-overlay {\n\tz-index: 9999; /* Set z-index high to ensure it overlays any other site elements. */\n}\n\n.sb-momentum-scrolling {\n\t-webkit-overflow-scrolling: touch; /* Adds native momentum scrolling for iOS & Android devices. */\n}\n\n/* Slidebar widths for browsers/devices that don't support media queries. */\n\t.sb-slidebar {\n\t\twidth: 30%;\n\t}\n\t\n\t.sb-width-thin {\n\t\twidth: 15%;\n\t}\n\t\n\t.sb-width-wide {\n\t\twidth: 45%;\n\t}\n\n@media (max-width: 480px) { /* Slidebar widths on extra small screens. */\n\t.sb-slidebar {\n\t\twidth: 70%;\n\t}\n\t\n\t.sb-width-thin {\n\t\twidth: 55%;\n\t}\n\t\n\t.sb-width-wide {\n\t\twidth: 85%;\n\t}\n}\n\n@media (min-width: 481px) { /* Slidebar widths on small screens. */\n\t.sb-slidebar {\n\t\twidth: 55%;\n\t}\n\t\n\t.sb-width-thin {\n\t\twidth: 40%;\n\t}\n\t\n\t.sb-width-wide {\n\t\twidth: 70%;\n\t}\n}\n\n@media (min-width: 768px) { /* Slidebar widths on medium screens. */\n\t.sb-slidebar {\n\t\twidth: 40%;\n\t}\n\t\n\t.sb-width-thin {\n\t\twidth: 25%;\n\t}\n\t\n\t.sb-width-wide {\n\t\twidth: 55%;\n\t}\n}\n\n@media (min-width: 992px) { /* Slidebar widths on large screens. */\n\t.sb-slidebar {\n\t\twidth: 30%;\n\t}\n\t\n\t.sb-width-thin {\n\t\twidth: 15%;\n\t}\n\t\n\t.sb-width-wide {\n\t\twidth: 45%;\n\t}\n}\n\n@media (min-width: 1200px) { /* Slidebar widths on extra large screens. */\n\t.sb-slidebar {\n\t\twidth: 20%;\n\t}\n\t\n\t.sb-width-thin {\n\t\twidth: 5%;\n\t}\n\t\n\t.sb-width-wide {\n\t\twidth: 35%;\n\t}\n}\n\n/* ---------------\n * 004 - Animation\n */\n\n.sb-slide, #sb-site, .sb-site-container, .sb-slidebar {\n\t-webkit-transform: translate( 0px );\n\t   -moz-transform: translate( 0px );\n\t     -o-transform: translate( 0px );\n\t        transform: translate( 0px );\n\t\n\t-webkit-transition: -webkit-transform 400ms ease;\n\t   -moz-transition:    -moz-transform 400ms ease;\n\t     -o-transition:      -o-transform 400ms ease;\n\t        transition:         transform 400ms ease;\n\t\n\t-webkit-transition-property: -webkit-transform, left, right; /* Add left/right for Android < 4.4. */\n\t-webkit-backface-visibility: hidden; /* Prevents flickering. This is non essential, and you may remove it if your having problems with fixed background images in Chrome. */\n}\n\n/* --------------------\n * 005 - Helper Classes\n */\n \n.sb-hide { \n\tdisplay: none; /* Optionally applied to control classes when Slidebars is disabled over a certain width. */\n}", ""]);
+	
+	// exports
+
+
+/***/ },
+/* 8 */
+/*!*********************************************************!*\
+  !*** /mnt/windows/wouafit/~/css-loader/lib/css-base.js ***!
+  \*********************************************************/
+/***/ function(module, exports) {
+
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	// css base code, injected by the css-loader
+	module.exports = function() {
+		var list = [];
+	
+		// return the list of modules as css string
+		list.toString = function toString() {
+			var result = [];
+			for(var i = 0; i < this.length; i++) {
+				var item = this[i];
+				if(item[2]) {
+					result.push("@media " + item[2] + "{" + item[1] + "}");
+				} else {
+					result.push(item[1]);
+				}
+			}
+			return result.join("");
+		};
+	
+		// import a list of modules into the list
+		list.i = function(modules, mediaQuery) {
+			if(typeof modules === "string")
+				modules = [[null, modules, ""]];
+			var alreadyImportedModules = {};
+			for(var i = 0; i < this.length; i++) {
+				var id = this[i][0];
+				if(typeof id === "number")
+					alreadyImportedModules[id] = true;
+			}
+			for(i = 0; i < modules.length; i++) {
+				var item = modules[i];
+				// skip already imported module
+				// this implementation is not 100% perfect for weird media query combinations
+				//  when a module is imported multiple times with different media queries.
+				//  I hope this will never occur (Hey this way we have smaller bundles)
+				if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+					if(mediaQuery && !item[2]) {
+						item[2] = mediaQuery;
+					} else if(mediaQuery) {
+						item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+					}
+					list.push(item);
+				}
+			}
+		};
+		return list;
+	};
+
+
+/***/ },
+/* 9 */
+/*!********************************************************!*\
+  !*** /mnt/windows/wouafit/~/style-loader/addStyles.js ***!
+  \********************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	var stylesInDom = {},
+		memoize = function(fn) {
+			var memo;
+			return function () {
+				if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+				return memo;
+			};
+		},
+		isOldIE = memoize(function() {
+			return /msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase());
+		}),
+		getHeadElement = memoize(function () {
+			return document.head || document.getElementsByTagName("head")[0];
+		}),
+		singletonElement = null,
+		singletonCounter = 0;
+	
+	module.exports = function(list, options) {
+		if(true) {
+			if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+		}
+	
+		options = options || {};
+		// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+		// tags it will allow on a page
+		if (typeof options.singleton === "undefined") options.singleton = isOldIE();
+	
+		var styles = listToStyles(list);
+		addStylesToDom(styles, options);
+	
+		return function update(newList) {
+			var mayRemove = [];
+			for(var i = 0; i < styles.length; i++) {
+				var item = styles[i];
+				var domStyle = stylesInDom[item.id];
+				domStyle.refs--;
+				mayRemove.push(domStyle);
+			}
+			if(newList) {
+				var newStyles = listToStyles(newList);
+				addStylesToDom(newStyles, options);
+			}
+			for(var i = 0; i < mayRemove.length; i++) {
+				var domStyle = mayRemove[i];
+				if(domStyle.refs === 0) {
+					for(var j = 0; j < domStyle.parts.length; j++)
+						domStyle.parts[j]();
+					delete stylesInDom[domStyle.id];
+				}
+			}
+		};
+	}
+	
+	function addStylesToDom(styles, options) {
+		for(var i = 0; i < styles.length; i++) {
+			var item = styles[i];
+			var domStyle = stylesInDom[item.id];
+			if(domStyle) {
+				domStyle.refs++;
+				for(var j = 0; j < domStyle.parts.length; j++) {
+					domStyle.parts[j](item.parts[j]);
+				}
+				for(; j < item.parts.length; j++) {
+					domStyle.parts.push(addStyle(item.parts[j], options));
+				}
+			} else {
+				var parts = [];
+				for(var j = 0; j < item.parts.length; j++) {
+					parts.push(addStyle(item.parts[j], options));
+				}
+				stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+			}
+		}
+	}
+	
+	function listToStyles(list) {
+		var styles = [];
+		var newStyles = {};
+		for(var i = 0; i < list.length; i++) {
+			var item = list[i];
+			var id = item[0];
+			var css = item[1];
+			var media = item[2];
+			var sourceMap = item[3];
+			var part = {css: css, media: media, sourceMap: sourceMap};
+			if(!newStyles[id])
+				styles.push(newStyles[id] = {id: id, parts: [part]});
+			else
+				newStyles[id].parts.push(part);
+		}
+		return styles;
+	}
+	
+	function createStyleElement() {
+		var styleElement = document.createElement("style");
+		var head = getHeadElement();
+		styleElement.type = "text/css";
+		head.appendChild(styleElement);
+		return styleElement;
+	}
+	
+	function createLinkElement() {
+		var linkElement = document.createElement("link");
+		var head = getHeadElement();
+		linkElement.rel = "stylesheet";
+		head.appendChild(linkElement);
+		return linkElement;
+	}
+	
+	function addStyle(obj, options) {
+		var styleElement, update, remove;
+	
+		if (options.singleton) {
+			var styleIndex = singletonCounter++;
+			styleElement = singletonElement || (singletonElement = createStyleElement());
+			update = applyToSingletonTag.bind(null, styleElement, styleIndex, false);
+			remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true);
+		} else if(obj.sourceMap &&
+			typeof URL === "function" &&
+			typeof URL.createObjectURL === "function" &&
+			typeof URL.revokeObjectURL === "function" &&
+			typeof Blob === "function" &&
+			typeof btoa === "function") {
+			styleElement = createLinkElement();
+			update = updateLink.bind(null, styleElement);
+			remove = function() {
+				styleElement.parentNode.removeChild(styleElement);
+				if(styleElement.href)
+					URL.revokeObjectURL(styleElement.href);
+			};
+		} else {
+			styleElement = createStyleElement();
+			update = applyToTag.bind(null, styleElement);
+			remove = function() {
+				styleElement.parentNode.removeChild(styleElement);
+			};
+		}
+	
+		update(obj);
+	
+		return function updateStyle(newObj) {
+			if(newObj) {
+				if(newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap)
+					return;
+				update(obj = newObj);
+			} else {
+				remove();
+			}
+		};
+	}
+	
+	var replaceText = (function () {
+		var textStore = [];
+	
+		return function (index, replacement) {
+			textStore[index] = replacement;
+			return textStore.filter(Boolean).join('\n');
+		};
+	})();
+	
+	function applyToSingletonTag(styleElement, index, remove, obj) {
+		var css = remove ? "" : obj.css;
+	
+		if (styleElement.styleSheet) {
+			styleElement.styleSheet.cssText = replaceText(index, css);
+		} else {
+			var cssNode = document.createTextNode(css);
+			var childNodes = styleElement.childNodes;
+			if (childNodes[index]) styleElement.removeChild(childNodes[index]);
+			if (childNodes.length) {
+				styleElement.insertBefore(cssNode, childNodes[index]);
+			} else {
+				styleElement.appendChild(cssNode);
+			}
+		}
+	}
+	
+	function applyToTag(styleElement, obj) {
+		var css = obj.css;
+		var media = obj.media;
+		var sourceMap = obj.sourceMap;
+	
+		if(media) {
+			styleElement.setAttribute("media", media)
+		}
+	
+		if(styleElement.styleSheet) {
+			styleElement.styleSheet.cssText = css;
+		} else {
+			while(styleElement.firstChild) {
+				styleElement.removeChild(styleElement.firstChild);
+			}
+			styleElement.appendChild(document.createTextNode(css));
+		}
+	}
+	
+	function updateLink(linkElement, obj) {
+		var css = obj.css;
+		var media = obj.media;
+		var sourceMap = obj.sourceMap;
+	
+		if(sourceMap) {
+			// http://stackoverflow.com/a/26603875
+			css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
+		}
+	
+		var blob = new Blob([css], { type: "text/css" });
+	
+		var oldSrc = linkElement.href;
+	
+		linkElement.href = URL.createObjectURL(blob);
+	
+		if(oldSrc)
+			URL.revokeObjectURL(oldSrc);
+	}
+
+
+/***/ },
+/* 10 */
+/*!**************************!*\
+  !*** ../less/index.less ***!
+  \**************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(/*! !./../../~/css-loader!./../../~/postcss-loader!./../../~/less-loader!./index.less */ 11);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(/*! ./../../~/style-loader/addStyles.js */ 9)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/postcss-loader/index.js!./../../node_modules/less-loader/index.js!./index.less", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/postcss-loader/index.js!./../../node_modules/less-loader/index.js!./index.less");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 11 */
+/*!*************************************************************************************************************************************!*\
+  !*** /mnt/windows/wouafit/~/css-loader!/mnt/windows/wouafit/~/postcss-loader!/mnt/windows/wouafit/~/less-loader!../less/index.less ***!
+  \*************************************************************************************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(/*! ./../../~/css-loader/lib/css-base.js */ 8)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, "a,\n.btn-link {\n  color: #2b9d48;\n}\na:focus,\n.btn-link:focus,\na:hover,\n.btn-link:hover,\na:active,\n.btn-link:active {\n  color: #154d23;\n}\n.btn-primary {\n  background-color: #2b9d48;\n  border-color: #2b9d48;\n}\n.btn-primary:hover,\n.btn-primary:active {\n  background-color: #154d23;\n  border-color: #154d23;\n}\n.form-control:focus {\n  border-color: #5cd27a;\n}\n@media (max-width: 480px) {\n  /* Slidebar widths on extra small screens. */\n  .sb-width-wide {\n    width: 85%;\n  }\n}\n@media (min-width: 481px) {\n  /* Slidebar widths on small screens. */\n  .sb-width-wide {\n    width: 400px;\n  }\n}\n@media (min-width: 768px) {\n  /* Slidebar widths on medium screens. */\n  .sb-width-wide {\n    width: 400px;\n  }\n}\n@media (min-width: 992px) {\n  /* Slidebar widths on large screens. */\n  .sb-width-wide {\n    width: 525px;\n  }\n}\n@media (min-width: 1200px) {\n  /* Slidebar widths on extra large screens. */\n  .sb-width-wide {\n    width: 525px;\n  }\n}\n@font-face {\n  font-family: \"harlequinflfregular\";\n  src: url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.eot */ 12) + ");\n  src: url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.eot */ 12) + "?#iefix) format('embedded-opentype'), url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.woff */ 13) + ") format('woff'), url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.ttf */ 14) + ") format('truetype'), url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.svg */ 15) + "#RanchoRegular) format('svg');\n  font-style: normal;\n  font-weight: 400;\n}\n::selection {\n  background: #5cd27a;\n}\nhtml,\nbody {\n  height: 100%;\n  margin: 0;\n  padding: 0;\n  background-color: #ffffff;\n}\n#sb-site,\n#map {\n  height: 100%;\n}\n#menu {\n  position: absolute;\n  top: 1em;\n  left: 1em;\n  z-index: 100;\n  background-color: rgba(255, 255, 255, 0.6);\n  padding: 0.3em;\n  border: 1px solid #cccccc;\n  border-radius: 0.3em;\n  cursor: pointer;\n}\n.sb-slidebar {\n  background-color: #ffffff;\n  border-right: 0, 125rem solid #cccccc;\n}\n.sb-slidebar .tab-content {\n  padding: 0.3em;\n}\n.sb-slidebar header {\n  color: #ffffff;\n  background-color: #2b9d48;\n  margin-bottom: 0.1rem;\n  border-bottom: 1px solid #26893f;\n}\n.sb-slidebar header h1.logo {\n  font-family: 'harlequinflfregular';\n  text-transform: uppercase;\n  height: 4.6875rem;\n  background: url(" + __webpack_require__(/*! ../img/logo-75.png */ 16) + ") top left no-repeat;\n  padding-left: 4.6875rem;\n  padding-top: 1.25rem;\n  margin-bottom: 0;\n  font-size: 2.3rem;\n}\n.sb-slidebar header nav {\n  position: relative;\n  right: 0.5rem;\n  z-index: 2;\n}\n.sb-slidebar header nav a,\n.sb-slidebar header nav .btn-link {\n  color: #ffffff;\n}\n.sb-slidebar header nav a:focus,\n.sb-slidebar header nav .btn-link:focus,\n.sb-slidebar header nav a:hover,\n.sb-slidebar header nav .btn-link:hover,\n.sb-slidebar header nav a:active,\n.sb-slidebar header nav .btn-link:active {\n  color: #154d23;\n}\n.sb-slidebar header nav .btn-link {\n  padding: 0;\n}\n.sb-slidebar footer {\n  position: fixed;\n  bottom: 0;\n  width: 100%;\n  background-color: #cccccc;\n  color: #2b9d48;\n}\n", ""]);
+	
+	// exports
+
+
+/***/ },
+/* 12 */
+/*!*****************************************!*\
+  !*** ../fonts/harlequinflf-webfont.eot ***!
+  \*****************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "_/fonts/harlequinflf-webfont-7cbc37.eot"
+
+/***/ },
+/* 13 */
+/*!******************************************!*\
+  !*** ../fonts/harlequinflf-webfont.woff ***!
+  \******************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "_/fonts/harlequinflf-webfont-f6d22e.woff"
+
+/***/ },
+/* 14 */
+/*!*****************************************!*\
+  !*** ../fonts/harlequinflf-webfont.ttf ***!
+  \*****************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "_/fonts/harlequinflf-webfont-59f502.ttf"
+
+/***/ },
+/* 15 */
+/*!*****************************************!*\
+  !*** ../fonts/harlequinflf-webfont.svg ***!
+  \*****************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "_/fonts/harlequinflf-webfont-33186d.svg"
+
+/***/ },
+/* 16 */
+/*!**************************!*\
+  !*** ../img/logo-75.png ***!
+  \**************************/
+/***/ function(module, exports) {
+
+	module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEsAAABLCAIAAAC3LO29AAALB0lEQVR42s2ceXAT5xXAZUm2ZNmWL1m2fMmWZFnaUzbmMpZPyauV5FDoAD0o0LoEgkvSZIJJmzChg8thWicU25ItycYnnQxToIRJc5QUOnTaQqFNSjvNQDtJJ51p/+jf/SMz9O2ucGTZ1u7KcrTffOPh2G93f/ve9659a5ntXJc96LYHhM1Rt32EnaOCl8RMJNCNBigsyEz4MxJI5iQiZtANdDJ7sBud9KATfDPiQSIUOu3F5nzYjI9ZEhawKmbik157hKoedVaMbKkcabGEuuBfRJ1B9Jz0AJ0MWDmARDPsQSY8xIwfG+iwHdyIHm0hQjQ+50PCFMMZ4Z/4hNcUbG+a8J74zeDEg9nh++PbLu0zjrSgEVrI8iTnhAfoBBAC3qSHGPMYPTa1WiWTyRQKRZFZb+3bQM74gJwXkpjw1gbb9/y878NP7l2/fPXcj4amw5MP/no/8Idxa7ADILH0EiIRDznpLd9cA2yyDHayQyGTV7msZJhGJhNB4hO0aazjy5e++feP/7a9ZzsslMvl8NNQarj5ixtj9yLG0RaQcPoIQxQ+5zfvdjBciidwgCnPgMnc6PpqMuRNCEkjwY5b/3i/r/cZTv7M8gxmbaWh8s9/ub/78tOWsS5sgk4HIejnBQ9+rju3RLtwW7GDg6xoNTumlt+TIMCaYPuzb/ff/f3tgoICOLjcYBgZGfZ6vdwZzpw4+c6jt8yBtvQQIqwALXsbmXuRx+M9oWS4TTsI4qIfjl+6A8FyDt0dffvam9zhp0+devz48cOHD7XaPPjr/n29f/zP/bpAx5qYHH7CsIe44C1By5cVYAwksyetz2yAxxEHCYRVo86B22dvvvcep59Op/PRo0cnBwa4pc/3PXfnX7+zBNrTIUNQ0SmaONWl0qiiNkaWQIoydW42frwNm/GiMZBYhLaG3N2zOz54dGedYx1nZtQqlUIu51a9eeXy4O2zpvQQhihs3lfXt0EBcCvjRQerw8VmPRH0xPkPEGPlcPP5e8H5yWk4RqlUAltmZib8mersvvfJXTzstocpEQ4DTg57PsTO8CoIQd/IuZ4qT92CRUk8uGNqt6HEYl2FW7eFKfD1Dz79oMPZzkFyS2798sZLv/oBqDEh0FuEmecOkQpoCjbrg4leoBkLlyRhhCInfGVklUBCTs7ZeRr8rAvUO06MgHHk/VcBCXSa25Df2X/o1/+8aRp1YkLwwswTR2HXzPnxgAd51Wnr22g/vAkbcuEQdYST01KIJMc8hVU6HjOzRFere+zkfLzJAQzTaOutj28e+vZBOKZMX/anD+9u/1mveawT592BIQr8LT7vx8+4qv32gopi7hnB0ORprAfWs5CUSEJ4Khdo/DVXtlaT2MwsNTn5hkLiPIUujgE4x7j3+uG7d34Lxxzr//6lj65UDTcTkz5ePNBJcow2bkXVOdmLVIYJjWQqlQp9uRVdbOGEEU570eOtXIQlYrDPov7QRkhB0CVitATa3n347p6du99659quawcgmkssQFAE5jyvthXW6LiTZ7Dj86spmNvToeXwpJjURxQhNutFXtySIVB8ixW1bFMNObOMb6wJth2+/tJ/P/33lftXbaFOHg8B8ca8z/Z8szpHndgWZMqV9pedjKOK09VEhOzDsx3aJJIvqqiavBx80IUutjdgVOvD3a1TWz/77H9nbg4ZA60JAm5OerYXmrOyMllZZSR+pqZtOMQb8YrKS2jtXZ8heBPGuY0acBsQx43Ha059yHX7oxv7rj4H8lyRkN0j2A87NbnZvHaO+189UQEJULyi8hDO+yx71snEEy64DexUJ2sA4nOxrpmdjZM99giVOF8rdVTySC+GMKc4l3y9G/KERTEAL6H5aw3JED65arFVTwaXyR6tEMSsjMdcetaHHNkilwkzAlzMqFHjA53oNC2CEPyP6auO5AjZ7cH8qHCaiSlvXGKFJUzq4WByylfaKC7SgFgXPd6OzogivOiv3UEkT8hCwlLLNxrIN55idkiI4o1dYN+C7oCzkQu/LidDNRB2iCas3o4tSCOZwd4iBNmmnQQZYSLJKOdC0BxeErtM0eSwB2KGhVsXSJgNmc3JrrhoMREhGGvHfI+h3SRUVRJywvoiix48G/hlqNCBWcchaJ5mah/IAuo4g+cY9+pZAyMTfFFuz+eV5TuGqfg9vyJhNGRz5+q0IoLSBITsGSAnLLTqjbS9bm9D/Xc3IgPtxLCHBCcG9hYud9EPsZ4OMYjC+7ySsrmWmF4Sna5IyBQvfHW968RejFeXYocqS5VfVlDpqkO+58QGO+u+1aStKExGZdjjLV9vEOPx2fKMsduWSsKFu+GKdDFnhdA3U5WZEaNyYocyQ2E71iImamMJK9ssqSeMEysLHKfMSTjevCIt9po7LkjkJ6xy1a8xYbzVTWYde3tFVr0jzIZsoggtuxtSYEjXerCerOZLKD6/TC0zoS2dorHBLk1+Tgps6RoP8LfY8TYmmw2Ly/EpfMZre3aTSqNeVVizpqrN5aLrqiHKQyJUMrU24qc91gMb5DKpypA1yZanm5ZXUSE1bzsUFGf85ZtrJbohM5jI13xwPYSyaHKEXBXI/kprpiJTmlJkPOGLzVBwSZaQffVLBuj8yiKpiTGagtoN5JRvxaKw0PeHs766/U2K5FOMtUKEH1pjERFiagKrewccphzT/rL11dISI5f45qnJIXd88UL0e3ymouGt79skLaPKEeaqiUEXcoFeHSF7KDFM5ZUViEhMvxh3D5XSI040eUsT+zJ43l8TTfkzpLMPNdoc/HTXMjG3aBkyBUwaO9GhVqulIkbO3e9pYNp6QtTq+mme1DAhfi8wFUvC3rCPuKrLSs76k39/uGzbSfmaJ41CR5YqCz3NFUhTSli7FU87IadBJfVlBJMTpqTrK6Z4Y/mKI/0yZK9e5asn5/xI4hqsaMJZn2WXBAjZgNt6cOOKAfdqtNToQ6RBKLP0NqWYEFJMx4xfh5en3ZZyVy93maFVJHVaCv0u0976gxuUckXaU36OUGctI8a9PL2fomQIL9yL60olUbZhbyC3KA8950ZXikiTidqmoMXUJJOMu88pyENfd6WIkC29Nc4+ZWgySoEw2tNSVogNx/e0JEUI66GQccwJL8qVWZKoZUSze3MpMUanYB9C0EBE6FKiMv1OYrGlKW2qdEwlDEqFVqJmffX9zUoZW8SQSGLI9ZZtQ5bt2U2u1ubM4mptkkl9wWkhR7nEd9VxabRvgC3SSEFLuU1YWFtChOnU9Oozle85v8FZK5V9yDlDvZY4381jSAVbGsoR8eabpZH4LpRnlEr8lTbm9Xg4Fd9bQPtXtF1fUvuwvyU1+5ARI5S9I16d3SAdMQIh2u9MGSHXAcZ28UiiAMVoqTorUYktmS+7oMF6oBP6CdKfWLCWpsReDt2qSMq+XeOa0cJ0QW1J+nMLtlUR7ALOW8IQXfMepXJLtektlkb7Emp0/BGpyH3ogT2N9DvhZV3ag7Viix472cG/A8XZUnD6F/3GHSh7mXQamJyCXPLH7qU98qv/wpJyTPpLGyvT5i2410zZauQo0/iECMQTnh8yX3OM0UXVurSZGa5XfRdBvNEjAk84IdSgkOOtmU8+VkqLe8gpzMWHoCrjEfhhtShCtuv6hc3p8oTRylpjBdQyefLdFQkTf48Px0158GFKW1qYFi2NVmWqi4lR5pNd7r7FfY/P8zsVRt22oBv9SXdxrV6hVKhy1Fka1Rc54YqKLKVWl4+e7rKNd4v7XQ7s71T4P8nmF/tQISOdAAAAAElFTkSuQmCC"
+
+/***/ },
+/* 17 */
+/*!*********************************!*\
+  !*** ./class/singleton/i18n.js ***!
+  \*********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	//i18next
+	var i18n = __webpack_require__(/*! ../../../libs/i18next/1.10.1/i18next-1.10.1.js */ 18);
+	var $ 	 = __webpack_require__(/*! jquery */ 4);
+	
+	module.exports = (function() {
+		var init = function () {
+			//Init plugin with current language
+			i18n.init({ resStore: {dev: {translation: __webpack_require__(/*! ../../../../languages/en-us.json */ 19)} } });
+			//Translate base HTML
+			$("body").i18n();
+		}
+	
+		// API/data for end-user
+		return {
+			init: init
+		}
+	})();
+
+
+/***/ },
+/* 18 */
 /*!************************************************!*\
   !*** ../libs/i18next/1.10.1/i18next-1.10.1.js ***!
   \************************************************/
@@ -2417,811 +3251,7 @@
 	})( false ? window : exports);
 
 /***/ },
-/* 4 */
-/*!**************************************************!*\
-  !*** ../libs/slidebars/0.10.3/dist/slidebars.js ***!
-  \**************************************************/
-/***/ function(module, exports) {
-
-	// -----------------------------------
-	// Slidebars
-	// Version 0.10.3
-	// http://plugins.adchsm.me/slidebars/
-	//
-	// Written by Adam Smith
-	// http://www.adchsm.me/
-	//
-	// Released under MIT License
-	// http://plugins.adchsm.me/slidebars/license.txt
-	//
-	// ---------------------
-	// Index of Slidebars.js
-	//
-	// 001 - Default Settings
-	// 002 - Feature Detection
-	// 003 - User Agents
-	// 004 - Setup
-	// 005 - Animation
-	// 006 - Operations
-	// 007 - API
-	// 008 - User Input
-	
-	;( function ( $ ) {
-	
-		$.slidebars = function ( options ) {
-	
-			// ----------------------
-			// 001 - Default Settings
-	
-			var settings = $.extend( {
-				siteClose: true, // true or false - Enable closing of Slidebars by clicking on #sb-site.
-				scrollLock: false, // true or false - Prevent scrolling of site when a Slidebar is open.
-				disableOver: false, // integer or false - Hide Slidebars over a specific width.
-				hideControlClasses: false // true or false - Hide controls at same width as disableOver.
-			}, options );
-	
-			// -----------------------
-			// 002 - Feature Detection
-	
-			var test = document.createElement( 'div' ).style, // Create element to test on.
-			supportTransition = false, // Variable for testing transitions.
-			supportTransform = false; // variable for testing transforms.
-	
-			// Test for CSS Transitions
-			if ( test.MozTransition === '' || test.WebkitTransition === '' || test.OTransition === '' || test.transition === '' ) supportTransition = true;
-	
-			// Test for CSS Transforms
-			if ( test.MozTransform === '' || test.WebkitTransform === '' || test.OTransform === '' || test.transform === '' ) supportTransform = true;
-	
-			// -----------------
-			// 003 - User Agents
-	
-			var ua = navigator.userAgent, // Get user agent string.
-			android = false, // Variable for storing android version.
-			iOS = false; // Variable for storing iOS version.
-			
-			if ( /Android/.test( ua ) ) { // Detect Android in user agent string.
-				android = ua.substr( ua.indexOf( 'Android' )+8, 3 ); // Set version of Android.
-			} else if ( /(iPhone|iPod|iPad)/.test( ua ) ) { // Detect iOS in user agent string.
-				iOS = ua.substr( ua.indexOf( 'OS ' )+3, 3 ).replace( '_', '.' ); // Set version of iOS.
-			}
-			
-			if ( android && android < 3 || iOS && iOS < 5 ) $( 'html' ).addClass( 'sb-static' ); // Add helper class for older versions of Android & iOS.
-	
-			// -----------
-			// 004 - Setup
-	
-			// Site container
-			var $site = $( '#sb-site, .sb-site-container' ); // Cache the selector.
-	
-			// Left Slidebar	
-			if ( $( '.sb-left' ).length ) { // Check if the left Slidebar exists.
-				var $left = $( '.sb-left' ), // Cache the selector.
-				leftActive = false; // Used to check whether the left Slidebar is open or closed.
-			}
-	
-			// Right Slidebar
-			if ( $( '.sb-right' ).length ) { // Check if the right Slidebar exists.
-				var $right = $( '.sb-right' ), // Cache the selector.
-				rightActive = false; // Used to check whether the right Slidebar is open or closed.
-			}
-					
-			var init = false, // Initialisation variable.
-			windowWidth = $( window ).width(), // Get width of window.
-			$controls = $( '.sb-toggle-left, .sb-toggle-right, .sb-open-left, .sb-open-right, .sb-close' ), // Cache the control classes.
-			$slide = $( '.sb-slide' ); // Cache users elements to animate.
-			
-			// Initailise Slidebars
-			function initialise () {
-				if ( ! settings.disableOver || ( typeof settings.disableOver === 'number' && settings.disableOver >= windowWidth ) ) { // False or larger than window size. 
-					init = true; // true enabled Slidebars to open.
-					$( 'html' ).addClass( 'sb-init' ); // Add helper class.
-					if ( settings.hideControlClasses ) $controls.removeClass( 'sb-hide' ); // Remove class just incase Slidebars was originally disabled.
-					css(); // Set required inline styles.
-				} else if ( typeof settings.disableOver === 'number' && settings.disableOver < windowWidth ) { // Less than window size.
-					init = false; // false stop Slidebars from opening.
-					$( 'html' ).removeClass( 'sb-init' ); // Remove helper class.
-					if ( settings.hideControlClasses ) $controls.addClass( 'sb-hide' ); // Hide controls
-					$site.css( 'minHeight', '' ); // Remove minimum height.
-					if ( leftActive || rightActive ) close(); // Close Slidebars if open.
-				}
-			}
-			initialise();
-			
-			// Inline CSS
-			function css() {
-				// Site container height.
-				$site.css( 'minHeight', '' );
-				var siteHeight = parseInt( $site.css( 'height' ), 10 ),
-				htmlHeight = parseInt( $( 'html' ).css( 'height' ), 10 );
-				if ( siteHeight < htmlHeight ) $site.css( 'minHeight', $( 'html' ).css( 'height' ) ); // Test height for vh support..
-				
-				// Custom Slidebar widths.
-				if ( $left && $left.hasClass( 'sb-width-custom' ) ) $left.css( 'width', $left.attr( 'data-sb-width' ) ); // Set user custom width.
-				if ( $right && $right.hasClass( 'sb-width-custom' ) ) $right.css( 'width', $right.attr( 'data-sb-width' ) ); // Set user custom width.
-				
-				// Set off-canvas margins for Slidebars with push and overlay animations.
-				if ( $left && ( $left.hasClass( 'sb-style-push' ) || $left.hasClass( 'sb-style-overlay' ) ) ) $left.css( 'marginLeft', '-' + $left.css( 'width' ) );
-				if ( $right && ( $right.hasClass( 'sb-style-push' ) || $right.hasClass( 'sb-style-overlay' ) ) ) $right.css( 'marginRight', '-' + $right.css( 'width' ) );
-				
-				// Site scroll locking.
-				if ( settings.scrollLock ) $( 'html' ).addClass( 'sb-scroll-lock' );
-			}
-			
-			// Resize Functions
-			$( window ).resize( function () {
-				var resizedWindowWidth = $( window ).width(); // Get resized window width.
-				if ( windowWidth !== resizedWindowWidth ) { // Slidebars is running and window was actually resized.
-					windowWidth = resizedWindowWidth; // Set the new window width.
-					initialise(); // Call initalise to see if Slidebars should still be running.
-					if ( leftActive ) open( 'left' ); // If left Slidebar is open, calling open will ensure it is the correct size.
-					if ( rightActive ) open( 'right' ); // If right Slidebar is open, calling open will ensure it is the correct size.
-				}
-			} );
-			// I may include a height check along side a width check here in future.
-	
-			// ---------------
-			// 005 - Animation
-	
-			var animation; // Animation type.
-	
-			// Set animation type.
-			if ( supportTransition && supportTransform ) { // Browser supports css transitions and transforms.
-				animation = 'translate'; // Translate for browsers that support it.
-				if ( android && android < 4.4 ) animation = 'side'; // Android supports both, but can't translate any fixed positions, so use left instead.
-			} else {
-				animation = 'jQuery'; // Browsers that don't support css transitions and transitions.
-			}
-	
-			// Animate mixin.
-			function animate( object, amount, side ) {
-				
-				// Choose selectors depending on animation style.
-				var selector;
-				
-				if ( object.hasClass( 'sb-style-push' ) ) {
-					selector = $site.add( object ).add( $slide ); // Push - Animate site, Slidebar and user elements.
-				} else if ( object.hasClass( 'sb-style-overlay' ) ) {
-					selector = object; // Overlay - Animate Slidebar only.
-				} else {
-					selector = $site.add( $slide ); // Reveal - Animate site and user elements.
-				}
-				
-				// Apply animation
-				if ( animation === 'translate' ) {
-					if ( amount === '0px' ) {
-						removeAnimation();
-					} else {
-						selector.css( 'transform', 'translate( ' + amount + ' )' ); // Apply the animation.
-					}
-	
-				} else if ( animation === 'side' ) {
-					if ( amount === '0px' ) {
-						removeAnimation();
-					} else {
-						if ( amount[0] === '-' ) amount = amount.substr( 1 ); // Remove the '-' from the passed amount for side animations.
-						selector.css( side, '0px' ); // Add a 0 value so css transition works.
-						setTimeout( function () { // Set a timeout to allow the 0 value to be applied above.
-							selector.css( side, amount ); // Apply the animation.
-						}, 1 );
-					}
-	
-				} else if ( animation === 'jQuery' ) {
-					if ( amount[0] === '-' ) amount = amount.substr( 1 ); // Remove the '-' from the passed amount for jQuery animations.
-					var properties = {};
-					properties[side] = amount;
-					selector.stop().animate( properties, 400 ); // Stop any current jQuery animation before starting another.
-				}
-				
-				// Remove animation
-				function removeAnimation () {
-					selector.removeAttr( 'style' );
-					css();
-				}
-			}
-	
-			// ----------------
-			// 006 - Operations
-	
-			// Open a Slidebar
-			function open( side ) {
-				// Check to see if opposite Slidebar is open.
-				if ( side === 'left' && $left && rightActive || side === 'right' && $right && leftActive ) { // It's open, close it, then continue.
-					close();
-					setTimeout( proceed, 400 );
-				} else { // Its not open, continue.
-					proceed();
-				}
-	
-				// Open
-				function proceed() {
-					if ( init && side === 'left' && $left ) { // Slidebars is initiated, left is in use and called to open.
-						$( 'html' ).addClass( 'sb-active sb-active-left' ); // Add active classes.
-						$left.addClass( 'sb-active' );
-						animate( $left, $left.css( 'width' ), 'left' ); // Animation
-						setTimeout( function () { leftActive = true; }, 400 ); // Set active variables.
-					} else if ( init && side === 'right' && $right ) { // Slidebars is initiated, right is in use and called to open.
-						$( 'html' ).addClass( 'sb-active sb-active-right' ); // Add active classes.
-						$right.addClass( 'sb-active' );
-						animate( $right, '-' + $right.css( 'width' ), 'right' ); // Animation
-						setTimeout( function () { rightActive = true; }, 400 ); // Set active variables.
-					}
-				}
-			}
-				
-			// Close either Slidebar
-			function close( url, target ) {
-				if ( leftActive || rightActive ) { // If a Slidebar is open.
-					if ( leftActive ) {
-						animate( $left, '0px', 'left' ); // Animation
-						leftActive = false;
-					}
-					if ( rightActive ) {
-						animate( $right, '0px', 'right' ); // Animation
-						rightActive = false;
-					}
-				
-					setTimeout( function () { // Wait for closing animation to finish.
-						$( 'html' ).removeClass( 'sb-active sb-active-left sb-active-right' ); // Remove active classes.
-						if ( $left ) $left.removeClass( 'sb-active' );
-						if ( $right ) $right.removeClass( 'sb-active' );
-						if ( typeof url !== 'undefined' ) { // If a link has been passed to the function, go to it.
-							if ( typeof target === undefined ) target = '_self'; // Set to _self if undefined.
-							window.open( url, target ); // Open the url.
-						}
-					}, 400 );
-				}
-			}
-			
-			// Toggle either Slidebar
-			function toggle( side ) {
-				if ( side === 'left' && $left ) { // If left Slidebar is called and in use.
-					if ( ! leftActive ) {
-						open( 'left' ); // Slidebar is closed, open it.
-					} else {
-						close(); // Slidebar is open, close it.
-					}
-				}
-				if ( side === 'right' && $right ) { // If right Slidebar is called and in use.
-					if ( ! rightActive ) {
-						open( 'right' ); // Slidebar is closed, open it.
-					} else {
-						close(); // Slidebar is open, close it.
-					}
-				}
-			}
-	
-			// ---------
-			// 007 - API
-			
-			this.slidebars = {
-				open: open, // Maps user variable name to the open method.
-				close: close, // Maps user variable name to the close method.
-				toggle: toggle, // Maps user variable name to the toggle method.
-				init: function () { // Returns true or false whether Slidebars are running or not.
-					return init; // Returns true or false whether Slidebars are running.
-				},
-				active: function ( side ) { // Returns true or false whether Slidebar is open or closed.
-					if ( side === 'left' && $left ) return leftActive;
-					if ( side === 'right' && $right ) return rightActive;
-				},
-				destroy: function ( side ) { // Removes the Slidebar from the DOM.
-					if ( side === 'left' && $left ) {
-						if ( leftActive ) close(); // Close if its open.
-						setTimeout( function () {
-							$left.remove(); // Remove it.
-							$left = false; // Set variable to false so it cannot be opened again.
-						}, 400 );
-					}
-					if ( side === 'right' && $right) {
-						if ( rightActive ) close(); // Close if its open.
-						setTimeout( function () {
-							$right.remove(); // Remove it.
-							$right = false; // Set variable to false so it cannot be opened again.
-						}, 400 );
-					}
-				}
-			};
-	
-			// ----------------
-			// 008 - User Input
-			
-			function eventHandler( event, selector ) {
-				event.stopPropagation(); // Stop event bubbling.
-				event.preventDefault(); // Prevent default behaviour.
-				if ( event.type === 'touchend' ) selector.off( 'click' ); // If event type was touch, turn off clicks to prevent phantom clicks.
-			}
-			
-			// Toggle left Slidebar
-			$( '.sb-toggle-left' ).on( 'touchend click', function ( event ) {
-				eventHandler( event, $( this ) ); // Handle the event.
-				toggle( 'left' ); // Toggle the left Slidbar.
-			} );
-			
-			// Toggle right Slidebar
-			$( '.sb-toggle-right' ).on( 'touchend click', function ( event ) {
-				eventHandler( event, $( this ) ); // Handle the event.
-				toggle( 'right' ); // Toggle the right Slidbar.
-			} );
-			
-			// Open left Slidebar
-			$( '.sb-open-left' ).on( 'touchend click', function ( event ) {
-				eventHandler( event, $( this ) ); // Handle the event.
-				open( 'left' ); // Open the left Slidebar.
-			} );
-			
-			// Open right Slidebar
-			$( '.sb-open-right' ).on( 'touchend click', function ( event ) {
-				eventHandler( event, $( this ) ); // Handle the event.
-				open( 'right' ); // Open the right Slidebar.
-			} );
-			
-			// Close Slidebar
-			$( '.sb-close' ).on( 'touchend click', function ( event ) {
-				if ( $( this ).is( 'a' ) || $( this ).children().is( 'a' ) ) { // Is a link or contains a link.
-					if ( event.type === 'click' ) { // Make sure the user wanted to follow the link.
-						event.stopPropagation(); // Stop events propagating
-						event.preventDefault(); // Stop default behaviour
-						
-						var link = ( $( this ).is( 'a' ) ? $( this ) : $( this ).find( 'a' ) ), // Get the link selector.
-						url = link.attr( 'href' ), // Get the link url.
-						target = ( link.attr( 'target' ) ? link.attr( 'target' ) : '_self' ); // Set target, default to _self if not provided
-						
-						close( url, target ); // Close Slidebar and pass link target.
-					}
-				} else { // Just a normal control class.
-					eventHandler( event, $( this ) ); // Handle the event.
-					close(); // Close Slidebar.
-				}
-			} );
-			
-			// Close Slidebar via site
-			$site.on( 'touchend click', function ( event ) {
-				if ( settings.siteClose && ( leftActive || rightActive ) ) { // If settings permit closing by site and left or right Slidebar is open.
-					eventHandler( event, $( this ) ); // Handle the event.
-					close(); // Close it.
-				}
-			} );
-			
-		}; // End Slidebars function.
-	
-	} ) ( jQuery );
-
-/***/ },
-/* 5 */
-/*!***************************************************!*\
-  !*** ../libs/slidebars/0.10.3/dist/slidebars.css ***!
-  \***************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-	
-	// load the styles
-	var content = __webpack_require__(/*! !./../../../../../~/css-loader!./../../../../../~/postcss-loader!./slidebars.css */ 6);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(/*! ./../../../../../~/style-loader/addStyles.js */ 8)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../../../../node_modules/css-loader/index.js!./../../../../../node_modules/postcss-loader/index.js!./slidebars.css", function() {
-				var newContent = require("!!./../../../../../node_modules/css-loader/index.js!./../../../../../node_modules/postcss-loader/index.js!./slidebars.css");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 6 */
-/*!***************************************************************************************************************************!*\
-  !*** /mnt/windows/wouafit/~/css-loader!/mnt/windows/wouafit/~/postcss-loader!../libs/slidebars/0.10.3/dist/slidebars.css ***!
-  \***************************************************************************************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(/*! ./../../../../../~/css-loader/lib/css-base.js */ 7)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, "/* -----------------------------------\n * Slidebars\n * Version 0.10.3\n * http://plugins.adchsm.me/slidebars/\n *\n * Written by Adam Smith\n * http://www.adchsm.me/\n *\n * Released under MIT License\n * http://plugins.adchsm.me/slidebars/license.txt\n *\n * -------------------\n * Slidebars CSS Index\n *\n * 001 - Box Model, Html & Body\n * 002 - Site\n * 003 - Slidebars\n * 004 - Animation\n * 005 - Helper Classes\n *\n * ----------------------------\n * 001 - Box Model, Html & Body\n */\n\nhtml, body, #sb-site, .sb-site-container, .sb-slidebar {\n\t/* Set box model to prevent any user added margins or paddings from altering the widths or heights. */\n\tmargin: 0;\n\tpadding: 0;\n\t-webkit-box-sizing: border-box;\n\t   -moz-box-sizing: border-box;\n\t        box-sizing: border-box;\n}\n\nhtml, body {\n\twidth: 100%;\n\toverflow-x: hidden; /* Stops horizontal scrolling. */\n}\n\nhtml {\n\theight: 100%; /* Site is as tall as device. */\n}\n\nbody {\n\tmin-height: 100%;\n\theight: auto;\n\tposition: relative; /* Required for static Slidebars to function properly. */\n}\n\n/* Site scroll locking - prevent site from scrolling when a Slidebar is open, except when static Slidebars are only available. */\nhtml.sb-scroll-lock.sb-active:not(.sb-static) {\n\toverflow: hidden;\n}\n\n/* ----------\n * 002 - Site\n */\n\n#sb-site, .sb-site-container {\n\t/* You may now use class .sb-site-container instead of #sb-site and use your own id. However please make sure you don't set any of the following styles any differently on your id. */\n\twidth: 100%;\n\tmin-height: 100vh;\n\tposition: relative;\n\tz-index: 1; /* Site sits above Slidebars */\n\tbackground-color: #ffffff; /* Default background colour, overwrite this with your own css. I suggest moving your html or body background styling here. Making this transparent will allow the Slidebars beneath to be visible. */\n}\n\n/* Micro clearfix by Nicolas Gallagher, ensures the site container hits the top and bottom of the screen. */\n#sb-site:before, #sb-site:after, .sb-site-container:before, .sb-site-container:after {\n\tcontent: ' ';\n\tdisplay: table;\n}\n\n#sb-site:before, #sb-site:after, .sb-site-container:before, .sb-site-container:after {\n    clear: both;\n}\n\n/* ---------------\n * 003 - Slidebars\n */\n\n.sb-slidebar {\n\theight: 100%;\n\toverflow-y: auto; /* Enable vertical scrolling on Slidebars when needed. */\n\tposition: fixed;\n\ttop: 0;\n\tz-index: 0; /* Slidebars sit behind sb-site. */\n\tdisplay: none; /* Initially hide the Slidebars. Changed from visibility to display to allow -webkit-overflow-scrolling. */\n\tbackground-color: #222222; /* Default Slidebars background colour, overwrite this with your own css. */\n}\n\n.sb-slidebar, .sb-slidebar * {\n\t-webkit-transform: translateZ( 0px ); /* Fixes issues with translated and z-indexed elements on iOS 7. */\n}\n\n.sb-left {\n\tleft: 0; /* Set Slidebar to the left. */\n}\n\n.sb-right {\n\tright: 0; /* Set Slidebar to the right. */\n}\n\nhtml.sb-static .sb-slidebar,\n.sb-slidebar.sb-static {\n\tposition: absolute; /* Makes Slidebars scroll naturally with the site, and unfixes them for Android Browser < 3 and iOS < 5. */\n}\n\n.sb-slidebar.sb-active {\n\tdisplay: block; /* Makes Slidebars visibile when open. Changed from visibility to display to allow -webkit-overflow-scrolling. */\n}\n\n.sb-style-overlay {\n\tz-index: 9999; /* Set z-index high to ensure it overlays any other site elements. */\n}\n\n.sb-momentum-scrolling {\n\t-webkit-overflow-scrolling: touch; /* Adds native momentum scrolling for iOS & Android devices. */\n}\n\n/* Slidebar widths for browsers/devices that don't support media queries. */\n\t.sb-slidebar {\n\t\twidth: 30%;\n\t}\n\t\n\t.sb-width-thin {\n\t\twidth: 15%;\n\t}\n\t\n\t.sb-width-wide {\n\t\twidth: 45%;\n\t}\n\n@media (max-width: 480px) { /* Slidebar widths on extra small screens. */\n\t.sb-slidebar {\n\t\twidth: 70%;\n\t}\n\t\n\t.sb-width-thin {\n\t\twidth: 55%;\n\t}\n\t\n\t.sb-width-wide {\n\t\twidth: 85%;\n\t}\n}\n\n@media (min-width: 481px) { /* Slidebar widths on small screens. */\n\t.sb-slidebar {\n\t\twidth: 55%;\n\t}\n\t\n\t.sb-width-thin {\n\t\twidth: 40%;\n\t}\n\t\n\t.sb-width-wide {\n\t\twidth: 70%;\n\t}\n}\n\n@media (min-width: 768px) { /* Slidebar widths on medium screens. */\n\t.sb-slidebar {\n\t\twidth: 40%;\n\t}\n\t\n\t.sb-width-thin {\n\t\twidth: 25%;\n\t}\n\t\n\t.sb-width-wide {\n\t\twidth: 55%;\n\t}\n}\n\n@media (min-width: 992px) { /* Slidebar widths on large screens. */\n\t.sb-slidebar {\n\t\twidth: 30%;\n\t}\n\t\n\t.sb-width-thin {\n\t\twidth: 15%;\n\t}\n\t\n\t.sb-width-wide {\n\t\twidth: 45%;\n\t}\n}\n\n@media (min-width: 1200px) { /* Slidebar widths on extra large screens. */\n\t.sb-slidebar {\n\t\twidth: 20%;\n\t}\n\t\n\t.sb-width-thin {\n\t\twidth: 5%;\n\t}\n\t\n\t.sb-width-wide {\n\t\twidth: 35%;\n\t}\n}\n\n/* ---------------\n * 004 - Animation\n */\n\n.sb-slide, #sb-site, .sb-site-container, .sb-slidebar {\n\t-webkit-transform: translate( 0px );\n\t   -moz-transform: translate( 0px );\n\t     -o-transform: translate( 0px );\n\t        transform: translate( 0px );\n\t\n\t-webkit-transition: -webkit-transform 400ms ease;\n\t   -moz-transition:    -moz-transform 400ms ease;\n\t     -o-transition:      -o-transform 400ms ease;\n\t        transition:         transform 400ms ease;\n\t\n\t-webkit-transition-property: -webkit-transform, left, right; /* Add left/right for Android < 4.4. */\n\t-webkit-backface-visibility: hidden; /* Prevents flickering. This is non essential, and you may remove it if your having problems with fixed background images in Chrome. */\n}\n\n/* --------------------\n * 005 - Helper Classes\n */\n \n.sb-hide { \n\tdisplay: none; /* Optionally applied to control classes when Slidebars is disabled over a certain width. */\n}", ""]);
-	
-	// exports
-
-
-/***/ },
-/* 7 */
-/*!*********************************************************!*\
-  !*** /mnt/windows/wouafit/~/css-loader/lib/css-base.js ***!
-  \*********************************************************/
-/***/ function(module, exports) {
-
-	/*
-		MIT License http://www.opensource.org/licenses/mit-license.php
-		Author Tobias Koppers @sokra
-	*/
-	// css base code, injected by the css-loader
-	module.exports = function() {
-		var list = [];
-	
-		// return the list of modules as css string
-		list.toString = function toString() {
-			var result = [];
-			for(var i = 0; i < this.length; i++) {
-				var item = this[i];
-				if(item[2]) {
-					result.push("@media " + item[2] + "{" + item[1] + "}");
-				} else {
-					result.push(item[1]);
-				}
-			}
-			return result.join("");
-		};
-	
-		// import a list of modules into the list
-		list.i = function(modules, mediaQuery) {
-			if(typeof modules === "string")
-				modules = [[null, modules, ""]];
-			var alreadyImportedModules = {};
-			for(var i = 0; i < this.length; i++) {
-				var id = this[i][0];
-				if(typeof id === "number")
-					alreadyImportedModules[id] = true;
-			}
-			for(i = 0; i < modules.length; i++) {
-				var item = modules[i];
-				// skip already imported module
-				// this implementation is not 100% perfect for weird media query combinations
-				//  when a module is imported multiple times with different media queries.
-				//  I hope this will never occur (Hey this way we have smaller bundles)
-				if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-					if(mediaQuery && !item[2]) {
-						item[2] = mediaQuery;
-					} else if(mediaQuery) {
-						item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-					}
-					list.push(item);
-				}
-			}
-		};
-		return list;
-	};
-
-
-/***/ },
-/* 8 */
-/*!********************************************************!*\
-  !*** /mnt/windows/wouafit/~/style-loader/addStyles.js ***!
-  \********************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	/*
-		MIT License http://www.opensource.org/licenses/mit-license.php
-		Author Tobias Koppers @sokra
-	*/
-	var stylesInDom = {},
-		memoize = function(fn) {
-			var memo;
-			return function () {
-				if (typeof memo === "undefined") memo = fn.apply(this, arguments);
-				return memo;
-			};
-		},
-		isOldIE = memoize(function() {
-			return /msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase());
-		}),
-		getHeadElement = memoize(function () {
-			return document.head || document.getElementsByTagName("head")[0];
-		}),
-		singletonElement = null,
-		singletonCounter = 0;
-	
-	module.exports = function(list, options) {
-		if(true) {
-			if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
-		}
-	
-		options = options || {};
-		// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
-		// tags it will allow on a page
-		if (typeof options.singleton === "undefined") options.singleton = isOldIE();
-	
-		var styles = listToStyles(list);
-		addStylesToDom(styles, options);
-	
-		return function update(newList) {
-			var mayRemove = [];
-			for(var i = 0; i < styles.length; i++) {
-				var item = styles[i];
-				var domStyle = stylesInDom[item.id];
-				domStyle.refs--;
-				mayRemove.push(domStyle);
-			}
-			if(newList) {
-				var newStyles = listToStyles(newList);
-				addStylesToDom(newStyles, options);
-			}
-			for(var i = 0; i < mayRemove.length; i++) {
-				var domStyle = mayRemove[i];
-				if(domStyle.refs === 0) {
-					for(var j = 0; j < domStyle.parts.length; j++)
-						domStyle.parts[j]();
-					delete stylesInDom[domStyle.id];
-				}
-			}
-		};
-	}
-	
-	function addStylesToDom(styles, options) {
-		for(var i = 0; i < styles.length; i++) {
-			var item = styles[i];
-			var domStyle = stylesInDom[item.id];
-			if(domStyle) {
-				domStyle.refs++;
-				for(var j = 0; j < domStyle.parts.length; j++) {
-					domStyle.parts[j](item.parts[j]);
-				}
-				for(; j < item.parts.length; j++) {
-					domStyle.parts.push(addStyle(item.parts[j], options));
-				}
-			} else {
-				var parts = [];
-				for(var j = 0; j < item.parts.length; j++) {
-					parts.push(addStyle(item.parts[j], options));
-				}
-				stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
-			}
-		}
-	}
-	
-	function listToStyles(list) {
-		var styles = [];
-		var newStyles = {};
-		for(var i = 0; i < list.length; i++) {
-			var item = list[i];
-			var id = item[0];
-			var css = item[1];
-			var media = item[2];
-			var sourceMap = item[3];
-			var part = {css: css, media: media, sourceMap: sourceMap};
-			if(!newStyles[id])
-				styles.push(newStyles[id] = {id: id, parts: [part]});
-			else
-				newStyles[id].parts.push(part);
-		}
-		return styles;
-	}
-	
-	function createStyleElement() {
-		var styleElement = document.createElement("style");
-		var head = getHeadElement();
-		styleElement.type = "text/css";
-		head.appendChild(styleElement);
-		return styleElement;
-	}
-	
-	function createLinkElement() {
-		var linkElement = document.createElement("link");
-		var head = getHeadElement();
-		linkElement.rel = "stylesheet";
-		head.appendChild(linkElement);
-		return linkElement;
-	}
-	
-	function addStyle(obj, options) {
-		var styleElement, update, remove;
-	
-		if (options.singleton) {
-			var styleIndex = singletonCounter++;
-			styleElement = singletonElement || (singletonElement = createStyleElement());
-			update = applyToSingletonTag.bind(null, styleElement, styleIndex, false);
-			remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true);
-		} else if(obj.sourceMap &&
-			typeof URL === "function" &&
-			typeof URL.createObjectURL === "function" &&
-			typeof URL.revokeObjectURL === "function" &&
-			typeof Blob === "function" &&
-			typeof btoa === "function") {
-			styleElement = createLinkElement();
-			update = updateLink.bind(null, styleElement);
-			remove = function() {
-				styleElement.parentNode.removeChild(styleElement);
-				if(styleElement.href)
-					URL.revokeObjectURL(styleElement.href);
-			};
-		} else {
-			styleElement = createStyleElement();
-			update = applyToTag.bind(null, styleElement);
-			remove = function() {
-				styleElement.parentNode.removeChild(styleElement);
-			};
-		}
-	
-		update(obj);
-	
-		return function updateStyle(newObj) {
-			if(newObj) {
-				if(newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap)
-					return;
-				update(obj = newObj);
-			} else {
-				remove();
-			}
-		};
-	}
-	
-	var replaceText = (function () {
-		var textStore = [];
-	
-		return function (index, replacement) {
-			textStore[index] = replacement;
-			return textStore.filter(Boolean).join('\n');
-		};
-	})();
-	
-	function applyToSingletonTag(styleElement, index, remove, obj) {
-		var css = remove ? "" : obj.css;
-	
-		if (styleElement.styleSheet) {
-			styleElement.styleSheet.cssText = replaceText(index, css);
-		} else {
-			var cssNode = document.createTextNode(css);
-			var childNodes = styleElement.childNodes;
-			if (childNodes[index]) styleElement.removeChild(childNodes[index]);
-			if (childNodes.length) {
-				styleElement.insertBefore(cssNode, childNodes[index]);
-			} else {
-				styleElement.appendChild(cssNode);
-			}
-		}
-	}
-	
-	function applyToTag(styleElement, obj) {
-		var css = obj.css;
-		var media = obj.media;
-		var sourceMap = obj.sourceMap;
-	
-		if(media) {
-			styleElement.setAttribute("media", media)
-		}
-	
-		if(styleElement.styleSheet) {
-			styleElement.styleSheet.cssText = css;
-		} else {
-			while(styleElement.firstChild) {
-				styleElement.removeChild(styleElement.firstChild);
-			}
-			styleElement.appendChild(document.createTextNode(css));
-		}
-	}
-	
-	function updateLink(linkElement, obj) {
-		var css = obj.css;
-		var media = obj.media;
-		var sourceMap = obj.sourceMap;
-	
-		if(sourceMap) {
-			// http://stackoverflow.com/a/26603875
-			css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
-		}
-	
-		var blob = new Blob([css], { type: "text/css" });
-	
-		var oldSrc = linkElement.href;
-	
-		linkElement.href = URL.createObjectURL(blob);
-	
-		if(oldSrc)
-			URL.revokeObjectURL(oldSrc);
-	}
-
-
-/***/ },
-/* 9 */
-/*!**************************!*\
-  !*** ../less/index.less ***!
-  \**************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-	
-	// load the styles
-	var content = __webpack_require__(/*! !./../../~/css-loader!./../../~/postcss-loader!./../../~/less-loader!./index.less */ 10);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(/*! ./../../~/style-loader/addStyles.js */ 8)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/postcss-loader/index.js!./../../node_modules/less-loader/index.js!./index.less", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/postcss-loader/index.js!./../../node_modules/less-loader/index.js!./index.less");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 10 */
-/*!*************************************************************************************************************************************!*\
-  !*** /mnt/windows/wouafit/~/css-loader!/mnt/windows/wouafit/~/postcss-loader!/mnt/windows/wouafit/~/less-loader!../less/index.less ***!
-  \*************************************************************************************************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(/*! ./../../~/css-loader/lib/css-base.js */ 7)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, "a,\n.btn-link {\n  color: #2b9d48;\n}\na:focus,\n.btn-link:focus,\na:hover,\n.btn-link:hover,\na:active,\n.btn-link:active {\n  color: #154d23;\n}\n.btn-primary {\n  background-color: #2b9d48;\n  border-color: #2b9d48;\n}\n.btn-primary:hover,\n.btn-primary:active {\n  background-color: #154d23;\n  border-color: #154d23;\n}\n.form-control:focus {\n  border-color: #5cd27a;\n}\n@media (max-width: 480px) {\n  /* Slidebar widths on extra small screens. */\n  .sb-width-wide {\n    width: 85%;\n  }\n}\n@media (min-width: 481px) {\n  /* Slidebar widths on small screens. */\n  .sb-width-wide {\n    width: 400px;\n  }\n}\n@media (min-width: 768px) {\n  /* Slidebar widths on medium screens. */\n  .sb-width-wide {\n    width: 400px;\n  }\n}\n@media (min-width: 992px) {\n  /* Slidebar widths on large screens. */\n  .sb-width-wide {\n    width: 525px;\n  }\n}\n@media (min-width: 1200px) {\n  /* Slidebar widths on extra large screens. */\n  .sb-width-wide {\n    width: 525px;\n  }\n}\n@font-face {\n  font-family: \"harlequinflfregular\";\n  src: url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.eot */ 11) + ");\n  src: url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.eot */ 11) + "?#iefix) format('embedded-opentype'), url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.woff */ 12) + ") format('woff'), url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.ttf */ 13) + ") format('truetype'), url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.svg */ 14) + "#RanchoRegular) format('svg');\n  font-style: normal;\n  font-weight: 400;\n}\n::selection {\n  background: #5cd27a;\n}\nhtml,\nbody {\n  height: 100%;\n  margin: 0;\n  padding: 0;\n  background-color: #ffffff;\n}\n#sb-site,\n#map {\n  height: 100%;\n}\n#menu {\n  position: absolute;\n  top: 1em;\n  left: 1em;\n  z-index: 100;\n  background-color: rgba(255, 255, 255, 0.6);\n  padding: 0.3em;\n  border: 1px solid #cccccc;\n  border-radius: 0.3em;\n  cursor: pointer;\n}\n.sb-slidebar {\n  background-color: #ffffff;\n  border-right: 0, 125rem solid #cccccc;\n}\n.sb-slidebar .tab-content {\n  padding: 0.3em;\n}\n.sb-slidebar header {\n  color: #ffffff;\n  background-color: #2b9d48;\n  margin-bottom: 0.1rem;\n  border-bottom: 1px solid #26893f;\n}\n.sb-slidebar header h1.logo {\n  font-family: 'harlequinflfregular';\n  text-transform: uppercase;\n  height: 4.6875rem;\n  background: url(" + __webpack_require__(/*! ../img/logo-75.png */ 15) + ") top left no-repeat;\n  padding-left: 4.6875rem;\n  padding-top: 1.25rem;\n  margin-bottom: 0;\n  font-size: 2.3rem;\n}\n.sb-slidebar header nav {\n  position: relative;\n  right: 0.5rem;\n  z-index: 2;\n}\n.sb-slidebar header nav a,\n.sb-slidebar header nav .btn-link {\n  color: #ffffff;\n}\n.sb-slidebar header nav a:focus,\n.sb-slidebar header nav .btn-link:focus,\n.sb-slidebar header nav a:hover,\n.sb-slidebar header nav .btn-link:hover,\n.sb-slidebar header nav a:active,\n.sb-slidebar header nav .btn-link:active {\n  color: #154d23;\n}\n.sb-slidebar header nav .btn-link {\n  padding: 0;\n}\n.sb-slidebar footer {\n  position: fixed;\n  bottom: 0;\n  width: 100%;\n  background-color: #cccccc;\n  color: #2b9d48;\n}\n", ""]);
-	
-	// exports
-
-
-/***/ },
-/* 11 */
-/*!*****************************************!*\
-  !*** ../fonts/harlequinflf-webfont.eot ***!
-  \*****************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "_/fonts/harlequinflf-webfont-7cbc37.eot"
-
-/***/ },
-/* 12 */
-/*!******************************************!*\
-  !*** ../fonts/harlequinflf-webfont.woff ***!
-  \******************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "_/fonts/harlequinflf-webfont-f6d22e.woff"
-
-/***/ },
-/* 13 */
-/*!*****************************************!*\
-  !*** ../fonts/harlequinflf-webfont.ttf ***!
-  \*****************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "_/fonts/harlequinflf-webfont-59f502.ttf"
-
-/***/ },
-/* 14 */
-/*!*****************************************!*\
-  !*** ../fonts/harlequinflf-webfont.svg ***!
-  \*****************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "_/fonts/harlequinflf-webfont-33186d.svg"
-
-/***/ },
-/* 15 */
-/*!**************************!*\
-  !*** ../img/logo-75.png ***!
-  \**************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "_/img/logo-75-d593fc.png"
-
-/***/ },
-/* 16 */
-/*!*************************!*\
-  !*** external "jQuery" ***!
-  \*************************/
-/***/ function(module, exports) {
-
-	module.exports = jQuery;
-
-/***/ },
-/* 17 */
+/* 19 */
 /*!*************************************************!*\
   !*** /mnt/windows/wouafit/languages/en-us.json ***!
   \*************************************************/
@@ -3232,7 +3262,655 @@
 		"Search!": "Search!",
 		"Contact": "Contact",
 		"About": "About",
-		"Twitter": "Twitter"
+		"Twitter": "Twitter",
+		"Wouaf IT": "Wouaf IT",
+		"The first micro-events network": "The first micro-events network",
+		"Menu": "Menu",
+		"Login": "Login",
+		"Create your account": "Create your account",
+		"My account": "My account",
+		"Parameters": "Parameters",
+		"Logout": "Logout",
+		"Search": "Search",
+		"Your Wouafs": "Your Wouafs",
+		"Where?": "Where?",
+		"Look for a place": "Look for a place",
+		"When?": "When?",
+		"Choose a period": "Choose a period",
+		"Today": "Today",
+		"Tomorrow": "Tomorrow",
+		"This week": "This week",
+		"This month": "This month",
+		"Specific dates": "Specific dates",
+		"From": "From",
+		"Start": "Start",
+		"To": "To",
+		"End": "End",
+		"What?": "What?",
+		"Choose a category": "Choose a category",
+		"All events": "All events",
+		"Hashtag": "Hashtag",
+		"Specify a hashtag": "Specify a hashtag"
+	}
+
+/***/ },
+/* 20 */
+/*!********************************!*\
+  !*** ./class/singleton/map.js ***!
+  \********************************/
+/***/ function(module, exports) {
+
+	module.exports = (function() {
+		var init = function () {
+			var initialLocation;
+			var siberia = new google.maps.LatLng(60, 105);
+			var newyork = new google.maps.LatLng(40.69847032728747, -73.9514422416687);
+			var browserSupportFlag = new Boolean();
+			var map = new google.maps.Map(document.getElementById('map'), {
+				zoom: 9,
+				panControl: false,
+				zoomControl: false,
+				streetViewControl: false,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			});
+			var myloc = new google.maps.Marker({
+				clickable: false,
+				icon: new google.maps.MarkerImage('//maps.gstatic.com/mapfiles/mobile/mobileimgs2.png',
+												 new google.maps.Size(22,22),
+												 new google.maps.Point(0,18),
+												 new google.maps.Point(11,11)),
+				shadow: null,
+				zIndex: 999,
+				map: map
+			});
+	
+			// Try W3C Geolocation (Preferred)
+			if(navigator.geolocation) {
+				browserSupportFlag = true;
+				navigator.geolocation.getCurrentPosition(function(position) {
+					initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+					map.setCenter(initialLocation);
+					myloc.setPosition(initialLocation);
+				}, function() {
+					handleNoGeolocation(browserSupportFlag);
+				});
+			}
+			// Browser doesn't support Geolocation
+			else {
+				browserSupportFlag = false;
+				handleNoGeolocation(browserSupportFlag);
+			}
+		}
+	
+		function handleNoGeolocation(errorFlag) {
+			//TODO: get the last position chosen by cookie or user account
+			// 		or ask user for position
+			//		or do a geo detection by IP (country / city / ...) => http://dev.maxmind.com/geoip/geoip2/geolite2/
+			if (errorFlag === true) {
+				alert("Geolocation service failed.");
+				initialLocation = newyork;
+			} else {
+				alert("Your browser doesn't support geolocation. We've placed you in Siberia.");
+				initialLocation = siberia;
+			}
+			map.setCenter(initialLocation);
+			myloc.setPosition(initialLocation);
+		}
+	
+		// API/data for end-user
+		return {
+			init: init
+		}
+	})();
+
+/***/ },
+/* 21 */
+/*!*********************************!*\
+  !*** ./class/singleton/user.js ***!
+  \*********************************/
+/***/ function(module, exports) {
+
+	module.exports = (function() {
+		// Reference to "this" that won't get clobbered by some other "this"
+		var self = this;
+		// Public methods
+		self.init = function () {
+			//todo: get current user from cookies if any
+		}
+		self.set = function (key, value) {
+			self[key] = value;
+		}
+		self.get = function (key) {
+			return self[key] || null;
+		}
+		return self;
+	})();
+
+/***/ },
+/* 22 */
+/*!************************!*\
+  !*** ./class/query.js ***!
+  \************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = function () {
+		var user = __webpack_require__(/*! ./singleton/user.js */ 21);
+		var xhr;
+		var GOOGLE_BASE_URL = 'https://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=';
+		var ENDPOINT 		= ("https://api.wouaf.it");
+		var KEY 			= ("dece0f2d-5c24-4e36-8d1c-bfe9701fc526");
+	
+		//if needed someday : http://ws.geonames.org/search?q=toulouse&maxRows=5&style=LONG
+	    //or http://api.geonames.org/postalCodeSearch
+	    // Better ====>>> http://open.mapquestapi.com/geocoding/v1/address?location=Toulouse&callback=renderGeocode
+		//doc : http://open.mapquestapi.com/geocoding/
+		
+		//OSM Static maps Images : http://wiki.openstreetmap.org/wiki/Static_map_images
+		//see http://wiki.openstreetmap.org/wiki/StaticMap
+		// http://ojw.dev.openstreetmap.org/StaticMap/ => PHP code : https://trac.openstreetmap.org/browser/sites/other/StaticMap
+		// Better ====>>> http://open.mapquestapi.com/staticmap/
+		
+		//Create user agent using app and platform infos.
+	    //var caps = Ti.Platform.displayCaps;
+	    /*var USER_AGENT = 'Mozilla/5.0 ('+ Ti.Platform.osname +'; U; '+ Ti.Platform.name +' '+ Ti.Platform.version +'; '+ Ti.Platform.getLocale() +'; '+ Ti.Platform.model +'; '+ caps.platformWidth +'/'+ caps.platformHeight +'/'+ caps.dpi +') AppleWebKit/535.7 (KHTML, like Gecko) WouafIT/'+ Ti.App.version +' Mobile Safari/535.7';
+	    if (Ti.Platform.osname != 'mobileweb') {
+	        Titanium.userAgent = USER_AGENT;
+	    }*/
+	    var connectionError = function() {
+			//check if last alert append in the last 2 seconds
+			/*var now = new Date();
+			if (Ti.App.Properties.getInt('connectionAlert') > 0) {
+				if (now.getTime() - Ti.App.Properties.getInt('connectionAlert') > 2000) {
+					var notification =  require('ui/components/notification');
+					new notification(L('error_connecting_to_server_verify_that_your_device_is_properly_connected_and_try_again_later'));
+				}
+			} else {
+				utils.alert(L('error_connecting_to_server_verify_that_your_device_is_properly_connected_and_try_again_later'));
+			}
+			Ti.App.Properties.setInt('connectionAlert', now.getTime());*/
+			alert('connectionError');
+		}
+	    var query = function (params) {
+			for (var i in params.data) {
+				if (params.data[i] === null) {
+					delete params.data[i];
+				}
+			}
+			var xhr_params = {
+				url: params.url,
+				type: params.method,
+				data: params.data,
+				dataType: 'json',
+				timeout: 10000,
+				cache: false,
+				done: function(data) {
+					console.info('success', arguments);
+					params.success(data);
+				},
+				fail: function() {
+					console.info('error', arguments);
+					params.error({});//TODO
+					//throw new Exception('Query error on'+ this.endpoint + path);
+				},
+				always: function() {
+					//nothing ?
+				}
+			}
+			if (params.method == 'DELETE') {
+				//seems to be a probem with DELETE requests ...
+				xhr_params.type = 'POST';
+				xhr_params.headers['X-HTTP-Method-Override'] = 'DELETE';
+			}
+			xhr = $.ajax(xhr_params);
+		}
+		var geocode = function(address, callback) {
+			$.ajax({
+				url: GOOGLE_BASE_URL + address,
+				type: 'GET',
+				data: data,
+				done: function(json) {
+					if (json.status != 'OK' || !json.results[0]) {
+						callback(false);
+						return;
+					}
+					var longitudeDelta = 0.04;
+					var latitudeDelta = 0.04;
+					if (json.results[0].geometry && json.results[0].geometry.viewport) {
+						latitudeDelta = (json.results[0].geometry.viewport.northeast.lat - json.results[0].geometry.viewport.southwest.lat) / 2;
+						longitudeDelta = (json.results[0].geometry.viewport.northeast.lng - json.results[0].geometry.viewport.southwest.lng) / 2;
+						latitudeDelta = Math.round((latitudeDelta) * 1000000) / 1000000;
+						longitudeDelta = Math.round((longitudeDelta) * 1000000) / 1000000;
+					}
+					callback(new utils.LatLng(
+						json.results[0].geometry.location.lat,
+						json.results[0].geometry.location.lng
+					), latitudeDelta, longitudeDelta);
+				},
+				fail: function() {
+					connectionError();
+					callback(false);
+				}
+			});
+		};
+		var self = {
+			connectionError: connectionError,
+			posts: function(params, callback) {
+				var searchId = params.searchId;
+				var q = '?key=' + KEY;
+				for (var i in params) {
+					var param = params[i];
+					if (i == 'type' || i == 'searchId' || i == 'source' || !param) { //remove event or empty params
+					    continue;
+					}
+					if (i == 'tag') {
+						param = params[i][1];
+					} else if (i == 'date' && params[i]) {
+						param = Math.round(params[i].getTime() / 1000);
+					} else if (i == 'cat' && params[i]) {
+						//var serverCategories = Ti.App.Properties.getList('categories');
+						//param = serverCategories[params[i] - 1]['id'];
+					}
+					q += '&' + i + '=' + param;
+				}
+				//Ti.API.info(ENDPOINT + '/wouaf/' + q);
+				query({
+					method: 'GET',
+					url: 	ENDPOINT + '/wouaf/' + q,
+					data:	null,
+					success: function(results) {
+						results.searchId = searchId;
+						results.resultsType = 'wouafit';
+						callback(results);
+					},
+					error:	null
+				});
+				/*
+				if (Ti.Platform.osname != 'mobileweb' && Ti.App.Properties.getString('eventfulKey') && !!Ti.App.Properties.getBool('eventfulSearch')) {
+					//duplicate search on eventful	
+					var q = 'app_key='+ Ti.App.Properties.getString('eventfulKey') +'&units=km&page_size=100&mature=normal&include=categories&sort_order=popularity';
+	                if (!params.date) {
+	                    params.date = new Date();
+	                }
+	                if (!params.duration) {
+	                    params.duration = 86400;
+	                }
+	                for (var i in params) {
+						var param = params[i];
+						if (i == 'type' || i == 'searchId' || i == 'source' || i == 'tag' || i == 'cat' || !param) { //remove event or empty params
+						    continue;
+						}
+						if (i == 'date') {
+							//start
+							var year = param.getFullYear();
+							var month = param.getMonth() + 1;
+							month = month < 10 ? '0' + month : month;
+							var day = param.getDate();
+							day = day < 10 ? '0' + day : day;
+							//end
+						    var endDate = new Date();
+						    endDate.setTime(param.getTime() + ((params.duration - 86400) * 1000));
+						    var endYear = endDate.getFullYear();
+	                        var endMonth = endDate.getMonth() + 1;
+	                        endMonth = endMonth < 10 ? '0' + endMonth : endMonth;
+	                        var endDay = endDate.getDate();
+	                        endDay = endDay < 10 ? '0' + endDay : endDay;
+	                        
+	                        q += '&date=' + year + month + day + '00-' + endYear + endMonth + endDay + '00';
+						} else if (i == 'loc') {
+							q += '&location=' + param;
+						} else if (i == 'radius') {
+							q += '&within=' + param;
+						}
+					}
+					//Ti.API.info(utils.EVENTFUL_API_URL + '/events/search?' + q);
+					query({
+						method: 'GET',
+						url: 	utils.EVENTFUL_API_URL + '/events/search?' + q,
+						data:	null,
+						success:function(results) {
+							var datas = {
+								'count': 0,
+								'results': [],
+								'searchId': searchId,
+								'resultsType': 'eventful'
+							};
+							if (results && results.events && results.events.event) {
+								//Ti.API.info('eventful ok : '+results.events.event.length);
+								//reformat datas
+								datas.count = results.events.event.length;
+								for (var i = 0, l = datas.count; i < l; i++) {
+									var result = results.events.event[i];
+									var data = {
+										'id': result.id,
+										'loc': [result.latitude, result.longitude],
+										'cat': '',
+										'text': result.title,
+										'date': [],
+										'pics': [],
+										'tags': [],
+										'author': ['eventful', (result.owner == 'evdb' ? 'Eventful.com' : result.owner)],
+										'url': result.url
+									};
+									//text
+									var len = data.text.length;
+									if (result.description && len < 200) {
+										var desc = utils.strip_tags(result.description.replace(/<br\s*\/?>/mg, "\n").replace(/\&#39;/g, "'").replace(/\&quot;/g, '"'));
+										if (desc.length + len > 300) {
+											data.text += '\n'+ desc.substr(0, (296 - len)) + ' ...';
+										} else {
+											data.text += '\n'+ desc;
+										}
+									}
+									//categories
+									if (result.categories && result.categories.category && result.categories.category.length) {
+										for (var j = 0, lc = result.categories.category.length; j < lc; j++) {
+											data.cat += data.cat ? ' / ' : '';
+											data.cat += L(result.categories.category[j].id);
+										}
+									} else if (result.categories && result.categories.category && result.categories.category.id) {
+										data.cat = L(result.categories.category.id);
+									}
+									//pics
+									if (result.image && result.image.medium) {
+										data.pics.push({'p': result.image.medium.url});
+									}
+									//timestamp
+									var date = new Date();
+									if (result.created) {
+										date.setFullYear(result.created.substr(0,4));
+										date.setMonth(result.created.substr(5,2) - 1);
+										date.setDate(result.created.substr(8,2));
+										date.setHours(result.created.substr(11,2));
+										date.setMinutes(result.created.substr(14,2));
+										date.setSeconds(result.created.substr(17,2));
+									}
+									data.ts = {'sec': Math.round(date.getTime() / 1000), 'usec': 0};
+									//date start and stop
+									var date = new Date();
+									if (result.start_time) {
+										date.setFullYear(result.start_time.substr(0,4));
+										date.setMonth(result.start_time.substr(5,2) - 1);
+										date.setDate(result.start_time.substr(8,2));
+										date.setHours(result.start_time.substr(11,2));
+										date.setMinutes(result.start_time.substr(14,2));
+										date.setSeconds(result.start_time.substr(17,2));
+									}
+									data.date.push({'sec': Math.round(date.getTime() / 1000), 'usec': 0});
+									if (result.stop_time) {
+										var date = new Date();
+										date.setFullYear(result.stop_time.substr(0,4));
+										date.setMonth(result.stop_time.substr(5,2) - 1);
+										date.setDate(result.stop_time.substr(8,2));
+										date.setHours(result.stop_time.substr(11,2));
+										date.setMinutes(result.stop_time.substr(14,2));
+										date.setSeconds(result.stop_time.substr(17,2));
+										data.date.push({'sec': Math.round(date.getTime() / 1000), 'usec': 0});
+									} else {
+										data.date.push({'sec': Math.round(date.getTime() / 1000) + 86400, 'usec': 0}); //one day
+									}
+									datas.results.push(data);
+								}
+							}
+							callback(datas);
+						},
+						error:	function() {
+						    //empty function to avoid double connection error alert
+						    //Ti.API.info('eventful error');
+	                        //Ti.API.info(JSON.stringify(arguments));
+	                    }
+					});
+				}*/
+			},
+			post: function(id, callback) {
+				var q = id + '?key=' + KEY;
+				query({
+					method: 'GET',
+					url: 	ENDPOINT + '/wouaf/' + q,
+					data:	null,
+					success:callback,
+					error:	null
+				});
+			},
+			init: function(callback) {
+				query({
+					method: 'POST',
+					url: 	ENDPOINT + '/init/',
+					data:	{
+						key: 		KEY,
+						uid: 		user.get('uid'),
+					    token:      user.get('token'),
+	                    locale:     ("en-us")
+	                },
+					success:callback,
+					error:	callback
+				});
+			},
+			login: function(datas, success, error) {
+	            query({
+	                method: 'POST',
+	                url:    ENDPOINT + '/user/login/',
+	                data:  {
+	                    key:        KEY,
+	                    login:      datas.login,
+	                    pass:       datas.pass,
+	                    did:        'web_app'
+	                },
+	                success:success,
+	                error:  error
+	            });
+	        },
+	        fblogin: function(datas, success, error) {
+	            datas.key = KEY;
+	            datas.did = 'web_app';
+	            query({
+	                method: 'POST',
+	                url:    ENDPOINT + '/user/fblogin/',
+	                data:  datas,
+	                success:success,
+	                error:  error
+	            });
+	        },
+	        logout: function(callback) {
+				query({
+					method: 'POST',
+					url: 	ENDPOINT + '/user/logout/',
+					data:	{
+						key: 		KEY,
+						uid: 		user.get('uid'),
+						token: 		Ti.App.Properties.getString('token')
+					},
+					success:callback,
+					error:	callback
+				});
+			},
+			resetPassword: function(email, callback) {
+	            query({
+	                method: 'POST',
+	                url:    ENDPOINT + '/user/resetPassword/',
+	                data:  {
+	                    key:        KEY,
+	                    email:      email
+	                },
+	                success:callback,
+	                error:  callback
+	            });
+	        },
+			createUser: function(datas, success, error) {
+				datas.key = KEY;
+				query({
+					method: 'PUT',
+					url: 	ENDPOINT + '/user/',
+					data:	datas,
+					success:success,
+					error:	error
+				});
+			},
+			updateUser: function(datas, success, error) {
+				datas.key = KEY;
+				datas.uid = Ti.App.Properties.getString('uid');
+				datas.token = Ti.App.Properties.getString('token');
+				query({
+					method: 'PUT',
+					url: 	ENDPOINT + '/user/',
+					data:	datas,
+					success:success,
+					error:	error
+				});
+			},
+			deleteUser: function(callback) {
+	            query({
+	                method: 'DELETE',
+	                url:    ENDPOINT + '/user/',
+	                data:  {
+	                    key:        KEY,
+	                    uid:        user.get('uid'),
+	                    token:      Ti.App.Properties.getString('token')
+	                },
+	                success:callback,
+	                error:  callback
+	            });
+	        },
+	        userPosts: function(uid, callback) {
+	            var q = '?key=' + KEY + '&uid=' + uid;
+	            query({
+	                method: 'GET',
+	                url:    ENDPOINT + '/user/wouaf/' + q,
+	                success:callback,
+	                error:  callback
+	            });
+	        },
+	        userFavorites: function(callback) {
+	            var q = '?key=' + KEY + '&uid=' + Ti.App.Properties.getString('uid') + '&token=' + Ti.App.Properties.getString('token');
+	            query({
+	                method: 'GET',
+	                url:    ENDPOINT + '/user/favorites/' + q,
+	                success:callback,
+	                error:  callback
+	            });
+	        },
+	        createPost: function(datas, callback) {
+				datas.key = KEY;
+				datas.uid = Ti.App.Properties.getString('uid');
+				datas.token = Ti.App.Properties.getString('token');
+				query({
+					method: 'PUT',
+					url: 	ENDPOINT + '/wouaf/',
+					data:	datas,
+					success:callback,
+					error:	callback
+				});
+			},
+			addFavorite: function(id, callback) {
+				var datas = {
+					key: KEY,
+					uid: user.get('uid'),
+					token: user.get('token'),
+					id: id
+				};
+				query({
+					method: 'PUT',
+					url: 	ENDPOINT + '/user/favorite/',
+					data:	datas,
+					success:callback,
+					error:	callback
+				});
+			},
+			removeFavorite: function(id, callback) {
+				var datas = {
+					key: KEY,
+					uid: user.get('uid'),
+					token: user.get('token'),
+					id: id
+				};
+				query({
+					method: 'DELETE',
+					url: 	ENDPOINT + '/user/favorite/',
+					data:	datas,
+					success:callback,
+					error:	callback
+				});
+			},
+			getComments: function(id, callback) {
+	            var q = '?key=' + KEY + '&id=' + id;
+	            query({
+	                method: 'GET',
+	                url:    ENDPOINT + '/wouaf/comment/' + q,
+	                data:  null,
+	                success:callback,
+	                error:  callback
+	            });
+	        },
+			createComment: function(datas, callback) {
+			    datas.key = KEY;
+	            datas.uid = Ti.App.Properties.getString('uid');
+	            datas.token = Ti.App.Properties.getString('token');
+	            query({
+	                method: 'PUT',
+	                url:    ENDPOINT + '/wouaf/comment/',
+	                data:  datas,
+	                success:callback,
+	                error:  callback
+	            });
+			},
+			deleteComment: function(id, callback) {
+	            var datas = {
+					key: KEY,
+					uid: user.get('uid'),
+					token: user.get('token'),
+					id: id
+				};
+	            query({
+	                method: 'DELETE',
+	                url:    ENDPOINT + '/wouaf/comment/',
+	                data:  datas,
+	                success:callback,
+	                error:  callback
+	            });
+	       },
+	       contact: function(datas, callback) {
+	            datas.key = KEY;
+	            datas.uid = Ti.App.Properties.getString('uid');
+	            datas.token = Ti.App.Properties.getString('token');
+	            query({
+	                method: 'POST',
+	                url:    ENDPOINT + '/user/contact/',
+	                data:  datas,
+	                success:callback,
+	                error:  callback
+	            });
+	       },
+	       deletePost: function(id, callback) {
+	            var datas = {
+	                key: KEY,
+	                uid: user.get('uid'),
+	                token: user.get('token'),
+	                id: id
+	            };
+	            query({
+	                method: 'DELETE',
+	                url:    ENDPOINT + '/wouaf/',
+	                data:  datas,
+	                success:callback,
+	                error:  callback
+	            });
+	       },
+	       reportPost: function(id, callback) {
+	            var datas = {
+	                key: KEY,
+	                uid: user.get('uid'),
+	                token: user.get('token'),
+	                id: id
+	            };
+	            query({
+	                method: 'POST',
+	                url:    ENDPOINT + '/wouaf/abuse/',
+	                data:  datas,
+	                success:callback,
+	                error:  callback
+	            });
+	       }
+		}
+		return self;
 	}
 
 /***/ }

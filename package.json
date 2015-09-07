@@ -8,7 +8,9 @@
   "description": "Wouaf IT Web Application",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": 	"echo \"Error: no test specified\" && exit 1",
+	"dev":    	"NODE_ENV=dev webpack -d --progress --colors",
+	"prod": 	"NODE_ENV=production webpack -p"
   },
   "author": "Sébastien PAUCHET",
   "license": "Apache-2.0",
