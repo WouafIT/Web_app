@@ -1,6 +1,8 @@
 module.exports = function () {
 	var user = require('./singleton/user.js');
 	var xhr;
+	//Google geocode usage limits : https://developers.google.com/maps/articles/geocodestrat#client
+	//==> illimited from client (browser) requests
 	var GOOGLE_BASE_URL = 'https://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=';
 	var ENDPOINT 		= API_ENDPOINT;
 	var KEY 			= API_KEY;
@@ -15,13 +17,7 @@ module.exports = function () {
 	// http://ojw.dev.openstreetmap.org/StaticMap/ => PHP code : https://trac.openstreetmap.org/browser/sites/other/StaticMap
 	// Better ====>>> http://open.mapquestapi.com/staticmap/
 	
-	//Create user agent using app and platform infos.
-    //var caps = Ti.Platform.displayCaps;
-    /*var USER_AGENT = 'Mozilla/5.0 ('+ Ti.Platform.osname +'; U; '+ Ti.Platform.name +' '+ Ti.Platform.version +'; '+ Ti.Platform.getLocale() +'; '+ Ti.Platform.model +'; '+ caps.platformWidth +'/'+ caps.platformHeight +'/'+ caps.dpi +') AppleWebKit/535.7 (KHTML, like Gecko) WouafIT/'+ Ti.App.version +' Mobile Safari/535.7';
-    if (Ti.Platform.osname != 'mobileweb') {
-        Titanium.userAgent = USER_AGENT;
-    }*/
-    var connectionError = function() {
+	var connectionError = function() {
 		//check if last alert append in the last 2 seconds
 		/*var now = new Date();
 		if (Ti.App.Properties.getInt('connectionAlert') > 0) {
