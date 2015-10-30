@@ -51,31 +51,128 @@
 		//Slidebars
 		var slidebars = __webpack_require__(/*! ./class/singleton/slidebars.js */ 3);
 		//Load CSS
-		__webpack_require__(/*! ../less/index.less */ 10);
+		__webpack_require__(/*! ../less/index.less */ 14);
 		//i18n
-		var i18n = __webpack_require__(/*! ./class/singleton/i18n.js */ 17);
+		var i18n = __webpack_require__(/*! ./class/singleton/i18n.js */ 10);
+		console.info(i18n);
 		//Map
-		var map = __webpack_require__(/*! ./class/singleton/map.js */ 20);
+		var map = __webpack_require__(/*! ./class/singleton/map.js */ 21);
 		//User
-		var user = __webpack_require__(/*! ./class/singleton/user.js */ 21);
+		var user = __webpack_require__(/*! ./class/singleton/user.js */ 22);
 		//user.set('uid', 'toto');
 		//user.set('token', 'test');
+		//Data
+		var data = __webpack_require__(/*! ./class/singleton/data.js */ 13);
+		console.info('data', data);
+		//data.set('foo', 'bar');
 		//Query
-		var query = __webpack_require__(/*! ./class/query.js */ 22)();
+		var query = __webpack_require__(/*! ./class/query.js */ 23)();
+		var $document = $(document);
+		$document.ready(function() {
+			//logout event : reset all user infos
+			$document.on('app.logout', function() {
+				user.set('uid', null);
+				user.set('token', null);
+				user.set('favorites', null);
+				user.set('today_publications', 0);
+				/*if (Ti.Facebook.loggedIn) {
+					//disconnect facebook login in case of error
+					Ti.Facebook.logout();
+				}*/
+			});
 	
-		$(document).ready(function() {
-			//Init Slidebars
-			slidebars.init();
-			//Init Map
-			map.init();
-			//Translate HTML
-			//i18n.init(); //nothing to translate currently
-			//Init server Query
-			query.init(console.info);
+			$document.on('app.start', function() {
+				//Init Map
+				map.init();
+				//Init translations
+				console.info(i18n);
+				i18n.init();
+				/*var activityIndicator = new activity({
+					message: L('initializing')
+				});
+				activityIndicator.show();*/
 	
-			if (true) {
-				console.info('all done (dev mode)');
+	
+	
+				//init with server infos
+				query.init(function (infos) {
+					console.info(data);
+					//update token and favorites if any
+					if (infos.token) {
+						user.set('token', infos.token);
+						user.set('today_publications', infos.today_publications);
+						if (infos.favorites) {
+							user.set('favorites', infos.favorites);
+						}
+					} else {
+						//logout
+						$document.triggerHandler('app.logout');
+					}
+					//update categories
+					if (infos.categories) {
+						data.set('categories', infos.categories);
+					}
+					//hide loader
+					//activityIndicator.hide();
+	
+					//show server message
+					/*if (infos.message) {
+						//show message page
+						var messageWindow = require('ui/message');
+						var message = new messageWindow(infos.message);
+						message.addEventListener('close', slidebars.init);
+						message.open();
+					} else {*/
+						slidebars.init()
+					//}
+				});
+	
+				if (true) {
+					console.info('all done (dev mode)');
+				}
+			});
+	
+	
+			//launch count
+			if (!data.get('launchCount')) {
+				data.set('launchCount', 1);
+			} else {
+				data.set('launchCount', data.get('launchCount') + 1);
 			}
+	
+			//Orientation events
+			/*Ti.Gesture.addEventListener('orientationchange', function(e) {
+				Ti.App.fireEvent('app.orientation', e);
+			});*/
+			data.set('connectionAlert', 0);
+			//show welcome page on first launch
+			if (data.get('launchCount') == 1) {
+				//init default app vars
+				data.set('rules', false);
+				data.set('fbPost', true);
+				data.set('allowContact', true);
+				data.set('postNotif', true);
+				data.set('commentNotif', true);
+				//Ti.App.Properties.setBool('eventfulSearch', true);
+				data.set('unit', 'km');
+				data.set('radius', 150);
+				data.set('categories', []);
+	
+				/*//show welcome page
+				var welcomeWindow = require('ui/welcome');
+				var welcome = new welcomeWindow();
+				welcome.addEventListener('close', function () {
+					//launch app
+					$document.triggerHandler('app.start');
+				});
+				welcome.open();*/
+			} else {
+				//launch app
+				//$document.triggerHandler('app.start');
+			}
+	
+			//launch app
+			$document.triggerHandler('app.start');
 		});
 	}) (jQuery);
 
@@ -96,13 +193,30 @@
 	module.exports = (function() {
 		// private functions
 		function init () {
+			//i18n
+			var i18n = __webpack_require__(/*! ./i18n.js */ 10);
+	
 			$.slidebars();
 			//Dom Events
 			$('#when').on({
 				'change': showHideCustomDates
 			});
 			showHideCustomDates();
+			//populate categories list
+			var data = __webpack_require__(/*! ./data.js */ 13);
 	
+			//set categories values
+			var categories = data.get('categories');
+			var $what = $('#what');
+			$what.append('<option value="">'+ i18n.t('All events') +'</option>');
+			if (categories) {
+				for(var i = 0, l = categories.length; i < l; i++) {
+					//console.info(categories[i]['label']);
+					$what.append('<option value="'+ categories[i]['id'] +'">'+ i18n.t(categories[i]['label']) +'</option>');
+				}
+			}
+	
+			//$('#what')
 			$('#search form').on({
 				'submit': function() {
 					if(true) {
@@ -843,123 +957,36 @@
 
 /***/ },
 /* 10 */
-/*!**************************!*\
-  !*** ../less/index.less ***!
-  \**************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-	
-	// load the styles
-	var content = __webpack_require__(/*! !./../../~/css-loader!./../../~/postcss-loader!./../../~/less-loader!./index.less */ 11);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(/*! ./../../~/style-loader/addStyles.js */ 9)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/postcss-loader/index.js!./../../node_modules/less-loader/index.js!./index.less", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/postcss-loader/index.js!./../../node_modules/less-loader/index.js!./index.less");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 11 */
-/*!*************************************************************************************************************************************!*\
-  !*** /mnt/windows/wouafit/~/css-loader!/mnt/windows/wouafit/~/postcss-loader!/mnt/windows/wouafit/~/less-loader!../less/index.less ***!
-  \*************************************************************************************************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(/*! ./../../~/css-loader/lib/css-base.js */ 8)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, "a,\n.btn-link {\n  color: #2b9d48;\n}\na:focus,\n.btn-link:focus,\na:hover,\n.btn-link:hover,\na:active,\n.btn-link:active {\n  color: #154d23;\n}\n.btn-primary {\n  background-color: #2b9d48;\n  border-color: #2b9d48;\n}\n.btn-primary:hover,\n.btn-primary:active {\n  background-color: #154d23;\n  border-color: #154d23;\n}\n.form-control:focus {\n  border-color: #5cd27a;\n}\n@media (max-width: 480px) {\n  /* Slidebar widths on extra small screens. */\n  .sb-width-wide {\n    width: 85%;\n  }\n}\n@media (min-width: 481px) {\n  /* Slidebar widths on small screens. */\n  .sb-width-wide {\n    width: 400px;\n  }\n}\n@media (min-width: 768px) {\n  /* Slidebar widths on medium screens. */\n  .sb-width-wide {\n    width: 400px;\n  }\n}\n@media (min-width: 992px) {\n  /* Slidebar widths on large screens. */\n  .sb-width-wide {\n    width: 525px;\n  }\n}\n@media (min-width: 1200px) {\n  /* Slidebar widths on extra large screens. */\n  .sb-width-wide {\n    width: 525px;\n  }\n}\n@font-face {\n  font-family: \"harlequinflfregular\";\n  src: url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.eot */ 12) + ");\n  src: url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.eot */ 12) + "?#iefix) format('embedded-opentype'), url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.woff */ 13) + ") format('woff'), url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.ttf */ 14) + ") format('truetype'), url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.svg */ 15) + "#RanchoRegular) format('svg');\n  font-style: normal;\n  font-weight: 400;\n}\n::selection {\n  background: #5cd27a;\n}\nhtml,\nbody {\n  height: 100%;\n  margin: 0;\n  padding: 0;\n  background-color: #ffffff;\n}\n#sb-site,\n#map {\n  height: 100%;\n}\n#menu {\n  position: absolute;\n  top: 1em;\n  left: 1em;\n  z-index: 100;\n  background-color: rgba(255, 255, 255, 0.6);\n  padding: 0.3em;\n  border: 1px solid #cccccc;\n  border-radius: 0.3em;\n  cursor: pointer;\n}\n.sb-slidebar {\n  background-color: #ffffff;\n  border-right: 0, 125rem solid #cccccc;\n}\n.sb-slidebar .tab-content {\n  padding: 0.3em;\n}\n.sb-slidebar header {\n  color: #ffffff;\n  background-color: #2b9d48;\n  margin-bottom: 0.1rem;\n  border-bottom: 1px solid #26893f;\n}\n.sb-slidebar header h1.logo {\n  font-family: 'harlequinflfregular';\n  text-transform: uppercase;\n  height: 4.6875rem;\n  background: url(" + __webpack_require__(/*! ../img/logo-75.png */ 16) + ") top left no-repeat;\n  padding-left: 4.6875rem;\n  padding-top: 1.25rem;\n  margin-bottom: 0;\n  font-size: 2.3rem;\n}\n.sb-slidebar header nav {\n  position: relative;\n  right: 0.5rem;\n  z-index: 2;\n}\n.sb-slidebar header nav a,\n.sb-slidebar header nav .btn-link {\n  color: #ffffff;\n}\n.sb-slidebar header nav a:focus,\n.sb-slidebar header nav .btn-link:focus,\n.sb-slidebar header nav a:hover,\n.sb-slidebar header nav .btn-link:hover,\n.sb-slidebar header nav a:active,\n.sb-slidebar header nav .btn-link:active {\n  color: #154d23;\n}\n.sb-slidebar header nav .btn-link {\n  padding: 0;\n}\n.sb-slidebar footer {\n  position: fixed;\n  bottom: 0;\n  width: 100%;\n  background-color: #cccccc;\n  color: #2b9d48;\n}\n", ""]);
-	
-	// exports
-
-
-/***/ },
-/* 12 */
-/*!*****************************************!*\
-  !*** ../fonts/harlequinflf-webfont.eot ***!
-  \*****************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "_/fonts/harlequinflf-webfont-7cbc37.eot"
-
-/***/ },
-/* 13 */
-/*!******************************************!*\
-  !*** ../fonts/harlequinflf-webfont.woff ***!
-  \******************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "_/fonts/harlequinflf-webfont-f6d22e.woff"
-
-/***/ },
-/* 14 */
-/*!*****************************************!*\
-  !*** ../fonts/harlequinflf-webfont.ttf ***!
-  \*****************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "_/fonts/harlequinflf-webfont-59f502.ttf"
-
-/***/ },
-/* 15 */
-/*!*****************************************!*\
-  !*** ../fonts/harlequinflf-webfont.svg ***!
-  \*****************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "_/fonts/harlequinflf-webfont-33186d.svg"
-
-/***/ },
-/* 16 */
-/*!**************************!*\
-  !*** ../img/logo-75.png ***!
-  \**************************/
-/***/ function(module, exports) {
-
-	module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEsAAABLCAIAAAC3LO29AAALB0lEQVR42s2ceXAT5xXAZUm2ZNmWL1m2fMmWZFnaUzbmMpZPyauV5FDoAD0o0LoEgkvSZIJJmzChg8thWicU25ItycYnnQxToIRJc5QUOnTaQqFNSjvNQDtJJ51p/+jf/SMz9O2ucGTZ1u7KcrTffOPh2G93f/ve9659a5ntXJc96LYHhM1Rt32EnaOCl8RMJNCNBigsyEz4MxJI5iQiZtANdDJ7sBud9KATfDPiQSIUOu3F5nzYjI9ZEhawKmbik157hKoedVaMbKkcabGEuuBfRJ1B9Jz0AJ0MWDmARDPsQSY8xIwfG+iwHdyIHm0hQjQ+50PCFMMZ4Z/4hNcUbG+a8J74zeDEg9nh++PbLu0zjrSgEVrI8iTnhAfoBBAC3qSHGPMYPTa1WiWTyRQKRZFZb+3bQM74gJwXkpjw1gbb9/y878NP7l2/fPXcj4amw5MP/no/8Idxa7ADILH0EiIRDznpLd9cA2yyDHayQyGTV7msZJhGJhNB4hO0aazjy5e++feP/7a9ZzsslMvl8NNQarj5ixtj9yLG0RaQcPoIQxQ+5zfvdjBciidwgCnPgMnc6PpqMuRNCEkjwY5b/3i/r/cZTv7M8gxmbaWh8s9/ub/78tOWsS5sgk4HIejnBQ9+rju3RLtwW7GDg6xoNTumlt+TIMCaYPuzb/ff/f3tgoICOLjcYBgZGfZ6vdwZzpw4+c6jt8yBtvQQIqwALXsbmXuRx+M9oWS4TTsI4qIfjl+6A8FyDt0dffvam9zhp0+devz48cOHD7XaPPjr/n29f/zP/bpAx5qYHH7CsIe44C1By5cVYAwksyetz2yAxxEHCYRVo86B22dvvvcep59Op/PRo0cnBwa4pc/3PXfnX7+zBNrTIUNQ0SmaONWl0qiiNkaWQIoydW42frwNm/GiMZBYhLaG3N2zOz54dGedYx1nZtQqlUIu51a9eeXy4O2zpvQQhihs3lfXt0EBcCvjRQerw8VmPRH0xPkPEGPlcPP5e8H5yWk4RqlUAltmZib8mersvvfJXTzstocpEQ4DTg57PsTO8CoIQd/IuZ4qT92CRUk8uGNqt6HEYl2FW7eFKfD1Dz79oMPZzkFyS2798sZLv/oBqDEh0FuEmecOkQpoCjbrg4leoBkLlyRhhCInfGVklUBCTs7ZeRr8rAvUO06MgHHk/VcBCXSa25Df2X/o1/+8aRp1YkLwwswTR2HXzPnxgAd51Wnr22g/vAkbcuEQdYST01KIJMc8hVU6HjOzRFere+zkfLzJAQzTaOutj28e+vZBOKZMX/anD+9u/1mveawT592BIQr8LT7vx8+4qv32gopi7hnB0ORprAfWs5CUSEJ4Khdo/DVXtlaT2MwsNTn5hkLiPIUujgE4x7j3+uG7d34Lxxzr//6lj65UDTcTkz5ePNBJcow2bkXVOdmLVIYJjWQqlQp9uRVdbOGEEU570eOtXIQlYrDPov7QRkhB0CVitATa3n347p6du99659quawcgmkssQFAE5jyvthXW6LiTZ7Dj86spmNvToeXwpJjURxQhNutFXtySIVB8ixW1bFMNObOMb6wJth2+/tJ/P/33lftXbaFOHg8B8ca8z/Z8szpHndgWZMqV9pedjKOK09VEhOzDsx3aJJIvqqiavBx80IUutjdgVOvD3a1TWz/77H9nbg4ZA60JAm5OerYXmrOyMllZZSR+pqZtOMQb8YrKS2jtXZ8heBPGuY0acBsQx43Ha059yHX7oxv7rj4H8lyRkN0j2A87NbnZvHaO+189UQEJULyi8hDO+yx71snEEy64DexUJ2sA4nOxrpmdjZM99giVOF8rdVTySC+GMKc4l3y9G/KERTEAL6H5aw3JED65arFVTwaXyR6tEMSsjMdcetaHHNkilwkzAlzMqFHjA53oNC2CEPyP6auO5AjZ7cH8qHCaiSlvXGKFJUzq4WByylfaKC7SgFgXPd6OzogivOiv3UEkT8hCwlLLNxrIN55idkiI4o1dYN+C7oCzkQu/LidDNRB2iCas3o4tSCOZwd4iBNmmnQQZYSLJKOdC0BxeErtM0eSwB2KGhVsXSJgNmc3JrrhoMREhGGvHfI+h3SRUVRJywvoiix48G/hlqNCBWcchaJ5mah/IAuo4g+cY9+pZAyMTfFFuz+eV5TuGqfg9vyJhNGRz5+q0IoLSBITsGSAnLLTqjbS9bm9D/Xc3IgPtxLCHBCcG9hYud9EPsZ4OMYjC+7ySsrmWmF4Sna5IyBQvfHW968RejFeXYocqS5VfVlDpqkO+58QGO+u+1aStKExGZdjjLV9vEOPx2fKMsduWSsKFu+GKdDFnhdA3U5WZEaNyYocyQ2E71iImamMJK9ssqSeMEysLHKfMSTjevCIt9po7LkjkJ6xy1a8xYbzVTWYde3tFVr0jzIZsoggtuxtSYEjXerCerOZLKD6/TC0zoS2dorHBLk1+Tgps6RoP8LfY8TYmmw2Ly/EpfMZre3aTSqNeVVizpqrN5aLrqiHKQyJUMrU24qc91gMb5DKpypA1yZanm5ZXUSE1bzsUFGf85ZtrJbohM5jI13xwPYSyaHKEXBXI/kprpiJTmlJkPOGLzVBwSZaQffVLBuj8yiKpiTGagtoN5JRvxaKw0PeHs766/U2K5FOMtUKEH1pjERFiagKrewccphzT/rL11dISI5f45qnJIXd88UL0e3ymouGt79skLaPKEeaqiUEXcoFeHSF7KDFM5ZUViEhMvxh3D5XSI040eUsT+zJ43l8TTfkzpLMPNdoc/HTXMjG3aBkyBUwaO9GhVqulIkbO3e9pYNp6QtTq+mme1DAhfi8wFUvC3rCPuKrLSs76k39/uGzbSfmaJ41CR5YqCz3NFUhTSli7FU87IadBJfVlBJMTpqTrK6Z4Y/mKI/0yZK9e5asn5/xI4hqsaMJZn2WXBAjZgNt6cOOKAfdqtNToQ6RBKLP0NqWYEFJMx4xfh5en3ZZyVy93maFVJHVaCv0u0976gxuUckXaU36OUGctI8a9PL2fomQIL9yL60olUbZhbyC3KA8950ZXikiTidqmoMXUJJOMu88pyENfd6WIkC29Nc4+ZWgySoEw2tNSVogNx/e0JEUI66GQccwJL8qVWZKoZUSze3MpMUanYB9C0EBE6FKiMv1OYrGlKW2qdEwlDEqFVqJmffX9zUoZW8SQSGLI9ZZtQ5bt2U2u1ubM4mptkkl9wWkhR7nEd9VxabRvgC3SSEFLuU1YWFtChOnU9Oozle85v8FZK5V9yDlDvZY4381jSAVbGsoR8eabpZH4LpRnlEr8lTbm9Xg4Fd9bQPtXtF1fUvuwvyU1+5ARI5S9I16d3SAdMQIh2u9MGSHXAcZ28UiiAMVoqTorUYktmS+7oMF6oBP6CdKfWLCWpsReDt2qSMq+XeOa0cJ0QW1J+nMLtlUR7ALOW8IQXfMepXJLtektlkb7Emp0/BGpyH3ogT2N9DvhZV3ag7Viix472cG/A8XZUnD6F/3GHSh7mXQamJyCXPLH7qU98qv/wpJyTPpLGyvT5i2410zZauQo0/iECMQTnh8yX3OM0UXVurSZGa5XfRdBvNEjAk84IdSgkOOtmU8+VkqLe8gpzMWHoCrjEfhhtShCtuv6hc3p8oTRylpjBdQyefLdFQkTf48Px0158GFKW1qYFi2NVmWqi4lR5pNd7r7FfY/P8zsVRt22oBv9SXdxrV6hVKhy1Fka1Rc54YqKLKVWl4+e7rKNd4v7XQ7s71T4P8nmF/tQISOdAAAAAElFTkSuQmCC"
-
-/***/ },
-/* 17 */
 /*!*********************************!*\
   !*** ./class/singleton/i18n.js ***!
   \*********************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	//i18next
-	var i18n = __webpack_require__(/*! ../../../libs/i18next/1.10.1/i18next-1.10.1.js */ 18);
-	var $ 	 = __webpack_require__(/*! jquery */ 4);
-	
 	module.exports = (function() {
-		var init = function () {
-			//Init plugin with current language
-			i18n.init({ resStore: {dev: {translation: __webpack_require__(/*! ../../../../languages/fr-fr.json */ 19)} } });
-			//Translate base HTML
-			$("body").i18n();
-		}
+		var self = this;
+		//i18next
+		var i18next = __webpack_require__(/*! ../../../libs/i18next/1.10.1/i18next-1.10.1.js */ 11);
+		//var $ 	 = require('jquery');
 	
-		// API/data for end-user
-		return {
-			init: init
-		}
+		console.info('start init');
+		//Init plugin with current language
+		i18next.init({ resStore: {dev: {translation: __webpack_require__(/*! ../../../../languages/fr-fr.json */ 12)} } });
+		//Translate base HTML
+		console.info('end init');//, i18n.t('All events'), '---');
+	
+		// Public methods
+		self.init = function () {
+	
+	
+	
+			//$("body").i18n();
+		};
+		self.t = i18next.t;
+		return self;
 	})();
 
-
 /***/ },
-/* 18 */
+/* 11 */
 /*!************************************************!*\
   !*** ../libs/i18next/1.10.1/i18next-1.10.1.js ***!
   \************************************************/
@@ -3251,7 +3278,7 @@
 	})( false ? window : exports);
 
 /***/ },
-/* 19 */
+/* 12 */
 /*!*************************************************!*\
   !*** /mnt/windows/wouafit/languages/fr-fr.json ***!
   \*************************************************/
@@ -3288,13 +3315,135 @@
 		"End": "Fin",
 		"What?": "Quoi ?",
 		"Choose a category": "Choississez une catégorie",
-		"All events": "Tous les évènements",
 		"Hashtag": "Hashtag",
-		"Specify a hashtag": "Cherchez un hashtag"
+		"Specify a hashtag": "Cherchez un hashtag",
+		"All events": "Tous les évènements",
+		"Events": "Evénements",
+		"Out": "Sorties",
+		"Purchases / Sales": "Achats / Ventes",
+		"Lost / Found": "Perdus / Trouvés",
+		"Donations": "Dons",
+		"Exchanges": "Echanges",
+		"Services": "Services",
+		"Others": "Autres"
 	}
 
 /***/ },
+/* 13 */
+/*!*********************************!*\
+  !*** ./class/singleton/data.js ***!
+  \*********************************/
+/***/ function(module, exports) {
+
+	module.exports = (function() {
+		// Reference to "this" that won't get clobbered by some other "this"
+		var self = this;
+		// Public methods
+		self.init = function () {
+			//todo: get current data from cookies if any
+		}
+		self.set = function (key, value) {
+			self[key] = value;
+		}
+		self.get = function (key) {
+			return self[key] || null;
+		}
+		return self;
+	})();
+
+/***/ },
+/* 14 */
+/*!**************************!*\
+  !*** ../less/index.less ***!
+  \**************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(/*! !./../../~/css-loader!./../../~/postcss-loader!./../../~/less-loader!./index.less */ 15);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(/*! ./../../~/style-loader/addStyles.js */ 9)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/postcss-loader/index.js!./../../node_modules/less-loader/index.js!./index.less", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/postcss-loader/index.js!./../../node_modules/less-loader/index.js!./index.less");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 15 */
+/*!*************************************************************************************************************************************!*\
+  !*** /mnt/windows/wouafit/~/css-loader!/mnt/windows/wouafit/~/postcss-loader!/mnt/windows/wouafit/~/less-loader!../less/index.less ***!
+  \*************************************************************************************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(/*! ./../../~/css-loader/lib/css-base.js */ 8)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, "a,\n.btn-link {\n  color: #2b9d48;\n}\na:focus,\n.btn-link:focus,\na:hover,\n.btn-link:hover,\na:active,\n.btn-link:active {\n  color: #154d23;\n}\n.btn-primary {\n  background-color: #2b9d48;\n  border-color: #2b9d48;\n}\n.btn-primary:hover,\n.btn-primary:active {\n  background-color: #154d23;\n  border-color: #154d23;\n}\n.form-control:focus {\n  border-color: #5cd27a;\n}\n@media (max-width: 480px) {\n  /* Slidebar widths on extra small screens. */\n  .sb-width-wide {\n    width: 85%;\n  }\n}\n@media (min-width: 481px) {\n  /* Slidebar widths on small screens. */\n  .sb-width-wide {\n    width: 400px;\n  }\n}\n@media (min-width: 768px) {\n  /* Slidebar widths on medium screens. */\n  .sb-width-wide {\n    width: 400px;\n  }\n}\n@media (min-width: 992px) {\n  /* Slidebar widths on large screens. */\n  .sb-width-wide {\n    width: 525px;\n  }\n}\n@media (min-width: 1200px) {\n  /* Slidebar widths on extra large screens. */\n  .sb-width-wide {\n    width: 525px;\n  }\n}\n@font-face {\n  font-family: \"harlequinflfregular\";\n  src: url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.eot */ 16) + ");\n  src: url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.eot */ 16) + "?#iefix) format('embedded-opentype'), url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.woff */ 17) + ") format('woff'), url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.ttf */ 18) + ") format('truetype'), url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.svg */ 19) + "#RanchoRegular) format('svg');\n  font-style: normal;\n  font-weight: 400;\n}\n::selection {\n  background: #5cd27a;\n}\nhtml,\nbody {\n  height: 100%;\n  margin: 0;\n  padding: 0;\n  background-color: #ffffff;\n}\n#sb-site,\n#map {\n  height: 100%;\n}\n#menu {\n  position: absolute;\n  top: 1em;\n  left: 1em;\n  z-index: 100;\n  background-color: rgba(255, 255, 255, 0.6);\n  padding: 0.3em;\n  border: 1px solid #cccccc;\n  border-radius: 0.3em;\n  cursor: pointer;\n}\n.sb-slidebar {\n  background-color: #ffffff;\n  border-right: 0, 125rem solid #cccccc;\n}\n.sb-slidebar .tab-content {\n  padding: 0.3em;\n}\n.sb-slidebar header {\n  color: #ffffff;\n  background-color: #2b9d48;\n  margin-bottom: 0.1rem;\n  border-bottom: 1px solid #26893f;\n}\n.sb-slidebar header h1.logo {\n  font-family: 'harlequinflfregular';\n  text-transform: uppercase;\n  height: 4.6875rem;\n  background: url(" + __webpack_require__(/*! ../img/logo-75.png */ 20) + ") top left no-repeat;\n  padding-left: 4.6875rem;\n  padding-top: 1.25rem;\n  margin-bottom: 0;\n  font-size: 2.3rem;\n}\n.sb-slidebar header nav {\n  position: relative;\n  right: 0.5rem;\n  z-index: 2;\n}\n.sb-slidebar header nav a,\n.sb-slidebar header nav .btn-link {\n  color: #ffffff;\n}\n.sb-slidebar header nav a:focus,\n.sb-slidebar header nav .btn-link:focus,\n.sb-slidebar header nav a:hover,\n.sb-slidebar header nav .btn-link:hover,\n.sb-slidebar header nav a:active,\n.sb-slidebar header nav .btn-link:active {\n  color: #154d23;\n}\n.sb-slidebar header nav .btn-link {\n  padding: 0;\n}\n.sb-slidebar footer {\n  position: fixed;\n  bottom: 0;\n  width: 100%;\n  background-color: #cccccc;\n  color: #2b9d48;\n}\n", ""]);
+	
+	// exports
+
+
+/***/ },
+/* 16 */
+/*!*****************************************!*\
+  !*** ../fonts/harlequinflf-webfont.eot ***!
+  \*****************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "_/fonts/harlequinflf-webfont-7cbc37.eot"
+
+/***/ },
+/* 17 */
+/*!******************************************!*\
+  !*** ../fonts/harlequinflf-webfont.woff ***!
+  \******************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "_/fonts/harlequinflf-webfont-f6d22e.woff"
+
+/***/ },
+/* 18 */
+/*!*****************************************!*\
+  !*** ../fonts/harlequinflf-webfont.ttf ***!
+  \*****************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "_/fonts/harlequinflf-webfont-59f502.ttf"
+
+/***/ },
+/* 19 */
+/*!*****************************************!*\
+  !*** ../fonts/harlequinflf-webfont.svg ***!
+  \*****************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "_/fonts/harlequinflf-webfont-33186d.svg"
+
+/***/ },
 /* 20 */
+/*!**************************!*\
+  !*** ../img/logo-75.png ***!
+  \**************************/
+/***/ function(module, exports) {
+
+	module.exports = "data:image/png;base64,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"
+
+/***/ },
+/* 21 */
 /*!********************************!*\
   !*** ./class/singleton/map.js ***!
   \********************************/
@@ -3309,8 +3458,15 @@
 			var map = new google.maps.Map(document.getElementById('map'), {
 				zoom: 9,
 				panControl: false,
-				zoomControl: false,
 				streetViewControl: false,
+				mapTypeControl: true,
+				mapTypeControlOptions: {
+					position: google.maps.ControlPosition.TOP_RIGHT
+				},
+				zoomControl: true,
+				zoomControlOptions: {
+					position: google.maps.ControlPosition.LEFT_BOTTOM
+				},
 				mapTypeId: google.maps.MapTypeId.ROADMAP
 			});
 			var myloc = new google.maps.Marker({
@@ -3364,7 +3520,7 @@
 	})();
 
 /***/ },
-/* 21 */
+/* 22 */
 /*!*********************************!*\
   !*** ./class/singleton/user.js ***!
   \*********************************/
@@ -3387,19 +3543,24 @@
 	})();
 
 /***/ },
-/* 22 */
+/* 23 */
 /*!************************!*\
   !*** ./class/query.js ***!
   \************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = function () {
-		var user = __webpack_require__(/*! ./singleton/user.js */ 21);
+		var user = __webpack_require__(/*! ./singleton/user.js */ 22);
 		var xhr;
+		//Google geocode usage limits : https://developers.google.com/maps/articles/geocodestrat#client
+		//==> illimited from client (browser) requests
 		var GOOGLE_BASE_URL = 'https://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=';
 		var ENDPOINT 		= ("https://api.wouaf.it");
-		var KEY 			= ("dece0f2d-5c24-4e36-8d1c-bfe9701fc526");
-	
+		if (true) {
+			var KEY 			= ("deve0f2d-5c24-4e36-8d1c-bfe9701fcdev");
+		} else {
+			var KEY 			= API_KEY_PROD;
+		}
 		//if needed someday : http://ws.geonames.org/search?q=toulouse&maxRows=5&style=LONG
 	    //or http://api.geonames.org/postalCodeSearch
 	    // Better ====>>> http://open.mapquestapi.com/geocoding/v1/address?location=Toulouse&callback=renderGeocode
@@ -3410,13 +3571,7 @@
 		// http://ojw.dev.openstreetmap.org/StaticMap/ => PHP code : https://trac.openstreetmap.org/browser/sites/other/StaticMap
 		// Better ====>>> http://open.mapquestapi.com/staticmap/
 		
-		//Create user agent using app and platform infos.
-	    //var caps = Ti.Platform.displayCaps;
-	    /*var USER_AGENT = 'Mozilla/5.0 ('+ Ti.Platform.osname +'; U; '+ Ti.Platform.name +' '+ Ti.Platform.version +'; '+ Ti.Platform.getLocale() +'; '+ Ti.Platform.model +'; '+ caps.platformWidth +'/'+ caps.platformHeight +'/'+ caps.dpi +') AppleWebKit/535.7 (KHTML, like Gecko) WouafIT/'+ Ti.App.version +' Mobile Safari/535.7';
-	    if (Ti.Platform.osname != 'mobileweb') {
-	        Titanium.userAgent = USER_AGENT;
-	    }*/
-	    var connectionError = function() {
+		var connectionError = function() {
 			//check if last alert append in the last 2 seconds
 			/*var now = new Date();
 			if (Ti.App.Properties.getInt('connectionAlert') > 0) {
@@ -3443,16 +3598,13 @@
 				dataType: 'json',
 				timeout: 10000,
 				cache: false,
-				done: function(data) {
-					console.info('success', arguments);
-					params.success(data);
-				},
-				fail: function() {
+				success: params.success,
+				error: function() {
 					console.info('error', arguments);
 					params.error({});//TODO
 					//throw new Exception('Query error on'+ this.endpoint + path);
 				},
-				always: function() {
+				complete: function() {
 					//nothing ?
 				}
 			}

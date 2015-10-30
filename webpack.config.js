@@ -1,7 +1,7 @@
 var webpack = require("webpack");
 var languages = {
-	"fr-fr": require('./languages/fr-fr.json'),
-	"en-us": require('./languages/en-us.json')
+	"fr-fr": './languages/fr-fr.json',
+	"en-us": './languages/en-us.json'
 };
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -31,7 +31,8 @@ module.exports = Object.keys(languages).map(function(language) {
 		plugins: [
 			new webpack.DefinePlugin({
 				"API_ENDPOINT": JSON.stringify('https://api.wouaf.it'),
-				"API_KEY": 		JSON.stringify('dece0f2d-5c24-4e36-8d1c-bfe9701fc526'),
+				"API_KEY_PROD": JSON.stringify('dece0f2d-5c24-4e36-8d1c-bfe9701fc526'),
+				"API_KEY_DEV": 	JSON.stringify('deve0f2d-5c24-4e36-8d1c-bfe9701fcdev'),
 				"LANGUAGE": 	JSON.stringify(language),
 				__DEV__: 		JSON.stringify(JSON.parse(process.env.NODE_ENV === 'dev'))
 			}),
@@ -43,7 +44,7 @@ module.exports = Object.keys(languages).map(function(language) {
 					language: language,
 					time: Math.floor(Date.now() / 1000)
 				},
-				i18n: languages[language]
+				i18n: require(languages[language])
 			})
 		],
 		externals: {

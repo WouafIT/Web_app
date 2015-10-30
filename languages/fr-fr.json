@@ -29,7 +29,16 @@
 	"End": "Fin",
 	"What?": "Quoi ?",
 	"Choose a category": "Choississez une catégorie",
-	"All events": "Tous les évènements",
 	"Hashtag": "Hashtag",
-	"Specify a hashtag": "Cherchez un hashtag"
+	"Specify a hashtag": "Cherchez un hashtag",
+
+	"All events": "Tous les évènements",
+	"Events": "Evénements",
+	"Out": "Sorties",
+	"Purchases / Sales": "Achats / Ventes",
+	"Lost / Found": "Perdus / Trouvés",
+	"Donations": "Dons",
+	"Exchanges": "Echanges",
+	"Services": "Services",
+	"Others": "Autres"
 }

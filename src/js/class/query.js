@@ -5,8 +5,11 @@ module.exports = function () {
 	//==> illimited from client (browser) requests
 	var GOOGLE_BASE_URL = 'https://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=';
 	var ENDPOINT 		= API_ENDPOINT;
-	var KEY 			= API_KEY;
-
+	if (__DEV__) {
+		var KEY 			= API_KEY_DEV;
+	} else {
+		var KEY 			= API_KEY_PROD;
+	}
 	//if needed someday : http://ws.geonames.org/search?q=toulouse&maxRows=5&style=LONG
     //or http://api.geonames.org/postalCodeSearch
     // Better ====>>> http://open.mapquestapi.com/geocoding/v1/address?location=Toulouse&callback=renderGeocode
@@ -44,16 +47,13 @@ module.exports = function () {
 			dataType: 'json',
 			timeout: 10000,
 			cache: false,
-			done: function(data) {
-				console.info('success', arguments);
-				params.success(data);
-			},
-			fail: function() {
+			success: params.success,
+			error: function() {
 				console.info('error', arguments);
 				params.error({});//TODO
 				//throw new Exception('Query error on'+ this.endpoint + path);
 			},
-			always: function() {
+			complete: function() {
 				//nothing ?
 			}
 		}

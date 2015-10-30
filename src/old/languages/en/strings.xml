@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<string name="map">Map</string>	
+	<string name="settings">Settings</string>
+	<string name="search">Search</string>	
+	<string name="post">Publish</string>
+	<string name="where">Where</string>	
+	<string name="when">When</string>	
+	<string name="what">What</string>
+	<string name="tags">Tags</string>	
+	<string name="list">List</string>
+	<string name="your_wouaf">Your Wouafs</string>
+	<string name="categories">Categories</string>
+	<string name="every">All</string>
+	<string name="all">All</string>
+	<string name="your_profile">Your profile</string>
+	<string name="logout">Logout</string>
+	<string name="login">Login</string>
+	<string name="app_params">Application parameters</string>
+	<string name="about">About</string>
+	<string name="center_map">Center the map on you...</string>
+	<string name="geolocation_error">Geolocation error...</string>
+	<string name="wouaf_update">Update Wouafs...</string>
+	<string name="wouaf_update_arround__km">Update Wouafs around %1$skm</string>
+	<string name="wouaf_update_arround__miles">Update Wouafs around %1$s miles</string>
+	<string name="_wouaf_maximum_reached">%1$s Wouafs (maximum reached)</string>
+	<string name="_wouaf">%1$s Wouaf</string>
+	<string name="_wouafs">%1$s Wouafs</string>
+	<string name="enter_an_address">Enter an address</string>
+	<string name="unable_to_locate_this_address_please_retry">Unable to locate this address, please try again...</string>
+	<string name="wouaf_it_search">WOUAF IT: Search</string>
+	<string name="category">Category</string>
+	<string name="enter_a_tag_to_search">Enter a tag to search</string>
+	<string name="address">Address</string>
+	<string name="current_center_of_the_map">Current center of the map</string>
+	<string name="search_radius">Search radius</string>
+	<string name="date_and_time">Date and time</string>
+	<string name="date">Date</string>
+	<string name="now">Now</string>
+	<string name="today">Today</string>
+	<string name="searching">Search</string>
+	<string name="geolocation_in_progress">Geolocation in progress...</string>
+	<string name="cancel">Cancel</string>
+	<string name="at">at</string>
+	<string name="days">days</string>
+	<string name="day">day</string>
+	<string name="hours">hours</string>
+	<string name="hour">hour</string>
+	<string name="from">From</string>
+	<string name="to">to</string>
+	<string name="on">On</string>
+	<string name="For">for</string>
+	<string name="from_to">From %1$s to %2$s</string>
+	<string name="on_for">On %1$s for %2$s</string>
+	<string name="comment">comment</string>
+	<string name="comments">comments</string>
+	<string name="none">None</string>
+	<string name="please_enable_location_services">Please enable location services (GPS).</string>
+	<string name="error_connecting_to_server_verify_that_your_device_is_properly_connected_and_try_again_later">Error connecting to server. Verify that your device is properly connected and try again later.</string>
+	<string name="google_maps_geocoder_not_supported">Google Maps Geocoder not supported</string>
+	<string name="define">Define</string>
+	<string name="wouaf_it_profile">WOUAF IT: Your profile</string>
+	<string name="enter_the_following_infos">Complete the following information to create your Wouaf IT account.</string>
+	<string name="view_and_edit_your_profile_infos_below">View and edit your profile information below.</string>
+	<string name="username_alias">Username / Alias</string>
+	<string name="enter_your_username">Enter your username</string>
+	<string name="password">Password</string>
+	<string name="confirm_password">Confirm your password</string>
+	<string name="email">Email</string>
+	<string name="enter_your_email">Enter your email</string>
+	<string name="firstname">First name</string>
+	<string name="enter_your_firstname">Enter your first name</string>
+	<string name="lastname">Name</string>
+	<string name="enter_your_lastname">Enter your name</string>
+	<string name="gender">Gender</string>
+	<string name="choose">Choose...</string>
+	<string name="man">Man</string>
+	<string name="woman">Woman</string>
+	<string name="birthdate">Date of birth</string>
+	<string name="create">Create</string>
+	<string name="save">Save</string>
+	<string name="please_enter_all_required_fields">Please enter all required fields...</string>
+	<string name="your_username_is_invalid">Your username is incorrect (3-100 characters)...</string>
+	<string name="your_password_is_invalid">Your password is incorrect (6-100 characters)...</string>
+	<string name="your_password_confirmation_is_invalid">Confirmation of your password is incorrect ...</string>
+	<string name="your_email_is_invalid">Your email is incorrect ...</string>
+	<string name="your_firstname_is_too_long">Your first name is too long (max. 100 characters) ...</string>
+	<string name="your_lastname_is_too_long">Your name is too long (max. 100 characters) ...</string>
+	<string name="your_birthdate_is_invalid">Your date of birth is incorrect ...</string>
+	<string name="creation_in_progress">Creating ...</string>
+	<string name="update_in_progress">Update in progress ...</string>
+	<string name="welcome_to_wouaf_it_please_login">Welcome in the Wouaf IT community!\n\nAn email has been sent to activate your account.\nIf it is not enabled under 6h it will be automatically deleted.\n\nYou can already log in.</string>
+	<string name="your_profile_is_updated">Your Profile is updated!</string>
+	<string name="wouaf_it_identification">WOUAF IT: Identification</string>
+	<string name="username_and_password_required">Username and password required.</string>
+	<string name="identification_in_process">Identification in progress...</string>
+	<string name="welcome_firstname_lastname">Welcome %1$s %2$s</string>
+	<string name="welcome_login">Welcome %1$s</string>
+	<string name="new_wouaffer">New Wouaffer ?</string>
+	<string name="create_your_account">Create your account!</string>
+	<string name="your_position_is_old_for_more_precision_select_the_gps">Your position is old, for more precision select the GPS!</string>
+	<string name="hour_initial">h</string>
+	<string name="are_you_sure_you_want_to_log_out">Are you sure you want to log out?</string>
+	<string name="disconnecting">Disconnecting...</string>
+	<string name="confirm">Confirm</string>
+	<string name="you_are_disconnected">You are disconnected...</string>
+	<string name="wouaf_it_welcome">WOUAF IT: Welcome</string>
+	<string name="start">Start</string>
+	<string name="initializing">Initializing...</string>
+	<string name="error_file_api_key_is_missing">Error: The file API key is missing.</string>
+	<string name="error_file_fb_key_is_missing">Error: The file Facebook key is missing.</string>
+	<string name="error_file_eventful_key_is_missing">Error: The file Eventful key is missing.</string>
+	<string name="wouaf_it_about">WOUAF IT: About</string>
+	<string name="back">Back</string>
+	<string name="ok">OK</string>
+	<string name="wouaf_it_message">WOUAF IT: Message</string>
+	<string name="wouaf_it">WOUAF IT:</string>
+	<string name="forgot_your_password">Forgot your password?</string>
+	<string name="send_email_to_reset_your_password">Please enter your email address. An email will be sent to reset your password.</string>
+	<string name="request_to_reset_your_password_in_progress">Request to reset your password in progress...</string>
+	<string name="email_to_reset_has_been_sent">A reset email has been sent.</string>
+	<string name="an_error_has_occurred_check_your_email_entry">An error has occurred. Check entering your email address.</string>
+	<string name="wouaf_it_params">WOUAF IT: Parameters</string>
+	<string name="validate">Validate</string>
+	<string name="connect_with_facebook">Connect with your Facebook account</string>
+	<string name="facebook_connection_details">By logging in with Facebook, you can share your Wouafs on your wall and show your photos with Facebook.\nWouaf IT will never post on your wall without your consent.</string>
+	<string name="connect_with_wouafit">Or connect with your Wouaf IT account</string>
+	<string name="search_params">Search settings</string>
+	<string name="units_for_search_radius">Units for search radius</string>
+	<string name="kilometers">Kilometers</string>
+	<string name="miles">Miles</string>
+	<string name="km">Km</string>
+	<string name="default_publish_params">Default publish settings</string>
+	<string name="post_on_my_facebook_wall">Post my Wouafs on my Facebook wall</string>
+	<string name="be_notified_by_email_of_comments_on_your_wouaf">Be notified by email of comments on your Wouafs</string>
+	<string name="be_notified_by_email_of_comments_on_your_comment">Be notified by email of comments on your comments</string>
+	<string name="wouaf_it_rules">Publish on Wouaf IT demands respect of some simple rules:\n\n
+ • You are responsible for your use of this service.\n\n
+ • Your publications are public and visible to all.\n\n
+ • Do not post offensive content or which can harm others (racism, defamation, pornography, etc.).\n\n
+ • Do not impersonates any person or entity.\n\n
+ • Do not post anything false, misleading or likely to mislead users.\n\n
+ • Do not offer any service in disagreement with the laws of your country of publication.\n\n
+Wouaf IT reserves the right to remove any post not complying with these conditions.\n\n
+You can read the full terms and conditions of the service on the site http://wouaf.it/terms .</string>
+	<string name="terms_of_use">Terms of use</string>
+	<string name="i_understand_i_ll_be_careful">I understand, I'll be careful</string>
+	<string name="to_publish_you_must_login_first">To publish on Wouaf IT, you must login first.</string>
+	<string name="no">No</string>
+	<string name="create_your_wouaf">Create your Wouaf</string>
+	<string name="enter_your_text">Enter your text</string>
+	<string name="max_length_reached">Maximum length reached!</string>
+	<string name="text_still">Text (still %1$s)</string>
+	<string name="your_comment_still">Your comment (still %1$s)</string>
+	<string name="still">Still %1$s</string>
+	<string name="starting">From</string>
+	<string name="duration">Duration</string>
+	<string name="week">week</string>
+	<string name="weeks">weeks</string>
+	<string name="location">Location</string>
+	<string name="your_current_position">Your current position</string>
+	<string name="warning_lack_of_precision">Warning: Lack of precision</string>
+	<string name="the_defined_position_lacks_of_precision_are_you_sure_you_did_not_want_to_zoom_in_a_bit">The defined position lacks of precision. Are you sure you did not want to zoom in a bit?</string>
+	<string name="specific_position">Specific position</string>
+	<string name="photos">Photos</string>
+	<string name="querying_facebook_in_progress">Querying Facebook in progress...</string>
+	<string name="you_have_no_public_album_to_your_facebook_account_only_public_albums_can_be_used">You have no public album to your Facebook account. Only public albums can be used.</string>
+	<string name="choose_your_photos">Choose your photos</string>
+	<string name="sorry_maximum_5_pictures_per_wouaf_you_have_reached_the_limit">Sorry, maximum 5 pictures per Wouaf. You have reached the limit.</string>
+	<string name="you_must_be_logged_in_with_a_facebook_account_to_be_able_to_add_photos_from_your_facebook_album">You must be logged in with a Facebook account to be able to add photos from your Facebook album ...</string>
+	<string name="post_this_wouaf_on_my_facebook_wall">Post this Wouaf on my Facebook wall</string>
+	<string name="reset">Reset</string>
+	<string name="do_you_confirm_the_form_reset">Do you confirm the form reset?</string>
+	<string name="your_text_is_too_long">Your text is too long: 300 characters maximum.</string>
+	<string name="publish_in_progress">Publish in progress...</string>
+	<string name="your_wouaf_is_successfully_published">Your Wouaf is successfully published!</string>
+	<string name="publish_on_facebook_in_progress">Publish on Facebook in progress...</string>
+	<string name="your_wouaf_is_successfully_published_but_facebook_publication_failed">Your Wouaf is successfully published! ... Unfortunately, publication on Facebook failed.</string>
+	<string name="learn_more_about_this_event">Learn more about this event</string>
+	<string name="join_me_on_wouaf_it_the_first_micro_events_network">Join me on Wouaf IT: the first micro-events network</string>
+	<string name="alert">Alert</string>
+	<string name="wouaf_it_welcome_msg">Wouaf IT is the first micro-events network.\n\n
+Publish all kind of life events from your mobile.\n\n
+ • You have lost your dog?\n
+ • You want to buy a car?\n
+ • You want to sell your couch?\n
+ • You want to organize a hike?\n
+ • You want to promote a party?\n
+ • You want to share a good plan?\n
+ • You want to carpool?\n
+ • You want to know what to do this weekend?\n
+ • You met a lost dog ...?\n\n
+Post your own events and ads and look around you interesting events from other Wouaffers.\n
+You do not ever wonder what to do with your weekends.</string>
+	<string name="wouaf_it_help_publish">WOUAF IT: How to publish?</string>
+	<string name="wouaf_it_help_publish_msg">Post a Wouaf is very simple, follow the tips below:\n\n
+A Wouaf is an event. You can post all kinds of events in Wouaf IT.\n
+For example, if this is your first Wouaf, you can say that you just discover Wouaf IT!\n\n
+To publish well, here's a little help:\n\n
+ • Write a message of 300 characters maximum. Be brief, but do not overuse abbreviations to stay clear.\n\n
+ • In your message, you can transform words in "tags" by prefixing them with a hash (eg #dog). Thus it will be possible to find your Wouaf when searching on these tags.\n\n
+ • Add a category from the list. Choose well and other Wouaffers will find your Wouaf more easily.\n\n
+ • You must give a start date and a duration for your Wouaf. It will be visible only from this date and for the duration selected.\n\n
+ • By default, your Wouaf will be located in your current position, but you can choose another location if you wish. Use the map to choose a new location.\n\n
+For Wouaffers who connect with their Facebook account:\n\n
+ • You can add to your Wouaf up to 5 pictures from your Facebook public albums. Do not hesitate to illustrate your message!\n\n
+ • You can automatically publish your Wouaf on your Facebook wall. Thus, all your Facebook contacts and friends will also be informed.\n\n
+Tips and additional warnings:\n\n
+ • Before you publish your Wouaf, reread it well because you can not change it.\n
+In case of error you will need to delete it and then recreate it.\n\n
+ • To prevent abuse, you can not post more than 10 Wouafs by days.\n\n
+ • Beware of personal informations you publish (address, phone number, etc.). Wouaffers can always contact you via email with Wouaf IT.\n\n
+ • Attention Wouaf IT does not guarantee financial transactions. To avoid unpleasant surprises, we recommend that you always hand deliver things.\n\n
+ • Remember to respect the conditions of use of the service.</string>
+	<string name="help_for_publication">Help for publication</string>
+	<string name="wouaf_it_about_msg">Wouaf IT © %1$s by Sébastien PAUCHET\n\n
+The mobile application Wouaf IT is distributed under an open source Apache license. Source code is available on Github: https://github.com/WouafIT\n\n
+This application would not have been possible without the assistance, listening, support and advice of ♥ Marie Luce ♥, Raphaël, @or3lie and Karl.\n\n
+Wouaf IT uses different tools to operate. Thank you to their authors and contributors:\n\n
+ • Appcelerator Titanium: http://www.appcelerator.com\n
+ • Figue library: http://code.google.com/p/figue\n
+ • Bootstrap and twitter-text-js libraries: https://github.com/twitter\n
+ • Iconsweets packs: http://yummygum.com\n
+ • OSM and Mapquest Open Data Map: http://developer.mapquest.com/web/products/open\n
+ • Some functions of php.js : http://phpjs.org\n\n
+Protection of personal data:\n\n
+Wouaf IT is and will be respectful of your personal data. They will not be sold or commercially exploited outside of the use required to operate the service.\n
+You can delete your profile at any time. Your data will be fully and immediately deleted as well. A few days are necessary for this deletion spreads to the backup service.\n\n 
+Go on the website http://wouaf.it and on Twitter https://twitter.com/Wouaf_IT for more informations on Wouaf IT.</string>
+	<string name="facebook_publication_failed">Publication on Facebook failed.</string>
+	<string name="this_wouaf_is_successfully_published_on_facebook">This Wouaf is successfully published on Facebook!</string>
+	<string name="by_">By %1$s</string>
+	<string name="sorry_this_wouaf_does_not_exists">It seems that this Wouaf doesn't exists...</string>
+	<string name="unknown">Inknown</string>
+	<string name="wouaf_it_description">What · Where · Wouaf IT - The first micro-events network</string>
+	<string name="attention_this_wouaf_is_not_yet_active">This Wouaf is not yet active.</string>
+	<string name="attention_this_wouaf_is_over">Attention, this Wouaf is over.</string>
+	<string name="attention_this_event_is_not_yet_active">This event is not yet active.</string>
+	<string name="attention_this_event_is_over">Attention, this event is over.</string>
+	<string name="wouaf_it_picture_x">WOUAF IT: Picture %1$s</string>
+	<string name="more_infos_on_this_place">More infos on this place</string>
+	<string name="loading">Loading...</string>
+	<string name="language">Language</string>
+	<string name="sign_my_publications_with_my_first_and_last_name">Sign my publications with my first and last name</string>
+	<string name="wouaf_it_contact_author">WOUAF IT: Contact author</string>
+	<string name="your_message">Your message</string>
+	<string name="send">Send</string>
+	<string name="contact_details">By contacting the author of this Wouaf, your email address will be provided to him. He will be able to get back to you directly.</string>
+	<string name="please_enter_the_message">Please enter the message.</string>
+	<string name="sending_in_progress">Sending in progress...</string>
+	<string name="your_message_has_been_sent">Your message has been sent!</string>
+	<string name="search_the_tag_">Search the tag '%1$s'?</string>
+	<string name="see_link_">See link\n%1$s ?</string>
+	<string name="category_">Category: %1$s</string>
+	<string name="category_unknown">Category: Unknown</string>
+	<string name="delete_this_wouaf">Delete this Wouaf</string>
+	<string name="contact_the_author">Contact the author</string>
+	<string name="in_your_favorites">In your favorites</string>
+	<string name="like__wouaffers">like %1$s Wouaffers</string>
+	<string name="add_to_your_favorites">Add to your favorites</string>
+	<string name="add_a_comment">Add a comment</string>
+	<string name="see_the_comment">See the comment</string>
+	<string name="view_all__comments">View all %1$s comments</string>
+	<string name="no_comments_yet">No comments yet</string>
+	<string name="like">Like</string>
+	<string name="share_on_facebook">Share on Facebook</string>
+	<string name="share_to_your_applications">Share to your applications</string>
+	<string name="view_on_google_map">View on Google Map</string>
+	<string name="go_to_this_place">Go to this place</string>
+	<string name="report_abuse">Report abuse</string>
+	<string name="your_actions">Your actions</string>
+	<string name="do_you_confirm_the_suppression_of_this_wouaf_and_all_associated_comments_you_can_not_go_back">Do you confirm the suppression of this Wouaf and all associated comments?\nYou can not go back!</string>
+	<string name="attention">Attention</string>
+	<string name="deleting">Deleting...</string>
+	<string name="your_wouaf_was_deleted">Your Wouaf was deleted.</string>
+	<string name="you_must_be_logged_in_to_contact_an_author">You must be logged in to contact the author.</string>
+	<string name="you_must_be_logged_in_to_add_this_wouaf_in_your_favorites">You must be logged in to add this Wouaf to your favorites.</string>
+	<string name="you_must_be_logged_with_your_facebook_account_to_like_a_wouaf">You must be logged with your Facebook account to like a Wouaf.</string>
+	<string name="facebook_communication_in_progress">Facebook communication in progress...</string>
+	<string name="you_like_this_wouaf">You like this Wouaf !</string>
+	<string name="facebook_reports_that_you_already_like_this_wouaf">Facebook reports that you already like this Wouaf...</string>
+	<string name="you_must_be_logged_with_your_facebook_account_to_post_a_wouaf_on_your_wall">You must be logged with your Facebook account to post a Wouaf on your wall.</string>
+	<string name="by">by</string>
+	<string name="learn_more">Learn more:</string>
+	<string name="share_this_wouaf">Share this Wouaf</string>
+	<string name="you_must_be_logged_in_to_report_a_wouaf_as_abusive">You must be logged in to report a Wouaf as abusive.</string>
+	<string name="do_you_confirm_the_report_of_this_wouaf_as_abusive_attention_in_case_of_error_kittens_will_die">Do you confirm the report of this Wouaf as abusive? Attention in case of error, Kittens will die!</string>
+	<string name="report_in_progress">Report in progress...</string>
+	<string name="your_report_is_sent_our_team_will_review_it_quickly_and_take_appropriate_action_thank_you_for_your_help">Your report is sent.\nOur team will review it quickly and take appropriate action.\nThank you for your help!</string>
+	<string name="loading_comments">Loading comments...</string>
+	<string name="are_you_sure_you_want_to_delete_this_comment">Are you sure you want to delete this comment?</string>
+	<string name="delete_comment">Delete comment</string>
+	<string name="you_can_not_comment_on_a_wouaf_which_is_not_active">You can not comment on a Wouaf which is not active.</string>
+	<string name="you_must_be_logged_in_to_post_a_comment">You must be logged in to post a comment.</string>
+	<string name="_comments">%1$s comments</string>
+	<string name="_comment">%1$s comment</string>
+	<string name="receive_an_email_every_new_comment">Receive an email every new comment</string>
+	<string name="please_enter_a_comment">Please enter a comment.</string>
+	<string name="delete_your_profile">Delete your profile</string>
+	<string name="are_you_sure_you_want_to_permanently_delete_your_profile">Are you sure you want to permanently delete your profile?\nAll your Wouafs will be deleted.\nYour comments on other Wouafs will be kept.\n\nThis action is irreversible!</string>
+	<string name="attention_deleting_your_profile">Attention: Deleting your profile</string>
+	<string name="really_you_can_not_go_back">Really?\n\nYou can not go back!</string>
+	<string name="your_profile_is_deleted">Your profile is deleted.</string>
+	<string name="welcome">Welcome!</string>
+	<string name="activation_key_is_missing_or_incorrect">Activation key is missing or incorrect.</string>
+	<string name="your_wouaf_it_account_is_activated">Your Wouaf IT account is activated!</string>
+	<string name="error_during_activation_of_your_account">Error during activation of your account.</string>
+	<string name="account_activation">Account activation</string>
+	<string name="terms">Terms</string>
+	<string name="do_you_confirm_the_publication_of_this_wouaf">Do you confirm the publication of this Wouaf?</string>
+	<string name="allow_other_wouaffers_to_contact_me">Allow other Wouaffers to contact me</string>
+	<string name="get_notified_by_email_for_each_comment">Get notified by email for each comment</string>
+	<string name="you_can_still_publish__wouaf_today">You can still publish %1$s Wouaf today.</string>
+	<string name="you_can_still_publish__wouafs_today">You can still publish %1$s Wouafs today.</string>
+	<string name="you_have_reached_the_limit_of_10_wouaf_per_days_you_can_not_publish_anymore_today">You have reached the limit of 10 Wouafs per days. You can not publish anymore today.</string>
+	<string name="username_email">Username or Email</string>
+	<string name="enter_your_username_or_email">Enter your username or email</string>
+	<string name="your_favorites">Your favorites</string>
+	<string name="next__left">Next (%1$s left)  >></string>
+	<string name="search_current_favorites">Search current favorites...</string>
+	<string name="_wouaf_in_your_favorites">%1$s Wouaf in your favorites</string>
+	<string name="_wouafs_in_your_favorites">%1$s Wouafs in your favorites</string>
+	<string name="you_have_no_favorites">You have no favorites.</string>
+	<string name="search_your_wouaf_in_progress">Search your Wouafs in progress...</string>
+	<string name="you_have__wouaf">You have %1$s Wouaf</string>
+	<string name="you_have__wouafs">You have %1$s Wouafs</string>
+	<string name="you_have_no_wouaf">You have no Wouaf.</string>
+	<string name="no_wouaf">No Wouaf</string>
+	<string name="you_must_be_logged_in_to_view_your_favorites_and_wouaf">You must be logged in to view your favorites and Wouafs.</string>
+	<string name="inactive">Inactive</string>
+	<string name="search_also_on_eventful">Search also on eventful.com</string>
+	<string name="event_by">Event by </string>
+	<string name="more_details">More details</string>
+	<string name="wouaf_it_eventful">Wouaf IT is not related to Eventful. This information is provided for your convenience only. You can disable elements from Eventful in the application settings.</string>
+	<string name="_displayed">%1$s displayed</string>
+	<string name="_displayeds">%1$s displayed</string>
+	<string name="_events_from_eventful">%1$s events from eventful.com</string>
+	<string name="version_">Version: %1$s</string>
+	<string name="not_yet_active">Not yet active</string>
+	<string name="finished">Finished</string>
+	<string name="search_an_address">Search an address</string>
+	<string name="during_">During %1$s</string>
+	<string name="starting_today">Starting today</string>
+	<string name="starting_">Starting from %1$s</string>
+	<string name="help_for_search">Help for search</string>
+	<string name="wouaf_it_help_search">WOUAF IT: How to search?</string>
+	<string name="wouaf_it_help_search_msg_start">The map screen is the most important in Wouaf IT. Well know it is important.\n
+Here's some info to help you!\n\n
+When you arrive on the map, it focuses on you: the blue dot in the middle is you.\n
+A search is automatically started to see Wouafs active around you today.\n
+A second search is also launched to see events from the site eventful.com around you.\n\n
+At the bottom of the screen, you will find five buttons.\n
+With the first 4, from left to right, you can:</string>
+	<string name="wouaf_it_help_search_msg_img1">Search an address.</string>
+	<string name="wouaf_it_help_search_msg_img2">Change the date and time of the search.</string>
+	<string name="wouaf_it_help_search_msg_img3">Filter Wouafs by category.</string>
+	<string name="wouaf_it_help_search_msg_img4">Filter by Tags Wouafs displayed.</string>
+	<string name="wouaf_it_help_search_msg_img5">The fifth button on the right opens the advanced search.</string>
+	<string name="wouaf_it_help_search_msg_middle">Two other buttons are present at the top of the map. They are handy when you move the map:</string>
+	<string name="wouaf_it_help_search_msg_img6">On the left, a button to refresh the search from the current center of the map.</string>
+	<string name="wouaf_it_help_search_msg_img7">At right, a button to center the map on your location.</string>
+	<string name="wouaf_it_help_search_msg_end">Voila, you know everything you need!\n\n
+Why not start by publishing that you just discover Wouaf IT?!</string>
+	<string name="create_my_account">Create my account</string>
+	<string name="try_it">Try IT</string>
+	<string name="press_again_to_exit_wouaf_it">Press again to exit Wouaf IT</string>
+	
+	<!--Emails-->
+	<string name="email_contact_subject">Contact request for your Wouaf</string>
+	<string name="email_contact_body">&lt;p&gt;Hello %1$s,&lt;/p&gt;&lt;br /&gt;
+	&lt;p&gt;You have a contact request from %5$s for your &lt;a href="%2$s"&gt;Wouaf&lt;/a&gt; :&lt;/p&gt;&lt;hr /&gt;&lt;br /&gt;
+		&lt;p&gt;%3$s&lt;/p&gt;&lt;br /&gt;&lt;hr /&gt;
+		&lt;p&gt;You can contact %5$s at: &lt;a href="mailto:%4$s"&gt;%4$s&lt;/a&gt;&lt;/p&gt;</string>
+	<string name="email_contact_htmlmailer">To view the message, please use an HTML compatible email viewer!</string>
+	<string name="email_new_comment_subject">New comment on a Wouaf</string>
+	<string name="email_new_comment_body">&lt;p&gt;Hello %1$s,&lt;/p&gt;&lt;br /&gt;
+	&lt;p&gt;A new comment has been added to that &lt;a href="%2$s"&gt;Wouaf&lt;/a&gt; you asked to follow:&lt;/p&gt;
+	&lt;hr /&gt;&lt;br /&gt;
+		&lt;p&gt;By %3$s:&lt;/p&gt;
+		&lt;p&gt;%4$s&lt;/p&gt;
+	&lt;br /&gt;&lt;hr /&gt;</string>
+	<string name="email_new_password_subject">Reset your password</string>
+	<string name="email_new_password_body">&lt;p&gt;Hello %1$s,&lt;/p&gt;&lt;br /&gt;
+	&lt;p&gt;You have requested to reset your password on &lt;a href="http://wouaf.it"&gt;Wouaf IT&lt;/a&gt;.&lt;/p&gt;
+	&lt;p&gt;Here's your new password to log in:&lt;/p&gt;
+	&lt;hr /&gt;&lt;br /&gt;
+	%2$s
+	&lt;br /&gt;&lt;hr /&gt;
+	&lt;p&gt;Caution, email is not a secure means of communication. We advise you to log in with this password and then change it in your account.&lt;/p&gt;</string>
+	<string name="email_activation_subject">Activating your Wouaf IT account</string>
+	<string name="email_activation_body">&lt;p&gt;Hello %1$s,&lt;/p&gt;&lt;br /&gt;
+	&lt;p&gt;You created your account on &lt;a href="http://wouaf.it"&gt;Wouaf IT&lt;/a&gt;, welcome!&lt;/p&gt;
+	&lt;p&gt;To permanently activate your account, Please click the following link:&lt;/p&gt;
+	&lt;hr /&gt;&lt;br /&gt;
+	&lt;a href="%2$s"&gt;%2$s&lt;/a&gt;
+	&lt;br /&gt;&lt;hr /&gt;
+	&lt;p&gt;Be careful, you must activate your account under 6h or it will be automatically deleted.&lt;/p&gt;</string>
+	
+	<!--Categories-->
+	<string name="events">Events</string>
+	<string name="out">Out</string>
+	<string name="purchases__sales">Purchases / Sales</string>
+	<string name="lost__found">Lost / Found</string>
+	<string name="donations">Donations</string>
+	<string name="exchanges">Exchanges</string>
+	<string name="services">Services</string>
+	<string name="others">Others</string>
+	
+	<!--Eventful Categories-->
+	<string name="music">Concerts &amp; Tour Dates</string>
+	<string name="conference">Conferences &amp; Tradeshows</string>
+	<string name="learning_education">Education</string>
+	<string name="family_fun_kids">Kids &amp; Family</string>
+	<string name="festivals_parades">Festivals</string>
+	<string name="movies_film">Film</string>
+	<string name="food">Food &amp; Wine</string>
+	<string name="fundraisers">Fundraising &amp; Charity</string>
+	<string name="art">Art Galleries &amp; Exhibits</string>
+	<string name="support">Health &amp; Wellness</string>
+	<string name="books">Literary &amp; Books</string>
+	<string name="attractions">Museums &amp; Attractions</string>
+	<string name="community">Neighborhood</string>
+	<string name="business">Business &amp; Networking</string>
+	<string name="singles_social">Nightlife &amp; Singles</string>
+	<string name="schools_alumni">University &amp; Alumni</string>
+	<string name="clubs_associations">Organizations &amp; Meetups</string>
+	<string name="outdoors_recreation">Outdoors &amp; Recreation</string>
+	<string name="performing_arts">Performing Arts</string>
+	<string name="animals">Pets</string>
+	<string name="politics_activism">Politics &amp; Activism</string>
+	<string name="sales">Sales &amp; Retail</string>
+	<string name="science">Science</string>
+	<string name="religion_spirituality">Religion &amp; Spirituality</string>
+	<string name="sports">Sports</string>
+	<string name="technology">Technology</string>
+	<string name="other">Other &amp; Miscellaneous</string>
+	
+	<!--Languages-->
+	<string name="french">French</string>
+	<string name="english">English</string>
+	
+	<!--Date-->
+	<string name="monday">Monday</string>
+	<string name="tuesday">Tuesday</string>
+	<string name="wednesday">Wednesday</string>
+	<string name="thursday">Thursday</string>
+	<string name="friday">Friday</string>
+	<string name="saturday">Saturday</string>
+	<string name="sunday">Sunday</string>
+	<string name="january">January</string>
+	<string name="february">February</string>
+	<string name="march">March</string>
+	<string name="april">April</string>
+	<string name="may">May</string>
+	<string name="june">June</string>
+	<string name="july">July</string>
+	<string name="august">August</string>
+	<string name="september">September</string>
+	<string name="october">October</string>
+	<string name="november">November</string>
+	<string name="december">December</string>
+	
+	<!--Server Exceptions-->
+	<string name="login_or_password_mismatch">Login or password mismatch.</string>
+	<string name="missing_user_id_or_login_or_email">Missing user id or login or email.</string>
+	<string name="request_error">Request error.</string>
+	<string name="login_must_be_at_least_3_characters_long_and_maximum_100_characters_long">Login must be at least 3 characters long and maximum 100 characters long.</string>
+	<string name="password_must_be_at_least_6_characters_long_and_maximum_100_characters_long">Password must be at least 6 characters long and maximum 100 characters long.</string>
+	<string name="lastname_must_have_maximum_100_characters_long">Lastname must have maximum 100 characters long.</string>
+	<string name="firstname_must_have_maximum_100_characters_long">Firstname must have maximum 100 characters long.</string>
+	<string name="invalid_email_address">Invalid email address.</string>
+	<string name="invalid_gender_must_be_male_or_female">Invalid gender, must be male or female.</string>
+	<string name="invalid_date_format_must_be_YYYYMMDD">Invalid date format, must be YYYY-MM-DD.</string>
+	<string name="login_already_exist">Login already exist.</string>
+	<string name="email_already_exist">Email already exist.</string>
+	<string name="login_password_and_email_are_mandatory_for_user_creation">Login, password and email are mandatory for user creation.</string>
+	<string name="missing_user_id">Missing user id.</string>
+	<string name="missing_login_or_password">Missing login or password.</string>
+	<string name="device_id_must_have_maximum_100_characters_long">Device Id must have maximum 100 characters long.</string>
+	<string name="missing_token">Missing token.</string>
+	<string name="missing_user_id_or_login">Missing user Id or login.</string>
+	<string name="missing_facebook_id_or_facebook_token">Missing Facebook Id or Facebook token.</string>
+	<string name="error_during_facebook_connection_facebook_user_id_mismatch_for_this_token">Error during Facebook connection. Facebook user Id mismatch for this token.</string>
+	<string name="error_during_facebook_connection_cannot_validate_authentification">Error during Facebook connection. Cannot validate authentification.</string>
+	<string name="error_during_facebook_connection_cannot_get_user_email">Error during Facebook connection. Cannot get user email.</string>
+	<string name="error_when_updating_user_infos">Error when updating user infos.</string>
+	<string name="error_when_creating_user_from_facebook_infos">Error when creating user from Facebook infos.</string>
+	<string name="missing_bounding_box_parameter_bb_or_location_parameter_loc">Missing bounding box parameter (bb) or location parameter (loc).</string>
+	<string name="cannot_make_query_on_bounding_box_bb_and_location_loc_please_choose_one">Cannot make query on bounding box (bb) and location (loc), please choose one.</string>
+	<string name="invalid_bounding_box_query_bb_should_be_bottom_left_latitudebottom_left_longitudeupper_right_latitudeupper_right_longitude">Invalid bounding box query (bb). Should be "bottom left latitude,bottom left longitude,upper right latitude,upper right longitude".</string>
+	<string name="invalid_location_query_loc_should_be_latitudelongitude">Invalid location query (loc). Should be "latitude,longitude".</string>
+	<string name="the_maxium_publication_for_today_is_reached">The maxium publication for today is reached.</string>
+	<string name="text_must_have_maximum_300_characters_long">Text must have maximum 300 characters long.</string>
+	<string name="invalid_characters_found_in_text">Invalid characters found in text.</string>
+	<string name="invalid_category_cat_should_be_a_valid_category_id">Invalid category (cat). Should be a valid category id.</string>
+	<string name="invalid_date_should_be_a_valid_timestamp">Invalid date. Should be a valid timestamp.</string>
+	<string name="invalid_duration_should_be_a_valid_integer_lower_than_1209600">Invalid duration. Should be a valid integer lower than 1209600.</string>
+	<string name="invalid_fbpost_should_be_a_valid_boolean">Invalid fbpost. Should be a valid boolean.</string>
+	<string name="invalid_pics_should_be_a_valid_array">Invalid pics. Should be a valid JSON array.</string>
+	<string name="location_category_date_and_duration_are_mandatory_for_post_creation">Location, category, date and duration are mandatory for post creation.</string>
+	<string name="error_when_updating_user_post_infos">Error when updating user post infos.</string>
+	<string name="invalid_date_and_duration_the_post_has_already_passed">Invalid date and duration. The post has already passed.</string>
+	<string name="invalid_user_id">Invalid user Id</string>
+	<string name="invalid_email">Invalid email</string>
+	<string name="username_must_be_at_least_3_characters_long_and_maximum_100_characters_long">Username must be at least 3 characters long and maximum 100 characters long.</string>
+	<string name="invalid_date_format_must_be_yyyymmdd">Invalid date format, must be YYYYMMDD</string>
+	<string name="invalid_language_must_be_fr_fr_or_en_us">Invalid language, must be fr_FR or en_US</string>
+	<string name="invalid_signwname_should_be_a_valid_boolean">Invalid signwname, must be a valid boolean</string>
+	<string name="missing_wouaf_id">Missing Wouaf Id</string>
+	<string name="missing_user_id_to_contact">Missing user Id to contact</string>
+	<string name="missing_text_to_send">Missing text to send</string>
+	<string name="wouaf_does_not_exists">Wouaf does not exists</string>
+	<string name="user_does_not_want_to_be_contacted">User does not want to be contacted</string>
+	<string name="user_does_not_exists">User does not exists</string>
+	<string name="contact_does_not_exists">Contact doest not exists</string>
+	<string name="unknown_email_address">Unknown email address</string>
+	<string name="error_when_updating_user_password">Error when updating user password</string>
+	<string name="connection_error">Connection error</string>
+	<string name="missing_comment_id">Missing comment Id</string>
+	<string name="comment_does_not_exists">Comment does not exists</string>
+	<string name="cannot_remove_comment_from_another_user">Cannot remove comment from another user</string>
+	<string name="missing_activation_key">Missing activation key</string>
+	<string name="invalid_tag_should_only_be_alphanumeric_characters">Invalid tag, should only be alphanumeric characters</string>
+	<string name="invalid_location_parameter_loc_should_be_latitudelongitude">Invalid location query (loc). Should be "latitude,longitude".</string>
+	<string name="invalid_contact_should_be_a_valid_boolean">Invalid contact, should be a valid boolean</string>
+	<string name="invalid_notif_should_be_a_valid_boolean">Invalid notif, should be a valid boolean</string>
+	<string name="invalid_pics_should_be_a_valid_json_array">Invalid pics, should be a valid JSON array</string>
+	<string name="unknown_wouaf">Unknown Wouaf</string>
+	<string name="cannot_remove_wouaf_from_another_user">Cannot remove Wouaf from another user</string>
+	<string name="author_does_not_exists">Author does not exists</string>
+</resources>

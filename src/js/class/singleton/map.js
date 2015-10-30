@@ -7,8 +7,15 @@ module.exports = (function() {
 		var map = new google.maps.Map(document.getElementById('map'), {
 			zoom: 9,
 			panControl: false,
-			zoomControl: false,
 			streetViewControl: false,
+			mapTypeControl: true,
+			mapTypeControlOptions: {
+				position: google.maps.ControlPosition.TOP_RIGHT
+			},
+			zoomControl: true,
+			zoomControlOptions: {
+				position: google.maps.ControlPosition.LEFT_BOTTOM
+			},
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		});
 		var myloc = new google.maps.Marker({
