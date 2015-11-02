@@ -24,7 +24,6 @@ module.exports = (function() {
 		$what.append('<option value="">'+ i18n.t('All events') +'</option>');
 		if (categories) {
 			for(var i = 0, l = categories.length; i < l; i++) {
-				//console.info(categories[i]['label']);
 				$what.append('<option value="'+ categories[i]['id'] +'">'+ i18n.t(categories[i]['label']) +'</option>');
 			}
 		}
@@ -37,7 +36,6 @@ module.exports = (function() {
 				}
 			}
 		});
-
 	}
 
 	//HTML Dom

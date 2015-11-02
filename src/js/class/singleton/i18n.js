@@ -1,5 +1,5 @@
 module.exports = (function() {
-	var self = this;
+	var self = {};
 	//i18next
 	var i18next = require("../../../libs/i18next/1.10.1/i18next-1.10.1.js");
 	//Init plugin with current language

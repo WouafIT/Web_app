@@ -5,7 +5,6 @@
 	require("../less/index.less");
 	//i18n
 	var i18n = require('./class/singleton/i18n.js');
-	console.info(i18n);
 	//Map
 	var map = require('./class/singleton/map.js');
 	//User
@@ -14,10 +13,14 @@
 	//user.set('token', 'test');
 	//Data
 	var data = require('./class/singleton/data.js');
-	console.info('data', data);
 	//data.set('foo', 'bar');
+
+	//Toast
+	var toast = require('./class/singleton/toast.js');
+
 	//Query
 	var query = require('./class/query.js')();
+
 	var $document = $(document);
 	$document.ready(function() {
 		//logout event : reset all user infos
@@ -68,15 +71,21 @@
 					message.addEventListener('close', slidebars.init);
 					message.open();
 				} else {*/
-					slidebars.init()
+					slidebars.init();
+					$document.triggerHandler('app.start-end');
 				//}
 			});
-
-			if (__DEV__) {
-				console.info('all done (dev mode)');
-			}
 		});
 
+		$document.on('app.start-end', function() {
+			$('#splash').fadeOut('fast', function () {
+				toast.show('Chargement terminé !');
+
+				if (__DEV__) {
+					console.info('all done (dev mode)');
+				}
+			});
+		});
 
 		//launch count
 		if (!data.get('launchCount')) {

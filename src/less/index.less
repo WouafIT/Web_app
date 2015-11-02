@@ -45,6 +45,27 @@ html, body {
 	border-radius: 0.3em;
 	cursor: pointer;
 }
+#toast {
+	position: absolute;
+	max-width: 100%;
+	width: 100%;
+	top: 80%;
+	z-index: 10000;
+	display: none;
+
+	> div {
+		background-color: @white;
+		border: 0.2em solid @green;
+		border-radius: 0.5em;
+		text-align: center;
+		margin: 0 auto;
+		padding: 0.3rem;
+
+		> p {
+			margin-bottom: 0;
+		}
+	}
+}
 .sb-slidebar {
 	background-color: @white;
 	border-right: 0,125rem solid @grey;
@@ -96,3 +117,5 @@ html, body {
 		color: @green;
 	}
 }
+
+@import 'responsive.less';

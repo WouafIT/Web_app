@@ -1,6 +1,6 @@
 module.exports = (function() {
 	// Reference to "this" that won't get clobbered by some other "this"
-	var self = this;
+	var self = {};
 	// Public methods
 	self.init = function () {
 		//todo: get current data from cookies if any
