@@ -51,13 +51,13 @@
 		//Slidebars
 		var slidebars = __webpack_require__(/*! ./class/singleton/slidebars.js */ 4);
 		//Load CSS
-		__webpack_require__(/*! ../less/index.less */ 16);
+		__webpack_require__(/*! ../less/index.less */ 15);
 		//i18n
 		var i18n = __webpack_require__(/*! ./class/singleton/i18n.js */ 11);
 		//Map
-		var map = __webpack_require__(/*! ./class/singleton/map.js */ 23);
+		var map = __webpack_require__(/*! ./class/singleton/map.js */ 22);
 		//User
-		var user = __webpack_require__(/*! ./class/singleton/user.js */ 24);
+		var user = __webpack_require__(/*! ./class/singleton/user.js */ 23);
 		//user.set('uid', 'toto');
 		//user.set('token', 'test');
 		//Data
@@ -65,7 +65,7 @@
 		//data.set('foo', 'bar');
 	
 		//Toast
-		var toast = __webpack_require__(/*! ./class/singleton/toast.js */ 15);
+		var toast = __webpack_require__(/*! ./class/singleton/toast.js */ 24);
 	
 		//Query
 		var query = __webpack_require__(/*! ./class/query.js */ 25)();
@@ -111,25 +111,24 @@
 					}
 					//hide loader
 					//activityIndicator.hide();
+					slidebars.init();
 	
 					//show server message
-					/*if (infos.message) {
+					if (infos.message) {
 						//show message page
-						var messageWindow = require('ui/message');
-						var message = new messageWindow(infos.message);
-						message.addEventListener('close', slidebars.init);
-						message.open();
-					} else {*/
-						slidebars.init();
-						$document.triggerHandler('app.start-end');
-					//}
+						var messageWindow = __webpack_require__(/*! ./class/singleton/window.js */ 26);
+						messageWindow.show({
+							title: 	infos.message.title,
+							text: 	infos.message.msg
+						});
+					}
+					$document.triggerHandler('app.start-end');
 				});
 			});
 	
 			$document.on('app.start-end', function() {
 				$('#splash').fadeOut('fast', function () {
 					toast.show('Chargement terminé !');
-	
 					if (true) {
 						console.info('all done (dev mode)');
 					}
@@ -227,10 +226,6 @@
 					}
 				}
 			});
-	
-			//Toast
-			var toast = __webpack_require__(/*! ./toast.js */ 15);
-			toast.show('prout');
 		}
 	
 		//HTML Dom
@@ -3347,27 +3342,6 @@
 
 /***/ },
 /* 15 */
-/*!**********************************!*\
-  !*** ./class/singleton/toast.js ***!
-  \**********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = (function() {
-		var $ = __webpack_require__(/*! jquery */ 5);
-		var self = {};
-		var $toast = $('#toast > div');
-		console.error('init toast');
-		self.show = function(text, delay) {
-			delay = delay || 2000;
-			console.info(text);
-			$toast.html('<p>'+ text +'</p>').parent().fadeIn().delay(delay).fadeOut();
-		}
-	
-		return self;
-	})();
-
-/***/ },
-/* 16 */
 /*!**************************!*\
   !*** ../less/index.less ***!
   \**************************/
@@ -3376,7 +3350,7 @@
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(/*! !./../../~/css-loader!./../../~/postcss-loader!./../../~/less-loader!./index.less */ 17);
+	var content = __webpack_require__(/*! !./../../~/css-loader!./../../~/postcss-loader!./../../~/less-loader!./index.less */ 16);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(/*! ./../../~/style-loader/addStyles.js */ 10)(content, {});
@@ -3396,7 +3370,7 @@
 	}
 
 /***/ },
-/* 17 */
+/* 16 */
 /*!*************************************************************************************************************************************!*\
   !*** /mnt/windows/wouafit/~/css-loader!/mnt/windows/wouafit/~/postcss-loader!/mnt/windows/wouafit/~/less-loader!../less/index.less ***!
   \*************************************************************************************************************************************/
@@ -3407,13 +3381,13 @@
 	
 	
 	// module
-	exports.push([module.id, "a,\n.btn-link {\n  color: #2b9d48;\n}\na:focus,\n.btn-link:focus,\na:hover,\n.btn-link:hover,\na:active,\n.btn-link:active {\n  color: #154d23;\n}\n.btn-primary {\n  background-color: #2b9d48;\n  border-color: #2b9d48;\n}\n.btn-primary:hover,\n.btn-primary:active {\n  background-color: #154d23;\n  border-color: #154d23;\n}\n.form-control:focus {\n  border-color: #5cd27a;\n}\n@media (max-width: 480px) {\n  /* Slidebar widths on extra small screens. */\n  .sb-width-wide {\n    width: 85%;\n  }\n}\n@media (min-width: 481px) {\n  /* Slidebar widths on small screens. */\n  .sb-width-wide {\n    width: 400px;\n  }\n}\n@media (min-width: 768px) {\n  /* Slidebar widths on medium screens. */\n  .sb-width-wide {\n    width: 400px;\n  }\n}\n@media (min-width: 992px) {\n  /* Slidebar widths on large screens. */\n  .sb-width-wide {\n    width: 525px;\n  }\n}\n@media (min-width: 1200px) {\n  /* Slidebar widths on extra large screens. */\n  .sb-width-wide {\n    width: 525px;\n  }\n}\n@font-face {\n  font-family: \"harlequinflfregular\";\n  src: url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.eot */ 18) + ");\n  src: url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.eot */ 18) + "?#iefix) format('embedded-opentype'), url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.woff */ 19) + ") format('woff'), url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.ttf */ 20) + ") format('truetype'), url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.svg */ 21) + "#RanchoRegular) format('svg');\n  font-style: normal;\n  font-weight: 400;\n}\n::selection {\n  background: #5cd27a;\n}\nhtml,\nbody {\n  height: 100%;\n  margin: 0;\n  padding: 0;\n  background-color: #ffffff;\n}\n#sb-site,\n#map {\n  height: 100%;\n}\n#menu {\n  position: absolute;\n  top: 1em;\n  left: 1em;\n  z-index: 100;\n  background-color: rgba(255, 255, 255, 0.6);\n  padding: 0.3em;\n  border: 1px solid #cccccc;\n  border-radius: 0.3em;\n  cursor: pointer;\n}\n#toast {\n  position: absolute;\n  max-width: 100%;\n  width: 100%;\n  top: 80%;\n  z-index: 10000;\n  display: none;\n}\n#toast > div {\n  background-color: #ffffff;\n  border: 0.2em solid #2b9d48;\n  border-radius: 0.5em;\n  text-align: center;\n  margin: 0 auto;\n  padding: 0.3rem;\n}\n#toast > div > p {\n  margin-bottom: 0;\n}\n.sb-slidebar {\n  background-color: #ffffff;\n  border-right: 0, 125rem solid #cccccc;\n}\n.sb-slidebar .tab-content {\n  padding: 0.3em;\n}\n.sb-slidebar header {\n  color: #ffffff;\n  background-color: #2b9d48;\n  margin-bottom: 0.1rem;\n  border-bottom: 1px solid #26893f;\n}\n.sb-slidebar header h1.logo {\n  font-family: 'harlequinflfregular';\n  text-transform: uppercase;\n  height: 4.6875rem;\n  background: url(" + __webpack_require__(/*! ../img/logo-75.png */ 22) + ") top left no-repeat;\n  padding-left: 4.6875rem;\n  padding-top: 1.25rem;\n  margin-bottom: 0;\n  font-size: 2.3rem;\n}\n.sb-slidebar header nav {\n  position: relative;\n  right: 0.5rem;\n  z-index: 2;\n}\n.sb-slidebar header nav a,\n.sb-slidebar header nav .btn-link {\n  color: #ffffff;\n}\n.sb-slidebar header nav a:focus,\n.sb-slidebar header nav .btn-link:focus,\n.sb-slidebar header nav a:hover,\n.sb-slidebar header nav .btn-link:hover,\n.sb-slidebar header nav a:active,\n.sb-slidebar header nav .btn-link:active {\n  color: #154d23;\n}\n.sb-slidebar header nav .btn-link {\n  padding: 0;\n}\n.sb-slidebar footer {\n  position: fixed;\n  bottom: 0;\n  width: 100%;\n  background-color: #cccccc;\n  color: #2b9d48;\n}\n@media (max-width: 480px) {\n  /* widths on extra small screens. */\n  #toast > div {\n    width: 100%;\n  }\n}\n@media (min-width: 481px) {\n  /* widths on small screens. */\n  #toast > div {\n    width: 20rem;\n  }\n}\n@media (min-width: 768px) {\n  /* widths on medium screens. */\n}\n@media (min-width: 992px) {\n  /* widths on large screens. */\n}\n@media (min-width: 1200px) {\n  /* widths on extra large screens. */\n}\n", ""]);
+	exports.push([module.id, "a,\n.btn-link {\n  color: #2b9d48;\n}\na:focus,\n.btn-link:focus,\na:hover,\n.btn-link:hover,\na:active,\n.btn-link:active {\n  color: #154d23;\n}\n.btn-primary {\n  background-color: #2b9d48;\n  border-color: #2b9d48;\n}\n.btn-primary:hover,\n.btn-primary:active {\n  background-color: #154d23;\n  border-color: #154d23;\n}\n.form-control:focus {\n  border-color: #5cd27a;\n}\n@media (max-width: 480px) {\n  /* Slidebar widths on extra small screens. */\n  .sb-width-wide {\n    width: 85%;\n  }\n}\n@media (min-width: 481px) {\n  /* Slidebar widths on small screens. */\n  .sb-width-wide {\n    width: 400px;\n  }\n}\n@media (min-width: 768px) {\n  /* Slidebar widths on medium screens. */\n  .sb-width-wide {\n    width: 400px;\n  }\n}\n@media (min-width: 992px) {\n  /* Slidebar widths on large screens. */\n  .sb-width-wide {\n    width: 525px;\n  }\n}\n@media (min-width: 1200px) {\n  /* Slidebar widths on extra large screens. */\n  .sb-width-wide {\n    width: 525px;\n  }\n}\n@font-face {\n  font-family: \"harlequinflfregular\";\n  src: url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.eot */ 17) + ");\n  src: url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.eot */ 17) + "?#iefix) format('embedded-opentype'), url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.woff */ 18) + ") format('woff'), url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.ttf */ 19) + ") format('truetype'), url(" + __webpack_require__(/*! ../fonts/harlequinflf-webfont.svg */ 20) + "#RanchoRegular) format('svg');\n  font-style: normal;\n  font-weight: 400;\n}\n::selection {\n  background: #5cd27a;\n}\nhtml,\nbody {\n  height: 100%;\n  margin: 0;\n  padding: 0;\n  background-color: #ffffff;\n}\n#sb-site,\n#map {\n  height: 100%;\n}\n#menu {\n  position: absolute;\n  top: 1em;\n  left: 1em;\n  z-index: 100;\n  background-color: rgba(255, 255, 255, 0.6);\n  padding: 0.3em;\n  border: 1px solid #cccccc;\n  border-radius: 0.3em;\n  cursor: pointer;\n}\n#toast {\n  position: absolute;\n  max-width: 100%;\n  width: 100%;\n  top: 80%;\n  z-index: 10000;\n  display: none;\n}\n#toast > div {\n  background-color: #ffffff;\n  border: 0.2em solid #2b9d48;\n  border-radius: 0.5em;\n  text-align: center;\n  margin: 0 auto;\n  padding: 0.3rem;\n}\n#toast > div > p {\n  margin-bottom: 0;\n}\n#modalWindow .modal-header {\n  background-color: #2b9d48;\n  color: #ffffff;\n}\n.sb-slidebar {\n  background-color: #ffffff;\n  border-right: 0, 125rem solid #cccccc;\n}\n.sb-slidebar .tab-content {\n  padding: 0.3em;\n}\n.sb-slidebar header {\n  color: #ffffff;\n  background-color: #2b9d48;\n  margin-bottom: 0.1rem;\n  border-bottom: 1px solid #26893f;\n}\n.sb-slidebar header h1.logo {\n  font-family: 'harlequinflfregular';\n  text-transform: uppercase;\n  height: 4.6875rem;\n  background: url(" + __webpack_require__(/*! ../img/logo-75.png */ 21) + ") top left no-repeat;\n  padding-left: 4.6875rem;\n  padding-top: 1.25rem;\n  margin-bottom: 0;\n  font-size: 2.3rem;\n}\n.sb-slidebar header nav {\n  position: relative;\n  right: 0.5rem;\n  z-index: 2;\n}\n.sb-slidebar header nav a,\n.sb-slidebar header nav .btn-link {\n  color: #ffffff;\n}\n.sb-slidebar header nav a:focus,\n.sb-slidebar header nav .btn-link:focus,\n.sb-slidebar header nav a:hover,\n.sb-slidebar header nav .btn-link:hover,\n.sb-slidebar header nav a:active,\n.sb-slidebar header nav .btn-link:active {\n  color: #154d23;\n}\n.sb-slidebar header nav .btn-link {\n  padding: 0;\n}\n.sb-slidebar footer {\n  position: fixed;\n  bottom: 0;\n  width: 100%;\n  background-color: #cccccc;\n  color: #2b9d48;\n}\n@media (max-width: 480px) {\n  /* widths on extra small screens. */\n  #toast > div {\n    width: 100%;\n  }\n}\n@media (min-width: 481px) {\n  /* widths on small screens. */\n  #toast > div {\n    width: 20rem;\n  }\n}\n@media (min-width: 768px) {\n  /* widths on medium screens. */\n}\n@media (min-width: 992px) {\n  /* widths on large screens. */\n}\n@media (min-width: 1200px) {\n  /* widths on extra large screens. */\n}\n", ""]);
 	
 	// exports
 
 
 /***/ },
-/* 18 */
+/* 17 */
 /*!*****************************************!*\
   !*** ../fonts/harlequinflf-webfont.eot ***!
   \*****************************************/
@@ -3422,7 +3396,7 @@
 	module.exports = __webpack_require__.p + "_/fonts/harlequinflf-webfont-7cbc37.eot"
 
 /***/ },
-/* 19 */
+/* 18 */
 /*!******************************************!*\
   !*** ../fonts/harlequinflf-webfont.woff ***!
   \******************************************/
@@ -3431,7 +3405,7 @@
 	module.exports = __webpack_require__.p + "_/fonts/harlequinflf-webfont-f6d22e.woff"
 
 /***/ },
-/* 20 */
+/* 19 */
 /*!*****************************************!*\
   !*** ../fonts/harlequinflf-webfont.ttf ***!
   \*****************************************/
@@ -3440,7 +3414,7 @@
 	module.exports = __webpack_require__.p + "_/fonts/harlequinflf-webfont-59f502.ttf"
 
 /***/ },
-/* 21 */
+/* 20 */
 /*!*****************************************!*\
   !*** ../fonts/harlequinflf-webfont.svg ***!
   \*****************************************/
@@ -3449,7 +3423,7 @@
 	module.exports = __webpack_require__.p + "_/fonts/harlequinflf-webfont-33186d.svg"
 
 /***/ },
-/* 22 */
+/* 21 */
 /*!**************************!*\
   !*** ../img/logo-75.png ***!
   \**************************/
@@ -3458,7 +3432,7 @@
 	module.exports = "data:image/png;base64,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"
 
 /***/ },
-/* 23 */
+/* 22 */
 /*!********************************!*\
   !*** ./class/singleton/map.js ***!
   \********************************/
@@ -3535,7 +3509,7 @@
 	})();
 
 /***/ },
-/* 24 */
+/* 23 */
 /*!*********************************!*\
   !*** ./class/singleton/user.js ***!
   \*********************************/
@@ -3558,6 +3532,25 @@
 	})();
 
 /***/ },
+/* 24 */
+/*!**********************************!*\
+  !*** ./class/singleton/toast.js ***!
+  \**********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = (function() {
+		var $ = __webpack_require__(/*! jquery */ 5);
+		var self = {};
+		var $toast = $('#toast > div');
+		self.show = function(text, delay) {
+			delay = delay || 2000;
+			$toast.html('<p>'+ text +'</p>').parent().fadeIn().delay(delay).fadeOut();
+		}
+	
+		return self;
+	})();
+
+/***/ },
 /* 25 */
 /*!************************!*\
   !*** ./class/query.js ***!
@@ -3565,7 +3558,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = function () {
-		var user = __webpack_require__(/*! ./singleton/user.js */ 24);
+		var user = __webpack_require__(/*! ./singleton/user.js */ 23);
 		var xhr;
 		//Google geocode usage limits : https://developers.google.com/maps/articles/geocodestrat#client
 		//==> illimited from client (browser) requests
@@ -3679,7 +3672,7 @@
 					}
 					q += '&' + i + '=' + param;
 				}
-				//Ti.API.info(ENDPOINT + '/wouaf/' + q);
+				console.info(ENDPOINT + '/wouaf/' + q);
 				query({
 					method: 'GET',
 					url: 	ENDPOINT + '/wouaf/' + q,
@@ -3729,7 +3722,7 @@
 							q += '&within=' + param;
 						}
 					}
-					//Ti.API.info(utils.EVENTFUL_API_URL + '/events/search?' + q);
+					console.info(utils.EVENTFUL_API_URL + '/events/search?' + q);
 					query({
 						method: 'GET',
 						url: 	utils.EVENTFUL_API_URL + '/events/search?' + q,
@@ -3742,7 +3735,7 @@
 								'resultsType': 'eventful'
 							};
 							if (results && results.events && results.events.event) {
-								//Ti.API.info('eventful ok : '+results.events.event.length);
+								console.info('eventful ok : '+results.events.event.length);
 								//reformat datas
 								datas.count = results.events.event.length;
 								for (var i = 0, l = datas.count; i < l; i++) {
@@ -3822,8 +3815,8 @@
 						},
 						error:	function() {
 						    //empty function to avoid double connection error alert
-						    //Ti.API.info('eventful error');
-	                        //Ti.API.info(JSON.stringify(arguments));
+						    console.info('eventful error');
+	                        console.info(JSON.stringify(arguments));
 	                    }
 					});
 				}*/
@@ -4079,6 +4072,69 @@
 		}
 		return self;
 	}
+
+/***/ },
+/* 26 */
+/*!***********************************!*\
+  !*** ./class/singleton/window.js ***!
+  \***********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = (function() {
+		var $ = __webpack_require__(/*! jquery */ 5);
+		var i18n = __webpack_require__(/*! ./i18n.js */ 11);
+		var self = {};
+		var $modal = $('#modalWindow');
+		var $modalContent = $modal.find('.modal-content');
+		/*$modal.on('show.bs.modal', function (event) {
+	
+		});*/
+		$modal.on('hidden.bs.modal', function (event) {
+			$modalContent.html('');
+		});
+		self.show = function(options) {
+			option = $.extend({
+				title:		'',
+				text:		'',
+				footer:		'',
+				open:		null,
+				close:		null
+			}, options);
+			var content =
+				'<div class="modal-header">'+
+				'	<button type="button" class="close" data-dismiss="modal" aria-label="'+ i18n.t('Close') +'">'+
+				'		<span aria-hidden="true">&times;</span>'+
+				'		<span class="sr-only">'+ i18n.t('Close') +'</span>'+
+				'	</button>'+
+				'	<h4 class="modal-title" id="myModalLabel">'+ option.title +'</h4>'+
+				' </div>'+
+				'<div class="modal-body">'+
+					option.text+
+				'</div>';
+			if (option.footer) {
+				content +=
+				'<div class="modal-footer">'+
+				option.footer+
+				'</div>';
+			}
+			if (option.open) {
+				$modal.on('show.bs.modal', function(event) {
+					jQuery.proxy(option.open, this , event)();
+					$(this).off(event);
+				});
+			}
+			if (option.close) {
+				$modal.on('hidden.bs.modal', function(event) {
+					jQuery.proxy(option.close, this , event)();
+					$(this).off(event);
+				});
+			}
+			$modalContent.html(content);
+			$modal.modal('show');
+		}
+	
+		return self;
+	})();
 
 /***/ }
 /******/ ]);

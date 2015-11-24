@@ -62,25 +62,24 @@
 				}
 				//hide loader
 				//activityIndicator.hide();
+				slidebars.init();
 
 				//show server message
-				/*if (infos.message) {
+				if (infos.message) {
 					//show message page
-					var messageWindow = require('ui/message');
-					var message = new messageWindow(infos.message);
-					message.addEventListener('close', slidebars.init);
-					message.open();
-				} else {*/
-					slidebars.init();
-					$document.triggerHandler('app.start-end');
-				//}
+					var messageWindow = require('./class/singleton/window.js');
+					messageWindow.show({
+						title: 	infos.message.title,
+						text: 	infos.message.msg
+					});
+				}
+				$document.triggerHandler('app.start-end');
 			});
 		});
 
 		$document.on('app.start-end', function() {
 			$('#splash').fadeOut('fast', function () {
 				toast.show('Chargement terminé !');
-
 				if (__DEV__) {
 					console.info('all done (dev mode)');
 				}

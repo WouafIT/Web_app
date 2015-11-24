@@ -113,7 +113,7 @@ module.exports = function () {
 				}
 				q += '&' + i + '=' + param;
 			}
-			//Ti.API.info(ENDPOINT + '/wouaf/' + q);
+			console.info(ENDPOINT + '/wouaf/' + q);
 			query({
 				method: 'GET',
 				url: 	ENDPOINT + '/wouaf/' + q,
@@ -163,7 +163,7 @@ module.exports = function () {
 						q += '&within=' + param;
 					}
 				}
-				//Ti.API.info(utils.EVENTFUL_API_URL + '/events/search?' + q);
+				console.info(utils.EVENTFUL_API_URL + '/events/search?' + q);
 				query({
 					method: 'GET',
 					url: 	utils.EVENTFUL_API_URL + '/events/search?' + q,
@@ -176,7 +176,7 @@ module.exports = function () {
 							'resultsType': 'eventful'
 						};
 						if (results && results.events && results.events.event) {
-							//Ti.API.info('eventful ok : '+results.events.event.length);
+							console.info('eventful ok : '+results.events.event.length);
 							//reformat datas
 							datas.count = results.events.event.length;
 							for (var i = 0, l = datas.count; i < l; i++) {
@@ -256,8 +256,8 @@ module.exports = function () {
 					},
 					error:	function() {
 					    //empty function to avoid double connection error alert
-					    //Ti.API.info('eventful error');
-                        //Ti.API.info(JSON.stringify(arguments));
+					    console.info('eventful error');
+                        console.info(JSON.stringify(arguments));
                     }
 				});
 			}*/
