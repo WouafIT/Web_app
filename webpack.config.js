@@ -18,7 +18,7 @@ module.exports = Object.keys(languages).map(function(language) {
 		context: __dirname + '/src/js',
 		entry: './index.js',
 		output: {
-			path: __dirname + '/www-' + language + '/',
+			path: __dirname + '/build/www-' + language + '/',
 			filename: './js/build.js'
 		},
 		module: {
