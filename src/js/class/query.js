@@ -1,5 +1,6 @@
 module.exports = function () {
 	var user = require('./singleton/user.js');
+	var loader = require('./singleton/loader.js');
 	var xhr;
 	//Google geocode usage limits : https://developers.google.com/maps/articles/geocodestrat#client
 	//==> illimited from client (browser) requests
@@ -10,6 +11,17 @@ module.exports = function () {
 	} else {
 		var KEY 			= API_KEY_PROD;
 	}
+	$( document ).ajaxStart(function() {
+		if (__DEV__) {
+			console.info('ajax start');
+		}
+		loader.show();
+	}).ajaxStop(function() {
+		if (__DEV__) {
+			console.info('ajax stop');
+		}
+		loader.hide();
+	});
 	//if needed someday : http://ws.geonames.org/search?q=toulouse&maxRows=5&style=LONG
     //or http://api.geonames.org/postalCodeSearch
     // Better ====>>> http://open.mapquestapi.com/geocoding/v1/address?location=Toulouse&callback=renderGeocode

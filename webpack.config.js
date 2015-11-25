@@ -4,15 +4,22 @@ var languages = {
 	"en-us": './languages/en-us.json'
 };
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = Object.keys(languages).map(function(language) {
+	var htmlData = {
+		googleApi: 'AIzaSyCXCe5iWx-lVBv89H0teRMFjy8s24TMOiQ',
+		language: language,
+		time: Math.floor(Date.now() / 1000)
+	};
+	var languageData = require(languages[language]);
 	return {
 		name: language,
-		context: __dirname + "/src/js",
-		entry: "./index.js",
+		context: __dirname + '/src/js',
+		entry: './index.js',
 		output: {
-			path: __dirname + "/www/",
-			filename: "./js/build-" + language + ".js"
+			path: __dirname + '/www-' + language + '/',
+			filename: './js/build.js'
 		},
 		module: {
 			loaders: [
@@ -37,15 +44,28 @@ module.exports = Object.keys(languages).map(function(language) {
 				__DEV__: 		JSON.stringify(JSON.parse(process.env.NODE_ENV === 'dev'))
 			}),
 			new HtmlWebpackPlugin({
-				filename: 'index-' + language + '.html',
-				template: 'src/html/index.html',
-				data: {
-					googleApi: 'AIzaSyCXCe5iWx-lVBv89H0teRMFjy8s24TMOiQ',
-					language: language,
-					time: Math.floor(Date.now() / 1000)
-				},
-				i18n: require(languages[language])
-			})
+									  filename: 'index.html',
+									  template: 'src/html/index.html',
+									  data: htmlData,
+									  i18n: languageData
+								  }),
+			new HtmlWebpackPlugin({
+									  filename: 'contact/index.html',
+									  template: 'src/html/contact/index.html',
+									  content: 'contact',
+									  data: htmlData,
+									  i18n: languageData
+								  }),
+			new HtmlWebpackPlugin({
+									  filename: 'about/index.html',
+									  template: 'src/html/about/index.html',
+									  content: 'about',
+									  data: htmlData,
+									  i18n: languageData
+								  }),
+			new CopyWebpackPlugin([
+				{ from: '../assets' }
+			])
 		],
 		externals: {
 			// require("jquery") is external and available

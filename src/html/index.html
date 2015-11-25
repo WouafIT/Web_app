@@ -120,8 +120,8 @@
 	</div>
 	<footer class="container">
 		<nav class="nav text-center small">
-			<i class="fa fa-info-circle"></i> <a href="#">{%= o.htmlWebpackPlugin.options.i18n.About %}</a> |
-			<i class="fa fa-envelope"></i> <a href="#">{%= o.htmlWebpackPlugin.options.i18n.Contact %}</a> |
+			<i class="fa fa-info-circle"></i> <a href="/about/">{%= o.htmlWebpackPlugin.options.i18n.About %}</a> |
+			<i class="fa fa-envelope"></i> <a href="/contact/">{%= o.htmlWebpackPlugin.options.i18n.Contact %}</a> |
 			<i class="fa fa-twitter"></i> <a href="https://twitter.com/wouaf_it">{%= o.htmlWebpackPlugin.options.i18n.Twitter %}</a>
 		</nav>
 	</footer>
@@ -135,12 +135,13 @@
 		</div>
 	</div>
 </div>
+<div id="loader" class="uil-ripple-css"><div></div><div></div></div>
 <!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <!-- Bootstrap -->
 <script src="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.js"></script>
 <!-- GMaps -->
 <script src="https://maps.googleapis.com/maps/api/js?key={%= o.htmlWebpackPlugin.options.data.googleApi %}"></script>
-<script type="text/javascript" src="js/build-{%= o.htmlWebpackPlugin.options.data.language %}.js?{%= o.htmlWebpackPlugin.options.data.time %}" charset="utf-8"></script>
+<script type="text/javascript" src="js/build.js?{%= o.htmlWebpackPlugin.options.data.time %}" charset="utf-8"></script>
 </body>
 </html>

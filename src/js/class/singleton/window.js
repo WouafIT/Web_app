@@ -1,12 +1,9 @@
 module.exports = (function() {
 	var $ = require('jquery');
 	var i18n = require('./i18n.js');
-	var self = {};
 	var $modal = $('#modalWindow');
 	var $modalContent = $modal.find('.modal-content');
-	/*$modal.on('show.bs.modal', function (event) {
-
-	});*/
+	var self = {};
 	$modal.on('hidden.bs.modal', function (event) {
 		$modalContent.html('');
 	});
