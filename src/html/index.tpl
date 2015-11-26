@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<title>{%= o.htmlWebpackPlugin.options.i18n['Wouaf IT'] %}</title>
-	<meta name="description" content="{%= o.htmlWebpackPlugin.options.i18n['Wouaf IT'] %} - {%= o.htmlWebpackPlugin.options.i18n['The first micro-events network'] %}" />
+	<meta name="description" content="{%= o.htmlWebpackPlugin.options.i18n['Wouaf IT'] %} - {%= o.htmlWebpackPlugin.options.i18n['Your social network for your local events'] %}" />
 	<!-- Bootstrap -->
 	<link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -41,6 +41,7 @@
 			</div>
 		</nav>
 		<h1 class="logo">{%= o.htmlWebpackPlugin.options.i18n['Wouaf IT'] %}</h1>
+		<h2 class="description">{%= o.htmlWebpackPlugin.options.i18n['Your social network for your local events'] %}</h2>
 	</header>
 	<div class="container">
 		<div class="row">
