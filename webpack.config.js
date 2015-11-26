@@ -10,7 +10,8 @@ module.exports = Object.keys(languages).map(function(language) {
 	var htmlData = {
 		googleApi: 'AIzaSyCXCe5iWx-lVBv89H0teRMFjy8s24TMOiQ',
 		language: language,
-		time: Math.floor(Date.now() / 1000)
+		timestamp: Math.floor(Date.now() / 1000),
+		year: (new Date()).getFullYear()
 	};
 	var languageData = require(languages[language]);
 	return {
@@ -45,26 +46,20 @@ module.exports = Object.keys(languages).map(function(language) {
 			}),
 			new HtmlWebpackPlugin({
 									  filename: 'index.html',
-									  template: 'src/html/index.html',
+									  template: 'src/html/index.tpl',
 									  data: htmlData,
 									  i18n: languageData
 								  }),
 			new HtmlWebpackPlugin({
-									  filename: 'contact/index.html',
-									  template: 'src/html/contact/index.html',
-									  content: 'contact',
-									  data: htmlData,
-									  i18n: languageData
-								  }),
-			new HtmlWebpackPlugin({
-									  filename: 'about/index.html',
-									  template: 'src/html/about/index.html',
-									  content: 'about',
+									  filename: 'parts/about.html',
+									  template: './languages/parts/'+language+'/about.tpl',
 									  data: htmlData,
 									  i18n: languageData
 								  }),
 			new CopyWebpackPlugin([
-				{ from: '../assets' }
+				{
+					from: '../assets'
+				}
 			])
 		],
 		externals: {

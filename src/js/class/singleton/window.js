@@ -7,6 +7,13 @@ module.exports = (function() {
 	$modal.on('hidden.bs.modal', function (event) {
 		$modalContent.html('');
 	});
+	$modal.on('show.bs.modal', function (event) {
+		console.info('show', event);
+		var $source = $(event.relatedTarget);
+		if ($source.length && $source.data('href')) {
+			$modalContent.load($source.data('href'));
+		}
+	});
 	self.show = function(options) {
 		option = $.extend({
 			title:		'',

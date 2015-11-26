@@ -120,9 +120,9 @@
 	</div>
 	<footer class="container">
 		<nav class="nav text-center small">
-			<i class="fa fa-info-circle"></i> <a href="/about/">{%= o.htmlWebpackPlugin.options.i18n.About %}</a> |
-			<i class="fa fa-envelope"></i> <a href="/contact/">{%= o.htmlWebpackPlugin.options.i18n.Contact %}</a> |
-			<i class="fa fa-twitter"></i> <a href="https://twitter.com/wouaf_it">{%= o.htmlWebpackPlugin.options.i18n.Twitter %}</a>
+			<i class="fa fa-info-circle"></i> <a href="#" data-href="/parts/about.html?{%= o.htmlWebpackPlugin.options.data.timestamp %}" data-toggle="modal" data-target="#modalWindow">{%= o.htmlWebpackPlugin.options.i18n.About %}</a> |
+			<i class="fa fa-envelope"></i> <a href="#" data-href="/parts/contact.html?{%= o.htmlWebpackPlugin.options.data.timestamp %}" data-toggle="modal" data-target="#modalWindow">{%= o.htmlWebpackPlugin.options.i18n.Contact %}</a> |
+			<i class="fa fa-twitter"></i> <a href="https://twitter.com/wouaf_it" target=_blank">{%= o.htmlWebpackPlugin.options.i18n.Twitter %}</a>
 		</nav>
 	</footer>
 </div>
@@ -142,6 +142,6 @@
 <script src="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.js"></script>
 <!-- GMaps -->
 <script src="https://maps.googleapis.com/maps/api/js?key={%= o.htmlWebpackPlugin.options.data.googleApi %}"></script>
-<script type="text/javascript" src="js/build.js?{%= o.htmlWebpackPlugin.options.data.time %}" charset="utf-8"></script>
+<script type="text/javascript" src="js/build.js?{%= o.htmlWebpackPlugin.options.data.timestamp %}" charset="utf-8"></script>
 </body>
 </html>
