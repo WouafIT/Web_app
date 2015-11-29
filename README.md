@@ -19,10 +19,10 @@ Compiler le projet :
 	npm run-script prod	=> Prod mode
 
 Installer une dépendance :
-	npm install --no-bin-links [dependency]
+	npm install --no-bin-links --save-dev [dependency]
 
 Réinstaller
-	npm rebuild
+	npm rebuild --no-build-links
 
 Revoir les options du package
 	npm init
