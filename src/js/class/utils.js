@@ -1,53 +1,3 @@
-//LatLng object
-var LatLng = function (lat, lng) {
-	this.lat = parseFloat(lat);
-	this.lng = parseFloat(lng);
-}
-module.exports.LatLng = LatLng;
-
-//Point object
-var Point = function (x, y) {
-	this.x = x;
-	this.y = y;
-}
-module.exports.Point = Point;
-
-//LatLngBounds object
-var LatLngBounds = function (sw, ne) {
-	this._sw = sw;
-	this._ne = ne;
-}
-LatLngBounds.prototype.extend = function(point) {
-	if (point.lat < this._sw.lat && point.lng < this._sw.lng) {
-		this._sw = point;
-	} else if (point.lat < this._sw.lat) {
-		this._sw = new LatLng(point.lat, this._sw.lng);
-	} else if (point.lng < this._sw.lng) {
-		this._sw = new LatLng(this._sw.lat, point.lng);
-	}
-	if (point.lat > this._ne.lat && point.lng > this._ne.lng) {
-		this._ne = point;
-	} else if (point.lat > this._ne.lat) {
-		this._ne = new LatLng(point.lat, this._ne.lng);
-	} else if (point.lng > this._ne.lng) {
-		this._ne = new LatLng(this._ne.lat, point.lng);
-	}
-	return this;
-};
-LatLngBounds.prototype.getNorthEast = function() {
-	return this._ne;
-}
-LatLngBounds.prototype.getSouthWest = function() {
-	return this._sw;
-}
-LatLngBounds.prototype.contains = function(point) {
-	if (point.lat > this._sw.lat && point.lat < this._ne.lat && point.lng > this._sw.lng && point.lng < this._ne.lng) {
-		return true;
-	}
-	return false;
-}
-module.exports.LatLngBounds = LatLngBounds;
-
 //Binary safe string comparison
 //from http://phpjs.org/functions/strcmp/
 var strcmp = function (str1, str2) {
@@ -197,18 +147,6 @@ var natsort = function (inputArr) {
     return strictForIn || populateArr;
 }
 module.exports.natsort = natsort;
-
-var compare = function (fromArray, testArr) {
-    if (fromArray.length != testArr.length) return false;
-    for (var i = 0, l = testArr.length; i < l; i++) {
-        if (typeof(fromArray[i]) == 'object' && (fromArray[i] instanceof Array)) { 
-            if (!utils.compare(fromArray[i], testArr[i])) return false;
-        }
-        if (fromArray[i] !== testArr[i]) return false;
-    }
-    return true;
-}
-module.exports.compare = compare;
 
 //Strip tags from : http://phpjs.org/functions/strip_tags/
 var strip_tags = function (input, allowed) {

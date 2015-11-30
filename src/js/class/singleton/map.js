@@ -1,16 +1,71 @@
 module.exports = (function() {
-    var clustermap = 	require('../clustermap');
-    //Query
+    var clustermap = 	require('../../../libs/clustermap/clustermap.js');
+	//i18n
+	var i18n = require('./i18n.js');
+	//Query
     var query = require('../query.js')();
-    var map;
-    var browserSupportLocation = new Boolean();
+	var map;
+    var browserSupportLocation = false;
     var initialLocation;
+	var hcmap;
+	var jsonResults;
 
     var updatePins = function(json) {
         console.info(json);
 
 
+		var addResults = false;
+		var resultsType = json.resultsType ? json.resultsType : 'unknown';
+		if (!json.results) {
+			json.results = [];
+			json.count = 0;
+		} else {
+			//if search Id match, add results
+			if (jsonResults && jsonResults.searchId && json.searchId && jsonResults.searchId == json.searchId) {
+				addResults = json.count;
+				json.count += jsonResults.count;
+				json.results = json.results.concat(jsonResults.results);
+			} else if (jsonResults && jsonResults.searchId && json.searchId && jsonResults.searchId > json.searchId) {
+				//drop old results
+				return;
+			}
+		}
 
+		//remove all previous pins if any
+		if (hcmap) {
+			hcmap.reset();
+		}
+
+		//save result
+		jsonResults = json;
+
+		var elements = [];
+		for(var i = 0, l = json.results.length; i < l; i++) {
+			var post = json.results[i];
+			var element = {
+				'label': post.id,
+				'description': post.text,
+				'coordinates': {'lat': parseFloat (post.loc[0]), 'lng': parseFloat (post.loc[1])},
+				'color': 'green'
+			};
+			elements.push(element);
+		}
+		// Add all pins
+		hcmap = new clustermap.HCMap ({'map': map , 'elements': elements}) ;
+
+		var toast = require('./toast.js');
+		//show results number
+		var countResults = addResults ? addResults : json.count;
+		var notificationLabel = '';
+
+		if (resultsType == 'wouafit') {
+			notificationLabel = i18n.t('__count__ Wouaf', { count: countResults });
+		}
+		if (countResults == 500) {
+			toast.show(i18n.t('__max__ displayed (maximum reached)', {max: notificationLabel }));
+		} else {
+			toast.show(i18n.t('__wouaf__ displayed', { count: countResults, wouaf: notificationLabel }));
+		}
     }
 
     var getPosts = function(params) {
@@ -45,11 +100,6 @@ module.exports = (function() {
 			zIndex: 999,
 			map: map
 		});
-
-        var marker = new google.maps.Marker({
-            map: map,
-            title: 'Hello World!'
-        });
 
 		// Try W3C Geolocation (Preferred)
 		if(navigator.geolocation) {

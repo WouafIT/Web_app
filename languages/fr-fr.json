@@ -41,5 +41,11 @@
 	"Donations": "Dons",
 	"Exchanges": "Echanges",
 	"Services": "Services",
-	"Others": "Autres"
+	"Others": "Autres",
+
+	"__count__ Wouaf": "__count__ Wouaf",
+	"__count__ Wouaf_plural": "__count__ Wouafs",
+	"__wouaf__ displayed": "__wouaf__ affiché",
+	"__wouaf__ displayed_plural": "__wouaf__ affichés",
+	"__max__ displayed (maximum reached)": "__max__ affichés (maximum atteint)"
 }

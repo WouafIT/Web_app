@@ -79,7 +79,7 @@
 
 		$document.on('app.start-end', function() {
 			$('#splash').fadeOut('fast', function () {
-				toast.show('Chargement terminé !');
+				//toast.show('Chargement terminé !');
 				if (__DEV__) {
 					console.info('all done (dev mode)');
 				}

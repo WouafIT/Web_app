@@ -62,7 +62,7 @@ var figue = function () {
 	function calculateCentroid (c1Size , c1Centroid , c2Size , c2Centroid) {
 		var newCentroid = new Array(c1Centroid.length) ;
 		var newSize = c1Size + c2Size ;
-		for (var i = 0, l = c1Centroid.length ; i < l ; i++) 
+		for (var i = 0, l = c1Centroid.length ; i < l ; i++)
 			newCentroid[i] = (c1Size * c1Centroid[i] + c2Size * c2Centroid[i]) / newSize ;
 		return newCentroid ;	
 	}
@@ -98,27 +98,27 @@ var figue = function () {
 		return String (Math.round(value*precision)/precision) ;
 	}
 
-	function generateDendogram(tree, sep, balanced, withIndex, withCentroid, withDistance) {
+	function generateDendogram(tree, sep, balanced, withLabel, withCentroid, withDistance) {
 		var lines = new Array ;
 		var centroidstr = prettyVector(tree.centroid) ;
 		if (tree.isLeaf()) {
-			var index = String(tree.index) ;
+			var labelstr = String(tree.label) ;
 			var len = 1;
 			if (withCentroid) 
 				len = Math.max(centroidstr.length , len) ;
-			if (withIndex)
-				len = Math.max(index.length , len) ;
+			if (withLabel)
+				len = Math.max(labelstr.length , len) ;
 
 			lines.push (centerString ("|" , len)) ;
 			if (withCentroid) 
 				lines.push (centerString (centroidstr , len)) ;
-			if (withIndex) 
-				lines.push (centerString (index , len)) ;
+			if (withLabel) 
+				lines.push (centerString (labelstr , len)) ;
 
 		} else {
 			var distancestr = prettyValue(tree.dist) ;
-			var left_dendo = generateDendogram(tree.left ,sep, balanced,withIndex,withCentroid, withDistance) ;
-			var right_dendo = generateDendogram(tree.right, sep, balanced,withIndex,withCentroid,withDistance) ;
+			var left_dendo = generateDendogram(tree.left ,sep, balanced,withLabel,withCentroid, withDistance) ;
+			var right_dendo = generateDendogram(tree.right, sep, balanced,withLabel,withCentroid,withDistance) ;
 			var left_bar_ix = left_dendo[0].indexOf("|") ;
 			var right_bar_ix = right_dendo[0].indexOf("|") ;
 	
@@ -190,10 +190,7 @@ var figue = function () {
 
 
 
-	function agglomerate (indexes, vectors, distance, linkage) {
-		if (indexes.length == 1) {
-		    return new Node (indexes[0], null, null, 0, vectors[0]) ;
-		}
+	function agglomerate (labels, vectors, distance, linkage) {
 		var N = vectors.length ;
 		var dMin = new Array(N) ;
 		var cSize = new Array(N) ;
@@ -227,7 +224,7 @@ var figue = function () {
 		// create leaves of the tree
 		for (i = 0 ; i < N ; i++) {
 			clusters[i] = [] ;
-			clusters[i][0] = new Node (indexes[i], null, null, 0, vectors[i]) ;
+			clusters[i][0] = new Node (labels[i], null, null, 0, vectors[i]) ;
 			cSize[i] = 1 ;
 		}
 		
@@ -308,7 +305,7 @@ var figue = function () {
 			vector = vectors[random_index] ;
 			select = true ;
 			for (i = 0 ; i < cluster ; i++) {
-				if ( utils.compare (vector, centroids[i]) ) {
+				if ( vector.compare (centroids[i]) ) {
 					select = false ;
 					break ;
 				}
@@ -343,7 +340,7 @@ var figue = function () {
 				clusterSizes[best]++ ;
 				assignments[i] = best ;
 			}
-			
+
 			// update centroids step
 			var newCentroids = new Array(k) ;
 			for (var j = 0 ; j < k ; j++)
@@ -364,7 +361,7 @@ var figue = function () {
 			// check convergence
 			repeat = false ;
 			for (var j = 0 ; j < k ; j++) {
-				if (! utils.compare (newCentroids[j], centroids[j])) {
+				if (! newCentroids[j].compare (centroids[j])) {
 					repeat = true ; 
 					break ; 
 				}
@@ -394,13 +391,9 @@ var figue = function () {
 		}
 	}
 
-	function Node (index,left,right,dist, centroid) 
+	function Node (label,left,right,dist, centroid) 
 	{
-		this.index = index ;
-		this.indexes = [];
-		if (index != -1) {
-			this.indexes.push(index);
-		}
+		this.label = label ;
 		this.left = left ;
 		this.right = right ;
 		this.dist = dist ;
@@ -411,7 +404,6 @@ var figue = function () {
 		} else {
 			this.size = left.size + right.size ;
 			this.depth = 1 + Math.max (left.depth , right.depth ) ;
-			this.indexes = this.indexes.concat(left.indexes).concat(right.indexes);
 		}
 	}
 
@@ -452,14 +444,23 @@ figue.Node.prototype.isLeaf = function()
 		return false ;
 }
 
-figue.Node.prototype.buildDendogram = function (sep, balanced,withIndex,withCentroid, withDistance)
+figue.Node.prototype.buildDendogram = function (sep, balanced,withLabel,withCentroid, withDistance)
 {
-	lines = figue.generateDendogram(this, sep, balanced,withIndex,withCentroid, withDistance) ;
+	lines = figue.generateDendogram(this, sep, balanced,withLabel,withCentroid, withDistance) ;
 	return lines.join ("\n") ;	
 }
 
+
+Array.prototype.compare = function(testArr) {
+    if (this.length != testArr.length) return false;
+    for (var i = 0, l = testArr.length; i < l; i++) {
+        if (this[i].compare) { 
+            if (!this[i].compare(testArr[i])) return false;
+        }
+        if (this[i] !== testArr[i]) return false;
+    }
+    return true;
+}
+
 module.exports = figue;
-
-
-
 
