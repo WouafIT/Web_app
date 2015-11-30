@@ -193,7 +193,6 @@ $RECYCLE.BIN/
 # Packages
 *.egg
 *.egg-info
-dist/
 build/
 eggs/
 parts/
@@ -217,3 +216,6 @@ pip-log.txt
 
 #PHPStorm
 .idea/
+
+# Node
+node_modules/

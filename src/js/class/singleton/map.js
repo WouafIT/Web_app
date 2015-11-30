@@ -1,10 +1,27 @@
 module.exports = (function() {
-	var init = function () {
-		var initialLocation;
-		var siberia = new google.maps.LatLng(60, 105);
-		var newyork = new google.maps.LatLng(40.69847032728747, -73.9514422416687);
-		var browserSupportFlag = new Boolean();
-		var map = new google.maps.Map(document.getElementById('map'), {
+    var clustermap = 	require('../clustermap');
+    //Query
+    var query = require('../query.js')();
+    var map;
+    var browserSupportLocation = new Boolean();
+    var initialLocation;
+
+    var updatePins = function(json) {
+        console.info(json);
+
+
+
+    }
+
+    var getPosts = function(params) {
+        var now = new Date();
+        params.searchId = now.getTime();
+        query.posts(params, updatePins);
+    }
+
+
+    var init = function () {
+       map = new google.maps.Map(document.getElementById('map'), {
 			zoom: 9,
 			panControl: false,
 			streetViewControl: false,
@@ -29,21 +46,28 @@ module.exports = (function() {
 			map: map
 		});
 
+        var marker = new google.maps.Marker({
+            map: map,
+            title: 'Hello World!'
+        });
+
 		// Try W3C Geolocation (Preferred)
 		if(navigator.geolocation) {
-			browserSupportFlag = true;
+            browserSupportLocation = true;
 			navigator.geolocation.getCurrentPosition(function(position) {
 				initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
 				map.setCenter(initialLocation);
 				myloc.setPosition(initialLocation);
+
+                getPosts({'loc': initialLocation});
 			}, function() {
-				handleNoGeolocation(browserSupportFlag);
+				handleNoGeolocation(browserSupportLocation);
 			});
 		}
 		// Browser doesn't support Geolocation
 		else {
-			browserSupportFlag = false;
-			handleNoGeolocation(browserSupportFlag);
+            browserSupportLocation = false;
+			handleNoGeolocation(browserSupportLocation);
 		}
 	}
 
@@ -64,6 +88,7 @@ module.exports = (function() {
 
 	// API/data for end-user
 	return {
-		init: init
+		init:       init,
+        getPosts:   getPosts
 	}
 })();

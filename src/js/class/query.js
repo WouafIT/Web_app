@@ -115,9 +115,11 @@ module.exports = function () {
 				if (i == 'type' || i == 'searchId' || i == 'source' || !param) { //remove event or empty params
 				    continue;
 				}
-				if (i == 'tag') {
-					param = params[i][1];
-				} else if (i == 'date' && params[i]) {
+                if (i == 'loc') {
+                    param = params[i].lat()+','+params[i].lng();
+                } else if (i == 'tag') {
+                    param = params[i][1];
+                } else if (i == 'date' && params[i]) {
 					param = Math.round(params[i].getTime() / 1000);
 				} else if (i == 'cat' && params[i]) {
 					//var serverCategories = Ti.App.Properties.getList('categories');
