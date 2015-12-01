@@ -140,12 +140,15 @@ var clustermap = function () {
 			var element;
 			var position;
 			var description;
+			var cat;
 			if (selectedNodes[i].isLeaf()) {
 				element = hcmap._elements[ selectedNodes[i].label ];
 				position = element.latlng;
 				description = element.description;
+				cat = element.cat;
 			} else {
 				description = '';
+				cat = null;
 				// Convert pixel coordinates to world coordinates
 				var projcoord = new google.maps.Point(selectedNodes[i].centroid[0], selectedNodes[i].centroid[1]);
 				position = hcmap._map.getProjection().fromPointToLatLng(projcoord);
@@ -163,6 +166,7 @@ var clustermap = function () {
 												   'size': clusterSize,
 												   'color': color,
 												   'description': description,
+												   'cat': cat,
 												   'hcmap': hcmap,
 												   'width': width});
 				// Makes the info window go away when clicking anywhere on the Map.
@@ -240,6 +244,7 @@ var clustermap = function () {
 		this._size = params.size;
 		this._width = params.width;
 		this._color = params.color;
+		this._cat = params.cat;
 		this._description = params.description;
 		this._hcmap = params.hcmap;
 
@@ -291,10 +296,10 @@ clustermap.ClusterMarker.prototype.onAdd = function () {
 	var div = document.createElement('DIV');
 
 	// set its style
-	div.className = "baseMarker";
+	div.className = this._cat ? 'baseMarker marker'+this._cat : 'baseMarker';
 
 	// set its color
-	if (this._color.indexOf(",") > -1) {
+	if (this._size < 3 && this._color.indexOf(",") > -1) {
 		colors = this._color.split(",");
 		var nbColors = colors.length;
 		var stepSize = 100 / nbColors;
@@ -330,19 +335,20 @@ clustermap.ClusterMarker.prototype.onAdd = function () {
 				}
 			}
 		}
-	} else {
+	} else if (this._size == 1) {
 		div.style.background = this._color;
 	}
 
-	div.style.opacity = 0.75;
+	div.style.opacity = 0.8;
 
 	// set its dimension
 	div.style.width = this._width + 'px';
 	div.style.height = this._width + 'px';
 
-	// set the size of the cluster
-	div.innerHTML = '<p style="font-weight:bold; color: white; margin: 0px; padding:0px; line-height:' + this._width + 'px">' + this._size + '</p>';
-
+	if (!this._cat) {
+		// set the size of the cluster
+		div.innerHTML = '<p style="line-height:' + this._width + 'px">' + this._size + '</p>';
+	}
 	this._div = div;
 	this.getPanes().overlayImage.appendChild(div);
 

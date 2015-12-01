@@ -1,11 +1,69 @@
+/*example http://codepen.io/andreasstorm/pen/ClguF*/
+
+
 .baseMarker {
-	border:1px solid black;
+	border-radius: 50% 50% 50% 0;
+	background-color: @green;
 	position: absolute;
-	text-align:center;
-	margin: 0px;
-	padding: 0px;
-	-webkit-border-radius: 100%;
-	-moz-border-radius: 100%;
-	border-radius: 100%;
-	z-index: 1;
+	transform: rotate(-45deg);
+	text-align: center;
+	border: 1px solid @dark-grey;
+	/*animation-name bounce
+	  animation-fill-mode both
+	  animation-duration 1s*/
+	&:before {
+		content: '';
+		width: 75%;
+		height: 75%;
+		margin: 12.5%;
+		background: url('../img/cat/0.png') top left no-repeat;
+		background-size: contain;
+		position: absolute;
+		border-radius: 50%;
+		transform: rotate(45deg);
+		top: 0;
+		left: 0;
+	}
+	p {
+		transform: rotate(45deg);
+		font-weight: bold;
+		color: @white;
+		margin: 0px;
+		padding: 0px;
+	}
+}
+.marker1{
+	&:before {
+		background-image: url('../img/cat/1.png');
+	}
+}
+.marker2{
+	&:before {
+		background-image: url('../img/cat/2.png');
+	}
+}
+.marker3{
+	&:before {
+		background-image: url('../img/cat/3.png');
+	}
+}
+.marker4{
+	&:before {
+		background-image: url('../img/cat/4.png');
+	}
+}
+.marker5{
+	&:before {
+		background-image: url('../img/cat/5.png');
+	}
+}
+.marker6 {
+	&:before {
+		background-image: url('../img/cat/6.png');
+	}
+}
+.marker7 {
+	&:before {
+		background-image: url('../img/cat/7.png');
+	}
 }

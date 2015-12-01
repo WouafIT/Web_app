@@ -4,6 +4,8 @@ module.exports = (function() {
 	var i18n = require('./i18n.js');
 	//Query
     var query = require('../query.js')();
+	//Data
+	var data = require('./data.js');
 	var map;
     var browserSupportLocation = false;
     var initialLocation;
@@ -40,13 +42,27 @@ module.exports = (function() {
 		jsonResults = json;
 
 		var elements = [];
+		var categories = data.get('categories');
+		console.info(categories);
+		//TODO set thoses colors in the categories database
+		var colors = {
+			1: '#3030BB',
+			2: '#A52C2C',
+			3: '#12A7A7',
+			4: '#16B221',
+			5: '#BA1CB1',
+			6: '#BF8622',
+			7: '#CA3737',
+			8: '#CAC537'
+		}
 		for(var i = 0, l = json.results.length; i < l; i++) {
 			var post = json.results[i];
 			var element = {
 				'label': post.id,
 				'description': post.text,
+				'cat': post.cat,
 				'coordinates': {'lat': parseFloat (post.loc[0]), 'lng': parseFloat (post.loc[1])},
-				'color': 'green'
+				'color': colors[post.cat]
 			};
 			elements.push(element);
 		}
