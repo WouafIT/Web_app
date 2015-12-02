@@ -60,15 +60,14 @@ var clustermap = function () {
 			this._tree = figue.agglomerate(labels, this._vectors, figue.EUCLIDIAN_DISTANCE, this._linkageType);
 
 			this._zoom_changed_listener = google.maps.event.addListener(this._map, "zoom_changed", function () {
-																			console.info('zoom_changed');
+																			thishcmap._infowindow.close();
 																			updateNodes(thishcmap);
 																			updateMarkers(thishcmap, true);
 																		});
 
 			this._bounds_changed_listener = google.maps.event.addListener(this._map, "dragend", function () {
-																			  console.info('dragend');
-																			  updateMarkers(thishcmap);
-																		  });
+																			updateMarkers(thishcmap);
+																		});
 			updateNodes(thishcmap);
 			updateMarkers(thishcmap, true);
 		}
@@ -161,10 +160,11 @@ var clustermap = function () {
 			var _id = clusterSize+'/'+position.lat()+'/'+position.lng();
 			if (!hcmap._displayedMarkers[_id]) {
 				var width = calculateCircleWidth(clusterSize);
-				var color = calculateColor(hcmap, selectedNodes[i]);
+				var clusterInfos = getClusterInfos(hcmap, selectedNodes[i]);
 				var marker = new ClusterMarker({'latlng': position,
 												   'size': clusterSize,
-												   'color': color,
+												   'colors': clusterInfos.colors,
+												   'ids': clusterInfos.ids,
 												   'description': description,
 												   'cat': cat,
 												   'hcmap': hcmap,
@@ -188,47 +188,43 @@ var clustermap = function () {
 		hcmap._selectedNodes = selectedNodes;
 	}
 
-	function childrenColors(hcmap, node) {
+	function getClusterInfos(hcmap, node) {
 		if (node.isLeaf()) {
-			return [hcmap._elements[node.label].color];
+			return {
+				colors: [hcmap._elements[node.label].color],
+				ids: [hcmap._elements[node.label].label]
+			};
 		}
-		var colors = [];
+		var infos = {
+			colors: [],
+			ids: []
+		};
 		if (node.left != null) {
-			var ccolors = childrenColors(hcmap, node.left);
-			var len = ccolors.length;
-			for (var i = 0; i < len; i++) {
-				var val = ccolors[i];
-				if (colors.indexOf(val) == -1) {
-					colors.push(val);
+			var cinfos = getClusterInfos(hcmap, node.left);
+			for (var i = 0, l = cinfos.colors.length; i < l; i++) {
+				var val = cinfos.colors[i];
+				if (infos.colors.indexOf(val) == -1) {
+					infos.colors.push(val);
 				}
 			}
+			infos.ids = infos.ids.concat(cinfos.ids);
 		}
 
 		if (node.right != null) {
-			var ccolors = childrenColors(hcmap, node.right);
-			var len = ccolors.length;
-			for (var i = 0; i < len; i++) {
-				var val = ccolors[i];
-				if (colors.indexOf(val) == -1) {
-					colors.push(val);
+			var cinfos = getClusterInfos(hcmap, node.right);
+			for (var i = 0, l = cinfos.colors.length; i < l; i++) {
+				var val = cinfos.colors[i];
+				if (infos.colors.indexOf(val) == -1) {
+					infos.colors.push(val);
 				}
 			}
+			infos.ids = infos.ids.concat(cinfos.ids);
 		}
-
-		return colors;
-	}
-
-	function calculateColor(hcmap, node) {
-		var colors = childrenColors(hcmap, node);
-		if (colors.length == 1) {
-			return colors[0];
-		} else {
-			return colors.join(",");
-		}
+		return infos;
 	}
 
 	function calculateCircleWidth(cSize) {
-		var sizes = [27, 36, 45, 58];
+		var sizes = [30, 40, 50, 60];
 
 		var i = 0;
 		var l = sizes.length;
@@ -243,7 +239,8 @@ var clustermap = function () {
 		this._latlng = params.latlng;
 		this._size = params.size;
 		this._width = params.width;
-		this._color = params.color;
+		this._colors = params.colors;
+		this._ids = params.ids;
 		this._cat = params.cat;
 		this._description = params.description;
 		this._hcmap = params.hcmap;
@@ -299,47 +296,22 @@ clustermap.ClusterMarker.prototype.onAdd = function () {
 	div.className = this._cat ? 'baseMarker marker'+this._cat : 'baseMarker';
 
 	// set its color
-	if (this._size < 3 && this._color.indexOf(",") > -1) {
-		colors = this._color.split(",");
-		var nbColors = colors.length;
+	var nbColors = this._colors.length;
+	if (nbColors > 1 && nbColors <= 3) {
 		var stepSize = 100 / nbColors;
-		var currentStep = 0;
-		var new_style = "(right bottom,";
+		var new_style = "(";
 		for (var i = 0; i < nbColors; i++) {
-			new_style += colors[i] + " " + stepSize + "%";
+			new_style += this._colors[i] + " " + Math.round(stepSize * i) + "%, "+
+						 this._colors[i] + " " + Math.round(stepSize * (i+1)) + "%";
 			if (i < nbColors - 1) {
 				new_style += ",";
 			}
 		}
 		new_style += ")";
-
-		var ua = navigator.userAgent.toLowerCase();
-		if (ua.indexOf('chrome') > -1) {
-			div.style.backgroundImage = "-webkit-linear-gradient" + new_style;
-		} else {
-			if (ua.indexOf('safari') > -1) {
-				div.style.backgroundImage = "-webkit-linear-gradient" + new_style;
-			} else {
-				if (ua.indexOf('mozilla') > -1) {
-					div.style.backgroundImage = "-moz-linear-gradient" + new_style;
-				} else {
-					if (ua.indexOf('explorer') > -1) {
-						div.style.backgroundImage = "-ms-linear-gradient" + new_style;
-					} else {
-						if (ua.indexOf('opera') > -1) {
-							div.style.backgroundImage = "-o-linear-gradient" + new_style;
-						} else {
-							div.style.backgroundImage = "linear-gradient" + new_style;
-						}
-					}
-				}
-			}
-		}
-	} else if (this._size == 1) {
-		div.style.background = this._color;
+		div.style.backgroundImage = "linear-gradient" + new_style;
+	} else if (nbColors == 1) {
+		div.style.background = this._colors[0];
 	}
-
-	div.style.opacity = 0.8;
 
 	// set its dimension
 	div.style.width = this._width + 'px';
@@ -353,15 +325,14 @@ clustermap.ClusterMarker.prototype.onAdd = function () {
 	this.getPanes().overlayImage.appendChild(div);
 
 	// Register listeners to open up an info window when clicked.
-	if (this._size == 1) {
-		var me = this;
-		google.maps.event.addDomListener(div, 'click', function () {
-			var iw = me._hcmap._infowindow;
-			iw.setContent(me._description);
-			iw.setPosition(me._latlng);
-			iw.open(me._hcmap._map);
-		});
-	}
+	var me = this;
+	google.maps.event.addDomListener(div, 'click', function () {
+		var iw = me._hcmap._infowindow;
+		iw.setContent(me._size == 1 ? me._description : '(' + me._ids.length+') ' + me._ids.join(','));
+		iw.setPosition(me._latlng);
+		iw.setOptions({pixelOffset: new google.maps.Size(0, -me._width)});
+		iw.open(me._hcmap._map);
+	});
 };
 
 clustermap.ClusterMarker.prototype.onRemove = function () {
@@ -377,7 +348,7 @@ clustermap.ClusterMarker.prototype.draw = function () {
 
 	// Set the marker at the right position.
 	this._div.style.left = (loc.x - this._width / 2) + 'px';
-	this._div.style.top = (loc.y - this._width / 2) + 'px';
+	this._div.style.top = (loc.y - this._width) + 'px';
 }
 
 module.exports = clustermap;
