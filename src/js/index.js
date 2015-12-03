@@ -36,8 +36,6 @@
 		});
 
 		$document.on('app.start', function() {
-			//Init Map
-			map.init();
 			/*var activityIndicator = new activity({
 				message: L('initializing')
 			});
@@ -70,14 +68,21 @@
 					var messageWindow = require('./class/singleton/window.js');
 					messageWindow.show({
 						title: 	infos.message.title,
-						text: 	infos.message.msg
+						text: 	infos.message.msg,
+						close: function () {
+							$document.triggerHandler('app.start-end');
+						}
 					});
+				} else {
+					$document.triggerHandler('app.start-end');
 				}
-				$document.triggerHandler('app.start-end');
 			});
 		});
 
 		$document.on('app.start-end', function() {
+			//Init Map
+			map.init();
+
 			$('#splash').fadeOut('fast', function () {
 				//toast.show('Chargement terminé !');
 				if (__DEV__) {

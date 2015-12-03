@@ -32,6 +32,9 @@
 	"Choose a category": "Choose a category",
 	"Hashtag": "Hashtag",
 	"Specify a hashtag": "Specify a hashtag",
+	"Location request": "Location request",
+	"Location request details": "Wouaf IT will ask for your permission to activate geolocation in your browser. This request will automatically center the map on your location and then simplify your navigation.\n\nWe do not store your location on our servers.\n\nYou can always change this permission in your browser settings.",
+
 
 	"All events": "All events",
 	"Events": "Events",

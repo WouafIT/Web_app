@@ -60,14 +60,14 @@ var clustermap = function () {
 			this._tree = figue.agglomerate(labels, this._vectors, figue.EUCLIDIAN_DISTANCE, this._linkageType);
 
 			this._zoom_changed_listener = google.maps.event.addListener(this._map, "zoom_changed", function () {
-																			thishcmap._infowindow.close();
-																			updateNodes(thishcmap);
-																			updateMarkers(thishcmap, true);
-																		});
+				thishcmap._infowindow.close();
+				updateNodes(thishcmap);
+				updateMarkers(thishcmap, true);
+			});
 
 			this._bounds_changed_listener = google.maps.event.addListener(this._map, "dragend", function () {
-																			updateMarkers(thishcmap);
-																		});
+				updateMarkers(thishcmap);
+			});
 			updateNodes(thishcmap);
 			updateMarkers(thishcmap, true);
 		}
@@ -156,7 +156,7 @@ var clustermap = function () {
 			}
 
 			var clusterSize = selectedNodes[i].size;
-			var _id = clusterSize+'/'+position.lat()+'/'+position.lng();
+			var _id = clusterSize + '/' + position.lat() + '/' + position.lng();
 			if (!hcmap._displayedMarkers[_id]) {
 				var width = calculateCircleWidth(clusterSize);
 				var clusterInfos = getClusterInfos(hcmap, selectedNodes[i]);
@@ -169,7 +169,8 @@ var clustermap = function () {
 												   'hcmap': hcmap,
 												   'width': width});
 				// Makes the info window go away when clicking anywhere on the Map.
-				google.maps.event.addListener(marker, 'click', function () {});
+				google.maps.event.addListener(marker, 'click', function () {
+				});
 
 				marker.setMap(hcmap._map);
 				hcmap._displayedMarkers[_id] = marker;
@@ -293,7 +294,7 @@ clustermap.ClusterMarker.prototype.onAdd = function () {
 	var div = document.createElement('DIV');
 
 	// set its style
-	div.className = this._cat ? 'baseMarker marker'+this._cat : 'baseMarker';
+	div.className = this._cat ? 'baseMarker marker' + this._cat : 'baseMarker';
 
 	// set its color
 	var nbColors = this._colors.length;
@@ -301,8 +302,7 @@ clustermap.ClusterMarker.prototype.onAdd = function () {
 		var stepSize = 100 / nbColors;
 		var new_style = "(";
 		for (var i = 0; i < nbColors; i++) {
-			new_style += this._colors[i] + " " + Math.round(stepSize * i) + "%, "+
-						 this._colors[i] + " " + Math.round(stepSize * (i+1)) + "%";
+			new_style += this._colors[i] + " " + Math.round(stepSize * i) + "%, " + this._colors[i] + " " + Math.round(stepSize * (i + 1)) + "%";
 			if (i < nbColors - 1) {
 				new_style += ",";
 			}
@@ -336,7 +336,7 @@ clustermap.ClusterMarker.prototype.onAdd = function () {
 	var me = this;
 	google.maps.event.addDomListener(div, 'click', function () {
 		var iw = me._hcmap._infowindow;
-		iw.setContent(me._size == 1 ? me._description : '(' + me._ids.length+') ' + me._ids.join(','));
+		iw.setContent(me._size == 1 ? me._description : '(' + me._ids.length + ') ' + me._ids.join(','));
 		iw.setPosition(me._latlng);
 		iw.setOptions({pixelOffset: new google.maps.Size(0, -me._width)});
 		iw.open(me._hcmap._map);

@@ -32,6 +32,8 @@
 	"Choose a category": "Choississez une catégorie",
 	"Hashtag": "Hashtag",
 	"Specify a hashtag": "Cherchez un hashtag",
+	"Location request": "Demande de localisation",
+	"Location request details": "Wouaf IT va vous demander votre autorisation pour activer la géolocalisation sur votre navigateur. Cette demande permettra de centrer automatiquement la carte sur votre position et ainsi de simplifier votre navigation.\n\nNous ne stockons pas votre position sur nos serveurs.\n\nVous pourrez à tout moment modifier cette autorisation dans les paramètres de votre navigateur.",
 
 	"All events": "Tous les évènements",
 	"Events": "Evénements",

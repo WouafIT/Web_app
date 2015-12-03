@@ -18,7 +18,7 @@
 			height: 100%;
 			width: 100%;
 			background: #2B9D48;
-			z-index: 10000;
+			z-index: 100;
 		}
 	</style>
 </head>

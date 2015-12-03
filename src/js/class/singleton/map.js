@@ -1,21 +1,19 @@
-module.exports = (function() {
-    var clustermap = 	require('../../../libs/clustermap/clustermap.js');
+module.exports = (function () {
+	var clustermap = require('../../../libs/clustermap/clustermap.js');
 	//i18n
 	var i18n = require('./i18n.js');
 	//Query
-    var query = require('../query.js')();
+	var query = require('../query.js')();
 	//Data
 	var data = require('./data.js');
 	var map;
-    var browserSupportLocation = false;
-    var initialLocation;
+	var userLocation;
 	var hcmap;
 	var jsonResults;
+	var $document = $(document);
+	var userMarker = null;
 
-    var updatePins = function(json) {
-        console.info(json);
-
-
+	var updatePins = function (json) {
 		var addResults = false;
 		var resultsType = json.resultsType ? json.resultsType : 'unknown';
 		if (!json.results) {
@@ -43,7 +41,6 @@ module.exports = (function() {
 
 		var elements = [];
 		var categories = data.get('categories');
-		console.info(categories);
 		//TODO set thoses colors in the categories database
 		var colors = {
 			1: '#3030BB',
@@ -55,25 +52,24 @@ module.exports = (function() {
 			7: '#CA3737',
 			8: '#CAC537'
 		}
-		for(var i = 0, l = json.results.length; i < l; i++) {
+		for (var i = 0, l = json.results.length; i < l; i++) {
 			var post = json.results[i];
 			var element = {
 				'label': post.id,
 				'description': post.text,
 				'cat': post.cat,
-				'coordinates': {'lat': parseFloat (post.loc[0]), 'lng': parseFloat (post.loc[1])},
+				'coordinates': {'lat': parseFloat(post.loc[0]), 'lng': parseFloat(post.loc[1])},
 				'color': colors[post.cat]
 			};
 			elements.push(element);
 		}
 		// Add all pins
-		hcmap = new clustermap.HCMap ({'map': map , 'elements': elements}) ;
+		hcmap = new clustermap.HCMap({'map': map, 'elements': elements});
 
-		var toast = require('./toast.js');
 		//show results number
+		var toast = require('./toast.js');
 		var countResults = addResults ? addResults : json.count;
 		var notificationLabel = '';
-
 		if (resultsType == 'wouafit') {
 			notificationLabel = i18n.t('__count__ Wouaf', { count: countResults });
 		}
@@ -82,17 +78,20 @@ module.exports = (function() {
 		} else {
 			toast.show(i18n.t('__wouaf__ displayed', { count: countResults, wouaf: notificationLabel }));
 		}
-    }
+	}
+	//add event to launch a new search
+	$document.on('app.search', function (event, params) {
+		params = params || {};
+		params.searchId = (new Date()).getTime();
+		if (!params.loc) {
+			params.loc = map.getCenter();
+		}
+		console.info(params);
+		query.posts(params, updatePins);
+	});
 
-    var getPosts = function(params) {
-        var now = new Date();
-        params.searchId = now.getTime();
-        query.posts(params, updatePins);
-    }
-
-
-    var init = function () {
-       map = new google.maps.Map(document.getElementById('map'), {
+	var init = function () {
+		map = new google.maps.Map(document.getElementById('map'), {
 			zoom: 9,
 			panControl: false,
 			streetViewControl: false,
@@ -107,25 +106,26 @@ module.exports = (function() {
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		});
 
-
-		function locationMarker(latlng, map, args) {
+		//Custom marker for user position
+		function locationMarker(latlng) {
 			this.latlng = latlng;
-			this.args = args;
 			this.setMap(map);
 		}
 
 		locationMarker.prototype = new google.maps.OverlayView();
-
-		locationMarker.prototype.draw = function() {
-			var self = this;
-			var div = this.div;
+		locationMarker.prototype.draw = function (latlng) {
+			if (latlng) {
+				this.latlng = latlng
+			}
+			console.info(this);
+			var div = this._div;
 			if (!div) {
-				div = this.div 	= document.createElement('div');
-				div.className 	= 'pulseMarker';
-				google.maps.event.addDomListener(div, "click", function(event) {
-					google.maps.event.trigger(self, "click");
-				});
 				var panes = this.getPanes();
+				if (!panes) {
+					return;
+				}
+				div = this._div = document.createElement('div');
+				div.className = 'pulseMarker';
 				panes.overlayImage.appendChild(div);
 			}
 			var point = this.getProjection().fromLatLngToDivPixel(this.latlng);
@@ -134,57 +134,87 @@ module.exports = (function() {
 				div.style.top = (point.y - 17) + 'px';
 			}
 		};
-
-		locationMarker.prototype.remove = function() {
-			if (this.div) {
-				this.div.parentNode.removeChild(this.div);
-				this.div = null;
+		locationMarker.prototype.remove = function () {
+			if (this._div) {
+				this._div.parentNode.removeChild(this._div);
+				this._div = null;
 			}
 		};
-
-		// Try W3C Geolocation (Preferred)
-		if(navigator.geolocation) {
-            browserSupportLocation = true;
-			navigator.geolocation.getCurrentPosition(function(position) {
-				initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
-				map.setCenter(initialLocation);
+		var updateCurrentLocation = function (position) {
+			userLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+			if (!userMarker) {
+				map.setCenter(userLocation);
 				//show user location
-				var myloc = new locationMarker(
-					initialLocation,
-					map,
-					{}
-				);
+				userMarker = new locationMarker(userLocation);
+				//search posts from current location
+				$document.triggerHandler('app.search');
+				//watch for location update
+				navigator.geolocation.watchPosition(updateCurrentLocation, handleNoGeolocation, {
+					enableHighAccuracy: true,
+					maximumAge: 30000,
+					timeout: 27000
+				});
+			} else {
+				//update user location
+				userMarker.draw(userLocation);
+			}
+		}
+		var handleNoGeolocation = function (error) {
+			if (error.code == 3 && userMarker) {
+				//Timeout on high accuracy => skip
+				return;
+			}
+			console.error('No geolocation available', error.code + ': ' + error.message, error);
+			//TODO: get the last position chosen by cookie or user account
+			// 		or ask user for position
+			//		or do a geo detection by IP (country / city / ...) => http://dev.maxmind.com/geoip/geoip2/geolite2/
+			/*
+			 if (errorFlag === true) {
+			 alert("Geolocation service failed.");
+			 userLocation = newyork;
+			 } else {
+			 alert("Your browser doesn't support geolocation. We've placed you in Siberia.");
+			 userLocation = siberia;
+			 }
+			 map.setCenter(userLocation);*/
+		}
 
-                getPosts({'loc': initialLocation});
-			}, function() {
-				handleNoGeolocation(browserSupportLocation);
+		var askForGeolocation = function () {
+			//show message page
+			var messageWindow = require('./window.js');
+			messageWindow.show({
+				title: 	i18n.t('Location request'),
+				text: 	i18n.t('Location request details'),
+				close: function () {
+					navigator.geolocation.getCurrentPosition(updateCurrentLocation, handleNoGeolocation);
+				}
 			});
 		}
-		// Browser doesn't support Geolocation
-		else {
-            browserSupportLocation = false;
-			handleNoGeolocation(browserSupportLocation);
+
+		if (navigator.permissions) {
+			navigator.permissions.query({name: 'geolocation'}).then(function (permissionStatus) {
+				console.log('geolocation permission status is ', permissionStatus.state);
+				if (permissionStatus.state === 'granted') {
+					//navigator.geolocation.getCurrentPosition(updateCurrentLocation, handleNoGeolocation);
+					askForGeolocation();
+				} else if (permissionStatus.state === 'prompt') {
+					//show window to ask for permission
+					askForGeolocation();
+				} else {
+					handleNoGeolocation({code: 999, message: 'Permission denied'});
+				}
+			});
+		} else if (navigator.geolocation) {
+			//TODO : check for geolocalisation cookie
+			askForGeolocation();
+		} else {
+			handleNoGeolocation({code: 999, message: 'Browser does not handle geolocation'});
 		}
 	}
 
-	function handleNoGeolocation(errorFlag) {
-		//TODO: get the last position chosen by cookie or user account
-		// 		or ask user for position
-		//		or do a geo detection by IP (country / city / ...) => http://dev.maxmind.com/geoip/geoip2/geolite2/
-		/*
-		if (errorFlag === true) {
-			alert("Geolocation service failed.");
-			initialLocation = newyork;
-		} else {
-			alert("Your browser doesn't support geolocation. We've placed you in Siberia.");
-			initialLocation = siberia;
-		}
-		map.setCenter(initialLocation);*/
-	}
 
 	// API/data for end-user
 	return {
-		init:       init,
-        getPosts:   getPosts
+		init: init
 	}
 })();
