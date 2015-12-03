@@ -118,7 +118,6 @@ var clustermap = function () {
 		if (!hcmap._selectedNodes || !hcmap._map) {
 			return;
 		}
-		console.info('updateMarkers');
 		// remove visible markers
 		if (reset) {
 			hcmap.removeMarkers();
@@ -246,6 +245,7 @@ var clustermap = function () {
 		this._hcmap = params.hcmap;
 
 		this._div = null;
+		this._shadow = null;
 	}
 
 	return {
@@ -324,6 +324,14 @@ clustermap.ClusterMarker.prototype.onAdd = function () {
 	this._div = div;
 	this.getPanes().overlayImage.appendChild(div);
 
+	// create the shadow
+	var shadow = document.createElement('DIV');
+
+	// set its style
+	shadow.className = 'markerShadow';
+	this._shadow = shadow;
+	this.getPanes().overlayImage.appendChild(shadow);
+
 	// Register listeners to open up an info window when clicked.
 	var me = this;
 	google.maps.event.addDomListener(div, 'click', function () {
@@ -338,6 +346,8 @@ clustermap.ClusterMarker.prototype.onAdd = function () {
 clustermap.ClusterMarker.prototype.onRemove = function () {
 	this._div.parentNode.removeChild(this._div);
 	this._div = null;
+	this._shadow.parentNode.removeChild(this._shadow);
+	this._shadow = null;
 }
 
 clustermap.ClusterMarker.prototype.draw = function () {
@@ -348,7 +358,15 @@ clustermap.ClusterMarker.prototype.draw = function () {
 
 	// Set the marker at the right position.
 	this._div.style.left = (loc.x - this._width / 2) + 'px';
-	this._div.style.top = (loc.y - this._width) + 'px';
+	this._div.style.top = (loc.y - this._width - 6) + 'px';
+	this._shadow.style.left = (loc.x - 7) + 'px';
+	var offset = {
+		30: -6,
+		40: -4,
+		50: -2,
+		60: 0
+	}
+	this._shadow.style.top = (loc.y + offset[this._width]) + 'px';
 }
 
 module.exports = clustermap;

@@ -106,16 +106,41 @@ module.exports = (function() {
 			},
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		});
-		var myloc = new google.maps.Marker({
-			clickable: false,
-			icon: new google.maps.MarkerImage('//maps.gstatic.com/mapfiles/mobile/mobileimgs2.png',
-											 new google.maps.Size(22,22),
-											 new google.maps.Point(0,18),
-											 new google.maps.Point(11,11)),
-			shadow: null,
-			zIndex: 999,
-			map: map
-		});
+
+
+		function locationMarker(latlng, map, args) {
+			this.latlng = latlng;
+			this.args = args;
+			this.setMap(map);
+		}
+
+		locationMarker.prototype = new google.maps.OverlayView();
+
+		locationMarker.prototype.draw = function() {
+			var self = this;
+			var div = this.div;
+			if (!div) {
+				div = this.div 	= document.createElement('div');
+				div.className 	= 'pulseMarker';
+				google.maps.event.addDomListener(div, "click", function(event) {
+					google.maps.event.trigger(self, "click");
+				});
+				var panes = this.getPanes();
+				panes.overlayImage.appendChild(div);
+			}
+			var point = this.getProjection().fromLatLngToDivPixel(this.latlng);
+			if (point) {
+				div.style.left = (point.x + 5) + 'px';
+				div.style.top = (point.y - 17) + 'px';
+			}
+		};
+
+		locationMarker.prototype.remove = function() {
+			if (this.div) {
+				this.div.parentNode.removeChild(this.div);
+				this.div = null;
+			}
+		};
 
 		// Try W3C Geolocation (Preferred)
 		if(navigator.geolocation) {
@@ -123,7 +148,12 @@ module.exports = (function() {
 			navigator.geolocation.getCurrentPosition(function(position) {
 				initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
 				map.setCenter(initialLocation);
-				myloc.setPosition(initialLocation);
+				//show user location
+				var myloc = new locationMarker(
+					initialLocation,
+					map,
+					{}
+				);
 
                 getPosts({'loc': initialLocation});
 			}, function() {
@@ -141,6 +171,7 @@ module.exports = (function() {
 		//TODO: get the last position chosen by cookie or user account
 		// 		or ask user for position
 		//		or do a geo detection by IP (country / city / ...) => http://dev.maxmind.com/geoip/geoip2/geolite2/
+		/*
 		if (errorFlag === true) {
 			alert("Geolocation service failed.");
 			initialLocation = newyork;
@@ -148,8 +179,7 @@ module.exports = (function() {
 			alert("Your browser doesn't support geolocation. We've placed you in Siberia.");
 			initialLocation = siberia;
 		}
-		map.setCenter(initialLocation);
-		myloc.setPosition(initialLocation);
+		map.setCenter(initialLocation);*/
 	}
 
 	// API/data for end-user
