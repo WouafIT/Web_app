@@ -42,7 +42,6 @@ var clustermap = function () {
 		if (this._elements.length > 0) {
 			var projection = this._map.getProjection();
 			if (projection === 'undefined') {
-				console.info('Projection undefined. You need to wait for "bounds_changed" event before creating the clustermap');
 				return;
 			}
 
@@ -125,7 +124,6 @@ var clustermap = function () {
 		// display nodes as markers
 		var viewport = hcmap._map.getBounds();
 		if (viewport === 'undefined') {
-			console.info('Viewport undefined. You need to wait for "bounds_changed" event before creating the clustermap');
 			return;
 		}
 

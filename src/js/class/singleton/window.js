@@ -10,7 +10,6 @@ module.exports = (function() {
 		shown = false;
 	});
 	$modal.on('show.bs.modal', function (event) {
-		console.info('show', event);
 		shown = true;
 		var $source = $(event.relatedTarget);
 		if ($source.length && $source.data('href')) {
@@ -28,7 +27,6 @@ module.exports = (function() {
 			open:		null,
 			close:		null
 		}, options);
-		console.info(options);
 		var content =
 			'<div class="modal-header">'+
 			'	<button type="button" class="close" data-dismiss="modal" aria-label="'+ i18n.t('Close') +'">'+
@@ -55,7 +53,6 @@ module.exports = (function() {
 		}
 		if (options.close) {
 			$modal.on('hidden.bs.modal', function(event) {
-				console.info(options);
 				options.close(event);
 				$(this).off(event);
 			});

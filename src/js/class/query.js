@@ -62,7 +62,7 @@ module.exports = function () {
 			success: params.success,
 			error: function() {
 				console.info('error', arguments);
-				params.error({});//TODO
+				//params.error({});//TODO
 				//throw new Exception('Query error on'+ this.endpoint + path);
 			},
 			complete: function() {

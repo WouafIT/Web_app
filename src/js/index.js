@@ -13,8 +13,6 @@
 	//user.set('token', 'test');
 	//Data
 	var data = require('./class/singleton/data.js');
-	//data.set('foo', 'bar');
-
 	//Toast
 	var toast = require('./class/singleton/toast.js');
 
@@ -82,20 +80,18 @@
 		$document.on('app.start-end', function() {
 			//Init Map
 			map.init();
-
-			$('#splash').fadeOut('fast', function () {
-				//toast.show('Chargement terminé !');
-				if (__DEV__) {
-					console.info('all done (dev mode)');
-				}
-			});
+			//toast.show('Chargement terminé !');
+			if (__DEV__) {
+				console.info('all done (dev mode)');
+				console.info('launch count: '+data.get('launchCount'));
+			}
 		});
 
 		//launch count
 		if (!data.get('launchCount')) {
 			data.set('launchCount', 1);
 		} else {
-			data.set('launchCount', data.get('launchCount') + 1);
+			data.set('launchCount', parseInt(data.get('launchCount'), 10) + 1);
 		}
 
 		//Orientation events

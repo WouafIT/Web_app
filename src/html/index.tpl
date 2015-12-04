@@ -142,7 +142,7 @@
 <!-- Bootstrap -->
 <script src="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.js"></script>
 <!-- GMaps -->
-<script src="https://maps.googleapis.com/maps/api/js?key={%= o.htmlWebpackPlugin.options.data.googleApi %}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key={%= o.htmlWebpackPlugin.options.data.googleApi %}&libraries=geometry"></script>
 <script type="text/javascript" src="js/build.js?{%= o.htmlWebpackPlugin.options.data.timestamp %}" charset="utf-8"></script>
 </body>
 </html>
