@@ -4,16 +4,21 @@ a, .btn-link {
 	&:focus, &:hover, &:active {
 		color: @darkgreen;
 	}
+	&:focus {
+		outline: 5px auto @darkgreen;
+	}
 }
+
 .btn-primary {
 	background-color: @green;
 	border-color: @green;
 
-	&:hover, &:active {
+	&:focus, &:hover, &:active {
 		background-color: @darkgreen;
 		border-color: @darkgreen;
 	}
 }
+
 .form-control:focus {
 	border-color: @lightgreen;
 }

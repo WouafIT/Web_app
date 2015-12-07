@@ -1,5 +1,4 @@
 module.exports = (function() {
-	var $ = require('jquery');
 	var $loader = $('#loader');
 	var self = {};
 	self.show = function(text, delay) {

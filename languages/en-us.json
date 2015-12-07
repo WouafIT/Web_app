@@ -29,11 +29,12 @@
 	"End": "End",
 	"What?": "What?",
 	"Close": "Close",
+    "Save": "Save",
 	"Choose a category": "Choose a category",
 	"Hashtag": "Hashtag",
 	"Specify a hashtag": "Specify a hashtag",
 	"Location request": "Location request",
-	"Location request details": "Wouaf IT will ask for your permission to activate geolocation in your browser. This request will automatically center the map on your location and then simplify your navigation.\n\nWe do not store your location on our servers.\n\nYou can always change this permission in your browser settings.",
+	"Location_request_details": "Wouaf IT will ask for your permission to activate geolocation in your browser. This request will automatically center the map on your location and then simplify your navigation.\n\nWe do not store your location on our servers.\n\nYou can always change this permission in your browser settings.",
 
 
 	"All events": "All events",
@@ -50,5 +51,35 @@
 	"__count__ Wouaf_plural": "__count__ Wouafs",
 	"__wouaf__ displayed": "__wouaf__ displayed",
 	"__wouaf__ displayed_plural": "__wouaf__ displayed",
-	"__max__ displayed (maximum reached)": "__max__ displayed (maximum reached)"
+	"__max__ displayed (maximum reached)": "__max__ displayed (maximum reached)",
+
+    "Connect!": "Connect!",
+    "create_wouaf_it_account": "If you do not have your Wouaf IT account, it's time to create one! It's free and only takes seconds.",
+    "use_wouaf_it_account": "and if you already have your account, what are you waiting for to login?",
+
+	"ID / Nickname": "ID / Nickname",
+	"Email": "Email",
+	"Password": "Password",
+	"Confirm password": "Confirm password",
+	"Language": "Language",
+	"We'll never share your email with anyone else.": "We'll never share your email with anyone else.",
+	"Create your account": "Create your account",
+	"Fill in the form below:": "Fill in the form below:",
+	"Cancel": "Cancel",
+	"ID or Email": "ID or Email",
+	"Choose your connection method": "Choose your connection method",
+	"Facebook account": "Facebook account",
+	"Facebook_account_details": "By connecting to Wouaf IT with Facebook, you can share your Wouafs on your wall.",
+	"Google account": "Google account",
+	"Wouaf IT account": "Wouaf IT account",
+	"New Wouaffer? Create your account!": "New Wouaffer? Create your account!",
+	"Or enter your login": "Or enter your login",
+	"Lost password?": "Lost password?",
+	"There are errors in your form": "There are errors in your form ...",
+	"Your form is incomplete, thank you to fill all fields": "Your form is incomplete, thank you to fill all fields.",
+	"Welcome": "Welcome!",
+	"welcome_to_wouaf_it": "Welcome in the Wouaf IT community!\n\nAn email has been sent to activate your account.\nIf it is not enabled under 6h it will be automatically deleted.\n\nYou can now create your first Wouaf. Do you want to see how it works?",
+
+	"French": "French",
+	"English": "English"
 }

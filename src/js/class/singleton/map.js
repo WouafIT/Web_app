@@ -164,7 +164,7 @@ module.exports = (function () {
 		var messageWindow = require('./window.js');
 		messageWindow.show({
 			title: i18n.t('Location request'),
-			text: i18n.t('Location request details'),
+			text: i18n.t('Location_request_details'),
 			close: function () {
 				navigator.geolocation.getCurrentPosition(setUserLocation, handleNoGeolocation);
 			}

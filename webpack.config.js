@@ -24,8 +24,8 @@ module.exports = Object.keys(languages).map(function(language) {
 		},
 		module: {
 			loaders: [
-				{ test: /\.css$/, 						loader: "style!css!postcss" },
-				{ test: /\.less/, 						loader: "style!css!postcss!less" },
+				{ test: /\.css$/, 						loader: "style!css" },
+				{ test: /\.less/, 						loader: "style!css!less" },
 				{ test: /\.json/, 						loader: "json" },
 				{ test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,  loader: "url?limit=10000&name=[path][name]-[hash:6].[ext]&mimetype=application/font-woff" },
 				{ test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,   loader: "url?limit=10000&name=[path][name]-[hash:6].[ext]&mimetype=application/octet-stream" },
@@ -50,12 +50,36 @@ module.exports = Object.keys(languages).map(function(language) {
 									  data: htmlData,
 									  i18n: languageData
 								  }),
+            new HtmlWebpackPlugin({
+                filename: 'parts/about.html',
+                template: './languages/parts/'+language+'/about.tpl',
+                data: htmlData,
+                i18n: languageData
+            }),
+            new HtmlWebpackPlugin({
+                filename: 'parts/login.html',
+                template: 'src/html/parts/login.tpl',
+                data: htmlData,
+                i18n: languageData
+            }),
+            new HtmlWebpackPlugin({
+                filename: 'parts/logout.html',
+                template: 'src/html/parts/logout.tpl',
+                data: htmlData,
+                i18n: languageData
+            }),
 			new HtmlWebpackPlugin({
-									  filename: 'parts/about.html',
-									  template: './languages/parts/'+language+'/about.tpl',
-									  data: htmlData,
-									  i18n: languageData
-								  }),
+				filename: 'parts/parameters.html',
+				template: 'src/html/parts/parameters.tpl',
+				data: htmlData,
+				i18n: languageData
+			}),
+			new HtmlWebpackPlugin({
+				filename: 'parts/create-account.html',
+				template: 'src/html/parts/create-account.tpl',
+				data: htmlData,
+				i18n: languageData
+			}),
 			new CopyWebpackPlugin([
 				{
 					from: '../assets'
