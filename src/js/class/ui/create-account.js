@@ -69,6 +69,9 @@ module.exports = (function() {
 				console.info(data);
 
 				if (data.result && data.result == 1) {
+					var data = require('../singleton/data.js');
+					//store uid
+					data.setString('uid', datas.uid);
 					var window = require('../singleton/window.js');
 					window.show({
 						title: i18n.t('Welcome'),

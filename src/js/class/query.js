@@ -11,7 +11,7 @@ module.exports = function () {
 	} else {
 		var KEY 			= API_KEY_PROD;
 	}
-	$( document ).ajaxStart(function() {
+	$(document).ajaxStart(function() {
 		if (__DEV__) {
 			console.info('ajax start');
 		}
@@ -69,11 +69,11 @@ module.exports = function () {
 				//nothing ?
 			}
 		}
-		if (params.method == 'DELETE') {
+		/*if (params.method == 'DELETE') {
 			//seems to be a probem with DELETE requests ...
 			xhr_params.type = 'POST';
 			xhr_params.headers['X-HTTP-Method-Override'] = 'DELETE';
-		}
+		}*/
 		xhr = $.ajax(xhr_params);
 	}
 	var geocode = function(address, callback) {

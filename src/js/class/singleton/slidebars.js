@@ -19,7 +19,7 @@ module.exports = (function() {
 		var data = require('./data.js');
 
 		//set categories values
-		var categories = data.get('categories');
+		var categories = data.getObject('categories');
 		var $what = $('#what');
 		$what.append('<option value="">'+ i18n.t('All events') +'</option>');
 		if (categories) {

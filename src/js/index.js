@@ -1,22 +1,12 @@
 (function($) {
-	//Slidebars
 	var slidebars = require('./class/singleton/slidebars.js');
-	//Load CSS
 	require("../less/index.less");
-	//i18n
 	var i18n = require('./class/singleton/i18n.js');
-	//Map
 	var map = require('./class/singleton/map.js');
-	//User
 	var user = require('./class/singleton/user.js');
-	//user.set('uid', 'toto');
-	//user.set('token', 'test');
-	//Data
 	var data = require('./class/singleton/data.js');
-	//Toast
 	var toast = require('./class/singleton/toast.js');
-
-	//Query
+	var window = require('./class/singleton/window.js');
 	var query = require('./class/query.js')();
 
 	var $document = $(document);
@@ -54,7 +44,7 @@
 				}
 				//update categories
 				if (infos.categories) {
-					data.set('categories', infos.categories);
+					data.setObject('categories', infos.categories);
 				}
 				//hide loader
 				//activityIndicator.hide();
@@ -63,8 +53,7 @@
 				//show server message
 				if (infos.message) {
 					//show message page
-					var messageWindow = require('./class/singleton/window.js');
-					messageWindow.show({
+					window.show({
 						title: 	infos.message.title,
 						text: 	infos.message.msg,
 						close: function () {
@@ -80,37 +69,32 @@
 		$document.on('app.start-end', function() {
 			//Init Map
 			map.init();
-			//toast.show('Chargement terminé !');
 			if (__DEV__) {
 				console.info('all done (dev mode)');
-				console.info('launch count: '+data.get('launchCount'));
+				console.info('launch count: '+data.getInt('launchCount'));
 			}
 		});
 
 		//launch count
-		if (!data.get('launchCount')) {
-			data.set('launchCount', 1);
+		if (!data.getInt('launchCount')) {
+			data.setInt('launchCount', 1);
 		} else {
-			data.set('launchCount', parseInt(data.get('launchCount'), 10) + 1);
+			data.setInt('launchCount', data.getInt('launchCount') + 1);
 		}
 
-		//Orientation events
-		/*Ti.Gesture.addEventListener('orientationchange', function(e) {
-			Ti.App.fireEvent('app.orientation', e);
-		});*/
-		data.set('connectionAlert', 0);
+		data.setInt('connectionAlert', 0);
 		//show welcome page on first launch
-		if (data.get('launchCount') == 1) {
+		if (data.getInt('launchCount') == 1) {
 			//init default app vars
-			data.set('rules', false);
-			data.set('fbPost', true);
-			data.set('allowContact', true);
-			data.set('postNotif', true);
-			data.set('commentNotif', true);
+			data.setBool('rules', false);
+			data.setBool('fbPost', true);
+			data.setBool('allowContact', true);
+			data.setBool('postNotif', true);
+			data.setBool('commentNotif', true);
 			//Ti.App.Properties.setBool('eventfulSearch', true);
-			data.set('unit', 'km');
-			data.set('radius', 150);
-			data.set('categories', []);
+			data.setString('unit', 'km');
+			data.setInt('radius', 150);
+			data.setObject('categories', []);
 
 			/*//show welcome page
 			var welcomeWindow = require('ui/welcome');

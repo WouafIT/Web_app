@@ -16,7 +16,7 @@ module.exports = (function () {
 		var addResults = false;
 		var resultsType = json.resultsType ? json.resultsType : 'unknown';
 		var elements = [];
-		var categories = data.get('categories');
+		var categories = data.getObject('categories');
 		//TODO set thoses colors in the categories database
 		var colors = {
 			1: '#3030BB',
@@ -121,7 +121,7 @@ module.exports = (function () {
 	};
 	//set user current location
 	var setUserLocation = function (position) {
-		data.set('userGeolocation', true);
+		data.setBool('userGeolocation', true);
 		userLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 		if (!userMarker) {
 			//show map
@@ -146,7 +146,7 @@ module.exports = (function () {
 			return;
 		}
 		console.info('No geolocation available, code '+ error.code +': '+ error.message);
-		var lastLocation = data.get('position');
+		var lastLocation = data.getObject('position');
 		if (lastLocation) {
 			showMap(new google.maps.LatLng(lastLocation.lat, lastLocation.lng));
 		}
@@ -172,7 +172,7 @@ module.exports = (function () {
 	}
 	//show map on user location, remove splash, launch search
 	var showMap = function (location) {
-		data.set('position', location.toJSON());
+		data.setObject('position', location.toJSON());
 		//set map center
 		map.setCenter(location);
 		//search posts from current location
@@ -182,7 +182,7 @@ module.exports = (function () {
 	}
 	var updateMapPosition = function() {
 		var center = map.getCenter();
-		data.set('position', center.toJSON());
+		data.setObject('position', center.toJSON());
 		//check distance between current center and last search
 		if (jsonResults.query) {
 			var distance = Math.round(google.maps.geometry.spherical.computeDistanceBetween(center,
@@ -227,7 +227,7 @@ module.exports = (function () {
 			});
 		} else if (navigator.geolocation) {
 			//Check for last known location if any
-			var userGeolocation = data.get('userGeolocation');
+			var userGeolocation = data.getBool('userGeolocation');
 			if (userGeolocation === null) {
 				//no location, assume user has still not granted location right and ask for it
 				askForGeolocation();

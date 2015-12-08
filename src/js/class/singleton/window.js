@@ -5,7 +5,6 @@ module.exports = (function() {
 	var $modalContent = $modal.find('.modal-content');
 	var self = {};
 	var shown = false;
-
 	var onRemoteModalLoad = function(html, status) {
 		if (status == 'success') {
 			var $html = $(html);
