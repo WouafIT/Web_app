@@ -1,15 +1,21 @@
 module.exports = (function() {
 	// Reference to "this" that won't get clobbered by some other "this"
 	var self = {};
-	// Public methods
-	self.init = function () {
-		//todo: get current user from cookies if any
-	}
+	var data = require('./data.js');
 	self.set = function (key, value) {
-		self[key] = value;
-	}
+		var user = data.getObject('user') || {};
+		user[key] = value;
+		data.setObject('user', user);
+	};
 	self.get = function (key) {
-		return self[key] || null;
-	}
+		var user = data.getObject('user') || {};
+		return user[key] || null;
+	};
+	self.gravatar = function (size) {
+		var utils = require('../utils.js');
+		size = size || 80;
+		var email = self.get('email');
+		return email ? '//www.gravatar.com/avatar/' + utils.md5(email.toLowerCase()) + '.jpg?d=identicon&s=' + size : '';
+	};
 	return self;
 })();

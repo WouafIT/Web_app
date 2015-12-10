@@ -8,13 +8,13 @@
 <div class="modal-body">
 	<p>Wouaf IT © {%= o.htmlWebpackPlugin.options.data.year %} par Sébastien PAUCHET.</p>
 	<hr />
+	<p>Imaginez une source d'information géolocalisée ou tout le monde peut signaler les évènements locaux. De la manifestation de quartier à la vente de votre canapé en passant par le chien perdu du voisin.</p>
 	<p>Les sources d'informations contributives ont déjà montré leur qualité et leur exhaustivité. Wikipedia, Twitter, Facebook, Reddit et bien d'autres sont irremplaçable pour nous informer.</p>
-	<p>Imaginez une source d'information géolocalisée ou tout le monde peut contribuer à recenser les évènements locaux. De la manifestation de quartier à la vente de votre canapé en passant par le chien perdu du voisin.</p>
 	<p>Sur Wouaf IT vous pouvez dire à tous, tout ce qu'il se passe autour de vous.</p>
+	<p>Suivez Wouaf IT sur <i class="fa fa-twitter"></i> <a href="https://twitter.com/Wouaf_IT" target=_blank">Twitter</a> pour plus d'informations !</p>
 	<h5>Protection des données personnelles :</h5>
 	<p>Wouaf IT est et restera respectueux de vos données personnelles. Elles ne seront ni revendues ni exploitées commercialement en dehors de l'usage nécessaire au fonctionnement du service.</p>
 	<p>Vous pouvez à tout moment supprimer votre profil. Vos données seront intégralement et immédiatement supprimées elles aussi. Un délai de quelques jours est nécessaire pour que cette suppression se propage aux sauvegardes du service.</p>
-	<p>Suivez Wouaf IT sur <i class="fa fa-twitter"></i> <a href="https://twitter.com/Wouaf_IT" target=_blank">Twitter</a> pour plus d'informations !</p>
 
 	<p>L'application web Wouaf IT est distribuée sous licence libre Apache. Son code source est <a href="https://github.com/WouafIT">disponible sur Github</a>.</p>
 </div>

@@ -1,5 +1,5 @@
 module.exports = function () {
-	var user = require('./singleton/user.js');
+	var data = require('./singleton/data.js');
 	var loader = require('./singleton/loader.js');
 	var xhr;
 	//Google geocode usage limits : https://developers.google.com/maps/articles/geocodestrat#client
@@ -35,15 +35,15 @@ module.exports = function () {
 	var connectionError = function() {
 		//check if last alert append in the last 2 seconds
 		/*var now = new Date();
-		if (Ti.App.Properties.getInt('connectionAlert') > 0) {
-			if (now.getTime() - Ti.App.Properties.getInt('connectionAlert') > 2000) {
+		if (data.getInt('connectionAlert') > 0) {
+			if (now.getTime() - data.getInt('connectionAlert') > 2000) {
 				var notification =  require('ui/components/notification');
 				new notification(L('error_connecting_to_server_verify_that_your_device_is_properly_connected_and_try_again_later'));
 			}
 		} else {
 			utils.alert(L('error_connecting_to_server_verify_that_your_device_is_properly_connected_and_try_again_later'));
 		}
-		Ti.App.Properties.setInt('connectionAlert', now.getTime());*/
+		 data.setInt('connectionAlert', now.getTime());*/
 		alert('connectionError');
 	}
     var query = function (params) {
@@ -61,9 +61,7 @@ module.exports = function () {
 			cache: false,
 			success: params.success,
 			error: function() {
-				console.info('error', arguments);
-				//params.error({});//TODO
-				//throw new Exception('Query error on'+ this.endpoint + path);
+				console.error('ajax error', params, arguments);
 			},
 			complete: function() {
 				//nothing ?
@@ -122,7 +120,7 @@ module.exports = function () {
                 } else if (i == 'date' && params[i]) {
 					param = Math.round(params[i].getTime() / 1000);
 				} else if (i == 'cat' && params[i]) {
-					//var serverCategories = Ti.App.Properties.getList('categories');
+					//var serverCategories = data.getObject('categories');
 					//param = serverCategories[params[i] - 1]['id'];
 				}
 				q += '&' + i + '=' + param;
@@ -140,9 +138,9 @@ module.exports = function () {
 				error:	null
 			});
 			/*
-			if (Ti.Platform.osname != 'mobileweb' && Ti.App.Properties.getString('eventfulKey') && !!Ti.App.Properties.getBool('eventfulSearch')) {
+			if (Ti.Platform.osname != 'mobileweb' && data.getString('eventfulKey') && !!data.getBool('eventfulSearch')) {
 				//duplicate search on eventful	
-				var q = 'app_key='+ Ti.App.Properties.getString('eventfulKey') +'&units=km&page_size=100&mature=normal&include=categories&sort_order=popularity';
+				var q = 'app_key='+ data.getString('eventfulKey') +'&units=km&page_size=100&mature=normal&include=categories&sort_order=popularity';
                 if (!params.date) {
                     params.date = new Date();
                 }
@@ -292,8 +290,8 @@ module.exports = function () {
 				url: 	ENDPOINT + '/init/',
 				data:	{
 					key: 		KEY,
-					uid: 		user.get('uid'),
-				    token:      user.get('token'),
+					uid: 		data.getString('uid'),
+				    token:      data.getString('token'),
                     locale:     LANGUAGE
                 },
 				success:callback,
@@ -331,8 +329,8 @@ module.exports = function () {
 				url: 	ENDPOINT + '/user/logout/',
 				data:	{
 					key: 		KEY,
-					uid: 		user.get('uid'),
-					token: 		Ti.App.Properties.getString('token')
+					uid: 		data.getString('uid'),
+					token: 		data.getString('token')
 				},
 				success:callback,
 				error:	callback
@@ -362,8 +360,8 @@ module.exports = function () {
 		},
 		updateUser: function(datas, success, error) {
 			datas.key = KEY;
-			datas.uid = Ti.App.Properties.getString('uid');
-			datas.token = Ti.App.Properties.getString('token');
+			datas.uid = data.getString('uid');
+			datas.token = data.getString('token');
 			query({
 				method: 'PUT',
 				url: 	ENDPOINT + '/user/',
@@ -378,8 +376,8 @@ module.exports = function () {
                 url:    ENDPOINT + '/user/',
                 data:  {
                     key:        KEY,
-                    uid:        user.get('uid'),
-                    token:      Ti.App.Properties.getString('token')
+                    uid:        data.getString('uid'),
+                    token:      data.getString('token')
                 },
                 success:callback,
                 error:  callback
@@ -395,7 +393,7 @@ module.exports = function () {
             });
         },
         userFavorites: function(callback) {
-            var q = '?key=' + KEY + '&uid=' + Ti.App.Properties.getString('uid') + '&token=' + Ti.App.Properties.getString('token');
+            var q = '?key=' + KEY + '&uid=' + data.getString('uid') + '&token=' + data.getString('token');
             query({
                 method: 'GET',
                 url:    ENDPOINT + '/user/favorites/' + q,
@@ -405,8 +403,8 @@ module.exports = function () {
         },
         createPost: function(datas, callback) {
 			datas.key = KEY;
-			datas.uid = Ti.App.Properties.getString('uid');
-			datas.token = Ti.App.Properties.getString('token');
+			datas.uid = data.getString('uid');
+			datas.token = data.getString('token');
 			query({
 				method: 'PUT',
 				url: 	ENDPOINT + '/wouaf/',
@@ -418,8 +416,8 @@ module.exports = function () {
 		addFavorite: function(id, callback) {
 			var datas = {
 				key: KEY,
-				uid: user.get('uid'),
-				token: user.get('token'),
+				uid: data.getString('uid'),
+				token: data.getString('token'),
 				id: id
 			};
 			query({
@@ -433,8 +431,8 @@ module.exports = function () {
 		removeFavorite: function(id, callback) {
 			var datas = {
 				key: KEY,
-				uid: user.get('uid'),
-				token: user.get('token'),
+				uid: data.getString('uid'),
+				token: data.getString('token'),
 				id: id
 			};
 			query({
@@ -457,8 +455,8 @@ module.exports = function () {
         },
 		createComment: function(datas, callback) {
 		    datas.key = KEY;
-            datas.uid = Ti.App.Properties.getString('uid');
-            datas.token = Ti.App.Properties.getString('token');
+            datas.uid = data.getString('uid');
+            datas.token = data.getString('token');
             query({
                 method: 'PUT',
                 url:    ENDPOINT + '/wouaf/comment/',
@@ -470,8 +468,8 @@ module.exports = function () {
 		deleteComment: function(id, callback) {
             var datas = {
 				key: KEY,
-				uid: user.get('uid'),
-				token: user.get('token'),
+				uid: data.getString('uid'),
+				token: data.getString('token'),
 				id: id
 			};
             query({
@@ -484,8 +482,8 @@ module.exports = function () {
        },
        contact: function(datas, callback) {
             datas.key = KEY;
-            datas.uid = Ti.App.Properties.getString('uid');
-            datas.token = Ti.App.Properties.getString('token');
+            datas.uid = data.getString('uid');
+            datas.token = data.getString('token');
             query({
                 method: 'POST',
                 url:    ENDPOINT + '/user/contact/',
@@ -497,8 +495,8 @@ module.exports = function () {
        deletePost: function(id, callback) {
             var datas = {
                 key: KEY,
-                uid: user.get('uid'),
-                token: user.get('token'),
+                uid: data.getString('uid'),
+                token: data.getString('token'),
                 id: id
             };
             query({
@@ -512,8 +510,8 @@ module.exports = function () {
        reportPost: function(id, callback) {
             var datas = {
                 key: KEY,
-                uid: user.get('uid'),
-                token: user.get('token'),
+                uid: data.getString('uid'),
+                token: data.getString('token'),
                 id: id
             };
             query({

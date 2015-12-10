@@ -87,7 +87,7 @@ module.exports = (function() {
 			}
 			$modalContent.html(content);
 			$modal.modal('show');
-		}
+		};
 		if (shown) {
 			$modal.one('hidden.bs.modal', function() {
 				open(options);
@@ -96,6 +96,9 @@ module.exports = (function() {
 		} else {
 			open(options);
 		}
+	};
+	self.close = function () {
+		$modal.modal('hide');
 	};
 	return self;
 })();

@@ -1,4 +1,5 @@
 module.exports = (function() {
+	var $document = $(document);
 	var $modalWindow = $('#modalWindow');
 	//email validation. validate mostly RF2822
 	var emailRe = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
@@ -26,16 +27,16 @@ module.exports = (function() {
 			switch($field.attr('name')) {
 				case 'username':
 					ok = $field.val().length >= 3 && $field.val().length <= 100;
-					break
+					break;
 				case 'pass':
 					ok = $field.val().length >= 6 && $field.val().length <= 100;
-					break
+					break;
 				case 'passConfirm':
 					ok = $pass.val() == $field.val();
-					break
+					break;
 				case 'email':
 					ok = emailRe.test($field.val());
-					break
+					break;
 			}
 			if (ok) {
 				$field.removeClass('form-control-error').addClass('form-control-success');
@@ -65,26 +66,48 @@ module.exports = (function() {
 				pass: 			$pass.val(),
 				email: 			$email.val(),
 				lang: 			$language.val()
-			}, function(data) { //success
-				console.info(data);
-
-				if (data.result && data.result == 1) {
+			}, function(result) { //success
+				if (result.result && result.result == 1) {
 					var data = require('../singleton/data.js');
-					//store uid
-					data.setString('uid', datas.uid);
+
+					var loginSuccess = function(datas) {
+						if (!datas || !datas.user) {
+							loginError({});
+							return;
+						}
+						//login
+						$document.triggerHandler('app.login', datas);
+					};
+					var loginError = function(datas) {
+						//logout
+						$document.triggerHandler('app.logout');
+
+						if (datas && datas.msg) {
+							alert.show(i18n.t(result.msg[0]), $form, 'danger');
+						} else {
+							query.connectionError();
+						}
+					};
+
+					//call login
+					query.login({
+						login: $username.val(),
+						pass: $pass.val()
+					}, loginSuccess, loginError);
+
 					var window = require('../singleton/window.js');
 					window.show({
 						title: i18n.t('Welcome'),
 						'text': i18n.t('welcome_to_wouaf_it')
 					});
-				} else if (data.msg) {
-					alert.show(i18n.t(data.msg[0]), $form, 'danger');
+				} else if (result.msg) {
+					alert.show(i18n.t(result.msg[0]), $form, 'danger');
 				} else {
 					query.connectionError();
 				}
-			}, function(data) { //error
-				if (data.msg) {
-					alert.show(i18n.t(data.msg[0]), $form, 'danger');
+			}, function(result) { //error
+				if (result.msg) {
+					alert.show(i18n.t(result.msg[0]), $form, 'danger');
 				} else {
 					query.connectionError();
 				}

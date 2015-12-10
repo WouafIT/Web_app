@@ -35,7 +35,7 @@
 						   placeholder="{%= o.htmlWebpackPlugin.options.i18n['Password'] %}" />
 				</div>
 			</fieldset>
-			<p class="text-right"><button type="button" class="btn btn-primary">{%= o.htmlWebpackPlugin.options.i18n['Login'] %}</button></p>
+			<p class="text-right"><button type="submit" class="btn btn-primary">{%= o.htmlWebpackPlugin.options.i18n['Login'] %}</button></p>
 			<p class="text-center"><a href="#"
 									  data-href="/parts/lost-password.html?{%= o.htmlWebpackPlugin.options.data.timestamp %}"
 									  data-show="modal" data-target="#modalWindow">{%= o.htmlWebpackPlugin.options.i18n['Lost password?'] %}</a></p>

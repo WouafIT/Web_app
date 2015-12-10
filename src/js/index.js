@@ -11,33 +11,16 @@
 
 	var $document = $(document);
 	$document.ready(function() {
-		//logout event : reset all user infos
-		$document.on('app.logout', function() {
-			user.set('uid', null);
-			user.set('token', null);
-			user.set('favorites', null);
-			user.set('today_publications', 0);
-			/*if (Ti.Facebook.loggedIn) {
-				//disconnect facebook login in case of error
-				Ti.Facebook.logout();
-			}*/
-		});
+		//load login/logout events
+		require('./class/event/login.js');
 
 		$document.on('app.start', function() {
-			/*var activityIndicator = new activity({
-				message: L('initializing')
-			});
-			activityIndicator.show();*/
-
 			//init with server infos
 			query.init(function (infos) {
 				//update token and favorites if any
 				if (infos.token) {
-					user.set('token', infos.token);
-					user.set('today_publications', infos.today_publications);
-					if (infos.favorites) {
-						user.set('favorites', infos.favorites);
-					}
+					//login
+					$document.triggerHandler('app.login', infos);
 				} else {
 					//logout
 					$document.triggerHandler('app.logout');
@@ -46,8 +29,7 @@
 				if (infos.categories) {
 					data.setObject('categories', infos.categories);
 				}
-				//hide loader
-				//activityIndicator.hide();
+				//init slidebars
 				slidebars.init();
 
 				//show server message

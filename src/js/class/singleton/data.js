@@ -6,6 +6,10 @@ module.exports = (function() {
 	var self = {};
 	// Public methods
 	self.set = function (key, value, type) {
+		if (value === null) {
+			localStorage.removeItem(key);
+			return;
+		}
 		type = type || typeof value;
 		switch (type) {
 			case 'bool':
