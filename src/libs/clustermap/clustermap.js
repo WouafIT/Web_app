@@ -292,7 +292,7 @@ clustermap.ClusterMarker.prototype.onAdd = function () {
 	var div = document.createElement('DIV');
 
 	// set its style
-	div.className = this._cat ? 'baseMarker marker' + this._cat : 'baseMarker';
+	div.className = this._cat ? 'baseMarker marker' + this._cat : 'baseMarker markerCluster';
 
 	// set its color
 	var nbColors = this._colors.length;
@@ -312,8 +312,8 @@ clustermap.ClusterMarker.prototype.onAdd = function () {
 	}
 
 	// set its dimension
-	div.style.width = this._width + 'px';
-	div.style.height = this._width + 'px';
+	div.style.width = this._width + (this._cat ? 0 : 6) + 'px';
+	div.style.height = this._width + (this._cat ? 0 : 6) + 'px';
 
 	if (!this._cat) {
 		// set the size of the cluster
@@ -321,15 +321,15 @@ clustermap.ClusterMarker.prototype.onAdd = function () {
 	}
 	this._div = div;
 	this.getPanes().overlayImage.appendChild(div);
+	if (this._cat) {
+		// create the shadow
+		var shadow = document.createElement('DIV');
 
-	// create the shadow
-	var shadow = document.createElement('DIV');
-
-	// set its style
-	shadow.className = 'markerShadow';
-	this._shadow = shadow;
-	this.getPanes().overlayImage.appendChild(shadow);
-
+		// set its style
+		shadow.className = 'markerShadow';
+		this._shadow = shadow;
+		this.getPanes().overlayImage.appendChild(shadow);
+	}
 	// Register listeners to open up an info window when clicked.
 	var me = this;
 	google.maps.event.addDomListener(div, 'click', function () {
@@ -344,8 +344,10 @@ clustermap.ClusterMarker.prototype.onAdd = function () {
 clustermap.ClusterMarker.prototype.onRemove = function () {
 	this._div.parentNode.removeChild(this._div);
 	this._div = null;
-	this._shadow.parentNode.removeChild(this._shadow);
-	this._shadow = null;
+	if (this._shadow) {
+		this._shadow.parentNode.removeChild(this._shadow);
+		this._shadow = null;
+	}
 }
 
 clustermap.ClusterMarker.prototype.draw = function () {
@@ -356,15 +358,15 @@ clustermap.ClusterMarker.prototype.draw = function () {
 
 	// Set the marker at the right position.
 	this._div.style.left = (loc.x - this._width / 2) + 'px';
-	this._div.style.top = (loc.y - this._width - 6) + 'px';
-	this._shadow.style.left = (loc.x - 7) + 'px';
-	var offset = {
-		30: -6,
-		40: -4,
-		50: -2,
-		60: 0
+	if (this._cat) {
+		this._div.style.top = (loc.y - this._width - 6) + 'px';
+	} else {
+		this._div.style.top = (loc.y - this._width / 2) + 'px';
 	}
-	this._shadow.style.top = (loc.y + offset[this._width]) + 'px';
+	if (this._shadow) {
+		this._shadow.style.left = (loc.x - 7) + 'px';
+		this._shadow.style.top = (loc.y -((60 - this._width) / 5)) + 'px';
+	}
 }
 
 module.exports = clustermap;
