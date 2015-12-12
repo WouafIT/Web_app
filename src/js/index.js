@@ -16,7 +16,15 @@
 
 		$document.on('app.start', function() {
 			//init with server infos
-			query.init(function (infos) {
+			query.init(function (infos, status, msg) {
+				if (status == 'error') {
+					//show error page
+					window.show({
+						title: 'Error ...',
+						text: 'An error occurred during loading. Please try again later. (' + infos.status + ' ' + msg + ')'
+					});
+					return;
+				}
 				//update token and favorites if any
 				if (infos.token) {
 					//login

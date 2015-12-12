@@ -62,6 +62,9 @@ module.exports = function () {
 			success: params.success,
 			error: function() {
 				console.error('ajax error', params, arguments);
+				if (params.error) {
+					params.success.apply(this, arguments);
+				}
 			},
 			complete: function() {
 				//nothing ?
