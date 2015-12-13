@@ -64,7 +64,7 @@
 				console.info('launch count: '+data.getInt('launchCount'));
 			}
 		});
-
+		//test
 		//launch count
 		if (!data.getInt('launchCount')) {
 			data.setInt('launchCount', 1);
