@@ -44,7 +44,7 @@ module.exports = function () {
 			utils.alert(L('error_connecting_to_server_verify_that_your_device_is_properly_connected_and_try_again_later'));
 		}
 		 data.setInt('connectionAlert', now.getTime());*/
-		alert('connectionError');
+		//alert('connectionError');
 	}
     var query = function (params) {
 		for (var i in params.data) {

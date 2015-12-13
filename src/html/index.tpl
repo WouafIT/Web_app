@@ -40,15 +40,15 @@
                                              data-toggle="modal" data-target="#modalWindow">{%= o.htmlWebpackPlugin.options.i18n['Parameters'] %}</a>
 			</div>
 			<div class="logged" hidden>
-				<i class="fa fa-user"></i> <a href="#"
-                                              data-href="/parts/account.html?{%= o.htmlWebpackPlugin.options.data.timestamp %}"
-                                              data-toggle="modal" data-target="#modalWindow">{%= o.htmlWebpackPlugin.options.i18n['My account'] %}</a> |
+				<a href="#"
+				   data-href="/parts/account.html?{%= o.htmlWebpackPlugin.options.data.timestamp %}"
+				   data-toggle="modal" data-target="#modalWindow">
+					<span class="account-name">{%= o.htmlWebpackPlugin.options.i18n['My account'] %}</span>
+				</a> |
 				<i class="fa fa-cog"></i> <a href="#"
                                              data-href="/parts/parameters.html?{%= o.htmlWebpackPlugin.options.data.timestamp %}"
                                              data-toggle="modal" data-target="#modalWindow">{%= o.htmlWebpackPlugin.options.i18n['Parameters'] %}</a> |
-				<button class="btn btn-link" title="{%= o.htmlWebpackPlugin.options.i18n['Logout'] %}"
-                        data-href="/parts/logout.html?{%= o.htmlWebpackPlugin.options.data.timestamp %}"
-                        data-toggle="modal" data-target="#modalWindow"><i class="fa fa-power-off"></i></button>
+				<button class="btn btn-link btn-logout" title="{%= o.htmlWebpackPlugin.options.i18n['Logout'] %}"><i class="fa fa-power-off"></i></button>
 			</div>
 		</nav>
 		<h1 class="logo">{%= o.htmlWebpackPlugin.options.i18n['Wouaf IT'] %}</h1>

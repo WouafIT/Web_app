@@ -1,5 +1,7 @@
 module.exports = (function() {
 	var data = require('../singleton/data.js');
+	var window = require('../singleton/window.js');
+	var i18n = require('../singleton/i18n.js');
 	var $document = $(document);
 
 	//logout event : reset all user infos
@@ -16,9 +18,19 @@ module.exports = (function() {
 		$('.logged').attr('hidden', true);
 		$('.anonymous').removeAttr('hidden');
 	});
+
+	$('.btn-logout').on('click', function() {
+		//show logout page
+		window.show({
+			title: i18n.t('Logout'),
+			text: i18n.t('Logout_details')
+		});
+
+		$document.triggerHandler('app.logout');
+	});
+
 	//login event : set interface for user login
 	$document.on('app.login', function(event, params) {
-		console.info(params);
 		data.setString('uid', params.uid);
 		data.setString('token', params.token);
 		data.setObject('user', params.user);
@@ -26,12 +38,14 @@ module.exports = (function() {
 		if (params.favorites) {
 			data.setObject('favorites', params.favorites);
 		}
-
-		var user = require('../singleton/user.js');
-		console.info(user.gravatar());
-
 		$('.anonymous').attr('hidden', true);
 		$('.logged').removeAttr('hidden');
+
+		var user = require('../singleton/user.js');
+		//get gravatar
+		var gravatar = user.gravatar(20);
+		var username = user.get('username');
+		$('.account-name').html('<img src="'+ gravatar +'" /> '+ username).attr('title', i18n.t('Welcome __username__', { 'username': username }));
 	});
 
 })();

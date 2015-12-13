@@ -5,7 +5,7 @@ module.exports = (function () {
 	//Init plugin with current language
 	i18next.init({
 		debug: (__DEV__ ? true : false),
-		lng: 'fr-fr',
+		lng: LANGUAGE,
 		lowerCaseLng: true,
 		resStore: {
 			'fr-fr': {

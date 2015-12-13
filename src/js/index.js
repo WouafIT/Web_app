@@ -20,8 +20,8 @@
 				if (status == 'error') {
 					//show error page
 					window.show({
-						title: 'Error ...',
-						text: 'An error occurred during loading. Please try again later. (' + infos.status + ' ' + msg + ')'
+						title: i18n.t('Error_'),
+						text: i18n.t('Error_details __status__ __error__', { 'status': infos.status, 'error': msg })
 					});
 					return;
 				}

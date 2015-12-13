@@ -80,6 +80,12 @@
 	"Welcome": "Welcome!",
 	"welcome_to_wouaf_it": "Welcome in the Wouaf IT community!\n\nAn email has been sent to activate your account.\nIf it is not enabled under 6h it will be automatically deleted.\n\nYou can now create your first Wouaf. Do you want to see how it works?",
 
+	"Welcome __username__": "Welcome __username__",
+	"Logout": "Logout",
+	"Logout_details": "You are disconnected from Wouaf IT. See you soon!",
+	"Error_": "Error...",
+	"Error_details __status__ __error__": "An error occurred during loading. Please try again later.\n__status__ __error__",
+
 	"French": "French",
 	"English": "English"
 }
