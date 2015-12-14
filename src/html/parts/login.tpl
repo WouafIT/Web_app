@@ -24,7 +24,7 @@
 			<fieldset class="form-group">
 				<div class="input-group">
 					<div class="input-group-addon"><i class="fa fa-user"></i></div>
-					<input type="text" class="form-control" id="login" name="login"
+					<input type="text" class="form-control" id="login" name="username"
 						   placeholder="{%= o.htmlWebpackPlugin.options.i18n['ID or Email'] %}" />
 				</div>
 			</fieldset>

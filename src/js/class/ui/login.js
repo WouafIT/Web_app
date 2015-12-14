@@ -5,7 +5,7 @@ module.exports = (function() {
 	var self = {};
 	self.show = function (e) {
 		var $form = $modalWindow.find('form');
-		var $login = $form.find('input[name=login]');
+		var $username = $form.find('input[name=username]');
 		var $pass = $form.find('input[name=password]');
 
 		$form.find('input').on('change', function(e) {
@@ -18,7 +18,7 @@ module.exports = (function() {
 				return;
 			}
 			switch($field.attr('name')) {
-				case 'login':
+				case 'username':
 					ok = $field.val().length >= 3 && $field.val().length <= 100;
 					break;
 				case 'password':
@@ -33,14 +33,15 @@ module.exports = (function() {
 				$fieldset.removeClass('has-success').addClass('has-error');
 			}
 		});
-		$form.on('submit', function () {
+		$form.on('submit', function (event) {
+			event.preventDefault()
 			var i18n = require('../singleton/i18n.js');
 			var alert = require('../singleton/alert.js');
 			if ($form.find('.has-error').length) {
 				alert.show(i18n.t('There are errors in your form'), $form);
 				return false;
 			}
-			if (!$login.val() || !$pass.val()) {
+			if (!$username.val() || !$pass.val()) {
 				alert.show(i18n.t('Your form is incomplete, thank you to fill all fields'), $form);
 				return false;
 			}
@@ -75,11 +76,9 @@ module.exports = (function() {
 			//Query
 			var query = require('../query.js')();
 			query.login({
-				login: 			$login.val(),
+				login: 			$username.val(),
 				pass: 			$pass.val()
 			}, loginSuccess, loginError);
-
-			return false;
 		});
 	}
 	return self;

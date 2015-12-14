@@ -62,12 +62,6 @@ module.exports = Object.keys(languages).map(function(language) {
                 data: htmlData,
                 i18n: languageData
             }),
-            new HtmlWebpackPlugin({
-                filename: 'parts/logout.html',
-                template: 'src/html/parts/logout.tpl',
-                data: htmlData,
-                i18n: languageData
-            }),
 			new HtmlWebpackPlugin({
 				filename: 'parts/parameters.html',
 				template: 'src/html/parts/parameters.tpl',

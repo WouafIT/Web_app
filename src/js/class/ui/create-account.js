@@ -46,7 +46,8 @@ module.exports = (function() {
 				$fieldset.removeClass('has-success').addClass('has-error');
 			}
 		});
-		$form.on('submit', function () {
+		$form.on('submit', function (event) {
+			event.preventDefault();
 			var i18n = require('../singleton/i18n.js');
 			var alert = require('../singleton/alert.js');
 			if ($form.find('.has-error').length) {
@@ -112,7 +113,6 @@ module.exports = (function() {
 					query.connectionError();
 				}
 			});
-			return false;
 		});
 	}
 	return self;

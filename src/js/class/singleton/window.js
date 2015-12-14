@@ -5,21 +5,26 @@ module.exports = (function() {
 	var $modalContent = $modal.find('.modal-content');
 	var self = {};
 	var shown = false;
-	var onRemoteModalLoad = function(html, status) {
-		if (status == 'success') {
-			var $html = $(html);
-			if ($html.data('event')) {
-				$document.triggerHandler($html.data('event'));
-			}
-			if ($html.data('ui')) {
-				var ui = require('../ui/'+ $html.data('ui') +'.js');
-				if (ui && ui.show) {
-					ui.show();
+	var openHrefModal = function(href) {
+		var htmlRegExp 	= /\/parts\/([a-z-]+).html/;
+		var name 		= htmlRegExp.exec(href);
+		$modalContent.load(href, function(html, status) {
+			if (status == 'success') {
+				var $html = $(html);
+				if ($html.data('event')) {
+					$document.triggerHandler($html.data('event'));
 				}
+				if ($html.data('ui')) {
+					var ui = require('../ui/'+ $html.data('ui') +'.js');
+					if (ui && ui.show) {
+						ui.show();
+					}
+				}
+			} else {
+				console.error(arguments);
 			}
-		} else {
-			console.error(arguments);
-		}
+		});
+		history.pushState({href: href, window: true, name: name[1]}, name[1], '/'+ name[1] +'/');
 	};
 
 	//open a modal from another modal
@@ -27,7 +32,7 @@ module.exports = (function() {
 		var $source = $(event.target);
 		if ($source.length && $source.data('href')) {
 			$modal.one('show.bs.modal', function() {
-				$modalContent.load($source.data('href'), onRemoteModalLoad);
+				openHrefModal($source.data('href'));
 			});
 			if (shown) {
 				$modal.one('hidden.bs.modal', function() {
@@ -37,15 +42,16 @@ module.exports = (function() {
 			}
 		}
 	});
-	$modal.on('hidden.bs.modal', function (event) {
+	$modal.on('hidden.bs.modal', function () {
 		$modalContent.html('');
 		shown = false;
+		history.pushState({window: true}, '', '/');
 	});
 	$modal.on('show.bs.modal', function (event) {
 		shown = true;
 		var $source = $(event.relatedTarget);
 		if ($source.length && $source.data('href')) {
-			$modalContent.load($source.data('href'), onRemoteModalLoad);
+			openHrefModal($source.data('href'));
 		}
 	});
 	self.show = function(options) {
