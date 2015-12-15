@@ -55,6 +55,12 @@
 					</select>
 				</div>
 			</fieldset>
+			<div class="checkbox text-center">
+				<label>
+					<input type="checkbox" name="remember"> {%= o.htmlWebpackPlugin.options.i18n['Remember me on each connection'] %}
+				</label>
+			</div>
+
 			<p class="text-right"><button type="submit" class="btn btn-primary">{%= o.htmlWebpackPlugin.options.i18n['Create your account'] %}</button></p>
 		</form>
 	</div>

@@ -59,6 +59,8 @@
 	"ID / Nickname": "Identifiant / Pseudo",
 	"Email": "Email",
 	"Password": "Mot de passe",
+	"Remember me": "Se souvenir de moi",
+	"Remember me on each connection": "Se souvenir de moi à chaque connexion",
 	"Confirm password": "Confirmez le mot de passe",
 	"Language": "Langue",
 	"We'll never share your email with anyone else.": "Nous ne partagerons jamais votre adresse email avec quelqu'un d'autre.",

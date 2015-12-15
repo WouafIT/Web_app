@@ -6,6 +6,7 @@ module.exports = (function() {
 
 	//logout event : reset all user infos
 	$document.on('app.logout', function() {
+		data.setBool('permanent', null);
 		data.setString('uid', null);
 		data.setString('token', null);
 		data.setObject('favorites', null);
@@ -31,9 +32,11 @@ module.exports = (function() {
 
 	//login event : set interface for user login
 	$document.on('app.login', function(event, params) {
-		data.setString('uid', params.uid);
-		data.setString('token', params.token);
-		data.setObject('user', params.user);
+		var permanent = (params.permanent === true || data.getBool('permanent') === true);
+		data.setBool('permanent', permanent);
+		data.setString('uid', params.uid, !permanent);
+		data.setString('token', params.token, !permanent);
+		data.setObject('user', params.user, !permanent);
 		data.setInt('today_publications', params.today_publications);
 		if (params.favorites) {
 			data.setObject('favorites', params.favorites);
@@ -42,10 +45,11 @@ module.exports = (function() {
 		$('.logged').removeAttr('hidden');
 
 		var user = require('../singleton/user.js');
+		//TODO : get Facebook or G+ avatars instead of gravatar, if user login with oauth2
+
 		//get gravatar
 		var gravatar = user.gravatar(20);
 		var username = user.get('username');
 		$('.account-name').html('<img src="'+ gravatar +'" /> '+ username).attr('title', i18n.t('Welcome __username__', { 'username': username }));
 	});
-
 })();

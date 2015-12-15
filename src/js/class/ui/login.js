@@ -7,6 +7,7 @@ module.exports = (function() {
 		var $form = $modalWindow.find('form');
 		var $username = $form.find('input[name=username]');
 		var $pass = $form.find('input[name=password]');
+		var $remember = $form.find('input[name=remember]');
 
 		$form.find('input').on('change', function(e) {
 			var $field = $(e.target);
@@ -57,6 +58,8 @@ module.exports = (function() {
 				} else {
 					new notification(String.format(L('welcome_login'), datas.user.username));
 				}*/
+				//permanent login ?
+				datas.permanent = $remember.prop("checked");
 				//login
 				$document.triggerHandler('app.login', datas);
 				var windows = require('../singleton/windows.js');

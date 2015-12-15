@@ -15,7 +15,7 @@
 		<h4><i class="fa fa-google-plus"></i> {%= o.htmlWebpackPlugin.options.i18n['Google account'] %}</h4>
 		<p class="text-center"><button type="button" class="btn btn-secondary" data-dismiss="modal">Google connect</button></p>
 		<hr />
-		<h4>{%= o.htmlWebpackPlugin.options.i18n['Wouaf IT account'] %}</h4>
+		<h4 class="wouaf-it">{%= o.htmlWebpackPlugin.options.i18n['Wouaf IT account'] %}</h4>
 		<p class="text-center"><button type="button" class="btn btn-primary"
 									   data-href="/parts/create-account.html?{%= o.htmlWebpackPlugin.options.data.timestamp %}"
 									   data-show="modal" data-target="#modalWindow">{%= o.htmlWebpackPlugin.options.i18n['New Wouaffer? Create your account!'] %}</button></p>
@@ -35,6 +35,11 @@
 						   placeholder="{%= o.htmlWebpackPlugin.options.i18n['Password'] %}" />
 				</div>
 			</fieldset>
+			<div class="checkbox text-center">
+				<label>
+					<input type="checkbox" name="remember"> {%= o.htmlWebpackPlugin.options.i18n['Remember me'] %}
+				</label>
+			</div>
 			<p class="text-right"><button type="submit" class="btn btn-primary">{%= o.htmlWebpackPlugin.options.i18n['Login'] %}</button></p>
 			<p class="text-center"><a href="#"
 									  data-href="/parts/lost-password.html?{%= o.htmlWebpackPlugin.options.data.timestamp %}"

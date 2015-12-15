@@ -11,6 +11,7 @@ module.exports = (function() {
 		var $passConfirm = $form.find('input[name=passConfirm]');
 		var $email = $form.find('input[name=email]');
 		var $language = $form.find('select[name=language]');
+		var $remember = $form.find('input[name=remember]');
 		//set current language
 		if (window.location.hostname.substr(0, 5) !== 'fr-fr') {
 			$language.val('en_US');
@@ -76,6 +77,8 @@ module.exports = (function() {
 							loginError({});
 							return;
 						}
+						//permanent login ?
+						datas.permanent = $remember.prop("checked");
 						//login
 						$document.triggerHandler('app.login', datas);
 					};
