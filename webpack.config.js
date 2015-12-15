@@ -83,7 +83,8 @@ module.exports = Object.keys(languages).map(function(language) {
 		externals: {
 			// require("jquery") is external and available
 			//  on the global var jQuery
-			"jquery": "jQuery"
+			"jquery": "jQuery",
+			"i18next": "i18next"
 		}
 	}
 });

@@ -6,7 +6,7 @@
 	text-align: center;
 	border: 1px solid @darken-grey;
 	cursor: pointer;
-	&:before {
+	&::before {
 		content: '';
 		width: 80%;
 		height: 80%;
@@ -30,7 +30,7 @@
 .markerCluster {
 	border-radius: 50%;
 	border: 3px solid rgba(255, 255, 255, 0.5);
-	&:before {
+	&::before {
 		background: transparent;
 		border-radius: 50%;
 		background-color: rgba(33,33,33,0.4);
@@ -51,31 +51,31 @@
 }
 
 .marker1 {
-	&:before {
+	&::before {
 		background-image: url('../img/cat/1.png');
 	}
 }
 
 .marker2 {
-	&:before {
+	&::before {
 		background-image: url('../img/cat/2.png');
 	}
 }
 
 .marker3 {
-	&:before {
+	&::before {
 		background-image: url('../img/cat/3.png');
 	}
 }
 
 .marker4 {
-	&:before {
+	&::before {
 		background-image: url('../img/cat/4.png');
 	}
 }
 
 .marker5 {
-	&:before {
+	&::before {
 		background-image: url('../img/cat/5.png');
 	}
 }
@@ -103,7 +103,7 @@
 	margin: 11px 0px 0px -12px;
 	transform: rotateX(55deg);
 	z-index: -2;
-	&:after {
+	&::after {
 		content: "";
 		border-radius: 50%;
 		height: 40px;

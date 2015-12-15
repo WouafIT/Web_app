@@ -2,8 +2,8 @@
 <html lang="{%= o.htmlWebpackPlugin.options.i18n.languageShort %}">
 <head>
 	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<title>{%= o.htmlWebpackPlugin.options.i18n['Wouaf IT'] %}</title>
 	<meta name="description" content="{%= o.htmlWebpackPlugin.options.i18n['Wouaf IT'] %} -
 	{%= o.htmlWebpackPlugin.options.i18n['Your social network for your local events'] %}" />
@@ -173,6 +173,8 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/tether/1.1.1/js/tether.js"></script>
 <!-- Bootstrap -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
+<!-- i18next -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/i18next/2.0.1/i18next.min.js"></script>
 <!-- GMaps -->
 <script src="//maps.googleapis.com/maps/api/js?key={%= o.htmlWebpackPlugin.options.data.googleApi %}&libraries=geometry"></script>
 <script type="text/javascript" src="/js/build.js?{%= o.htmlWebpackPlugin.options.data.timestamp %}" charset="utf-8"></script>
