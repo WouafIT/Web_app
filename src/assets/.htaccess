@@ -1,3 +1,8 @@
 ErrorDocument 404 /404.html
 ErrorDocument 403 /403.html
 DirectoryIndex	index.html
+
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.html?%{QUERY_STRING} [L]

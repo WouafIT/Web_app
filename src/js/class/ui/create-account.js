@@ -61,7 +61,7 @@ module.exports = (function() {
 			}
 
 			//Query
-			var query = require('../query.js')();
+			var query = require('../singleton/query.js');
 			query.createUser({
 				username: 		$username.val(),
 				pass: 			$pass.val(),
@@ -96,8 +96,8 @@ module.exports = (function() {
 						pass: $pass.val()
 					}, loginSuccess, loginError);
 
-					var window = require('../singleton/window.js');
-					window.show({
+					var windows = require('../singleton/windows.js');
+					windows.show({
 						title: i18n.t('Welcome'),
 						'text': i18n.t('welcome_to_wouaf_it')
 					});

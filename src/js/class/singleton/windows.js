@@ -24,7 +24,7 @@ module.exports = (function() {
 				console.error(arguments);
 			}
 		});
-		history.pushState({href: href, window: true, name: name[1]}, name[1], '/'+ name[1] +'/');
+		history.pushState({href: href, windows: true, name: name[1]}, name[1], '/'+ name[1] +'/');
 	};
 
 	//open a modal from another modal
@@ -45,7 +45,7 @@ module.exports = (function() {
 	$modal.on('hidden.bs.modal', function () {
 		$modalContent.html('');
 		shown = false;
-		history.pushState({window: true}, '', '/');
+		history.pushState({windows: false}, '', '/');
 	});
 	$modal.on('show.bs.modal', function (event) {
 		shown = true;
@@ -59,28 +59,36 @@ module.exports = (function() {
 			title:		'',
 			text:		'',
 			footer:		'',
+			href: 		'',
 			open:		null,
 			close:		null
 		}, options);
 		var open = function (options) {
-			var content =
-				'<div class="modal-header">' +
-				'	<button type="button" class="close" data-dismiss="modal" aria-label="' + i18n.t('Close') + '">' +
-				'		<span aria-hidden="true">&times;</span>' +
-				'		<span class="sr-only">' + i18n.t('Close') + '</span>' +
-				'	</button>' +
-				'	<h4 class="modal-title">' + options.title + '</h4>' +
-				' </div>' +
-				'<div class="modal-body">' +
-				options.text +
-				'</div>' +
-				'<div class="modal-footer">';
-			if (options.footer) {
-				content += options.footer;
-			} else {
-				content += '<button type="button" class="btn btn-secondary" data-dismiss="modal">' + i18n.t('Close') + '</button>';
+			if (options.text && options.title) {
+				var content =
+					'<div class="modal-header">' +
+					'	<button type="button" class="close" data-dismiss="modal" aria-label="' + i18n.t('Close') + '">' +
+					'		<span aria-hidden="true">&times;</span>' +
+					'		<span class="sr-only">' + i18n.t('Close') + '</span>' +
+					'	</button>' +
+					'	<h4 class="modal-title">' + options.title + '</h4>' +
+					' </div>' +
+					'<div class="modal-body">' +
+					options.text +
+					'</div>' +
+					'<div class="modal-footer">';
+				if (options.footer) {
+					content += options.footer;
+				} else {
+					content += '<button type="button" class="btn btn-secondary" data-dismiss="modal">' + i18n.t('Close') + '</button>';
+				}
+				content += '</div>';
+				$modalContent.html(content);
+			} else if (options.href) {
+				$modal.one('show.bs.modal', function() {
+					openHrefModal(options.href);
+				});
 			}
-			content += '</div>';
 			if (options.open) {
 				$modal.one('show.bs.modal', function (event) {
 					options.open(event);
@@ -91,7 +99,6 @@ module.exports = (function() {
 					options.close(event);
 				});
 			}
-			$modalContent.html(content);
 			$modal.modal('show');
 		};
 		if (shown) {

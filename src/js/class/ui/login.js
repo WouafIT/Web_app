@@ -59,8 +59,8 @@ module.exports = (function() {
 				}*/
 				//login
 				$document.triggerHandler('app.login', datas);
-				var window = require('../singleton/window.js');
-				window.close();
+				var windows = require('../singleton/windows.js');
+				windows.close();
 			};
 			var loginError = function(datas) {
 				//logout
@@ -74,7 +74,7 @@ module.exports = (function() {
 			};
 
 			//Query
-			var query = require('../query.js')();
+			var query = require('../singleton/query.js');
 			query.login({
 				login: 			$username.val(),
 				pass: 			$pass.val()

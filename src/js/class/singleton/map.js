@@ -1,7 +1,7 @@
 module.exports = (function () {
 	var clustermap = require('../../../libs/clustermap/clustermap.js');
 	var i18n = require('./i18n.js');
-	var query = require('../query.js')();
+	var query = require('./query.js');
 	var data = require('./data.js');
 	var toast = require('./toast.js');
 	var $document = $(document);
@@ -12,7 +12,9 @@ module.exports = (function () {
 	var userMarker;
 	//set map pins on search response
 	var setPins = function (json) {
-		console.info(json);
+		if (__DEV__) {
+			console.info('Search results', json);
+		}
 		var addResults = false;
 		var resultsType = json.resultsType ? json.resultsType : 'unknown';
 		var elements = [];
@@ -84,7 +86,9 @@ module.exports = (function () {
 		if (!params.loc) {
 			params.loc = map.getCenter();
 		}
-		console.info(params);
+		if (__DEV__) {
+			console.info('Search params', params);
+		}
 		query.posts(params, setPins);
 	});
 	//Custom marker for user location
@@ -145,7 +149,9 @@ module.exports = (function () {
 			//Timeout on high accuracy => skip
 			return;
 		}
-		console.info('No geolocation available, code '+ error.code +': '+ error.message);
+		if (__DEV__) {
+			console.info('No geolocation available, code '+ error.code +': '+ error.message);
+		}
 		var lastLocation = data.getObject('position');
 		if (lastLocation) {
 			showMap(new google.maps.LatLng(lastLocation.lat, lastLocation.lng));
@@ -161,8 +167,8 @@ module.exports = (function () {
 	//ask user for his location
 	var askForGeolocation = function () {
 		//show message page
-		var messageWindow = require('./window.js');
-		messageWindow.show({
+		var windows = require('./windows.js');
+		windows.show({
 			title: i18n.t('Location request'),
 			text: i18n.t('Location_request_details'),
 			close: function () {
@@ -173,10 +179,14 @@ module.exports = (function () {
 	//show map on user location, remove splash, launch search
 	var showMap = function (location) {
 		data.setObject('position', location.toJSON());
-		//set map center
-		map.setCenter(location);
-		//search posts from current location
-		$document.triggerHandler('app.search');
+
+		//Init app state
+		$document.triggerHandler('app.load-state', function() {
+			//set map center
+			map.setCenter(location);
+			//search posts from current location
+			$document.triggerHandler('app.search');
+		});
 		//hide splash
 		$('#splash').fadeOut('fast');
 	}

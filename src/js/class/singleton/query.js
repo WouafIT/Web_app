@@ -1,6 +1,7 @@
-module.exports = function () {
-	var data = require('./singleton/data.js');
-	var loader = require('./singleton/loader.js');
+module.exports = (function() {
+	var $document = $(document);
+	var data = require('./data.js');
+	var loader = require('./loader.js');
 	var xhr;
 	//Google geocode usage limits : https://developers.google.com/maps/articles/geocodestrat#client
 	//==> illimited from client (browser) requests
@@ -11,14 +12,14 @@ module.exports = function () {
 	} else {
 		var KEY 			= API_KEY_PROD;
 	}
-	$(document).ajaxStart(function() {
+	$document.ajaxStart(function() {
 		if (__DEV__) {
-			console.info('ajax start');
+			console.info('Ajax start');
 		}
-		loader.show();
+		loader.show(0);
 	}).ajaxStop(function() {
 		if (__DEV__) {
-			console.info('ajax stop');
+			console.info('Ajax stop');
 		}
 		loader.hide();
 	});
@@ -69,6 +70,9 @@ module.exports = function () {
 			complete: function() {
 				//nothing ?
 			}
+		}
+		if (__DEV__) {
+			console.info('New query', xhr_params);
 		}
 		/*if (params.method == 'DELETE') {
 			//seems to be a probem with DELETE requests ...
@@ -128,7 +132,6 @@ module.exports = function () {
 				}
 				q += '&' + i + '=' + param;
 			}
-			console.info(ENDPOINT + '/wouaf/' + q);
 			query({
 				method: 'GET',
 				url: 	ENDPOINT + '/wouaf/' + q,
@@ -527,4 +530,4 @@ module.exports = function () {
        }
 	}
 	return self;
-}
+})();

@@ -6,20 +6,21 @@
 	var user = require('./class/singleton/user.js');
 	var data = require('./class/singleton/data.js');
 	var toast = require('./class/singleton/toast.js');
-	var window = require('./class/singleton/window.js');
-	var query = require('./class/query.js')();
+	var windows = require('./class/singleton/windows.js');
+	var query = require('./class/singleton/query.js');
 
 	var $document = $(document);
 	$document.ready(function() {
-		//load login/logout events
+		//load events modules
 		require('./class/event/login.js');
+		require('./class/event/history.js');
 
 		$document.on('app.start', function() {
 			//init with server infos
 			query.init(function (infos, status, msg) {
 				if (status == 'error') {
 					//show error page
-					window.show({
+					windows.show({
 						title: i18n.t('Error_'),
 						text: i18n.t('Error_details __status__ __error__', { 'status': infos.status, 'error': msg })
 					});
@@ -43,7 +44,7 @@
 				//show server message
 				if (infos.message) {
 					//show message page
-					window.show({
+					windows.show({
 						title: 	infos.message.title,
 						text: 	infos.message.msg,
 						close: function () {

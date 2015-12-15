@@ -1,6 +1,6 @@
 module.exports = (function() {
 	var data = require('../singleton/data.js');
-	var window = require('../singleton/window.js');
+	var windows = require('../singleton/windows.js');
 	var i18n = require('../singleton/i18n.js');
 	var $document = $(document);
 
@@ -21,7 +21,7 @@ module.exports = (function() {
 
 	$('.btn-logout').on('click', function() {
 		//show logout page
-		window.show({
+		windows.show({
 			title: i18n.t('Logout'),
 			text: i18n.t('Logout_details')
 		});
