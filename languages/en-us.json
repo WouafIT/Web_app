@@ -83,6 +83,18 @@
 	"Welcome": "Welcome!",
 	"welcome_to_wouaf_it": "Welcome in the Wouaf IT community!\n\nAn email has been sent to activate your account.\nIf it is not enabled under 6h it will be automatically deleted.\n\nYou can now create your first Wouaf. Do you want to see how it works?",
 
+	"Edit your profile": "Edit your profile",
+	"Save your profile": "Save your profile",
+	"Firstname": "Firstname",
+	"Lastname": "Lastname",
+	"Choose your gender": "Choose your gender",
+	"Male": "Male",
+	"Female": "Female",
+	"Birthdate": "Birthdate",
+	"Sign with your name": "Sign your publications with your full name",
+	"Enter a new password if you want to change it": "Enter a new password if you want to change it",
+	"Edit your profile information below:": "Edit your profile information below:",
+
 	"Welcome {{username}}": "Welcome {{username}}",
 	"Logout": "Logout",
 	"Logout_details": "You are disconnected from Wouaf IT. See you soon!",

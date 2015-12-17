@@ -1,6 +1,8 @@
 module.exports = (function() {
 	var $document = $(document);
 	var $modalWindow = $('#modalWindow');
+	var toast = require('../singleton/toast.js');
+
 	//email validation. validate mostly RF2822
 	var self = {};
 	self.show = function (e) {
@@ -55,12 +57,11 @@ module.exports = (function() {
 					loginError(datas);
 					return;
 				}
-				//TODO
-				/*if (datas.user.firstname && datas.user.lastname) {
-					new notification(String.format(L('welcome_firstname_lastname'), datas.user.firstname, datas.user.lastname));
+				if (datas.user.firstname && datas.user.lastname) {
+					toast.show(i18n.t('Welcome {{username}}', { 'username': datas.user.firstname +' '+ datas.user.lastname }));
 				} else {
-					new notification(String.format(L('welcome_login'), datas.user.username));
-				}*/
+					toast.show(i18n.t('Welcome {{username}}', { 'username': datas.user.username }));
+				}
 				//permanent login ?
 				datas.permanent = $remember.prop("checked");
 				//login

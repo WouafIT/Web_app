@@ -76,7 +76,6 @@ module.exports = (function () {
 		if (countResults == 500) {
 			toast.show(i18n.t('{{max}} displayed (maximum reached)', {max: notificationLabel }));
 		} else {
-			console.info(countResults, notificationLabel);
 			toast.show(i18n.t('{{wouaf}} displayed', { count: countResults, wouaf: notificationLabel }));
 		}
 	}

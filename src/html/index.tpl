@@ -41,9 +41,9 @@
 			</div>
 			<div class="logged" hidden>
 				<a href="#"
-				   data-href="/parts/account.html?{%= o.htmlWebpackPlugin.options.data.timestamp %}"
+				   data-href="/parts/profile.html?{%= o.htmlWebpackPlugin.options.data.timestamp %}"
 				   data-toggle="modal" data-target="#modalWindow">
-					<span class="account-name">{%= o.htmlWebpackPlugin.options.i18n['My account'] %}</span>
+					<span class="account-name">{%= o.htmlWebpackPlugin.options.i18n['My profile'] %}</span>
 				</a> |
 				<i class="fa fa-cog"></i> <a href="#"
                                              data-href="/parts/parameters.html?{%= o.htmlWebpackPlugin.options.data.timestamp %}"
