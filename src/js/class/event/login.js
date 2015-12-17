@@ -50,6 +50,6 @@ module.exports = (function() {
 		//get gravatar
 		var gravatar = user.gravatar(20);
 		var username = user.get('username');
-		$('.account-name').html('<img src="'+ gravatar +'" /> '+ username).attr('title', i18n.t('Welcome __username__', { 'username': username }));
+		$('.account-name').html('<img src="'+ gravatar +'" /> '+ username).attr('title', i18n.t('Welcome {{username}}', { 'username': username }));
 	});
 })();

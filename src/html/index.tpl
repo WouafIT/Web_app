@@ -158,7 +158,7 @@
 	</footer>
 </div>
 <div id="splash"></div>
-<div id="toast"><div></div></div>
+<div id="toast" hidden><div></div></div>
 <!-- Modals -->
 <div class="modal fade" id="modalWindow" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
 	<div class="modal-dialog" role="document">
@@ -166,7 +166,7 @@
 		</div>
 	</div>
 </div>
-<div id="loader" class="uil-ripple-css"><div></div><div></div></div>
+<div id="loader" class="uil-ripple-css" hidden title="{%= o.htmlWebpackPlugin.options.i18n.Loading %}"><div></div><div></div></div>
 <!-- jQuery -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
 <!-- Tether -->

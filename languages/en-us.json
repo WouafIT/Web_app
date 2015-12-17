@@ -35,7 +35,7 @@
 	"Specify a hashtag": "Specify a hashtag",
 	"Location request": "Location request",
 	"Location_request_details": "Wouaf IT will ask for your permission to activate geolocation in your browser. This request will automatically center the map on your location and then simplify your navigation.\n\nWe do not store your location on our servers.\n\nYou can always change this permission in your browser settings.",
-
+	"Loading": "Loading...",
 
 	"All events": "All events",
 	"Events": "Events",
@@ -47,11 +47,11 @@
 	"Services": "Services",
 	"Others": "Others",
 
-	"__count__ Wouaf": "__count__ Wouaf",
-	"__count__ Wouaf_plural": "__count__ Wouafs",
-	"__wouaf__ displayed": "__wouaf__ displayed",
-	"__wouaf__ displayed_plural": "__wouaf__ displayed",
-	"__max__ displayed (maximum reached)": "__max__ displayed (maximum reached)",
+	"{{count}} Wouaf": "{{count}} Wouaf",
+	"{{count}} Wouaf_plural": "{{count}} Wouafs",
+	"{{wouaf}} displayed": "{{wouaf}} displayed",
+	"{{wouaf}} displayed_plural": "{{wouaf}} displayed",
+	"{{max}} displayed (maximum reached)": "{{max}} displayed (maximum reached)",
 
     "Connect!": "Connect!",
     "create_wouaf_it_account": "If you do not have your Wouaf IT account, it's time to create one! It's free and only takes seconds.",
@@ -83,11 +83,11 @@
 	"Welcome": "Welcome!",
 	"welcome_to_wouaf_it": "Welcome in the Wouaf IT community!\n\nAn email has been sent to activate your account.\nIf it is not enabled under 6h it will be automatically deleted.\n\nYou can now create your first Wouaf. Do you want to see how it works?",
 
-	"Welcome __username__": "Welcome __username__",
+	"Welcome {{username}}": "Welcome {{username}}",
 	"Logout": "Logout",
 	"Logout_details": "You are disconnected from Wouaf IT. See you soon!",
 	"Error_": "Error...",
-	"Error_details __status__ __error__": "An error occurred during loading. Please try again later.\n__status__ __error__",
+	"Error_details {{status}} {{error}}": "An error occurred during loading. Please try again later.\n{{status}} {{error}}",
 
 	"French": "French",
 	"English": "English"

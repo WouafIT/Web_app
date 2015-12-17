@@ -35,6 +35,7 @@
 	"Specify a hashtag": "Cherchez un hashtag",
 	"Location request": "Demande de localisation",
 	"Location_request_details": "Wouaf IT va vous demander votre autorisation pour activer la géolocalisation sur votre navigateur. Cette demande permettra de centrer automatiquement la carte sur votre position et ainsi de simplifier votre navigation.\n\nNous ne stockons pas votre position sur nos serveurs.\n\nVous pourrez à tout moment modifier cette autorisation dans les paramètres de votre navigateur.",
+	"Loading": "Chargement ...",
 
 	"All events": "Tous les évènements",
 	"Events": "Evénements",
@@ -46,11 +47,11 @@
 	"Services": "Services",
 	"Others": "Autres",
 
-	"__count__ Wouaf": "__count__ Wouaf",
-	"__count__ Wouaf_plural": "__count__ Wouafs",
-	"__wouaf__ displayed": "__wouaf__ affiché",
-	"__wouaf__ displayed_plural": "__wouaf__ affichés",
-	"__max__ displayed (maximum reached)": "__max__ affichés (maximum atteint)",
+	"{{count}} Wouaf": "{{count}} Wouaf",
+	"{{count}} Wouaf_plural": "{{count}} Wouafs",
+	"{{wouaf}} displayed": "{{wouaf}} affiché",
+	"{{wouaf}} displayed_plural": "{{wouaf}} affichés",
+	"{{max}} displayed (maximum reached)": "{{max}} affichés (maximum atteint)",
 
     "Connect!": "Connectez-vous !",
     "create_wouaf_it_account": "Si vous n'avez pas encore votre compte Wouaf IT, c'est le moment d'en créer un ! C'est gratuit et cela ne prend que quelques secondes.",
@@ -82,11 +83,11 @@
 	"Welcome": "Bienvenue !",
 	"welcome_to_wouaf_it": "Bienvenue dans la communauté Wouaf IT !\n\nUn email vous a été envoyé pour activer votre compte.\nSi il n'est pas activé sous 6h, il sera automatiquement supprimé.\n\nVous pouvez maintenant créer votre premier Wouaf. Voulez-vous voir comment cela fonctionne ?",
 
-	"Welcome __username__": "Bienvenue __username__",
+	"Welcome {{username}}": "Bienvenue {{username}}",
 	"Logout": "Déconnexion",
 	"Logout_details": "Vous êtes bien déconnecté de Wouaf IT. A bientôt !",
 	"Error_": "Erreur ...",
-	"Error_details __status__ __error__": "Une erreur est survenue durant le chargement. Merci de rééssayer plus tard.\n__status__ __error__",
+	"Error_details {{status}} {{error}}": "Une erreur est survenue durant le chargement. Merci de rééssayer plus tard.\n{{status}} {{error}}",
 
 	"French": "Français",
 	"English": "Anglais"

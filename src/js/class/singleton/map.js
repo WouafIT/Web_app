@@ -71,12 +71,13 @@ module.exports = (function () {
 		var countResults = addResults ? addResults : json.count;
 		var notificationLabel = '';
 		if (resultsType == 'wouafit') {
-			notificationLabel = i18n.t('__count__ Wouaf', { count: countResults });
+			notificationLabel = i18n.t('{{count}} Wouaf', { count: countResults });
 		}
 		if (countResults == 500) {
-			toast.show(i18n.t('__max__ displayed (maximum reached)', {max: notificationLabel }));
+			toast.show(i18n.t('{{max}} displayed (maximum reached)', {max: notificationLabel }));
 		} else {
-			toast.show(i18n.t('__wouaf__ displayed', { count: countResults, wouaf: notificationLabel }));
+			console.info(countResults, notificationLabel);
+			toast.show(i18n.t('{{wouaf}} displayed', { count: countResults, wouaf: notificationLabel }));
 		}
 	}
 	//Event to launch a new search
