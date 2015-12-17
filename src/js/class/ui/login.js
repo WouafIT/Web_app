@@ -38,6 +38,9 @@ module.exports = (function() {
 			event.preventDefault()
 			var i18n = require('../singleton/i18n.js');
 			var alert = require('../singleton/alert.js');
+			$form.find('.alert').hide("fast", function() {
+				$(this).remove();
+			});
 			if ($form.find('.has-error').length) {
 				alert.show(i18n.t('There are errors in your form'), $form);
 				return false;
@@ -49,7 +52,7 @@ module.exports = (function() {
 
 			var loginSuccess = function(datas) {
 				if (!datas || !datas.user) {
-					loginError({});
+					loginError(datas);
 					return;
 				}
 				//TODO
@@ -68,9 +71,8 @@ module.exports = (function() {
 			var loginError = function(datas) {
 				//logout
 				$document.triggerHandler('app.logout');
-
 				if (datas && datas.msg) {
-					alert.show(i18n.t(result.msg[0]), $form, 'danger');
+					alert.show(i18n.t(datas.msg[0]), $form, 'danger');
 				} else {
 					query.connectionError();
 				}

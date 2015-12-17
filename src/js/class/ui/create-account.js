@@ -51,6 +51,9 @@ module.exports = (function() {
 			event.preventDefault();
 			var i18n = require('../singleton/i18n.js');
 			var alert = require('../singleton/alert.js');
+			$form.find('.alert').hide("fast", function() {
+				$(this).remove();
+			});
 			if ($form.find('.has-error').length) {
 				alert.show(i18n.t('There are errors in your form'), $form);
 				return false;

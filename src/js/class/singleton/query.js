@@ -61,10 +61,12 @@ module.exports = (function() {
 			timeout: 10000,
 			cache: false,
 			success: params.success,
-			error: function() {
-				console.error('ajax error', params, arguments);
+			error: function(xhr) {
+				if (__DEV__) {
+					console.error('Query error', params, xhr);
+				}
 				if (params.error) {
-					params.success.apply(this, arguments);
+					params.error.apply(this, [xhr.responseJSON]);
 				}
 			},
 			complete: function() {
