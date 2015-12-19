@@ -50,6 +50,12 @@ module.exports = (function() {
 		//get gravatar
 		var gravatar = user.gravatar(20);
 		var username = user.get('username');
+		var firstname = user.get('firstname');
+		var lastname = user.get('lastname');
+
+		if (firstname && lastname) {
+			var username = firstname +' '+ lastname;
+		}
 		$('.account-name').html('<img src="'+ gravatar +'" /> '+ username).attr('title', i18n.t('Welcome {{username}}', { 'username': username }));
 	});
 })();
