@@ -134,7 +134,7 @@
 			</div>
 			<div role="tabpanel" class="tab-pane" id="wouafs">
                 <div class="jumbotron anonymous">
-                    <h1 class="display-3">{%= o.htmlWebpackPlugin.options.i18n['Connect!'] %}</h1>
+                    <h1>{%= o.htmlWebpackPlugin.options.i18n['Connect!'] %}</h1>
                     <p class="lead">{%= o.htmlWebpackPlugin.options.i18n['create_wouaf_it_account'] %}</p>
                     <hr class="m-y-md">
                     <p>{%= o.htmlWebpackPlugin.options.i18n['use_wouaf_it_account'] %}</p>

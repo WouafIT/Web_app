@@ -78,12 +78,11 @@ html, body {
 		color: @white;
 		background: @green url('../img/logo-72.png') 0.25rem 0.2rem no-repeat;
 		background-size: contain;
-		padding: 15px 15px 15px 65px;
+		padding: 18px 15px 15px 65px;
 	}
 	.modal-title {
 		font-family: 'harlequinflfregular';
 		line-height: 1.1;
-		font-size: 2rem;
 	}
 	h4.wouaf-it {
 		background: url('../img/logo-72.png') no-repeat;
@@ -154,9 +153,12 @@ html, body {
 		}
 	}
 
+	> div {
+		min-height: ~"calc(100% - 98px)";
+	}
+
 	footer {
-		position: fixed;
-		bottom: 0;
+		height: 20px;
 		width: 100%;
 		background-color: @grey;
 		color: @green;

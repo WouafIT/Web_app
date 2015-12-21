@@ -16,7 +16,7 @@
 		<p class="text-center"><button type="button" class="btn btn-secondary" data-dismiss="modal">Google connect</button></p>
 		<hr />
 		<h4 class="wouaf-it">{%= o.htmlWebpackPlugin.options.i18n['Wouaf IT account'] %}</h4>
-		<p class="text-center"><button type="button" class="btn btn-primary"
+		<p class="text-center"><button type="button" class="btn btn-primary btn-wrap"
 									   data-href="/parts/create-account.html?{%= o.htmlWebpackPlugin.options.data.timestamp %}"
 									   data-show="modal" data-target="#modalWindow">{%= o.htmlWebpackPlugin.options.i18n['New Wouaffer? Create your account!'] %}</button></p>
 		<p>{%= o.htmlWebpackPlugin.options.i18n['Or enter your login'] %}</p>
