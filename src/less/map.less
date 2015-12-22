@@ -133,18 +133,36 @@
 }
 /*http://en.marnoto.com/2014/09/5-formas-de-personalizar-infowindow.html*/
 .gm-style-iw {
-	width: 300px !important;
+	width: 330px !important;
 	top: 15px !important;
 	left: 0px !important;
 	background-color: #fff;
-	box-shadow: 0 1px 6px rgba(178, 178, 178, 0.6);
-	border: 1px solid rgba(72, 181, 233, 0.6);
+	box-shadow: 0 1px 6px fade(@dark-grey, 60%);
 	border-radius: 2px 2px 10px 10px;
 
 	> div {
-		width: 300px !important;
-		max-width: 300px !important;
+		width: 330px !important;
+		max-width: 330px !important;
 	}
+}
+.gm-iw-parent {
+	width: 330px !important;
+}
+.gm-iw-gparent {
+	left: -20px !important;
+}
+.gm-iw-bg {
+	left: 20px !important;
+}
+.gm-iw-close-btn {
+	opacity: 1;
+	border: 7px solid @lightgreen;
+	border-radius: 13px;
+	box-shadow: 0 0 5px @green;
+	width: 27px !important;
+	height: 27px !important;
+	top: 3px !important;
+	right: -13px !important;
 }
 #iw-container {
 	margin-bottom: 10px;
@@ -187,3 +205,9 @@
 	right: 18px;
 	background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
 }
+.iw-tail {
+	box-shadow: fade(@dark-grey, 60%) 0px 1px 6px !important;
+	z-index: 1;
+}
+
+

@@ -332,7 +332,9 @@ clustermap.ClusterMarker.prototype.onAdd = function () {
 	}
 	// Register listeners to open up an info window when clicked.
 	var me = this;
-	google.maps.event.addDomListener(div, 'click', function () {
+	google.maps.event.addDomListener(div, 'click', function (e) {
+		e.stopPropagation(); //stop event propagation
+
 		var iw = me._hcmap._infowindow;
 		//iw.setContent(me._size == 1 ? me._description : '(' + me._ids.length + ') ' + me._ids.join(', '));
 
@@ -351,8 +353,6 @@ clustermap.ClusterMarker.prototype.onAdd = function () {
 			'</div>';
 
 		iw.setContent(content);
-		console.info('ok1');
-
 		iw.setPosition(me._latlng);
 		iw.setOptions({pixelOffset: new google.maps.Size(0, (me._cat ? -me._width : me._width / -2))});
 		iw.open(me._hcmap._map);
