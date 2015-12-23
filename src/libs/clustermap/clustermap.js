@@ -273,7 +273,7 @@ clustermap.HCMap.prototype.reset = function () {
 	this._selectedNodes = [];
 	this._tree = null;
 	this.removeMarkers();
-}
+};
 
 clustermap.HCMap.prototype.removeMarkers = function () {
 	if (this._displayedMarkers) {
@@ -283,7 +283,7 @@ clustermap.HCMap.prototype.removeMarkers = function () {
 	}
 
 	this._displayedMarkers = {};
-}
+};
 
 clustermap.ClusterMarker.prototype = new google.maps.OverlayView();
 
@@ -333,29 +333,12 @@ clustermap.ClusterMarker.prototype.onAdd = function () {
 	// Register listeners to open up an info window when clicked.
 	var me = this;
 	google.maps.event.addDomListener(div, 'click', function (e) {
-		e.stopPropagation(); //stop event propagation
-
+		e.stopPropagation(); //stop click event propagation
 		var iw = me._hcmap._infowindow;
-		//iw.setContent(me._size == 1 ? me._description : '(' + me._ids.length + ') ' + me._ids.join(', '));
-
-		// InfoWindow content
-		var content = '<div id="iw-container">' +
-			'<div class="iw-title">Porcelain Factory of Vista Alegre</div>' +
-			'<div class="iw-content">' +
-			'<div class="iw-subTitle">History</div>' +
-			'<img src="http://maps.marnoto.com/en/5wayscustomizeinfowindow/images/vistalegre.jpg" alt="Porcelain Factory of Vista Alegre" height="115" width="83">' +
-			'<p>Founded in 1824, the Porcelain Factory of Vista Alegre was the first industrial unit dedicated to porcelain production in Portugal. For the foundation and success of this risky industrial development was crucial the spirit of persistence of its founder, José Ferreira Pinto Basto. Leading figure in Portuguese society of the nineteenth century farm owner, daring dealer, wisely incorporated the liberal ideas of the century, having become "the first example of free enterprise" in Portugal.</p>' +
-			'<div class="iw-subTitle">Contacts</div>' +
-			'<p>VISTA ALEGRE ATLANTIS, SA<br>3830-292 Ílhavo - Portugal<br>'+
-			'<br>Phone. +351 234 320 600<br>e-mail: geral@vaa.pt<br>www: www.myvistaalegre.com</p>'+
-			'</div>' +
-			'<div class="iw-bottom-gradient"></div>' +
-			'</div>';
-
-		iw.setContent(content);
 		iw.setPosition(me._latlng);
 		iw.setOptions({pixelOffset: new google.maps.Size(0, (me._cat ? -me._width : me._width / -2))});
-		iw.open(me._hcmap._map);
+		//trigger handler to open info window with wouaf content
+		$(document).triggerHandler('app.wouaf-show', {ids: me._ids, map: me._hcmap._map, iw: iw});
 	});
 };
 
@@ -366,7 +349,7 @@ clustermap.ClusterMarker.prototype.onRemove = function () {
 		this._shadow.parentNode.removeChild(this._shadow);
 		this._shadow = null;
 	}
-}
+};
 
 clustermap.ClusterMarker.prototype.draw = function () {
 	var overlayProjection = this.getProjection();
@@ -385,6 +368,6 @@ clustermap.ClusterMarker.prototype.draw = function () {
 		this._shadow.style.left = (loc.x - 7) + 'px';
 		this._shadow.style.top = (loc.y -((60 - this._width) / 5)) + 'px';
 	}
-}
+};
 
 module.exports = clustermap;

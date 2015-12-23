@@ -14,6 +14,7 @@
 		//load events modules
 		require('./class/event/login.js');
 		require('./class/event/history.js');
+		require('./class/event/wouaf.js');
 
 		$document.on('app.start', function() {
 			//init with server infos

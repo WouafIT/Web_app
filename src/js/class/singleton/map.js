@@ -4,12 +4,13 @@ module.exports = (function () {
 	var query = require('./query.js');
 	var data = require('./data.js');
 	var toast = require('./toast.js');
+	var self = {};
 	var $document = $(document);
 	var map, infowindow; //GMap elements
 	var userLocation;
 	var hcmap;
-	var jsonResults;
 	var userMarker;
+	self.jsonResults = {};
 	//set map pins on search response
 	var setPins = function (json) {
 		if (__DEV__) {
@@ -35,12 +36,12 @@ module.exports = (function () {
 			json.count = 0;
 		} else {
 			//if search Id match, add results
-			if (jsonResults && jsonResults.searchId && json.searchId && jsonResults.searchId == json.searchId) {
+			if (self.jsonResults && self.jsonResults.searchId && json.searchId && self.jsonResults.searchId == json.searchId) {
 				addResults = json.count;
-				json.count += jsonResults.count;
-				json.results = json.results.concat(jsonResults.results);
+				json.count += self.jsonResults.count;
+				json.results = json.results.concat(self.jsonResults.results);
 			} else {
-				if (jsonResults && jsonResults.searchId && json.searchId && jsonResults.searchId > json.searchId) {
+				if (self.jsonResults && self.jsonResults.searchId && json.searchId && self.jsonResults.searchId > json.searchId) {
 					//drop old results
 					return;
 				}
@@ -52,7 +53,7 @@ module.exports = (function () {
 			infowindow.close();
 		}
 		//save result
-		jsonResults = json;
+		self.jsonResults = json;
 		//create pins data
 		for (var i = 0, l = json.results.length; i < l; i++) {
 			var post = json.results[i];
@@ -195,10 +196,10 @@ module.exports = (function () {
 		var center = map.getCenter();
 		data.setObject('position', center.toJSON());
 		//check distance between current center and last search
-		if (jsonResults.query) {
+		if (self.jsonResults.query) {
 			var distance = Math.round(google.maps.geometry.spherical.computeDistanceBetween(center,
-																							new google.maps.LatLng(jsonResults.query.loc.$near[0], jsonResults.query.loc.$near[1])));
-			if (distance >= jsonResults.query.loc.$maxDistance * 72600) {//72600 => 110 * 1000 * 0.66
+																							new google.maps.LatLng(self.jsonResults.query.loc.$near[0], self.jsonResults.query.loc.$near[1])));
+			if (distance >= self.jsonResults.query.loc.$maxDistance * 72600) {//72600 => 110 * 1000 * 0.66
 				//distance is more than 66% of search radius => update search
 				$document.triggerHandler('app.search');
 			}
@@ -284,6 +285,9 @@ module.exports = (function () {
 
 	// API/data for end-user
 	return {
-		init: init
+		init: init,
+		getResults: function() {
+			return self.jsonResults;
+		}
 	}
 })();
