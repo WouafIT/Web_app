@@ -6,6 +6,11 @@ module.exports = (function() {
 	//email validation. validate mostly RF2822
 	var self = {};
 	self.show = function (e) {
+		var data = require('../singleton/data.js');
+		if (data.getString('uid')) { //user already logged, close window
+			var windows = require('../singleton/windows.js');
+			windows.close();
+		}
 		var $form = $modalWindow.find('form');
 		var $username = $form.find('input[name=username]');
 		var $pass = $form.find('input[name=password]');

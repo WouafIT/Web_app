@@ -191,6 +191,9 @@ var figue = function () {
 
 
 	function agglomerate (labels, vectors, distance, linkage) {
+		if (labels.length == 1) {
+			return new Node (labels[0], null, null, 0, vectors[0]) ;
+		}
 		var N = vectors.length ;
 		var dMin = new Array(N) ;
 		var cSize = new Array(N) ;

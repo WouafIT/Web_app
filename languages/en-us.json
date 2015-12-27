@@ -94,6 +94,10 @@
 	"Sign with your name": "Sign your publications with your full name",
 	"Enter a new password if you want to change it": "Enter a new password if you want to change it",
 	"Edit your profile information below:": "Edit your profile information below:",
+	"Gender": "Gender",
+	"Sign_with_your_name_details": "If you do not check this box, your publications will be signed with your nickname.",
+	"Personal data": "Personal informations:",
+	"Personal_data_details": "The informations below are optional and will be public if you fill them. They can give credibility to your publications.",
 
 	"Welcome {{username}}": "Welcome {{username}}",
 	"Logout": "Logout",

@@ -32,14 +32,16 @@ module.exports = (function() {
 
 	//login event : set interface for user login
 	$document.on('app.login', function(event, params) {
-		var permanent = (params.permanent === true || data.getBool('permanent') === true);
-		data.setBool('permanent', permanent);
-		data.setString('uid', params.uid, !permanent);
-		data.setString('token', params.token, !permanent);
-		data.setObject('user', params.user, !permanent);
-		data.setInt('today_publications', params.today_publications);
-		if (params.favorites) {
-			data.setObject('favorites', params.favorites);
+		if(params) {
+			var permanent = (params.permanent === true || data.getBool('permanent') === true);
+			data.setBool('permanent', permanent);
+			data.setString('uid', params.uid, !permanent);
+			data.setString('token', params.token, !permanent);
+			data.setObject('user', params.user, !permanent);
+			data.setInt('today_publications', params.today_publications);
+			if (params.favorites) {
+				data.setObject('favorites', params.favorites);
+			}
 		}
 		$('.anonymous').attr('hidden', true);
 		$('.logged').removeAttr('hidden');
@@ -54,7 +56,7 @@ module.exports = (function() {
 		var lastname = user.get('lastname');
 
 		if (firstname && lastname) {
-			var username = firstname +' '+ lastname;
+			username = firstname +' '+ lastname;
 		}
 		$('.account-name').html('<img src="'+ gravatar +'" /> '+ username).attr('title', i18n.t('Welcome {{username}}', { 'username': username }));
 	});

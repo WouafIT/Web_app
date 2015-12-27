@@ -14,3 +14,6 @@ Consignes pour poster :
 
 404 :
 - Gérer les 404 sur les URL de type https://fr-fr.wouaf.it/truc/
+
+Bugs :
+- enregistrement d'une date de naissance vide ou d'un genre vide ne se fait pas.

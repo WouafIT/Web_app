@@ -57,7 +57,6 @@ var clustermap = function () {
 			}
 			// cluster the map coordinates
 			this._tree = figue.agglomerate(labels, this._vectors, figue.EUCLIDIAN_DISTANCE, this._linkageType);
-
 			this._zoom_changed_listener = google.maps.event.addListener(this._map, "zoom_changed", function () {
 				thishcmap._infowindow.close();
 				updateNodes(thishcmap);
@@ -77,7 +76,7 @@ var clustermap = function () {
 	function selectNodes(node, MCD) {
 		var selectedNodes;
 		if (!node) {
-			return;
+			return [];
 		}
 		if (node.isLeaf()) {
 			return [node];
@@ -131,7 +130,6 @@ var clustermap = function () {
 
 		// TODO(jydelort): clean this hack to fix unshown markers at zoom level 1 or 2
 		var current_zoom_level = hcmap._map.getZoom();
-
 		for (var i = 0, l = selectedNodes.length; i < l; i++) {
 			var element;
 			var position;

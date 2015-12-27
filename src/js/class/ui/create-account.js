@@ -4,7 +4,12 @@ module.exports = (function() {
 	//email validation. validate mostly RF2822
 	var emailRe = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
 	var self = {};
-	self.show = function (e) {
+	self.show = function () {
+		var data = require('../singleton/data.js');
+		if (data.getString('uid')) { //user already logged, close window
+			var windows = require('../singleton/windows.js');
+			windows.close();
+		}
 		var $form = $modalWindow.find('form');
 		var $username = $form.find('input[name=username]');
 		var $pass = $form.find('input[name=pass]');
@@ -73,8 +78,6 @@ module.exports = (function() {
 				lang: 			$language.val()
 			}, function(result) { //success
 				if (result.result && result.result == 1) {
-					var data = require('../singleton/data.js');
-
 					var loginSuccess = function(datas) {
 						if (!datas || !datas.user) {
 							loginError({});
