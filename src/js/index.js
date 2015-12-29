@@ -82,9 +82,8 @@
 			data.setBool('allowContact', true);
 			data.setBool('postNotif', true);
 			data.setBool('commentNotif', true);
-			//Ti.App.Properties.setBool('eventfulSearch', true);
 			data.setString('unit', 'km');
-			data.setInt('radius', 150);
+			data.setInt('radius', 300);
 			data.setObject('categories', []);
 
 			/*//show welcome page

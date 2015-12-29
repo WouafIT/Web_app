@@ -45,11 +45,11 @@ module.exports = Object.keys(languages).map(function(language) {
 				__DEV__: 		JSON.stringify(JSON.parse(process.env.NODE_ENV === 'dev'))
 			}),
 			new HtmlWebpackPlugin({
-									  filename: 'index.html',
-									  template: 'src/html/index.tpl',
-									  data: htmlData,
-									  i18n: languageData
-								  }),
+				filename: 'index.html',
+				template: 'src/html/index.tpl',
+				data: htmlData,
+				i18n: languageData
+			}),
             new HtmlWebpackPlugin({
                 filename: 'parts/about.html',
                 template: './languages/parts/'+language+'/about.tpl',
@@ -65,6 +65,12 @@ module.exports = Object.keys(languages).map(function(language) {
 			new HtmlWebpackPlugin({
 				filename: 'parts/parameters.html',
 				template: 'src/html/parts/parameters.tpl',
+				data: htmlData,
+				i18n: languageData
+			}),
+			new HtmlWebpackPlugin({
+				filename: 'parts/contact.html',
+				template: 'src/html/parts/contact.tpl',
 				data: htmlData,
 				i18n: languageData
 			}),

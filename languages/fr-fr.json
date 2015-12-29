@@ -105,6 +105,18 @@
 	"Error_": "Erreur ...",
 	"Error_details {{status}} {{error}}": "Une erreur est survenue durant le chargement. Merci de rééssayer plus tard.\n{{status}} {{error}}",
 
+	"Application settings": "Paramètres de l'application",
+	"Search settings": "Paramètres de recherche",
+	"Search radius": "Rayon de recherche",
+	"Unit search radius": "Unité du rayon de recherche",
+	"Kilometers": "Kilomètres",
+	"Miles": "Miles",
+	"Default publish settings": "Paramètres de publication par défaut",
+	"Publish my Wouafs on my Facebook wall": "Publier mes Wouafs sur mon mur Facebook",
+	"Allow other Wouaffers to contact me": "Permettre aux autres Wouaffeurs de me contacter",
+	"Being notified by email for feedback on my Wouafs": "Etre notifié par email des commentaires sur mes Wouafs",
+	"Being notified by email for feedback on my comments": "Etre notifié par email des commentaires sur mes commentaires",
+
 	"French": "Français",
 	"English": "Anglais"
 
