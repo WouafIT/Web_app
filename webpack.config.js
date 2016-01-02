@@ -86,6 +86,12 @@ module.exports = Object.keys(languages).map(function(language) {
 				data: htmlData,
 				i18n: languageData
 			}),
+			new HtmlWebpackPlugin({
+				filename: 'parts/lost-password.html',
+				template: 'src/html/parts/lost-password.tpl',
+				data: htmlData,
+				i18n: languageData
+			}),
 			new CopyWebpackPlugin([
 				{
 					from: '../assets'
