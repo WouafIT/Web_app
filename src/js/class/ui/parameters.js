@@ -1,5 +1,4 @@
 module.exports = (function() {
-	var $document = $(document);
 	var $modalWindow = $('#modalWindow');
 	var i18n = require('../singleton/i18n.js');
 	var self = {};
@@ -14,7 +13,6 @@ module.exports = (function() {
 
 	self.show = function (e) {
 		var data = require('../singleton/data.js');
-		var windows = require('../singleton/windows.js');
 
 		var $form = $modalWindow.find('form');
 		var $radius = $form.find('select[name=radius]');
@@ -74,7 +72,10 @@ module.exports = (function() {
 				data.setBool('commentNotif', $commentsNotifications.prop("checked"));
 			}
 
+			var windows = require('../singleton/windows.js');
 			windows.close();
+			var toast = require('../singleton/toast.js');
+			toast.show(i18n.t('Settings saved!'));
 		});
 	}
 	return self;

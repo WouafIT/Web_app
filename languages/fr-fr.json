@@ -98,6 +98,7 @@
 	"Sign_with_your_name_details": "Si vous ne cochez pas cette case, vos publications seront signées avec votre pseudonyme.",
 	"Personal data": "Informations personnelles :",
 	"Personal_data_details": "Les informations ci-dessous sont optionnelles et seront publiques si vous les renseignez. Elles peuvent contribuer à crédibiliser vos publications.",
+	"Profile saved!": "Profil enregistré !",
 
 	"Welcome {{username}}": "Bienvenue {{username}}",
 	"Logout": "Déconnexion",
@@ -118,6 +119,7 @@
 	"Allow other Wouaffers to contact me": "Permettre aux autres Wouaffeurs de me contacter",
 	"Being notified by email for feedback on my Wouafs": "Etre notifié par email des commentaires sur mes Wouafs",
 	"Being notified by email for feedback on my comments": "Etre notifié par email des commentaires sur mes commentaires",
+	"Settings saved!": "Paramètres enregistrés !",
 
 	"French": "Français",
 	"English": "Anglais"

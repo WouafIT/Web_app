@@ -122,6 +122,9 @@ module.exports = (function() {
 					$document.triggerHandler('app.login');
 
 					windows.close();
+
+					var toast = require('../singleton/toast.js');
+					toast.show(i18n.t('Profile saved!'));
 				} else if (result.msg) {
 					alert.show(i18n.t(result.msg[0]), $form, 'danger');
 				} else {
