@@ -31,20 +31,12 @@ module.exports = (function() {
 		//populate radius select
 		var populateRadius = function() {
 			var selectedRadius = $radius.val();
-			//get option index
-			var index = selectedRadius ? $radius.find('option').index($radius.find('option[value='+ selectedRadius +']')) : 0;
 			var radiusValues = [];
-			var v, i, l;
-			if ($unit.val() == 'km') {
-				for(i = 0, l = radius.length; i < l; i++) {
-					v = parseInt(radius[i], 10);
-					radiusValues.push('<option value="'+ v +'"'+ (i == index ? ' selected="selected"' : '') +'>'+ radius[i] +'</option>');
-				}
-			} else {
-				for(i = 0, l = mlRadius.length; i < l; i++) {
-					v = parseInt(mlRadius[i], 10);
-					radiusValues.push('<option value="'+ v +'"'+ (i == index ? ' selected="selected"' : '') +'>'+ mlRadius[i] +'</option>');
-				}
+			var v, i, l, label;
+			for(i = 0, l = radius.length; i < l; i++) {
+				v = parseInt(radius[i], 10);
+				label = $unit.val() == 'km' ? radius[i] : mlRadius[i];
+				radiusValues.push('<option value="'+ v +'"'+ (v == selectedRadius ? ' selected="selected"' : '') +'>'+ label +'</option>');
 			}
 			$radius.html(radiusValues.join(''));
 		};

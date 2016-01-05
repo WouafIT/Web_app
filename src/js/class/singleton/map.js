@@ -88,6 +88,9 @@ module.exports = (function () {
 		if (!params.loc) {
 			params.loc = map.getCenter();
 		}
+		if (!params.radius) {
+			params.radius = data.getInt('radius');
+		}
 		if (__DEV__) {
 			console.info('Search params', params);
 		}

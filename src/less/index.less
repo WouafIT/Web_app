@@ -5,8 +5,8 @@
 @darken-grey: #333;
 @green: #2B9D48;
 @greener: darken(@green, 5%);
-@darkgreen: darken(@green, 20%);
-@lightgreen: lighten(@green, 20%);
+@dark-green: darken(@green, 20%);
+@light-green: lighten(@green, 20%);
 @brown: #713011;
 
 @import 'bootstrap.less';
@@ -26,7 +26,7 @@
 }
 
 ::selection {
-	background: @lightgreen;
+	background: @light-green;
 }
 
 html, body {
@@ -42,21 +42,44 @@ html, body {
 
 #menu {
 	position: absolute;
-	top: 1em;
-	left: 1em;
+	top: 1rem;
+	left: 1rem;
 	z-index: 100;
-	background-color: @white-transparent;
-	padding: 0.3em;
+	background-color: @green;
+	padding: 0.3rem;
 	border: 1px solid @grey;
-	border-radius: 0.3em;
+	border-radius: 0.3rem;
 	cursor: pointer;
+	color: @white;
+}
+#add {
+	position: absolute;
+	bottom: 2.5rem;
+	right: 2.5rem;
+	width: 3rem;
+	height: 3rem;
+	font-size: 3.5rem;
+	line-height: 3rem;
+	background-color: @green;
+	border: 1px solid @grey;
+	border-radius: 50%;
+	cursor: pointer;
+	color: @white;
+	z-index: 1;
+	text-align: center;
+	font-size: 3.5rem;
+	line-height: 3rem;
+
+	&::after {
+		content: "+";
+	}
 }
 
 #toast {
 	position: absolute;
 	max-width: 100%;
 	width: 100%;
-	top: 80%;
+	top: 20%;
 	z-index: 10000;
 
 	> div {
@@ -93,10 +116,10 @@ html, body {
 
 #loader {
 	position: absolute;
-	bottom: -3rem;
-	right: -3rem;
+	top: ~"calc(50% - 100px)";
+	left: ~"calc(50% - 100px)";
 	z-index: 10;
-	transform: scale(0.25);
+	transform: scale(0.5);
 }
 
 .sb-slidebar {
@@ -139,7 +162,7 @@ html, body {
 				color: @white;
 
 				&:focus, &:hover, &:active {
-					color: @darkgreen;
+					color: @dark-green;
 				}
 			}
 			.btn-link {
