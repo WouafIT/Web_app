@@ -68,7 +68,7 @@ module.exports = (function() {
 	var self = {};
 	// Public methods
 	self.set = function (key, value, type, cookie) {
-		cookie = cookie || false
+		cookie = cookie || false;
 		if (value === null) {
 			localStorage.removeItem(key);
 			cookieStorage.removeItem(key);

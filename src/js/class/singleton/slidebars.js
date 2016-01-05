@@ -27,8 +27,6 @@ module.exports = (function() {
 				$what.append('<option value="'+ categories[i]['id'] +'">'+ i18n.t(categories[i]['label']) +'</option>');
 			}
 		}
-
-		//$('#what')
 		$('#search form').on({
 			'submit': function() {
 				if(__DEV__) {

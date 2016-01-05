@@ -7,6 +7,7 @@
 	var data = require('./class/singleton/data.js');
 	var toast = require('./class/singleton/toast.js');
 	var windows = require('./class/singleton/windows.js');
+	var add = require('./class/singleton/add.js');
 	var query = require('./class/singleton/query.js');
 
 	var $document = $(document);
@@ -41,6 +42,8 @@
 				}
 				//init slidebars
 				slidebars.init();
+				//init add button
+				add.init();
 
 				//show server message
 				if (infos.message) {

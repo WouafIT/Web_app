@@ -13,6 +13,6 @@ module.exports = (function() {
 					   '</div>');
 		$parent.prepend($alert);
 		return $alert;
-	}
+	};
 	return self;
 })();

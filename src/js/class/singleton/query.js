@@ -46,7 +46,7 @@ module.exports = (function() {
 		}
 		 data.setInt('connectionAlert', now.getTime());*/
 		//alert('connectionError');
-	}
+	};
     var query = function (params) {
 		for (var i in params.data) {
 			if (params.data[i] === null) {
@@ -72,7 +72,7 @@ module.exports = (function() {
 			complete: function() {
 				//nothing ?
 			}
-		}
+		};
 		if (__DEV__) {
 			console.info('New query', xhr_params);
 		}
@@ -82,7 +82,7 @@ module.exports = (function() {
 			xhr_params.headers['X-HTTP-Method-Override'] = 'DELETE';
 		}*/
 		xhr = $.ajax(xhr_params);
-	}
+	};
 	var geocode = function(address, callback) {
 		$.ajax({
 			url: GOOGLE_BASE_URL + address,
@@ -530,6 +530,6 @@ module.exports = (function() {
                 error:  callback
             });
        }
-	}
+	};
 	return self;
 })();

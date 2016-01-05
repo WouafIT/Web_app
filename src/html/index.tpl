@@ -26,7 +26,7 @@
 <body>
 <div id="sb-site">
 	<div id="menu" title="{%= o.htmlWebpackPlugin.options.i18n['Menu'] %}" class="sb-toggle-left"><i class="fa fa-bars fa-lg"></i></div>
-	<div id="add" title="{%= o.htmlWebpackPlugin.options.i18n['Add a Wouaf'] %}"></div>
+	<div id="add" hidden title="{%= o.htmlWebpackPlugin.options.i18n['Add a Wouaf'] %}"></div>
 	<div id="map"></div>
 </div>
 <div class="sb-slidebar sb-width-wide sb-left">

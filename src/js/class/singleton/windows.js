@@ -64,25 +64,27 @@ module.exports = (function() {
 			close:		null
 		}, options);
 		var open = function (options) {
-			if (options.text && options.title) {
+			if (options.text) {
 				var content =
 					'<div class="modal-header">' +
 					'	<button type="button" class="close" data-dismiss="modal" aria-label="' + i18n.t('Close') + '">' +
 					'		<span aria-hidden="true">&times;</span>' +
 					'		<span class="sr-only">' + i18n.t('Close') + '</span>' +
-					'	</button>' +
-					'	<h4 class="modal-title">' + options.title + '</h4>' +
-					' </div>' +
-					'<div class="modal-body">' +
-					options.text +
-					'</div>' +
-					'<div class="modal-footer">';
-				if (options.footer) {
-					content += options.footer;
-				} else {
-					content += '<button type="button" class="btn btn-secondary" data-dismiss="modal">' + i18n.t('Close') + '</button>';
+					'	</button>';
+				if (options.title) {
+					content += '<h4 class="modal-title">' + options.title + '</h4>';
 				}
-				content += '</div>';
+				content += ' </div>' +
+					'<div class="modal-body">'+ options.text +'</div>';
+				if (options.footer !== false) {
+					content += '<div class="modal-footer">';
+					if (options.footer) {
+						content += options.footer;
+					} else {
+						content += '<button type="button" class="btn btn-secondary" data-dismiss="modal">' + i18n.t('Close') + '</button>';
+					}
+					content += '</div>';
+				}
 				$modalContent.html(content);
 			} else if (options.href) {
 				$modal.one('show.bs.modal', function() {
@@ -99,7 +101,15 @@ module.exports = (function() {
 					options.close(event);
 				});
 			}
-			$modal.modal('show');
+			if (options.backdrop  === false) {
+				$('body').addClass('no-backdrop');
+				$modal.one('hidden.bs.modal', function() {
+					$('body').removeClass('no-backdrop');
+				});
+				$modal.modal('show');
+			} else {
+				$modal.modal('show');
+			}
 		};
 		if (shown) {
 			$modal.one('hidden.bs.modal', function() {

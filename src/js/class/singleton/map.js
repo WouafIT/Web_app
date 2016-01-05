@@ -80,7 +80,7 @@ module.exports = (function () {
 		} else {
 			toast.show(i18n.t('{{wouaf}} displayed', { count: countResults, wouaf: notificationLabel }));
 		}
-	}
+	};
 	//Event to launch a new search
 	$document.on('app.search', function (event, params) {
 		params = params || {};
@@ -147,7 +147,7 @@ module.exports = (function () {
 			//update user location
 			userMarker.draw(userLocation);
 		}
-	}
+	};
 	//no geolocation
 	var handleNoGeolocation = function (error) {
 		if (error.code == 3 && userMarker) {
@@ -168,7 +168,7 @@ module.exports = (function () {
 		}
 		//center of us
 		showMap(new google.maps.LatLng(39.857973, -98.008955));
-	}
+	};
 	//ask user for his location
 	var askForGeolocation = function () {
 		//show message page
@@ -180,7 +180,7 @@ module.exports = (function () {
 				navigator.geolocation.getCurrentPosition(setUserLocation, handleNoGeolocation);
 			}
 		});
-	}
+	};
 	//show map on user location, remove splash, launch search
 	var showMap = function (location) {
 		data.setObject('position', location.toJSON());
@@ -194,7 +194,7 @@ module.exports = (function () {
 		});
 		//hide splash
 		$('#splash').fadeOut('fast');
-	}
+	};
 	var updateMapPosition = function() {
 		var center = map.getCenter();
 		data.setObject('position', center.toJSON());
@@ -207,7 +207,7 @@ module.exports = (function () {
 				$document.triggerHandler('app.search');
 			}
 		}
-	}
+	};
 	//Init public method
 	var init = function () {
 		//create map
@@ -284,7 +284,7 @@ module.exports = (function () {
 			$iwOuterParent.addClass('gm-iw-parent');
 			$iwOuterParent.parent().addClass('gm-iw-gparent');
 		});
-	}
+	};
 
 	// API/data for end-user
 	return {

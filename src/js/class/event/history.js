@@ -4,7 +4,6 @@ module.exports = (function() {
 
 	$(window).on('popstate', function(event) {
 		var state = event.originalEvent.state;
-		console.info('popstate', state, event);
 		if (state.windows === false) {
 			windows.close();
 		} else if (state.windows === true) {
@@ -30,9 +29,6 @@ module.exports = (function() {
 		} else {
 			//load queried windows
 			var part = '/parts/'+pathname.substr(1, (pathname.length - 2))+'.html';
-
-			console.info('history state', history.state);
-			console.info('location', window.location, part);
 			windows.show({href: part});
 		}
 		//load default map position and search
