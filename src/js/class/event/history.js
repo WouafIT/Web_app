@@ -4,7 +4,8 @@ module.exports = (function() {
 
 	$(window).on('popstate', function(event) {
 		var state = event.originalEvent.state;
-		if (state.windows === false) {
+		//TODO : handle hash like #wouafs or #search
+		if (!state || state.windows === false) {
 			windows.close();
 		} else if (state.windows === true) {
 			if (state.href) {

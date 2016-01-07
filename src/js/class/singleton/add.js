@@ -2,45 +2,102 @@ module.exports = (function() {
 	var data = require('./data.js');
 	var windows = require('./windows.js');
 	var i18n = require('./i18n.js');
-
-	var $add = $('#add');
-	var $body = $('body');
-	$add.hide().removeAttr('hidden');
+	var $mapArea = $('#sb-site');
+	var $addZone = $('#add-zone');
+	var $addBtn = $addZone.find('.add-btn');
+	var $addOkBtn = $addZone.find('button');
+	$addBtn.add($addOkBtn).hide();
+	$addZone.removeAttr('hidden');
+	$addOkBtn.popover({
+		title: i18n.t('Add a new Wouaf'),
+		content: i18n.t('Add_wouaf_popover'),
+		trigger: 'manual',
+		placement: 'top',
+		offset: '0 100',
+		template: ['<div class="popover" role="tooltip">',
+						'<div class="popover-arrow"></div>',
+						'<button type="button" class="close" aria-label="'+ i18n.t('Close') +'">',
+						'<span aria-hidden="true">&times;</span>',
+						'</button>',
+						'<h3 class="popover-title"></h3>',
+						'<div class="popover-content"></div>',
+					'</div>'].join('')
+	});
+	$addOkBtn.on('shown.bs.popover', function () {
+		$('.popover').appendTo($mapArea);
+		$('.popover .close').one('click', function () {
+			data.setBool('showPopover', false);
+			$addOkBtn.popover('hide');
+		});
+	});
 
 	var showCrosshair = function () {
-		$body.append('<div class="ch" id="ch-t"></div><div class="ch" id="ch-l"></div><div class="ch" id="ch-r"></div><div class="ch" id="ch-b"></div><div class="ch" id="ch-c"></div>')
+		$mapArea.append('<div class="ch" id="ch-t"></div><div class="ch" id="ch-l"></div><div class="ch" id="ch-r"></div><div class="ch" id="ch-b"></div>')
+		$('#ch-t, #ch-b').animate({height: '50%'}, {
+			duration: 400,
+			queue: 'ch'
+		});
+		$('#ch-l, #ch-r').animate({width: '50%'}, {
+			duration: 400,
+			queue: 'ch'
+		}).promise('ch').done(function() {
+			$mapArea.append('<div class="ch" id="ch-c"></div>');
+			$('#ch-c').animate({
+				left: '-=22px',
+				top:  '-=23px',
+				width: '46px',
+				height: '46px'
+			}, {
+				duration: 300
+			});
+		});
+		$('#ch-t, #ch-b, #ch-l, #ch-r').dequeue("ch");
 	};
 
 	var hideCrosshair = function () {
-		$body.find('.ch').hide("fast", function() {
-			$(this).remove();
+		$('#ch-t, #ch-b').animate({height: '0%'}, {
+			duration: 400,
+			queue: 'ch'
 		});
+		$('#ch-l, #ch-r').animate({width: '0%'}, {
+			duration: 400,
+			queue: 'ch'
+		}).promise('ch').done(function() {
+			$mapArea.find('.ch').remove();
+		});
+		$('#ch-c').animate({
+			left: '-=53px',
+			top:  '-=52px',
+			width: '150px',
+			height: '150px',
+			opacity: 0
+		}, {
+			duration: 300,
+			queue: 'ch'
+		});
+		$mapArea.find('.ch').dequeue("ch");
 	};
 
 	var self = {};
 	self.init = function() {
-		$add.show();
-		$add.on('click', function() {
+		$addBtn.show();
+		$addBtn.on('click', function() {
 			if (!data.getString('uid')) { //user is not logged, show login window
 				windows.show({href: '/parts/login.html'});
 			} else {
-				windows.show({
-					backdrop: false,
-					title: 'Ajouter un nouveau Wouaf',
-					text: 'Positionnez le centre de la carte ou vous souhaitez ajouter votre Wouaf et cliquez sur ... <button type="button" class="btn btn-primary" data-dismiss="modal">' + i18n.t('OK') + '</button>',
-					footer: false,
-					open: function () {
-						$add.hide();
-						showCrosshair();
-						console.info('open !');
-					},
-					close: function () {
-						$add.show();
-						hideCrosshair();
-						console.info('close: ', arguments);
-					}
-				});
+				$addBtn.hide();
+				$addOkBtn.show();
+				showCrosshair();
+				if (data.getBool('showPopover') !== false) {
+					$addOkBtn.popover('show');
+				}
 			}
+		});
+		$addOkBtn.on('click', function() {
+			$addOkBtn.hide();
+			$addBtn.show();
+			$addOkBtn.popover('hide');
+			hideCrosshair();
 		});
 	};
 	return self;

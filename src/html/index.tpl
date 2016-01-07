@@ -8,7 +8,7 @@
 	<meta name="description" content="{%= o.htmlWebpackPlugin.options.i18n['Wouaf IT'] %} -
 	{%= o.htmlWebpackPlugin.options.i18n['Your social network for your local events'] %}" />
 	<!-- Bootstrap -->
-	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
 	<script src="/js/libs/modernizr.js?1"></script>
 	<style>
@@ -26,7 +26,10 @@
 <body>
 <div id="sb-site">
 	<div id="menu" title="{%= o.htmlWebpackPlugin.options.i18n['Menu'] %}" class="sb-toggle-left"><i class="fa fa-bars fa-lg"></i></div>
-	<div id="add" hidden title="{%= o.htmlWebpackPlugin.options.i18n['Add a Wouaf'] %}"></div>
+	<div id="add-zone" hidden>
+		<div class="add-btn" title="{%= o.htmlWebpackPlugin.options.i18n['Add a Wouaf'] %}"></div>
+		<button class="btn btn-lg btn-primary">{%= o.htmlWebpackPlugin.options.i18n['OK'] %}</button>
+	</div>
 	<div id="map"></div>
 </div>
 <div class="sb-slidebar sb-width-wide sb-left">
@@ -139,7 +142,7 @@
                     <p class="lead">{%= o.htmlWebpackPlugin.options.i18n['create_wouaf_it_account'] %}</p>
                     <hr class="m-y-md">
                     <p>{%= o.htmlWebpackPlugin.options.i18n['use_wouaf_it_account'] %}</p>
-                    <p class="lead text-right">
+                    <p class="lead text-xs-right">
                         <a class="btn btn-primary btn-lg" href="/login/" role="button"
                            data-href="/parts/login.html?{%= o.htmlWebpackPlugin.options.data.timestamp %}"
                            data-toggle="modal" data-target="#modalWindow">{%= o.htmlWebpackPlugin.options.i18n['Login'] %}</a>
@@ -149,7 +152,7 @@
 		</div>
 	</div>
 	<footer class="container">
-		<nav class="nav text-center small">
+		<nav class="nav text-xs-center small">
 			<i class="fa fa-info-circle"></i> <a href="/about/" data-href="/parts/about.html?{%= o.htmlWebpackPlugin.options.data.timestamp %}"
                                                  data-toggle="modal" data-target="#modalWindow">{%= o.htmlWebpackPlugin.options.i18n.About %}</a> |
 			<i class="fa fa-envelope"></i> <a href="/contact/" data-href="/parts/contact.html?{%= o.htmlWebpackPlugin.options.data.timestamp %}"
@@ -169,13 +172,13 @@
 </div>
 <div id="loader" class="uil-ripple-css" hidden title="{%= o.htmlWebpackPlugin.options.i18n.Loading %}"><div></div><div></div></div>
 <!-- jQuery -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <!-- Tether -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/tether/1.1.1/js/tether.js"></script>
 <!-- Bootstrap -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.2/js/bootstrap.min.js"></script>
 <!-- i18next -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/i18next/2.0.1/i18next.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/i18next/2.0.16/i18next.min.js"></script>
 <!-- GMaps -->
 <script src="//maps.googleapis.com/maps/api/js?key={%= o.htmlWebpackPlugin.options.data.googleApi %}&libraries=geometry"></script>
 <script type="text/javascript" src="/js/build.js?{%= o.htmlWebpackPlugin.options.data.timestamp %}" charset="utf-8"></script>

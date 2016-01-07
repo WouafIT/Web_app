@@ -9,14 +9,14 @@
     <div class="modal-body">
 		<h3>{%= o.htmlWebpackPlugin.options.i18n['Choose your connection method'] %}</h3>
 		<h4><i class="fa fa-facebook-official"></i> {%= o.htmlWebpackPlugin.options.i18n['Facebook account'] %}</h4>
-		<p class="text-center"><button type="button" class="btn btn-secondary" data-dismiss="modal">Facebook connect</button></p>
+		<p class="text-xs-center"><button type="button" class="btn btn-secondary" data-dismiss="modal">Facebook connect</button></p>
 		<small class="text-muted">{%= o.htmlWebpackPlugin.options.i18n['Facebook_account_details'] %}</small>
 		<hr />
 		<h4><i class="fa fa-google-plus"></i> {%= o.htmlWebpackPlugin.options.i18n['Google account'] %}</h4>
-		<p class="text-center"><button type="button" class="btn btn-secondary" data-dismiss="modal">Google connect</button></p>
+		<p class="text-xs-center"><button type="button" class="btn btn-secondary" data-dismiss="modal">Google connect</button></p>
 		<hr />
 		<h4 class="wouaf-it">{%= o.htmlWebpackPlugin.options.i18n['Wouaf IT account'] %}</h4>
-		<p class="text-center"><button type="button" class="btn btn-primary btn-wrap"
+		<p class="text-xs-center"><button type="button" class="btn btn-primary btn-wrap"
 									   data-href="/parts/create-account.html?{%= o.htmlWebpackPlugin.options.data.timestamp %}"
 									   data-show="modal" data-target="#modalWindow">{%= o.htmlWebpackPlugin.options.i18n['New Wouaffer? Create your account!'] %}</button></p>
 		<p>{%= o.htmlWebpackPlugin.options.i18n['Or enter your login'] %}</p>
@@ -35,13 +35,13 @@
 						   placeholder="{%= o.htmlWebpackPlugin.options.i18n['Password'] %}" />
 				</div>
 			</fieldset>
-			<div class="checkbox text-center">
+			<div class="checkbox text-xs-center">
 				<label>
 					<input type="checkbox" name="remember"> {%= o.htmlWebpackPlugin.options.i18n['Remember me'] %}
 				</label>
 			</div>
-			<p class="text-right"><button type="submit" class="btn btn-primary">{%= o.htmlWebpackPlugin.options.i18n['Login'] %}</button></p>
-			<p class="text-center"><a href="#"
+			<p class="text-xs-right"><button type="submit" class="btn btn-primary">{%= o.htmlWebpackPlugin.options.i18n['Login'] %}</button></p>
+			<p class="text-xs-center"><a href="#"
 									  data-href="/parts/lost-password.html?{%= o.htmlWebpackPlugin.options.data.timestamp %}"
 									  data-show="modal" data-target="#modalWindow">{%= o.htmlWebpackPlugin.options.i18n['Lost password?'] %}</a></p>
 		</form>

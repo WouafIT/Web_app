@@ -105,7 +105,7 @@
 				</div>
 			</fieldset>
 
-			<p class="text-right"><button type="submit" class="btn btn-primary">{%= o.htmlWebpackPlugin.options.i18n['Save your profile'] %}</button></p>
+			<p class="text-xs-right"><button type="submit" class="btn btn-primary">{%= o.htmlWebpackPlugin.options.i18n['Save your profile'] %}</button></p>
 		</form>
 	</div>
 	<div class="modal-footer">

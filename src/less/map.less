@@ -213,31 +213,32 @@
 	position: absolute;
 	z-index: 1;
 	border: 2px dashed green;
+	pointer-events: none;
+}
+#ch-t, #ch-b {
+	left: ~"calc(50% - 1.5px)";
+	height: 0;
 }
 #ch-t {
 	top: 0;
-	left: ~"calc(50% - 1.5px)";
-	height: 50%;
 }
 #ch-b {
 	bottom: 0;
-	left: ~"calc(50% - 1.5px)";
-	height: 50%;
+}
+#ch-l, #ch-r {
+	top: ~"calc(50% - 1.5px)";
+	width: 0;
 }
 #ch-l {
 	left: 0;
-	top: ~"calc(50% - 1.5px)";
-	width: 50%;
 }
 #ch-r {
 	right: 0;
-	top: ~"calc(50% - 1.5px)";
-	width: 50%;
 }
 #ch-c {
-	left: ~"calc(50% - 22px)";
-	top: ~"calc(50% - 23px)";
-	width: 46px;
-	height: 46px;
+	left: 50%;
+	top: 50%;
+	width: 0;
+	height: 0;
 	border-radius: 50%;
 }

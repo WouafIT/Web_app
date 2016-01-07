@@ -1,4 +1,10 @@
 @media (max-width: 480px) {
+	body {
+		font-size: 0.9rem;
+	}
+	.btn {
+		font-size: 0.9rem;
+	}
 	/* widths on extra small screens. */
 	#toast > div {
 		width: 100%;
@@ -26,13 +32,22 @@
 			}
 		}
 	}
-	#add {
+	#add-zone {
 		right: 0.5rem;
 		bottom: 1.5rem;
-		width: 2.5rem;
-		height: 2.5rem;
-		font-size: 3rem;
-		line-height: 2.6rem;
+
+		.add-btn {
+			width: 2.5rem;
+			height: 2.5rem;
+			font-size: 3rem;
+			line-height: 2.6rem;
+		}
+	}
+	.modal-body {
+		padding: 10px;
+	}
+	.modal-title {
+		font-size: 1.2rem;
 	}
 }
 
@@ -41,25 +56,31 @@
 	#toast > div {
 		width: 20rem;
 	}
-	#add {
+	#add-zone {
 		right: 0.5rem;
 		bottom: 1.5rem;
-		width: 2.5rem;
-		height: 2.5rem;
-		font-size: 3rem;
-		line-height: 2.6rem;
+
+		.add-btn {
+			width: 2.5rem;
+			height: 2.5rem;
+			font-size: 3rem;
+			line-height: 2.6rem;
+		}
 	}
 }
 
 @media (min-width: 768px) {
 	/* widths on medium screens. */
-	#add {
-		bottom: 2.5rem;
+	#add-zone {
 		right: 2.5rem;
-		width: 3rem;
-		height: 3rem;
-		font-size: 3.5rem;
-		line-height: 3rem;
+		bottom: 2.5rem;
+
+		.add-btn {
+			width: 3rem;
+			height: 3rem;
+			font-size: 3.5rem;
+			line-height: 3rem;
+		}
 	}
 }
 

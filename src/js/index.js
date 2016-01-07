@@ -85,6 +85,7 @@
 			data.setBool('allowContact', true);
 			data.setBool('postNotif', true);
 			data.setBool('commentNotif', true);
+			data.setBool('showPopover', true);
 			data.setString('unit', 'km');
 			data.setInt('radius', 300);
 			data.setObject('categories', []);

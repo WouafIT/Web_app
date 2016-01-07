@@ -129,6 +129,10 @@
 	"An error has occurred. Check entering your email address.": "An error has occurred. Check entering your email address.",
 	"A reset email has been sent.": "A reset email has been sent.",
 
+	"Add a new Wouaf": "Add a new Wouaf",
+	"Add_wouaf_popover": "Position the center of the map at the point where you want to add your Wouaf and click OK.",
+
+
 	"French": "French",
 	"English": "English"
 }

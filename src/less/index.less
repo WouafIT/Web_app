@@ -52,26 +52,23 @@ html, body {
 	cursor: pointer;
 	color: @white;
 }
-#add {
+#add-zone {
 	position: absolute;
-	bottom: 2.5rem;
-	right: 2.5rem;
-	width: 3rem;
-	height: 3rem;
-	font-size: 3.5rem;
-	line-height: 3rem;
-	background-color: @green;
-	border: 1px solid @grey;
-	border-radius: 50%;
-	cursor: pointer;
-	color: @white;
 	z-index: 1;
-	text-align: center;
-	font-size: 3.5rem;
-	line-height: 3rem;
 
-	&::after {
-		content: "+";
+	.add-btn {
+		background-color: @green;
+		border: 1px solid @grey;
+		border-radius: 50%;
+		cursor: pointer;
+		color: @white;
+		text-align: center;
+		font-size: 3.5rem;
+		line-height: 3rem;
+
+		&::after {
+			content: "+";
+		}
 	}
 }
 
@@ -112,6 +109,10 @@ html, body {
 		background-size: contain;
 		padding-left: 1.8rem;
 	}
+}
+.popover-title {
+	color: @white;
+	background-color: @green;
 }
 
 #loader {
