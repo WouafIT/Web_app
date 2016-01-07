@@ -212,8 +212,11 @@
 .ch {
 	position: absolute;
 	z-index: 1;
-	border: 2px dashed green;
+	border: 2px dashed @green;
 	pointer-events: none;
+}
+.too-wide .ch {
+	border: 2px dashed @red;
 }
 #ch-t, #ch-b {
 	left: ~"calc(50% - 1.5px)";

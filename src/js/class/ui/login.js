@@ -2,8 +2,6 @@ module.exports = (function() {
 	var $document = $(document);
 	var $modalWindow = $('#modalWindow');
 	var toast = require('../singleton/toast.js');
-
-	//email validation. validate mostly RF2822
 	var self = {};
 	self.show = function (e) {
 		var data = require('../singleton/data.js');

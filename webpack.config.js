@@ -92,6 +92,12 @@ module.exports = Object.keys(languages).map(function(language) {
 				data: htmlData,
 				i18n: languageData
 			}),
+			new HtmlWebpackPlugin({
+				filename: 'parts/add.html',
+				template: 'src/html/parts/add.tpl',
+				data: htmlData,
+				i18n: languageData
+			}),
 			new CopyWebpackPlugin([
 				{
 					from: '../assets'

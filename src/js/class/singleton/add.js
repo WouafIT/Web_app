@@ -2,6 +2,7 @@ module.exports = (function() {
 	var data = require('./data.js');
 	var windows = require('./windows.js');
 	var i18n = require('./i18n.js');
+	var map = require('./map.js');
 	var $mapArea = $('#sb-site');
 	var $addZone = $('#add-zone');
 	var $addBtn = $addZone.find('.add-btn');
@@ -94,10 +95,19 @@ module.exports = (function() {
 			}
 		});
 		$addOkBtn.on('click', function() {
-			$addOkBtn.hide();
-			$addBtn.show();
-			$addOkBtn.popover('hide');
-			hideCrosshair();
+			var zoom = map.getMap().getZoom();
+			if (zoom < 13) {
+				windows.show({
+					title: i18n.t('Lack of precision'),
+					text: i18n.t('lack_of_precision_details')
+				});
+			} else {
+				$addOkBtn.hide();
+				$addBtn.show();
+				$addOkBtn.popover('hide');
+				hideCrosshair();
+				windows.show({href: '/parts/add.html'});
+			}
 		});
 	};
 	return self;

@@ -130,7 +130,12 @@
 	"A reset email has been sent.": "Un email de réinitialisation vous a été envoyé.",
 
 	"Add a new Wouaf": "Ajouter un nouveau Wouaf",
+	"Save your Wouaf": "Enregistrer votre Wouaf",
 	"Add_wouaf_popover": "Positionnez le centre de la carte à l'endroit ou vous souhaitez ajouter votre Wouaf et cliquez sur OK.",
+	"Publish this Wouaf on my Facebook wall": "Publier ce Wouaf sur mon mur Facebook",
+	"Being notified by email for feedback on this Wouaf": "Etre notifié par email des commentaires sur ce Wouaf",
+	"Lack of precision": "Manque de précision ...",
+	"lack_of_precision_details": "La position définie est peu précise. Vous devriez zoomer un peu !",
 
 	"French": "Français",
 	"English": "Anglais"

@@ -10,6 +10,7 @@ module.exports = (function () {
 	var userLocation;
 	var hcmap;
 	var userMarker;
+	var $body = $('body');
 	self.jsonResults = {};
 	//set map pins on search response
 	var setPins = function (json) {
@@ -225,6 +226,7 @@ module.exports = (function () {
 			},
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		});
+		$body.addClass('too-wide');
 
 		map.addListener('dragend', updateMapPosition);
 		map.addListener('zoom_changed', updateMapPosition);
@@ -266,6 +268,11 @@ module.exports = (function () {
 			infowindow.close();
 		});
 
+		// Event that put a class on body when zoom is too wide
+		google.maps.event.addListener(map, 'zoom_changed', function() {
+			$body.toggleClass('too-wide', map.getZoom() < 13);
+		});
+
 		// Infowindow customization
 		google.maps.event.addListener(infowindow, 'domready', function() {
 			// Reference to the DIV that wraps the bottom of infowindow
@@ -291,6 +298,9 @@ module.exports = (function () {
 		init: init,
 		getResults: function() {
 			return self.jsonResults;
+		},
+		getMap: function() {
+			return map;
 		}
 	}
 })();

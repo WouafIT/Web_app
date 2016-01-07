@@ -14,3 +14,4 @@ Signalements :
 
 Bugs :
 - enregistrement d'une date de naissance vide ou d'un genre vide ne se fait pas.
+- gérer le changement de langue dans le profil
