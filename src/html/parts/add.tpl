@@ -25,16 +25,16 @@
 				<div class="input-group">
 					<div class="input-group-addon"><i class="fa fa-calendar-o"></i></div>
 					<input type="datetime-local" class="form-control" name="date-start" id="date-start"
-						   placeholder="Maintenant" />
+						   placeholder="Maintenant"
+						   data-field="datetime" data-format="dd-MMM-yyyy hh:mm:ss AA" readonly
+							/>
 				</div>
 			</fieldset>
-
+			<div id="dtBox"></div>
 			<fieldset class="form-group">
 				<label for="length">Durée</label>
 				<div class="input-group">
 					<div class="input-group-addon"><i class="fa fa-calendar-o"></i></div>
-					<!--1 hour to 2 weeks-->
-					<!--1, 2, 4, 6, 12, 18, 1j, 2, 3, 4, 5, 6, 1w, 2w-->
 					<select id="length" name="length" class="form-control"></select>
 				</div>
 			</fieldset>

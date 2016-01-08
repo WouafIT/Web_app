@@ -4,6 +4,9 @@ module.exports = (function() {
 	var i18n = require('../singleton/i18n.js');
 	var toast = require('../singleton/toast.js');
 	var map = require('../singleton/map.js');
+	require('../../../libs/datetime/DateTimePicker.min.css');
+	require('../../../libs/datetime/DateTimePicker.min.js');
+	var map = require('../singleton/map.js');
 	var $modalWindow = $('#modalWindow');
 	var durationsLabels = [i18n.t('{{count}} hour', {count: 1}),
 						   i18n.t('{{count}} hour', {count: 2}),
@@ -54,6 +57,14 @@ module.exports = (function() {
 		for (i = 0, l = durations.length; i < l; i++) {
 			$length.append('<option value="'+ durations[i] +'"'+ (i === durations.length - 2 ? ' selected="selected"' : '') +'>'+ durationsLabels[i] +'</option>');
 		}
+
+		$("#dtBox").DateTimePicker({
+
+									   dateFormat: "MM-dd-yyyy",
+									   timeFormat: "HH:mm",
+									   dateTimeFormat: "MM-dd-yyyy HH:mm:ss AA"
+
+								   });
 
 	};
 	return self;
