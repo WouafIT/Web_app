@@ -1,6 +1,7 @@
 module.exports = (function() {
 	var $modalWindow = $('#modalWindow');
 	var i18n = require('../singleton/i18n.js');
+	var data = require('../singleton/data.js');
 	var self = {};
 
 	var kmLabel = i18n.t('km');
@@ -12,8 +13,6 @@ module.exports = (function() {
 
 
 	self.show = function (e) {
-		var data = require('../singleton/data.js');
-
 		var $form = $modalWindow.find('form');
 		var $radius = $form.find('select[name=radius]');
 		var $unit = $form.find('select[name=unit]');

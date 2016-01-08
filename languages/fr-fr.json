@@ -137,6 +137,13 @@
 	"Lack of precision": "Manque de précision ...",
 	"lack_of_precision_details": "La position définie est peu précise. Vous devriez zoomer un peu !",
 
+	"{{count}} hour": "{{count}} heure",
+	"{{count}} hour_plural": "{{count}} heures",
+	"{{count}} day": "{{count}} jour",
+	"{{count}} day_plural": "{{count}} jours",
+	"{{count}} week": "{{count}} semaine",
+	"{{count}} week_plural": "{{count}} semaines",
+
 	"French": "Français",
 	"English": "Anglais"
 

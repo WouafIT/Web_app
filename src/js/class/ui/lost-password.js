@@ -1,13 +1,12 @@
 module.exports = (function() {
-	var $document = $(document);
+	var data = require('../singleton/data.js');
+	var windows = require('../singleton/windows.js');
 	var $modalWindow = $('#modalWindow');
 	//email validation. validate mostly RF2822
 	var emailRe = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
 	var self = {};
 	self.show = function () {
-		var data = require('../singleton/data.js');
 		if (data.getString('uid')) { //user already logged, close window
-			var windows = require('../singleton/windows.js');
 			windows.close();
 		}
 		var $form = $modalWindow.find('form');
@@ -56,7 +55,6 @@ module.exports = (function() {
 			var query = require('../singleton/query.js');
 			query.resetPassword($email.val(), function (datas) {
 				if (datas.result == 1) {
-					var windows = require('../singleton/windows.js');
 					windows.close();
 					var toast = require('../singleton/toast.js');
 					toast.show(i18n.t('A reset email has been sent.'));

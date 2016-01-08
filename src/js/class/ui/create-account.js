@@ -1,13 +1,13 @@
 module.exports = (function() {
+	var data = require('../singleton/data.js');
+	var windows = require('../singleton/windows.js');
 	var $document = $(document);
 	var $modalWindow = $('#modalWindow');
 	//email validation. validate mostly RF2822
 	var emailRe = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
 	var self = {};
 	self.show = function () {
-		var data = require('../singleton/data.js');
 		if (data.getString('uid')) { //user already logged, close window
-			var windows = require('../singleton/windows.js');
 			windows.close();
 		}
 		var $form = $modalWindow.find('form');
@@ -105,7 +105,6 @@ module.exports = (function() {
 						pass: $pass.val()
 					}, loginSuccess, loginError);
 
-					var windows = require('../singleton/windows.js');
 					windows.show({
 						title: i18n.t('Welcome'),
 						'text': i18n.t('welcome_to_wouaf_it')

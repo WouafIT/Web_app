@@ -1,14 +1,12 @@
-var $ = require('jquery');
-//Slidebars
-require("../../../libs/slidebars/0.10.3/dist/slidebars.js");
-require("../../../libs/slidebars/0.10.3/dist/slidebars.css");
-
 module.exports = (function() {
+	//Load Slidebars
+	require("../../../libs/slidebars/0.10.3/dist/slidebars.js");
+
+	var i18n = require('./i18n.js');
+	var data = require('./data.js');
+
 	// private functions
 	function init () {
-		//i18n
-		var i18n = require('./i18n.js');
-
 		$.slidebars();
 		//Dom Events
 		$('#when').on({
@@ -16,9 +14,6 @@ module.exports = (function() {
 		});
 		showHideCustomDates();
 		//populate categories list
-		var data = require('./data.js');
-
-		//set categories values
 		var categories = data.getObject('categories');
 		var $what = $('#what');
 		$what.append('<option value="">'+ i18n.t('All events') +'</option>');

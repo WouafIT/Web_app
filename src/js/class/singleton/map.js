@@ -82,21 +82,7 @@ module.exports = (function () {
 			toast.show(i18n.t('{{wouaf}} displayed', { count: countResults, wouaf: notificationLabel }));
 		}
 	};
-	//Event to launch a new search
-	$document.on('app.search', function (event, params) {
-		params = params || {};
-		params.searchId = (new Date()).getTime();
-		if (!params.loc) {
-			params.loc = map.getCenter();
-		}
-		if (!params.radius) {
-			params.radius = data.getInt('radius');
-		}
-		if (__DEV__) {
-			console.info('Search params', params);
-		}
-		query.posts(params, setPins);
-	});
+
 	//Custom marker for user location
 	function locationMarker(latlng) {
 		this.latlng = latlng;
@@ -197,6 +183,9 @@ module.exports = (function () {
 		$('#splash').fadeOut('fast');
 	};
 	var updateMapPosition = function() {
+		//put a class on body when zoom is too wide
+		$body.toggleClass('too-wide', map.getZoom() < 13);
+		//update search if needed
 		var center = map.getCenter();
 		data.setObject('position', center.toJSON());
 		//check distance between current center and last search
@@ -226,10 +215,37 @@ module.exports = (function () {
 			},
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		});
-		$body.addClass('too-wide');
-
+		//add map events
 		map.addListener('dragend', updateMapPosition);
 		map.addListener('zoom_changed', updateMapPosition);
+		$body.addClass('too-wide');
+
+		//customize infowindow
+		infowindow = new google.maps.InfoWindow({
+			maxHeight: 350
+		});
+		google.maps.event.addListener(infowindow, 'domready', function() {
+			// Reference to the DIV that wraps the bottom of infowindow
+			var $iwOuter = $('.gm-style-iw');
+			var $iwOuterParent = $iwOuter.parent();
+			var $iwBackground = $iwOuter.prev();
+			// Removes background shadow DIV
+			$iwBackground.children(':nth-child(2)').css({'display' : 'none'});
+			// Removes white background DIV
+			$iwBackground.children(':nth-child(4)').css({'display' : 'none'});
+			// Changes the desired tail shadow color.
+			$iwBackground.children(':nth-child(3)').find('div').children().addClass('iw-tail');
+			//add missing classes
+			$iwBackground.addClass('gm-iw-bg');
+			$iwOuter.next().addClass('gm-iw-close-btn');
+			$iwOuterParent.addClass('gm-iw-parent');
+			$iwOuterParent.parent().addClass('gm-iw-gparent');
+		});
+		// Event that closes the Info Window with a click on the map
+		google.maps.event.addListener(map, 'click', function() {
+			infowindow.close();
+		});
+
 		//check geolocation support and permissions
 		if (navigator.permissions && navigator.geolocation) {
 			navigator.permissions.query({name: 'geolocation'}).then(function (permissionStatus) {
@@ -257,45 +273,11 @@ module.exports = (function () {
 		} else {
 			handleNoGeolocation({code: 999, message: 'Browser does not handle geolocation'});
 		}
-
-		//customize infowindow
-		infowindow = new google.maps.InfoWindow({
-			maxHeight: 350
-		});
-
-		// Event that closes the Info Window with a click on the map
-		google.maps.event.addListener(map, 'click', function() {
-			infowindow.close();
-		});
-
-		// Event that put a class on body when zoom is too wide
-		google.maps.event.addListener(map, 'zoom_changed', function() {
-			$body.toggleClass('too-wide', map.getZoom() < 13);
-		});
-
-		// Infowindow customization
-		google.maps.event.addListener(infowindow, 'domready', function() {
-			// Reference to the DIV that wraps the bottom of infowindow
-			var $iwOuter = $('.gm-style-iw');
-			var $iwOuterParent = $iwOuter.parent();
-			var $iwBackground = $iwOuter.prev();
-			// Removes background shadow DIV
-			$iwBackground.children(':nth-child(2)').css({'display' : 'none'});
-			// Removes white background DIV
-			$iwBackground.children(':nth-child(4)').css({'display' : 'none'});
-			// Changes the desired tail shadow color.
-			$iwBackground.children(':nth-child(3)').find('div').children().addClass('iw-tail');
-			//add missing classes
-			$iwBackground.addClass('gm-iw-bg');
-			$iwOuter.next().addClass('gm-iw-close-btn');
-			$iwOuterParent.addClass('gm-iw-parent');
-			$iwOuterParent.parent().addClass('gm-iw-gparent');
-		});
 	};
 
-	// API/data for end-user
 	return {
 		init: init,
+		setPins: setPins,
 		getResults: function() {
 			return self.jsonResults;
 		},

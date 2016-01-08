@@ -1,12 +1,12 @@
 module.exports = (function() {
+	var data = require('../singleton/data.js');
+	var windows = require('../singleton/windows.js');
+	var toast = require('../singleton/toast.js');
 	var $document = $(document);
 	var $modalWindow = $('#modalWindow');
-	var toast = require('../singleton/toast.js');
 	var self = {};
 	self.show = function (e) {
-		var data = require('../singleton/data.js');
 		if (data.getString('uid')) { //user already logged, close window
-			var windows = require('../singleton/windows.js');
 			windows.close();
 		}
 		var $form = $modalWindow.find('form');
@@ -69,7 +69,6 @@ module.exports = (function() {
 				datas.permanent = $remember.prop("checked");
 				//login
 				$document.triggerHandler('app.login', datas);
-				var windows = require('../singleton/windows.js');
 				windows.close();
 			};
 			var loginError = function(datas) {

@@ -3,6 +3,7 @@ Wouafs :
 - L'ip du posteur (v4 & v6 & port),
 - Statut Actif ou Inactif (inactifs restent visibles au posteur uniquement),
 - Nombre de signalements.
+- Images : jquery swipebox
 
 Signalements :
 - Ajouter un table listant tous les signalements.

@@ -1,12 +1,12 @@
 module.exports = (function() {
+	var data = require('../singleton/data.js');
+	var windows = require('../singleton/windows.js');
 	var $document = $(document);
 	var $modalWindow = $('#modalWindow');
 	//email validation. validate mostly RF2822
 	var emailRe = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
 	var self = {};
 	self.show = function (e) {
-		var data = require('../singleton/data.js');
-		var windows = require('../singleton/windows.js');
 		if (!data.getString('uid')) { //user is not logged, close window
 			windows.close();
 		}
