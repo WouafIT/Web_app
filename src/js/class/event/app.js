@@ -35,6 +35,11 @@ module.exports = (function() {
 			slidebars.init();
 			//init add button
 			add.init();
+			//init date picker
+			$("#dtBox").DateTimePicker({
+				minuteInterval: 5,
+				language: i18n.t('languageShort')
+			});
 
 			//show server message
 			if (infos.message) {

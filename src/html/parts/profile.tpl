@@ -100,7 +100,7 @@
 				<label for="birthdate">{%= o.htmlWebpackPlugin.options.i18n['Birthdate'] %}</label>
 				<div class="input-group">
 					<div class="input-group-addon"><i class="fa fa-birthday-cake"></i></div>
-					<input type="date" class="form-control" name="birthdate" id="birthdate"
+					<input  type="text" data-field="date" class="form-control" name="birthdate" id="birthdate"
 						   placeholder="{%= o.htmlWebpackPlugin.options.i18n['Birthdate'] %}" />
 				</div>
 			</fieldset>

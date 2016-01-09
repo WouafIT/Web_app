@@ -101,14 +101,16 @@
 							<label for="start">{%= o.htmlWebpackPlugin.options.i18n['From'] %}</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-								<input type="date" class="form-control" id="start" placeholder="{%= o.htmlWebpackPlugin.options.i18n['Start'] %}" />
+								<input type="text" data-field="date" data-startend="start" class="form-control date-period"
+									   data-startendelem=".date-period" id="start" placeholder="{%= o.htmlWebpackPlugin.options.i18n['Start'] %}" />
 							</div>
 						</div>
 						<div class="col-lg-6">
 							<label for="end">{%= o.htmlWebpackPlugin.options.i18n['To'] %}</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-								<input type="date" class="form-control" id="end" placeholder="{%= o.htmlWebpackPlugin.options.i18n['End'] %}" />
+								<input type="text" data-field="date" data-startend="end" class="form-control date-period"
+									   data-startendelem=".date-period" id="end" placeholder="{%= o.htmlWebpackPlugin.options.i18n['End'] %}" />
 							</div>
 						</div>
 					</fieldset>
@@ -171,6 +173,7 @@
 	</div>
 </div>
 <div id="loader" class="uil-ripple-css" hidden title="{%= o.htmlWebpackPlugin.options.i18n.Loading %}"><div></div><div></div></div>
+<div id="dtBox"></div>
 <!-- jQuery -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <!-- Tether -->

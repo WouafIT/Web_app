@@ -24,13 +24,12 @@
 				<label for="date-start">A partir de</label>
 				<div class="input-group">
 					<div class="input-group-addon"><i class="fa fa-calendar-o"></i></div>
-					<input type="datetime-local" class="form-control" name="date-start" id="date-start"
+					<input type="text" class="form-control" name="date-start" id="date-start"
 						   placeholder="Maintenant"
-						   data-field="datetime" data-format="dd-MMM-yyyy hh:mm:ss AA" readonly
-							/>
+						   data-field="datetime" />
 				</div>
 			</fieldset>
-			<div id="dtBox"></div>
+
 			<fieldset class="form-group">
 				<label for="length">Durée</label>
 				<div class="input-group">

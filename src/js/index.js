@@ -1,7 +1,10 @@
 (function($) {
 	//Load styles
 	require("../libs/slidebars/0.10.3/dist/slidebars.css");
+	require('../libs/DateTimePicker/dist/DateTimePicker.min.css');
 	require("../less/index.less");
+	require('../libs/DateTimePicker/dist/DateTimePicker.min.js');
+	require('../libs/DateTimePicker/dist/i18n/DateTimePicker-i18n-'+ LANGUAGE +'.js');
 	var data = require('./class/singleton/data.js');
 	var $document = $(document);
 
