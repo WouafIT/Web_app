@@ -1,6 +1,7 @@
 module.exports = (function() {
 	var data = require('../singleton/data.js');
 	var windows = require('../singleton/windows.js');
+	var dtp = require('../singleton/datetimepicker.js');
 	var $document = $(document);
 	var $modalWindow = $('#modalWindow');
 	//email validation. validate mostly RF2822
@@ -32,7 +33,7 @@ module.exports = (function() {
 		$signwname.attr('disabled', !$firstname.val() && !$lastname.val());
 		var birthdate = user.get('birthdate');
 		if (birthdate && birthdate.sec) {
-			$birthdate.get(0).valueAsDate = new Date(birthdate.sec * 1000);
+			dtp.setInputDate($birthdate, new Date(birthdate.sec * 1000));
 		}
 
 		$form.find('input').on('change', function(e) {
@@ -65,8 +66,8 @@ module.exports = (function() {
 					ok = $pass.val() == $field.val();
 					break;
 				case 'birthdate':
-					ok = !$birthdate.val() || !$birthdate.get(0).valueAsDate
-						|| $birthdate.get(0).valueAsDate.getTime() < (new Date().getTime());
+					var date = dtp.getInputDate($birthdate);
+					ok = !date || date.getTime() < (new Date().getTime());
 					break;
 			}
 			if (ok) {
@@ -103,7 +104,7 @@ module.exports = (function() {
 				firstname: 		$firstname.val(),
 				lastname: 		$lastname.val(),
 				gender: 		$gender.val(),
-				birthdate: 		$birthdate.val(),
+				birthdate: 		dtp.getInputServerDate($birthdate),
 				signwname:		($signwname.prop("checked") ? 1 : 0)
 
 			}, function(result) { //success
@@ -115,7 +116,8 @@ module.exports = (function() {
 					user.set('lang', $language.val());
 					user.set('email', $email.val());
 					user.set('signwname', $signwname.prop("checked") ? 1 : 0);
-					var birthdate = $birthdate.get(0).valueAsDate
+
+					var birthdate = dtp.getInputDate($birthdate);
 					user.set('birthdate', birthdate ? {'sec': parseInt(birthdate.getTime() / 1000)} : null);
 
 					//login

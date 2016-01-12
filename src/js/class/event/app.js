@@ -6,8 +6,8 @@ module.exports = (function() {
 	var windows = require('../singleton/windows.js');
 	var add = require('../singleton/add.js');
 	var i18n = require('../singleton/i18n.js');
+	var dtp = require('../singleton/datetimepicker.js');
 	var $document = $(document);
-
 	$document.on('app.start', function() {
 		//init with server infos
 		query.init(function (infos, status, msg) {
@@ -35,12 +35,8 @@ module.exports = (function() {
 			slidebars.init();
 			//init add button
 			add.init();
-			//init date picker
-			$("#dtBox").DateTimePicker({
-				minuteInterval: 5,
-				language: i18n.t('languageShort')
-			});
-
+			//init date time picker
+			dtp.init();
 			//show server message
 			if (infos.message) {
 				//show message page

@@ -1,4 +1,4 @@
-<div class="modal-content" data-ui="lost-password">
+<div data-ui="lost-password">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-label="{%= o.htmlWebpackPlugin.options.i18n['Close'] %}">
 			<span aria-hidden="true">&times;</span>

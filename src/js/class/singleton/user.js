@@ -1,5 +1,4 @@
 module.exports = (function() {
-	// Reference to "this" that won't get clobbered by some other "this"
 	var self = {};
 	var data = require('./data.js');
 	self.set = function (key, value) {
