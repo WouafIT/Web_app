@@ -1,7 +1,7 @@
 module.exports = (function() {
-	var data = require('../singleton/data.js');
-	var windows = require('../singleton/windows.js');
-	var dtp = require('../singleton/datetimepicker.js');
+	var data = require('../resource/data.js');
+	var windows = require('../resource/windows.js');
+	var dtp = require('../resource/datetimepicker.js');
 	var $document = $(document);
 	var $modalWindow = $('#modalWindow');
 	//email validation. validate mostly RF2822
@@ -11,7 +11,7 @@ module.exports = (function() {
 		if (!data.getString('uid')) { //user is not logged, close window
 			windows.close();
 		}
-		var user = require('../singleton/user.js');
+		var user = require('../resource/user.js');
 		var $form = $modalWindow.find('form');
 		var $username = $form.find('input[name=username]');
 		var $firstname = $form.find('input[name=firstname]');
@@ -80,8 +80,8 @@ module.exports = (function() {
 		});
 		$form.on('submit', function (event) {
 			event.preventDefault();
-			var i18n = require('../singleton/i18n.js');
-			var alert = require('../singleton/alert.js');
+			var i18n = require('../resource/i18n.js');
+			var alert = require('../resource/alert.js');
 			$form.find('.alert').hide("fast", function() {
 				$(this).remove();
 			});
@@ -95,7 +95,7 @@ module.exports = (function() {
 			}
 
 			//Query
-			var query = require('../singleton/query.js');
+			var query = require('../resource/query.js');
 			query.updateUser({
 				username: 		$username.val(),
 				pass: 			$pass.val(),
@@ -125,7 +125,7 @@ module.exports = (function() {
 
 					windows.close();
 
-					var toast = require('../singleton/toast.js');
+					var toast = require('../resource/toast.js');
 					toast.show(i18n.t('Profile saved!'));
 				} else if (result.msg) {
 					alert.show(i18n.t(result.msg[0]), $form, 'danger');

@@ -17,7 +17,11 @@
 		</div>
 		<form>
 			<fieldset class="form-group">
-				<textarea class="form-control" rows="5" name="content" id="content" placeholder="test de placeholder"></textarea>
+				<input type="text" class="form-control" placeholder="Entrez votre titre" name="title" />
+			</fieldset>
+
+			<fieldset class="form-group">
+				<textarea class="form-control" rows="5" name="content" id="content" placeholder="Entrez votre contenu"></textarea>
 			</fieldset>
 
 			<fieldset class="form-group">

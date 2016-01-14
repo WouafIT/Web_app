@@ -1,36 +1,39 @@
 {
-  "name": "wouafit-web-app",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/wouafit/Web_app.git"
-  },
-  "version": "0.0.2",
-  "description": "Wouaf IT Web Application",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "NODE_ENV=dev webpack -d --progress --colors",
-    "prod": "NODE_ENV=production webpack -p"
-  },
-  "author": "Sébastien PAUCHET",
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/wouafit/Web_app/issues"
-  },
-  "homepage": "https://github.com/wouafit/Web_app#readme",
-  "dependencies": {
-    "css-loader": "^0.16.0",
-    "json-loader": "^0.5.2",
-    "less": "^2.5.1",
-    "style-loader": "^0.12.3",
-    "file-loader": "^0.8.4",
-    "less-loader": "^2.2.0",
-    "url-loader": "^0.5.6",
-    "webpack": "^1.12.9",
-    "copy-webpack-plugin": "^0.2.0",
-    "html-webpack-plugin": "^1.7.0"
-  },
-  "devDependencies": {
-    "bootstrap": "twbs/bootstrap#v4-dev"
-  }
+	"name": "wouafit-web-app",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/wouafit/Web_app.git"
+	},
+	"version": "0.0.2",
+	"description": "Wouaf IT Web Application",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"dev": "NODE_ENV=dev webpack -d --progress --colors",
+		"prod": "NODE_ENV=production webpack -p"
+	},
+	"author": {
+		"name": "Sébastien PAUCHET",
+		"email": "sebastien@pauchet.me"
+	},
+	"homepage": "https://wouaf.it",
+	"license": "Apache-2.0",
+	"bugs": {
+		"url": "https://github.com/wouafit/Web_app/issues"
+	},
+	"dependencies": {
+		"css-loader": "^0.16.0",
+		"json-loader": "^0.5.2",
+		"less": "^2.5.1",
+		"style-loader": "^0.12.3",
+		"file-loader": "^0.8.4",
+		"less-loader": "^2.2.0",
+		"url-loader": "^0.5.6",
+		"webpack": "^1.12.9",
+		"copy-webpack-plugin": "^0.2.0",
+		"html-webpack-plugin": "^1.7.0"
+	},
+	"devDependencies": {
+		"bootstrap": "twbs/bootstrap#v4-dev"
+	}
 }

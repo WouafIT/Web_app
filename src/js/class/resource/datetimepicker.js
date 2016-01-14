@@ -1,4 +1,6 @@
 module.exports = (function() {
+	require('../../../libs/DateTimePicker/dist/DateTimePicker.min.js');
+	require('../../../libs/DateTimePicker/dist/i18n/DateTimePicker-i18n-'+ LANGUAGE +'.js');
 	var i18n = require('./i18n.js');
 	var oDTP;
 	var self = {};

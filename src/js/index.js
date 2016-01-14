@@ -3,28 +3,16 @@
 	require("../libs/slidebars/0.10.3/dist/slidebars.css");
 	require('../libs/DateTimePicker/dist/DateTimePicker.min.css');
 	require("../less/index.less");
-	require('../libs/DateTimePicker/dist/DateTimePicker.min.js');
-	require('../libs/DateTimePicker/dist/i18n/DateTimePicker-i18n-'+ LANGUAGE +'.js');
-	var data = require('./class/singleton/data.js');
+	var data = require('./class/resource/data.js');
 	var $document = $(document);
 
 	$document.ready(function() {
-		//load events modules
-		require('./class/event/app.js');
-		require('./class/event/login.js');
-		require('./class/event/history.js');
-		require('./class/event/wouaf.js');
-		require('./class/event/search.js');
-
 		//launch count
-		if (!data.getInt('launchCount')) {
-			data.setInt('launchCount', 1);
-		} else {
-			data.setInt('launchCount', data.getInt('launchCount') + 1);
-		}
+		var launchCount = data.getInt('launchCount');
+		data.setInt('launchCount', !launchCount ? 1 : launchCount + 1);
 
 		data.setInt('connectionAlert', 0);
-		//show welcome page on first launch
+		//set default vars on first launch
 		if (data.getInt('launchCount') == 1) {
 			//init default app vars
 			data.setBool('rules', false);
@@ -45,12 +33,23 @@
 				$document.triggerHandler('app.start');
 			});
 			welcome.open();*/
-		} else {
-			//launch app
-			//$document.triggerHandler('app.start');
 		}
 
-		//launch app
-		$document.triggerHandler('app.start');
+		//Load index
+		$.get('/parts/index.html', {v: BUILD_VERSION})
+		.done(function(html) {
+			//set body content
+			$('body').prepend(html);
+			//load events modules
+			require('./class/event/app.js');
+			require('./class/event/login.js');
+			require('./class/event/history.js');
+			require('./class/event/wouaf.js');
+			require('./class/event/search.js');
+			//launch app
+			$document.triggerHandler('app.start');
+		}).fail(function() {
+			console.error(arguments);
+		});
 	});
 }) (jQuery);

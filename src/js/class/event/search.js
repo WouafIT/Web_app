@@ -1,8 +1,8 @@
 module.exports = (function() {
 	var $document = $(document);
-	var data = require('../singleton/data.js');
-	var map = require('../singleton/map.js');
-	var query = require('../singleton/query.js');
+	var data = require('../resource/data.js');
+	var map = require('../resource/map.js');
+	var query = require('../resource/query.js');
 
 	//Event to launch a new search
 	$document.on('app.search', function (event, params) {

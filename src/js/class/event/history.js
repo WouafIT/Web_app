@@ -1,6 +1,6 @@
 module.exports = (function() {
 	var $document = $(document);
-	var windows = require('../singleton/windows.js');
+	var windows = require('../resource/windows.js');
 
 	$(window).on('popstate', function(event) {
 		var state = event.originalEvent.state;

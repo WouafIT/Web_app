@@ -1,7 +1,7 @@
 module.exports = (function() {
 	var $modalWindow = $('#modalWindow');
-	var i18n = require('../singleton/i18n.js');
-	var data = require('../singleton/data.js');
+	var i18n = require('../resource/i18n.js');
+	var data = require('../resource/data.js');
 	var self = {};
 
 	var kmLabel = i18n.t('km');
@@ -63,9 +63,9 @@ module.exports = (function() {
 				data.setBool('commentNotif', $commentsNotifications.prop("checked"));
 			}
 
-			var windows = require('../singleton/windows.js');
+			var windows = require('../resource/windows.js');
 			windows.close();
-			var toast = require('../singleton/toast.js');
+			var toast = require('../resource/toast.js');
 			toast.show(i18n.t('Settings saved!'));
 		});
 	}

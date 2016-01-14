@@ -1,12 +1,12 @@
 module.exports = (function() {
-	var slidebars = require('../singleton/slidebars.js');
-	var data = require('../singleton/data.js');
-	var map = require('../singleton/map.js');
-	var query = require('../singleton/query.js');
-	var windows = require('../singleton/windows.js');
-	var add = require('../singleton/add.js');
-	var i18n = require('../singleton/i18n.js');
-	var dtp = require('../singleton/datetimepicker.js');
+	var slidebars = require('../resource/slidebars.js');
+	var data = require('../resource/data.js');
+	var map = require('../resource/map.js');
+	var query = require('../resource/query.js');
+	var windows = require('../resource/windows.js');
+	var add = require('../resource/add.js');
+	var i18n = require('../resource/i18n.js');
+	var dtp = require('../resource/datetimepicker.js');
 	var $document = $(document);
 	$document.on('app.start', function() {
 		//init with server infos

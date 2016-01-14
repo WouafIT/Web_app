@@ -19,7 +19,7 @@ Actions :
 	- Signaler un contenu abusif
  */
 module.exports = (function() {
-	var map = require('../singleton/map.js');
+	var map = require('../resource/map.js');
 	var $document = $(document);
 
 	$document.on('app.wouaf-show', function(e, data) {

@@ -5,12 +5,13 @@ var languages = {
 };
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
+var timestamp = Math.floor(Date.now() / 1000);
 
 module.exports = Object.keys(languages).map(function(language) {
 	var htmlData = {
 		googleApi: 'AIzaSyCXCe5iWx-lVBv89H0teRMFjy8s24TMOiQ',
 		language: language,
-		timestamp: Math.floor(Date.now() / 1000),
+		timestamp: timestamp,
 		year: (new Date()).getFullYear()
 	};
 	var languageData = require(languages[language]);
@@ -42,6 +43,7 @@ module.exports = Object.keys(languages).map(function(language) {
 				"API_KEY_PROD": JSON.stringify('dece0f2d-5c24-4e36-8d1c-bfe9701fc526'),
 				"API_KEY_DEV": 	JSON.stringify('deve0f2d-5c24-4e36-8d1c-bfe9701fcdev'),
 				"LANGUAGE": 	JSON.stringify(language),
+				"BUILD_VERSION":JSON.stringify(timestamp),
 				__DEV__: 		JSON.stringify(JSON.parse(process.env.NODE_ENV === 'dev'))
 			}),
 			new HtmlWebpackPlugin({
@@ -50,7 +52,13 @@ module.exports = Object.keys(languages).map(function(language) {
 				data: htmlData,
 				i18n: languageData
 			}),
-            new HtmlWebpackPlugin({
+			new HtmlWebpackPlugin({
+				filename: 'parts/index.html',
+				template: 'src/html/parts/index.tpl',
+				data: htmlData,
+				i18n: languageData
+			}),
+			new HtmlWebpackPlugin({
                 filename: 'parts/about.html',
                 template: './languages/parts/'+language+'/about.tpl',
                 data: htmlData,

@@ -1,9 +1,9 @@
 module.exports = (function() {
-	var data = require('../singleton/data.js');
-	var windows = require('../singleton/windows.js');
-	var i18n = require('../singleton/i18n.js');
-	var toast = require('../singleton/toast.js');
-	var map = require('../singleton/map.js');
+	var data = require('../resource/data.js');
+	var windows = require('../resource/windows.js');
+	var i18n = require('../resource/i18n.js');
+	var toast = require('../resource/toast.js');
+	var map = require('../resource/map.js');
 	var $modalWindow = $('#modalWindow');
 	var durationsLabels = [i18n.t('{{count}} hour', {count: 1}),
 						   i18n.t('{{count}} hour', {count: 2}),

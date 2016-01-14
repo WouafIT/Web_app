@@ -1,6 +1,6 @@
 module.exports = (function() {
-	var data = require('../singleton/data.js');
-	var windows = require('../singleton/windows.js');
+	var data = require('../resource/data.js');
+	var windows = require('../resource/windows.js');
 	var $document = $(document);
 	var $modalWindow = $('#modalWindow');
 	//email validation. validate mostly RF2822
@@ -54,8 +54,8 @@ module.exports = (function() {
 		});
 		$form.on('submit', function (event) {
 			event.preventDefault();
-			var i18n = require('../singleton/i18n.js');
-			var alert = require('../singleton/alert.js');
+			var i18n = require('../resource/i18n.js');
+			var alert = require('../resource/alert.js');
 			$form.find('.alert').hide("fast", function() {
 				$(this).remove();
 			});
@@ -70,7 +70,7 @@ module.exports = (function() {
 			}
 
 			//Query
-			var query = require('../singleton/query.js');
+			var query = require('../resource/query.js');
 			query.createUser({
 				username: 		$username.val(),
 				pass: 			$pass.val(),

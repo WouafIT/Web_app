@@ -1,7 +1,7 @@
 module.exports = (function() {
-	var data = require('../singleton/data.js');
-	var windows = require('../singleton/windows.js');
-	var i18n = require('../singleton/i18n.js');
+	var data = require('../resource/data.js');
+	var windows = require('../resource/windows.js');
+	var i18n = require('../resource/i18n.js');
 	var $document = $(document);
 
 	//logout event : reset all user infos
@@ -46,7 +46,7 @@ module.exports = (function() {
 		$('.anonymous').attr('hidden', true);
 		$('.logged').removeAttr('hidden');
 
-		var user = require('../singleton/user.js');
+		var user = require('../resource/user.js');
 		//TODO : get Facebook or G+ avatars instead of gravatar, if user login with oauth2
 
 		//get gravatar

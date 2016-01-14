@@ -8,7 +8,7 @@ module.exports = (function() {
 	var openHrefModal = function(href) {
 		var htmlRegExp 	= /\/parts\/([a-z-]+).html/;
 		var name 		= htmlRegExp.exec(href);
-		$modalContent.load(href, function(html, status) {
+		/*$modalContent.load(href +'?v='+ BUILD_VERSION, function(html, status) {
 			if (status == 'success') {
 				var $html = $(html);
 				if ($html.data('event')) {
@@ -23,6 +23,25 @@ module.exports = (function() {
 			} else {
 				console.error(arguments);
 			}
+		});*/
+
+
+		//Load modal content
+		$.get(href, {v: BUILD_VERSION})
+		.done(function(html) {
+			$modalContent.html(html);
+			var $html = $(html);
+			if ($html.data('event')) {
+				$document.triggerHandler($html.data('event'));
+			}
+			if ($html.data('ui')) {
+				var ui = require('../ui/'+ $html.data('ui') +'.js');
+				if (ui && ui.show) {
+					ui.show();
+				}
+			}
+		}).fail(function() {
+			console.error(arguments);
 		});
 		history.pushState({href: href, windows: true, name: name[1]}, name[1], '/'+ name[1] +'/');
 	};
@@ -48,6 +67,7 @@ module.exports = (function() {
 		history.pushState({windows: false}, '', '/');
 	});
 	$modal.on('show.bs.modal', function (event) {
+		console.info(event);
 		shown = true;
 		var $source = $(event.relatedTarget);
 		if ($source.length && $source.data('href')) {

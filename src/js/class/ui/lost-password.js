@@ -1,6 +1,6 @@
 module.exports = (function() {
-	var data = require('../singleton/data.js');
-	var windows = require('../singleton/windows.js');
+	var data = require('../resource/data.js');
+	var windows = require('../resource/windows.js');
 	var $modalWindow = $('#modalWindow');
 	//email validation. validate mostly RF2822
 	var emailRe = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
@@ -37,8 +37,8 @@ module.exports = (function() {
 
 		$form.on('submit', function (event) {
 			event.preventDefault();
-			var i18n = require('../singleton/i18n.js');
-			var alert = require('../singleton/alert.js');
+			var i18n = require('../resource/i18n.js');
+			var alert = require('../resource/alert.js');
 			$form.find('.alert').hide("fast", function() {
 				$(this).remove();
 			});
@@ -52,11 +52,11 @@ module.exports = (function() {
 			}
 
 			//Query
-			var query = require('../singleton/query.js');
+			var query = require('../resource/query.js');
 			query.resetPassword($email.val(), function (datas) {
 				if (datas.result == 1) {
 					windows.close();
-					var toast = require('../singleton/toast.js');
+					var toast = require('../resource/toast.js');
 					toast.show(i18n.t('A reset email has been sent.'));
 				} else {
 					alert.show(i18n.t('An error has occurred. Check entering your email address.'), $form);
