@@ -24,6 +24,8 @@
 				<textarea class="form-control" rows="5" name="content" id="content" placeholder="Entrez votre contenu"></textarea>
 			</fieldset>
 
+			<div class="dropzone"></div>
+
 			<fieldset class="form-group">
 				<label for="date-start">A partir de</label>
 				<div class="input-group">
@@ -69,7 +71,6 @@
 				</div>
 			</div>
 			<br />
-			<!--TODO Photos -->
 
 			<div class="checkbox">
 				<label><input type="checkbox" name="facebook"> {%= o.htmlWebpackPlugin.options.i18n['Publish this Wouaf on my Facebook wall'] %}</label>

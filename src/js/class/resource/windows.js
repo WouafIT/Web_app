@@ -8,23 +8,6 @@ module.exports = (function() {
 	var openHrefModal = function(href) {
 		var htmlRegExp 	= /\/parts\/([a-z-]+).html/;
 		var name 		= htmlRegExp.exec(href);
-		/*$modalContent.load(href +'?v='+ BUILD_VERSION, function(html, status) {
-			if (status == 'success') {
-				var $html = $(html);
-				if ($html.data('event')) {
-					$document.triggerHandler($html.data('event'));
-				}
-				if ($html.data('ui')) {
-					var ui = require('../ui/'+ $html.data('ui') +'.js');
-					if (ui && ui.show) {
-						ui.show();
-					}
-				}
-			} else {
-				console.error(arguments);
-			}
-		});*/
-
 
 		//Load modal content
 		$.get(href, {v: BUILD_VERSION})

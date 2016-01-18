@@ -1,4 +1,10 @@
 module.exports = (function() {
+	var ENDPOINT 		= API_ENDPOINT;
+	if (__DEV__) {
+		var KEY 			= API_KEY_DEV;
+	} else {
+		var KEY 			= API_KEY_PROD;
+	}
 	var data = require('../resource/data.js');
 	var windows = require('../resource/windows.js');
 	var i18n = require('../resource/i18n.js');
@@ -54,6 +60,28 @@ module.exports = (function() {
 		for (i = 0, l = durations.length; i < l; i++) {
 			$length.append('<option value="'+ durations[i] +'"'+ (i === durations.length - 2 ? ' selected="selected"' : '') +'>'+ durationsLabels[i] +'</option>');
 		}
+
+		//init drop zone
+		$("div.dropzone").dropzone({
+			url: ENDPOINT + '/file/post',
+			headers: {
+				key: 		KEY,
+				uid: 		data.getString('uid'),
+				token:      data.getString('token')
+			},
+			maxFilesize: 2,
+			parallelUploads: 3,
+			maxFiles: 3,
+			acceptedFiles: '.jpg,.jpeg,.gif,.png',
+			uploadMultiple: true,
+			addRemoveLinks: true,
+			dictRemoveFile: '×',
+			dictDefaultMessage: '<i class="fa fa-picture-o"></i> '+ 'Ajoutez jusqu\'à 3 images',
+			dictInvalidFileType: 'Seules les images JPG, GIF et PNG sont autorisées',
+			dictFileTooBig: 'Cette image est trop volumineuse ({{filesize}}Mo), maximum: {{maxFilesize}}Mo',
+			dictResponseError: 'Erreur lors de l\'envoi de l\'image, réessayez ...',
+			dictMaxFilesExceeded: '3 images maximum !'
+		});
 	};
 	return self;
 })();
