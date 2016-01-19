@@ -35,11 +35,11 @@ var strnatcmp = function (f_string1, f_string2, f_version) {
                     text = false;
                 }
                 buffer += chr;
-            } else if ((text == false) && (chr == '.') && (i < (f_string.length - 1)) && (f_string.substring(i + 1, i + 2).match(/\d/))) {
+            } else if ((text === false) && (chr == '.') && (i < (f_string.length - 1)) && (f_string.substring(i + 1, i + 2).match(/\d/))) {
                 result[result.length] = buffer;
                 buffer = '';
             } else {
-                if (text == false) {
+                if (text === false) {
                     if (buffer.length > 0) {
                         result[result.length] = parseInt(buffer, 10);
                         buffer = '';
@@ -115,7 +115,7 @@ var strnatcmp = function (f_string1, f_string2, f_version) {
 //natsort from : http://phpjs.org/functions/natsort/
 var natsort = function (inputArr) {
     var valArr = [],
-        k, i, ret, that = this,
+        k, i,
         strictForIn = false,
         populateArr = {};
  
@@ -222,7 +222,7 @@ var formatText = function (text) {
     //replace \n by <br />
     text = text.replace(/\n*/g, '').replace(/\\n/g, '<br />');
     //convert links
-    var twitter = require('../../libs/twitter-text');
+    var twitter = require('twitter-text');
     var entities = twitter.extractUrlsWithIndices(text);
     var pos = 0;
     var textContent = '';

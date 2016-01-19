@@ -1,3 +1,11 @@
+/*!
+ * Wouaf IT Web App
+ *
+ * Copyright 2016, Sébastien PAUCHET
+ * contact@wouaf.it
+ * Licensed under the Apache-2.0 license.
+ *
+ */
 (function($) {
 	//Load styles
 	require("../libs/slidebars/0.10.3/dist/slidebars.css");

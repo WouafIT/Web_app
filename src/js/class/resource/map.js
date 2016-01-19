@@ -1,7 +1,6 @@
 module.exports = (function () {
 	var clustermap = require('../../../libs/clustermap/clustermap.js');
 	var i18n = require('./i18n.js');
-	var query = require('./query.js');
 	var data = require('./data.js');
 	var toast = require('./toast.js');
 	var self = {};

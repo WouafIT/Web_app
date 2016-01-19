@@ -10,6 +10,7 @@ module.exports = (function() {
 	var i18n = require('../resource/i18n.js');
 	var toast = require('../resource/toast.js');
 	var map = require('../resource/map.js');
+	var twitterText = require('twitter-text');
 	var $modalWindow = $('#modalWindow');
 	var durationsLabels = [i18n.t('{{count}} hour', {count: 1}),
 						   i18n.t('{{count}} hour', {count: 2}),
@@ -35,6 +36,7 @@ module.exports = (function() {
 			windows.close();
 		}
 		var $form = $modalWindow.find('form');
+		var $remaining = $form.find('.remaining');
 		var $content = $form.find('textarea[name=content]');
 		var $dateStart = $form.find('input[name=date-start]');
 		var $length = $form.find('select[name=length]');
@@ -82,6 +84,20 @@ module.exports = (function() {
 			dictResponseError: 'Erreur lors de l\'envoi de l\'image, réessayez ...',
 			dictMaxFilesExceeded: '3 images maximum !'
 		});
+
+		//content count remaining chars
+		$content.on('change keyup paste', function() {
+			var count = 300 - twitterText.getUnicodeTextLength($content.val());
+			if (count < 0) {
+				count = 0;
+				$content.val($content.val().substr(0, 300));
+			}
+			$remaining.html(count + ' caractères restants');
+		});
+
+		$facebook.attr("checked", data.getBool('fbPost'));
+		$contact.attr("checked", data.getBool('allowContact'));
+		$wouafNotifications.attr("checked", data.getBool('postNotif'));
 	};
 	return self;
 })();

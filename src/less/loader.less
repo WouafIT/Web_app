@@ -19,11 +19,18 @@
 	}
 }
 
+#loader {
+	position: absolute;
+	top: ~"calc(50% - 6.25rem)";
+	left: ~"calc(50% - 6.25rem)";
+	z-index: 10;
+	transform: scale(0.5);
+}
 .uil-ripple-css {
 	background: none;
 	position: relative;
-	width: 200px;
-	height: 200px;
+	width: 12.5rem;
+	height: 12.5rem;
 
 	div {
 		position: absolute;
@@ -34,7 +41,7 @@
 		height: 0;
 		opacity: 0;
 		border-radius: 50%;
-		border-width: 20px;
+		border-width: 1.25rem;
 		border-style: solid;
 		animation: uil-ripple 1.5s ease-out infinite;
 

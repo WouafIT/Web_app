@@ -9,16 +9,6 @@
 var figue = require('./figue.js');
 
 var clustermap = function () {
-	var _map;
-	var _vectors;
-	var _elements;
-	var _tree;
-	var _minDistance; // expressed in PIXELS
-	var _selectedNodes;
-	var _linkageType;
-	var _displayedMarkers = {};
-	var _infowindow;
-
 	function HCMap(params) {
 		this._map = params.map;
 		this._infowindow = params.infowindow;

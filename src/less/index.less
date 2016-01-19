@@ -1,3 +1,5 @@
+/*Note : 1rem => 16px*/
+
 @white: #FFF;
 @white-transparent: rgba(255, 255, 255, 0.6);
 @grey: #CCC;
@@ -102,7 +104,7 @@ html, body {
 		color: @white;
 		background: @green url('../img/logo-72.png') 0.25rem 0.2rem no-repeat;
 		background-size: contain;
-		padding: 18px 15px 15px 65px;
+		padding: 1rem 1rem 1rem 4rem;
 	}
 	.modal-title {
 		font-family: 'harlequinflfregular';
@@ -117,14 +119,6 @@ html, body {
 .popover-title {
 	color: @white;
 	background-color: @green;
-}
-
-#loader {
-	position: absolute;
-	top: ~"calc(50% - 100px)";
-	left: ~"calc(50% - 100px)";
-	z-index: 10;
-	transform: scale(0.5);
 }
 
 .sb-slidebar {
@@ -186,7 +180,7 @@ html, body {
 	}
 
 	footer {
-		height: 20px;
+		height: 1.25rem;
 		width: 100%;
 		background-color: @grey;
 		color: @green;

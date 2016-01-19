@@ -17,11 +17,12 @@
 		</div>
 		<form>
 			<fieldset class="form-group">
-				<input type="text" class="form-control" placeholder="Entrez votre titre" name="title" />
+				<input type="text" class="form-control" placeholder="Entrez votre titre (50 car. max)" name="title" maxlength="50" />
 			</fieldset>
 
 			<fieldset class="form-group">
-				<textarea class="form-control" rows="5" name="content" id="content" placeholder="Entrez votre contenu"></textarea>
+				<textarea class="form-control" rows="5" name="content" id="content" placeholder="Entrez votre contenu (300 car. max)"></textarea>
+				<div class="text-xs-right"><small class="text-muted remaining"></small></div>
 			</fieldset>
 
 			<div class="dropzone"></div>
