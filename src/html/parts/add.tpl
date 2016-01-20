@@ -16,6 +16,7 @@
 			<div class="alert-content"></div>
 		</div>
 		<form>
+			<div class="text-xs-right"><small class="text-muted help"><i class="fa fa-question-circle"></i> Besoin d'aide ?</small></div>
 			<fieldset class="form-group">
 				<input type="text" class="form-control" placeholder="Entrez votre titre (50 car. max)" name="title" maxlength="50" />
 			</fieldset>

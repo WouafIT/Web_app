@@ -25,6 +25,7 @@ module.exports = Object.keys(languages).map(function(language) {
 		},
 		module: {
 			loaders: [
+				{ test: /\.html/, 						loader: "html" },
 				{ test: /\.css$/, 						loader: "style!css" },
 				{ test: /\.less/, 						loader: "style!css!less" },
 				{ test: /\.json/, 						loader: "json" },
@@ -59,12 +60,12 @@ module.exports = Object.keys(languages).map(function(language) {
 				i18n: languageData
 			}),
 			new HtmlWebpackPlugin({
-                filename: 'parts/about.html',
-                template: './languages/parts/'+language+'/about.tpl',
-                data: htmlData,
-                i18n: languageData
-            }),
-            new HtmlWebpackPlugin({
+				filename: 'parts/about.html',
+				template: './languages/parts/'+language+'/about.tpl',
+				data: htmlData,
+				i18n: languageData
+			}),
+			new HtmlWebpackPlugin({
                 filename: 'parts/login.html',
                 template: 'src/html/parts/login.tpl',
                 data: htmlData,

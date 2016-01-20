@@ -37,6 +37,7 @@ module.exports = (function() {
 		}
 		var $form = $modalWindow.find('form');
 		var $remaining = $form.find('.remaining');
+		var $help = $form.find('.help');
 		var $content = $form.find('textarea[name=content]');
 		var $dateStart = $form.find('input[name=date-start]');
 		var $length = $form.find('select[name=length]');
@@ -98,6 +99,36 @@ module.exports = (function() {
 		$facebook.attr("checked", data.getBool('fbPost'));
 		$contact.attr("checked", data.getBool('allowContact'));
 		$wouafNotifications.attr("checked", data.getBool('postNotif'));
+
+		//help popover
+		$help.popover({
+			title: 'Comment saisir votre contenu',
+			content: require('../../../../languages/parts/'+LANGUAGE+'/help.html'),
+			html: true,
+			animation: true,
+			delay: { "show": 400, "hide": 200 },
+			trigger: 'manual',
+			placement: 'bottom',
+			offset: '0 100',
+			template: ['<div class="popover large" role="tooltip">',
+							'<div class="popover-arrow"></div>',
+							'<button type="button" class="close" aria-label="'+ i18n.t('Close') +'">',
+							'<span aria-hidden="true">&times;</span>',
+							'</button>',
+							'<h3 class="popover-title"></h3>',
+							'<div class="popover-content"></div>',
+						'</div>'].join('')
+		});
+		$help.on({
+			'click': function () {
+				$help.popover('toggle');
+			},
+			'shown.bs.popover': function () {
+				$('.popover .close').one('click', function () {
+					$help.popover('hide');
+				});
+			}
+		});
 	};
 	return self;
 })();
