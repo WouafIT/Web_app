@@ -40,6 +40,7 @@ module.exports = (function() {
 		var $help = $form.find('.help');
 		var $content = $form.find('textarea[name=content]');
 		var $dateStart = $form.find('input[name=date-start]');
+		var $dropzone = $form.find('div.dropzone');
 		var $length = $form.find('select[name=length]');
 		var $category = $form.find('select[name=category]');
 		var $longitude = $form.find('input[name=longitude]');
@@ -66,13 +67,8 @@ module.exports = (function() {
 		}
 
 		//init drop zone
-		$("div.dropzone").dropzone({
-			url: ENDPOINT + '/file/post',
-			headers: {
-				key: 		KEY,
-				uid: 		data.getString('uid'),
-				token:      data.getString('token')
-			},
+		$dropzone.dropzone({
+			url: ENDPOINT + '/file/',
 			maxFilesize: 2,
 			parallelUploads: 3,
 			maxFiles: 3,
@@ -84,7 +80,12 @@ module.exports = (function() {
 			dictInvalidFileType: 'Seules les images JPG, GIF et PNG sont autorisées',
 			dictFileTooBig: 'Cette image est trop volumineuse ({{filesize}}Mo), maximum: {{maxFilesize}}Mo',
 			dictResponseError: 'Erreur lors de l\'envoi de l\'image, réessayez ...',
-			dictMaxFilesExceeded: '3 images maximum !'
+			dictMaxFilesExceeded: '3 images maximum !',
+			sending: function(file, xhr, formData) {
+				formData.append("key", KEY);
+				formData.append("uid", data.getString('uid'));
+				formData.append("token", data.getString('token'));
+			}
 		});
 
 		//content count remaining chars
