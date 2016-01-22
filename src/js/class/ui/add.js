@@ -56,9 +56,10 @@ module.exports = (function() {
 				$category.append('<option value="'+ categories[i]['id'] +'">'+ i18n.t(categories[i]['label']) +'</option>');
 			}
 		}
-		var coordinates = map.getMap().getCenter();
-		$latitude.val(coordinates.lat());
-		$longitude.val(coordinates.lng());
+		//precision => ~1.1m
+		var coordinates = map.getMap().getCenter().toUrlValue(5).split(',');
+		$latitude.val(coordinates[0]);
+		$longitude.val(coordinates[1]);
 
 		for (i = 0, l = durations.length; i < l; i++) {
 			$length.append('<option value="'+ durations[i] +'"'+ (i === durations.length - 2 ? ' selected="selected"' : '') +'>'+ durationsLabels[i] +'</option>');

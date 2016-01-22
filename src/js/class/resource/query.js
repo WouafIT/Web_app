@@ -123,7 +123,8 @@ module.exports = (function() {
 				    continue;
 				}
                 if (i == 'loc') {
-                    param = params[i].lat()+','+params[i].lng();
+					//precision => http://gis.stackexchange.com/questions/8650/how-to-measure-the-accuracy-of-latitude-and-longitude
+                    param = params[i].toUrlValue(3); //~110m
                 } else if (i == 'tag') {
                     param = params[i][1];
                 } else if (i == 'date' && params[i]) {

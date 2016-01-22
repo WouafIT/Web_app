@@ -26,7 +26,7 @@ module.exports = (function() {
 		}).fail(function() {
 			console.error(arguments);
 		});
-		history.pushState({href: href, windows: true, name: name[1]}, name[1], '/'+ name[1] +'/');
+		$document.triggerHandler('history.set-state', {state: 'windows', value: {href: href, name: name[1]}});
 	};
 
 	//open a modal from another modal
@@ -47,10 +47,9 @@ module.exports = (function() {
 	$modal.on('hidden.bs.modal', function () {
 		$modalContent.html('');
 		shown = false;
-		history.pushState({windows: false}, '', '/');
+		$document.triggerHandler('history.set-state', {state: 'windows', value: null});
 	});
 	$modal.on('show.bs.modal', function (event) {
-		console.info(event);
 		shown = true;
 		var $source = $(event.relatedTarget);
 		if ($source.length && $source.data('href')) {

@@ -172,9 +172,11 @@ module.exports = (function () {
 		data.setObject('position', location.toJSON());
 
 		//Init app state
-		$document.triggerHandler('app.load-state', function() {
-			//set map center
-			map.setCenter(location);
+		$document.triggerHandler('history.load-state', function(mapState) {
+			if (!mapState) {
+				//set map center
+				map.setCenter(location);
+			}
 			//search posts from current location
 			$document.triggerHandler('app.search');
 		});
@@ -183,10 +185,14 @@ module.exports = (function () {
 	};
 	var updateMapPosition = function() {
 		//put a class on body when zoom is too wide
+		var zoom = map.getZoom();
 		$body.toggleClass('too-wide', map.getZoom() < 13);
 		//update search if needed
 		var center = map.getCenter();
 		data.setObject('position', center.toJSON());
+		//Precision : ~1.1m
+		$document.triggerHandler('history.set-state', {state: 'map', value: {'center': center.toUrlValue(5), 'zoom': zoom}});
+
 		//check distance between current center and last search
 		if (self.jsonResults.query) {
 			var distance = Math.round(google.maps.geometry.spherical.computeDistanceBetween(center,
