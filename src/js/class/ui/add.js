@@ -40,7 +40,6 @@ module.exports = (function() {
 		var $help = $form.find('.help');
 		var $content = $form.find('textarea[name=content]');
 		var $dateStart = $form.find('input[name=date-start]');
-		var $dropzone = $form.find('div.dropzone');
 		var $length = $form.find('select[name=length]');
 		var $category = $form.find('select[name=category]');
 		var $longitude = $form.find('input[name=longitude]');
@@ -48,7 +47,8 @@ module.exports = (function() {
 		var $facebook = $form.find('input[name=facebook]');
 		var $contact = $form.find('input[name=contact]');
 		var $wouafNotifications = $form.find('input[name=wouaf-notifications]');
-
+		var $dropzone = $form.find('div.dropzone');
+		var uploader = null;
 		//set current values
 		var categories = data.getObject('categories');
 		var i, l;
@@ -66,25 +66,63 @@ module.exports = (function() {
 			$length.append('<option value="'+ durations[i] +'"'+ (i === durations.length - 2 ? ' selected="selected"' : '') +'>'+ durationsLabels[i] +'</option>');
 		}
 
+		/*server errors:
+		 File format is not an authorized format (jpg, jpeg, png)
+		 Image is too wide
+		 Invalid file upload
+		*/
 		//init drop zone
 		$dropzone.dropzone({
 			url: ENDPOINT + '/file/',
 			maxFilesize: 2,
 			parallelUploads: 3,
 			maxFiles: 3,
-			acceptedFiles: '.jpg,.jpeg,.gif,.png',
+			acceptedFiles: '.jpg,.jpeg,.png',
 			uploadMultiple: true,
 			addRemoveLinks: true,
 			dictRemoveFile: '×',
+			dictCancelUpload: '×',
+			dictCancelUploadConfirmation: 'Etes-vous sur de vouloir annuler ce chargement ?',
 			dictDefaultMessage: '<i class="fa fa-picture-o"></i> '+ 'Ajoutez jusqu\'à 3 images',
-			dictInvalidFileType: 'Seules les images JPG, GIF et PNG sont autorisées',
-			dictFileTooBig: 'Cette image est trop volumineuse ({{filesize}}Mo), maximum: {{maxFilesize}}Mo',
+			dictInvalidFileType: 'Seules les images JPG et PNG sont autorisées',
+			dictFileTooBig: 'Cette image est trop volumineuse ({{filesize}}Mo). Maximum: {{maxFilesize}}Mo',
 			dictResponseError: 'Erreur lors de l\'envoi de l\'image, réessayez ...',
 			dictMaxFilesExceeded: '3 images maximum !',
-			sending: function(file, xhr, formData) {
+			init: function() {
+				uploader = this;
+				this.on();
+			},
+			'sending': function(file, xhr, formData) {
 				formData.append("key", KEY);
 				formData.append("uid", data.getString('uid'));
 				formData.append("token", data.getString('token'));
+			},
+			'success': function(file, response) {
+				for(var i = 0, l = response.result.length; i < l; i++) {
+					if (file.name === response.result[i].name) {
+						var result = response.result[i];
+						if (result.error || !result.id) {
+							if (__DEV__) {
+								console.info('Error on file '+file.name, response);
+							}
+							var message = result.error ? i18n.t(result.error) : i18n.t('Unknown error');
+							// below is from the source code
+							var node, _i, _len, _ref, _results;
+							file.previewElement.classList.add("dz-error");
+							_ref = file.previewElement.querySelectorAll("[data-dz-errormessage]");
+							_results = [];
+							for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+								node = _ref[_i];
+								_results.push(node.textContent = message);
+							}
+							return _results;
+						} else {
+							//success => store image id
+							file.serverId = result.id;
+						}
+					}
+				}
+				return file.previewElement.classList.add("dz-success"); // from source
 			}
 		});
 
@@ -129,6 +167,24 @@ module.exports = (function() {
 				$('.popover .close').one('click', function () {
 					$help.popover('hide');
 				});
+			}
+		});
+
+
+		$form.find('input').on('change', function(e) {
+
+		});
+		$form.on('submit', function (event) {
+			event.preventDefault();
+			var validImages = [];
+			if (uploader) {
+				var images = uploader.getAcceptedFiles();
+				for (var i = 0, l = images.length; i < l; i++) {
+					if (images[i].serverId) {
+						validImages.push(images[i].serverId);
+					}
+				}
+				console.info(validImages);
 			}
 		});
 	};
