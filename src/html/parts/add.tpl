@@ -16,38 +16,38 @@
 			<div class="alert-content"></div>
 		</div>
 		<form>
-			<div class="text-xs-right"><small class="text-muted help"><i class="fa fa-question-circle"></i> Besoin d'aide ?</small></div>
+			<div class="text-xs-right"><small class="text-muted help"><i class="fa fa-question-circle"></i> {%= o.htmlWebpackPlugin.options.i18n['Need help'] %}</small></div>
 			<fieldset class="form-group">
-				<input type="text" class="form-control" placeholder="Entrez votre titre (50 car. max)" name="title" maxlength="50" />
+				<input type="text" class="form-control" placeholder="{%= o.htmlWebpackPlugin.options.i18n['Enter your title (50 char. max)'] %}" name="title" maxlength="50" />
 			</fieldset>
 
 			<fieldset class="form-group">
-				<textarea class="form-control" rows="5" name="content" id="content" placeholder="Entrez votre contenu (300 car. max)"></textarea>
+				<textarea class="form-control" rows="5" name="content" id="content" placeholder="{%= o.htmlWebpackPlugin.options.i18n['Enter your content (300 char. max)'] %}"></textarea>
 				<div class="text-xs-right"><small class="text-muted remaining"></small></div>
 			</fieldset>
 
 			<div class="dropzone"></div>
 
 			<fieldset class="form-group">
-				<label for="date-start">A partir de</label>
+				<label for="date-start">{%= o.htmlWebpackPlugin.options.i18n['Starting'] %}</label>
 				<div class="input-group">
 					<div class="input-group-addon"><i class="fa fa-calendar-o"></i></div>
 					<input type="text" class="form-control" name="date-start" id="date-start"
-						   placeholder="Maintenant"
+						   placeholder="{%= o.htmlWebpackPlugin.options.i18n['Now'] %}"
 						   data-field="datetime" />
 				</div>
 			</fieldset>
 
 			<fieldset class="form-group">
-				<label for="length">Durée</label>
+				<label for="duration">{%= o.htmlWebpackPlugin.options.i18n['Duration'] %}</label>
 				<div class="input-group">
 					<div class="input-group-addon"><i class="fa fa-calendar-o"></i></div>
-					<select id="length" name="length" class="form-control"></select>
+					<select id="duration" name="duration" class="form-control"></select>
 				</div>
 			</fieldset>
 
 			<fieldset class="form-group">
-				<label for="category">Catégorie</label>
+				<label for="category">{%= o.htmlWebpackPlugin.options.i18n['Category'] %}</label>
 				<div class="input-group">
 					<div class="input-group-addon"><i class="fa fa-question-circle"></i></div>
 					<select id="category" name="category" class="form-control"></select>
@@ -60,7 +60,7 @@
 					<div class="input-group">
 						<div class="input-group-addon"><i class="fa fa-crosshairs"></i></div>
 						<input type="text" class="form-control" name="latitude"
-							   placeholder="Latitude" />
+							   placeholder="{%= o.htmlWebpackPlugin.options.i18n['Latitude'] %}" />
 					</div>
 				</div>
 				<div class="col-lg-6">
@@ -68,7 +68,7 @@
 					<div class="input-group">
 						<div class="input-group-addon"><i class="fa fa-crosshairs"></i></div>
 						<input type="text" class="form-control" name="longitude"
-							   placeholder="Longitude" />
+							   placeholder="{%= o.htmlWebpackPlugin.options.i18n['Longitude'] %}" />
 					</div>
 				</div>
 			</div>

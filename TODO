@@ -3,7 +3,12 @@ Wouafs :
 - L'ip du posteur (v4 & v6 & port),
 - Statut Actif ou Inactif (inactifs restent visibles au posteur uniquement),
 - Nombre de signalements.
-- Images : jquery swipebox
+- Affichage des images : jquery swipebox
+- Permettre l'enregistrement de la position choisie (pour constituer une liste d'adresses)
+
+Profil :
+- Ajouter une description
+- Ajouter un type (particulier / entreprise / association)
 
 Signalements :
 - Ajouter un table listant tous les signalements.
@@ -16,3 +21,4 @@ Signalements :
 Bugs :
 - enregistrement d'une date de naissance vide ou d'un genre vide ne se fait pas.
 - gérer le changement de langue dans le profil
+- on ne peut pas se logguer sur plusieurs terminaux simultanément (ou sur le fr-fr et sur le en-us)

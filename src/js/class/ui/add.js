@@ -40,7 +40,7 @@ module.exports = (function() {
 		var $help = $form.find('.help');
 		var $content = $form.find('textarea[name=content]');
 		var $dateStart = $form.find('input[name=date-start]');
-		var $length = $form.find('select[name=length]');
+		var $duration = $form.find('select[name=duration]');
 		var $category = $form.find('select[name=category]');
 		var $longitude = $form.find('input[name=longitude]');
 		var $latitude = $form.find('input[name=latitude]');
@@ -63,31 +63,28 @@ module.exports = (function() {
 		$longitude.val(coordinates[1]);
 
 		for (i = 0, l = durations.length; i < l; i++) {
-			$length.append('<option value="'+ durations[i] +'"'+ (i === durations.length - 2 ? ' selected="selected"' : '') +'>'+ durationsLabels[i] +'</option>');
+			$duration.append('<option value="'+ durations[i] +'"'+ (i === durations.length - 2 ? ' selected="selected"' : '') +'>'+ durationsLabels[i] +'</option>');
 		}
 
-		/*server errors:
-		 File format is not an authorized format (jpg, jpeg, png)
-		 Image is too wide
-		 Invalid file upload
-		*/
 		//init drop zone
+		var maxImages = 3;
+		var maxFilesize = 2;
 		$dropzone.dropzone({
 			url: ENDPOINT + '/file/',
-			maxFilesize: 2,
+			maxFilesize: maxFilesize,
 			parallelUploads: 3,
-			maxFiles: 3,
+			maxFiles: maxImages,
 			acceptedFiles: '.jpg,.jpeg,.png',
 			uploadMultiple: true,
 			addRemoveLinks: true,
 			dictRemoveFile: '×',
 			dictCancelUpload: '×',
-			dictCancelUploadConfirmation: 'Etes-vous sur de vouloir annuler ce chargement ?',
-			dictDefaultMessage: '<i class="fa fa-picture-o"></i> '+ 'Ajoutez jusqu\'à 3 images',
-			dictInvalidFileType: 'Seules les images JPG et PNG sont autorisées',
-			dictFileTooBig: 'Cette image est trop volumineuse ({{filesize}}Mo). Maximum: {{maxFilesize}}Mo',
-			dictResponseError: 'Erreur lors de l\'envoi de l\'image, réessayez ...',
-			dictMaxFilesExceeded: '3 images maximum !',
+			dictCancelUploadConfirmation: i18n.t('Are you sure you want to cancel this loading'),
+			dictDefaultMessage: '<i class="fa fa-picture-o"></i> '+ i18n.t('Add up to {{count}} image', {count: maxImages}),
+			dictInvalidFileType: i18n.t('Only JPEG and PNG images are allowed'),
+			dictFileTooBig: i18n.t('This image is too large', {maxFilesize: maxFilesize}),
+			dictResponseError: i18n.t('Error sending the image, try again'),
+			dictMaxFilesExceeded: i18n.t('{{count}} image maximum', {count: maxImages}),
 			init: function() {
 				uploader = this;
 				this.on();
@@ -133,7 +130,7 @@ module.exports = (function() {
 				count = 0;
 				$content.val($content.val().substr(0, 300));
 			}
-			$remaining.html(count + ' caractères restants');
+			$remaining.html(i18n.t('{{count}} character left', {count: count}));
 		});
 
 		$facebook.attr("checked", data.getBool('fbPost'));
@@ -142,7 +139,7 @@ module.exports = (function() {
 
 		//help popover
 		$help.popover({
-			title: 'Comment saisir votre contenu',
+			title: i18n.t('How to enter your content'),
 			content: require('../../../../languages/parts/'+LANGUAGE+'/help.html'),
 			html: true,
 			animation: true,
@@ -172,6 +169,8 @@ module.exports = (function() {
 
 
 		$form.find('input').on('change', function(e) {
+
+
 
 		});
 		$form.on('submit', function (event) {

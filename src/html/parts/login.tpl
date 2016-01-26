@@ -41,7 +41,7 @@
 				</label>
 			</div>
 			<p class="text-xs-right"><button type="submit" class="btn btn-primary">{%= o.htmlWebpackPlugin.options.i18n['Login'] %}</button></p>
-			<p class="text-xs-center"><a href="#"
+			<p class="text-xs-center"><a href="/lost-password/"
 									  data-href="/parts/lost-password.html"
 									  data-show="modal" data-target="#modalWindow">{%= o.htmlWebpackPlugin.options.i18n['Lost password?'] %}</a></p>
 		</form>

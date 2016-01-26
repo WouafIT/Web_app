@@ -26,13 +26,16 @@ module.exports = (function() {
 
 	$(window).on('popstate', function(event) {
 		states = event.originalEvent.state;
+		if (!states && __DEV__) {
+			console.error('popstate: null state', event);
+		}
 		//TODO : handle hash like #wouafs or #search
-		if (states.map) {
+		if (states && states.map) {
 			var coordinates = states.map.center.split(',');
 			map.getMap().setCenter({lat: parseFloat(coordinates[0]), lng: parseFloat(coordinates[1])});
 			map.getMap().setZoom(states.map.zoom);
 		}
-		if (states.windows && states.windows.href) {
+		if (states && states.windows && states.windows.href) {
 			windows.show({href: states.windows.href});
 		} else {
 			windows.close();

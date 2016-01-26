@@ -33,6 +33,7 @@ module.exports = (function() {
 	$document.on('click', '[data-show="modal"]', function (event) {
 		var $source = $(event.target);
 		if ($source.length && $source.data('href')) {
+			event.preventDefault();
 			$modal.one('show.bs.modal', function() {
 				openHrefModal($source.data('href'));
 			});
