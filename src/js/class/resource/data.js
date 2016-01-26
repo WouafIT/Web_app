@@ -1,77 +1,152 @@
 module.exports = (function() {
-	if (!window.localStorage) {
-		console.error('window.localStorage does not exists');
+	if (!window.localStorage || !window.sessionStorage) {
+		console.error('window.localStorage or window.sessionStorage does not exists');
 	}
-	//Cookie storage
-	if (!window.cookieStorage) {
-		Object.defineProperty(window, "cookieStorage", new (function () {
-			var aKeys = [], oStorage = {};
-			Object.defineProperty(oStorage, "getItem", {
-				value: function (sKey) { return sKey ? this[sKey] : null; },
-				writable: false,
-				configurable: false,
-				enumerable: false
-			});
-			Object.defineProperty(oStorage, "key", {
-				value: function (nKeyId) { return aKeys[nKeyId]; },
-				writable: false,
-				configurable: false,
-				enumerable: false
-			});
-			Object.defineProperty(oStorage, "setItem", {
-				value: function (sKey, sValue) {
-					if(!sKey) { return; }
-					document.cookie = escape(sKey) + "=" + escape(sValue) + "; path=/";
-				},
-				writable: false,
-				configurable: false,
-				enumerable: false
-			});
-			Object.defineProperty(oStorage, "length", {
-				get: function () { return aKeys.length; },
-				configurable: false,
-				enumerable: false
-			});
-			Object.defineProperty(oStorage, "removeItem", {
-				value: function (sKey) {
-					if(!sKey) { return; }
-					document.cookie = escape(sKey) + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
-				},
-				writable: false,
-				configurable: false,
-				enumerable: false
-			});
-			this.get = function () {
-				var iThisIndx;
-				for (var sKey in oStorage) {
-					iThisIndx = aKeys.indexOf(sKey);
-					if (iThisIndx === -1) { oStorage.setItem(sKey, oStorage[sKey]); }
-					else { aKeys.splice(iThisIndx, 1); }
-					delete oStorage[sKey];
-				}
-				for (aKeys; aKeys.length > 0; aKeys.splice(0, 1)) { oStorage.removeItem(aKeys[0]); }
-				for (var aCouple, iKey, nIdx = 0, aCouples = document.cookie.split(/\s*;\s*/); nIdx < aCouples.length; nIdx++) {
-					aCouple = aCouples[nIdx].split(/\s*=\s*/);
-					if (aCouple.length > 1) {
-						oStorage[iKey = unescape(aCouple[0])] = unescape(aCouple[1]);
-						aKeys.push(iKey);
-					}
-				}
-				return oStorage;
-			};
-			this.configurable = false;
-			this.enumerable = true;
-		})());
-	}
+	/**
+	 * Cross domain storage.
+	 * Based on: http://www.nczonline.net/blog/2010/09/07/learning-from-xauth-cross-domain-localstorage/
+	 * @author Juan Ramón González Hidalgo
+	 *
+	 * @param opts JSON object with the attribute names:
+	 *      - origin Iframe URL
+	 *      - path Path to iframe html file in origin
+	 */
+	function crossDomainStorage(opts){
+		var _origin = opts.origin || '',
+			_path = opts.path || '',
+			cdstorage = {},
+			_iframe = null,
+			_iframeReady = false,
+			_queue = [],
+			_requests = {},
+			_id = 0;
+		var supported = (function(){
+			try{
+				return window.postMessage && window.JSON && 'localStorage' in window && window['localStorage'] !== null;
+			}catch(e){
+				return false;
+			}
+		})();
 
-	// Reference to "this" that won't get clobbered by some other "this"
+		//private methods
+		var _request = function (data) {
+			if (supported) {
+				data.deferred = $.Deferred();
+				if (_iframeReady) {
+					_sendRequest(data);
+				} else {
+					_queue.push(data);
+				}
+				return data.deferred.promise();
+			}
+		};
+		var _sendRequest = function(data){
+			if (_iframe) {
+				_requests[data.request.id] = data;
+				_iframe.contentWindow.postMessage(JSON.stringify(data.request), _origin);
+			}
+		};
+		var _iframeLoaded = function(){
+			_iframeReady = true;
+			if (_queue.length) {
+				for (var i=0, len=_queue.length; i < len; i++){
+					_sendRequest(_queue[i]);
+				}
+				_queue = [];
+			}
+		};
+		var _handleMessage = function(event){
+			if (event.origin === _origin) {
+				var data = JSON.parse(event.data);
+				if (typeof _requests[data.id] != 'undefined') {
+					if (typeof _requests[data.id].deferred !== 'undefined') {
+						_requests[data.id].deferred.resolve(data.value);
+					}
+					if (typeof _requests[data.id].callback === 'function') {
+						if (!data.key) {
+							_requests[data.id].callback(data.value);
+						} else {
+							_requests[data.id].callback(data.key, data.value);
+						}
+					}
+					delete _requests[data.id];
+				}
+			}
+		}
+
+		//Public methods
+		cdstorage.getItem = function(key, callback){
+			return _request({
+				request: {
+					id: ++_id,
+					type: 'get',
+					key: key
+				},
+				callback: callback
+			});
+		};
+		cdstorage.getAll = function(callback){
+			return _request({
+				request: {
+					id: ++_id,
+					type: 'getAll'
+				},
+				callback: callback
+			});
+		};
+		cdstorage.setItem = function(key, value){
+			return _request({
+				request: {
+					id: ++_id,
+					type: 'set',
+					key: key,
+					value: value
+				}
+			});
+		};
+
+		//Init
+		if (!_iframe && supported) {
+			_iframe = document.createElement("iframe");
+			_iframe.style.cssText = "position:absolute;width:1px;height:1px;left:-9999px;";
+			document.body.appendChild(_iframe);
+			_iframe.addEventListener("load", function(){ _iframeLoaded(); }, false);
+			window.addEventListener("message", function(event){ _handleMessage(event) }, false);
+			_iframe.src = _origin + _path;
+		}
+
+		return cdstorage;
+	}
+	//Init cross domain storage
+	var cdPath = __DEV__ ? window.location.protocol +'//'+ window.location.hostname.split('.').slice(1).join('.')
+		: window.location.protocol +'//wouaf.it';
+	var crossDomainLocalStorage = crossDomainStorage({
+		origin: cdPath,
+		path: '/crossd_iframe.html'
+	});
+
 	var self = {};
 	// Public methods
-	self.set = function (key, value, type, cookie) {
-		cookie = cookie || false;
+	self.init = function() {
+		var deferred = $.Deferred();
+		$.when(crossDomainLocalStorage.getAll()).done(function(values) {
+			if (values) {
+				for (var i in values) {
+					if (values.hasOwnProperty(i)) {
+						sessionStorage.setItem(i, values[i]);
+					}
+				}
+			}
+			deferred.resolve();
+		});
+		return deferred.promise();
+	};
+	self.set = function (key, value, type, session) {
+		session = session || false;
 		if (value === null) {
-			localStorage.removeItem(key);
-			cookieStorage.removeItem(key);
+			//localStorage.removeItem(key);
+			sessionStorage.removeItem(key);
+			crossDomainLocalStorage.setItem(key, null);
 			return;
 		}
 		type = type || typeof value;
@@ -87,17 +162,17 @@ module.exports = (function() {
 				value = JSON.stringify(value);
 				break;
 		}
-		if (cookie) {
-			localStorage.removeItem(key);
-			cookieStorage.setItem(key, value);
+		if (session) {
+			sessionStorage.setItem(key, value);
+			crossDomainLocalStorage.setItem(key, null);
 		} else {
-			cookieStorage.removeItem(key);
-			localStorage.setItem(key, value);
+			sessionStorage.setItem(key, value);
+			crossDomainLocalStorage.setItem(key, value);
 		}
 	};
 	self.get = function (key, type) {
 		type = type || 'string';
-		var value = localStorage.getItem(key) || cookieStorage.getItem(key) || null;
+		var value = sessionStorage.getItem(key) || null;
 		switch (type) {
 			case 'bool':
 				value = value === null ? null : (value === 'true');
@@ -114,32 +189,32 @@ module.exports = (function() {
 		}
 		return value;
 	};
-	self.setObject = function (key, value, cookie) {
-		self.set(key, value, 'object', cookie);
+	self.setObject = function (key, value, session) {
+		self.set(key, value, 'object', session);
 	};
 	self.getObject = function (key) {
 		return self.get(key, 'object');
 	};
-	self.setString = function (key, value, cookie) {
-		self.set(key, value, 'string', cookie);
+	self.setString = function (key, value, session) {
+		self.set(key, value, 'string', session);
 	};
 	self.getString = function (key) {
 		return self.get(key, 'string');
 	};
-	self.setInt = function (key, value, cookie) {
-		self.set(key, value, 'int', cookie);
+	self.setInt = function (key, value, session) {
+		self.set(key, value, 'int', session);
 	};
 	self.getInt = function (key) {
 		return self.get(key, 'int');
 	};
-	self.setFloat = function (key, value, cookie) {
-		self.set(key, value, 'number', cookie);
+	self.setFloat = function (key, value, session) {
+		self.set(key, value, 'number', session);
 	};
 	self.getFloat = function (key) {
 		return self.get(key, 'number');
 	};
-	self.setBool = function (key, value, cookie) {
-		self.set(key, value, 'bool', cookie);
+	self.setBool = function (key, value, session) {
+		self.set(key, value, 'bool', session);
 	};
 	self.getBool = function (key) {
 		return self.get(key, 'bool');

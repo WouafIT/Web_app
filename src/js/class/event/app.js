@@ -9,6 +9,34 @@ module.exports = (function() {
 	var dtp = require('../resource/datetimepicker.js');
 	var $document = $(document);
 	$document.on('app.start', function() {
+		//launch count
+		var launchCount = data.getInt('launchCount');
+		data.setInt('launchCount', !launchCount ? 1 : launchCount + 1);
+
+		data.setInt('connectionAlert', 0);
+		//set default vars on first launch
+		if (data.getInt('launchCount') == 1) {
+			//init default app vars
+			data.setBool('rules', false);
+			data.setBool('fbPost', true);
+			data.setBool('allowContact', true);
+			data.setBool('postNotif', true);
+			data.setBool('commentNotif', true);
+			data.setBool('showPopover', true);
+			data.setString('unit', 'km');
+			data.setInt('radius', 300);
+			data.setObject('categories', []);
+			console.info('first data setted');
+			/*//show welcome page
+			 var welcomeWindow = require('ui/welcome');
+			 var welcome = new welcomeWindow();
+			 welcome.addEventListener('close', function () {
+			 //launch app
+			 $document.triggerHandler('app.start');
+			 });
+			 welcome.open();*/
+		}
+
 		//init with server infos
 		query.init(function (infos, status, msg) {
 			if (status == 'error') {
@@ -37,7 +65,7 @@ module.exports = (function() {
 			add.init();
 			//init date time picker
 			dtp.init();
-			//show server message
+			//show server message if any
 			if (infos.message) {
 				//show message page
 				windows.show({

@@ -7,7 +7,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var timestamp = Math.floor(Date.now() / 1000);
 
-module.exports = Object.keys(languages).map(function(language) {
+var websites = Object.keys(languages).map(function(language) {
 	var htmlData = {
 		googleApi: 'AIzaSyCXCe5iWx-lVBv89H0teRMFjy8s24TMOiQ',
 		language: language,
@@ -109,7 +109,7 @@ module.exports = Object.keys(languages).map(function(language) {
 			}),
 			new CopyWebpackPlugin([
 				{
-					from: '../assets'
+					from: '../assets-local'
 				}
 			])
 		],
@@ -122,3 +122,21 @@ module.exports = Object.keys(languages).map(function(language) {
 		}
 	}
 });
+websites.push({
+	  name: 'www',
+	  context: __dirname + '/src/js',
+	  entry: './null.js',
+	  output: {
+		  path: __dirname + '/build/www/',
+		  filename: './js/null.js'
+	  },
+	  plugins: [
+		  new CopyWebpackPlugin([
+				{
+					from: '../assets-root'
+				}
+			])
+	  ]
+});
+
+module.exports = websites;

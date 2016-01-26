@@ -59,7 +59,7 @@
 					<label>Latitude</label>
 					<div class="input-group">
 						<div class="input-group-addon"><i class="fa fa-crosshairs"></i></div>
-						<input type="text" class="form-control" name="latitude"
+						<input type="text" class="form-control" name="latitude" disabled
 							   placeholder="{%= o.htmlWebpackPlugin.options.i18n['Latitude'] %}" />
 					</div>
 				</div>
@@ -67,7 +67,7 @@
 					<label>Longitude</label>
 					<div class="input-group">
 						<div class="input-group-addon"><i class="fa fa-crosshairs"></i></div>
-						<input type="text" class="form-control" name="longitude"
+						<input type="text" class="form-control" name="longitude" disabled
 							   placeholder="{%= o.htmlWebpackPlugin.options.i18n['Longitude'] %}" />
 					</div>
 				</div>
