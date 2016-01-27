@@ -12,6 +12,9 @@ module.exports = (function() {
 					   '<p>'+ i18n.t(text) +'</p>'+
 					   '</div>');
 		$parent.prepend($alert);
+		$('#modalWindow').animate({
+			scrollTop: 0
+		}, 500);
 		return $alert;
 	};
 	return self;

@@ -12,6 +12,7 @@ module.exports = (function() {
 	var map = require('../resource/map.js');
 	var twitterText = require('twitter-text');
 	var $modalWindow = $('#modalWindow');
+	var dtp = require('../resource/datetimepicker.js');
 	var durationsLabels = [i18n.t('{{count}} hour', {count: 1}),
 						   i18n.t('{{count}} hour', {count: 2}),
 						   i18n.t('{{count}} hour', {count: 4}),
@@ -38,6 +39,7 @@ module.exports = (function() {
 		var $form = $modalWindow.find('form');
 		var $remaining = $form.find('.remaining');
 		var $help = $form.find('.help');
+		var $title = $form.find('input[name=title]');
 		var $content = $form.find('textarea[name=content]');
 		var $dateStart = $form.find('input[name=date-start]');
 		var $duration = $form.find('select[name=duration]');
@@ -134,6 +136,7 @@ module.exports = (function() {
 		});
 
 		$facebook.attr("checked", data.getBool('fbPost'));
+		$facebook.attr('disabled', data.getString('loginType') !== 'facebook');
 		$contact.attr("checked", data.getBool('allowContact'));
 		$wouafNotifications.attr("checked", data.getBool('postNotif'));
 
@@ -167,14 +170,21 @@ module.exports = (function() {
 			}
 		});
 
-
-		$form.find('input').on('change', function(e) {
-
-
-
-		});
 		$form.on('submit', function (event) {
 			event.preventDefault();
+			var alert = require('../resource/alert.js');
+			$form.find('.alert').hide("fast", function() {
+				$(this).remove();
+			});
+			if ($form.find('.has-error').length) {
+				alert.show(i18n.t('There are errors in your form'), $form);
+				return false;
+			}
+			if (!$title.val() && !$content.val()) {
+				alert.show(i18n.t('Your form is incomplete, thank you to fill at least the title or content'), $form);
+				return false;
+			}
+			//images
 			var validImages = [];
 			if (uploader) {
 				var images = uploader.getAcceptedFiles();
@@ -183,8 +193,43 @@ module.exports = (function() {
 						validImages.push(images[i].serverId);
 					}
 				}
-				console.info(validImages);
 			}
+			//date
+			var date = $dateStart.val() ? dtp.getInputDate($dateStart) : new Date();
+
+			//Query
+			var query = require('../resource/query.js');
+			query.createPost({
+				 loc: 		($latitude.val() +','+ $longitude.val()),
+				 cat: 		$category.val(),
+				 title:		$title.val(),
+				 text: 		$content.val(),
+				 date: 		(date / 1000),
+				 duration: 	$duration.val(),
+				 fbpost: 	(data.getString('loginType') === 'facebook' && $facebook.prop("checked") ? 1 : 0),
+				 contact: 	($contact.prop("checked") ? 1 : 0),
+				 notif:	 	($wouafNotifications.prop("checked") ? 1 : 0),
+				 pics: 	    JSON.stringify(validImages)
+			} , function(result) { //success
+				if (result.result && result.result == 1) {
+
+
+					windows.close();
+
+					var toast = require('../resource/toast.js');
+					toast.show(i18n.t('Your Wouaf is added'));
+				} else if (result.msg) {
+					alert.show(i18n.t(result.msg[0]), $form, 'danger');
+				} else {
+					query.connectionError();
+				}
+			}, function(result) { //error
+				if (result.msg) {
+					alert.show(i18n.t(result.msg[0]), $form, 'danger');
+				} else {
+					query.connectionError();
+				}
+			});
 		});
 	};
 	return self;

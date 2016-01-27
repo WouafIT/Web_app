@@ -26,7 +26,7 @@ module.exports = (function() {
 			data.setString('unit', 'km');
 			data.setInt('radius', 300);
 			data.setObject('categories', []);
-			console.info('first data setted');
+			data.setString('loginType', 'default');
 			/*//show welcome page
 			 var welcomeWindow = require('ui/welcome');
 			 var welcome = new welcomeWindow();

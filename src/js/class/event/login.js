@@ -11,6 +11,7 @@ module.exports = (function() {
 		data.setString('token', null);
 		data.setObject('favorites', null);
 		data.setObject('user', null);
+		data.setString('loginType', 'default');
 		data.setInt('today_publications', 0);
 		/*if (Ti.Facebook.loggedIn) {
 		 //disconnect facebook login in case of error
@@ -38,9 +39,10 @@ module.exports = (function() {
 			data.setString('uid', params.uid, !permanent);
 			data.setString('token', params.token, !permanent);
 			data.setObject('user', params.user, !permanent);
-			data.setInt('today_publications', params.today_publications);
+			data.setString('loginType', 'default', !permanent);
+			data.setInt('today_publications', params.today_publications, !permanent);
 			if (params.favorites) {
-				data.setObject('favorites', params.favorites);
+				data.setObject('favorites', params.favorites, !permanent);
 			}
 		}
 		$('.anonymous').attr('hidden', true);

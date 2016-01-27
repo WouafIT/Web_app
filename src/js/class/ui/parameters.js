@@ -23,6 +23,8 @@ module.exports = (function() {
 		//set current values
 		$unit.val(data.getString('unit'));
 		$facebook.attr("checked", data.getBool('fbPost'));
+		$facebook.attr('disabled', data.getString('loginType') !== 'facebook');
+
 		$contact.attr("checked", data.getBool('allowContact'));
 		$wouafNotifications.attr("checked", data.getBool('postNotif'));
 		$commentsNotifications.attr("checked", data.getBool('commentNotif'));

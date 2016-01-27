@@ -146,6 +146,8 @@
 	"Latitude": "Latitude",
 	"Longitude": "Longitude",
 	"Category": "Catégorie",
+	"Your Wouaf is added": "Votre Wouaf est ajouté !",
+	"Your form is incomplete, thank you to fill at least the title or content": "Votre formulaire est incomplet, merci de remplir au moins le titre ou le contenu",
 
 	"How to enter your content": "Comment saisir votre contenu",
 	"{{count}} character left": "{{count}} caractère restant",
