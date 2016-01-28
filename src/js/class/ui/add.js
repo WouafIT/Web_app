@@ -5,6 +5,7 @@ module.exports = (function() {
 	} else {
 		var KEY 			= API_KEY_PROD;
 	}
+	var $document = $(document);
 	var data = require('../resource/data.js');
 	var windows = require('../resource/windows.js');
 	var i18n = require('../resource/i18n.js');
@@ -204,7 +205,7 @@ module.exports = (function() {
 				 cat: 		$category.val(),
 				 title:		$title.val(),
 				 text: 		$content.val(),
-				 date: 		(date / 1000),
+				 date: 		Math.round(date.getTime() / 1000),
 				 duration: 	$duration.val(),
 				 fbpost: 	(data.getString('loginType') === 'facebook' && $facebook.prop("checked") ? 1 : 0),
 				 contact: 	($contact.prop("checked") ? 1 : 0),
@@ -212,10 +213,13 @@ module.exports = (function() {
 				 pics: 	    JSON.stringify(validImages)
 			} , function(result) { //success
 				if (result.result && result.result == 1) {
-
+					if (result.today_publications) {
+						data.setInt('today_publications', result.today_publications);
+					}
+					//reload search
+					$document.triggerHandler('app.search');
 
 					windows.close();
-
 					var toast = require('../resource/toast.js');
 					toast.show(i18n.t('Your Wouaf is added'));
 				} else if (result.msg) {

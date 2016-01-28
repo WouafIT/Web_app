@@ -1,8 +1,5 @@
 Wouafs :
-- Ajouter un titre,
-- L'ip du posteur (v4 & v6 & port),
 - Statut Actif ou Inactif (inactifs restent visibles au posteur uniquement),
-- Nombre de signalements.
 - Affichage des images : jquery swipebox
 - Permettre l'enregistrement de la position choisie (pour constituer une liste d'adresses)
 
@@ -11,9 +8,10 @@ Profil :
 - Ajouter un type (particulier / entreprise / association)
 
 Signalements :
-- Ajouter un table listant tous les signalements.
+- Ajouter une table listant tous les signalements.
 - Ajouter une raison au signalement.
 - Ajouter l'auteur du signalement.
+- mettre à jour le nombre de signalements dans le post
 
 404 :
 - Gérer les 404 sur les URL de type https://fr-fr.wouaf.it/truc/
