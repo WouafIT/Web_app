@@ -6,7 +6,6 @@ module.exports = (function() {
 		windows: 	null,
 		map: 		null,
 		wouaf:		null,
-		cluster:	null,
 		user:		null
 	};
 
@@ -18,6 +17,9 @@ module.exports = (function() {
 		}
 		if (states.windows) {
 			href += states.windows.name +'/';
+		}
+		if (states.wouaf) {
+			href += 'w:'+ states.wouaf.id +'/';
 		}
 		if (href !== window.location.pathname) {
 			window.history.pushState(states, '', href);
@@ -58,8 +60,6 @@ module.exports = (function() {
 							map.getMap().setZoom(parseFloat(coordinates[2].substr(0, (coordinates[2].length - 1))));
 						}
 					} else if (part === 'wouaf') {
-						//TODO
-					} else if (part === 'cluster') {
 						//TODO
 					} else if (part === 'user') {
 						//TODO

@@ -23,10 +23,14 @@ module.exports = (function() {
 	var $document = $(document);
 
 	$document.on('app.wouaf-show', function(e, data) {
-
-
-		console.info(data);
-		console.info(map.getResults());
+		if (!data.ids) {
+			return;
+		}
+		if (data.ids.length === 1) {
+			$document.triggerHandler('history.set-state', {state: 'wouaf', value: {'id': data.ids.jpoin('')}});
+		}
+		//console.info(data);
+		//console.info(map.getResults());
 		// InfoWindow content
 		var content = '<div id="iw-container">' +
 		 '<div class="iw-title">Porcelain Factory of Vista Alegre</div>' +

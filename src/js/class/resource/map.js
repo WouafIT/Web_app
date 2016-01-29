@@ -51,6 +51,7 @@ module.exports = (function () {
 		if (hcmap) {
 			hcmap.reset();
 			infowindow.close();
+			$document.triggerHandler('history.set-state', {state: 'wouaf', value: null});
 		}
 		//save result
 		self.jsonResults = json;
@@ -249,6 +250,10 @@ module.exports = (function () {
 		// Event that closes the Info Window with a click on the map
 		google.maps.event.addListener(map, 'click', function() {
 			infowindow.close();
+			$document.triggerHandler('history.set-state', {state: 'wouaf', value: null});
+		});
+		google.maps.event.addListener(infowindow,'closeclick',function(){
+			$document.triggerHandler('history.set-state', {state: 'wouaf', value: null});
 		});
 
 		//check geolocation support and permissions

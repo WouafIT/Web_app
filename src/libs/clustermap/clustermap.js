@@ -9,6 +9,8 @@
 var figue = require('./figue.js');
 
 var clustermap = function () {
+	var $document = $(document);
+
 	function HCMap(params) {
 		this._map = params.map;
 		this._infowindow = params.infowindow;
@@ -49,6 +51,7 @@ var clustermap = function () {
 			this._tree = figue.agglomerate(labels, this._vectors, figue.EUCLIDIAN_DISTANCE, this._linkageType);
 			this._zoom_changed_listener = google.maps.event.addListener(this._map, "zoom_changed", function () {
 				thishcmap._infowindow.close();
+				$document.triggerHandler('history.set-state', {state: 'wouaf', value: null});
 				updateNodes(thishcmap);
 				updateMarkers(thishcmap, true);
 			});
@@ -242,7 +245,6 @@ var clustermap = function () {
 
 }();
 
-
 clustermap.HCMap.prototype.reset = function () {
 	if (this._bounds_changed_listener) {
 		google.maps.event.removeListener(this._bounds_changed_listener);
@@ -320,13 +322,14 @@ clustermap.ClusterMarker.prototype.onAdd = function () {
 	}
 	// Register listeners to open up an info window when clicked.
 	var me = this;
+	var $document = $(document);
 	google.maps.event.addDomListener(div, 'click', function (e) {
 		e.stopPropagation(); //stop click event propagation
 		var iw = me._hcmap._infowindow;
 		iw.setPosition(me._latlng);
 		iw.setOptions({pixelOffset: new google.maps.Size(0, (me._cat ? -me._width : me._width / -2))});
 		//trigger handler to open info window with wouaf content
-		$(document).triggerHandler('app.wouaf-show', {ids: me._ids, map: me._hcmap._map, iw: iw});
+		$document.triggerHandler('app.wouaf-show', {ids: me._ids, map: me._hcmap._map, iw: iw});
 	});
 };
 
