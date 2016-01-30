@@ -173,6 +173,7 @@
 	"{{count}} week_plural": "{{count}} semaines",
 
 	"French": "Français",
-	"English": "Anglais"
+	"English": "Anglais",
 
+	"By {{author}}": "Par {{author}}"
 }

@@ -1,8 +1,20 @@
+//htmlspecialchars
+module.exports.escapeHtml = function (text) {
+	var map = {
+		'&': '&amp;',
+		'<': '&lt;',
+		'>': '&gt;',
+		'"': '&quot;',
+		"'": '&#039;'
+	};
+	return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+};
+
 //Binary safe string comparison
 //from http://phpjs.org/functions/strcmp/
 var strcmp = function (str1, str2) {
     return ((str1 == str2) ? 0 : ((str1 > str2) ? 1 : -1));
-}
+};
 
 //Returns the result of string comparison using 'natural' algorithm
 //from http://phpjs.org/functions/strnatcmp/
@@ -110,7 +122,7 @@ var strnatcmp = function (f_string1, f_string2, f_version) {
     }
  
     return result;
-}
+};
 
 //natsort from : http://phpjs.org/functions/natsort/
 var natsort = function (inputArr) {
@@ -145,7 +157,7 @@ var natsort = function (inputArr) {
     }
  
     return strictForIn || populateArr;
-}
+};
 module.exports.natsort = natsort;
 
 //Strip tags from : http://phpjs.org/functions/strip_tags/
@@ -156,7 +168,7 @@ var strip_tags = function (input, allowed) {
   return input.replace(commentsAndPhpTags, '').replace(tags, function ($0, $1) {
     return allowed.indexOf('<' + $1.toLowerCase() + '>') > -1 ? $0 : '';
   });
-}
+};
 module.exports.strip_tags = strip_tags;
 
 var indexOf = function(r, elt /*, from*/) {
@@ -240,7 +252,7 @@ var formatText = function (text) {
         textContent += text.substr(pos, text.length - pos);
     }
     return textContent;
-}
+};
 module.exports.formatTime = formatTime;
 module.exports.formatDate = formatDate;
 module.exports.formatText = formatText;

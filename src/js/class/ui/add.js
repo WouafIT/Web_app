@@ -13,6 +13,7 @@ module.exports = (function() {
 	var map = require('../resource/map.js');
 	var twitterText = require('twitter-text');
 	var $modalWindow = $('#modalWindow');
+	var categories = require('../resource/categories.js');
 	var dtp = require('../resource/datetimepicker.js');
 	var durationsLabels = [i18n.t('{{count}} hour', {count: 1}),
 						   i18n.t('{{count}} hour', {count: 2}),
@@ -52,20 +53,15 @@ module.exports = (function() {
 		var $wouafNotifications = $form.find('input[name=wouaf-notifications]');
 		var $dropzone = $form.find('div.dropzone');
 		var uploader = null;
-		//set current values
-		var categories = data.getObject('categories');
-		var i, l;
-		if (categories) {
-			for(i = 0, l = categories.length; i < l; i++) {
-				$category.append('<option value="'+ categories[i]['id'] +'">'+ i18n.t(categories[i]['label']) +'</option>');
-			}
-		}
+		//categories
+		$category.append(categories.getHtmlOptions());
+
 		//precision => ~1.1m
 		var coordinates = map.getMap().getCenter().toUrlValue(5).split(',');
 		$latitude.val(coordinates[0]);
 		$longitude.val(coordinates[1]);
 
-		for (i = 0, l = durations.length; i < l; i++) {
+		for (var i = 0, l = durations.length; i < l; i++) {
 			$duration.append('<option value="'+ durations[i] +'"'+ (i === durations.length - 2 ? ' selected="selected"' : '') +'>'+ durationsLabels[i] +'</option>');
 		}
 

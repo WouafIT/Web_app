@@ -7,6 +7,7 @@ module.exports = (function() {
 	var add = require('../resource/add.js');
 	var i18n = require('../resource/i18n.js');
 	var dtp = require('../resource/datetimepicker.js');
+	var categories = require('../resource/categories.js');
 	var $document = $(document);
 	$document.on('app.start', function() {
 		//launch count
@@ -25,7 +26,6 @@ module.exports = (function() {
 			data.setBool('showPopover', true);
 			data.setString('unit', 'km');
 			data.setInt('radius', 300);
-			data.setObject('categories', []);
 			data.setString('loginType', 'default');
 			/*//show welcome page
 			 var welcomeWindow = require('ui/welcome');
@@ -55,9 +55,9 @@ module.exports = (function() {
 				//logout
 				$document.triggerHandler('app.logout');
 			}
-			//update categories
+			//init categories
 			if (infos.categories) {
-				data.setObject('categories', infos.categories);
+				categories.init(infos.categories);
 			}
 			//init slidebars
 			slidebars.init();

@@ -19,7 +19,7 @@
 		$.when($.get('/parts/index.html', {v: BUILD_VERSION}), data.init())
 			.done(function(html) {
 				//set body content
-				$('body').prepend(html);
+				$('body').prepend(html[0]);
 				//load events modules
 				require('./class/event/app.js');
 				require('./class/event/login.js');

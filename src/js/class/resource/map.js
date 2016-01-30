@@ -1,5 +1,6 @@
 module.exports = (function () {
 	var clustermap = require('../../../libs/clustermap/clustermap.js');
+	var categories = require('./categories.js');
 	var i18n = require('./i18n.js');
 	var data = require('./data.js');
 	var toast = require('./toast.js');
@@ -19,18 +20,6 @@ module.exports = (function () {
 		var addResults = false;
 		var resultsType = json.resultsType ? json.resultsType : 'unknown';
 		var elements = [];
-		var categories = data.getObject('categories');
-		//TODO set thoses colors in the categories database
-		var colors = {
-			1: '#3030BB',
-			2: '#A52C2C',
-			3: '#12A7A7',
-			4: '#7AEE41',
-			5: '#BA1CB1',
-			6: '#BF8622',
-			7: '#CA3737',
-			8: '#CAC537'
-		}
 		if (!json.results) {
 			json.results = [];
 			json.count = 0;
@@ -63,7 +52,7 @@ module.exports = (function () {
 				'description': post.text,
 				'cat': post.cat,
 				'coordinates': {'lat': parseFloat(post.loc[0]), 'lng': parseFloat(post.loc[1])},
-				'color': colors[post.cat]
+				'color': categories.getColor(post.cat)
 			};
 			elements.push(element);
 		}

@@ -59,9 +59,9 @@ module.exports = (function() {
 							map.getMap().setCenter({lat: parseFloat(coordinates[0]), lng: parseFloat(coordinates[1])});
 							map.getMap().setZoom(parseFloat(coordinates[2].substr(0, (coordinates[2].length - 1))));
 						}
-					} else if (part === 'wouaf') {
+					} else if (part.substr(0, 2) === 'w:') {
 						//TODO
-					} else if (part === 'user') {
+					} else if (part.substr(0, 2) === 'u:') {
 						//TODO
 					} else {
 						//load queried windows
