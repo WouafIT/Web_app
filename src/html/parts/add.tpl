@@ -17,6 +17,16 @@
 		</div>
 		<form>
 			<div class="text-xs-right"><small class="text-muted help"><i class="fa fa-question-circle"></i> {%= o.htmlWebpackPlugin.options.i18n['Need help'] %}</small></div>
+
+			<fieldset class="form-group">
+				<label for="category">{%= o.htmlWebpackPlugin.options.i18n['Category'] %}</label>
+				<div class="input-group">
+					<div class="input-group-addon"><i class="fa fa-question-circle"></i></div>
+					<select id="category" name="category" class="form-control"></select>
+				</div>
+				<small class="text-muted categories-help"></small>
+			</fieldset>
+
 			<fieldset class="form-group">
 				<input type="text" class="form-control" placeholder="{%= o.htmlWebpackPlugin.options.i18n['Enter your title (50 char. max)'] %}" name="title" maxlength="50" />
 			</fieldset>
@@ -43,14 +53,6 @@
 				<div class="input-group">
 					<div class="input-group-addon"><i class="fa fa-calendar-o"></i></div>
 					<select id="duration" name="duration" class="form-control"></select>
-				</div>
-			</fieldset>
-
-			<fieldset class="form-group">
-				<label for="category">{%= o.htmlWebpackPlugin.options.i18n['Category'] %}</label>
-				<div class="input-group">
-					<div class="input-group-addon"><i class="fa fa-question-circle"></i></div>
-					<select id="category" name="category" class="form-control"></select>
 				</div>
 			</fieldset>
 

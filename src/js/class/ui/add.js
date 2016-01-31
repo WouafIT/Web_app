@@ -46,6 +46,7 @@ module.exports = (function() {
 		var $dateStart = $form.find('input[name=date-start]');
 		var $duration = $form.find('select[name=duration]');
 		var $category = $form.find('select[name=category]');
+		var $categoriesHelp = $form.find('.categories-help');
 		var $longitude = $form.find('input[name=longitude]');
 		var $latitude = $form.find('input[name=latitude]');
 		var $facebook = $form.find('input[name=facebook]');
@@ -55,6 +56,10 @@ module.exports = (function() {
 		var uploader = null;
 		//categories
 		$category.append(categories.getHtmlOptions());
+		$categoriesHelp.html(categories.getDetails($category.val()));
+		$category.on('change', function() {
+			$categoriesHelp.html(categories.getDetails($category.val()));
+		});
 
 		//precision => ~1.1m
 		var coordinates = map.getMap().getCenter().toUrlValue(5).split(',');
@@ -177,8 +182,8 @@ module.exports = (function() {
 				alert.show(i18n.t('There are errors in your form'), $form);
 				return false;
 			}
-			if (!$title.val() && !$content.val()) {
-				alert.show(i18n.t('Your form is incomplete, thank you to fill at least the title or content'), $form);
+			if (!$content.val()) {
+				alert.show(i18n.t('Your form is incomplete, thank you to fill at least the content field'), $form);
 				return false;
 			}
 			//images

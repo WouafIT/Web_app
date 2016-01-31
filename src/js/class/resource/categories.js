@@ -30,6 +30,9 @@ module.exports = (function() {
 	self.getLabel = function(id) {
 		return categoriesById[id] ? i18n.t(categoriesById[id].label) : '';
 	};
+	self.getDetails = function(id) {
+		return categoriesById[id] ? i18n.t(categoriesById[id].label+'_details') : '';
+	};
 	self.getColor = function(id) {
 		return colors[id];
 	};

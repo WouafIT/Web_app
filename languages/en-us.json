@@ -45,9 +45,18 @@
 	"Purchases / Sales": "Purchases / Sales",
 	"Lost / Found": "Lost / Found",
 	"Donations": "Donations",
-	"Exchanges": "Exchanges",
+	"Exchanges": "Barter / Exchanges",
 	"Services": "Services",
 	"Others": "Others",
+
+	"Events_details": "Concert, Theater, Festival, Exhibition, Tours, Performing arts, Family events, Sport, etc.",
+	"Out_details": "Hiking, Sport, Tours, Trips, Nightlife, Between friends, Dating, etc.",
+	"Purchases / Sales_details": "Tips, Automotive, Furniture, Clothing, Appliances, Electronics, Computers, Babycare, Animals, etc.",
+	"Lost / Found_details": "Animals, Objects, People, etc.",
+	"Donations_details": "Books, Furniture, Clothing, Appliances, Electronics, Computers, Babycare, Animals, etc.",
+	"Exchanges_details": "Goods, Services, Tips, etc.",
+	"Services_details": "Personal services, Rent, Education, Home service, Babysitting, Pet Sitting, Carpooling, Accommodation, etc.",
+	"Others_details": "Anything that does not fit into the above categories!",
 
 	"{{count}} Wouaf": "{{count}} Wouaf",
 	"{{count}} Wouaf_plural": "{{count}} Wouafs",
@@ -147,7 +156,7 @@
 	"Longitude": "Longitude",
 	"Category": "Category",
 	"Your Wouaf is added": "Your Wouaf is added!",
-	"Your form is incomplete, thank you to fill at least the title or content": "Your form is incomplete, thank you to fill at least the title or content",
+	"Your form is incomplete, thank you to fill at least the content field": "Your form is incomplete, thank you to fill at least the content field",
 
 	"How to enter your content": "How to enter your content",
 	"{{count}} character left": "{{count}} character left",
