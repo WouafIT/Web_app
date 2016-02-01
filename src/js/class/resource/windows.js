@@ -26,29 +26,13 @@ module.exports = (function() {
 		}).fail(function() {
 			console.error(arguments);
 		});
-		$document.triggerHandler('history.set-state', {state: 'windows', value: {href: href, name: name[1]}});
+		$document.triggerHandler('navigation.set-state', {state: 'windows', value: {href: href, name: name[1]}});
 	};
 
-	//open a modal from another modal
-	$document.on('click', '[data-show="modal"]', function (event) {
-		var $source = $(event.target);
-		if ($source.length && $source.data('href')) {
-			event.preventDefault();
-			$modal.one('show.bs.modal', function() {
-				openHrefModal($source.data('href'));
-			});
-			if (shown) {
-				$modal.one('hidden.bs.modal', function() {
-					$modal.modal('show');
-				});
-				$modal.modal('hide');
-			}
-		}
-	});
 	$modal.on('hidden.bs.modal', function () {
 		$modalContent.html('');
 		shown = false;
-		$document.triggerHandler('history.set-state', {state: 'windows', value: null});
+		$document.triggerHandler('navigation.set-state', {state: 'windows', value: null});
 	});
 	$modal.on('show.bs.modal', function (event) {
 		shown = true;

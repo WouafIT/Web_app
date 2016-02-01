@@ -9,7 +9,7 @@ module.exports = (function() {
 		user:		null
 	};
 
-	$document.on('history.set-state', function(event, data) {
+	$document.on('navigation.set-state', function(event, data) {
 		states[data.state] = data.value;
 		var href = '/';
 		if (states.map) {
@@ -19,7 +19,13 @@ module.exports = (function() {
 			href += states.windows.name +'/';
 		}
 		if (states.wouaf) {
-			href += 'w:'+ states.wouaf.id +'/';
+			href += 'wouaf/'+ states.wouaf.id +'/';
+		}
+		if (states.user) {
+			href += 'user/'+ states.user +'/';
+		}
+		if (states.hash) {
+			href += 'hash/'+ states.hash +'/';
 		}
 		if (href !== window.location.pathname) {
 			window.history.pushState(states, '', href);
@@ -44,7 +50,7 @@ module.exports = (function() {
 		}
 	});
 
-	$document.on('history.load-state', function(event, callback) {
+	$document.on('navigation.load-state', function(event, callback) {
 		var pathname = window.location.pathname;
 		var mapState = false;
 		if (pathname !== '/') {
@@ -59,10 +65,18 @@ module.exports = (function() {
 							map.getMap().setCenter({lat: parseFloat(coordinates[0]), lng: parseFloat(coordinates[1])});
 							map.getMap().setZoom(parseFloat(coordinates[2].substr(0, (coordinates[2].length - 1))));
 						}
-					} else if (part.substr(0, 2) === 'w:') {
-						//TODO
-					} else if (part.substr(0, 2) === 'u:') {
-						//TODO
+					} else if (part === 'wouaf') {
+						i++;
+						part = parts[i];
+						console.info('TODO show wouaf '+ part);
+					} else if (part === 'user') {
+						i++;
+						part = parts[i];
+						console.info('TODO show user '+ part);
+					} else if (part === 'hash') {
+						i++;
+						part = parts[i];
+						console.info('TODO show user '+ part);
 					} else {
 						//load queried windows
 						var path = '/parts/'+ part +'.html';
@@ -73,5 +87,22 @@ module.exports = (function() {
 		}
 		//launch callback
 		callback(mapState);
+	});
+	$document.on('click', 'a, button', function(e) {
+		var $source = $(event.target);
+		if (!$source.length || (!$source.data('user') && !$source.data('hash')
+			&& !$source.data('wouaf') && !$source.data('show'))) {
+			return;
+		}
+		e.preventDefault();
+		if ($source.data('user')) {
+			console.info('TODO show user '+ $source.data('user'));
+		} else if ($source.data('hash')) {
+			console.info('TODO show hash '+ $source.data('hash'));
+		} else if ($source.data('wouaf')) {
+			console.info('TODO show wouaf '+ $source.data('wouaf'));
+		} else if ($source.data('show') == 'modal' && $source.data('href')) {
+			windows.show({href: $source.data('href')});
+		}
 	});
 })();

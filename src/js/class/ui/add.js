@@ -178,7 +178,7 @@ module.exports = (function() {
 			$form.find('.alert').hide("fast", function() {
 				$(this).remove();
 			});
-			if ($form.find('.has-error').length) {
+			if ($form.find('.has-warning').length) {
 				alert.show(i18n.t('There are errors in your form'), $form);
 				return false;
 			}

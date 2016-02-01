@@ -15,7 +15,7 @@ module.exports = (function() {
 
 		var ids = data.ids;
 		if (ids.length === 1) {
-			$document.triggerHandler('history.set-state', {state: 'wouaf', value: {'id': ids.join('')}});
+			$document.triggerHandler('navigation.set-state', {state: 'wouaf', value: {'id': ids.join('')}});
 		}
 		console.info(mapResults);
 		//grab results
@@ -29,10 +29,10 @@ module.exports = (function() {
 		var length = results.length;
 		var content = '';
 		if (!length) {
-			$document.triggerHandler('history.set-state', {state: 'wouaf', value: null});
+			$document.triggerHandler('navigation.set-state', {state: 'wouaf', value: null});
 			return;
 		} else if (results.length === 1) {
-			$document.triggerHandler('history.set-state', {state: 'wouaf', value: {'id': results[0].id}});
+			$document.triggerHandler('navigation.set-state', {state: 'wouaf', value: {'id': results[0].id}});
 			content = wouaf.getWouaf(results[0]);
 		} else {
 			content = wouaf.getList(results);

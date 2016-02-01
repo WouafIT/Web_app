@@ -40,7 +40,7 @@ module.exports = (function () {
 		if (hcmap) {
 			hcmap.reset();
 			infowindow.close();
-			$document.triggerHandler('history.set-state', {state: 'wouaf', value: null});
+			$document.triggerHandler('navigation.set-state', {state: 'wouaf', value: null});
 		}
 		//save result
 		self.jsonResults = json;
@@ -162,7 +162,7 @@ module.exports = (function () {
 		data.setObject('position', location.toJSON());
 
 		//Init app state
-		$document.triggerHandler('history.load-state', function(mapState) {
+		$document.triggerHandler('navigation.load-state', function(mapState) {
 			if (!mapState) {
 				//set map center
 				map.setCenter(location);
@@ -181,7 +181,7 @@ module.exports = (function () {
 		var center = map.getCenter();
 		data.setObject('position', center.toJSON());
 		//Precision : ~1.1m
-		$document.triggerHandler('history.set-state', {state: 'map', value: {'center': center.toUrlValue(5), 'zoom': zoom}});
+		$document.triggerHandler('navigation.set-state', {state: 'map', value: {'center': center.toUrlValue(5), 'zoom': zoom}});
 
 		//check distance between current center and last search
 		if (self.jsonResults.query) {
@@ -239,10 +239,10 @@ module.exports = (function () {
 		// Event that closes the Info Window with a click on the map
 		google.maps.event.addListener(map, 'click', function() {
 			infowindow.close();
-			$document.triggerHandler('history.set-state', {state: 'wouaf', value: null});
+			$document.triggerHandler('navigation.set-state', {state: 'wouaf', value: null});
 		});
 		google.maps.event.addListener(infowindow,'closeclick',function(){
-			$document.triggerHandler('history.set-state', {state: 'wouaf', value: null});
+			$document.triggerHandler('navigation.set-state', {state: 'wouaf', value: null});
 		});
 
 		//check geolocation support and permissions

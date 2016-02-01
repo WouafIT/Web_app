@@ -6,6 +6,8 @@ Wouafs :
 Profil :
 - Ajouter une description
 - Ajouter un type (particulier / entreprise / association)
+- ajouter le check twitterText.isValidUsername($field.val()) côté serveur (à la création du compte)
+	- vérifier que le pseudo n'est pas déjà pris
 
 Signalements :
 - Ajouter une table listant tous les signalements.

@@ -6,17 +6,27 @@ module.exports = (function() {
 
 	// private functions
 	function init () {
+		var $search = $('#search');
+		var $form = $search.find('form');
+		var $category = $('#what');
+		var $when = $('#when');
+		var $categoriesHelp = $form.find('.categories-help');
+
 		$.slidebars();
 		//Dom Events
-		$('#when').on({
+		$when.on({
 			'change': showHideCustomDates
 		});
 		showHideCustomDates();
 		//populate categories list
-		var $what = $('#what');
-		$what.append('<option value="">'+ i18n.t('All events') +'</option>');
-		$what.append(categories.getHtmlOptions());
-		$('#search form').on({
+		$category.append('<option value="">'+ i18n.t('All events') +'</option>');
+		$category.append(categories.getHtmlOptions());
+		$categoriesHelp.html(categories.getDetails($category.val()));
+		$category.on('change', function() {
+			$categoriesHelp.html(categories.getDetails($category.val()));
+		});
+
+		$form.on({
 			'submit': function() {
 				if(__DEV__) {
 					console.info('search');

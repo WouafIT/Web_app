@@ -23,7 +23,7 @@
 				//load events modules
 				require('./class/event/app.js');
 				require('./class/event/login.js');
-				require('./class/event/history.js');
+				require('./class/event/navigation.js');
 				require('./class/event/wouaf.js');
 				require('./class/event/search.js');
 				//launch app

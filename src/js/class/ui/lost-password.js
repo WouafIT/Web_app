@@ -17,8 +17,8 @@ module.exports = (function() {
 			var $fieldset = $field.parents('fieldset');
 			var ok = true;
 			if (!$field.val()) {
-				$field.removeClass('form-control-error form-control-success');
-				$fieldset.removeClass('has-error has-success');
+				$field.removeClass('form-control-warning form-control-success');
+				$fieldset.removeClass('has-warning has-success');
 				return;
 			}
 			switch($field.attr('name')) {
@@ -27,11 +27,11 @@ module.exports = (function() {
 					break;
 			}
 			if (ok) {
-				$field.removeClass('form-control-error').addClass('form-control-success');
-				$fieldset.removeClass('has-error').addClass('has-success');
+				$field.removeClass('form-control-warning').addClass('form-control-success');
+				$fieldset.removeClass('has-warning').addClass('has-success');
 			} else {
-				$field.removeClass('form-control-success').addClass('form-control-error');
-				$fieldset.removeClass('has-success').addClass('has-error');
+				$field.removeClass('form-control-success').addClass('form-control-warning');
+				$fieldset.removeClass('has-success').addClass('has-warning');
 			}
 		});
 
@@ -42,7 +42,7 @@ module.exports = (function() {
 			$form.find('.alert').hide("fast", function() {
 				$(this).remove();
 			});
-			if ($form.find('.has-error').length) {
+			if ($form.find('.has-warning').length) {
 				alert.show(i18n.t('There are errors in your form'), $form);
 				return false;
 			}

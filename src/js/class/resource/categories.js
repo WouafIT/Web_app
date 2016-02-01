@@ -9,13 +9,12 @@ module.exports = (function() {
 		1: '#3030BB',
 		2: '#A52C2C',
 		3: '#12A7A7',
-		4: '#7AEE41',
+		4: '#68CC36',
 		5: '#BA1CB1',
 		6: '#BF8622',
 		7: '#CA3737',
 		8: '#CAC537'
 	};
-
 	self.init = function(list) {
 		categories = list;
 		if (categories) {
@@ -34,7 +33,7 @@ module.exports = (function() {
 		return categoriesById[id] ? i18n.t(categoriesById[id].label+'_details') : '';
 	};
 	self.getColor = function(id) {
-		return colors[id];
+		return colors[id] ? colors[id] : '#2B9D48';
 	};
 	self.getAll = function() {
 		return categories;
@@ -45,6 +44,6 @@ module.exports = (function() {
 			options.push('<option value="'+ categories[i]['id'] +'">'+ i18n.t(categories[i]['label']) +'</option>');
 		}
 		return options.join('');
-	}
+	};
 	return self;
 })();

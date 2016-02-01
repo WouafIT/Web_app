@@ -94,6 +94,7 @@
 							<div class="input-group-addon"><i class="fa fa-question-circle"></i></div>
 							<select class="form-control" id="what" placeholder="{%= o.htmlWebpackPlugin.options.i18n['Choose a category'] %}"></select>
 						</div>
+						<small class="text-muted categories-help"></small>
 					</fieldset>
 					<fieldset class="form-group row">
 						<label class="sr-only" for="hashtag">{%= o.htmlWebpackPlugin.options.i18n['Hashtag'] %}</label>
