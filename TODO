@@ -3,11 +3,15 @@ Wouafs :
 - Affichage des images : jquery swipebox
 - Permettre l'enregistrement de la position choisie (pour constituer une liste d'adresses)
 
+Recherche :
+- Implémenter la recherche textuelle (voir https://docs.mongodb.org/manual/reference/operator/query/text/) (les indexes sont ok sur 'title' et 'text').
+
+- Supprimer les hash côté serveur.
+
 Profil :
 - Ajouter une description
 - Ajouter un type (particulier / entreprise / association)
-- ajouter le check twitterText.isValidUsername($field.val()) côté serveur (à la création du compte)
-	- vérifier que le pseudo n'est pas déjà pris
+- Vérifier les erreurs serveur à la création (login ou pseudo déjà existant par exemple).
 
 Signalements :
 - Ajouter une table listant tous les signalements.

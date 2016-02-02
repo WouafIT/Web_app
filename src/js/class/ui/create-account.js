@@ -1,7 +1,7 @@
 module.exports = (function() {
 	var data = require('../resource/data.js');
 	var windows = require('../resource/windows.js');
-	var twitterText = require('twitter-text');
+	var utils = require('../utils.js');
 	var $document = $(document);
 	var $modalWindow = $('#modalWindow');
 	//email validation. validate mostly RF2822
@@ -34,7 +34,7 @@ module.exports = (function() {
 			switch($field.attr('name')) {
 				case 'username':
 					ok = $field.val().length >= 3 && $field.val().length <= 100
-						&& twitterText.isValidUsername('@'+$field.val());
+						&& utils.isValidUsername($field.val());
 					break;
 				case 'pass':
 					ok = $field.val().length >= 6 && $field.val().length <= 100;

@@ -96,14 +96,6 @@
 						</div>
 						<small class="text-muted categories-help"></small>
 					</fieldset>
-					<fieldset class="form-group row">
-						<label class="sr-only" for="hashtag">{%= o.htmlWebpackPlugin.options.i18n['Hashtag'] %}</label>
-						<div class="input-group">
-							<div class="input-group-addon"><i class="fa fa-tag"></i></div>
-							<input type="text" class="form-control" id="hashtag"
-								   placeholder="{%= o.htmlWebpackPlugin.options.i18n['Specify a hashtag'] %}" />
-						</div>
-					</fieldset>
 					<div class="row">
 						<div class="col-xs-4 col-xs-offset-4">
 							<button type="submit" class="btn btn-primary">

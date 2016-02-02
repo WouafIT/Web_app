@@ -4,41 +4,20 @@ module.exports = (function() {
 	var utils = require('../utils');
 	var categories = require('../resource/categories.js');
 
-	/*
-	 icone
-	 Catégorie : Perdue / trouvé
-	 Par : Auteur (lien vers fiche auteur)
-	 Titre (à ajouter)
-	 Texte (avec liens et hashtag clicables)
-	 Images
-	 Date (du 22 novembre 10:00 au 23 nov. 10:00)
-	 Nombre de favoris (up/downvotes ?)
-
-	 Actions :
-	 - Contacter l'auteur
-	 - Ajouter à vos favoris
-	 - Ajouter un commentaire
-	 - J'aime
-	 - Partage réseaux sociaux (FB, Tw, G+, ...)
-	 - Voir sur Gmap (intérêt ?)
-	 - Aller à cet endroit
-	 - Signaler un contenu abusif
-	 */
-
-	/**/
-
 	var getCurrentPath = function() {
 		var l = window.location;
 		return l.protocol+'//'+l.host+l.pathname;
 	}
 
 	var textToHTML = function(text) {
+		//remove HTML
+		text = utils.escapeHtml(text);
 		//create HTML text content
 		//grab links and tags positions
 		var path = getCurrentPath();
 		var entities = twitterText.extractUrlsWithIndices(text)
 			.concat(twitterText.extractMentionsOrListsWithIndices(text))
-			.concat(twitterText.extractHashtagsWithIndices(text, {checkUrlOverlap: false}));
+			/*.concat(twitterText.extractHashtagsWithIndices(text, {checkUrlOverlap: false}))*/;
 		if (entities.length) {
 			twitterText.removeOverlappingEntities(entities);
 		}
@@ -46,7 +25,7 @@ module.exports = (function() {
 		var pos = 0;
 		var textContent = '';
 		for (var i = 0, l = entities.length; i < l; i++) {
-			var hash = entities[i].hashtag;
+			//var hash = entities[i].hashtag;
 			var screenName = entities[i].screenName;
 			var url = entities[i].url;
 			var indices = entities[i].indices;
@@ -55,8 +34,8 @@ module.exports = (function() {
 			//entity
 			if (screenName) {
 				textContent += '<a href="'+ path +'user/'+ screenName +'/" data-user="'+ screenName +'">@' + screenName + '</a>';
-			} else if (hash) { //hash
-				textContent += '<a href="'+ path +'hash/'+ hash +'/" data-hash="'+ hash +'">#' + hash + '</a>';
+			/*} else if (hash) { //hash
+				textContent += '<a href="'+ path +'hash/'+ hash +'/" data-hash="'+ hash +'">#' + hash + '</a>';*/
 			} else if (url) { //link
 				textContent += '<a href="'+ (url.substr(0, 4) != 'http' ? 'http://' : '') + url +'" target="_blank">' + url + '</a>';
 			}
@@ -74,9 +53,26 @@ module.exports = (function() {
 		var path = getCurrentPath();
 		var title = obj.title || obj.text.substr(0, 49) +'…';
 		var text = textToHTML(obj.text);
-		var author = i18n.t('By {{author}}', {author: '<a href="'+ path +'user/'+ obj.author[0] +'/" data-user="'+ obj.author[0] +'">'+ utils.escapeHtml(obj.author[1]) +'</a>', interpolation: {escape: false}});
+		var author = i18n.t('By {{author}}', {author: '<a href="'+ path +'user/'+ obj.author[1] +'/" data-user="'+ obj.author[1] +'">'+ utils.escapeHtml(obj.author[2] || obj.author[1]) +'</a>', interpolation: {escape: false}});
+
+		/*
+		 Images
+		 Date (du 22 novembre 10:00 au 23 nov. 10:00)
+		 Nombre de favoris (up/downvotes ?)
+
+		 Actions :
+		 - Contacter l'auteur
+		 - Ajouter à vos favoris
+		 - Ajouter un commentaire
+		 - J'aime
+		 - Partage réseaux sociaux (FB, Tw, G+, ...)
+		 - Voir sur Gmap (intérêt ?)
+		 - Aller à cet endroit
+		 - Signaler un contenu abusif
+		 */
+
 		var content = '<div class="w-container">' +
-			'<div class="w-title" style="background-color: '+ categories.getColor(obj.cat) +';">'+ title +
+			'<div class="w-title" style="background-color: '+ categories.getColor(obj.cat) +';">'+ utils.escapeHtml(title) +
 				'<div class="w-cat cat'+ obj.cat +'">' + categories.getLabel(obj.cat) + '</div>'+
 			'</div>' +
 			'<div class="w-content">' +

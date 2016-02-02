@@ -1,5 +1,7 @@
 module.exports = (function() {
 	var i18n = require('./resource/i18n.js');
+	var twitterText = require('twitter-text');
+
 	var self = {};
 	//htmlspecialchars
 	self.escapeHtml = function (text) {
@@ -223,8 +225,7 @@ module.exports = (function() {
 		//replace \n by <br />
 		text = text.replace(/\n*/g, '').replace(/\\n/g, '<br />');
 		//convert links
-		var twitter = require('twitter-text');
-		var entities = twitter.extractUrlsWithIndices(text);
+		var entities = twitterText.extractUrlsWithIndices(text);
 		var pos = 0;
 		var textContent = '';
 		for (var i = 0, l = entities.length; i < l; i++) {
@@ -242,5 +243,16 @@ module.exports = (function() {
 		}
 		return textContent;
 	};
+
+	self.isValidUsername = function (text) {
+		return twitterText.isValidUsername('@'+text);
+	};
+	self.isValidWouafId = function (text) {
+		return /^[a-f0-9]+$/.test(text);
+	};
+	self.isValidPageName = function (text) {
+		return /^[a-z-]+$/.test(text);
+	};
+
 	return self;
 })();

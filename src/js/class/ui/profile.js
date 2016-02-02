@@ -45,9 +45,6 @@ module.exports = (function() {
 				$fieldset.removeClass('has-warning has-success');
 			}
 			switch($field.attr('name')) {
-				case 'username':
-					ok = $field.val().length >= 3 && $field.val().length <= 100;
-					break;
 				case 'email':
 					ok = emailRe.test($field.val());
 					break;
@@ -89,7 +86,7 @@ module.exports = (function() {
 				alert.show(i18n.t('There are errors in your form'), $form);
 				return false;
 			}
-			if (!$username.val() || !$email.val() || !$language.val()) {
+			if (!$email.val() || !$language.val()) {
 				alert.show(i18n.t('Your form is incomplete, thank you to fill all fields'), $form);
 				return false;
 			}
@@ -97,7 +94,6 @@ module.exports = (function() {
 			//Query
 			var query = require('../resource/query.js');
 			query.updateUser({
-				username: 		$username.val(),
 				pass: 			$pass.val(),
 				email: 			$email.val(),
 				lang: 			$language.val(),
@@ -109,7 +105,6 @@ module.exports = (function() {
 
 			}, function(result) { //success
 				if (result.result && result.result == 1) {
-					user.set('username', $username.val());
 					user.set('firstname', $firstname.val());
 					user.set('lastname', $lastname.val());
 					user.set('gender', $gender.val());
