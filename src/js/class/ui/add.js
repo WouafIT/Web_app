@@ -213,7 +213,7 @@ module.exports = (function() {
 				 notif:	 	($wouafNotifications.prop("checked") ? 1 : 0),
 				 pics: 	    JSON.stringify(validImages)
 			} , function(result) { //success
-				if (result.result && result.result == 1) {
+				if (result && result.result && result.result == 1) {
 					if (result.today_publications) {
 						data.setInt('today_publications', result.today_publications);
 					}
@@ -223,13 +223,13 @@ module.exports = (function() {
 					windows.close();
 					var toast = require('../resource/toast.js');
 					toast.show(i18n.t('Your Wouaf is added'));
-				} else if (result.msg) {
+				} else if (result && result.msg) {
 					alert.show(i18n.t(result.msg[0]), $form, 'danger');
 				} else {
 					query.connectionError();
 				}
 			}, function(result) { //error
-				if (result.msg) {
+				if (result && result.msg) {
 					alert.show(i18n.t(result.msg[0]), $form, 'danger');
 				} else {
 					query.connectionError();

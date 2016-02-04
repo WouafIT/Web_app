@@ -55,27 +55,27 @@ module.exports = (function() {
 				return false;
 			}
 
-			var loginSuccess = function(datas) {
-				if (!datas || !datas.user) {
+			var loginSuccess = function(result) {
+				if (!result || !result.user) {
 					loginError(datas);
 					return;
 				}
-				if (datas.user.firstname && datas.user.lastname) {
-					toast.show(i18n.t('Welcome {{username}}', { 'username': datas.user.firstname +' '+ datas.user.lastname }));
+				if (result.user.firstname && result.user.lastname) {
+					toast.show(i18n.t('Welcome {{username}}', { 'username': result.user.firstname +' '+ result.user.lastname }));
 				} else {
-					toast.show(i18n.t('Welcome {{username}}', { 'username': datas.user.username }));
+					toast.show(i18n.t('Welcome {{username}}', { 'username': result.user.username }));
 				}
 				//permanent login ?
-				datas.permanent = $remember.prop("checked");
+				result.permanent = $remember.prop("checked");
 				//login
-				$document.triggerHandler('app.login', datas);
+				$document.triggerHandler('app.login', result);
 				windows.close();
 			};
-			var loginError = function(datas) {
+			var loginError = function(result) {
 				//logout
 				$document.triggerHandler('app.logout');
-				if (datas && datas.msg) {
-					alert.show(i18n.t(datas.msg[0]), $form, 'danger');
+				if (result && result.msg) {
+					alert.show(i18n.t(result.msg[0]), $form, 'danger');
 				} else {
 					query.connectionError();
 				}

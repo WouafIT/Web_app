@@ -104,7 +104,7 @@ module.exports = (function() {
 				signwname:		($signwname.prop("checked") ? 1 : 0)
 
 			}, function(result) { //success
-				if (result.result && result.result == 1) {
+				if (result && result.result && result.result == 1) {
 					user.set('firstname', $firstname.val());
 					user.set('lastname', $lastname.val());
 					user.set('gender', $gender.val());
@@ -122,13 +122,13 @@ module.exports = (function() {
 
 					var toast = require('../resource/toast.js');
 					toast.show(i18n.t('Profile saved!'));
-				} else if (result.msg) {
+				} else if (result && result.msg) {
 					alert.show(i18n.t(result.msg[0]), $form, 'danger');
 				} else {
 					query.connectionError();
 				}
 			}, function(result) { //error
-				if (result.msg) {
+				if (result && result.msg) {
 					alert.show(i18n.t(result.msg[0]), $form, 'danger');
 				} else {
 					query.connectionError();

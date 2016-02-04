@@ -184,5 +184,8 @@
 	"French": "Français",
 	"English": "Anglais",
 
-	"By {{author}}": "Par {{author}}"
+	"By {{author}}": "Par {{author}}",
+	"at {{at}}": "à {{at}}",
+	"From {{from}} to {{to}}": "Du {{from}} au {{to}}",
+	"On {{on}} for {{for}}": "{{for}} à partir du {{on}}"
 }

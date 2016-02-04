@@ -3,6 +3,7 @@ module.exports = (function() {
 	var twitterText = require('twitter-text');
 	var utils = require('../utils');
 	var categories = require('../resource/categories.js');
+	var dtp = require('../resource/datetimepicker.js');
 
 	var getCurrentPath = function() {
 		var l = window.location;
@@ -53,7 +54,50 @@ module.exports = (function() {
 		var path = getCurrentPath();
 		var title = obj.title || obj.text.substr(0, 49) +'…';
 		var text = textToHTML(obj.text);
-		var author = i18n.t('By {{author}}', {author: '<a href="'+ path +'user/'+ obj.author[1] +'/" data-user="'+ obj.author[1] +'">'+ utils.escapeHtml(obj.author[2] || obj.author[1]) +'</a>', interpolation: {escape: false}});
+		var author = i18n.t('By {{author}}', {
+			author: '<a href="'+ path +'user/'+ obj.author[1] +'/" data-user="'+ obj.author[1] +'">'+
+					utils.escapeHtml(obj.author[2] || obj.author[1]) +'</a>',
+			interpolation: {escape: false}
+		});
+		//state
+		var time = new Date();
+		obj.state = (obj.date[0].sec * 1000) > time.getTime() ? 'post' : ((obj.date[1].sec * 1000) < time.getTime() ? 'past' : 'current');
+		if (obj.state != 'current') {
+			//todo
+		}
+		//length
+		var start = new Date();
+		start.setTime(obj.date[0].sec * 1000);
+		var length = obj.date[1].sec - obj.date[0].sec;
+		var eventLength;
+		var oneDay = 86400;
+		var oneHour = 3600;
+		if (length >= oneDay && length % oneDay == 0 && (length / oneDay) < 10) {
+			eventLength = i18n.t('{{count}} day', {count: length / oneDay});
+		} else if (length % oneHour == 0)  {
+			eventLength = i18n.t('{{count}} hour', {count: length / oneHour});
+		}
+		var timeStart;
+		if (!eventLength) {
+			var end = new Date();
+			end.setTime(obj.date[1].sec * 1000);
+			timeStart = dtp.formatTime(start);
+			var timeEnd = dtp.formatTime(end);
+			eventLength = i18n.t('From {{from}} to {{to}}', {
+				from: dtp.formatDate(start, 'long') + (timeStart != '00:00' ? ' '+ i18n.t('at {{at}}', {at: timeStart}) : ''),
+				to: dtp.formatDate(end, 'long') + (timeEnd != '00:00' ? ' '+ i18n.t('at {{at}}', {at: timeEnd}) : '')
+			});
+		} else {
+			timeStart = dtp.formatTime(start);
+			eventLength = i18n.t('On {{on}} for {{for}}', {
+				on: dtp.formatDate(start, 'long') + (timeStart != '00:00' ? ' '+ i18n.t('at {{at}}', {at: timeStart}) : ''),
+				for: eventLength
+			});
+		}
+
+		console.info(obj, eventLength);
+
+
 
 		/*
 		 Images
@@ -73,7 +117,7 @@ module.exports = (function() {
 
 		var content = '<div class="w-container">' +
 			'<div class="w-title" style="background-color: '+ categories.getColor(obj.cat) +';">'+ utils.escapeHtml(title) +
-				'<div class="w-cat cat'+ obj.cat +'">' + categories.getLabel(obj.cat) + '</div>'+
+				'<div class="w-cat cat'+ obj.cat +'"><span>' + categories.getLabel(obj.cat) + '</span> - '+ eventLength +'</div>'+
 			'</div>' +
 			'<div class="w-content">' +
 			'<div class="w-subTitle">'+ author +'</div>';

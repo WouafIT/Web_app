@@ -79,22 +79,22 @@ module.exports = (function() {
 				email: 			$email.val(),
 				lang: 			$language.val()
 			}, function(result) { //success
-				if (result.result && result.result == 1) {
-					var loginSuccess = function(datas) {
-						if (!datas || !datas.user) {
+				if (result && result.result && result.result == 1) {
+					var loginSuccess = function(result) {
+						if (!result || !result.user) {
 							loginError({});
 							return;
 						}
 						//permanent login ?
-						datas.permanent = $remember.prop("checked");
+						result.permanent = $remember.prop("checked");
 						//login
-						$document.triggerHandler('app.login', datas);
+						$document.triggerHandler('app.login', result);
 					};
-					var loginError = function(datas) {
+					var loginError = function(result) {
 						//logout
 						$document.triggerHandler('app.logout');
 
-						if (datas && datas.msg) {
+						if (result && result.msg) {
 							alert.show(i18n.t(result.msg[0]), $form, 'danger');
 						} else {
 							query.connectionError();
@@ -111,13 +111,13 @@ module.exports = (function() {
 						title: i18n.t('Welcome'),
 						'text': i18n.t('welcome_to_wouaf_it')
 					});
-				} else if (result.msg) {
+				} else if (result && result.msg) {
 					alert.show(i18n.t(result.msg[0]), $form, 'danger');
 				} else {
 					query.connectionError();
 				}
 			}, function(result) { //error
-				if (result.msg) {
+				if (result && result.msg) {
 					alert.show(i18n.t(result.msg[0]), $form, 'danger');
 				} else {
 					query.connectionError();
