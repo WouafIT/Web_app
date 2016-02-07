@@ -23,8 +23,21 @@
 	position: absolute;
 	top: ~"calc(50% - 6.25rem)";
 	left: ~"calc(50% - 6.25rem)";
-	z-index: 10;
+	z-index: 10000;
 	transform: scale(0.5);
+}
+#loader-background {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: rgba(0, 0, 0, 0.2);
+	z-index: 9999;
+}
+#loader:before {
+	top: 0;
+
 }
 .uil-ripple-css {
 	background: none;
@@ -43,6 +56,7 @@
 		border-radius: 50%;
 		border-width: 1.25rem;
 		border-style: solid;
+		box-sizing: content-box;
 		animation: uil-ripple 1.5s ease-out infinite;
 
 		&:nth-of-type(1) {

@@ -121,11 +121,21 @@ module.exports = (function() {
 			'</div>' +
 			'<div class="w-content">' +
 			'<div class="w-subTitle">'+ author +'</div>';
+		content += '<p>'+ text +'</p>';
 		if (obj.pics.length) {
-			content += '<img src="http://maps.marnoto.com/en/5wayscustomizeinfowindow/images/vistalegre.jpg" alt="Porcelain Factory of Vista Alegre" height="115" width="83">';
+			var pic, thumb;
+			for(var i = 0, l = obj.pics.length; i < l; i++) {
+				pic = obj.pics[i];
+				if (pic.substr(0, 4) === 'http' && pic.indexOf('imgur.com') !== -1) {
+					//use https
+					pic = pic.replace('http://', 'https://');
+					//use "b" thumbnail
+					thumb = pic.replace(/\.(jpg|png|gif|bmp|gifv)$/, 'b$&');
+					content += '<a rel="gallery-'+ obj.id +'" href="'+ pic +'" class="swipebox"><img src="'+ thumb +'" height="90" width="90" /></a>';
+				}
+			}
 		}
-		content += '<p>'+ text +'</p>' +
-			'</div>' +
+		content += '</div>' +
 			'<div class="w-bottom"></div>' +
 			'</div>';
 		return content;

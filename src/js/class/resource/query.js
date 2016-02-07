@@ -1,6 +1,7 @@
 module.exports = (function() {
 	var $document = $(document);
 	var data = require('./data.js');
+	var utils = require('../utils.js');
 	var loader = require('./loader.js');
 	var xhr;
 	//Google geocode usage limits : https://developers.google.com/maps/articles/geocodestrat#client
@@ -315,7 +316,7 @@ module.exports = (function() {
                     key:        KEY,
                     login:      datas.login,
                     pass:       datas.pass,
-                    did:        'web_app'
+                    did:        'web_app_'+ utils.md5(navigator.userAgent)
                 },
                 success:success,
                 error:  error

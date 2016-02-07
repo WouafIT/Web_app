@@ -17,7 +17,6 @@ module.exports = (function() {
 		if (ids.length === 1) {
 			$document.triggerHandler('navigation.set-state', {state: 'wouaf', value: {'id': ids.join('')}});
 		}
-		console.info(mapResults);
 		//grab results
 		var results = [];
 		for(var i = 0, l = mapResults.results.length; i < l; i++) {
@@ -40,5 +39,19 @@ module.exports = (function() {
 		// Set infoWindow content
 		data.iw.setContent(content);
 		data.iw.open(data.map);
+	});
+
+	//Swipebox
+	$document.on('click', 'a.swipebox', function(e) {
+		e.preventDefault();
+		var $this = $(this);
+		var galleryImg = [{href: $this.attr('href')}];
+		$this.parent().find('a.swipebox').each(function() {
+			var $that = $(this);
+			if ($this.attr('href') !== $that.attr('href')) {
+				galleryImg.push({href: $that.attr('href')});
+			}
+		});
+		$.swipebox(galleryImg);
 	});
 })();

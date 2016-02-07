@@ -108,7 +108,7 @@ module.exports = (function() {
 		callback(mapState);
 	});
 	$document.on('click', 'a, button', function(e) {
-		var $source = $(event.target);
+		var $source = $(e.target);
 		if (!$source.length || (!$source.data('user')/* && !$source.data('hash')*/
 			&& !$source.data('wouaf') && !$source.data('show'))) {
 			return;
