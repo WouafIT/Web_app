@@ -3,12 +3,13 @@ module.exports = (function() {
 	var twitterText = require('twitter-text');
 	var utils = require('../utils');
 	var categories = require('../resource/categories.js');
+	var data = require('../resource/data.js');
 	var dtp = require('../resource/datetimepicker.js');
 
 	var getCurrentPath = function() {
 		var l = window.location;
 		return l.protocol+'//'+l.host+l.pathname;
-	}
+	};
 
 	var textToHTML = function(text) {
 		//remove HTML
@@ -47,7 +48,7 @@ module.exports = (function() {
 			textContent += text.substr(pos, text.length - pos);
 		}
 		return textContent.replace(/\r?\n/g, "<br />");
-	}
+	};
 
 	var self = {};
 	self.getWouaf = function (obj) {
@@ -114,7 +115,9 @@ module.exports = (function() {
 		 - Aller à cet endroit
 		 - Signaler un contenu abusif
 		 */
-
+		var favs = data.getArray('favorites');
+		var url = 'https://wouaf.it/wouaf/'+ obj.id +'/';
+		var shareOptions = ' st_url="'+ url +'" st_title="'+ utils.escapeHtml(utils.strip_tags(title)) +'" st_image="https://img.wouaf.it/icon.png" st_summary="'+ utils.escapeHtml(utils.strip_tags(text)) +'"';
 		var content = ['<div class="w-container">',
 			'<div class="w-title" style="background-color: ', categories.getColor(obj.cat) ,';">', utils.escapeHtml(title),
 				'<div class="w-cat cat', obj.cat ,'"><span>' , categories.getLabel(obj.cat) , '</span> - ', eventLength ,'</div>',
@@ -124,15 +127,26 @@ module.exports = (function() {
 					'<i class="fa fa-chevron-circle-down"></i>',
 				'</button>',
 				'<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel-'+ obj.id +'">',
-					'<h6 class="dropdown-header">Actions</h6>',
-					'<a class="dropdown-item" href="#"><i class="fa fa-envelope"></i> Contacter l\'auteur</a>',
-					'<a class="dropdown-item" href="#"><i class="fa fa-star"></i> Ajouter à vos favoris</a>',
-					'<a class="dropdown-item" href="#"><i class="fa fa-comment"></i> Ajouter un commentaire</a>',
-					'<a class="dropdown-item" href="#"><i class="fa fa-heart"></i> J\aime</a>',
-					'<a class="dropdown-item" href="#"><i class="fa fa-share-alt"></i> Partager</a>',
-					'<a class="dropdown-item" href="#"><i class="fa fa-map"></i> Voir sur Google Map</a>',
-					'<a class="dropdown-item" href="#"><i class="fa fa-location-arrow"></i> Itinéraire vers ce lieu</a>',
-					'<a class="dropdown-item" href="#"><i class="fa fa-ban"></i> Signaler un contenu abusif</a>',
+				'<div class="dropdown-item">',
+					'<span class="st_sharethis_large" displayText="ShareThis"'+ shareOptions +'></span>',
+					'<span class="st_facebook_large" displayText="Facebook"'+ shareOptions +'></span>',
+					'<span class="st_twitter_large" displayText="Tweet"'+ shareOptions +'></span>',
+					'<span class="st_reddit_large" displayText="Reddit"'+ shareOptions +'></span>',
+					'<span class="st_email_large" displayText="Email"'+ shareOptions +'></span>',
+					'<span class="st_print_large" displayText="Print"'+ shareOptions +'></span>',
+				'</div>',
+
+				(obj.author[0] === data.getString('uid')
+					? '<a class="dropdown-item" href="#" data-action="contact"><i class="fa fa-trash"></i> Supprimer</a>'
+					: '<a class="dropdown-item" href="#" data-action="contact"><i class="fa fa-envelope"></i> Contacter l\'auteur</a>'),
+				(utils.indexOf(favs, obj.id) !== -1
+					? '<a class="dropdown-item" href="#" data-action="favorite"><i class="fa fa-star"></i> Dans vos favoris ('+ obj.fav +')</a>'
+					: '<a class="dropdown-item" href="#" data-action="favorite"><i class="fa fa-star"></i> Ajouter à vos favoris ('+ obj.fav +')</a>'),
+					'<a class="dropdown-item" href="#" data-action="comment"><i class="fa fa-comment"></i> Ajouter un commentaire ('+ obj.com +')</a>',
+					'<a class="dropdown-item" href="#" data-action="like"><i class="fa fa-heart"></i> Voter pour ce Wouaf</a>',
+					'<a class="dropdown-item" href="#" data-action="gmap"><i class="fa fa-map"></i> Voir sur Google Map</a>',
+					'<a class="dropdown-item" href="#" data-action="route"><i class="fa fa-location-arrow"></i> Itinéraire vers ce lieu</a>',
+					'<a class="dropdown-item" href="#" data-action="report"><i class="fa fa-ban"></i> Signaler un contenu abusif</a>',
 				'</div>',
 			'</div>',
 			'<div class="w-content">',

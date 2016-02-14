@@ -72,7 +72,7 @@ module.exports = (function() {
 					delete _requests[data.id];
 				}
 			}
-		}
+		};
 
 		//Public methods
 		cdstorage.getItem = function(key, callback){
@@ -159,6 +159,7 @@ module.exports = (function() {
 				value = value.toString();
 				break;
 			case 'object':
+			case 'array':
 				value = JSON.stringify(value);
 				break;
 		}
@@ -186,6 +187,9 @@ module.exports = (function() {
 			case 'object':
 				value = value ? JSON.parse(value) : {};
 				break;
+			case 'array':
+				value = value ? JSON.parse(value) : [];
+				break;
 		}
 		return value;
 	};
@@ -194,6 +198,12 @@ module.exports = (function() {
 	};
 	self.getObject = function (key) {
 		return self.get(key, 'object');
+	};
+	self.setArray = function (key, value, session) {
+		self.set(key, value, 'array', session);
+	};
+	self.getArray = function (key) {
+		return self.get(key, 'array');
 	};
 	self.setString = function (key, value, session) {
 		self.set(key, value, 'string', session);

@@ -39,6 +39,8 @@ module.exports = (function() {
 		// Set infoWindow content
 		data.iw.setContent(content);
 		data.iw.open(data.map);
+		//refresh sharethis content
+		if (window.stButtons){stButtons.locateElements();}
 	});
 
 	//Swipebox

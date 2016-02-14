@@ -9,7 +9,7 @@ module.exports = (function() {
 		data.setBool('permanent', null);
 		data.setString('uid', null);
 		data.setString('token', null);
-		data.setObject('favorites', null);
+		data.setArray('favorites', null);
 		data.setObject('user', null);
 		data.setString('loginType', 'default');
 		data.setInt('today_publications', 0);
@@ -42,7 +42,7 @@ module.exports = (function() {
 			data.setString('loginType', 'default', !permanent);
 			data.setInt('today_publications', params.today_publications, !permanent);
 			if (params.favorites) {
-				data.setObject('favorites', params.favorites, !permanent);
+				data.setArray('favorites', params.favorites, !permanent);
 			}
 		}
 		$('.anonymous').attr('hidden', true);

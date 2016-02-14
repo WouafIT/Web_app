@@ -25,5 +25,6 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.swipebox/1.4.1/js/jquery.swipebox.min.js"></script>
 <script src="//maps.googleapis.com/maps/api/js?key={%= o.htmlWebpackPlugin.options.data.googleApi %}&libraries=geometry"></script>
 <script type="text/javascript" src="/js/build.js?v={%= o.htmlWebpackPlugin.options.data.timestamp %}" charset="utf-8"></script>
+<script type="text/javascript" src="https://ws.sharethis.com/button/buttons.js"></script>
 </body>
 </html>
