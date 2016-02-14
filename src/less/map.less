@@ -145,10 +145,14 @@
 	background-color: #fff;
 	box-shadow: 0 1px 6px fade(@dark-grey, 60%);
 	border-radius: 2px 2px 10px 10px;
-
+	overflow: visible !important;
 	> div {
 		width: 330px !important;
 		max-width: 330px !important;
+		overflow: visible !important;
+		> div {
+			overflow: visible !important;
+		}
 	}
 }
 .gm-iw-parent {

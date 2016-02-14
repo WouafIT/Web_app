@@ -115,13 +115,29 @@ module.exports = (function() {
 		 - Signaler un contenu abusif
 		 */
 
-		var content = '<div class="w-container">' +
-			'<div class="w-title" style="background-color: '+ categories.getColor(obj.cat) +';">'+ utils.escapeHtml(title) +
-				'<div class="w-cat cat'+ obj.cat +'"><span>' + categories.getLabel(obj.cat) + '</span> - '+ eventLength +'</div>'+
-			'</div>' +
-			'<div class="w-content">' +
-			'<div class="w-subTitle">'+ author +'</div>';
-		content += '<p>'+ text +'</p>';
+		var content = ['<div class="w-container">',
+			'<div class="w-title" style="background-color: ', categories.getColor(obj.cat) ,';">', utils.escapeHtml(title),
+				'<div class="w-cat cat', obj.cat ,'"><span>' , categories.getLabel(obj.cat) , '</span> - ', eventLength ,'</div>',
+			'</div>',
+			'<div class="w-menu dropdown">',
+				'<button id="dLabel-'+ obj.id +'" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">',
+					'<i class="fa fa-chevron-circle-down"></i>',
+				'</button>',
+				'<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel-'+ obj.id +'">',
+					'<h6 class="dropdown-header">Actions</h6>',
+					'<a class="dropdown-item" href="#"><i class="fa fa-envelope"></i> Contacter l\'auteur</a>',
+					'<a class="dropdown-item" href="#"><i class="fa fa-star"></i> Ajouter à vos favoris</a>',
+					'<a class="dropdown-item" href="#"><i class="fa fa-comment"></i> Ajouter un commentaire</a>',
+					'<a class="dropdown-item" href="#"><i class="fa fa-heart"></i> J\aime</a>',
+					'<a class="dropdown-item" href="#"><i class="fa fa-share-alt"></i> Partager</a>',
+					'<a class="dropdown-item" href="#"><i class="fa fa-map"></i> Voir sur Google Map</a>',
+					'<a class="dropdown-item" href="#"><i class="fa fa-location-arrow"></i> Itinéraire vers ce lieu</a>',
+					'<a class="dropdown-item" href="#"><i class="fa fa-ban"></i> Signaler un contenu abusif</a>',
+				'</div>',
+			'</div>',
+			'<div class="w-content">',
+				'<div class="w-subTitle">', author ,'</div>',
+					'<p>', text ,'</p>'];
 		if (obj.pics.length) {
 			var pic, thumb;
 			for(var i = 0, l = obj.pics.length; i < l; i++) {
@@ -131,14 +147,14 @@ module.exports = (function() {
 					pic = pic.replace('http://', 'https://');
 					//use "b" thumbnail
 					thumb = pic.replace(/\.(jpg|png|gif|bmp|gifv)$/, 'b$&');
-					content += '<a rel="gallery-'+ obj.id +'" href="'+ pic +'" class="swipebox"><img src="'+ thumb +'" height="90" width="90" /></a>';
+					content.push('<a rel="gallery-'+ obj.id +'" href="'+ pic +'" class="swipebox"><img src="'+ thumb +'" height="90" width="90" /></a>');
 				}
 			}
 		}
-		content += '</div>' +
-			'<div class="w-bottom"></div>' +
-			'</div>';
-		return content;
+		content.concat(['</div>',
+				'<div class="w-bottom"></div>',
+			'</div>']);
+		return content.join('');
 	};
 	self.getList = function(list) {
 		return '';

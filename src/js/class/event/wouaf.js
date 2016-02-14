@@ -45,13 +45,15 @@ module.exports = (function() {
 	$document.on('click', 'a.swipebox', function(e) {
 		e.preventDefault();
 		var $this = $(this);
-		var galleryImg = [{href: $this.attr('href')}];
-		$this.parent().find('a.swipebox').each(function() {
+		var galleryImg = [];
+		var initialIndex = 0;
+		$this.parent().find('a.swipebox').each(function(i) {
 			var $that = $(this);
-			if ($this.attr('href') !== $that.attr('href')) {
-				galleryImg.push({href: $that.attr('href')});
+			if ($this.attr('href') === $that.attr('href')) {
+				initialIndex = i;
 			}
+			galleryImg.push({href: $that.attr('href')});
 		});
-		$.swipebox(galleryImg);
+		$.swipebox(galleryImg, {hideBarsDelay: 0, loopAtEnd: true, initialIndexOnArray: initialIndex });
 	});
 })();

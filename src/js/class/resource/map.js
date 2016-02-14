@@ -216,9 +216,7 @@ module.exports = (function () {
 		$body.addClass('too-wide');
 
 		//customize infowindow
-		infowindow = new google.maps.InfoWindow({
-			maxHeight: 350
-		});
+		infowindow = new google.maps.InfoWindow();
 		google.maps.event.addListener(infowindow, 'domready', function() {
 			// Reference to the DIV that wraps the bottom of infowindow
 			var $iwOuter = $('.gm-style-iw');
@@ -237,7 +235,11 @@ module.exports = (function () {
 			$iwOuterParent.parent().addClass('gm-iw-gparent');
 		});
 		// Event that closes the Info Window with a click on the map
-		google.maps.event.addListener(map, 'click', function() {
+		google.maps.event.addDomListener(document.getElementById('map'), 'click', function(e) {
+			if ((e.target && $(e.target).parents('.gm-iw-parent').length) || $('.sb-active').length) {
+				return;
+			}
+			e.stopPropagation();
 			infowindow.close();
 			$document.triggerHandler('navigation.set-state', {state: 'wouaf', value: null});
 		});
