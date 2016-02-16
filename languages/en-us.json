@@ -80,6 +80,7 @@
 	"Create your account": "Create your account",
 	"Fill in the form below:": "Fill in the form below:",
 	"Cancel": "Cancel",
+	"Confirm": "Confirm",
 	"ID or Email": "ID or Email",
 	"Choose your connection method": "Choose your connection method",
 	"Facebook account": "Facebook account",
@@ -187,5 +188,9 @@
 	"By {{author}}": "By {{author}}",
 	"at {{at}}": "at {{at}}",
 	"From {{from}} to {{to}}": "From {{from}} to {{to}}",
-	"On {{on}} for {{for}}": "{{for}} from {{on}}"
+	"On {{on}} for {{for}}": "For {{for}} from {{on}}",
+
+	"Delete your Wouaf": "Delete your Wouaf?",
+	"delete_details": "Do you confirm the permanent deletion of this Wouaf and all associated comments?\nYou can not go back!",
+	"Your Wouaf is deleted": "Your Wouaf is deleted."
 }

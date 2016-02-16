@@ -48,7 +48,8 @@ module.exports = (function() {
 			footer:		'',
 			href: 		'',
 			open:		null,
-			close:		null
+			close:		null,
+			confirm:	null
 		}, options);
 		var open = function (options) {
 			if (options.text) {
@@ -68,7 +69,18 @@ module.exports = (function() {
 					if (options.footer) {
 						content += options.footer;
 					} else {
-						content += '<button type="button" class="btn btn-secondary" data-dismiss="modal">' + i18n.t('Close') + '</button>';
+						if (!options.confirm) {
+							content += '<button type="button" class="btn btn-secondary" data-dismiss="modal">' + i18n.t('Close') + '</button>';
+						} else {
+							content += '<button type="button" class="btn btn-secondary" data-dismiss="modal">' + i18n.t('Cancel') + '</button>'+
+							'<button type="button" class="btn btn-primary">' + i18n.t('Confirm') + '</button>';
+							$modal.one('shown.bs.modal', function() {
+								$modal.find('button.btn-primary').one('click', function () {
+									options.confirm();
+									$modal.modal('hide');
+								});
+							});
+						}
 					}
 					content += '</div>';
 				}

@@ -80,6 +80,7 @@
 	"Create your account": "Créez votre compte",
 	"Fill in the form below:": "Remplissez le formulaire ci-dessous :",
 	"Cancel": "Annuler",
+	"Confirm": "Confirmer",
 	"ID or Email": "Identifiant ou Email",
 	"Choose your connection method": "Choisissez votre mode de connexion",
 	"Facebook account": "Compte Facebook",
@@ -187,5 +188,9 @@
 	"By {{author}}": "Par {{author}}",
 	"at {{at}}": "à {{at}}",
 	"From {{from}} to {{to}}": "Du {{from}} au {{to}}",
-	"On {{on}} for {{for}}": "{{for}} à partir du {{on}}"
+	"On {{on}} for {{for}}": "Pendant {{for}} à partir du {{on}}",
+
+	"Delete your Wouaf": "Supprimer votre Wouaf ?",
+	"delete_details": "Confirmez-vous la suppression définitive de ce Wouaf ainsi que tous les commentaires associés ?\nVous ne pourrez pas revenir en arrière !",
+	"Your Wouaf is deleted": "Votre Wouaf est supprimé."
 }

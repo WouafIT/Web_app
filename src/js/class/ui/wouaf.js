@@ -72,10 +72,13 @@ module.exports = (function() {
 		var length = obj.date[1].sec - obj.date[0].sec;
 		var eventLength;
 		var oneDay = 86400;
+		var oneWeek = 604800;
 		var oneHour = 3600;
-		if (length >= oneDay && length % oneDay == 0 && (length / oneDay) < 10) {
+		if (length >= oneWeek && length % oneWeek == 0) {
+			eventLength = i18n.t('{{count}} week', {count: length / oneWeek});
+		} else if (length >= oneDay && length % oneDay == 0 && length <= (oneWeek * 2)) {
 			eventLength = i18n.t('{{count}} day', {count: length / oneDay});
-		} else if (length % oneHour == 0)  {
+		} else if (length % oneHour == 0 && length <= (oneDay * 2))  {
 			eventLength = i18n.t('{{count}} hour', {count: length / oneHour});
 		}
 		var timeStart;
@@ -117,14 +120,14 @@ module.exports = (function() {
 		 */
 		var favs = data.getArray('favorites');
 		var url = 'https://wouaf.it/wouaf/'+ obj.id +'/';
-		var shareOptions = ' st_url="'+ url +'" st_title="'+ utils.escapeHtml(utils.strip_tags(title)) +'" st_image="https://img.wouaf.it/icon.png" st_summary="'+ utils.escapeHtml(utils.strip_tags(text)) +'"';
+		var shareOptions = ' st_url="'+ url +'" st_title="'+ utils.escapeHtml(utils.strip_tags(title)) +' - Wouaf IT" st_image="https://img.wouaf.it/icon.png" st_summary="'+ utils.escapeHtml(utils.strip_tags(text)) +'"';
 		var content = ['<div class="w-container">',
-			'<div class="w-title" style="background-color: ', categories.getColor(obj.cat) ,';">', utils.escapeHtml(title),
+			'<div class="w-title" style="background-color: ', categories.getColor(obj.cat) ,'; color: '+ categories.getTextColor(obj.cat) +'">', utils.escapeHtml(title),
 				'<div class="w-cat cat', obj.cat ,'"><span>' , categories.getLabel(obj.cat) , '</span> - ', eventLength ,'</div>',
 			'</div>',
-			'<div class="w-menu dropdown">',
+			'<div class="w-menu dropdown" data-id="'+ obj.id +'">',
 				'<button id="dLabel-'+ obj.id +'" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">',
-					'<i class="fa fa-chevron-circle-down"></i>',
+					'<i class="fa fa-caret-square-o-down"></i>',
 				'</button>',
 				'<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel-'+ obj.id +'">',
 				'<div class="dropdown-item">',
@@ -137,15 +140,17 @@ module.exports = (function() {
 				'</div>',
 
 				(obj.author[0] === data.getString('uid')
-					? '<a class="dropdown-item" href="#" data-action="contact"><i class="fa fa-trash"></i> Supprimer</a>'
+					? '<a class="dropdown-item" href="#" data-action="delete"><i class="fa fa-trash"></i> Supprimer</a>'
 					: '<a class="dropdown-item" href="#" data-action="contact"><i class="fa fa-envelope"></i> Contacter l\'auteur</a>'),
 				(utils.indexOf(favs, obj.id) !== -1
-					? '<a class="dropdown-item" href="#" data-action="favorite"><i class="fa fa-star"></i> Dans vos favoris ('+ obj.fav +')</a>'
+					? '<a class="dropdown-item" href="#" data-action="unfavorite"><i class="fa fa-star"></i> Dans vos favoris ('+ obj.fav +')</a>'
 					: '<a class="dropdown-item" href="#" data-action="favorite"><i class="fa fa-star"></i> Ajouter à vos favoris ('+ obj.fav +')</a>'),
 					'<a class="dropdown-item" href="#" data-action="comment"><i class="fa fa-comment"></i> Ajouter un commentaire ('+ obj.com +')</a>',
 					'<a class="dropdown-item" href="#" data-action="like"><i class="fa fa-heart"></i> Voter pour ce Wouaf</a>',
-					'<a class="dropdown-item" href="#" data-action="gmap"><i class="fa fa-map"></i> Voir sur Google Map</a>',
-					'<a class="dropdown-item" href="#" data-action="route"><i class="fa fa-location-arrow"></i> Itinéraire vers ce lieu</a>',
+					'<a class="dropdown-item" href="https://maps.google.com/?q='+ obj.loc[0] +','+ obj.loc[1] +'" target="_blank">',
+						'<i class="fa fa-map"></i> Voir sur Google Map</a>',
+					'<a class="dropdown-item" href="https://www.google.com/maps/dir//'+ obj.loc[0] +','+ obj.loc[1] +'/" target="_blank">',
+						'<i class="fa fa-location-arrow"></i> Itinéraire vers ce lieu</a>',
 					'<a class="dropdown-item" href="#" data-action="report"><i class="fa fa-ban"></i> Signaler un contenu abusif</a>',
 				'</div>',
 			'</div>',

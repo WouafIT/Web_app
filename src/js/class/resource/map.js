@@ -13,7 +13,8 @@ module.exports = (function () {
 	var $body = $('body');
 	self.jsonResults = {};
 	//set map pins on search response
-	var setPins = function (json) {
+	var setPins = function (json, showCount) {
+		showCount = showCount !== false;
 		if (__DEV__) {
 			console.info('Search results', json);
 		}
@@ -59,16 +60,38 @@ module.exports = (function () {
 		// Add all pins
 		hcmap = new clustermap.HCMap({'map': map, 'elements': elements, 'infowindow': infowindow});
 
-		//show results number
-		var countResults = addResults ? addResults : json.count;
-		var notificationLabel = '';
-		if (resultsType == 'wouafit') {
-			notificationLabel = i18n.t('{{count}} Wouaf', { count: countResults });
+		if (showCount) {
+			//show results number
+			var countResults = addResults ? addResults : json.count;
+			var notificationLabel = '';
+			if (resultsType == 'wouafit') {
+				notificationLabel = i18n.t('{{count}} Wouaf', { count: countResults });
+			}
+			if (countResults == 500) {
+				toast.show(i18n.t('{{max}} displayed (maximum reached)', {max: notificationLabel }));
+			} else {
+				toast.show(i18n.t('{{wouaf}} displayed', { count: countResults, wouaf: notificationLabel }));
+			}
 		}
-		if (countResults == 500) {
-			toast.show(i18n.t('{{max}} displayed (maximum reached)', {max: notificationLabel }));
-		} else {
-			toast.show(i18n.t('{{wouaf}} displayed', { count: countResults, wouaf: notificationLabel }));
+	};
+	var removePin = function(id) {
+		if (!id || !self.jsonResults || !self.jsonResults.results) {
+			return;
+		}
+		var found = false;
+		for (var i = 0, l = self.jsonResults.results.length; (i < l && !found); i++) {
+			if (self.jsonResults.results[i].id == id) {
+				self.jsonResults.results.splice(i, 1);
+				self.jsonResults.count--;
+				found = true;
+			}
+		}
+		if (found) {
+			//clone json result
+			var json = $.extend(true, {}, self.jsonResults);
+			var now = new Date();
+			json.searchId = now.getTime();
+			setPins(json, false);
 		}
 	};
 
@@ -201,6 +224,8 @@ module.exports = (function () {
 			panControl: false,
 			streetViewControl: false,
 			mapTypeControl: true,
+			//TODO: Check for implementation of this issue https://code.google.com/p/gmaps-api-issues/issues/detail?id=3866
+			styles: [{ featureType: "poi", elementType: "labels", stylers: [{ visibility: "off" }]}],
 			mapTypeControlOptions: {
 				position: google.maps.ControlPosition.TOP_RIGHT
 			},
@@ -279,6 +304,7 @@ module.exports = (function () {
 	return {
 		init: init,
 		setPins: setPins,
+		removePin: removePin,
 		getResults: function() {
 			return self.jsonResults;
 		},
