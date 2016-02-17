@@ -18,6 +18,7 @@ Signalements :
 - Ajouter une raison au signalement.
 - Ajouter l'auteur du signalement.
 - mettre à jour le nombre de signalements dans le post
+- vérifier la réception par email des signalements.
 
 404 :
 - Gérer les 404 sur les URL de type https://fr-fr.wouaf.it/truc/

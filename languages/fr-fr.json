@@ -192,5 +192,16 @@
 
 	"Delete your Wouaf": "Supprimer votre Wouaf ?",
 	"delete_details": "Confirmez-vous la suppression définitive de ce Wouaf ainsi que tous les commentaires associés ?\nVous ne pourrez pas revenir en arrière !",
-	"Your Wouaf is deleted": "Votre Wouaf est supprimé."
+	"Your Wouaf is deleted": "Votre Wouaf est supprimé.",
+
+	"Report this Wouaf": "Signaler ce Wouaf ?",
+	"report_details": "Confirmez-vous le signalement du contenu de ce Wouaf comme abusif ?\nAttention, en cas d'erreur des chatons mourrons !",
+	"This Wouaf has been reported": "Merci pour votre signalement !",
+
+	"Login to create a new wouaf": "Connectez-vous pour pouvoir créer un nouveau Wouaf !",
+	"Login to favorite a wouaf": "Connectez-vous pour pouvoir ajouter ce Wouaf à vos favoris !",
+	"Login to contact author": "Connectez-vous pour pouvoir contacter l'auteur de ce Wouaf !",
+	"Login to comment a wouaf": "Connectez-vous pour pouvoir ajouter un commentaire sur ce Wouaf !",
+	"Login to like a wouaf": "Connectez-vous pour pouvoir voter pour ce Wouaf !",
+	"Login to report a wouaf": "Connectez-vous pour pouvoir signaler ce Wouaf !"
 }

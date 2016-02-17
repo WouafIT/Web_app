@@ -78,6 +78,7 @@ module.exports = (function() {
 
 	//Wouaf Actions
 	$document.on('click', 'a.dropdown-item', function(e) {
+		var data = require('../resource/data.js');
 		var $target = $(e.target);
 		if (!$target.data('action')) {
 			return;
@@ -88,8 +89,12 @@ module.exports = (function() {
 		if (!obj) {
 			return;
 		}
+		var uid = data.getString('uid');
 		switch ($target.data('action')) {
 			case 'delete':
+				if (obj.author[0] !== uid) { //not user wouaf
+					return;
+				}
 				//show confirm page
 				windows.show({
 					title: i18n.t('Delete your Wouaf'),
@@ -109,22 +114,71 @@ module.exports = (function() {
 				});
 				break;
 			case 'favorite':
-
+				if (!uid) { //user is not logged, show login window
+					windows.login(i18n.t('Login to favorite a wouaf'));
+					return;
+				}
+				var favs = data.getArray('favorites');
+				if (utils.indexOf(favs, obj.id) === -1) {
+					obj.fav++;
+					$target.replaceWith('<a class="dropdown-item" href="#" data-action="unfavorite"><i class="fa fa-star"></i> Dans vos favoris ('+ obj.fav +')</a>');
+					query.addFavorite(obj.id, function() {});
+					favs.push(obj.id);
+					data.setArray('favorites', favs);
+				}
 				break;
 			case 'unfavorite':
-
+				if (!uid) { //user is not logged, return
+					return;
+				}
+				var favs = data.getArray('favorites');
+				if (utils.indexOf(favs, obj.id) !== -1) {
+					obj.fav--;
+					$target.replaceWith('<a class="dropdown-item" href="#" data-action="favorite"><i class="fa fa-star-o"></i> Ajouter à vos favoris ('+ obj.fav +')</a>');
+					query.removeFavorite(obj.id, function() {});
+					delete favs[utils.indexOf(favs, obj.id)];
+					data.setArray('favorites', favs);
+				}
 				break;
 			case 'contact':
-
+				if (!uid) { //user is not logged, show login window
+					windows.login(i18n.t('Login to contact author'));
+					return;
+				}
 				break;
 			case 'comment':
-
+				if (!uid) { //user is not logged, show login window
+					windows.login(i18n.t('Login to comment a wouaf'));
+					return;
+				}
 				break;
-			case 'like':
-
-				break;
+			/*case 'like':
+				if (!uid) { //user is not logged, show login window
+					windows.login(i18n.t('Login to like a wouaf'));
+					return;
+				}
+				break;*/
 			case 'report':
-
+				if (!uid) { //user is not logged, show login window
+					windows.login(i18n.t('Login to report a wouaf'));
+					return;
+				}
+				//show confirm page
+				windows.show({
+					title: i18n.t('Report this Wouaf'),
+					text: i18n.t('report_details'),
+					confirm: function() {
+						query.reportPost(obj.id, function(result) {
+							if (result && result.result && result.result == 1) {
+								toast.show(i18n.t('This Wouaf has been reported'));
+							} else if (result && result.msg) {
+								toast.show(i18n.t(result.msg[0]));
+							} else {
+								query.connectionError();
+							}
+						});
+					}
+				});
 				break;
 		}
 	});

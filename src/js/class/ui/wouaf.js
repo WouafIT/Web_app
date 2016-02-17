@@ -118,6 +118,7 @@ module.exports = (function() {
 		 - Aller à cet endroit
 		 - Signaler un contenu abusif
 		 */
+		var uid = data.getString('uid');
 		var favs = data.getArray('favorites');
 		var url = 'https://wouaf.it/wouaf/'+ obj.id +'/';
 		var shareOptions = ' st_url="'+ url +'" st_title="'+ utils.escapeHtml(utils.strip_tags(title)) +' - Wouaf IT" st_image="https://img.wouaf.it/icon.png" st_summary="'+ utils.escapeHtml(utils.strip_tags(text)) +'"';
@@ -139,14 +140,14 @@ module.exports = (function() {
 					'<span class="st_print_large" displayText="Print"'+ shareOptions +'></span>',
 				'</div>',
 
-				(obj.author[0] === data.getString('uid')
+				(obj.author[0] === uid
 					? '<a class="dropdown-item" href="#" data-action="delete"><i class="fa fa-trash"></i> Supprimer</a>'
 					: '<a class="dropdown-item" href="#" data-action="contact"><i class="fa fa-envelope"></i> Contacter l\'auteur</a>'),
-				(utils.indexOf(favs, obj.id) !== -1
+				(uid && utils.indexOf(favs, obj.id) !== -1
 					? '<a class="dropdown-item" href="#" data-action="unfavorite"><i class="fa fa-star"></i> Dans vos favoris ('+ obj.fav +')</a>'
-					: '<a class="dropdown-item" href="#" data-action="favorite"><i class="fa fa-star"></i> Ajouter à vos favoris ('+ obj.fav +')</a>'),
+					: '<a class="dropdown-item" href="#" data-action="favorite"><i class="fa fa-star-o"></i> Ajouter à vos favoris ('+ obj.fav +')</a>'),
 					'<a class="dropdown-item" href="#" data-action="comment"><i class="fa fa-comment"></i> Ajouter un commentaire ('+ obj.com +')</a>',
-					'<a class="dropdown-item" href="#" data-action="like"><i class="fa fa-heart"></i> Voter pour ce Wouaf</a>',
+					/*'<a class="dropdown-item" href="#" data-action="like"><i class="fa fa-heart"></i> Voter pour ce Wouaf</a>',*/
 					'<a class="dropdown-item" href="https://maps.google.com/?q='+ obj.loc[0] +','+ obj.loc[1] +'" target="_blank">',
 						'<i class="fa fa-map"></i> Voir sur Google Map</a>',
 					'<a class="dropdown-item" href="https://www.google.com/maps/dir//'+ obj.loc[0] +','+ obj.loc[1] +'/" target="_blank">',

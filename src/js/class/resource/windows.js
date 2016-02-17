@@ -91,7 +91,7 @@ module.exports = (function() {
 				});
 			}
 			if (options.open) {
-				$modal.one('show.bs.modal', function (event) {
+				$modal.one('shown.bs.modal', function (event) {
 					options.open(event);
 				});
 			}
@@ -122,5 +122,14 @@ module.exports = (function() {
 	self.close = function () {
 		$modal.modal('hide');
 	};
+	self.login = function(msg) {
+		self.show({
+			href: '/parts/login.html',
+			open: function () {
+				var alert = require('./alert.js');
+				alert.show(msg, $('.modal-body'), 'danger');
+			}
+		})
+	}
 	return self;
 })();

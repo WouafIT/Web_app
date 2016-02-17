@@ -192,5 +192,16 @@
 
 	"Delete your Wouaf": "Delete your Wouaf?",
 	"delete_details": "Do you confirm the permanent deletion of this Wouaf and all associated comments?\nYou can not go back!",
-	"Your Wouaf is deleted": "Your Wouaf is deleted."
+	"Your Wouaf is deleted": "Your Wouaf is deleted.",
+
+	"Report this Wouaf": "Report this Wouaf?",
+	"report_details": "Do you confirm the reporting of this Wouaf as abusive?\nAttention in case of error, kittens will die!",
+	"This Wouaf has been reported": "Thank you for your report!",
+
+	"Login to create a new wouaf": "Login to create a new Wouaf!",
+	"Login to favorite a wouaf": "Login to add this Wouaf to your favorites!",
+	"Login to contact author": "Login to contact the author of this Wouaf!",
+	"Login to comment a wouaf": "Login to write a comment for this Wouaf!",
+	"Login to like a wouaf": "Login to vote for this Wouaf!",
+	"Login to report a wouaf": "Login to report this Wouaf!"
 }

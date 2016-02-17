@@ -84,7 +84,7 @@ module.exports = (function() {
 		$addBtn.show();
 		$addBtn.on('click', function() {
 			if (!data.getString('uid')) { //user is not logged, show login window
-				windows.show({href: '/parts/login.html'});
+				windows.login(i18n.t('Login to create a new wouaf'));
 			} else {
 				$addBtn.hide();
 				$addOkBtn.show();
