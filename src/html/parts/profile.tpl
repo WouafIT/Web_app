@@ -64,6 +64,24 @@
 			<p>{%= o.htmlWebpackPlugin.options.i18n['Personal_data_details'] %}</p>
 
 			<fieldset class="form-group">
+				<label for="description">{%= o.htmlWebpackPlugin.options.i18n['Description'] %}</label>
+				<textarea class="form-control" rows="5" name="description" id="description" placeholder="{%= o.htmlWebpackPlugin.options.i18n['Describe yourself briefly (300 char. max)'] %}"></textarea>
+				<div class="text-xs-right"><small class="text-muted remaining"></small></div>
+			</fieldset>
+
+			<fieldset class="form-group">
+				<div class="input-group">
+					<div class="input-group-addon"><i class="fa fa-briefcase"></i></div>
+					<select name="type" id="type" class="form-control">
+						<option value="">{%= o.htmlWebpackPlugin.options.i18n['Choose who you are'] %}</option>
+						<option value="individual">{%= o.htmlWebpackPlugin.options.i18n['Individual'] %}</option>
+						<option value="company">{%= o.htmlWebpackPlugin.options.i18n['Company'] %}</option>
+						<option value="organization">{%= o.htmlWebpackPlugin.options.i18n['Organization'] %}</option>
+					</select>
+				</div>
+			</fieldset>
+
+			<fieldset class="form-group">
 				<div class="input-group">
 					<div class="input-group-addon"><i class="fa fa-user"></i></div>
 					<input type="text" class="form-control" name="firstname"

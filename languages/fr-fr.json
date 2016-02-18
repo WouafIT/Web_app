@@ -96,6 +96,12 @@
 
 	"Edit your profile": "Editez votre profil",
 	"Save your profile": "Enregistrez votre profil",
+	"Description": "Description",
+	"Describe yourself briefly (300 char. max)": "Décrivez-vous brièvement (300 car. max)",
+	"Choose who you are" : "Choisissez qui vous êtes",
+	"Individual": "Particulier",
+	"Company": "Entreprise",
+	"Organization": "Association",
 	"Firstname": "Prénom",
 	"Lastname": "Nom",
 	"Choose your gender": "Choisissez votre genre",
