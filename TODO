@@ -30,3 +30,7 @@ Bugs :
 - enregistrement d'une date de naissance vide ou d'un genre vide ne se fait pas.
 - gérer le changement de langue dans le profil
 - on ne peut pas se logguer sur plusieurs terminaux simultanément (ou sur le fr-fr et sur le en-us) ==> à priori c'est fixé.
+
+Serveur :
+- cron toutes les min pour suppression des images temporaires de plus de 6h
+- cron pour réessayer l'upload des images sur imgur qui ont echouées

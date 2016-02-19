@@ -11,6 +11,7 @@ module.exports = (function () {
 	var hcmap;
 	var userMarker;
 	var $body = $('body');
+	var $map = $('#map');
 	self.jsonResults = {};
 	//set map pins on search response
 	var setPins = function (json) {
@@ -70,6 +71,76 @@ module.exports = (function () {
 		} else {
 			toast.show(i18n.t('{{wouaf}} displayed', { count: countResults, wouaf: notificationLabel }));
 		}
+		$document.triggerHandler('map.show-results');
+	};
+
+	var showPin = function (id) {
+		if (!id) {
+			return;
+		}
+		//check if result exists in current results
+		var obj = null;
+		if (self.jsonResults.results) {
+			for(var i = 0, l = self.jsonResults.results.length; i < l && !obj; i++) {
+				if (self.jsonResults.results[i].id == id) {
+					obj = self.jsonResults.results[i];
+				}
+			}
+		}
+		if (!obj) {
+			//TODO: get Wouaf data from HTML (data should exists in meta and HTML for search engines)
+
+			//get wouaf from server
+			var query = require('./query.js');
+			query.post(id, function (result) {
+				if (result && result.wouaf) {
+					//clone current results
+					var results = jQuery.extend(true, {}, self.jsonResults);
+					//add post to map results and display it
+					results.results.push(result.wouaf);
+					results.count = results.results.length;
+					var now = new Date();
+					results.searchId = now.getTime();
+					setPins(results, false);
+					openPin(result.wouaf);
+				} else {
+					var windows = require('./windows.js');
+					windows.show({
+						title: 'Erreur ...',
+						text: 'Cette URL est inconnue. Peut-être que ce contenu à été supprimé ?'+
+							  (result && result.msg ? '<br />' + 'Erreur : '+ i18n.t(result.msg[0]) : '')
+					});
+				}
+			});
+			return;
+		}
+		openPin(obj);
+	};
+
+	var openPin = function (obj) {
+		$document.triggerHandler('navigation.disable-state');
+		map.setCenter({lat: obj.loc[0], lng: obj.loc[1]});
+		var zoom = 14;
+		var handleZoom = function(zoom) {
+			google.maps.event.addListenerOnce(map, 'idle', function(){
+				var $pin = $map.find('.baseMarker[data-id="'+ obj.id +'"]');
+				if ($pin.length) {
+					google.maps.event.trigger($pin.get(0), 'click');
+					$document.triggerHandler('navigation.enable-state');
+				} else if (zoom < 21) {
+					zoom++;
+					handleZoom(zoom);
+				} else if (zoom == 21) {
+					var $pin = $map.find('.baseMarker[data-id*="'+ obj.id +'"]');
+					if ($pin.length) {
+						google.maps.event.trigger($pin.get(0), 'click');
+					}
+					$document.triggerHandler('navigation.enable-state');
+				}
+			});
+			map.setZoom(zoom);
+		};
+		handleZoom(zoom);
 	};
 
 	//Custom marker for user location
@@ -192,11 +263,12 @@ module.exports = (function () {
 				$document.triggerHandler('app.search');
 			}
 		}
+		$document.triggerHandler('map.update-position');
 	};
 	//Init public method
 	var init = function () {
 		//create map
-		map = new google.maps.Map(document.getElementById('map'), {
+		map = new google.maps.Map($map.get(0), {
 			zoom: 9,
 			panControl: false,
 			streetViewControl: false,
@@ -235,7 +307,7 @@ module.exports = (function () {
 			$iwOuterParent.parent().addClass('gm-iw-gparent');
 		});
 		// Event that closes the Info Window with a click on the map
-		google.maps.event.addDomListener(document.getElementById('map'), 'click', function(e) {
+		google.maps.event.addDomListener($map.get(0), 'click', function(e) {
 			if ((e.target && $(e.target).parents('.gm-iw-parent').length) || $('.sb-active').length) {
 				return;
 			}
@@ -278,7 +350,8 @@ module.exports = (function () {
 
 	return {
 		init: init,
-		setPins: setPins,
+		showResult: showPin,
+		setResults: setPins,
 		getResults: function() {
 			return self.jsonResults;
 		},
