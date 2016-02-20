@@ -55,11 +55,12 @@ module.exports = (function() {
 				return false;
 			}
 
-			var loginSuccess = function(result) {
-				if (!result || !result.user) {
-					loginError(datas);
-					return;
-				}
+			//Query
+			var query = require('../resource/query.js');
+			query.login({
+				login: $username.val(),
+				pass: $pass.val()
+			}, function(result) {
 				if (result.user.firstname && result.user.lastname) {
 					toast.show(i18n.t('Welcome {{username}}', { 'username': result.user.firstname +' '+ result.user.lastname }));
 				} else {
@@ -70,23 +71,17 @@ module.exports = (function() {
 				//login
 				$document.triggerHandler('app.login', result);
 				windows.close();
-			};
-			var loginError = function(result) {
+			}, function(msg) {
 				//logout
 				$document.triggerHandler('app.logout');
-				if (result && result.msg) {
-					alert.show(i18n.t(result.msg[0]), $form, 'danger');
+				if (msg) {
+					alert.show(i18n.t('An error has occurred, please try again later {{error}}', {error: i18n.t(msg[0])}), $form, 'danger');
 				} else {
 					query.connectionError();
 				}
-			};
+			});
 
-			//Query
-			var query = require('../resource/query.js');
-			query.login({
-				login: 			$username.val(),
-				pass: 			$pass.val()
-			}, loginSuccess, loginError);
+
 		});
 	}
 	return self;

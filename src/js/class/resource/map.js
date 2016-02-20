@@ -116,24 +116,22 @@ module.exports = (function () {
 			//get wouaf from server
 			var query = require('./query.js');
 			query.post(id, function (result) {
-				if (result && result.wouaf) {
-					//clone current results
-					var results = jQuery.extend(true, {}, self.jsonResults);
-					//add post to map results and display it
-					results.results.push(result.wouaf);
-					results.count = results.results.length;
-					var now = new Date();
-					results.searchId = now.getTime();
-					setPins(results, false);
-					openPin(result.wouaf);
-				} else {
-					var windows = require('./windows.js');
-					windows.show({
-						title: 'Erreur ...',
-						text: 'Cette URL est inconnue. Peut-être que ce contenu à été supprimé ?'+
-						(result && result.msg ? '<br />' + 'Erreur : '+ i18n.t(result.msg[0]) : '')
-					});
-				}
+				//clone current results
+				var results = jQuery.extend(true, {}, self.jsonResults);
+				//add post to map results and display it
+				results.results.push(result.wouaf);
+				results.count = results.results.length;
+				var now = new Date();
+				results.searchId = now.getTime();
+				setPins(results, false);
+				openPin(result.wouaf);
+			}, function (msg) {
+				var windows = require('./windows.js');
+				windows.show({
+					title: 'Erreur ...',
+					text: 'Cette URL est inconnue. Peut-être que ce contenu à été supprimé ?'+
+					(msg ? '<br />' + 'Erreur : '+ i18n.t(msg[0]) : '')
+				});
 			});
 			return;
 		}

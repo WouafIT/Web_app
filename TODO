@@ -15,6 +15,7 @@ Profil :
 	- redirection vers l'url localisée (https://fr-fr...)
 	- ajout des meta opengraph
 	- ajout du contenu HTML (referencement Google)
+- permettre la suppression de posts
 
 Signalements :
 - Ajouter une table listant tous les signalements.

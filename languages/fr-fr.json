@@ -122,7 +122,8 @@
 	"Logout": "Déconnexion",
 	"Logout_details": "Vous êtes bien déconnecté de Wouaf IT. A bientôt !",
 	"Error_": "Erreur ...",
-	"Error_details {{status}} {{error}}": "Une erreur est survenue durant le chargement. Merci de rééssayer plus tard.\n{{status}} {{error}}",
+	"Error_details {{status}} {{error}}": "Une erreur est survenue durant le chargement. Merci de rééssayer plus tard ...\n{{status}} {{error}}",
+	"An error has occurred, please try again later {{error}}": "Une erreur est survenue, merci de rééssayer plus tard ...\n{{error}}",
 
 	"Application settings": "Paramètres de l'application",
 	"Search settings": "Paramètres de recherche",
@@ -203,6 +204,8 @@
 	"Report this Wouaf": "Signaler ce Wouaf ?",
 	"report_details": "Confirmez-vous le signalement du contenu de ce Wouaf comme abusif ?\nAttention, en cas d'erreur des chatons mourrons !",
 	"This Wouaf has been reported": "Merci pour votre signalement !",
+	"This Wouaf is added to your favorites": "Ce Wouaf est ajouté à vos favoris",
+	"This Wouaf is removed from your favorites": "Ce Wouaf est supprimé de vos favoris",
 
 	"Login to create a new wouaf": "Connectez-vous pour pouvoir créer un nouveau Wouaf !",
 	"Login to favorite a wouaf": "Connectez-vous pour pouvoir ajouter ce Wouaf à vos favoris !",

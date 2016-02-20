@@ -123,6 +123,7 @@
 	"Logout_details": "You are disconnected from Wouaf IT. See you soon!",
 	"Error_": "Error...",
 	"Error_details {{status}} {{error}}": "An error occurred during loading. Please try again later.\n{{status}} {{error}}",
+	"An error has occurred, please try again later {{error}}": "Une erreur est survenue, merci de rééssayer plus tard.\n{{error}}",
 
 	"Application settings": "Application settings",
 	"Search settings": "Search settings",
@@ -203,6 +204,8 @@
 	"Report this Wouaf": "Report this Wouaf?",
 	"report_details": "Do you confirm the reporting of this Wouaf as abusive?\nAttention in case of error, kittens will die!",
 	"This Wouaf has been reported": "Thank you for your report!",
+	"This Wouaf is added to your favorites": "This Wouaf is added to your favorites",
+	"This Wouaf is removed from your favorites": "This Wouaf is removed from your favorites",
 
 	"Login to create a new wouaf": "Login to create a new Wouaf!",
 	"Login to favorite a wouaf": "Login to add this Wouaf to your favorites!",

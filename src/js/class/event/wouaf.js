@@ -100,16 +100,14 @@ module.exports = (function() {
 					title: i18n.t('Delete your Wouaf'),
 					text: i18n.t('delete_details'),
 					confirm: function() {
-						query.deletePost(obj.id, function(result) {
-							if (result && result.result && result.result == 1) {
+						query.deletePost(obj.id,
+							function(result) { //success
 								map.removeResult(obj.id);
 								toast.show(i18n.t('Your Wouaf is deleted'));
-							} else if (result && result.msg) {
-								toast.show(i18n.t(result.msg[0]));
-							} else {
-								query.connectionError();
+							}, function (msg) { //error
+								toast.show(i18n.t('An error has occurred, please try again later {{error}}', {error: i18n.t(msg[0])}));
 							}
-						});
+						);
 					}
 				});
 				break;
@@ -122,7 +120,11 @@ module.exports = (function() {
 				if (utils.indexOf(favs, obj.id) === -1) {
 					obj.fav++;
 					$target.replaceWith('<a class="dropdown-item" href="#" data-action="unfavorite"><i class="fa fa-star"></i> Dans vos favoris ('+ obj.fav +')</a>');
-					query.addFavorite(obj.id, function() {});
+					query.addFavorite(obj.id, function() {
+						toast.show(i18n.t('This Wouaf is added to your favorites'));
+					}, function (msg) {
+						toast.show(i18n.t('An error has occurred, please try again later {{error}}', {error: i18n.t(msg[0])}));
+					});
 					favs.push(obj.id);
 					data.setArray('favorites', favs);
 				}
@@ -135,7 +137,11 @@ module.exports = (function() {
 				if (utils.indexOf(favs, obj.id) !== -1) {
 					obj.fav--;
 					$target.replaceWith('<a class="dropdown-item" href="#" data-action="favorite"><i class="fa fa-star-o"></i> Ajouter à vos favoris ('+ obj.fav +')</a>');
-					query.removeFavorite(obj.id, function() {});
+					query.removeFavorite(obj.id, function() {
+						toast.show(i18n.t('This Wouaf is removed from your favorites'));
+					}, function (msg) {
+						toast.show(i18n.t('An error has occurred, please try again later {{error}}', {error: i18n.t(msg[0])}));
+					});
 					delete favs[utils.indexOf(favs, obj.id)];
 					data.setArray('favorites', favs);
 				}
@@ -168,15 +174,13 @@ module.exports = (function() {
 					title: i18n.t('Report this Wouaf'),
 					text: i18n.t('report_details'),
 					confirm: function() {
-						query.reportPost(obj.id, function(result) {
-							if (result && result.result && result.result == 1) {
+						query.reportPost(obj.id,
+							function(result) {
 								toast.show(i18n.t('This Wouaf has been reported'));
-							} else if (result && result.msg) {
-								toast.show(i18n.t(result.msg[0]));
-							} else {
-								query.connectionError();
+							}, function (msg) {
+								toast.show(i18n.t('An error has occurred, please try again later {{error}}', {error: i18n.t(msg[0])}));
 							}
-						});
+						);
 					}
 				});
 				break;

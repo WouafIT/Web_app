@@ -281,14 +281,28 @@ module.exports = (function() {
 				});
 			}*/
 		},
-		post: function(id, callback) {
+		post: function(id, successCallback, errorCallback) {
 			var q = id + '?key=' + KEY;
 			query({
 				method: 'GET',
 				url: 	ENDPOINT + '/wouaf/' + q,
 				data:	null,
-				success:callback,
-				error:	callback
+				success:function (result) {
+					if (result && result.wouaf) {
+						successCallback(result);
+					} else if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						query.connectionError();
+					}
+				},
+				error:	function (result) {
+					if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						query.connectionError();
+					}
+				}
 			});
 		},
 		init: function(callback) {
@@ -305,7 +319,7 @@ module.exports = (function() {
 				error:	callback
 			});
 		},
-		login: function(datas, success, error) {
+		login: function(datas, successCallback, errorCallback) {
             query({
                 method: 'POST',
                 url:    ENDPOINT + '/user/login/',
@@ -315,8 +329,22 @@ module.exports = (function() {
                     pass:       datas.pass,
                     did:        'web_app_'+ utils.md5(navigator.userAgent)
                 },
-                success:success,
-                error:  error
+				success:function (result) {
+					if (result && result.user) {
+						successCallback(result);
+					} else if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						errorCallback()
+					}
+				},
+				error:	function (result) {
+					if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						errorCallback()
+					}
+				}
             });
         },
         fblogin: function(datas, success, error) {
@@ -343,7 +371,7 @@ module.exports = (function() {
 				error:	callback
 			});
 		},
-		resetPassword: function(email, callback) {
+		resetPassword: function(email, successCallback, errorCallback) {
             query({
                 method: 'POST',
                 url:    ENDPOINT + '/user/resetPassword/',
@@ -351,21 +379,49 @@ module.exports = (function() {
                     key:        KEY,
                     email:      email
                 },
-                success:callback,
-                error:  callback
+				success:function (result) {
+					if (result && result.result && result.result == 1) {
+						successCallback(result);
+					} else if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						query.connectionError();
+					}
+				},
+				error:	function (result) {
+					if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						query.connectionError();
+					}
+				}
             });
         },
-		createUser: function(datas, success, error) {
+		createUser: function(datas, successCallback, errorCallback) {
 			datas.key = KEY;
 			query({
 				method: 'PUT',
 				url: 	ENDPOINT + '/user/',
 				data:	datas,
-				success:success,
-				error:	error
+				success:function (result) {
+					if (result && result.result && result.result == 1) {
+						successCallback(result);
+					} else if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						query.connectionError();
+					}
+				},
+				error:	function (result) {
+					if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						query.connectionError();
+					}
+				}
 			});
 		},
-		updateUser: function(datas, success, error) {
+		updateUser: function(datas, successCallback, errorCallback) {
 			datas.key = KEY;
 			datas.uid = data.getString('uid');
 			datas.token = data.getString('token');
@@ -373,8 +429,22 @@ module.exports = (function() {
 				method: 'PUT',
 				url: 	ENDPOINT + '/user/',
 				data:	datas,
-				success:success,
-				error:	error
+				success:function (result) {
+					if (result && result.result && result.result == 1) {
+						successCallback(result);
+					} else if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						query.connectionError();
+					}
+				},
+				error:	function (result) {
+					if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						query.connectionError();
+					}
+				}
 			});
 		},
 		deleteUser: function(callback) {
@@ -408,7 +478,7 @@ module.exports = (function() {
                 error:  callback
             });
         },
-        createPost: function(datas, callback) {
+        createPost: function(datas, successCallback, errorCallback) {
 			datas.key = KEY;
 			datas.uid = data.getString('uid');
 			datas.token = data.getString('token');
@@ -416,11 +486,25 @@ module.exports = (function() {
 				method: 'PUT',
 				url: 	ENDPOINT + '/wouaf/',
 				data:	datas,
-				success:callback,
-				error:	callback
+				success:function (result) {
+					if (result && result.result && result.result == 1) {
+						successCallback(result);
+					} else if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						query.connectionError();
+					}
+				},
+				error:	function (result) {
+					if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						query.connectionError();
+					}
+				}
 			});
 		},
-		addFavorite: function(id, callback) {
+		addFavorite: function(id, successCallback, errorCallback) {
 			var datas = {
 				key: KEY,
 				uid: data.getString('uid'),
@@ -431,11 +515,25 @@ module.exports = (function() {
 				method: 'PUT',
 				url: 	ENDPOINT + '/user/favorite/',
 				data:	datas,
-				success:callback,
-				error:	callback
+				success:function (result) {
+					if (result && result.result && result.result == 1) {
+						successCallback(result);
+					} else if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						query.connectionError();
+					}
+				},
+				error:	function (result) {
+					if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						query.connectionError();
+					}
+				}
 			});
 		},
-		removeFavorite: function(id, callback) {
+		removeFavorite: function(id, successCallback, errorCallback) {
 			var datas = {
 				key: KEY,
 				uid: data.getString('uid'),
@@ -446,8 +544,22 @@ module.exports = (function() {
 				method: 'DELETE',
 				url: 	ENDPOINT + '/user/favorite/',
 				data:	datas,
-				success:callback,
-				error:	callback
+				success:function (result) {
+					if (result && result.result && result.result == 1) {
+						successCallback(result);
+					} else if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						query.connectionError();
+					}
+				},
+				error:	function (result) {
+					if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						query.connectionError();
+					}
+				}
 			});
 		},
 		getComments: function(id, callback) {
@@ -499,7 +611,7 @@ module.exports = (function() {
                 error:  callback
             });
        },
-       deletePost: function(id, callback) {
+       deletePost: function(id, successCallback, errorCallback) {
             var datas = {
                 key: KEY,
                 uid: data.getString('uid'),
@@ -510,11 +622,25 @@ module.exports = (function() {
                 method: 'DELETE',
                 url:    ENDPOINT + '/wouaf/',
                 data:  datas,
-                success:callback,
-                error:  callback
+				success:function (result) {
+					if (result && result.result && result.result == 1) {
+						successCallback(result);
+					} else if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						query.connectionError();
+					}
+				},
+				error:	function (result) {
+					if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						query.connectionError();
+					}
+				}
             });
        },
-       reportPost: function(id, callback) {
+       reportPost: function(id, successCallback, errorCallback) {
             var datas = {
                 key: KEY,
                 uid: data.getString('uid'),
@@ -525,8 +651,22 @@ module.exports = (function() {
                 method: 'POST',
                 url:    ENDPOINT + '/wouaf/abuse/',
                 data:  datas,
-                success:callback,
-                error:  callback
+				success:function (result) {
+					if (result && result.result && result.result == 1) {
+						successCallback(result);
+					} else if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						query.connectionError();
+					}
+				},
+				error:	function (result) {
+					if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						query.connectionError();
+					}
+				}
             });
        }
 	};

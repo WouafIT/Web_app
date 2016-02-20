@@ -99,7 +99,7 @@ module.exports = (function() {
 			});
 		}
 
-		console.info(obj, eventLength);
+		//console.info(obj, eventLength);
 
 
 

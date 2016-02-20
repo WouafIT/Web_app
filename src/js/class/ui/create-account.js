@@ -79,49 +79,31 @@ module.exports = (function() {
 				email: 			$email.val(),
 				lang: 			$language.val()
 			}, function(result) { //success
-				if (result && result.result && result.result == 1) {
-					var loginSuccess = function(result) {
-						if (!result || !result.user) {
-							loginError({});
-							return;
-						}
-						//permanent login ?
-						result.permanent = $remember.prop("checked");
-						//login
-						$document.triggerHandler('app.login', result);
-					};
-					var loginError = function(result) {
-						//logout
-						$document.triggerHandler('app.logout');
+				//call login
+				query.login({
+					login: $username.val(),
+					pass: $pass.val()
+				}, function(result) {
+					//permanent login ?
+					result.permanent = $remember.prop("checked");
+					//login
+					$document.triggerHandler('app.login', result);
+				}, function(msg) {
+					//logout
+					$document.triggerHandler('app.logout');
+					if (msg) {
+						alert.show(i18n.t('An error has occurred, please try again later {{error}}', {error: i18n.t(msg[0])}), $form, 'danger');
+					} else {
+						query.connectionError();
+					}
+				});
 
-						if (result && result.msg) {
-							alert.show(i18n.t(result.msg[0]), $form, 'danger');
-						} else {
-							query.connectionError();
-						}
-					};
-
-					//call login
-					query.login({
-						login: $username.val(),
-						pass: $pass.val()
-					}, loginSuccess, loginError);
-
-					windows.show({
-						title: i18n.t('Welcome'),
-						'text': i18n.t('welcome_to_wouaf_it')
-					});
-				} else if (result && result.msg) {
-					alert.show(i18n.t(result.msg[0]), $form, 'danger');
-				} else {
-					query.connectionError();
-				}
-			}, function(result) { //error
-				if (result && result.msg) {
-					alert.show(i18n.t(result.msg[0]), $form, 'danger');
-				} else {
-					query.connectionError();
-				}
+				windows.show({
+					title: i18n.t('Welcome'),
+					'text': i18n.t('welcome_to_wouaf_it')
+				});
+			}, function(msg) { //error
+				alert.show(i18n.t('An error has occurred, please try again later {{error}}', {error: i18n.t(msg[0])}), $form, 'danger');
 			});
 		});
 	}

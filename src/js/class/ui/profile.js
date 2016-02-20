@@ -122,37 +122,27 @@ module.exports = (function() {
 				signwname:		($signwname.prop("checked") ? 1 : 0)
 
 			}, function(result) { //success
-				if (result && result.result && result.result == 1) {
-					user.set('firstname', $firstname.val());
-					user.set('lastname', $lastname.val());
-					user.set('gender', $gender.val());
-					user.set('lang', $language.val());
-					user.set('email', $email.val());
-					user.set('description', $description.val());
-					user.set('type', $type.val());
-					user.set('signwname', $signwname.prop("checked") ? 1 : 0);
+				user.set('firstname', $firstname.val());
+				user.set('lastname', $lastname.val());
+				user.set('gender', $gender.val());
+				user.set('lang', $language.val());
+				user.set('email', $email.val());
+				user.set('description', $description.val());
+				user.set('type', $type.val());
+				user.set('signwname', $signwname.prop("checked") ? 1 : 0);
 
-					var birthdate = dtp.getInputDate($birthdate);
-					user.set('birthdate', birthdate ? {'sec': Math.round(birthdate.getTime() / 1000)} : null);
+				var birthdate = dtp.getInputDate($birthdate);
+				user.set('birthdate', birthdate ? {'sec': Math.round(birthdate.getTime() / 1000)} : null);
 
-					//login
-					$document.triggerHandler('app.login');
+				//login
+				$document.triggerHandler('app.login');
 
-					windows.close();
+				windows.close();
 
-					var toast = require('../resource/toast.js');
-					toast.show(i18n.t('Profile saved!'));
-				} else if (result && result.msg) {
-					alert.show(i18n.t(result.msg[0]), $form, 'danger');
-				} else {
-					query.connectionError();
-				}
-			}, function(result) { //error
-				if (result && result.msg) {
-					alert.show(i18n.t(result.msg[0]), $form, 'danger');
-				} else {
-					query.connectionError();
-				}
+				var toast = require('../resource/toast.js');
+				toast.show(i18n.t('Profile saved!'));
+			}, function(msg) { //error
+				alert.show(i18n.t('An error has occurred, please try again later {{error}}', {error: i18n.t(msg[0])}), $form, 'danger');
 			});
 		});
 	}

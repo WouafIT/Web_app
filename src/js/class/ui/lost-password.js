@@ -54,13 +54,11 @@ module.exports = (function() {
 			//Query
 			var query = require('../resource/query.js');
 			query.resetPassword($email.val(), function (result) {
-				if (result && result.result == 1) {
-					windows.close();
-					var toast = require('../resource/toast.js');
-					toast.show(i18n.t('A reset email has been sent.'));
-				} else {
-					alert.show(i18n.t('An error has occurred. Check entering your email address.'), $form);
-				}
+				windows.close();
+				var toast = require('../resource/toast.js');
+				toast.show(i18n.t('A reset email has been sent.'));
+			}, function (msg) {
+				alert.show(i18n.t('An error has occurred. Check entering your email address.'), $form);
 			});
 		});
 	};

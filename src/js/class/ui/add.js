@@ -28,10 +28,12 @@ module.exports = (function() {
 						   i18n.t('{{count}} day', {count: 5}),
 						   i18n.t('{{count}} day', {count: 6}),
 						   i18n.t('{{count}} week', {count: 1}),
-						   i18n.t('{{count}} week', {count: 2})];
+						   i18n.t('{{count}} week', {count: 2}),
+						   i18n.t('{{count}} week', {count: 3}),
+						   i18n.t('{{count}} week', {count: 4})];
 	var durations = [3600, 7200, 14400, 21600, 43200, 64800,
 					 86400, 172800, 259200, 345600, 432000, 518400,
-					 604800, 1209600];
+					 604800, 1209600, 1814400, 2419200];
 
 	var self = {};
 	self.show = function (e) {
@@ -67,7 +69,7 @@ module.exports = (function() {
 		$longitude.val(coordinates[1]);
 
 		for (var i = 0, l = durations.length; i < l; i++) {
-			$duration.append('<option value="'+ durations[i] +'"'+ (i === durations.length - 2 ? ' selected="selected"' : '') +'>'+ durationsLabels[i] +'</option>');
+			$duration.append('<option value="'+ durations[i] +'"'+ (i === durations.length - 4 ? ' selected="selected"' : '') +'>'+ durationsLabels[i] +'</option>');
 		}
 
 		//init drop zone
@@ -213,27 +215,17 @@ module.exports = (function() {
 				 notif:	 	($wouafNotifications.prop("checked") ? 1 : 0),
 				 pics: 	    JSON.stringify(validImages)
 			} , function(result) { //success
-				if (result && result.result && result.result == 1) {
-					if (result.today_publications) {
-						data.setInt('today_publications', result.today_publications);
-					}
-					//reload search
-					$document.triggerHandler('app.search');
+				if (result.today_publications) {
+					data.setInt('today_publications', result.today_publications);
+				}
+				//reload search
+				$document.triggerHandler('app.search');
 
-					windows.close();
-					var toast = require('../resource/toast.js');
-					toast.show(i18n.t('Your Wouaf is added'));
-				} else if (result && result.msg) {
-					alert.show(i18n.t(result.msg[0]), $form, 'danger');
-				} else {
-					query.connectionError();
-				}
-			}, function(result) { //error
-				if (result && result.msg) {
-					alert.show(i18n.t(result.msg[0]), $form, 'danger');
-				} else {
-					query.connectionError();
-				}
+				windows.close();
+				var toast = require('../resource/toast.js');
+				toast.show(i18n.t('Your Wouaf is added'));
+			}, function(msg) { //error
+				alert.show(i18n.t('An error has occurred, please try again later {{error}}', {error: i18n.t(msg[0])}), $form, 'danger');
 			});
 		});
 	};
