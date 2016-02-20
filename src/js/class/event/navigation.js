@@ -3,6 +3,7 @@ module.exports = (function() {
 	var windows = require('../resource/windows.js');
 	var map = require('../resource/map.js');
 	var utils = require('../utils.js');
+	var allowSetState = true;
 	var states = {
 		windows: 	null,
 		map: 		null,
@@ -10,28 +11,42 @@ module.exports = (function() {
 		user:		null
 	};
 
+	$document.on('navigation.disable-state', function() {
+		allowSetState = false;
+	});
+
+	$document.on('navigation.enable-state', function() {
+		allowSetState = true;
+		$document.triggerHandler('navigation.set-state');
+	});
+
 	$document.on('navigation.set-state', function(event, data) {
-		//check value
-		if (data.value !== null) {
-			switch(data.state) {
-				case 'windows':
-					if (!utils.isValidPageName(data.value.name)) {
-						return;
-					}
-					break;
-				case 'wouaf':
-					if (!utils.isValidWouafId(data.value.id)) {
-						return;
-					}
-					break;
-				case 'user':
-					if (!utils.isValidPageName(data.value)) {
-						return;
-					}
-					break;
+		if (data) {
+			//check value
+			if (data.value !== null) {
+				switch(data.state) {
+					case 'windows':
+						if (!utils.isValidPageName(data.value.name)) {
+							return;
+						}
+						break;
+					case 'wouaf':
+						if (!utils.isValidWouafId(data.value.id)) {
+							return;
+						}
+						break;
+					case 'user':
+						if (!utils.isValidPageName(data.value)) {
+							return;
+						}
+						break;
+				}
 			}
+			states[data.state] = data.value;
 		}
-		states[data.state] = data.value;
+		if (!allowSetState) {
+			return;
+		}
 		var href = '/';
 		if (states.map) {
 			href += '@'+ states.map.center +','+ states.map.zoom +'z/';
@@ -73,6 +88,7 @@ module.exports = (function() {
 	});
 
 	$document.on('navigation.load-state', function(event, callback) {
+		allowSetState = false; //disallow state change during URL parsing
 		var pathname = window.location.pathname;
 		var mapState = false;
 		if (pathname !== '/') {
@@ -88,8 +104,10 @@ module.exports = (function() {
 							map.getMap().setZoom(parseInt(coordinates[2].substr(0, (coordinates[2].length - 1)), 10));
 						}
 					} else if (part === 'wouaf' && utils.isValidWouafId(part[i + 1])) {
-						part = parts[++i];
-						console.info('TODO show wouaf '+ part);
+						var wouafId = parts[++i];
+						$document.one('map.show-results', function() {
+							map.showResult(wouafId);
+						});
 					} else if (part === 'user' && utils.isValidUsername(part[i + 1])) {
 						part = parts[++i];
 						console.info('TODO show user '+ part);
@@ -106,6 +124,7 @@ module.exports = (function() {
 		}
 		//launch callback
 		callback(mapState);
+		allowSetState = true;
 	});
 	$document.on('click', 'a, button', function(e) {
 		var $source = $(e.target);
@@ -119,7 +138,7 @@ module.exports = (function() {
 		/*} else if ($source.data('hash')) {
 			console.info('TODO show hash '+ $source.data('hash'));*/
 		} else if ($source.data('wouaf') && utils.isValidWouafId($source.data('wouaf'))) {
-			console.info('TODO show wouaf '+ $source.data('wouaf'));
+			map.showResult($source.data('wouaf'));
 		} else if ($source.data('show') == 'modal' && $source.data('href')
 			&& $source.data('href').substr(0, 1) == '/' && $source.data('href').substr(-5) == '.html') {
 			windows.show({href: $source.data('href')});

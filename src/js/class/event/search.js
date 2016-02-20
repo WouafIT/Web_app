@@ -17,6 +17,6 @@ module.exports = (function() {
 		if (__DEV__) {
 			console.info('Search params', params);
 		}
-		query.posts(params, map.setPins);
+		query.posts(params, map.setResults);
 	});
 })();

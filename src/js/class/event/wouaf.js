@@ -102,7 +102,7 @@ module.exports = (function() {
 					confirm: function() {
 						query.deletePost(obj.id, function(result) {
 							if (result && result.result && result.result == 1) {
-								map.removePin(obj.id);
+								map.removeResult(obj.id);
 								toast.show(i18n.t('Your Wouaf is deleted'));
 							} else if (result && result.msg) {
 								toast.show(i18n.t(result.msg[0]));

@@ -157,9 +157,6 @@ var clustermap = function () {
 												   'cat': cat,
 												   'hcmap': hcmap,
 												   'width': width});
-				// Makes the info window go away when clicking anywhere on the Map.
-				google.maps.event.addListener(marker, 'click', function () {
-				});
 
 				marker.setMap(hcmap._map);
 				hcmap._displayedMarkers[_id] = marker;
@@ -309,12 +306,12 @@ clustermap.ClusterMarker.prototype.onAdd = function () {
 		// set the size of the cluster
 		div.innerHTML = '<p style="line-height:' + this._width + 'px">' + this._size + '</p>';
 	}
+	div.setAttribute("data-id", this._ids.join(','));
 	this._div = div;
 	this.getPanes().overlayImage.appendChild(div);
 	if (this._cat) {
 		// create the shadow
 		var shadow = document.createElement('DIV');
-
 		// set its style
 		shadow.className = 'markerShadow';
 		this._shadow = shadow;
@@ -324,7 +321,9 @@ clustermap.ClusterMarker.prototype.onAdd = function () {
 	var me = this;
 	var $document = $(document);
 	google.maps.event.addDomListener(div, 'click', function (e) {
-		e.stopPropagation(); //stop click event propagation
+		if (e) {
+			e.stopPropagation(); //stop click event propagation
+		}
 		var iw = me._hcmap._infowindow;
 		iw.setPosition(me._latlng);
 		iw.setOptions({pixelOffset: new google.maps.Size(0, (me._cat ? -me._width : me._width / -2))});

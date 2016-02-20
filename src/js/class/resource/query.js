@@ -50,8 +50,10 @@ module.exports = (function() {
 	};
     var query = function (params) {
 		for (var i in params.data) {
-			if (params.data[i] === null) {
-				delete params.data[i];
+			if (params.data.hasOwnProperty(i)) {
+				if (params.data[i] === null) {
+					delete params.data[i];
+				}
 			}
 		}
 		var xhr_params = {
@@ -77,11 +79,6 @@ module.exports = (function() {
 		if (__DEV__) {
 			console.info('New query', xhr_params);
 		}
-		/*if (params.method == 'DELETE') {
-			//seems to be a probem with DELETE requests ...
-			xhr_params.type = 'POST';
-			xhr_params.headers['X-HTTP-Method-Override'] = 'DELETE';
-		}*/
 		xhr = $.ajax(xhr_params);
 	};
 	var geocode = function(address, callback) {
@@ -291,7 +288,7 @@ module.exports = (function() {
 				url: 	ENDPOINT + '/wouaf/' + q,
 				data:	null,
 				success:callback,
-				error:	null
+				error:	callback
 			});
 		},
 		init: function(callback) {

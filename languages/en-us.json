@@ -97,6 +97,12 @@
 
 	"Edit your profile": "Edit your profile",
 	"Save your profile": "Save your profile",
+	"Description": "Description",
+	"Describe yourself briefly (300 char. max)": "Describe yourself briefly (300 char. max)",
+	"Choose who you are" : "Choose who you are",
+	"Individual": "Individual",
+	"Company": "Company",
+	"Organization": "Organization",
 	"Firstname": "Firstname",
 	"Lastname": "Lastname",
 	"Choose your gender": "Choose your gender",

@@ -4,6 +4,8 @@ module.exports = (function() {
 	var dtp = require('../resource/datetimepicker.js');
 	var $document = $(document);
 	var $modalWindow = $('#modalWindow');
+	var i18n = require('../resource/i18n.js');
+	var twitterText = require('twitter-text');
 	//email validation. validate mostly RF2822
 	var emailRe = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
 	var self = {};
@@ -14,6 +16,9 @@ module.exports = (function() {
 		var user = require('../resource/user.js');
 		var $form = $modalWindow.find('form');
 		var $username = $form.find('input[name=username]');
+		var $description = $form.find('textarea[name=description]');
+		var $remaining = $form.find('.remaining');
+		var $type = $form.find('select[name=type]');
 		var $firstname = $form.find('input[name=firstname]');
 		var $lastname = $form.find('input[name=lastname]');
 		var $pass = $form.find('input[name=pass]');
@@ -24,6 +29,8 @@ module.exports = (function() {
 		var $signwname = $form.find('input[name=signwname]');
 		//set current values
 		$username.val(user.get('username'));
+		$description.val(user.get('description'));
+		$type.val(user.get('type'));
 		$firstname.val(user.get('firstname'));
 		$lastname.val(user.get('lastname'));
 		$email.val(user.get('email'));
@@ -35,6 +42,16 @@ module.exports = (function() {
 		if (birthdate && birthdate.sec) {
 			dtp.setInputDate($birthdate, new Date(birthdate.sec * 1000));
 		}
+
+		//description count remaining chars
+		$description.on('change keyup paste', function() {
+			var count = 300 - twitterText.getUnicodeTextLength($description.val());
+			if (count < 0) {
+				count = 0;
+				$description.val($description.val().substr(0, 300));
+			}
+			$remaining.html(i18n.t('{{count}} character left', {count: count}));
+		});
 
 		$form.find('input').on('change', function(e) {
 			var $field = $(e.target);
@@ -77,7 +94,6 @@ module.exports = (function() {
 		});
 		$form.on('submit', function (event) {
 			event.preventDefault();
-			var i18n = require('../resource/i18n.js');
 			var alert = require('../resource/alert.js');
 			$form.find('.alert').hide("fast", function() {
 				$(this).remove();
@@ -97,6 +113,8 @@ module.exports = (function() {
 				pass: 			$pass.val(),
 				email: 			$email.val(),
 				lang: 			$language.val(),
+				description:	$description.val(),
+				type:			$type.val(),
 				firstname: 		$firstname.val(),
 				lastname: 		$lastname.val(),
 				gender: 		$gender.val(),
@@ -110,6 +128,8 @@ module.exports = (function() {
 					user.set('gender', $gender.val());
 					user.set('lang', $language.val());
 					user.set('email', $email.val());
+					user.set('description', $description.val());
+					user.set('type', $type.val());
 					user.set('signwname', $signwname.prop("checked") ? 1 : 0);
 
 					var birthdate = dtp.getInputDate($birthdate);
