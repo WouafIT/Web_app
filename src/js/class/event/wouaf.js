@@ -38,17 +38,17 @@ module.exports = (function() {
 
 		var ids = data.ids;
 		if (ids.length === 1) {
-			$document.triggerHandler('navigation.set-state', {state: 'wouaf', value: {'id': ids.join('')}});
+			$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: ids.join('')});
 		}
 		//grab results
 		var results = getResults(ids);
 		var length = results.length;
 		var content = '';
 		if (!length) {
-			$document.triggerHandler('navigation.set-state', {state: 'wouaf', value: null});
+			$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: null});
 			return;
 		} else if (results.length === 1) {
-			$document.triggerHandler('navigation.set-state', {state: 'wouaf', value: {'id': results[0].id}});
+			$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: results[0].id});
 			content = wouaf.getWouaf(results[0]);
 		} else {
 			content = wouaf.getList(results);
@@ -119,7 +119,7 @@ module.exports = (function() {
 				var favs = data.getArray('favorites');
 				if (utils.indexOf(favs, obj.id) === -1) {
 					obj.fav++;
-					$target.replaceWith('<a class="dropdown-item" href="#" data-action="unfavorite"><i class="fa fa-star"></i> Dans vos favoris ('+ obj.fav +')</a>');
+					$target.replaceWith('<a class="dropdown-item" href="#" data-action="unfavorite"><i class="fa fa-star"></i> '+ i18n.t('In your favorites ({{fav}})', {fav: obj.fav}) +'</a>');
 					query.addFavorite(obj.id, function() {
 						toast.show(i18n.t('This Wouaf is added to your favorites'));
 					}, function (msg) {
@@ -136,7 +136,7 @@ module.exports = (function() {
 				var favs = data.getArray('favorites');
 				if (utils.indexOf(favs, obj.id) !== -1) {
 					obj.fav--;
-					$target.replaceWith('<a class="dropdown-item" href="#" data-action="favorite"><i class="fa fa-star-o"></i> Ajouter à vos favoris ('+ obj.fav +')</a>');
+					$target.replaceWith('<a class="dropdown-item" href="#" data-action="favorite"><i class="fa fa-star-o"></i> '+ i18n.t('Add to your favorites ({{fav}})', {fav: obj.fav}) +'</a>');
 					query.removeFavorite(obj.id, function() {
 						toast.show(i18n.t('This Wouaf is removed from your favorites'));
 					}, function (msg) {
@@ -151,6 +151,7 @@ module.exports = (function() {
 					windows.login(i18n.t('Login to contact author'));
 					return;
 				}
+
 				break;
 			case 'comment':
 				if (!uid) { //user is not logged, show login window

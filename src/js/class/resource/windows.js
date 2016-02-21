@@ -1,16 +1,17 @@
 module.exports = (function() {
 	var i18n = require('./i18n.js');
+	var utils = require('../utils.js');
 	var $document = $(document);
 	var $modal = $('#modalWindow');
 	var $modalContent = $modal.find('.modal-content');
 	var self = {};
 	var shown = false;
 	var openHrefModal = function(href) {
-		var htmlRegExp 	= /\/parts\/([a-z-]+).html/;
-		var name 		= htmlRegExp.exec(href);
-
+		if (!utils.isValidPageName(href)) {
+			return;
+		}
 		//Load modal content
-		$.get(href, {v: BUILD_VERSION})
+		$.get('/parts/'+ href +'.html', {v: BUILD_VERSION})
 		.done(function(html) {
 			$modalContent.html(html);
 			var $html = $(html);
@@ -26,18 +27,22 @@ module.exports = (function() {
 		}).fail(function() {
 			console.error(arguments);
 		});
-		$document.triggerHandler('navigation.set-state', {state: 'windows', value: {href: href, name: name[1]}});
+		$document.triggerHandler('navigation.set-state', {name: 'windows', value: href});
 	};
 
 	$modal.on('hidden.bs.modal', function () {
 		$modalContent.html('');
 		shown = false;
-		$document.triggerHandler('navigation.set-state', {state: 'windows', value: null});
+		$document.triggerHandler('navigation.set-state', {name: 'windows', value: null});
 	});
 	$modal.on('show.bs.modal', function (event) {
 		shown = true;
 		var $source = $(event.relatedTarget);
 		if ($source.length && $source.data('href')) {
+			if ($source.attr('href').indexOf('/wouaf/') === -1) {
+				var map = require('./map.js');
+				map.hideResult();
+			}
 			openHrefModal($source.data('href'));
 		}
 	});
@@ -124,12 +129,12 @@ module.exports = (function() {
 	};
 	self.login = function(msg) {
 		self.show({
-			href: '/parts/login.html',
+			href: 'login',
 			open: function () {
 				var alert = require('./alert.js');
 				alert.show(msg, $('.modal-body'), 'danger');
 			}
 		})
-	}
+	};
 	return self;
 })();

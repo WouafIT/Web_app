@@ -42,7 +42,7 @@ module.exports = (function() {
 		var o = Math.round(((parseInt(parseInt(rgb[1], 16)) * 299)
 			+ (parseInt(parseInt(rgb[2], 16)) * 587)
 			+ (parseInt(parseInt(rgb[3], 16)) * 114)) /1000);
-		return (o > 125) ? '#000' : '#FFF';
+		return (o > 125) ? '#373A3C' : '#FFF';
 	};
 	self.getAll = function() {
 		return categories;

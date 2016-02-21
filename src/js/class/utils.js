@@ -215,7 +215,7 @@ module.exports = (function() {
 		return /^[a-f0-9]+$/.test(text);
 	};
 	self.isValidPageName = function (text) {
-		return /^[a-z-]+$/.test(text);
+		return /^[a-z-]+$/.test(text) && text !== 'wouaf';
 	};
 
 	return self;

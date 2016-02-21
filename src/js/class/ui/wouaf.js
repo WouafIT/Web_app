@@ -4,19 +4,14 @@ module.exports = (function() {
 	var utils = require('../utils');
 	var categories = require('../resource/categories.js');
 	var data = require('../resource/data.js');
+	var url = require('../resource/url.js');
 	var dtp = require('../resource/datetimepicker.js');
-
-	var getCurrentPath = function() {
-		var l = window.location;
-		return l.protocol+'//'+l.host+l.pathname;
-	};
 
 	var textToHTML = function(text) {
 		//remove HTML
 		text = utils.escapeHtml(text);
 		//create HTML text content
 		//grab links and tags positions
-		var path = getCurrentPath();
 		var entities = twitterText.extractUrlsWithIndices(text)
 			.concat(twitterText.extractMentionsOrListsWithIndices(text))
 			/*.concat(twitterText.extractHashtagsWithIndices(text, {checkUrlOverlap: false}))*/;
@@ -35,7 +30,7 @@ module.exports = (function() {
 			textContent += text.substr(pos, indices[0] - pos);
 			//entity
 			if (screenName) {
-				textContent += '<a href="'+ path +'user/'+ screenName +'/" data-user="'+ screenName +'">@' + screenName + '</a>';
+				textContent += '<a href="'+ url.getCurrentPathForState({name: 'user', value: screenName}) +'" data-user="'+ screenName +'">@' + screenName + '</a>';
 			/*} else if (hash) { //hash
 				textContent += '<a href="'+ path +'hash/'+ hash +'/" data-hash="'+ hash +'">#' + hash + '</a>';*/
 			} else if (url) { //link
@@ -52,11 +47,11 @@ module.exports = (function() {
 
 	var self = {};
 	self.getWouaf = function (obj) {
-		var path = getCurrentPath();
 		var title = obj.title || obj.text.substr(0, 49) +'…';
 		var text = textToHTML(obj.text);
+		var authorUrl = url.getCurrentPathForState({name: 'user', value: obj.author[1]});
 		var author = i18n.t('By {{author}}', {
-			author: '<a href="'+ path +'user/'+ obj.author[1] +'/" data-user="'+ obj.author[1] +'">'+
+			author: '<a href="'+ authorUrl +'" data-user="'+ obj.author[1] +'">'+
 					utils.escapeHtml(obj.author[2] || obj.author[1]) +'</a>',
 			interpolation: {escape: false}
 		});
@@ -99,36 +94,17 @@ module.exports = (function() {
 			});
 		}
 
-		//console.info(obj, eventLength);
-
-
-
-		/*
-		 Images
-		 Date (du 22 novembre 10:00 au 23 nov. 10:00)
-		 Nombre de favoris (up/downvotes ?)
-
-		 Actions :
-		 - Contacter l'auteur
-		 - Ajouter à vos favoris
-		 - Ajouter un commentaire
-		 - J'aime
-		 - Partage réseaux sociaux (FB, Tw, G+, ...)
-		 - Voir sur Gmap (intérêt ?)
-		 - Aller à cet endroit
-		 - Signaler un contenu abusif
-		 */
 		var uid = data.getString('uid');
 		var favs = data.getArray('favorites');
-		var url = 'https://wouaf.it/wouaf/'+ obj.id +'/';
-		var shareOptions = ' st_url="'+ url +'" st_title="'+ utils.escapeHtml(utils.strip_tags(title)) +' - Wouaf IT" st_image="https://img.wouaf.it/icon.png" st_summary="'+ utils.escapeHtml(utils.strip_tags(text)) +'"';
+		var wouafUrl = url.getAbsoluteURLForState({name: 'wouaf', value: obj.id});
+		var shareOptions = ' st_url="'+ wouafUrl +'" st_title="'+ utils.escapeHtml(utils.strip_tags(title)) +' - Wouaf IT" st_image="'+ url.getAbsoluteURLIcon() +'" st_summary="'+ utils.escapeHtml(utils.strip_tags(text)) +'"';
 		var content = ['<div class="w-container">',
 			'<div class="w-title" style="background-color: ', categories.getColor(obj.cat) ,'; color: '+ categories.getTextColor(obj.cat) +'">', utils.escapeHtml(title),
 				'<div class="w-cat cat', obj.cat ,'"><span>' , categories.getLabel(obj.cat) , '</span> - ', eventLength ,'</div>',
 			'</div>',
 			'<div class="w-menu dropdown" data-id="'+ obj.id +'">',
 				'<button id="dLabel-'+ obj.id +'" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">',
-					'<i class="fa fa-caret-square-o-down"></i>',
+					'<i class="fa fa-cog"></i>',
 				'</button>',
 				'<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel-'+ obj.id +'">',
 				'<div class="dropdown-item">',
@@ -139,20 +115,22 @@ module.exports = (function() {
 					'<span class="st_email_large" displayText="Email"'+ shareOptions +'></span>',
 					'<span class="st_print_large" displayText="Print"'+ shareOptions +'></span>',
 				'</div>',
-
 				(obj.author[0] === uid
-					? '<a class="dropdown-item" href="#" data-action="delete"><i class="fa fa-trash"></i> Supprimer</a>'
-					: '<a class="dropdown-item" href="#" data-action="contact"><i class="fa fa-envelope"></i> Contacter l\'auteur</a>'),
+					? '<a class="dropdown-item" href="#" data-action="delete"><i class="fa fa-trash"></i> '+ i18n.t('Delete') +'</a>'
+					: '<a class="dropdown-item" href="'+ url.getCurrentPathForState({name: 'windows', value: 'contact'}) +'" data-action="contact"><i class="fa fa-envelope"></i> '+ i18n.t('Contact the author') +'</a>'),
 				(uid && utils.indexOf(favs, obj.id) !== -1
-					? '<a class="dropdown-item" href="#" data-action="unfavorite"><i class="fa fa-star"></i> Dans vos favoris ('+ obj.fav +')</a>'
-					: '<a class="dropdown-item" href="#" data-action="favorite"><i class="fa fa-star-o"></i> Ajouter à vos favoris ('+ obj.fav +')</a>'),
-					'<a class="dropdown-item" href="#" data-action="comment"><i class="fa fa-comment"></i> Ajouter un commentaire ('+ obj.com +')</a>',
+					? '<a class="dropdown-item" href="#" data-action="unfavorite"><i class="fa fa-star"></i> '+ i18n.t('In your favorites ({{fav}})', {fav: obj.fav}) +'</a>'
+					: '<a class="dropdown-item" href="#" data-action="favorite"><i class="fa fa-star-o"></i> '+ i18n.t('Add to your favorites ({{fav}})', {fav: obj.fav}) +'</a>'),
+					'<a class="dropdown-item" href="'+ url.getCurrentPathForState({name: 'windows', value: 'comments'}) +'" data-action="comment"><i class="fa fa-comment"></i> '+ i18n.t('Add a comment ({{com}})', {com: obj.com}) +'</a>',
 					/*'<a class="dropdown-item" href="#" data-action="like"><i class="fa fa-heart"></i> Voter pour ce Wouaf</a>',*/
 					'<a class="dropdown-item" href="https://maps.google.com/?q='+ obj.loc[0] +','+ obj.loc[1] +'" target="_blank">',
-						'<i class="fa fa-map"></i> Voir sur Google Map</a>',
+						'<i class="fa fa-map"></i> '+ i18n.t('View on Google Map') +'</a>',
 					'<a class="dropdown-item" href="https://www.google.com/maps/dir//'+ obj.loc[0] +','+ obj.loc[1] +'/" target="_blank">',
-						'<i class="fa fa-location-arrow"></i> Itinéraire vers ce lieu</a>',
-					'<a class="dropdown-item" href="#" data-action="report"><i class="fa fa-ban"></i> Signaler un contenu abusif</a>',
+						'<i class="fa fa-location-arrow"></i> '+ i18n.t('Itinerary to this place') +'</a>',
+					'<a class="dropdown-item" href="#" data-action="report"><i class="fa fa-ban"></i> '+ i18n.t('Report Abuse') +'</a>',
+					/*TODO remove this line*/
+					'<a class="dropdown-item" href="'+ url.getCurrentPathForState({name: 'windows', value: 'contact'}) +'" data-action="contact"><i class="fa fa-envelope"></i> '+ i18n.t('Contact the author') +'</a>',
+
 				'</div>',
 			'</div>',
 			'<div class="w-content">',
@@ -170,6 +148,9 @@ module.exports = (function() {
 					content.push('<a rel="gallery-'+ obj.id +'" href="'+ pic +'" class="swipebox"><img src="'+ thumb +'" height="90" width="90" /></a>');
 				}
 			}
+		}
+		if (obj.com) {
+			content.push('<a href="'+ path +'comments/" class="text-xs-right"><i class="fa fa-comment"></i> '+ i18n.t('{{count}} comment', {count: obj.com}) +'</a>');
 		}
 		content.concat(['</div>',
 				'<div class="w-bottom"></div>',

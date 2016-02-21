@@ -3,6 +3,8 @@ module.exports = (function() {
 	var windows = require('../resource/windows.js');
 	var map = require('../resource/map.js');
 	var utils = require('../utils.js');
+	var data = require('../resource/data.js');
+	var url = require('../resource/url.js');
 	var allowSetState = true;
 	var states = {
 		windows: 	null,
@@ -10,6 +12,7 @@ module.exports = (function() {
 		wouaf:		null,
 		user:		null
 	};
+	data.setObject('navigation', states, true);
 
 	$document.on('navigation.disable-state', function() {
 		allowSetState = false;
@@ -20,49 +23,18 @@ module.exports = (function() {
 		$document.triggerHandler('navigation.set-state');
 	});
 
-	$document.on('navigation.set-state', function(event, data) {
-		if (data) {
-			//check value
-			if (data.value !== null) {
-				switch(data.state) {
-					case 'windows':
-						if (!utils.isValidPageName(data.value.name)) {
-							return;
-						}
-						break;
-					case 'wouaf':
-						if (!utils.isValidWouafId(data.value.id)) {
-							return;
-						}
-						break;
-					case 'user':
-						if (!utils.isValidPageName(data.value)) {
-							return;
-						}
-						break;
-				}
+	$document.on('navigation.set-state', function(event, state) {
+		if (state) {
+			if (!url.isStateValid(state)) {
+				return;
 			}
-			states[data.state] = data.value;
+			states[state.name] = state.value;
+			data.setObject('navigation', states, true);
 		}
 		if (!allowSetState) {
 			return;
 		}
-		var href = '/';
-		if (states.map) {
-			href += '@'+ states.map.center +','+ states.map.zoom +'z/';
-		}
-		if (states.windows) {
-			href += states.windows.name +'/';
-		}
-		if (states.wouaf) {
-			href += 'wouaf/'+ states.wouaf.id +'/';
-		}
-		if (states.user) {
-			href += 'user/'+ states.user +'/';
-		}
-		/*if (states.hash) {
-			href += 'hash/'+ states.hash +'/';
-		}*/
+		var href = url.getPath(states);
 		if (href !== window.location.pathname) {
 			window.history.pushState(states, '', href);
 		}
@@ -73,15 +45,23 @@ module.exports = (function() {
 		if (!states && __DEV__) {
 			console.error('popstate: null state', event);
 		}
+		data.setObject('navigation', states, true);
 		//TODO : handle hash like #wouafs or #search
 		if (states && states.map) {
 			var coordinates = states.map.center.split(',');
 			map.getMap().setCenter({lat: parseFloat(coordinates[0]), lng: parseFloat(coordinates[1])});
 			map.getMap().setZoom(parseInt(states.map.zoom, 10));
 		}
-		if (states && states.windows && states.windows.href
-			&& states.windows.href.substr(0, 1) == '/' && states.windows.href.substr(-5) == '.html') {
-			windows.show({href: states.windows.href});
+		if (states && states.wouaf) {
+			map.showResult(states.wouaf);
+		} else {
+			map.hideResult();
+		}
+		if (states && states.user && !states.windows) {
+			console.info('TODO show user '+ states.user);
+		}
+		if (states && states.windows) {
+			windows.show({href: states.windows});
 		} else {
 			windows.close();
 		}
@@ -116,8 +96,7 @@ module.exports = (function() {
 						console.info('TODO show user '+ part);*/
 					} else if(utils.isValidPageName(part)) {
 						//load queried windows
-						var path = '/parts/'+ part +'.html';
-						windows.show({href: path});
+						windows.show({href: part});
 					}
 				}
 			}
@@ -139,8 +118,7 @@ module.exports = (function() {
 			console.info('TODO show hash '+ $source.data('hash'));*/
 		} else if ($source.data('wouaf') && utils.isValidWouafId($source.data('wouaf'))) {
 			map.showResult($source.data('wouaf'));
-		} else if ($source.data('show') == 'modal' && $source.data('href')
-			&& $source.data('href').substr(0, 1) == '/' && $source.data('href').substr(-5) == '.html') {
+		} else if ($source.data('show') == 'modal' && $source.data('href') && utils.isValidPageName($source.data('href'))) {
 			windows.show({href: $source.data('href')});
 		}
 	});

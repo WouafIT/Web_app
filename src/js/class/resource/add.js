@@ -106,7 +106,7 @@ module.exports = (function() {
 				$addBtn.show();
 				$addOkBtn.popover('hide');
 				hideCrosshair();
-				windows.show({href: '/parts/add.html'});
+				windows.show({href: 'add'});
 			}
 		});
 	};

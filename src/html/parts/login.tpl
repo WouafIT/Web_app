@@ -17,7 +17,7 @@
 		<hr />
 		<h4 class="wouaf-it">{%= o.htmlWebpackPlugin.options.i18n['Wouaf IT account'] %}</h4>
 		<p class="text-xs-center"><button type="button" class="btn btn-primary btn-wrap"
-									   data-href="/parts/create-account.html"
+									   data-href="create-account"
 									   data-show="modal" data-target="#modalWindow">{%= o.htmlWebpackPlugin.options.i18n['New Wouaffer? Create your account!'] %}</button></p>
 		<p>{%= o.htmlWebpackPlugin.options.i18n['Or enter your login'] %}</p>
 		<form>
@@ -42,7 +42,7 @@
 			</div>
 			<p class="text-xs-right"><button type="submit" class="btn btn-primary">{%= o.htmlWebpackPlugin.options.i18n['Login'] %}</button></p>
 			<p class="text-xs-center"><a href="/lost-password/"
-									  data-href="/parts/lost-password.html"
+									  data-href="lost-password"
 									  data-show="modal" data-target="#modalWindow">{%= o.htmlWebpackPlugin.options.i18n['Lost password?'] %}</a></p>
 		</form>
 	</div>

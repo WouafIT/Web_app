@@ -107,6 +107,12 @@ var websites = Object.keys(languages).map(function(language) {
 				data: htmlData,
 				i18n: languageData
 			}),
+			new HtmlWebpackPlugin({
+				filename: 'parts/comments.html',
+				template: 'src/html/parts/comments.tpl',
+				data: htmlData,
+				i18n: languageData
+			}),
 			new CopyWebpackPlugin([
 				{
 					from: '../assets-local'

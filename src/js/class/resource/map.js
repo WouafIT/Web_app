@@ -4,6 +4,7 @@ module.exports = (function () {
 	var i18n = require('./i18n.js');
 	var data = require('./data.js');
 	var toast = require('./toast.js');
+	var utils = require('../utils.js');
 	var self = {};
 	var $document = $(document);
 	var map, infowindow; //GMap elements
@@ -42,7 +43,7 @@ module.exports = (function () {
 		if (hcmap) {
 			hcmap.reset();
 			infowindow.close();
-			$document.triggerHandler('navigation.set-state', {state: 'wouaf', value: null});
+			$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: null});
 		}
 		//save result
 		self.jsonResults = json;
@@ -98,7 +99,7 @@ module.exports = (function () {
 	};
 
 	var showPin = function (id) {
-		if (!id) {
+		if (!id || !utils.isValidWouafId(id)) {
 			return;
 		}
 		//check if result exists in current results
@@ -141,27 +142,28 @@ module.exports = (function () {
 	var openPin = function (obj) {
 		$document.triggerHandler('navigation.disable-state');
 		map.setCenter({lat: obj.loc[0], lng: obj.loc[1]});
-		var zoom = 14;
+		var zoom = map.getZoom();
 		var handleZoom = function(zoom) {
-			google.maps.event.addListenerOnce(map, 'idle', function(){
-				var $pin = $map.find('.baseMarker[data-id="'+ obj.id +'"]');
-				if ($pin.length) {
-					google.maps.event.trigger($pin.get(0), 'click');
-					$document.triggerHandler('navigation.enable-state');
-				} else if (zoom < 21) {
-					zoom++;
-					handleZoom(zoom);
-				} else if (zoom == 21) {
-					var $pin = $map.find('.baseMarker[data-id*="'+ obj.id +'"]');
-					if ($pin.length) {
-						google.maps.event.trigger($pin.get(0), 'click');
-					}
-					$document.triggerHandler('navigation.enable-state');
-				}
-			});
+			google.maps.event.addListenerOnce(map, 'idle', showIW);
 			map.setZoom(zoom);
 		};
-		handleZoom(zoom);
+		var showIW = function(){
+			var $pin = $map.find('.baseMarker[data-id="'+ obj.id +'"]');
+			if ($pin.length) {
+				google.maps.event.trigger($pin.get(0), 'click');
+				$document.triggerHandler('navigation.enable-state');
+			} else if (zoom < 21) {
+				zoom++;
+				handleZoom(zoom);
+			} else if (zoom == 21) {
+				$pin = $map.find('.baseMarker[data-id*="'+ obj.id +'"]');
+				if ($pin.length) {
+					google.maps.event.trigger($pin.get(0), 'click');
+				}
+				$document.triggerHandler('navigation.enable-state');
+			}
+		};
+		showIW();
 	};
 
 	//Custom marker for user location
@@ -273,7 +275,7 @@ module.exports = (function () {
 		var center = map.getCenter();
 		data.setObject('position', center.toJSON());
 		//Precision : ~1.1m
-		$document.triggerHandler('navigation.set-state', {state: 'map', value: {'center': center.toUrlValue(5), 'zoom': zoom}});
+		$document.triggerHandler('navigation.set-state', {name: 'map', value: {'center': center.toUrlValue(5), 'zoom': zoom}});
 
 		//check distance between current center and last search
 		if (self.jsonResults.query) {
@@ -336,10 +338,10 @@ module.exports = (function () {
 			}
 			e.stopPropagation();
 			infowindow.close();
-			$document.triggerHandler('navigation.set-state', {state: 'wouaf', value: null});
+			$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: null});
 		});
-		google.maps.event.addListener(infowindow,'closeclick',function(){
-			$document.triggerHandler('navigation.set-state', {state: 'wouaf', value: null});
+		google.maps.event.addListener(infowindow, 'closeclick', function(){
+			$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: null});
 		});
 
 		//check geolocation support and permissions
@@ -375,6 +377,10 @@ module.exports = (function () {
 		init: init,
 		removeResult: removePin,
 		showResult: showPin,
+		hideResult: function () {
+			infowindow.close();
+			$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: null});
+		},
 		setResults: setPins,
 		getResults: function() {
 			return self.jsonResults;

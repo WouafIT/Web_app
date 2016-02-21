@@ -11,20 +11,20 @@
 		<nav class="nav pull-right">
 			<div class="anonymous">
 				<i class="fa fa-sign-in"></i> <a href="/login/"
-												 data-href="/parts/login.html"
+												 data-href="login"
 												 data-toggle="modal" data-target="#modalWindow">{%= o.htmlWebpackPlugin.options.i18n['Login'] %}</a> |
 				<i class="fa fa-cog"></i> <a href="/parameters/"
-											 data-href="/parts/parameters.html"
+											 data-href="parameters"
 											 data-toggle="modal" data-target="#modalWindow">{%= o.htmlWebpackPlugin.options.i18n['Parameters'] %}</a>
 			</div>
 			<div class="logged" hidden>
 				<a href="/profile/"
-				   data-href="/parts/profile.html"
+				   data-href="profile"
 				   data-toggle="modal" data-target="#modalWindow">
 					<span class="account-name">{%= o.htmlWebpackPlugin.options.i18n['My profile'] %}</span>
 				</a> |
 				<i class="fa fa-cog"></i> <a href="/parameters/"
-											 data-href="/parts/parameters.html"
+											 data-href="parameters"
 											 data-toggle="modal" data-target="#modalWindow">{%= o.htmlWebpackPlugin.options.i18n['Parameters'] %}</a> |
 				<button class="btn btn-link btn-logout" title="{%= o.htmlWebpackPlugin.options.i18n['Logout'] %}"><i class="fa fa-power-off"></i></button>
 			</div>
@@ -113,7 +113,7 @@
 					<p>{%= o.htmlWebpackPlugin.options.i18n['use_wouaf_it_account'] %}</p>
 					<p class="lead text-xs-right">
 						<a class="btn btn-primary btn-lg" href="/login/" role="button"
-						   data-href="/parts/login.html"
+						   data-href="login"
 						   data-toggle="modal" data-target="#modalWindow">{%= o.htmlWebpackPlugin.options.i18n['Login'] %}</a>
 					</p>
 				</div>
@@ -122,9 +122,9 @@
 	</div>
 	<footer class="container">
 		<nav class="nav text-xs-center small">
-			<i class="fa fa-info-circle"></i> <a href="/about/" data-href="/parts/about.html"
+			<i class="fa fa-info-circle"></i> <a href="/about/" data-href="about"
 												 data-toggle="modal" data-target="#modalWindow">{%= o.htmlWebpackPlugin.options.i18n.About %}</a> |
-			<i class="fa fa-envelope"></i> <a href="/contact/" data-href="/parts/contact.html"
+			<i class="fa fa-envelope"></i> <a href="/contact/" data-href="contact"
 											  data-toggle="modal" data-target="#modalWindow">{%= o.htmlWebpackPlugin.options.i18n.Contact %}</a> |
 			<i class="fa fa-twitter"></i> <a href="//twitter.com/wouaf_it" target=_blank">{%= o.htmlWebpackPlugin.options.i18n.Twitter %}</a>
 		</nav>
