@@ -43,7 +43,7 @@ module.exports = (function() {
 				}
 				break;
 			case 'user':
-				if (state.value === null || utils.isValidPageName(state.value)) {
+				if (state.value === null || utils.isValidUsername(state.value)) {
 					return true;
 				}
 				break;

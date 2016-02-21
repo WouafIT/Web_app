@@ -77,6 +77,7 @@
 						<option value="individual">{%= o.htmlWebpackPlugin.options.i18n['Individual'] %}</option>
 						<option value="company">{%= o.htmlWebpackPlugin.options.i18n['Company'] %}</option>
 						<option value="organization">{%= o.htmlWebpackPlugin.options.i18n['Organization'] %}</option>
+						<option value="other">{%= o.htmlWebpackPlugin.options.i18n['Other'] %}</option>
 					</select>
 				</div>
 			</fieldset>

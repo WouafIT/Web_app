@@ -599,7 +599,7 @@ module.exports = (function() {
                 error:  callback
             });
        },
-       contact: function(datas, callback) {
+       contact: function(datas, successCallback, errorCallback) {
             datas.key = KEY;
             datas.uid = data.getString('uid');
             datas.token = data.getString('token');
@@ -607,8 +607,22 @@ module.exports = (function() {
                 method: 'POST',
                 url:    ENDPOINT + '/user/contact/',
                 data:  datas,
-                success:callback,
-                error:  callback
+				success:function (result) {
+					if (result && result.result && result.result == 1) {
+						successCallback(result);
+					} else if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						query.connectionError();
+					}
+				},
+				error:	function (result) {
+					if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						query.connectionError();
+					}
+				}
             });
        },
        deletePost: function(id, successCallback, errorCallback) {

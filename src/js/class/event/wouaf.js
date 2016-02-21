@@ -151,7 +151,10 @@ module.exports = (function() {
 					windows.login(i18n.t('Login to contact author'));
 					return;
 				}
-
+				//show confirm page
+				windows.show({
+					href: 'contact'
+				});
 				break;
 			case 'comment':
 				if (!uid) { //user is not logged, show login window

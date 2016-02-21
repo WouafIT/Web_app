@@ -88,6 +88,7 @@ module.exports = (function() {
 						$document.one('map.show-results', function() {
 							map.showResult(wouafId);
 						});
+						$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: wouafId});
 					} else if (part === 'user' && utils.isValidUsername(part[i + 1])) {
 						part = parts[++i];
 						console.info('TODO show user '+ part);
