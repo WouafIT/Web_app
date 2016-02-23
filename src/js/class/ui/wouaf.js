@@ -121,7 +121,7 @@ module.exports = (function() {
 				(uid && utils.indexOf(favs, obj.id) !== -1
 					? '<a class="dropdown-item" href="#" data-action="unfavorite"><i class="fa fa-star"></i> '+ i18n.t('In your favorites ({{fav}})', {fav: obj.fav}) +'</a>'
 					: '<a class="dropdown-item" href="#" data-action="favorite"><i class="fa fa-star-o"></i> '+ i18n.t('Add to your favorites ({{fav}})', {fav: obj.fav}) +'</a>'),
-					'<a class="dropdown-item" href="'+ url.getCurrentPathForState({name: 'windows', value: 'comments'}) +'" data-action="comment"><i class="fa fa-comment"></i> '+ i18n.t('Add a comment ({{com}})', {com: obj.com}) +'</a>',
+					'<a class="dropdown-item" href="'+ url.getCurrentPathForState({name: 'windows', value: 'comments'}) +'" data-action="comments"><i class="fa fa-comment"></i> '+ i18n.t('Add a comment ({{com}})', {com: obj.com}) +'</a>',
 					/*'<a class="dropdown-item" href="#" data-action="like"><i class="fa fa-heart"></i> Voter pour ce Wouaf</a>',*/
 					'<a class="dropdown-item" href="https://maps.google.com/?q='+ obj.loc[0] +','+ obj.loc[1] +'" target="_blank">',
 						'<i class="fa fa-map"></i> '+ i18n.t('View on Google Map') +'</a>',

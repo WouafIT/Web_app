@@ -2,10 +2,9 @@ module.exports = (function() {
 	var data = require('../resource/data.js');
 	var windows = require('../resource/windows.js');
 	var utils = require('../utils.js');
+	var i18n = require('../resource/i18n.js');
 	var $document = $(document);
 	var $modalWindow = $('#modalWindow');
-	//email validation. validate mostly RF2822
-	var emailRe = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
 	var self = {};
 	self.show = function () {
 		if (data.getString('uid')) { //user already logged, close window
@@ -22,49 +21,29 @@ module.exports = (function() {
 		if (window.location.hostname.substr(0, 5) !== 'fr-fr') {
 			$language.val('en_US');
 		}
-		$form.find('input').on('change', function(e) {
-			var $field = $(e.target);
-			var $fieldset = $field.parents('fieldset');
-			var ok = true;
-			if (!$field.val()) {
-				$field.removeClass('form-control-warning form-control-success');
-				$fieldset.removeClass('has-warning has-success');
-				return;
-			}
+		//form field validation and submition
+		var formUtils = require('./form-utils.js');
+		formUtils.init($form, function ($field) {
+			//fields validation
 			switch($field.attr('name')) {
 				case 'username':
-					ok = $field.val().length >= 3 && $field.val().length <= 100
+					return $field.val().length >= 3 && $field.val().length <= 100
 						&& utils.isValidUsername($field.val());
 					break;
 				case 'pass':
-					ok = $field.val().length >= 6 && $field.val().length <= 100;
+					return $field.val().length >= 6 && $field.val().length <= 100;
 					break;
 				case 'passConfirm':
-					ok = $pass.val() == $field.val();
+					return $pass.val() == $field.val();
 					break;
 				case 'email':
-					ok = emailRe.test($field.val());
+					return utils.isValidEmail($field.val());
 					break;
 			}
-			if (ok) {
-				$field.removeClass('form-control-warning').addClass('form-control-success');
-				$fieldset.removeClass('has-warning').addClass('has-success');
-			} else {
-				$field.removeClass('form-control-success').addClass('form-control-warning');
-				$fieldset.removeClass('has-success').addClass('has-warning');
-			}
-		});
-		$form.on('submit', function (event) {
-			event.preventDefault();
-			var i18n = require('../resource/i18n.js');
+			return true;
+		}, function () {
+			//form submition
 			var alert = require('../resource/alert.js');
-			$form.find('.alert').hide("fast", function() {
-				$(this).remove();
-			});
-			if ($form.find('.has-warning').length) {
-				alert.show(i18n.t('There are errors in your form'), $form);
-				return;
-			}
 			if (!$username.val() || !$pass.val()
 				|| !$email.val() || !$language.val() || !$passConfirm.val()) {
 				alert.show(i18n.t('Your form is incomplete, thank you to fill all fields'), $form);
@@ -106,6 +85,6 @@ module.exports = (function() {
 				alert.show(i18n.t('An error has occurred, please try again later {{error}}', {error: i18n.t(msg[0])}), $form, 'danger');
 			});
 		});
-	}
+	};
 	return self;
 })();

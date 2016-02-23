@@ -599,14 +599,14 @@ module.exports = (function() {
                 error:  callback
             });
        },
-       contact: function(datas, successCallback, errorCallback) {
-            datas.key = KEY;
-            datas.uid = data.getString('uid');
-            datas.token = data.getString('token');
-            query({
-                method: 'POST',
-                url:    ENDPOINT + '/user/contact/',
-                data:  datas,
+		contactUser: function(datas, successCallback, errorCallback) {
+			datas.key = KEY;
+			datas.uid = data.getString('uid');
+			datas.token = data.getString('token');
+			query({
+				method: 'POST',
+				url:    ENDPOINT + '/user/contact/',
+				data:  datas,
 				success:function (result) {
 					if (result && result.result && result.result == 1) {
 						successCallback(result);
@@ -623,9 +623,35 @@ module.exports = (function() {
 						query.connectionError();
 					}
 				}
-            });
-       },
-       deletePost: function(id, successCallback, errorCallback) {
+			});
+		},
+		contact: function(datas, successCallback, errorCallback) {
+			datas.key = KEY;
+			datas.uid = data.getString('uid');
+			datas.token = data.getString('token');
+			query({
+				method: 'POST',
+				url:    ENDPOINT + '/contact/',
+				data:  datas,
+				success:function (result) {
+					if (result && result.result && result.result == 1) {
+						successCallback(result);
+					} else if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						query.connectionError();
+					}
+				},
+				error:	function (result) {
+					if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						query.connectionError();
+					}
+				}
+			});
+		},
+		deletePost: function(id, successCallback, errorCallback) {
             var datas = {
                 key: KEY,
                 uid: data.getString('uid'),

@@ -13,7 +13,6 @@
 				<span aria-hidden="true">&times;</span>
 				<span class="sr-only">{%= o.htmlWebpackPlugin.options.i18n['Close'] %}</span>
 			</button>
-			<div class="alert-content"></div>
 		</div>
 		<form>
 			<fieldset class="form-group">

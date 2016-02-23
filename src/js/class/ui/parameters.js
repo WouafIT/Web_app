@@ -52,9 +52,13 @@ module.exports = (function() {
 			$commentsNotifications.attr('disabled', true);
 		}
 
-		$form.on('submit', function (event) {
-			event.preventDefault();
-
+		//form field validation and submition
+		var formUtils = require('./form-utils.js');
+		formUtils.init($form, function ($field) {
+			//fields validation
+			return true;
+		}, function () {
+			//form submition
 			data.setString('unit', $unit.val());
 			data.setInt('radius', $radius.val());
 
@@ -70,6 +74,6 @@ module.exports = (function() {
 			var toast = require('../resource/toast.js');
 			toast.show(i18n.t('Settings saved!'));
 		});
-	}
+	};
 	return self;
 })();

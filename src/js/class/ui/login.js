@@ -1,6 +1,7 @@
 module.exports = (function() {
 	var data = require('../resource/data.js');
 	var windows = require('../resource/windows.js');
+	var i18n = require('../resource/i18n.js');
 	var toast = require('../resource/toast.js');
 	var $document = $(document);
 	var $modalWindow = $('#modalWindow');
@@ -14,45 +15,25 @@ module.exports = (function() {
 		var $pass = $form.find('input[name=password]');
 		var $remember = $form.find('input[name=remember]');
 
-		$form.find('input').on('change', function(e) {
-			var $field = $(e.target);
-			var $fieldset = $field.parents('fieldset');
-			var ok = true;
-			if (!$field.val()) {
-				$field.removeClass('form-control-warning form-control-success');
-				$fieldset.removeClass('has-warning has-success');
-				return;
-			}
+		//form field validation and submition
+		var formUtils = require('./form-utils.js');
+		formUtils.init($form, function ($field) {
+			//fields validation
 			switch($field.attr('name')) {
 				case 'username':
-					ok = $field.val().length >= 3 && $field.val().length <= 100;
+					return $field.val().length >= 3 && $field.val().length <= 100;
 					break;
 				case 'password':
-					ok = $field.val().length >= 6 && $field.val().length <= 100;
+					return $field.val().length >= 6 && $field.val().length <= 100;
 					break;
 			}
-			if (ok) {
-				$field.removeClass('form-control-warning').addClass('form-control-success');
-				$fieldset.removeClass('has-warning').addClass('has-success');
-			} else {
-				$field.removeClass('form-control-success').addClass('form-control-warning');
-				$fieldset.removeClass('has-success').addClass('has-warning');
-			}
-		});
-		$form.on('submit', function (event) {
-			event.preventDefault()
-			var i18n = require('../resource/i18n.js');
+			return true;
+		}, function () {
+			//form submition
 			var alert = require('../resource/alert.js');
-			$form.find('.alert').hide("fast", function() {
-				$(this).remove();
-			});
-			if ($form.find('.has-warning').length) {
-				alert.show(i18n.t('There are errors in your form'), $form);
-				return false;
-			}
 			if (!$username.val() || !$pass.val()) {
 				alert.show(i18n.t('Your form is incomplete, thank you to fill all fields'), $form);
-				return false;
+				return;
 			}
 
 			//Query
@@ -80,9 +61,7 @@ module.exports = (function() {
 					query.connectionError();
 				}
 			});
-
-
 		});
-	}
+	};
 	return self;
 })();

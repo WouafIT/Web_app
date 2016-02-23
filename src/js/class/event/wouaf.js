@@ -151,16 +151,20 @@ module.exports = (function() {
 					windows.login(i18n.t('Login to contact author'));
 					return;
 				}
-				//show confirm page
+				//show contact page
 				windows.show({
 					href: 'contact'
 				});
 				break;
-			case 'comment':
+			case 'comments':
 				if (!uid) { //user is not logged, show login window
 					windows.login(i18n.t('Login to comment a wouaf'));
 					return;
 				}
+				//show comments page
+				windows.show({
+					href: 'comments'
+				});
 				break;
 			/*case 'like':
 				if (!uid) { //user is not logged, show login window

@@ -174,19 +174,18 @@ module.exports = (function() {
 			}
 		});
 
-		$form.on('submit', function (event) {
-			event.preventDefault();
+
+		//form field validation and submition
+		var formUtils = require('./form-utils.js');
+		formUtils.init($form, function ($field) {
+			//fields validation
+			return true;
+		}, function () {
+			//form submition
 			var alert = require('../resource/alert.js');
-			$form.find('.alert').hide("fast", function() {
-				$(this).remove();
-			});
-			if ($form.find('.has-warning').length) {
-				alert.show(i18n.t('There are errors in your form'), $form);
-				return false;
-			}
 			if (!$content.val()) {
 				alert.show(i18n.t('Your form is incomplete, thank you to fill at least the content field'), $form);
-				return false;
+				return;
 			}
 			//images
 			var validImages = [];

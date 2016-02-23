@@ -13,7 +13,6 @@
 				<span aria-hidden="true">&times;</span>
 				<span class="sr-only">{%= o.htmlWebpackPlugin.options.i18n['Close'] %}</span>
 			</button>
-			<div class="alert-content"></div>
 		</div>
 		<form>
 			<div class="text-xs-right"><small class="text-muted help"><i class="fa fa-question-circle"></i> {%= o.htmlWebpackPlugin.options.i18n['Need help'] %}</small></div>

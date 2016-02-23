@@ -9,7 +9,7 @@ module.exports = (function() {
 					   '<span aria-hidden="true">&times;</span>'+
 					   '<span class="sr-only">'+ i18n.t('Close') +'</span>'+
 					   '</button>'+
-					   '<p>'+ i18n.t(text) +'</p>'+
+					   '<p>'+ text +'</p>'+
 					   '</div>');
 		$parent.prepend($alert);
 		$('#modalWindow').animate({

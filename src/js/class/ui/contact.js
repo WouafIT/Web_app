@@ -7,11 +7,13 @@ module.exports = (function() {
 	var toast = require('../resource/toast.js');
 	var twitterText = require('twitter-text');
 	var query = require('../resource/query.js');
-	var $document = $(document);
 	var $modalWindow = $('#modalWindow');
 
 	self.show = function () {
 		var states = data.getObject('navigation');
+		var $form = $modalWindow.find('form');
+		var $email = $form.find('input[name=email]');
+		$email.parents('.form-group').hide().removeAttr('hidden');
 		if (states.wouaf && utils.isValidWouafId(states.wouaf)) {
 			//contact wouaf author
 			if (!data.getString('uid')) { //user is not logged, close window
@@ -20,33 +22,38 @@ module.exports = (function() {
 			}
 			query.post(states.wouaf, function (result) {
 				var title = result.wouaf.title || result.wouaf.text.substr(0, 49) +'…';
-				$modalWindow.find('h4').html(i18n.t('Contacter un auteur'));
-				$modalWindow.find('.contact-details').html(i18n.t('Utilisez le formulaire ci-dessous pour contacter {{author}}, auteur du Wouaf "{{title}}"', {title: title, author: result.wouaf.author[2] || result.wouaf.author[1]}));
+				$modalWindow.find('h4').html(i18n.t('Contact an author'));
+				$modalWindow.find('.contact-details').html(i18n.t('Use the form below to contact {{author}}, author of Wouaf {{title}}', {title: title, author: result.wouaf.author[2] || result.wouaf.author[1]}));
 				handleForm(result.wouaf.author[0], result.wouaf.id);
 			}, function () {
 				windows.close();
 				var toast = require('../resource/toast.js');
-				toast.show(i18n.t('Une erreur est survenue, impossible de contacter l\'auteur de ce Wouaf ...'));
+				toast.show(i18n.t('An error has occurred, you can not contact the author of this Wouaf'));
 			});
 		} else if (states.user && utils.isValidUsername(states.user)) {
+			//TODO ? contact user
+			windows.close();
 			//contact user
-			if (!data.getString('uid')) { //user is not logged, close window
+			/*if (!data.getString('uid')) { //user is not logged, close window
 				windows.login(i18n.t('Login to contact a user'));
 				return;
 			}
 			query.user(states.user, function (result) {
-				$modalWindow.find('h4').html(i18n.t('Contacter un utilisateur'));
-				$modalWindow.find('.contact-details').html(i18n.t('Utilisez le formulaire ci-dessous pour contacter {{user}}', {user: user}));
-				handleForm(result.wouaf.author[0], result.wouaf.id);
+				$modalWindow.find('h4').html(i18n.t('Contact a user'));
+				$modalWindow.find('.contact-details').html(i18n.t('Use the form below to contact {{user}}', {user: user}));
+				handleForm(result.user.uid);
 			}, function () {
 				windows.close();
 				var toast = require('../resource/toast.js');
-				toast.show(i18n.t('Une erreur est survenue, impossible de contacter cet utilisateur ...'));
-			});
+				toast.show(i18n.t('An error has occurred, you can not contact this user'));
+			});*/
 		} else {
 			//contact Wouaf IT
-			$modalWindow.find('h4').html(i18n.t('Contacter Wouaf IT'));
-			$modalWindow.find('.contact-details').html(i18n.t('Utilisez le formulaire ci-dessous pour nous contacter. Tous les champs sont obligatoires.'));
+			$modalWindow.find('h4').html(i18n.t('Contact Wouaf IT'));
+			$modalWindow.find('.contact-details').html(i18n.t('Use the form below to contact us. All fields are mandatory'));
+			if (!data.getString('uid')) {
+				$email.parents('.form-group').show();
+			}
 			handleForm();
 		}
 	};
@@ -54,19 +61,57 @@ module.exports = (function() {
 		var $form = $modalWindow.find('form');
 		var $remaining = $form.find('.remaining');
 		var $content = $form.find('textarea[name=content]');
+		var $email = $form.find('input[name=email]');
 
 		//content count remaining chars
 		$content.on('change keyup paste', function() {
-			var count = 300 - twitterText.getUnicodeTextLength($content.val());
+			var count = 1000 - twitterText.getUnicodeTextLength($content.val());
 			if (count < 0) {
 				count = 0;
-				$content.val($content.val().substr(0, 2000));
+				$content.val($content.val().substr(0, 1000));
 			}
 			$remaining.html(i18n.t('{{count}} character left', {count: count}));
 		});
 
+		//form field validation and submition
+		var formUtils = require('./form-utils.js');
+		formUtils.init($form, function ($field) {
+			//fields validation
+			switch($field.attr('name')) {
+				case 'email':
+					return utils.isValidEmail($field.val());
+					break;
+			}
+			return true;
+		}, function () {
+			//form submition
+			var alert = require('../resource/alert.js');
+			var emailMandatory = (!recipientId && !wouafId && !data.getString('uid'));
+			if (!$content.val() || (emailMandatory && !$email.val())) {
+				alert.show(i18n.t('Your form is incomplete, thank you to fill all the fields'), $form);
+				return;
+			}
+			if (recipientId && wouafId) { //contact wouaf author
+				query.contactUser({
+					text:       $content.val(),
+					contact:    recipientId,
+					id:         wouafId
+				}, function(result) {
+
+				}, function(result) {
+
+				});
+			} else {
+				query.contact({ //contact wouaf it
+					text:       $content.val(),
+					email:    	$email.val()
+				}, function(result) {
+
+				}, function(result) {
+
+				});
+			}
+		});
 	};
-
-
 	return self;
 })();

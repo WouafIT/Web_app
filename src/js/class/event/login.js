@@ -2,6 +2,7 @@ module.exports = (function() {
 	var data = require('../resource/data.js');
 	var windows = require('../resource/windows.js');
 	var i18n = require('../resource/i18n.js');
+	var utils = require('../utils.js');
 	var $document = $(document);
 
 	//logout event : reset all user infos
@@ -60,6 +61,6 @@ module.exports = (function() {
 		if (firstname && lastname) {
 			username = firstname +' '+ lastname;
 		}
-		$('.account-name').html('<img src="'+ gravatar +'" /> '+ username).attr('title', i18n.t('Welcome {{username}}', { 'username': username }));
+		$('.account-name').html('<img src="'+ gravatar +'" /> '+ utils.escapeHtml(username)).attr('title', i18n.t('Welcome {{username}}', {'username': username}));
 	});
 })();

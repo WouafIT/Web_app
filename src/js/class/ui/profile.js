@@ -6,8 +6,6 @@ module.exports = (function() {
 	var $modalWindow = $('#modalWindow');
 	var i18n = require('../resource/i18n.js');
 	var twitterText = require('twitter-text');
-	//email validation. validate mostly RF2822
-	var emailRe = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
 	var self = {};
 	self.show = function (e) {
 		if (!data.getString('uid')) { //user is not logged, close window
@@ -53,58 +51,41 @@ module.exports = (function() {
 			$remaining.html(i18n.t('{{count}} character left', {count: count}));
 		});
 
-		$form.find('input').on('change', function(e) {
-			var $field = $(e.target);
-			var $fieldset = $field.parents('fieldset');
-			var ok = true;
-			if (!$field.val()) {
-				$field.removeClass('form-control-warning form-control-success');
-				$fieldset.removeClass('has-warning has-success');
-			}
+		//form field validation and submition
+		var formUtils = require('./form-utils.js');
+		formUtils.init($form, function ($field) {
+			//fields validation
 			switch($field.attr('name')) {
 				case 'email':
-					ok = emailRe.test($field.val());
+					return utils.isValidEmail($field.val());
 					break;
 				case 'firstname':
 				case 'lastname':
-					ok = $field.val().length <= 100;
+					var r = $field.val().length <= 100;
 					$signwname.attr('disabled', !$firstname.val() && !$lastname.val());
 					if ($signwname.prop('disabled')) {
 						$signwname.attr('checked', false);
 					}
+					return r;
 					break;
 				case 'pass':
-					ok = !$field.val() || ($field.val().length >= 6 && $field.val().length <= 100);
+					return !$field.val() || ($field.val().length >= 6 && $field.val().length <= 100);
 					break;
 				case 'passConfirm':
-					ok = $pass.val() == $field.val();
+					return $pass.val() == $field.val();
 					break;
 				case 'birthdate':
 					var date = dtp.getInputDate($birthdate);
-					ok = !date || date.getTime() < (new Date().getTime());
+					return !date || date.getTime() < (new Date().getTime());
 					break;
 			}
-			if (ok) {
-				$field.removeClass('form-control-warning').addClass('form-control-success');
-				$fieldset.removeClass('has-warning').addClass('has-success');
-			} else {
-				$field.removeClass('form-control-success').addClass('form-control-warning');
-				$fieldset.removeClass('has-success').addClass('has-warning');
-			}
-		});
-		$form.on('submit', function (event) {
-			event.preventDefault();
+			return true;
+		}, function () {
+			//form submition
 			var alert = require('../resource/alert.js');
-			$form.find('.alert').hide("fast", function() {
-				$(this).remove();
-			});
-			if ($form.find('.has-warning').length) {
-				alert.show(i18n.t('There are errors in your form'), $form);
-				return false;
-			}
 			if (!$email.val() || !$language.val()) {
 				alert.show(i18n.t('Your form is incomplete, thank you to fill all fields'), $form);
-				return false;
+				return;
 			}
 
 			//Query
@@ -145,6 +126,6 @@ module.exports = (function() {
 				alert.show(i18n.t('An error has occurred, please try again later {{error}}', {error: i18n.t(msg[0])}), $form, 'danger');
 			});
 		});
-	}
+	};
 	return self;
 })();

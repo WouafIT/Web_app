@@ -217,6 +217,11 @@ module.exports = (function() {
 	self.isValidPageName = function (text) {
 		return /^[a-z-]+$/.test(text) && text !== 'wouaf';
 	};
+	self.isValidEmail = function (email) {
+		//email validation. validate mostly RF2822
+		var emailRe = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+		return emailRe.test(email);
+	};
 
 	return self;
 })();
