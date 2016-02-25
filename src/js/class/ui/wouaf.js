@@ -46,7 +46,8 @@ module.exports = (function() {
 	};
 
 	var self = {};
-	self.getWouaf = function (obj) {
+	self.getWouaf = function (obj, collapse) {
+		collapse = collapse || false;
 		var title = obj.title || obj.text.substr(0, 49) +'…';
 		var text = textToHTML(obj.text);
 		var authorUrl = url.getCurrentPathForState({name: 'user', value: obj.author[1]});
@@ -93,18 +94,32 @@ module.exports = (function() {
 				for: eventLength
 			});
 		}
+		switch (obj.state) {
+			case 'post':
+				eventLength = i18n.t('Upcoming') +'<br />'+ eventLength;
+				break;
+			case 'past':
+				eventLength = i18n.t('Gone') +'<br />'+ eventLength;
+				break;
+			case 'current':
+				eventLength = i18n.t('Currently') +'<br />'+ eventLength;
+				break;
+		}
 
 		var uid = data.getString('uid');
 		var favs = data.getArray('favorites');
 		var wouafUrl = url.getAbsoluteURLForState({name: 'wouaf', value: obj.id});
 		var shareOptions = ' st_url="'+ wouafUrl +'" st_title="'+ utils.escapeHtml(utils.strip_tags(title)) +' - Wouaf IT" st_image="'+ url.getAbsoluteURLIcon() +'" st_summary="'+ utils.escapeHtml(utils.strip_tags(text)) +'"';
-		var content = ['<div class="w-container">',
-			'<div class="w-title" style="background-color: ', categories.getColor(obj.cat) ,'; color: '+ categories.getTextColor(obj.cat) +'">', utils.escapeHtml(title),
+		var content = ['<div data-id="'+ obj.id +'"',
+			 	(collapse ? ' class="panel panel-default w-container">' : ' class="w-container">'),
+			'<div',
+				(collapse ? ' data-toggle="collapse" data-parent=".w-accordion" data-target="#collapse-'+ obj.id +'" class="panel-title collapsed w-title"' : ' class="w-title"'),
+				' style="background-color: ', categories.getColor(obj.cat) ,'; color: '+ categories.getTextColor(obj.cat) +'">', utils.escapeHtml(title),
 				'<div class="w-cat cat', obj.cat ,'"><span>' , categories.getLabel(obj.cat) , '</span> - ', eventLength ,'</div>',
 			'</div>',
-			'<div class="w-menu dropdown" data-id="'+ obj.id +'">',
+			'<div class="w-menu dropdown">',
 				'<button id="dLabel-'+ obj.id +'" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">',
-					'<i class="fa fa-cog"></i>',
+					'<i class="fa fa-cog"></i> '+ i18n.t('Menu'),
 				'</button>',
 				'<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel-'+ obj.id +'">',
 				'<div class="dropdown-item">',
@@ -133,10 +148,12 @@ module.exports = (function() {
 
 				'</div>',
 			'</div>',
-			'<div class="w-content">',
+			'<div',
+				(collapse ? ' id="collapse-'+ obj.id +'" class="panel-collapse collapse w-content">' : ' class="w-content">'),
 				'<div class="w-subTitle">', author ,'</div>',
 					'<p>', text ,'</p>'];
 		if (obj.pics.length) {
+			content.push('<div class="w-pics">');
 			var pic, thumb;
 			for(var i = 0, l = obj.pics.length; i < l; i++) {
 				pic = obj.pics[i];
@@ -148,17 +165,21 @@ module.exports = (function() {
 					content.push('<a rel="gallery-'+ obj.id +'" href="'+ pic +'" class="swipebox"><img src="'+ thumb +'" height="90" width="90" /></a>');
 				}
 			}
+			content.push('</div>');
 		}
-		if (obj.com) {
-			content.push('<a href="'+ path +'comments/" class="text-xs-right"><i class="fa fa-comment"></i> '+ i18n.t('{{count}} comment', {count: obj.com}) +'</a>');
-		}
-		content.concat(['</div>',
-				'<div class="w-bottom"></div>',
+		content = content.concat(['<a href="'+ url.getCurrentPathForState({name: 'windows', value: 'comments'}) +'" class="w-comments" data-action="comments"><i class="fa fa-comment"></i> '+
+							(obj.com ? i18n.t('{{count}} comment', {count: obj.com}) : i18n.t('Add a comment', {count: obj.com})) +'</a>',
+				'</div>',
 			'</div>']);
 		return content.join('');
 	};
 	self.getList = function(list) {
-		return '';
+		var content = ['<div class="w-accordion">'];
+		for(var i = 0, l = list.length; i < l; i++) {
+			content.push(self.getWouaf(list[i], true));
+		}
+		content.push('</div>');
+		return content.join('');
 	};
 
 	return self;

@@ -197,6 +197,10 @@
 	"at {{at}}": "at {{at}}",
 	"From {{from}} to {{to}}": "From {{from}} to {{to}}",
 	"On {{on}} for {{for}}": "For {{for}} from {{on}}",
+	"Upcoming": "Upcoming",
+	"Gone": "Gone",
+	"Currently": "Currently",
+	"Menu": "Menu",
 
 	"Delete your Wouaf": "Delete your Wouaf?",
 	"delete_details": "Do you confirm the permanent deletion of this Wouaf and all associated comments?\nYou can not go back!",
@@ -215,6 +219,7 @@
 	"View on Google Map": "View on Google Map",
 	"Itinerary to this place": "Itinerary to this place",
 	"Report Abuse": "Report Abuse",
+	"Add a comment": "Add a comment?",
 	"{{count}} comment": "{{count}} comment",
 	"{{count}} comment_plural": "{{count}} comments",
 	"Send your message": "Send your message",

@@ -1,6 +1,4 @@
 .w-container {
-	margin-bottom: 10px;
-
 	.w-title {
 		font-weight: bold;
 		font-size: 0.8rem;
@@ -10,17 +8,28 @@
 		margin: 0;
 		border-radius: 2px 2px 0 0;
 		line-height: 1.8;
+
+		&.panel-title {
+			cursor: pointer;
+		}
+		&.collapsed + .w-menu {
+			display: none;
+		}
 	}
 	.w-menu {
 		position: absolute;
 		right: 0.2rem;
+		/*
+		position: relative;
+		float: right;
+		
+		*/
 		margin-top: 0.25rem;
 
 		button {
 			border: 0;
 			background-color: fade(@white, 50%);
 			color: @green;
-			font-size: 1.2em;
 		}
 	}
 	.w-content {
@@ -31,6 +40,20 @@
 		max-height: 15rem;
 		overflow-y: auto;
 		overflow-x: hidden;
+	}
+	.w-comments{
+		float: right;
+	}
+	.w-subTitle {
+		font-size: 0.8rem;
+		font-weight: 700;
+		padding: 0 0 5px 0;
+	}
+	.w-pics {
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: space-around;
+		margin-bottom: 5px;
 
 		img {
 			margin: 0 3px;
@@ -39,11 +62,6 @@
 		a:hover img {
 			box-shadow: 0 1px 10px @dark-grey;
 		}
-	}
-	.w-subTitle {
-		font-size: 0.8rem;
-		font-weight: 700;
-		padding: 5px 0;
 	}
 
 	.w-cat {
@@ -84,16 +102,19 @@
 		background-image: url('../img/cat/8.png');
 	}
 }
-.gm-style-iw {
+.w-accordion {
+	margin-bottom: 1px;
+	/*max-height: 400px;
+	overflow-y: auto;*/
+
 	.w-container {
-		.w-bottom {
-			position: absolute;
-			width: 326px;
-			height: 25px;
-			bottom: 10px;
-			right: 18px;
-			background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
-		}
+		border-bottom: 1px solid #FFF;
+	}
+	.panel:not(:first-child) .w-title {
+		border-radius: 0;
+	}
+	.panel:last-child .w-title.collapsed {
+		border-radius: 0 0 10px 10px;
 	}
 }
 

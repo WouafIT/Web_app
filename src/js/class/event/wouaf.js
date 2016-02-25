@@ -57,7 +57,9 @@ module.exports = (function() {
 		data.iw.setContent(content);
 		data.iw.open(data.map);
 		//refresh sharethis content
-		if (window.stButtons){stButtons.locateElements();}
+		if (window.stButtons){
+			stButtons.locateElements();
+		}
 	});
 
 	//Swipebox
@@ -77,14 +79,14 @@ module.exports = (function() {
 	});
 
 	//Wouaf Actions
-	$document.on('click', 'a.dropdown-item', function(e) {
+	$document.on('click', 'a.dropdown-item, a.w-comments', function(e) {
 		var data = require('../resource/data.js');
 		var $target = $(e.target);
 		if (!$target.data('action')) {
 			return;
 		}
 		e.preventDefault();
-		var id = $target.parents('.w-menu').data('id');
+		var id = $target.parents('.w-container').data('id');
 		var obj = getResults([id])[0] || null;
 		if (!obj) {
 			return;
