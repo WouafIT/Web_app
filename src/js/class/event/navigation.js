@@ -43,6 +43,7 @@ module.exports = (function() {
 	$(window).on('popstate', function(event) {
 		states = event.originalEvent.state;
 		if (!states && __DEV__) {
+			//append maybe on click on a link with empty anchor (href="#")
 			console.error('popstate: null state', event);
 		}
 		data.setObject('navigation', states, true);

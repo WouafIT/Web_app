@@ -50,13 +50,17 @@ var clustermap = function () {
 			// cluster the map coordinates
 			this._tree = figue.agglomerate(labels, this._vectors, figue.EUCLIDIAN_DISTANCE, this._linkageType);
 			this._zoom_changed_listener = google.maps.event.addListener(this._map, "zoom_changed", function () {
+				$document.triggerHandler('menu.close');
 				thishcmap._infowindow.close();
 				$document.triggerHandler('history.set-state', {state: 'wouaf', value: null});
 				updateNodes(thishcmap);
 				updateMarkers(thishcmap, true);
 			});
 
-			this._bounds_changed_listener = google.maps.event.addListener(this._map, "dragend", function () {
+			this._bounds_changed_listener_start = google.maps.event.addListener(this._map, "dragstart", function () {
+				$document.triggerHandler('menu.close');
+			});
+			this._bounds_changed_listener_end = google.maps.event.addListener(this._map, "dragend", function () {
 				updateMarkers(thishcmap);
 			});
 			updateNodes(thishcmap);
@@ -243,11 +247,14 @@ var clustermap = function () {
 }();
 
 clustermap.HCMap.prototype.reset = function () {
-	if (this._bounds_changed_listener) {
-		google.maps.event.removeListener(this._bounds_changed_listener);
-		this._bounds_changed_listener = null;
+	if (this._bounds_changed_listener_start) {
+		google.maps.event.removeListener(this._bounds_changed_listener_start);
+		this._bounds_changed_listener_start = null;
 	}
-
+	if (this._bounds_changed_listener_end) {
+		google.maps.event.removeListener(this._bounds_changed_listener_end);
+		this._bounds_changed_listener_end = null;
+	}
 	if (this._zoom_changed_listener) {
 		google.maps.event.removeListener(this._zoom_changed_listener);
 		this._zoom_changed_listener = null;

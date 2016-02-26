@@ -333,14 +333,16 @@ module.exports = (function () {
 		});
 		// Event that closes the Info Window with a click on the map
 		google.maps.event.addDomListener($map.get(0), 'click', function(e) {
-			if ((e.target && $(e.target).parents('.gm-iw-parent').length) || $('.sb-active').length) {
+			if ((e.target && $(e.target).parents('.w-menu-dropdown, .gm-iw-parent').length) || $('.sb-active').length) {
 				return;
 			}
 			e.stopPropagation();
+			$document.triggerHandler('menu.close');
 			infowindow.close();
 			$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: null});
 		});
 		google.maps.event.addListener(infowindow, 'closeclick', function(){
+			$document.triggerHandler('menu.close');
 			$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: null});
 		});
 
@@ -382,8 +384,27 @@ module.exports = (function () {
 			$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: null});
 		},
 		setResults: setPins,
-		getResults: function() {
-			return self.jsonResults;
+		getResults: function(ids) {
+			ids = ids || [];
+			if (!self.jsonResults.count || !self.jsonResults.results) {
+				return [];
+			}
+			if (!ids || !ids.length) {
+				//return all results
+				return self.jsonResults;
+			}
+			//grab results
+			var results = [];
+			for(var i = 0, l = self.jsonResults.results.length; i < l; i++) {
+				var result = self.jsonResults.results[i];
+				if (utils.indexOf(ids, result.id) !== -1) {
+					results.push(result);
+					if (results.length == ids.length) {
+						return results;
+					}
+				}
+			}
+			return results;
 		},
 		getMap: function() {
 			return map;

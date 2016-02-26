@@ -1,55 +1,14 @@
 module.exports = (function() {
 	var i18n = require('../resource/i18n.js');
-	var twitterText = require('twitter-text');
 	var utils = require('../utils');
 	var categories = require('../resource/categories.js');
-	var data = require('../resource/data.js');
 	var url = require('../resource/url.js');
 	var dtp = require('../resource/datetimepicker.js');
-
-	var textToHTML = function(text) {
-		//remove HTML
-		text = utils.escapeHtml(text);
-		//create HTML text content
-		//grab links and tags positions
-		var entities = twitterText.extractUrlsWithIndices(text)
-			.concat(twitterText.extractMentionsOrListsWithIndices(text))
-			/*.concat(twitterText.extractHashtagsWithIndices(text, {checkUrlOverlap: false}))*/;
-		if (entities.length) {
-			twitterText.removeOverlappingEntities(entities);
-		}
-
-		var pos = 0;
-		var textContent = '';
-		for (var i = 0, l = entities.length; i < l; i++) {
-			//var hash = entities[i].hashtag;
-			var screenName = entities[i].screenName;
-			var url = entities[i].url;
-			var indices = entities[i].indices;
-			//text before entity
-			textContent += text.substr(pos, indices[0] - pos);
-			//entity
-			if (screenName) {
-				textContent += '<a href="'+ url.getCurrentPathForState({name: 'user', value: screenName}) +'" data-user="'+ screenName +'">@' + screenName + '</a>';
-			/*} else if (hash) { //hash
-				textContent += '<a href="'+ path +'hash/'+ hash +'/" data-hash="'+ hash +'">#' + hash + '</a>';*/
-			} else if (url) { //link
-				textContent += '<a href="'+ (url.substr(0, 4) != 'http' ? 'http://' : '') + url +'" target="_blank">' + url + '</a>';
-			}
-			pos = indices[1];
-		}
-		if (pos != text.length) {
-			//text after entities
-			textContent += text.substr(pos, text.length - pos);
-		}
-		return textContent.replace(/\r?\n/g, "<br />");
-	};
-
 	var self = {};
 	self.getWouaf = function (obj, collapse) {
 		collapse = collapse || false;
 		var title = obj.title || obj.text.substr(0, 49) +'…';
-		var text = textToHTML(obj.text);
+		var text = utils.textToHTML(obj.text);
 		var authorUrl = url.getCurrentPathForState({name: 'user', value: obj.author[1]});
 		var author = i18n.t('By {{author}}', {
 			author: '<a href="'+ authorUrl +'" data-user="'+ obj.author[1] +'">'+
@@ -59,9 +18,6 @@ module.exports = (function() {
 		//state
 		var time = new Date();
 		obj.state = (obj.date[0].sec * 1000) > time.getTime() ? 'post' : ((obj.date[1].sec * 1000) < time.getTime() ? 'past' : 'current');
-		if (obj.state != 'current') {
-			//todo
-		}
 		//length
 		var start = new Date();
 		start.setTime(obj.date[0].sec * 1000);
@@ -106,10 +62,6 @@ module.exports = (function() {
 				break;
 		}
 
-		var uid = data.getString('uid');
-		var favs = data.getArray('favorites');
-		var wouafUrl = url.getAbsoluteURLForState({name: 'wouaf', value: obj.id});
-		var shareOptions = ' st_url="'+ wouafUrl +'" st_title="'+ utils.escapeHtml(utils.strip_tags(title)) +' - Wouaf IT" st_image="'+ url.getAbsoluteURLIcon() +'" st_summary="'+ utils.escapeHtml(utils.strip_tags(text)) +'"';
 		var content = ['<div data-id="'+ obj.id +'"',
 			 	(collapse ? ' class="panel panel-default w-container">' : ' class="w-container">'),
 			'<div',
@@ -117,39 +69,11 @@ module.exports = (function() {
 				' style="background-color: ', categories.getColor(obj.cat) ,'; color: '+ categories.getTextColor(obj.cat) +'">', utils.escapeHtml(title),
 				'<div class="w-cat cat', obj.cat ,'"><span>' , categories.getLabel(obj.cat) , '</span> - ', eventLength ,'</div>',
 			'</div>',
-			'<div class="w-menu dropdown">',
-				'<button id="dLabel-'+ obj.id +'" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">',
-					'<i class="fa fa-cog"></i> '+ i18n.t('Menu'),
-				'</button>',
-				'<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel-'+ obj.id +'">',
-				'<div class="dropdown-item">',
-					'<span class="st_sharethis_large" displayText="ShareThis"'+ shareOptions +'></span>',
-					'<span class="st_facebook_large" displayText="Facebook"'+ shareOptions +'></span>',
-					'<span class="st_twitter_large" displayText="Tweet"'+ shareOptions +'></span>',
-					'<span class="st_reddit_large" displayText="Reddit"'+ shareOptions +'></span>',
-					'<span class="st_email_large" displayText="Email"'+ shareOptions +'></span>',
-					'<span class="st_print_large" displayText="Print"'+ shareOptions +'></span>',
-				'</div>',
-				(obj.author[0] === uid
-					? '<a class="dropdown-item" href="#" data-action="delete"><i class="fa fa-trash"></i> '+ i18n.t('Delete') +'</a>'
-					: '<a class="dropdown-item" href="'+ url.getCurrentPathForState({name: 'windows', value: 'contact'}) +'" data-action="contact"><i class="fa fa-envelope"></i> '+ i18n.t('Contact the author') +'</a>'),
-				(uid && utils.indexOf(favs, obj.id) !== -1
-					? '<a class="dropdown-item" href="#" data-action="unfavorite"><i class="fa fa-star"></i> '+ i18n.t('In your favorites ({{fav}})', {fav: obj.fav}) +'</a>'
-					: '<a class="dropdown-item" href="#" data-action="favorite"><i class="fa fa-star-o"></i> '+ i18n.t('Add to your favorites ({{fav}})', {fav: obj.fav}) +'</a>'),
-					'<a class="dropdown-item" href="'+ url.getCurrentPathForState({name: 'windows', value: 'comments'}) +'" data-action="comments"><i class="fa fa-comment"></i> '+ i18n.t('Add a comment ({{com}})', {com: obj.com}) +'</a>',
-					/*'<a class="dropdown-item" href="#" data-action="like"><i class="fa fa-heart"></i> Voter pour ce Wouaf</a>',*/
-					'<a class="dropdown-item" href="https://maps.google.com/?q='+ obj.loc[0] +','+ obj.loc[1] +'" target="_blank">',
-						'<i class="fa fa-map"></i> '+ i18n.t('View on Google Map') +'</a>',
-					'<a class="dropdown-item" href="https://www.google.com/maps/dir//'+ obj.loc[0] +','+ obj.loc[1] +'/" target="_blank">',
-						'<i class="fa fa-location-arrow"></i> '+ i18n.t('Itinerary to this place') +'</a>',
-					'<a class="dropdown-item" href="#" data-action="report"><i class="fa fa-ban"></i> '+ i18n.t('Report Abuse') +'</a>',
-					/*TODO remove this line*/
-					'<a class="dropdown-item" href="'+ url.getCurrentPathForState({name: 'windows', value: 'contact'}) +'" data-action="contact"><i class="fa fa-envelope"></i> '+ i18n.t('Contact the author') +'</a>',
-
-				'</div>',
-			'</div>',
 			'<div',
 				(collapse ? ' id="collapse-'+ obj.id +'" class="panel-collapse collapse w-content">' : ' class="w-content">'),
+				'<button class="w-menu" data-id="'+ obj.id +'" type="button">',
+					'<i class="fa fa-cog"></i> '+ i18n.t('Menu'),
+				'</button>',
 				'<div class="w-subTitle">', author ,'</div>',
 					'<p>', text ,'</p>'];
 		if (obj.pics.length) {

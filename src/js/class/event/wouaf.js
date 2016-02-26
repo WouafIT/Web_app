@@ -5,43 +5,17 @@ module.exports = (function() {
 	var query = require('../resource/query.js');
 	var toast = require('../resource/toast.js');
 	var wouaf = require('../ui/wouaf.js');
-	var utils = require('../utils');
+	var menu = require('../ui/menu.js');
+	var utils = require('../utils.js');
 	var $document = $(document);
-
-	var getResults = function(ids) {
-		var mapResults = map.getResults();
-		if (!mapResults.count || !mapResults.results) {
-			return [];
-		}
-		//grab results
-		var results = [];
-		for(var i = 0, l = mapResults.results.length; i < l; i++) {
-			var result = mapResults.results[i];
-			if (utils.indexOf(ids, result.id) !== -1) {
-				results.push(result);
-				if (results.length == ids.length) {
-					return results;
-				}
-			}
-		}
-		return results;
-	};
 
 	$document.on('app.wouaf-show', function(e, data) {
 		if (!data.ids) {
 			return;
 		}
-		var mapResults = map.getResults();
-		if (!mapResults.count || !mapResults.results) {
-			return;
-		}
-
 		var ids = data.ids;
-		if (ids.length === 1) {
-			$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: ids.join('')});
-		}
 		//grab results
-		var results = getResults(ids);
+		var results = map.getResults(ids);
 		var length = results.length;
 		var content = '';
 		if (!length) {
@@ -56,10 +30,6 @@ module.exports = (function() {
 		// Set infoWindow content
 		data.iw.setContent(content);
 		data.iw.open(data.map);
-		//refresh sharethis content
-		if (window.stButtons){
-			stButtons.locateElements();
-		}
 	});
 
 	//Swipebox
@@ -78,6 +48,16 @@ module.exports = (function() {
 		$.swipebox(galleryImg, {hideBarsDelay: 0, loopAtEnd: true, initialIndexOnArray: initialIndex });
 	});
 
+	//Menu
+	$document.on('click', 'button.w-menu', function(e) {
+		e.preventDefault();
+		if (menu.shown()) {
+			menu.close();
+		} else {
+			menu.show($(this));
+		}
+	});
+
 	//Wouaf Actions
 	$document.on('click', 'a.dropdown-item, a.w-comments', function(e) {
 		var data = require('../resource/data.js');
@@ -86,8 +66,8 @@ module.exports = (function() {
 			return;
 		}
 		e.preventDefault();
-		var id = $target.parents('.w-container').data('id');
-		var obj = getResults([id])[0] || null;
+		var id = $target.parents('.w-menu-dropdown, .w-container').data('id');
+		var obj = map.getResults([id])[0] || null;
 		if (!obj) {
 			return;
 		}

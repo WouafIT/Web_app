@@ -1,4 +1,6 @@
 .w-container {
+	clear: both;
+
 	.w-title {
 		font-weight: bold;
 		font-size: 0.8rem;
@@ -12,34 +14,21 @@
 		&.panel-title {
 			cursor: pointer;
 		}
-		&.collapsed + .w-menu {
-			display: none;
-		}
 	}
 	.w-menu {
-		position: absolute;
-		right: 0.2rem;
-		/*
+		padding-right: 0;
 		position: relative;
 		float: right;
-		
-		*/
-		margin-top: 0.25rem;
-
-		button {
-			border: 0;
-			background-color: fade(@white, 50%);
-			color: @green;
-		}
+		border: 0;
+		background-color: fade(@white, 50%);
+		color: @green;
+		top: -2px;
 	}
 	.w-content {
 		line-height: 1.1rem;
 		font-weight: 400;
 		margin-right: 1px;
 		padding: 0.4rem 0.6rem 0.2rem 0.6rem;
-		max-height: 15rem;
-		overflow-y: auto;
-		overflow-x: hidden;
 	}
 	.w-comments{
 		float: right;
@@ -103,9 +92,8 @@
 	}
 }
 .w-accordion {
-	margin-bottom: 1px;
-	/*max-height: 400px;
-	overflow-y: auto;*/
+	max-height: 400px;
+	overflow-y: auto;
 
 	.w-container {
 		border-bottom: 1px solid #FFF;
@@ -116,6 +104,11 @@
 	.panel:last-child .w-title.collapsed {
 		border-radius: 0 0 10px 10px;
 	}
+}
+.w-menu-dropdown {
+	position: absolute;
+	display: block;
+	font-size: 0.9rem;
 }
 
 #swipebox-bottom-bar, #swipebox-top-bar {
