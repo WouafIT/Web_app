@@ -25,11 +25,37 @@ module.exports = (function() {
 			$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: results[0].id});
 			content = wouaf.getWouaf(results[0]);
 		} else {
+			$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: null});
 			content = wouaf.getList(results);
 		}
 		// Set infoWindow content
 		data.iw.setContent(content);
 		data.iw.open(data.map);
+	});
+	var expanding = false;
+	$document.on('show.bs.collapse', '.w-accordion', function (e) {
+		expanding = true;
+	});
+	$document.on('shown.bs.collapse', '.w-accordion', function (e) {
+		expanding = false;
+		var $target = $(e.target);
+		if (!$target.length) {
+			return;
+		}
+		var id = $target.parent().data('id');
+		if (!id) {
+			return;
+		}
+		if ($target.hasClass('in')) {
+			$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: id});
+		} else {
+			$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: null});
+		}
+	});
+	$document.on('hidden.bs.collapse', '.w-accordion', function (e) {
+		if (!expanding) {
+			$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: null});
+		}
 	});
 
 	//Swipebox

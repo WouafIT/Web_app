@@ -32,6 +32,7 @@
 	}
 	.w-comments{
 		float: right;
+		margin-bottom: 5px;
 	}
 	.w-subTitle {
 		font-size: 0.8rem;
@@ -94,9 +95,14 @@
 .w-accordion {
 	max-height: 400px;
 	overflow-y: auto;
+	margin-bottom: -4px;
 
 	.w-container {
 		border-bottom: 1px solid #FFF;
+
+		&:last-child {
+			border-bottom: none;
+		}
 	}
 	.panel:not(:first-child) .w-title {
 		border-radius: 0;

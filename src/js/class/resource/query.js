@@ -293,14 +293,14 @@ module.exports = (function() {
 					} else if (result && result.msg) {
 						errorCallback(result.msg);
 					} else {
-						query.connectionError();
+						connectionError();
 					}
 				},
 				error:	function (result) {
 					if (result && result.msg) {
 						errorCallback(result.msg);
 					} else {
-						query.connectionError();
+						connectionError();
 					}
 				}
 			});
@@ -385,14 +385,14 @@ module.exports = (function() {
 					} else if (result && result.msg) {
 						errorCallback(result.msg);
 					} else {
-						query.connectionError();
+						connectionError();
 					}
 				},
 				error:	function (result) {
 					if (result && result.msg) {
 						errorCallback(result.msg);
 					} else {
-						query.connectionError();
+						connectionError();
 					}
 				}
             });
@@ -409,14 +409,14 @@ module.exports = (function() {
 					} else if (result && result.msg) {
 						errorCallback(result.msg);
 					} else {
-						query.connectionError();
+						connectionError();
 					}
 				},
 				error:	function (result) {
 					if (result && result.msg) {
 						errorCallback(result.msg);
 					} else {
-						query.connectionError();
+						connectionError();
 					}
 				}
 			});
@@ -435,14 +435,14 @@ module.exports = (function() {
 					} else if (result && result.msg) {
 						errorCallback(result.msg);
 					} else {
-						query.connectionError();
+						connectionError();
 					}
 				},
 				error:	function (result) {
 					if (result && result.msg) {
 						errorCallback(result.msg);
 					} else {
-						query.connectionError();
+						connectionError();
 					}
 				}
 			});
@@ -492,14 +492,14 @@ module.exports = (function() {
 					} else if (result && result.msg) {
 						errorCallback(result.msg);
 					} else {
-						query.connectionError();
+						connectionError();
 					}
 				},
 				error:	function (result) {
 					if (result && result.msg) {
 						errorCallback(result.msg);
 					} else {
-						query.connectionError();
+						connectionError();
 					}
 				}
 			});
@@ -521,14 +521,14 @@ module.exports = (function() {
 					} else if (result && result.msg) {
 						errorCallback(result.msg);
 					} else {
-						query.connectionError();
+						connectionError();
 					}
 				},
 				error:	function (result) {
 					if (result && result.msg) {
 						errorCallback(result.msg);
 					} else {
-						query.connectionError();
+						connectionError();
 					}
 				}
 			});
@@ -550,14 +550,14 @@ module.exports = (function() {
 					} else if (result && result.msg) {
 						errorCallback(result.msg);
 					} else {
-						query.connectionError();
+						connectionError();
 					}
 				},
 				error:	function (result) {
 					if (result && result.msg) {
 						errorCallback(result.msg);
 					} else {
-						query.connectionError();
+						connectionError();
 					}
 				}
 			});
@@ -613,14 +613,14 @@ module.exports = (function() {
 					} else if (result && result.msg) {
 						errorCallback(result.msg);
 					} else {
-						query.connectionError();
+						connectionError();
 					}
 				},
 				error:	function (result) {
 					if (result && result.msg) {
 						errorCallback(result.msg);
 					} else {
-						query.connectionError();
+						connectionError();
 					}
 				}
 			});
@@ -639,14 +639,14 @@ module.exports = (function() {
 					} else if (result && result.msg) {
 						errorCallback(result.msg);
 					} else {
-						query.connectionError();
+						connectionError();
 					}
 				},
 				error:	function (result) {
 					if (result && result.msg) {
 						errorCallback(result.msg);
 					} else {
-						query.connectionError();
+						connectionError();
 					}
 				}
 			});
@@ -668,14 +668,14 @@ module.exports = (function() {
 					} else if (result && result.msg) {
 						errorCallback(result.msg);
 					} else {
-						query.connectionError();
+						connectionError();
 					}
 				},
 				error:	function (result) {
 					if (result && result.msg) {
 						errorCallback(result.msg);
 					} else {
-						query.connectionError();
+						connectionError();
 					}
 				}
             });
@@ -697,14 +697,14 @@ module.exports = (function() {
 					} else if (result && result.msg) {
 						errorCallback(result.msg);
 					} else {
-						query.connectionError();
+						connectionError();
 					}
 				},
 				error:	function (result) {
 					if (result && result.msg) {
 						errorCallback(result.msg);
 					} else {
-						query.connectionError();
+						connectionError();
 					}
 				}
             });
