@@ -224,7 +224,7 @@ module.exports = (function() {
 				var toast = require('../resource/toast.js');
 				toast.show(i18n.t('Your Wouaf is added'));
 			}, function(msg) { //error
-				alert.show(i18n.t('An error has occurred, please try again later {{error}}', {error: i18n.t(msg[0])}), $form, 'danger');
+				alert.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), $form, 'danger');
 			});
 		});
 	};

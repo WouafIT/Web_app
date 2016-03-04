@@ -113,7 +113,7 @@ module.exports = (function() {
 								map.removeResult(obj.id);
 								toast.show(i18n.t('Your Wouaf is deleted'));
 							}, function (msg) { //error
-								toast.show(i18n.t('An error has occurred, please try again later {{error}}', {error: i18n.t(msg[0])}));
+								toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
 							}
 						);
 					}
@@ -131,7 +131,7 @@ module.exports = (function() {
 					query.addFavorite(obj.id, function() {
 						toast.show(i18n.t('This Wouaf is added to your favorites'));
 					}, function (msg) {
-						toast.show(i18n.t('An error has occurred, please try again later {{error}}', {error: i18n.t(msg[0])}));
+						toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
 					});
 					favs.push(obj.id);
 					data.setArray('favorites', favs);
@@ -148,7 +148,7 @@ module.exports = (function() {
 					query.removeFavorite(obj.id, function() {
 						toast.show(i18n.t('This Wouaf is removed from your favorites'));
 					}, function (msg) {
-						toast.show(i18n.t('An error has occurred, please try again later {{error}}', {error: i18n.t(msg[0])}));
+						toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
 					});
 					delete favs[utils.indexOf(favs, obj.id)];
 					data.setArray('favorites', favs);
@@ -194,7 +194,7 @@ module.exports = (function() {
 							function(result) {
 								toast.show(i18n.t('This Wouaf has been reported'));
 							}, function (msg) {
-								toast.show(i18n.t('An error has occurred, please try again later {{error}}', {error: i18n.t(msg[0])}));
+								toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
 							}
 						);
 					}

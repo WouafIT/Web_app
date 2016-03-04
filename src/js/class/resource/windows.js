@@ -25,7 +25,9 @@ module.exports = (function() {
 				}
 			}
 		}).fail(function() {
-			console.error(arguments);
+			self.close();
+			var query = require('./query.js');
+			query.connectionError();
 		});
 		$document.triggerHandler('navigation.set-state', {name: 'windows', value: href});
 	};

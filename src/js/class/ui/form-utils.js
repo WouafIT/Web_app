@@ -2,7 +2,7 @@ module.exports = (function() {
 	var i18n = require('../resource/i18n.js');
 	var self = {};
 	self.init = function($form, fieldsValidation, formSubmit) {
-		$form.find('input, select, textarea').on('change', function(e) {
+		$form.find('input, select').on('change', function(e) {
 			var $field = $(e.target);
 			var $fieldset = $field.parents('fieldset');
 			if (!$field.val()) {

@@ -50,16 +50,20 @@ module.exports = (function() {
 		}
 		return false;
 	};
+	self.getCurrentPath = function () {
+		var states = data.getObject('navigation');
+		return self.getPath(states);
+	};
 	self.getCurrentPathForState = function (state) {
 		var states = data.getObject('navigation');
-		if (self.isStateValid(state)) {
+		if (state && self.isStateValid(state)) {
 			states[state.name] = state.value;
 		}
 		return self.getPath(states);
 	};
 	self.getAbsoluteURLForState = function (state) {
 		var states = {};
-		if (self.isStateValid(state)) {
+		if (state && self.isStateValid(state)) {
 			states[state.name] = state.value;
 		}
 		var path = self.getPath(states);

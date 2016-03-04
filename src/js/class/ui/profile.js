@@ -103,6 +103,7 @@ module.exports = (function() {
 				signwname:		($signwname.prop("checked") ? 1 : 0)
 
 			}, function(result) { //success
+				var originalLanguage = user.get('lang');
 				user.set('firstname', $firstname.val());
 				user.set('lastname', $lastname.val());
 				user.set('gender', $gender.val());
@@ -121,9 +122,18 @@ module.exports = (function() {
 				windows.close();
 
 				var toast = require('../resource/toast.js');
-				toast.show(i18n.t('Profile saved!'));
+				toast.show(i18n.t('Profile saved!'), null, function () {
+					if (originalLanguage != user.get('lang')) {
+						var lang = user.get('lang').toLowerCase().replace('_', '-');
+						var url = require('../resource/url.js');
+						var newHostname = lang + window.location.hostname.substr(5);
+						if (newHostname != window.location.hostname) {
+							window.location = window.location.protocol +'//'+ newHostname + url.getCurrentPath();
+						}
+					}
+				});
 			}, function(msg) { //error
-				alert.show(i18n.t('An error has occurred, please try again later {{error}}', {error: i18n.t(msg[0])}), $form, 'danger');
+				alert.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), $form, 'danger');
 			});
 		});
 	};

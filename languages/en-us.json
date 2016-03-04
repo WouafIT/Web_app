@@ -124,7 +124,8 @@
 	"Logout_details": "You are disconnected from Wouaf IT. See you soon!",
 	"Error_": "Error...",
 	"Error_details {{status}} {{error}}": "An error occurred during loading. Please try again later.\n{{status}} {{error}}",
-	"An error has occurred, please try again later {{error}}": "Une erreur est survenue, merci de rééssayer plus tard.\n{{error}}",
+	"An error has occurred: {{error}}": "An error has occurred:\n{{error}}",
+	"Connexion error. Are you connected to the Internet? Please try again later": "Connexion error. Are you connected to the Internet?\nPlease try again later...",
 
 	"Application settings": "Application settings",
 	"Search settings": "Search settings",
@@ -244,5 +245,7 @@
 	"Login to contact author": "Login to contact the author of this Wouaf!",
 	"Login to comment a wouaf": "Login to write a comment for this Wouaf!",
 	"Login to like a wouaf": "Login to vote for this Wouaf!",
-	"Login to report a wouaf": "Login to report this Wouaf!"
+	"Login to report a wouaf": "Login to report this Wouaf!",
+
+	"Login already exist.": "This login already exists."
 }

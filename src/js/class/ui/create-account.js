@@ -71,7 +71,7 @@ module.exports = (function() {
 					//logout
 					$document.triggerHandler('app.logout');
 					if (msg) {
-						alert.show(i18n.t('An error has occurred, please try again later {{error}}', {error: i18n.t(msg[0])}), $form, 'danger');
+						alert.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), $form, 'danger');
 					} else {
 						query.connectionError();
 					}
@@ -82,7 +82,7 @@ module.exports = (function() {
 					'text': i18n.t('welcome_to_wouaf_it')
 				});
 			}, function(msg) { //error
-				alert.show(i18n.t('An error has occurred, please try again later {{error}}', {error: i18n.t(msg[0])}), $form, 'danger');
+				alert.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), $form, 'danger');
 			});
 		});
 	};

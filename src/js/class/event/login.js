@@ -2,6 +2,7 @@ module.exports = (function() {
 	var data = require('../resource/data.js');
 	var windows = require('../resource/windows.js');
 	var i18n = require('../resource/i18n.js');
+	var url = require('../resource/url.js');
 	var utils = require('../utils.js');
 	var $document = $(document);
 
@@ -34,8 +35,8 @@ module.exports = (function() {
 
 	//login event : set interface for user login
 	$document.on('app.login', function(event, params) {
+		var permanent = (params && params.permanent === true) || data.getBool('permanent') === true;
 		if(params) {
-			var permanent = (params.permanent === true || data.getBool('permanent') === true);
 			data.setBool('permanent', permanent);
 			data.setString('uid', params.uid, !permanent);
 			data.setString('token', params.token, !permanent);
@@ -50,6 +51,18 @@ module.exports = (function() {
 		$('.logged').removeAttr('hidden');
 
 		var user = require('../resource/user.js');
+
+		//check for language
+		var userLanguage = user.get('lang');
+		var currentLanguage = window.location.hostname.substr(0, 5);
+		if (permanent && userLanguage && currentLanguage != userLanguage) {
+			var lang = userLanguage.toLowerCase().replace('_', '-');
+			var newHostname = lang + window.location.hostname.substr(5);
+			if (newHostname != window.location.hostname) {
+				window.location = window.location.protocol +'//'+ newHostname + window.location.pathname;
+			}
+		}
+
 		//TODO : get Facebook or G+ avatars instead of gravatar, if user login with oauth2
 
 		//get gravatar

@@ -4,9 +4,10 @@ module.exports = (function() {
 	$toast.hide().removeAttr('hidden');
 	var $toastContent = $toast.find('> div');
 	var self = {};
-	self.show = function(text, delay) {
-		delay = delay || 2000;
-		$toastContent.html('<p>'+ text +'</p>').parent().fadeIn().delay(delay).fadeOut();
+	self.show = function(text, delay, callback) {
+		delay = delay || 2500;
+		callback = callback || function() {};
+		$toastContent.html('<p>'+ text +'</p>').parent().fadeIn().delay(delay).fadeOut({complete: callback});
 	};
 	return self;
 })();

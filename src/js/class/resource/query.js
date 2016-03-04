@@ -35,18 +35,9 @@ module.exports = (function() {
 	// Better ====>>> http://open.mapquestapi.com/staticmap/
 	
 	var connectionError = function() {
-		//check if last alert append in the last 2 seconds
-		/*var now = new Date();
-		if (data.getInt('connectionAlert') > 0) {
-			if (now.getTime() - data.getInt('connectionAlert') > 2000) {
-				var notification =  require('ui/components/notification');
-				new notification(L('error_connecting_to_server_verify_that_your_device_is_properly_connected_and_try_again_later'));
-			}
-		} else {
-			utils.alert(L('error_connecting_to_server_verify_that_your_device_is_properly_connected_and_try_again_later'));
-		}
-		 data.setInt('connectionAlert', now.getTime());*/
-		//alert('connectionError');
+		var toast = require('./toast.js');
+		var i18n = require('./i18n.js');
+		toast.show(i18n.t('Connexion error. Are you connected to the Internet? Please try again later'), 5000);
 	};
     var query = function (params) {
 		for (var i in params.data) {
