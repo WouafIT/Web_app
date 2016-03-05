@@ -8,12 +8,6 @@
 	</div>
 	<div class="modal-body">
 		<h4>{%= o.htmlWebpackPlugin.options.i18n['Fill in the form below:'] %}</h4>
-		<div class="alert alert-warning alert-dismissible fade in" role="alert" hidden>
-			<button type="button" class="close" data-dismiss="alert" aria-label="{%= o.htmlWebpackPlugin.options.i18n['Close'] %}">
-				<span aria-hidden="true">&times;</span>
-				<span class="sr-only">{%= o.htmlWebpackPlugin.options.i18n['Close'] %}</span>
-			</button>
-		</div>
 		<form>
 			<div class="text-xs-right"><small class="text-muted help"><i class="fa fa-question-circle"></i> {%= o.htmlWebpackPlugin.options.i18n['Need help'] %}</small></div>
 

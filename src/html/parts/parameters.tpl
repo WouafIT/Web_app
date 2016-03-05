@@ -8,12 +8,6 @@
 	</div>
 	<div class="modal-body">
 		<h4>{%= o.htmlWebpackPlugin.options.i18n['Search settings'] %}</h4>
-		<div class="alert alert-warning alert-dismissible fade in" role="alert" hidden>
-			<button type="button" class="close" data-dismiss="alert" aria-label="{%= o.htmlWebpackPlugin.options.i18n['Close'] %}">
-				<span aria-hidden="true">&times;</span>
-				<span class="sr-only">{%= o.htmlWebpackPlugin.options.i18n['Close'] %}</span>
-			</button>
-		</div>
 		<form>
 			<fieldset class="form-group">
 				<label for="radius">{%= o.htmlWebpackPlugin.options.i18n['Search radius'] %}</label>

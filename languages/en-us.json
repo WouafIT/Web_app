@@ -247,5 +247,10 @@
 	"Login to like a wouaf": "Login to vote for this Wouaf!",
 	"Login to report a wouaf": "Login to report this Wouaf!",
 
-	"Login already exist.": "This login already exists."
+	"Login already exist.": "This login already exists.",
+
+	"Activate your user account": "Activate your user account",
+	"Your activation key": "Enter your activation key",
+	"Activate your account": "Activate your account",
+	"Account activated!": "Your account is activated!\nYou can login."
 }

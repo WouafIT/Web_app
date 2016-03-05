@@ -113,6 +113,12 @@ var websites = Object.keys(languages).map(function(language) {
 				data: htmlData,
 				i18n: languageData
 			}),
+			new HtmlWebpackPlugin({
+				filename: 'parts/activation.html',
+				template: 'src/html/parts/activation.tpl',
+				data: htmlData,
+				i18n: languageData
+			}),
 			new CopyWebpackPlugin([
 				{
 					from: '../assets-local'
@@ -141,7 +147,17 @@ websites.push({
 				{
 					from: '../assets-root'
 				}
-			])
+			]),
+		  (process.env.NODE_ENV === 'dev' ?
+			  new CopyWebpackPlugin([
+			  {
+				  from: '../assets-dev'
+			  }
+		  ]) :  new CopyWebpackPlugin([
+			  {
+				  from: '../assets-prod'
+			  }
+		  ]))
 	  ]
 });
 

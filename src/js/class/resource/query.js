@@ -451,6 +451,30 @@ module.exports = (function() {
                 error:  callback
             });
         },
+		activateUser: function(datas, successCallback, errorCallback) {
+			datas.key = KEY;
+			query({
+				method: 'POST',
+				url: 	ENDPOINT + '/user/activation/',
+				data:	datas,
+				success:function (result) {
+					if (result && result.result && result.result == 1) {
+						successCallback(result);
+					} else if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						connectionError();
+					}
+				},
+				error:	function (result) {
+					if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						connectionError();
+					}
+				}
+			});
+		},
         userPosts: function(uid, callback) {
             var q = '?key=' + KEY + '&uid=' + uid;
             query({

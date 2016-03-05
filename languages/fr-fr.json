@@ -247,5 +247,10 @@
 	"Login to like a wouaf": "Connectez-vous pour pouvoir voter pour ce Wouaf !",
 	"Login to report a wouaf": "Connectez-vous pour pouvoir signaler ce Wouaf !",
 
-	"Login already exist.": "Cet identifiant existe déjà."
+	"Login already exist.": "Cet identifiant existe déjà.",
+
+	"Activate your user account": "Activer votre compte utilisateur",
+	"Your activation key": "Saisissez votre clé d'activation",
+	"Activate your account": "Activer votre compte",
+	"Account activated!": "Votre compte est activé !\nVous pouvez vous connecter."
 }

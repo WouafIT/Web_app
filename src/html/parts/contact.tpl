@@ -7,12 +7,6 @@
         <h4 class="modal-title"></h4>
     </div>
     <div class="modal-body">
-		<div class="alert alert-warning alert-dismissible fade in" role="alert" hidden>
-			<button type="button" class="close" data-dismiss="alert" aria-label="{%= o.htmlWebpackPlugin.options.i18n['Close'] %}">
-				<span aria-hidden="true">&times;</span>
-				<span class="sr-only">{%= o.htmlWebpackPlugin.options.i18n['Close'] %}</span>
-			</button>
-		</div>
 		<form>
 			<p class="contact-details"></p>
 			<fieldset class="form-group" hidden>
