@@ -12,8 +12,7 @@ module.exports = (function() {
 		}
 		if (states.user) {
 			href += 'user/'+ states.user +'/';
-		}
-		if (states.windows) {
+		} else if (states.windows) {
 			href += states.windows +'/';
 		}
 		/*if (states.hash) {

@@ -125,6 +125,7 @@
 	"Error_": "Error...",
 	"Error_details {{status}} {{error}}": "An error occurred during loading. Please try again later.\n{{status}} {{error}}",
 	"An error has occurred: {{error}}": "An error has occurred:\n{{error}}",
+	"An error has occurred, unknown user {{username}}": "An error has occurred:\nUser {{username}} is unknown.",
 	"Connexion error. Are you connected to the Internet? Please try again later": "Connexion error. Are you connected to the Internet?\nPlease try again later...",
 
 	"Application settings": "Application settings",

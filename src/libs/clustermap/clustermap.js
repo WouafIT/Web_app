@@ -33,7 +33,7 @@ var clustermap = function () {
 		var labels = [];
 		if (this._elements.length > 0) {
 			var projection = this._map.getProjection();
-			if (projection === 'undefined') {
+			if (!projection || typeof projection === 'undefined') {
 				return;
 			}
 

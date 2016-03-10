@@ -412,6 +412,29 @@ module.exports = (function() {
 				}
 			});
 		},
+		getUser: function(user, successCallback, errorCallback) {
+			var q = '?key=' + KEY + '&user=' + user;
+			query({
+				method: 'GET',
+				url:    ENDPOINT + '/user/' + q,
+				success:function (result) {
+					if (result && result.result && result.result == 1) {
+						successCallback(result);
+					} else if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						connectionError();
+					}
+				},
+				error:	function (result) {
+					if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						connectionError();
+					}
+				}
+			});
+		},
 		updateUser: function(datas, successCallback, errorCallback) {
 			datas.key = KEY;
 			datas.uid = data.getString('uid');

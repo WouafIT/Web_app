@@ -29,6 +29,10 @@ module.exports = (function() {
 				return;
 			}
 			states[state.name] = state.value;
+			//user is also a windows so if no windows, then no user
+			if (state.name === 'windows' && state.value === null) {
+				states['user'] = null;
+			}
 			data.setObject('navigation', states, true);
 		}
 		if (!allowSetState) {
@@ -48,22 +52,29 @@ module.exports = (function() {
 		}
 		data.setObject('navigation', states, true);
 		//TODO : handle hash like #wouafs or #search
-		if (states && states.map) {
-			var coordinates = states.map.center.split(',');
-			map.getMap().setCenter({lat: parseFloat(coordinates[0]), lng: parseFloat(coordinates[1])});
-			map.getMap().setZoom(parseInt(states.map.zoom, 10));
-		}
-		if (states && states.wouaf) {
-			map.showResult(states.wouaf);
+		if (states) {
+			if (states.map) {
+				var coordinates = states.map.center.split(',');
+				map.getMap().setCenter({lat: parseFloat(coordinates[0]), lng: parseFloat(coordinates[1])});
+				map.getMap().setZoom(parseInt(states.map.zoom, 10));
+			}
+			if (states.wouaf) {
+				map.showResult(states.wouaf);
+			} else {
+				map.hideResult();
+			}
+			if (states.user) {
+				windows.close();
+				allowSetState = false;
+				windows.show({href: 'user'});
+				allowSetState = true;
+			} else if (states.windows) {
+				windows.show({href: states.windows});
+			} else {
+				windows.close();
+			}
 		} else {
 			map.hideResult();
-		}
-		if (states && states.user && !states.windows) {
-			console.info('TODO show user '+ states.user);
-		}
-		if (states && states.windows) {
-			windows.show({href: states.windows});
-		} else {
 			windows.close();
 		}
 	});
@@ -92,7 +103,10 @@ module.exports = (function() {
 						$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: wouafId});
 					} else if (part === 'user' && utils.isValidUsername(part[i + 1])) {
 						part = parts[++i];
-						console.info('TODO show user '+ part);
+						allowSetState = false;
+						windows.show({href: 'user'});
+						allowSetState = true;
+						$document.triggerHandler('navigation.set-state', {name: 'user', value: part});
 					/*} else if (part === 'hash') {
 						part = parts[++i];
 						console.info('TODO show user '+ part);*/
@@ -115,7 +129,10 @@ module.exports = (function() {
 		}
 		e.preventDefault();
 		if ($source.data('user') && utils.isValidUsername($source.data('user'))) {
-			console.info('TODO show user '+ $source.data('user'));
+			allowSetState = false;
+			windows.show({href: 'user'});
+			allowSetState = true;
+			$document.triggerHandler('navigation.set-state', {name: 'user', value: $source.data('user')});
 		/*} else if ($source.data('hash')) {
 			console.info('TODO show hash '+ $source.data('hash'));*/
 		} else if ($source.data('wouaf') && utils.isValidWouafId($source.data('wouaf'))) {
