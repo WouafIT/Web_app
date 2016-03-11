@@ -253,5 +253,7 @@
 	"Activate your user account": "Activer votre compte utilisateur",
 	"Your activation key": "Saisissez votre clé d'activation",
 	"Activate your account": "Activer votre compte",
-	"Account activated!": "Votre compte est activé !\nVous pouvez vous connecter."
+	"Account activated!": "Votre compte est activé !\nVous pouvez vous connecter.",
+
+	"User profile {{username}}": "Profil de {{username}}"
 }

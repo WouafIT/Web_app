@@ -53,7 +53,7 @@ module.exports = (function() {
 			data: params.data,
 			dataType: 'json',
 			timeout: 10000,
-			cache: false,
+			cache: true,
 			success: params.success,
 			error: function(xhr) {
 				if (__DEV__) {
@@ -418,7 +418,7 @@ module.exports = (function() {
 				method: 'GET',
 				url:    ENDPOINT + '/user/' + q,
 				success:function (result) {
-					if (result && result.result && result.result == 1) {
+					if (result && result.user) {
 						successCallback(result);
 					} else if (result && result.msg) {
 						errorCallback(result.msg);

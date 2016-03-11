@@ -15,7 +15,16 @@ module.exports = (function() {
 		}
 		//get user infos
 		query.getUser(states.user, function(result) {
-			console.info(result);
+			var user = result.user;
+			var username = user.firstname || user.lastname ? user.firstname +' '+ user.lastname : user.username;
+			$modalWindow.find('.modal-title').html(i18n.t('User profile {{username}}', {username: username.trim()}));
+			var content = '';
+			if (user.description) {
+				content += '<p>'+ utils.textToHTML(user.description); +'</p><hr />';
+			}
+
+
+			$modalWindow.find('.modal-body').html(content);
 		}, function() {
 			var username = states.user;
 			windows.close();
