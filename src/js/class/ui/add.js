@@ -39,6 +39,7 @@ module.exports = (function() {
 	self.show = function (e) {
 		if (!data.getString('uid')) { //user is not logged, close window
 			windows.close();
+			return;
 		}
 		var $form = $modalWindow.find('form');
 		var $remaining = $form.find('.remaining');

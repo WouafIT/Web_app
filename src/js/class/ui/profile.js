@@ -7,9 +7,10 @@ module.exports = (function() {
 	var i18n = require('../resource/i18n.js');
 	var twitterText = require('twitter-text');
 	var self = {};
-	self.show = function (e) {
+	self.show = function () {
 		if (!data.getString('uid')) { //user is not logged, close window
 			windows.close();
+			return;
 		}
 		var user = require('../resource/user.js');
 		var $form = $modalWindow.find('form');

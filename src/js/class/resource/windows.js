@@ -29,13 +29,21 @@ module.exports = (function() {
 			var query = require('./query.js');
 			query.connectionError();
 		});
-		$document.triggerHandler('navigation.set-state', {name: 'windows', value: href});
+		if (!$modal.data('navigationOpen')) {
+			$document.triggerHandler('navigation.set-state', {name: 'windows', value: href});
+		} else {
+			$document.triggerHandler('navigation.set-state', $modal.data('navigationOpen'));
+		}
 	};
 
 	$modal.on('hidden.bs.modal', function () {
 		$modalContent.html('');
 		shown = false;
-		$document.triggerHandler('navigation.set-state', {name: 'windows', value: null});
+		if (!$modal.data('navigationClose')) {
+			$document.triggerHandler('navigation.set-state', {name: 'windows', value: null});
+		} else {
+			$document.triggerHandler('navigation.set-state', $modal.data('navigationClose'));
+		}
 	});
 	$modal.on('show.bs.modal', function (event) {
 		shown = true;
@@ -56,6 +64,8 @@ module.exports = (function() {
 			href: 		'',
 			open:		null,
 			close:		null,
+			navigationOpen: null,
+			navigationClose: null,
 			confirm:	null
 		}, options);
 		var open = function (options) {
@@ -107,6 +117,8 @@ module.exports = (function() {
 					options.close(event);
 				});
 			}
+			$modal.data('navigationOpen', options.navigationOpen);
+			$modal.data('navigationClose', options.navigationClose);
 			if (options.backdrop  === false) {
 				$('body').addClass('no-backdrop');
 				$modal.one('hidden.bs.modal', function() {
@@ -118,7 +130,9 @@ module.exports = (function() {
 			}
 		};
 		if (shown) {
+			$document.triggerHandler('navigation.disable-state');
 			$modal.one('hidden.bs.modal', function() {
+				$document.triggerHandler('navigation.enable-state');
 				open(options);
 			});
 			$modal.modal('hide');

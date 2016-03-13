@@ -255,5 +255,10 @@
 	"Activate your account": "Activate your account",
 	"Account activated!": "Your account is activated!\nYou can login.",
 
-	"User profile {{username}}": "Profile of {{username}}"
+	"User profile {{username}}": "Profile of {{username}}",
+	"{{count}} publication": "{{count}} publication",
+	"{{count}} publication_plural": "{{count}} publications",
+	"No publications yet": "No publications yet",
+	"Registered since {{date}}": "Registered since {{date}}",
+	"Born {{date}}": "Born {{date}}"
 }

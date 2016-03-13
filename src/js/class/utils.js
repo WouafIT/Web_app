@@ -272,5 +272,9 @@ module.exports = (function() {
 		return result;
 	};
 
+	self.ucfirst = function(string) {
+		return string.charAt(0).toUpperCase() + string.slice(1);
+	};
+
 	return self;
 })();

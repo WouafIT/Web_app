@@ -9,6 +9,7 @@ module.exports = (function() {
 	self.show = function () {
 		if (data.getString('uid')) { //user already logged, close window
 			windows.close();
+			return;
 		}
 		var $form = $modalWindow.find('form');
 		var $username = $form.find('input[name=username]');

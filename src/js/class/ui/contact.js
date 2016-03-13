@@ -33,6 +33,7 @@ module.exports = (function() {
 		} else if (states.user && utils.isValidUsername(states.user)) {
 			//TODO ? contact user
 			windows.close();
+			return;
 			//contact user
 			/*if (!data.getString('uid')) { //user is not logged, close window
 				windows.login(i18n.t('Login to contact a user'));

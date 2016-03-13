@@ -29,10 +29,6 @@ module.exports = (function() {
 				return;
 			}
 			states[state.name] = state.value;
-			//user is also a windows so if no windows, then no user
-			if (state.name === 'windows' && state.value === null) {
-				states['user'] = null;
-			}
 			data.setObject('navigation', states, true);
 		}
 		if (!allowSetState) {
@@ -64,10 +60,11 @@ module.exports = (function() {
 				map.hideResult();
 			}
 			if (states.user) {
-				windows.close();
-				allowSetState = false;
-				windows.show({href: 'user'});
-				allowSetState = true;
+				windows.show({
+					href: 'user',
+					navigationOpen: {name: 'user', value: states.user},
+					navigationClose: {name: 'user', value: null}
+				});
 			} else if (states.windows) {
 				windows.show({href: states.windows});
 			} else {
@@ -103,10 +100,11 @@ module.exports = (function() {
 						$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: wouafId});
 					} else if (part === 'user' && utils.isValidUsername(part[i + 1])) {
 						part = parts[++i];
-						allowSetState = false;
-						windows.show({href: 'user'});
-						allowSetState = true;
-						$document.triggerHandler('navigation.set-state', {name: 'user', value: part});
+						windows.show({
+							href: 'user',
+							navigationOpen: {name: 'user', value: part},
+							navigationClose: {name: 'user', value: null}
+						});
 					/*} else if (part === 'hash') {
 						part = parts[++i];
 						console.info('TODO show user '+ part);*/
@@ -129,10 +127,11 @@ module.exports = (function() {
 		}
 		e.preventDefault();
 		if ($source.data('user') && utils.isValidUsername($source.data('user'))) {
-			allowSetState = false;
-			windows.show({href: 'user'});
-			allowSetState = true;
-			$document.triggerHandler('navigation.set-state', {name: 'user', value: $source.data('user')});
+			windows.show({
+				href: 'user',
+				navigationOpen: {name: 'user', value: $source.data('user')},
+				navigationClose: {name: 'user', value: null}
+			});
 		/*} else if ($source.data('hash')) {
 			console.info('TODO show hash '+ $source.data('hash'));*/
 		} else if ($source.data('wouaf') && utils.isValidWouafId($source.data('wouaf'))) {
