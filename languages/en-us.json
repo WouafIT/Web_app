@@ -127,6 +127,7 @@
 	"An error has occurred: {{error}}": "An error has occurred:\n{{error}}",
 	"An error has occurred, unknown user {{username}}": "An error has occurred:\nUser {{username}} is unknown.",
 	"Connexion error. Are you connected to the Internet? Please try again later": "Connexion error. Are you connected to the Internet?\nPlease try again later...",
+	"Error, unknown url {{error}}": "Error, unknown URL. This content may have been removed...\n{{error}}",
 
 	"Application settings": "Application settings",
 	"Search settings": "Search settings",
@@ -166,7 +167,7 @@
 	"Latitude": "Latitude",
 	"Longitude": "Longitude",
 	"Category": "Category",
-	"Your Wouaf is added": "Your Wouaf is added!",
+	"Your Wouaf is published": "Your Wouaf is published!",
 	"Your form is incomplete, thank you to fill at least the content field": "Your form is incomplete, thank you to fill at least the content field",
 
 	"How to enter your content": "How to enter your content",
@@ -203,6 +204,8 @@
 	"Gone": "Gone",
 	"Currently": "Currently",
 	"Menu": "Menu",
+	"{{count}} more. Zoom in to see all of them": "{{count}} more Wouaf. Zoom in to see it.",
+	"{{count}} more. Zoom in to see all of them_plural": "{{count}} more Wouafs. Zoom in to see all of them.",
 
 	"Delete your Wouaf": "Delete your Wouaf?",
 	"delete_details": "Do you confirm the permanent deletion of this Wouaf and all associated comments?\nYou can not go back!",
@@ -247,6 +250,7 @@
 	"Login to comment a wouaf": "Login to write a comment for this Wouaf!",
 	"Login to like a wouaf": "Login to vote for this Wouaf!",
 	"Login to report a wouaf": "Login to report this Wouaf!",
+	"Login to add a comment": "Login to comment this Wouaf!",
 
 	"Login already exist.": "This login already exists.",
 
@@ -260,5 +264,12 @@
 	"{{count}} publication_plural": "{{count}} publications",
 	"No publications yet": "No publications yet",
 	"Registered since {{date}}": "Registered since {{date}}",
-	"Born {{date}}": "Born {{date}}"
+	"Born {{date}}": "Born {{date}}",
+
+	"{{count}} comment for {{title}}": "{{count}} comment for \"{{title}}\"",
+	"{{count}} comment for {{title}}_plural": "{{count}} comments for \"{{title}}\"",
+	"Enter your comment (1000 char. max)": "Enter your comment (1000 char. max)",
+	"Save your comment": "Save your comment",
+	"Receive an email every new comment": "Receive an email every new comment",
+	"Your comment is published": "Your comment is published!"
 }

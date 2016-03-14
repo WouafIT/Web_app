@@ -12,9 +12,9 @@ module.exports = (function() {
 	var toast = require('../resource/toast.js');
 	var map = require('../resource/map.js');
 	var twitterText = require('twitter-text');
-	var $modalWindow = $('#modalWindow');
 	var categories = require('../resource/categories.js');
 	var dtp = require('../resource/datetimepicker.js');
+	var $modalWindow = windows.getWindows();
 	var durationsLabels = [i18n.t('{{count}} hour', {count: 1}),
 						   i18n.t('{{count}} hour', {count: 2}),
 						   i18n.t('{{count}} hour', {count: 4}),

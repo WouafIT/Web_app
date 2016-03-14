@@ -223,7 +223,7 @@ module.exports = (function() {
 			formattedText += text.substr(pos, indices[0] - pos);
 			//entity
 			if (screenName) {
-				formattedText += '<a href="'+ url.getCurrentPathForState({name: 'user', value: screenName}) +'" data-user="'+ screenName +'">@' + screenName + '</a>';
+				formattedText += '<a href="'+ url.getAbsoluteURLForStates([{name: 'user', value: screenName}]) +'" data-user="'+ screenName +'">@' + screenName + '</a>';
 			/*} else if (hash) { //hash
 			 	formattedText += '<a href="'+ path +'hash/'+ hash +'/" data-hash="'+ hash +'">#' + hash + '</a>';*/
 			} else if (entityUrl) { //link

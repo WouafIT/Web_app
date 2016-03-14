@@ -9,7 +9,7 @@ module.exports = (function() {
 		collapse = collapse || false;
 		var title = obj.title || obj.text.substr(0, 49) +'…';
 		var text = utils.textToHTML(obj.text);
-		var authorUrl = url.getCurrentPathForState({name: 'user', value: obj.author[1]});
+		var authorUrl = url.getAbsoluteURLForStates([{name: 'user', value: obj.author[1]}]);
 		var author = i18n.t('By {{author}}', {
 			author: '<a href="'+ authorUrl +'" data-user="'+ obj.author[1] +'">'+
 					utils.escapeHtml(obj.author[2] || obj.author[1]) +'</a>',
@@ -91,18 +91,23 @@ module.exports = (function() {
 			}
 			content.push('</div>');
 		}
-		content = content.concat(['<a href="'+ url.getCurrentPathForState({name: 'windows', value: 'comments'}) +'" class="w-comments" data-action="comments"><i class="fa fa-comment"></i> '+
+		content = content.concat(['<a href="'+ url.getAbsoluteURLForStates([{name: 'wouaf', value: obj.id}, {name: 'windows', value: 'comments'}]) +'" class="w-comments" data-action="comments"><i class="fa fa-comment"></i> '+
 							(obj.com ? i18n.t('{{count}} comment', {count: obj.com}) : i18n.t('Add a comment', {count: obj.com})) +'</a>',
 				'</div>',
 			'</div>']);
 		return content.join('');
 	};
-	self.getList = function(list) {
+	self.getClusterList = function(list) {
+		var max = 10;
 		var content = ['<div class="w-accordion">'];
-		for(var i = 0, l = list.length; i < l; i++) {
+		var l = list.length;
+		for(var i = 0; i < l && i < max ; i++) {
 			content.push(self.getWouaf(list[i], true));
 		}
 		content.push('</div>');
+		if (l > max) {
+			content.push('<div class="w-more"><p class="text-muted text-xs-center">'+ i18n.t('{{count}} more. Zoom in to see all of them', {count: l - max}) +'</p></div>');
+		}
 		return content.join('');
 	};
 

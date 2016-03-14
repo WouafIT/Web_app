@@ -4,7 +4,7 @@ module.exports = (function() {
 	var i18n = require('../resource/i18n.js');
 	var toast = require('../resource/toast.js');
 	var $document = $(document);
-	var $modalWindow = $('#modalWindow');
+	var $modalWindow = windows.getWindows();
 	var self = {};
 	self.show = function (e) {
 		if (data.getString('uid')) { //user already logged, close window

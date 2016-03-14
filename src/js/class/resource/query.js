@@ -107,22 +107,24 @@ module.exports = (function() {
 			var searchId = params.searchId;
 			var q = '?key=' + KEY;
 			for (var i in params) {
-				var param = params[i];
-				if (i == 'type' || i == 'searchId' || i == 'source' || !param) { //remove event or empty params
-				    continue;
+				if (params.hasOwnProperty(i)) {
+					var param = params[i];
+					if (i == 'type' || i == 'searchId' || i == 'source' || !param) { //remove event or empty params
+						continue;
+					}
+					if (i == 'loc') {
+						//precision => http://gis.stackexchange.com/questions/8650/how-to-measure-the-accuracy-of-latitude-and-longitude
+						param = params[i].toUrlValue(3); //~110m
+					} else if (i == 'tag') {
+						param = params[i][1];
+					} else if (i == 'date' && params[i]) {
+						param = Math.round(params[i].getTime() / 1000);
+					} else if (i == 'cat' && params[i]) {
+						//var serverCategories = data.getObject('categories');
+						//param = serverCategories[params[i] - 1]['id'];
+					}
+					q += '&' + i + '=' + param;
 				}
-                if (i == 'loc') {
-					//precision => http://gis.stackexchange.com/questions/8650/how-to-measure-the-accuracy-of-latitude-and-longitude
-                    param = params[i].toUrlValue(3); //~110m
-                } else if (i == 'tag') {
-                    param = params[i][1];
-                } else if (i == 'date' && params[i]) {
-					param = Math.round(params[i].getTime() / 1000);
-				} else if (i == 'cat' && params[i]) {
-					//var serverCategories = data.getObject('categories');
-					//param = serverCategories[params[i] - 1]['id'];
-				}
-				q += '&' + i + '=' + param;
 			}
 			query({
 				method: 'GET',
@@ -600,17 +602,31 @@ module.exports = (function() {
 				}
 			});
 		},
-		getComments: function(id, callback) {
+		getComments: function(id, successCallback, errorCallback) {
             var q = '?key=' + KEY + '&id=' + id;
             query({
                 method: 'GET',
                 url:    ENDPOINT + '/wouaf/comment/' + q,
                 data:  null,
-                success:callback,
-                error:  callback
+				success:function (result) {
+					if (result && result.comments) {
+						successCallback(result);
+					} else if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						connectionError();
+					}
+				},
+				error:	function (result) {
+					if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						connectionError();
+					}
+				}
             });
         },
-		createComment: function(datas, callback) {
+		createComment: function(datas, successCallback, errorCallback) {
 		    datas.key = KEY;
             datas.uid = data.getString('uid');
             datas.token = data.getString('token');
@@ -618,11 +634,25 @@ module.exports = (function() {
                 method: 'PUT',
                 url:    ENDPOINT + '/wouaf/comment/',
                 data:  datas,
-                success:callback,
-                error:  callback
+				success:function (result) {
+					if (result && result.result && result.result == 1) {
+						successCallback(result);
+					} else if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						connectionError();
+					}
+				},
+				error:	function (result) {
+					if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						connectionError();
+					}
+				}
             });
 		},
-		deleteComment: function(id, callback) {
+		deleteComment: function(id, successCallback, errorCallback) {
             var datas = {
 				key: KEY,
 				uid: data.getString('uid'),
@@ -633,10 +663,24 @@ module.exports = (function() {
                 method: 'DELETE',
                 url:    ENDPOINT + '/wouaf/comment/',
                 data:  datas,
-                success:callback,
-                error:  callback
+				success:function (result) {
+					if (result && result.result && result.result == 1) {
+						successCallback(result);
+					} else if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						connectionError();
+					}
+				},
+				error:	function (result) {
+					if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						connectionError();
+					}
+				}
             });
-       },
+        },
 		contactUser: function(datas, successCallback, errorCallback) {
 			datas.key = KEY;
 			datas.uid = data.getString('uid');

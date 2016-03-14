@@ -5,7 +5,6 @@ module.exports = (function () {
 	var data = require('./data.js');
 	var toast = require('./toast.js');
 	var utils = require('../utils.js');
-	var self = {};
 	var $document = $(document);
 	var map, infowindow; //GMap elements
 	var userLocation;
@@ -13,7 +12,9 @@ module.exports = (function () {
 	var userMarker;
 	var $body = $('body');
 	var $map = $('#map');
-	self.jsonResults = {};
+	var self = {
+		jsonResults: {}
+	};
 	//set map pins on search response
 	var setPins = function (json, showCount) {
 		showCount = showCount !== false;
@@ -103,40 +104,15 @@ module.exports = (function () {
 			return;
 		}
 		//check if result exists in current results
-		var obj = null;
-		if (self.jsonResults.results) {
-			for(var i = 0, l = self.jsonResults.results.length; i < l && !obj; i++) {
-				if (self.jsonResults.results[i].id == id) {
-					obj = self.jsonResults.results[i];
-				}
-			}
-		}
-		if (!obj) {
-			//TODO: get Wouaf data from HTML (data should exists in meta and HTML for search engines)
-
-			//get wouaf from server
-			var query = require('./query.js');
-			query.post(id, function (result) {
-				//clone current results
-				var results = jQuery.extend(true, {}, self.jsonResults);
-				//add post to map results and display it
-				results.results.push(result.wouaf);
-				results.count = results.results.length;
-				var now = new Date();
-				results.searchId = now.getTime();
-				setPins(results, false);
-				openPin(result.wouaf);
-			}, function (msg) {
-				var windows = require('./windows.js');
-				windows.show({
-					title: 'Erreur ...',
-					text: 'Cette URL est inconnue. Peut-être que ce contenu à été supprimé ?'+
-					(msg ? '<br />' + 'Erreur : '+ i18n.t(msg[0]) : '')
-				});
+		$.when(getResult(id)).done(function(obj) {
+			openPin(obj);
+		}).fail(function(msg) {
+			var windows = require('./windows.js');
+			windows.show({
+				title: i18n.t('Error_'),
+				text: i18n.t('Error, unknown url {{error}}', {error: msg[0]})
 			});
-			return;
-		}
-		openPin(obj);
+		});
 	};
 
 	var openPin = function (obj) {
@@ -345,7 +321,6 @@ module.exports = (function () {
 			$document.triggerHandler('menu.close');
 			$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: null});
 		});
-
 		//check geolocation support and permissions
 		if (navigator.permissions && navigator.geolocation) {
 			navigator.permissions.query({name: 'geolocation'}).then(function (permissionStatus) {
@@ -375,6 +350,66 @@ module.exports = (function () {
 		}
 	};
 
+	var getResults = function(ids) {
+		ids = ids || [];
+		if (!self.jsonResults.count || !self.jsonResults.results) {
+			return [];
+		}
+		if (!ids || !ids.length) {
+			//return all results
+			return self.jsonResults;
+		}
+		//grab results
+		var results = [];
+		for(var i = 0, l = self.jsonResults.results.length; i < l; i++) {
+			var result = self.jsonResults.results[i];
+			if (utils.indexOf(ids, result.id) !== -1) {
+				results.push(result);
+				if (results.length == ids.length) {
+					return results;
+				}
+			}
+		}
+		return results;
+	};
+
+	var getResult = function(id) {
+		var deferred = $.Deferred();
+		var obj = getResults([id])[0] || null;
+		if (obj) {
+			deferred.resolve(obj);
+		} else {
+			var query = require('./query.js');
+			query.post(id, function (result) {
+				//clone current results
+				var appendResult = function(result) {
+					var results = jQuery.extend(true, {}, self.jsonResults);
+					//add post to map results and display it
+					results.results.push(result.wouaf);
+					results.count = results.results.length;
+					var now = new Date();
+					results.searchId = now.getTime();
+					setPins(results, false);
+				};
+				if (self.jsonResults.results) {
+					appendResult(result);
+					deferred.resolve(result.wouaf);
+				} else {
+					$document.one('map.show-results', function() {
+						var obj = getResults([result.wouaf.id])[0] || null;
+						if (!obj) {
+							appendResult(result);
+						}
+						deferred.resolve(result.wouaf);
+					});
+				}
+			}, function (msg) {
+				deferred.reject(msg);
+			});
+		}
+		return deferred.promise();
+	};
+
 	return {
 		init: init,
 		removeResult: removePin,
@@ -384,28 +419,8 @@ module.exports = (function () {
 			$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: null});
 		},
 		setResults: setPins,
-		getResults: function(ids) {
-			ids = ids || [];
-			if (!self.jsonResults.count || !self.jsonResults.results) {
-				return [];
-			}
-			if (!ids || !ids.length) {
-				//return all results
-				return self.jsonResults;
-			}
-			//grab results
-			var results = [];
-			for(var i = 0, l = self.jsonResults.results.length; i < l; i++) {
-				var result = self.jsonResults.results[i];
-				if (utils.indexOf(ids, result.id) !== -1) {
-					results.push(result);
-					if (results.length == ids.length) {
-						return results;
-					}
-				}
-			}
-			return results;
-		},
+		getResults: getResults,
+		getResult: getResult,
 		getMap: function() {
 			return map;
 		}

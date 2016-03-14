@@ -53,19 +53,15 @@ module.exports = (function() {
 		var states = data.getObject('navigation');
 		return self.getPath(states);
 	};
-	self.getCurrentPathForState = function (state) {
-		var states = data.getObject('navigation');
-		if (state && self.isStateValid(state)) {
-			states[state.name] = state.value;
+	self.getAbsoluteURLForStates = function (states) {
+		var statesObj = {};
+		for (var i = 0, l = states.length; i < l; i++) {
+			var state = states[i];
+			if (state && self.isStateValid(state)) {
+				statesObj[state.name] = state.value;
+			}
 		}
-		return self.getPath(states);
-	};
-	self.getAbsoluteURLForState = function (state) {
-		var states = {};
-		if (state && self.isStateValid(state)) {
-			states[state.name] = state.value;
-		}
-		var path = self.getPath(states);
+		var path = self.getPath(statesObj);
 		return 'https://wouaf.it' + path;
 	};
 	self.getAbsoluteURLIcon = function () {

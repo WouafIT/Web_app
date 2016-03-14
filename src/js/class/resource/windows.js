@@ -6,6 +6,7 @@ module.exports = (function() {
 	var $modalContent = $modal.find('.modal-content');
 	var self = {};
 	var shown = false;
+	var currentOptions = null;
 	var openHrefModal = function(href) {
 		if (!utils.isValidPageName(href)) {
 			return;
@@ -39,6 +40,7 @@ module.exports = (function() {
 	$modal.on('hidden.bs.modal', function () {
 		$modalContent.html('');
 		shown = false;
+		currentOptions = null;
 		if (!$modal.data('navigationClose')) {
 			$document.triggerHandler('navigation.set-state', {name: 'windows', value: null});
 		} else {
@@ -53,6 +55,7 @@ module.exports = (function() {
 				var map = require('./map.js');
 				map.hideResult();
 			}
+			currentOptions = {href: $source.data('href')};
 			openHrefModal($source.data('href'));
 		}
 	});
@@ -121,13 +124,12 @@ module.exports = (function() {
 			$modal.data('navigationClose', options.navigationClose);
 			if (options.backdrop  === false) {
 				$('body').addClass('no-backdrop');
-				$modal.one('hidden.bs.modal', function() {
+				$modal.one('hidden.bs.modal', function () {
 					$('body').removeClass('no-backdrop');
 				});
-				$modal.modal('show');
-			} else {
-				$modal.modal('show');
 			}
+			currentOptions = options;
+			$modal.modal('show');
 		};
 		if (shown) {
 			$document.triggerHandler('navigation.disable-state');
@@ -151,6 +153,14 @@ module.exports = (function() {
 				alert.show(msg, $('.modal-body'), 'danger');
 			}
 		})
+	};
+	self.refresh = function() {
+		if (shown) {
+			self.show(currentOptions);
+		}
+	};
+	self.getWindows = function () {
+		return $modal;
 	};
 	return self;
 })();

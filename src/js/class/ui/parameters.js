@@ -1,7 +1,8 @@
 module.exports = (function() {
-	var $modalWindow = $('#modalWindow');
+	var windows = require('../resource/windows.js');
 	var i18n = require('../resource/i18n.js');
 	var data = require('../resource/data.js');
+	var $modalWindow = windows.getWindows();
 	var self = {};
 
 	var kmLabel = i18n.t('km');
@@ -69,7 +70,6 @@ module.exports = (function() {
 				data.setBool('commentNotif', $commentsNotifications.prop("checked"));
 			}
 
-			var windows = require('../resource/windows.js');
 			windows.close();
 			var toast = require('../resource/toast.js');
 			toast.show(i18n.t('Settings saved!'));

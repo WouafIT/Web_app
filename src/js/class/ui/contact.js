@@ -7,7 +7,7 @@ module.exports = (function() {
 	var toast = require('../resource/toast.js');
 	var twitterText = require('twitter-text');
 	var query = require('../resource/query.js');
-	var $modalWindow = $('#modalWindow');
+	var $modalWindow = windows.getWindows();
 
 	self.show = function () {
 		var states = data.getObject('navigation');

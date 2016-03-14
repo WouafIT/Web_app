@@ -2,10 +2,10 @@ module.exports = (function() {
 	var data = require('../resource/data.js');
 	var windows = require('../resource/windows.js');
 	var dtp = require('../resource/datetimepicker.js');
-	var $document = $(document);
-	var $modalWindow = $('#modalWindow');
 	var i18n = require('../resource/i18n.js');
 	var twitterText = require('twitter-text');
+	var $modalWindow = windows.getWindows();
+	var $document = $(document);
 	var self = {};
 	self.show = function () {
 		if (!data.getString('uid')) { //user is not logged, close window

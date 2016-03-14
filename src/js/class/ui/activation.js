@@ -5,7 +5,7 @@ module.exports = (function() {
 	var windows = require('../resource/windows.js');
 	var i18n = require('../resource/i18n.js');
 	var query = require('../resource/query.js');
-	var $modalWindow = $('#modalWindow');
+	var $modalWindow = windows.getWindows();
 
 	self.show = function () {
 		if (data.getString('uid')) { //user is logged, close window

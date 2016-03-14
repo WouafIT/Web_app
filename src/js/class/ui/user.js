@@ -6,7 +6,7 @@ module.exports = (function() {
 	var i18n = require('../resource/i18n.js');
 	var query = require('../resource/query.js');
 	var dtp = require('../resource/datetimepicker.js');
-	var $modalWindow = $('#modalWindow');
+	var $modalWindow = windows.getWindows();
 
 	self.show = function () {
 		var states = data.getObject('navigation');

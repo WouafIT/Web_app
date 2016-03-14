@@ -26,14 +26,14 @@ module.exports = (function() {
 			content = wouaf.getWouaf(results[0]);
 		} else {
 			$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: null});
-			content = wouaf.getList(results);
+			content = wouaf.getClusterList(results);
 		}
 		// Set infoWindow content
 		data.iw.setContent(content);
 		data.iw.open(data.map);
 	});
 	var expanding = false;
-	$document.on('show.bs.collapse', '.w-accordion', function (e) {
+	$document.on('show.bs.collapse', '.w-accordion', function () {
 		expanding = true;
 	});
 	$document.on('shown.bs.collapse', '.w-accordion', function (e) {
@@ -52,10 +52,17 @@ module.exports = (function() {
 			$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: null});
 		}
 	});
-	$document.on('hidden.bs.collapse', '.w-accordion', function (e) {
+	$document.on('hidden.bs.collapse', '.w-accordion', function () {
 		if (!expanding) {
 			$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: null});
 		}
+	});
+	//update comment count
+	$document.on('wouaf.update-comment', function(e, wouaf) {
+		$('#map').find('.w-container[data-id="'+ wouaf.id +'"] a[data-action=comments]').html(
+			'<i class="fa fa-comment"></i> '+
+			(wouaf.com ? i18n.t('{{count}} comment', {count: wouaf.com}) : i18n.t('Add a comment', {count: wouaf.com}))
+		);
 	});
 
 	//Swipebox
@@ -109,7 +116,7 @@ module.exports = (function() {
 					text: i18n.t('delete_details'),
 					confirm: function() {
 						query.deletePost(obj.id,
-							function(result) { //success
+							function() { //success
 								map.removeResult(obj.id);
 								toast.show(i18n.t('Your Wouaf is deleted'));
 							}, function (msg) { //error
@@ -165,10 +172,6 @@ module.exports = (function() {
 				});
 				break;
 			case 'comments':
-				if (!uid) { //user is not logged, show login window
-					windows.login(i18n.t('Login to comment a wouaf'));
-					return;
-				}
 				//show comments page
 				windows.show({
 					href: 'comments'
@@ -191,7 +194,7 @@ module.exports = (function() {
 					text: i18n.t('report_details'),
 					confirm: function() {
 						query.reportPost(obj.id,
-							function(result) {
+							function() {
 								toast.show(i18n.t('This Wouaf has been reported'));
 							}, function (msg) {
 								toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);

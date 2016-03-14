@@ -96,7 +96,7 @@
 	"welcome_to_wouaf_it": "Bienvenue dans la communauté Wouaf IT !\n\nUn email vous a été envoyé pour activer votre compte.\nSi il n'est pas activé sous 6h, il sera automatiquement supprimé.\n\nVous pouvez maintenant créer votre premier Wouaf. Voulez-vous voir comment cela fonctionne ?",
 
 	"Edit your profile": "Editez votre profil",
-	"Save your profile": "Enregistrez votre profil",
+	"Save your profile": "Enregistrer votre profil",
 	"Description": "Description",
 	"Describe yourself briefly (300 char. max)": "Décrivez-vous brièvement (300 car. max)",
 	"Choose who you are" : "Choisissez qui vous êtes",
@@ -127,6 +127,7 @@
 	"An error has occurred: {{error}}": "Une erreur est survenue : \n{{error}}",
 	"An error has occurred, unknown user {{username}}": "Une erreur est survenue : \nL'utilisateur {{username}} est inconnu.",
 	"Connexion error. Are you connected to the Internet? Please try again later": "Erreur de connexion. Etes-vous bien connecté à Internet ?\nMerci de réessayer plus tard ...",
+	"Error, unknown url {{error}}": "Erreur, cette URL est inconnue. Ce contenu à peut-être été supprimé ...\n{{error}}",
 
 	"Application settings": "Paramètres de l'application",
 	"Search settings": "Paramètres de recherche",
@@ -150,7 +151,7 @@
 	"A reset email has been sent.": "Un email de réinitialisation vous a été envoyé.",
 
 	"Add a new Wouaf": "Ajouter un nouveau Wouaf",
-	"Save your Wouaf": "Enregistrer votre Wouaf",
+	"Save your Wouaf": "Publier votre Wouaf",
 	"Add_wouaf_popover": "Positionnez le centre de la carte à l'endroit ou vous souhaitez ajouter votre Wouaf et cliquez sur OK.",
 	"Publish this Wouaf on my Facebook wall": "Publier ce Wouaf sur mon mur Facebook",
 	"Being notified by email for feedback on this Wouaf": "Etre notifié par email des commentaires sur ce Wouaf",
@@ -158,15 +159,15 @@
 	"lack_of_precision_details": "La position définie est peu précise. Vous devriez zoomer un peu !",
 
 	"Need help": "Besoin d'aide ?",
-	"Enter your title (50 char. max)": "Entrez votre titre (50 car. max)",
-	"Enter your content (300 char. max)": "Entrez votre contenu (300 car. max)",
+	"Enter your title (50 char. max)": "Saisissez votre titre (50 car. max)",
+	"Enter your content (300 char. max)": "Saisissez votre contenu (300 car. max)",
 	"Starting": "A partir de",
 	"Now": "Maintenant",
 	"Duration": "Durée",
 	"Latitude": "Latitude",
 	"Longitude": "Longitude",
 	"Category": "Catégorie",
-	"Your Wouaf is added": "Votre Wouaf est ajouté !",
+	"Your Wouaf is published": "Votre Wouaf est publié !",
 	"Your form is incomplete, thank you to fill at least the content field": "Votre formulaire est incomplet, merci de remplir au moins le contenu",
 
 	"How to enter your content": "Comment saisir votre contenu",
@@ -203,6 +204,8 @@
 	"Gone": "Révolu",
 	"Currently": "Actuellement",
 	"Menu": "Menu",
+	"{{count}} more. Zoom in to see all of them": "{{count}} Wouaf supplémentaire. Zoomez pour le voir.",
+	"{{count}} more. Zoom in to see all of them_plural": "{{count}} Wouafs supplémentaires. Zoomez pour tous les voir.",
 
 	"Delete your Wouaf": "Supprimer votre Wouaf ?",
 	"delete_details": "Confirmez-vous la suppression définitive de ce Wouaf ainsi que tous les commentaires associés ?\nVous ne pourrez pas revenir en arrière !",
@@ -225,7 +228,7 @@
 	"{{count}} comment": "{{count}} commentaire",
 	"{{count}} comment_plural": "{{count}} commentaires",
 	"Send your message": "Envoyer votre message",
-	"Enter your message (1000 char. max)": "Entrez votre message (1000 car. max)",
+	"Enter your message (1000 char. max)": "Saisissez votre message (1000 car. max)",
 	"Your email address": "Votre adresse email",
 
 	"Contact an author": "Contacter un auteur",
@@ -247,6 +250,7 @@
 	"Login to comment a wouaf": "Connectez-vous pour pouvoir ajouter un commentaire sur ce Wouaf !",
 	"Login to like a wouaf": "Connectez-vous pour pouvoir voter pour ce Wouaf !",
 	"Login to report a wouaf": "Connectez-vous pour pouvoir signaler ce Wouaf !",
+	"Login to add a comment": "Connectez-vous pour commenter ce Wouaf !",
 
 	"Login already exist.": "Cet identifiant existe déjà.",
 
@@ -260,5 +264,12 @@
 	"{{count}} publication_plural": "{{count}} publications",
 	"No publications yet": "Pas encore de publications",
 	"Registered since {{date}}": "Enregistré depuis le {{date}}",
-	"Born {{date}}": "Né le {{date}}"
+	"Born {{date}}": "Né le {{date}}",
+
+	"{{count}} comment for {{title}}": "{{count}} commentaire pour \"{{title}}\"",
+	"{{count}} comment for {{title}}_plural": "{{count}} commentaires pour \"{{title}}\"",
+	"Enter your comment (1000 char. max)": "Saisissez votre commentaire (1000 car. max)",
+	"Save your comment": "Publier votre commentaire",
+	"Receive an email every new comment": "Recevoir un email à chaque nouveau commentaire",
+	"Your comment is published": "Votre commentaire est publié !"
 }
