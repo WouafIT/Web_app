@@ -69,7 +69,8 @@ module.exports = (function() {
 			close:		null,
 			navigationOpen: null,
 			navigationClose: null,
-			confirm:	null
+			confirm:	null,
+			cancel:		null
 		}, options);
 		var open = function (options) {
 			if (options.text) {
@@ -99,6 +100,11 @@ module.exports = (function() {
 									options.confirm();
 									$modal.modal('hide');
 								});
+								if (options.cancel) {
+									$modal.find('button.btn-secondary').one('click', function () {
+										options.cancel();
+									});
+								}
 							});
 						}
 					}

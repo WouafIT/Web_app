@@ -212,7 +212,7 @@
 	"Your Wouaf is deleted": "Your Wouaf is deleted.",
 
 	"Report this Wouaf": "Report this Wouaf?",
-	"report_details": "Do you confirm the reporting of this Wouaf as abusive?\nAttention in case of error, kittens will die!",
+	"report_details": "Do you confirm the reporting of this Wouaf as abusive?\nAttention in case of error, kittens may die!",
 	"This Wouaf has been reported": "Thank you for your report!",
 	"This Wouaf is added to your favorites": "This Wouaf is added to your favorites",
 	"This Wouaf is removed from your favorites": "This Wouaf is removed from your favorites",
@@ -220,7 +220,8 @@
 	"In your favorites ({{fav}})": "In your favorites ({{fav}})",
 	"Delete": "Delete",
 	"Contact the author": "Contact the author",
-	"Add a comment ({{com}})": "Add a comment ({{com}})",
+	"View the {{count}} comment": "View the comment",
+	"View the {{count}} comment_plural": "View {{count}} comments",
 	"View on Google Map": "View on Google Map",
 	"Itinerary to this place": "Itinerary to this place",
 	"Report Abuse": "Report Abuse",
@@ -251,6 +252,7 @@
 	"Login to like a wouaf": "Login to vote for this Wouaf!",
 	"Login to report a wouaf": "Login to report this Wouaf!",
 	"Login to add a comment": "Login to comment this Wouaf!",
+	"Login to report a comment": "Login to report this comment!",
 
 	"Login already exist.": "This login already exists.",
 
@@ -271,5 +273,16 @@
 	"Enter your comment (1000 char. max)": "Enter your comment (1000 char. max)",
 	"Save your comment": "Save your comment",
 	"Receive an email every new comment": "Receive an email every new comment",
-	"Your comment is published": "Your comment is published!"
+	"Your comment is published": "Your comment is published!",
+	"By {{author}} on {{date}}": "By {{author}} on {{date}}",
+	"No comment yet": "No comment yet.",
+	"Add a comment for {{title}}": "Add a comment for \"{{title}}\"",
+	"Report an inappropriate comment" : "Report an inappropriate comment",
+
+	"Delete your comment": "Delete your comment?",
+	"delete_comment_details": "Do you confirm the permanent deletion of this comment?\nYou can not go back!",
+	"Your comment is deleted": "Your comment is deleted.",
+	"Report this comment": "Report this comment?",
+	"report_comment_details": "Do you confirm the reporting of this comment as inappropriate?\nAttention in case of error, kittens may die!",
+	"This comment has been reported": "Thank you for your report!"
 }

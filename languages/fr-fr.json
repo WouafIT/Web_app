@@ -220,7 +220,8 @@
 	"In your favorites ({{fav}})": "Dans vos favoris ({{fav}})",
 	"Delete": "Supprimer",
 	"Contact the author": "Contacter l'auteur",
-	"Add a comment ({{com}})": "Ajouter un commentaire ({{com}})",
+	"View the {{count}} comment": "Voir le commentaire",
+	"View the {{count}} comment_plural": "Voir les {{count}} commentaires",
 	"View on Google Map": "Voir sur Google Map",
 	"Itinerary to this place": "Itinéraire vers ce lieu",
 	"Report Abuse": "Signaler un contenu abusif",
@@ -251,6 +252,7 @@
 	"Login to like a wouaf": "Connectez-vous pour pouvoir voter pour ce Wouaf !",
 	"Login to report a wouaf": "Connectez-vous pour pouvoir signaler ce Wouaf !",
 	"Login to add a comment": "Connectez-vous pour commenter ce Wouaf !",
+	"Login to report a comment": "Connectez-vous pour pouvoir signaler ce commentaire !",
 
 	"Login already exist.": "Cet identifiant existe déjà.",
 
@@ -271,5 +273,17 @@
 	"Enter your comment (1000 char. max)": "Saisissez votre commentaire (1000 car. max)",
 	"Save your comment": "Publier votre commentaire",
 	"Receive an email every new comment": "Recevoir un email à chaque nouveau commentaire",
-	"Your comment is published": "Votre commentaire est publié !"
+	"Your comment is published": "Votre commentaire est publié !",
+	"By {{author}} on {{date}}": "Par {{author}}, le {{date}}",
+	"No comment yet": "Aucun commentaire pour le moment.",
+	"Add a comment for {{title}}": "Ajouter un commentaire pour \"{{title}}\"",
+	"Report an inappropriate comment" : "Signaler un commentaire inapproprié",
+
+	"Delete your comment": "Supprimer votre commentaire ?",
+	"delete_comment_details": "Confirmez-vous la suppression définitive de ce commentaire ?\nVous ne pourrez pas revenir en arrière !",
+	"Your comment is deleted": "Votre commentaire est supprimé.",
+	"Report this comment": "Signaler ce commentaire ?",
+	"report_comment_details": "Confirmez-vous le signalement du contenu de ce commentaire comme inapproprié ?\nAttention, en cas d'erreur des chatons mourrons !",
+	"This comment has been reported": "Merci pour votre signalement !"
+
 }

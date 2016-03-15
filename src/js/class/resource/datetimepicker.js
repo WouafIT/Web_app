@@ -50,23 +50,37 @@ module.exports = (function() {
 			}
 		}
 	};
-	self.formatTime = function(date) {
-		var roundMinutes = function(minutes) {
-			minutes = Math.round(minutes / minuteInterval) * minuteInterval;
-			if (minutes < 10) {
-				return '0' + minutes;
+	self.formatTime = function(date, round) {
+		round = round !== false;
+		var format = function(hours, minutes, h12) {
+			if (round) {
+				minutes = Math.round(minutes / minuteInterval) * minuteInterval;
+				if (minutes == 60) {
+					minutes = 0;
+					hours++;
+				}
+				if (hours == 24) { //do not round time if it goes to the next day
+					minutes = date.getMinutes();
+					hours = date.getHours();
+				}
 			}
-			return '' + minutes;
+			minutes = minutes < 10 ? '0'+ minutes : ''+ minutes;
+			if (h12) {
+				if (hours > 12) {
+					hours = hours - 12;
+					hours = hours < 10 ? '0'+ hours : ''+ hours; +' PM';
+				} else {
+					hours = hours < 10 ? '0'+ hours : ''+ hours; +' AM';
+				}
+			} else {
+				hours = hours < 10 ? '0'+ hours : ''+ hours;
+			}
+			return hours +':'+ minutes;
 		};
 		if (languageShort == 'fr') {
-			return  (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) +':'+ roundMinutes(date.getMinutes());
+			return  format(date.getHours(), date.getMinutes(), false);
 		} else {
-			var hours = date.getHours();
-			if (hours > 12) {
-				return  ((hours - 12) < 10 ? '0' + (hours - 12) : (hours - 12)) +':'+ roundMinutes(date.getMinutes()) +' PM';
-			} else {
-				return  (hours < 10 ? '0' + hours : hours) +':'+ roundMinutes(date.getMinutes()) +' AM';
-			}
+			return  format(date.getHours(), date.getMinutes(), true);
 		}
 	};
 	return self;

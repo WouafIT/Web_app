@@ -790,7 +790,36 @@ module.exports = (function() {
 					}
 				}
             });
-       }
+        },
+		reportComment: function(id, successCallback, errorCallback) {
+			var datas = {
+				key: KEY,
+				uid: data.getString('uid'),
+				token: data.getString('token'),
+				id: id
+			};
+			query({
+				method: 'POST',
+				url:    ENDPOINT + '/wouaf/comment/abuse/',
+				data:  datas,
+				success:function (result) {
+					if (result && result.result && result.result == 1) {
+						successCallback(result);
+					} else if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						connectionError();
+					}
+				},
+				error:	function (result) {
+					if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						connectionError();
+					}
+				}
+			});
+		}
 	};
 	return self;
 })();

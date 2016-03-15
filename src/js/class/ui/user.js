@@ -19,7 +19,7 @@ module.exports = (function() {
 			var user = result.user;
 			var username = user.firstname || user.lastname ? user.firstname +' '+ user.lastname : user.username;
 			$modalWindow.find('.modal-title').html(i18n.t('User profile {{username}}', {username: username.trim()}));
-			var content = '';
+			var content = '<div class="modal-user">';
 			if (user.description) {
 				content += '<blockquote class="blockquote">'+ utils.textToHTML(user.description) +'</blockquote>';
 			}
@@ -48,7 +48,7 @@ module.exports = (function() {
 				birthdate.setTime(user.birthdate.sec * 1000);
 				content += '<p><i class="fa fa-birthday-cake"></i> '+ i18n.t('Born {{date}}', {date: dtp.formatDate(birthdate, 'long')}) +'<p>';
 			}
-			content += '</div>';
+			content += '</div></div>';
 			$modalWindow.find('.modal-body').html(content);
 		}, function() {
 			var username = states.user || '';

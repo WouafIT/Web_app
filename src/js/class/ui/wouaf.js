@@ -71,7 +71,7 @@ module.exports = (function() {
 			'</div>',
 			'<div',
 				(collapse ? ' id="collapse-'+ obj.id +'" class="panel-collapse collapse w-content">' : ' class="w-content">'),
-				'<button class="w-menu" data-id="'+ obj.id +'" type="button">',
+				'<button class="w-menu" data-id="'+ obj.id +'" type="button" data-menu="wouaf">',
 					'<i class="fa fa-cog"></i> '+ i18n.t('Menu'),
 				'</button>',
 				'<div class="w-subTitle">', author ,'</div>',
@@ -91,16 +91,16 @@ module.exports = (function() {
 			}
 			content.push('</div>');
 		}
-		content = content.concat(['<a href="'+ url.getAbsoluteURLForStates([{name: 'wouaf', value: obj.id}, {name: 'windows', value: 'comments'}]) +'" class="w-comments" data-action="comments"><i class="fa fa-comment"></i> '+
+		content = content.concat(['<a href="'+ url.getAbsoluteURLForStates([{name: 'wouaf', value: obj.id}, {name: 'windows', value: 'comments'}]) +'" class="w-comments" data-action="comments" data-menu="wouaf"><i class="fa fa-comment"></i> '+
 							(obj.com ? i18n.t('{{count}} comment', {count: obj.com}) : i18n.t('Add a comment', {count: obj.com})) +'</a>',
 				'</div>',
 			'</div>']);
 		return content.join('');
 	};
-	self.getClusterList = function(list) {
-		var max = 10;
+	self.getClusterList = function(list, zoom) {
 		var content = ['<div class="w-accordion">'];
 		var l = list.length;
+		var max = zoom !== 21 ? 10 : l;
 		for(var i = 0; i < l && i < max ; i++) {
 			content.push(self.getWouaf(list[i], true));
 		}

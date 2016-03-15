@@ -10,10 +10,16 @@ module.exports = (function() {
 	var categories = require('../resource/categories.js');
 	var $document = $(document);
 	$document.on('app.start', function() {
+		//load events modules
+		require('./login.js');
+		require('./navigation.js');
+		require('./wouaf.js');
+		require('./search.js');
+		require('./menu.js');
+
 		//launch count
 		var launchCount = data.getInt('launchCount');
 		data.setInt('launchCount', !launchCount ? 1 : launchCount + 1);
-
 		data.setInt('connectionAlert', 0);
 		//set default vars on first launch
 		if (data.getInt('launchCount') == 1) {

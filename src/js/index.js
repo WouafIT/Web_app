@@ -20,12 +20,8 @@
 			.done(function(html) {
 				//set body content
 				$('body').prepend(html[0]);
-				//load events modules
+				//load app module
 				require('./class/event/app.js');
-				require('./class/event/login.js');
-				require('./class/event/navigation.js');
-				require('./class/event/wouaf.js');
-				require('./class/event/search.js');
 				//launch app
 				$document.triggerHandler('app.start');
 			}).fail(function() {

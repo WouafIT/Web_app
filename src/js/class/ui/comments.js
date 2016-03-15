@@ -23,7 +23,16 @@ module.exports = (function() {
 						return;
 					}
 					var title = obj.title || obj.text.substr(0, 49) +'…';
-					$modalWindow.find('.modal-title').html(i18n.t('{{count}} comment for {{title}}', {count: obj.com, title: title}));
+					if (obj.com) {
+						$modalWindow.find('.modal-title').html(i18n.t('{{count}} comment for {{title}}', {
+							count: obj.com,
+							title: title
+						}));
+					} else {
+						$modalWindow.find('.modal-title').html(i18n.t('Add a comment for {{title}}', {
+							title: title
+						}));
+					}
 					var $modalBody = $modalWindow.find('.modal-body');
 					var $form = $modalWindow.find('form');
 					$form.hide().removeAttr('hidden');
@@ -35,18 +44,18 @@ module.exports = (function() {
 					}
 					//load comments
 					query.getComments(obj.id, function(result) {
-						console.info('ok', result);
 						var $modalComments = $modalWindow.find('.modal-comments');
 						var l = result.comments.length;
 						if (l) {
+							$modalComments.data('id', obj.id);
 							var comment = require('./comment.js');
-							var content = [];
+							var content = ['<p>'+ i18n.t('{{count}} comment', {count: result.count}) +'</p>'];
 							for (var i = l - 1; i >= 0; i--) {
-								content.push(comment.getComment(result.comments[i]))
+								content.push(comment.getComment(result.comments[i], obj));
 							}
 							$modalComments.html(content.join(''));
 						} else {
-							$modalComments.html('<p class="text-muted">Aucun commentaire pour le moment.</p>');
+							$modalComments.html('<p class="text-muted">'+ i18n.t('No comment yet') +'</p>');
 						}
 					},function(msg) {
 						windows.close();
