@@ -32,8 +32,6 @@
     "Close": "Fermer",
     "Save": "Enregistrer",
     "Choose a category": "Choississez une catégorie",
-	"Hashtag": "Hashtag",
-	"Specify a hashtag": "Cherchez un hashtag",
 	"Location request": "Demande de localisation",
 	"Location_request_details": "Wouaf IT va vous demander votre autorisation pour activer la géolocalisation sur votre navigateur. Cette demande permettra de centrer automatiquement la carte sur votre position et ainsi de simplifier votre navigation.\n\nNous ne stockons pas votre position sur nos serveurs.\n\nVous pourrez à tout moment modifier cette autorisation dans les paramètres de votre navigateur.",
 	"Loading": "Chargement ...",
@@ -278,6 +276,8 @@
 	"No comment yet": "Aucun commentaire pour le moment.",
 	"Add a comment for {{title}}": "Ajouter un commentaire pour \"{{title}}\"",
 	"Report an inappropriate comment" : "Signaler un commentaire inapproprié",
+	"View the next {{count}} comment": "Voir le commentaire suivant",
+	"View the next {{count}} comment_plural": "Voir les {{count}} commentaires suivants",
 
 	"Delete your comment": "Supprimer votre commentaire ?",
 	"delete_comment_details": "Confirmez-vous la suppression définitive de ce commentaire ?\nVous ne pourrez pas revenir en arrière !",

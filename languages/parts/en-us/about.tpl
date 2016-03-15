@@ -22,7 +22,7 @@
 		<li>Do not post anything false, misleading or likely to mislead users.</li>
 		<li>Do not offer any service in disagreement with the laws of your country of publication.</li>
 	</ul>
-	<p>Wouaf IT reserves the right to remove any post not complying with these conditions as soon as they are known.</p>
+	<p>Wouaf IT will remove any post not complying with these conditions as soon as they are known.</p>
 
 	<h5>Protection of personal data:</h5>
 	<p>Wouaf IT is and will be respectful of your personal data. They will not be sold or commercially exploited outside of the use required to operate the service.</p>

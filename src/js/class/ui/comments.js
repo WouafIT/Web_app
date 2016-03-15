@@ -45,15 +45,35 @@ module.exports = (function() {
 					//load comments
 					query.getComments(obj.id, function(result) {
 						var $modalComments = $modalWindow.find('.modal-comments');
-						var l = result.comments.length;
-						if (l) {
-							$modalComments.data('id', obj.id);
+						if (result.count) {
 							var comment = require('./comment.js');
-							var content = ['<p>'+ i18n.t('{{count}} comment', {count: result.count}) +'</p>'];
-							for (var i = l - 1; i >= 0; i--) {
-								content.push(comment.getComment(result.comments[i], obj));
-							}
-							$modalComments.html(content.join(''));
+							var comments = result.comments;
+							$modalComments.data('id', obj.id);
+							$modalComments.html('<p>'+ i18n.t('{{count}} comment', {count: result.count}) +'</p>');
+							//paginate display
+							var addSomeComments = function (comments) {
+								var max = 5;
+								if (!comments.length) {
+									return;
+								}
+								var content = [];
+								for (var i = 0, l = comments.length; i < max && i < l; i++) {
+									content.push(comment.getComment(comments[l - 1], obj));
+									comments = comments.slice(0, -1);
+									l = comments.length;
+								}
+								$modalComments.append(content.join(''));
+								if (l) {
+									$link = $('<a href="#">'+ i18n.t('View the next {{count}} comment', {count: l}) +'</a>');
+									$link.on('click', function (e) {
+										e.preventDefault();
+										$(e.target).remove();
+										addSomeComments(comments);
+									});
+									$modalComments.append($link);
+								}
+							};
+							addSomeComments(comments);
 						} else {
 							$modalComments.html('<p class="text-muted">'+ i18n.t('No comment yet') +'</p>');
 						}
