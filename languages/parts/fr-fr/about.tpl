@@ -1,12 +1,12 @@
 <div class="modal-header">
-	<button type="button" class="close" data-dismiss="modal" aria-label="{%= o.htmlWebpackPlugin.options.i18n['Close'] %}">
+	<button type="button" class="close" data-dismiss="modal" aria-label="<%= htmlWebpackPlugin.options.i18n['Close'] %>">
 		<span aria-hidden="true">&times;</span>
-		<span class="sr-only">{%= o.htmlWebpackPlugin.options.i18n['Close'] %}</span>
+		<span class="sr-only"><%= htmlWebpackPlugin.options.i18n['Close'] %></span>
 	</button>
 	<h4 class="modal-title">A propos de Wouaf IT</h4>
 </div>
 <div class="modal-body">
-	<p>Wouaf IT © {%= o.htmlWebpackPlugin.options.data.year %} par Sébastien PAUCHET.</p>
+	<p>Wouaf IT © <%= htmlWebpackPlugin.options.data.year %> par Sébastien PAUCHET.</p>
 	<hr />
 	<p>Imaginez une source d'information géolocalisée ou tout le monde peut signaler les évènements locaux. De la manifestation de quartier à la vente de votre canapé en passant par le chien perdu du voisin.</p>
 	<p>Les sources d'informations contributives ont déjà montré leur qualité et leur exhaustivité. Wikipedia, Twitter, Facebook, Reddit et autres sont irremplaçable pour nous informer.</p>
@@ -31,5 +31,5 @@
 	<p>L'application web Wouaf IT est distribuée sous licence libre Apache. Son code source est <a href="https://github.com/WouafIT">disponible sur Github</a>.</p>
 </div>
 <div class="modal-footer">
-	<button type="button" class="btn btn-secondary" data-dismiss="modal">{%= o.htmlWebpackPlugin.options.i18n['Close'] %}</button>
+	<button type="button" class="btn btn-secondary" data-dismiss="modal"><%= htmlWebpackPlugin.options.i18n['Close'] %></button>
 </div>

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="{%= o.htmlWebpackPlugin.options.i18n.languageShort %}">
+<html lang="<%= htmlWebpackPlugin.options.i18n.languageShort %>">
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<title>{%= o.htmlWebpackPlugin.options.i18n['Wouaf IT'] %}</title>
-	<meta name="description" content="{%= o.htmlWebpackPlugin.options.i18n['Wouaf IT'] %} -
-	{%= o.htmlWebpackPlugin.options.i18n['Your social network for your local events'] %}" />
+	<title><%= htmlWebpackPlugin.options.i18n['Wouaf IT'] %></title>
+	<meta name="description" content="<%= htmlWebpackPlugin.options.i18n['Wouaf IT'] %> -
+	<%= htmlWebpackPlugin.options.i18n['Your social network for your local events'] %>" />
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" />
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/min/dropzone.min.css" />
@@ -23,8 +23,8 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/i18next/2.1.0/i18next.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/min/dropzone.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.swipebox/1.4.1/js/jquery.swipebox.min.js"></script>
-<script src="//maps.googleapis.com/maps/api/js?key={%= o.htmlWebpackPlugin.options.data.googleApi %}&libraries=geometry"></script>
-<script type="text/javascript" src="/js/build.js?v={%= o.htmlWebpackPlugin.options.data.timestamp %}" charset="utf-8"></script>
-<script type="text/javascript" src="https://ws.sharethis.com/button/buttons.js"></script>
+<script src="//maps.googleapis.com/maps/api/js?key=<%= htmlWebpackPlugin.options.data.googleApi %>&libraries=geometry"></script>
+<script src="//ws.sharethis.com/button/buttons.js"></script>
+<script src="/js/build.js?v=<%= htmlWebpackPlugin.options.data.timestamp %>" charset="utf-8"></script>
 </body>
 </html>

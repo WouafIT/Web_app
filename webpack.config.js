@@ -40,6 +40,8 @@ var websites = Object.keys(languages).map(function(language) {
 		},
 		plugins: [
 			new webpack.DefinePlugin({
+				"DEV_URL": 		JSON.stringify('http://wouafit.local'),
+				"PROD_URL": 	JSON.stringify('https://wouaf.it'),
 				"API_ENDPOINT": JSON.stringify('https://api.wouaf.it'),
 				"API_KEY_PROD": JSON.stringify('dece0f2d-5c24-4e36-8d1c-bfe9701fc526'),
 				"API_KEY_DEV": 	JSON.stringify('deve0f2d-5c24-4e36-8d1c-bfe9701fcdev'),
@@ -49,81 +51,94 @@ var websites = Object.keys(languages).map(function(language) {
 			}),
 			new HtmlWebpackPlugin({
 				filename: 'index.html',
-				template: 'src/html/index.tpl',
+				template: __dirname + '/src/html/index.tpl',
 				data: htmlData,
-				i18n: languageData
+				i18n: languageData,
+				inject: false
 			}),
 			new HtmlWebpackPlugin({
 				filename: 'parts/index.html',
-				template: 'src/html/parts/index.tpl',
+				template: __dirname + '/src/html/parts/index.tpl',
 				data: htmlData,
-				i18n: languageData
+				i18n: languageData,
+				inject: false
 			}),
 			new HtmlWebpackPlugin({
 				filename: 'parts/about.html',
-				template: './languages/parts/'+language+'/about.tpl',
+				template: __dirname + '/languages/parts/'+language+'/about.tpl',
 				data: htmlData,
-				i18n: languageData
+				i18n: languageData,
+				inject: false
 			}),
 			new HtmlWebpackPlugin({
                 filename: 'parts/login.html',
-                template: 'src/html/parts/login.tpl',
+                template: __dirname + '/src/html/parts/login.tpl',
                 data: htmlData,
-                i18n: languageData
+                i18n: languageData,
+				inject: false
             }),
 			new HtmlWebpackPlugin({
 				filename: 'parts/parameters.html',
-				template: 'src/html/parts/parameters.tpl',
+				template: __dirname + '/src/html/parts/parameters.tpl',
 				data: htmlData,
-				i18n: languageData
+				i18n: languageData,
+				inject: false
 			}),
 			new HtmlWebpackPlugin({
 				filename: 'parts/contact.html',
-				template: 'src/html/parts/contact.tpl',
+				template: __dirname + '/src/html/parts/contact.tpl',
 				data: htmlData,
-				i18n: languageData
+				i18n: languageData,
+				inject: false
 			}),
 			new HtmlWebpackPlugin({
 				filename: 'parts/create-account.html',
-				template: 'src/html/parts/create-account.tpl',
+				template: __dirname + '/src/html/parts/create-account.tpl',
 				data: htmlData,
-				i18n: languageData
+				i18n: languageData,
+				inject: false
 			}),
 			new HtmlWebpackPlugin({
 				filename: 'parts/profile.html',
-				template: 'src/html/parts/profile.tpl',
+				template: __dirname + '/src/html/parts/profile.tpl',
 				data: htmlData,
-				i18n: languageData
+				i18n: languageData,
+				inject: false
 			}),
 			new HtmlWebpackPlugin({
 				filename: 'parts/lost-password.html',
-				template: 'src/html/parts/lost-password.tpl',
+				template: __dirname + '/src/html/parts/lost-password.tpl',
 				data: htmlData,
-				i18n: languageData
+				i18n: languageData,
+				inject: false
 			}),
 			new HtmlWebpackPlugin({
 				filename: 'parts/add.html',
-				template: 'src/html/parts/add.tpl',
+				template: __dirname + '/src/html/parts/add.tpl',
 				data: htmlData,
-				i18n: languageData
+				i18n: languageData,
+				inject: false
 			}),
 			new HtmlWebpackPlugin({
 				filename: 'parts/comments.html',
-				template: 'src/html/parts/comments.tpl',
+				template: __dirname + '/src/html/parts/comments.tpl',
 				data: htmlData,
-				i18n: languageData
+				i18n: languageData,
+				inject: false
 			}),
 			new HtmlWebpackPlugin({
 				filename: 'parts/activation.html',
-				template: 'src/html/parts/activation.tpl',
+				template: __dirname + '/src/html/parts/activation.tpl',
 				data: htmlData,
-				i18n: languageData
+				i18n: languageData,
+				inject: false
 			}),
 			new HtmlWebpackPlugin({
 				filename: 'parts/user.html',
-				template: 'src/html/parts/user.tpl',
+				template: __dirname + '/src/html/parts/user.tpl',
 				data: htmlData,
-				i18n: languageData
+				i18n: languageData,
+				inject: false
 			}),
 			new CopyWebpackPlugin([
 				{
