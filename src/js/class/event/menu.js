@@ -13,7 +13,7 @@ module.exports = (function() {
 	$document.on('click', function(e) {
 		if (menu.shown()) {
 			var $target = $(e.target);
-			if (!$target.hasClass('w-menu') && !$target.parents('.w-menu-dropdown').length) {
+			if (!$target.hasClass('w-menu') && !$target.parent().hasClass('w-menu') && !$target.parents('.w-menu-dropdown').length) {
 				menu.close();
 			}
 		}

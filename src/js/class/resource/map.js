@@ -10,6 +10,7 @@ module.exports = (function () {
 	var userLocation;
 	var hcmap;
 	var userMarker;
+	var initialized = false;
 	var $body = $('body');
 	var $map = $('#map');
 	var self = {
@@ -76,6 +77,7 @@ module.exports = (function () {
 				toast.show(i18n.t('{{wouaf}} displayed', { count: countResults, wouaf: notificationLabel }));
 			}
 		}
+		initialized = true;
 		$document.triggerHandler('map.show-results');
 	};
 	var removePin = function(id) {
@@ -350,6 +352,17 @@ module.exports = (function () {
 		}
 	};
 
+	//append a given result to map
+	var appendResult = function(wouaf) {
+		var results = jQuery.extend(true, {}, self.jsonResults);
+		//add post to map results and display it
+		results.results.push(wouaf);
+		results.count = results.results.length;
+		var now = new Date();
+		results.searchId = now.getTime();
+		setPins(results, false);
+	};
+
 	var getResults = function(ids) {
 		ids = ids || [];
 		if (!self.jsonResults.count || !self.jsonResults.results) {
@@ -379,33 +392,33 @@ module.exports = (function () {
 		if (obj) {
 			deferred.resolve(obj);
 		} else {
-			var query = require('./query.js');
-			query.post(id, function (result) {
-				//clone current results
-				var appendResult = function(result) {
-					var results = jQuery.extend(true, {}, self.jsonResults);
-					//add post to map results and display it
-					results.results.push(result.wouaf);
-					results.count = results.results.length;
-					var now = new Date();
-					results.searchId = now.getTime();
-					setPins(results, false);
-				};
-				if (self.jsonResults.results) {
-					appendResult(result);
+			if (initialized) {
+				//no result, grab it from server
+				var query = require('./query.js');
+				query.post(id, function (result) {
+					appendResult(result.wouaf);
 					deferred.resolve(result.wouaf);
-				} else {
-					$document.one('map.show-results', function() {
-						var obj = getResults([result.wouaf.id])[0] || null;
-						if (!obj) {
-							appendResult(result);
-						}
-						deferred.resolve(result.wouaf);
-					});
-				}
-			}, function (msg) {
-				deferred.reject(msg);
-			});
+				}, function (msg) {
+					deferred.reject(msg);
+				});
+			} else {
+				//wait for map initialization
+				$document.one('map.show-results', function() {
+					var obj = getResults([id])[0] || null;
+					if (obj) {
+						deferred.resolve(obj);
+					} else {
+						//no result, grab it from server
+						var query = require('./query.js');
+						query.post(id, function (result) {
+							appendResult(result.wouaf);
+							deferred.resolve(result.wouaf);
+						}, function (msg) {
+							deferred.reject(msg);
+						});
+					}
+				});
+			}
 		}
 		return deferred.promise();
 	};

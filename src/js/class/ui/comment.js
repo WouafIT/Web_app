@@ -21,7 +21,7 @@ module.exports = (function() {
 		className += wouaf.author[0] === obj.author[0] ? ' wouaf-author' : '';
 		return ['<blockquote class="blockquote', className ,'">',
 			'<button class="w-menu" data-id="'+ obj.id +'" data-menu="comment" type="button">',
-				'<i class="fa fa-cog"></i> '+ i18n.t('Menu'),
+				'<i class="fa fa-cog"></i>',
 			'</button>',
 			'<p class="m-b-0">', utils.textToHTML(obj.text) ,'</p>',
 			'<footer class="blockquote-footer"> ', author ,'</footer>',

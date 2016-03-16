@@ -14,81 +14,82 @@ module.exports = (function() {
 
 	self.show = function () {
 		var states = data.getObject('navigation');
-		if (states.wouaf && utils.isValidWouafId(states.wouaf)) {
-			//comment wouaf
-			$.when(map.getResult(states.wouaf))
-				.done(function(obj) {
-					if (!obj) {
-						windows.close();
-						return;
-					}
-					var title = obj.title || obj.text.substr(0, 49) +'…';
-					if (obj.com) {
-						$modalWindow.find('.modal-title').html(i18n.t('{{count}} comment for {{title}}', {
-							count: obj.com,
-							title: title
-						}));
-					} else {
-						$modalWindow.find('.modal-title').html(i18n.t('Add a comment for {{title}}', {
-							title: title
-						}));
-					}
-					var $modalBody = $modalWindow.find('.modal-body');
-					var $form = $modalWindow.find('form');
-					$form.hide().removeAttr('hidden');
-					if (!data.getString('uid')) { //user is not logged, show an alert
-						alert.show(i18n.t('Login to add a comment'), $modalBody);
-					} else {
-						$form.show();
-						handleForm(obj);
-					}
-					//load comments
-					query.getComments(obj.id, function(result) {
-						var $modalComments = $modalWindow.find('.modal-comments');
-						if (result.count) {
-							var comment = require('./comment.js');
-							var comments = result.comments;
-							$modalComments.data('id', obj.id);
-							$modalComments.html('<p>'+ i18n.t('{{count}} comment', {count: result.count}) +'</p>');
-							//paginate display
-							var addSomeComments = function (comments) {
-								var max = 5;
-								if (!comments.length) {
-									return;
-								}
-								var content = [];
-								for (var i = 0, l = comments.length; i < max && i < l; i++) {
-									content.push(comment.getComment(comments[l - 1], obj));
-									comments = comments.slice(0, -1);
-									l = comments.length;
-								}
-								$modalComments.append(content.join(''));
-								if (l) {
-									$link = $('<a href="#">'+ i18n.t('View the next {{count}} comment', {count: l}) +'</a>');
-									$link.on('click', function (e) {
-										e.preventDefault();
-										$(e.target).remove();
-										addSomeComments(comments);
-									});
-									$modalComments.append($link);
-								}
-							};
-							addSomeComments(comments);
-						} else {
-							$modalComments.html('<p class="text-muted">'+ i18n.t('No comment yet') +'</p>');
-						}
-					},function(msg) {
-						windows.close();
-						var toast = require('../resource/toast.js');
-						toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
-					});
-				}).fail(function() {
-					windows.close();
-				}
-			);
-		} else {
+		if (!states.wouaf || !utils.isValidWouafId(states.wouaf)) {
 			windows.close();
+			return;
 		}
+		//comment wouaf
+		$.when(map.getResult(states.wouaf))
+			.done(function(obj) {
+				if (!obj) {
+					windows.close();
+					return;
+				}
+				var title = obj.title || obj.text.substr(0, 49) +'…';
+				if (obj.com) {
+					$modalWindow.find('.modal-title').html(i18n.t('{{count}} comment for {{title}}', {
+						count: obj.com,
+						title: title
+					}));
+				} else {
+					$modalWindow.find('.modal-title').html(i18n.t('Add a comment for {{title}}', {
+						title: title
+					}));
+				}
+				var $modalBody = $modalWindow.find('.modal-body');
+				var $form = $modalWindow.find('form');
+				$form.hide().removeAttr('hidden');
+				if (!data.getString('uid')) { //user is not logged, show an alert
+					alert.show(i18n.t('Login to add a comment'), $modalBody);
+				} else {
+					$form.show();
+					handleForm(obj);
+				}
+				//load comments
+				query.getComments(obj.id, function(result) {
+					var $modalComments = $modalWindow.find('.modal-comments');
+					if (result.count) {
+						var comment = require('./comment.js');
+						var comments = result.comments;
+						$modalComments.data('id', obj.id);
+						$modalComments.html('<p>'+ i18n.t('{{count}} comment', {count: result.count}) +'</p>');
+						//paginate display
+						var addSomeComments = function (comments) {
+							var max = 30;
+							if (!comments.length) {
+								return;
+							}
+							var content = [];
+							for (var i = 0, l = comments.length; i < max && l > 0; i++) {
+								content.push(comment.getComment(comments[l - 1], obj));
+								comments = comments.slice(0, -1);
+								l--;
+							}
+							$modalComments.append(content.join(''));
+							if (l) {
+								$link = $('<a href="#">'+ i18n.t('View the next {{count}} comment', {count: l}) +'</a>');
+								$link.on('click', function (e) {
+									e.preventDefault();
+									$(e.target).remove();
+									addSomeComments(comments);
+								});
+								$modalComments.append($link);
+							}
+						};
+						addSomeComments(comments);
+					} else {
+						$modalComments.html('<p class="text-muted">'+ i18n.t('No comment yet') +'</p>');
+					}
+				},function(msg) {
+					windows.close();
+					var toast = require('../resource/toast.js');
+					toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
+				});
+			}).fail(function() {
+				windows.close();
+			}
+		);
+
 		function handleForm(obj) {
 			var $form = $modalWindow.find('form');
 			var $remaining = $form.find('.remaining');
