@@ -10,7 +10,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "NODE_ENV=dev webpack -d --progress --colors",
-    "prod": "NODE_ENV=production webpack -p"
+    "prod": "NODE_ENV=production webpack -p",
+	"start": "NODE_ENV=dev webpack-dev-server --watch-poll --inline --hot"
   },
   "author": {
     "name": "Sébastien PAUCHET",
@@ -33,9 +34,11 @@
     "copy-webpack-plugin": "^1.1.1",
     "html-webpack-plugin": "^2.10.0",
     "twitter-text": "^1.13.2",
-	"html-loader": "^0.4.0"
+	"html-loader": "^0.4.0",
+	"webpack-merge": "^0.7.3"
   },
   "devDependencies": {
-    "bootstrap": "twbs/bootstrap#v4-dev"
+    "bootstrap": "twbs/bootstrap#v4-dev",
+	"webpack-dev-server": "^1.14.1"
   }
 }

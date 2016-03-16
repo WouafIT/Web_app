@@ -1,13 +1,15 @@
-var webpack = require("webpack");
-var languages = {
+const merge = require('webpack-merge');
+const webpack = require("webpack");
+const languages = {
 	"fr-fr": './languages/fr-fr.json',
 	"en-us": './languages/en-us.json'
 };
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var CopyWebpackPlugin = require('copy-webpack-plugin');
-var timestamp = Math.floor(Date.now() / 1000);
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const TARGET = process.env.npm_lifecycle_event;
+const timestamp = Math.floor(Date.now() / 1000);
 
-var websites = Object.keys(languages).map(function(language) {
+var common = Object.keys(languages).map(function(language) {
 	var htmlData = {
 		googleApi: 'AIzaSyCXCe5iWx-lVBv89H0teRMFjy8s24TMOiQ',
 		language: language,
@@ -155,7 +157,7 @@ var websites = Object.keys(languages).map(function(language) {
 		}
 	}
 });
-websites.push({
+common.push({
 	  name: 'www',
 	  context: __dirname + '/src/js',
 	  entry: './null.js',
@@ -182,4 +184,24 @@ websites.push({
 	  ]
 });
 
-module.exports = websites;
+if(TARGET === 'start') {
+	module.exports = merge(common, {
+		devtool: 'eval-source-map',
+		devServer: {
+			contentBase: __dirname + '/build/www-fr-fr',
+
+			historyApiFallback: true,
+			hot: true,
+			inline: true,
+			progress: true,
+
+			// Display only errors to reduce the amount of output.
+			stats: 'errors-only',
+
+			host: '0.0.0.0',
+			port: 8080
+		}
+	});
+} else {
+	module.exports = common;
+}
