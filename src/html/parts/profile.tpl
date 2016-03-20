@@ -117,7 +117,10 @@
 				</div>
 			</fieldset>
 
-			<p class="text-xs-right"><button type="submit" class="btn btn-primary"><%= htmlWebpackPlugin.options.i18n['Save your profile'] %></button></p>
+			<p class="text-xs-right">
+				<button type="button" class="pull-left profile-delete btn btn-danger"><%= htmlWebpackPlugin.options.i18n['Delete your profile'] %></button>
+				<button type="submit" class="btn btn-primary"><%= htmlWebpackPlugin.options.i18n['Save your profile'] %></button>
+			</p>
 		</form>
 	</div>
 	<div class="modal-footer">

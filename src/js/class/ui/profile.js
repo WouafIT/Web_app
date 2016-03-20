@@ -3,6 +3,8 @@ module.exports = (function() {
 	var windows = require('../resource/windows.js');
 	var dtp = require('../resource/datetimepicker.js');
 	var i18n = require('../resource/i18n.js');
+	var query = require('../resource/query.js');
+	var toast = require('../resource/toast.js');
 	var twitterText = require('twitter-text');
 	var $modalWindow = windows.getWindows();
 	var $document = $(document);
@@ -26,6 +28,7 @@ module.exports = (function() {
 		var $language = $form.find('select[name=language]');
 		var $gender = $form.find('select[name=gender]');
 		var $signwname = $form.find('input[name=signwname]');
+		var $delete = $form.find('button.profile-delete');
 		//set current values
 		$username.val(user.get('username'));
 		$description.val(user.get('description'));
@@ -50,6 +53,26 @@ module.exports = (function() {
 				$description.val($description.val().substr(0, 300));
 			}
 			$remaining.html(i18n.t('{{count}} character left', {count: count}));
+		});
+
+		//delete profile
+		$delete.on('click', function () {
+			//show confirm page
+			windows.show({
+				title: i18n.t('Delete your profile'),
+				text: i18n.t('delete_profile_details'),
+				confirm: function() {
+					windows.close();
+					query.deleteUser(
+						function() { //success
+							$document.triggerHandler('app.logout');
+							toast.show(i18n.t('Your profile is deleted'));
+						}, function (msg) { //error
+							toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
+						}
+					);
+				}
+			});
 		});
 
 		//form field validation and submition
@@ -90,7 +113,6 @@ module.exports = (function() {
 			}
 
 			//Query
-			var query = require('../resource/query.js');
 			query.updateUser({
 				pass: 			$pass.val(),
 				email: 			$email.val(),
@@ -122,7 +144,6 @@ module.exports = (function() {
 
 				windows.close();
 
-				var toast = require('../resource/toast.js');
 				toast.show(i18n.t('Profile saved!'), null, function () {
 					if (originalLanguage != user.get('lang')) {
 						var lang = user.get('lang').toLowerCase().replace('_', '-');

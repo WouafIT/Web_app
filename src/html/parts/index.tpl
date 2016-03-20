@@ -33,18 +33,21 @@
 		<h2 class="description"><%= htmlWebpackPlugin.options.i18n['Your social network for your local events'] %></h2>
 	</header>
 	<div class="container">
-		<div class="row">
-			<ul class="nav nav-tabs">
-				<li class="nav-item">
-					<a href="#search" class="nav-link active" role="tab" data-toggle="tab">
-						<i class="fa fa-search"></i> <%= htmlWebpackPlugin.options.i18n['Search'] %></a>
-				</li>
-				<li class="nav-item">
-					<a href="#wouafs" class="nav-link" role="tab" data-toggle="tab">
-						<i class="fa fa-list"></i> <%= htmlWebpackPlugin.options.i18n['Your Wouafs'] %></a>
-				</li>
-			</ul>
-		</div>
+		<ul class="nav nav-tabs" role="tablist">
+			<li class="nav-item">
+				<a href="#search" class="nav-link active" role="tab" data-toggle="tab">
+					<i class="fa fa-search"></i> <%= htmlWebpackPlugin.options.i18n['Search'] %></a>
+			</li>
+			<li class="nav-item dropdown">
+				<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+					<i class="fa fa-list"></i> <%= htmlWebpackPlugin.options.i18n['Your Wouafs'] %>
+				</a>
+				<div class="dropdown-menu">
+					<a class="dropdown-item" id="dropdown1-tab" href="#wouafs" role="tab" data-toggle="tab" aria-controls="dropdown1"><i class="fa fa-list"></i> <%= htmlWebpackPlugin.options.i18n['Your Wouafs'] %></a>
+					<a class="dropdown-item" id="dropdown2-tab" href="#favorites" role="tab" data-toggle="tab" aria-controls="dropdown2"><i class="fa fa-star"></i> <%= htmlWebpackPlugin.options.i18n['Your Favorites'] %></a>
+				</div>
+			</li>
+		</ul>
 		<!-- Tab panes -->
 		<div class="tab-content">
 			<div role="tabpanel" class="tab-pane active" id="search">
@@ -117,6 +120,9 @@
 						   data-toggle="modal" data-target="#modalWindow"><%= htmlWebpackPlugin.options.i18n['Login'] %></a>
 					</p>
 				</div>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="favorites">
+				Favoris
 			</div>
 		</div>
 	</div>

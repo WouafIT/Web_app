@@ -15,6 +15,7 @@
 	"Logout": "Déconnexion",
 	"Search": "Rechercher",
 	"Your Wouafs": "Vos Wouafs",
+	"Your Favorites": "Vos favoris",
 	"Where?": "Où ?",
 	"Look for a place": "Cherchez un endroit",
 	"When?": "Quand ?",
@@ -95,6 +96,9 @@
 
 	"Edit your profile": "Editez votre profil",
 	"Save your profile": "Enregistrer votre profil",
+	"Delete your profile": "Supprimer votre profil",
+	"delete_profile_details": "Etes-vous sur de vouloir supprimer définitivement votre profil ?\nTous vos Wouafs seront définitivement supprimés.\nVos commentaires sur d'autres Wouafs seront conservés.\n\nCette action est irréversible ! Vous confirmez ?",
+	"Your profile is deleted": "Votre profil est supprimé.",
 	"Description": "Description",
 	"Describe yourself briefly (300 char. max)": "Décrivez-vous brièvement (300 car. max)",
 	"Choose who you are" : "Choisissez qui vous êtes",
