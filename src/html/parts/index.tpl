@@ -33,25 +33,35 @@
 		<h2 class="description"><%= htmlWebpackPlugin.options.i18n['Your social network for your local events'] %></h2>
 	</header>
 	<div class="container">
-		<ul class="nav nav-tabs" role="tablist">
-			<li class="nav-item">
-				<a href="#search" class="nav-link active" role="tab" data-toggle="tab">
-					<i class="fa fa-search"></i> <%= htmlWebpackPlugin.options.i18n['Search'] %></a>
-			</li>
-			<li class="nav-item dropdown">
-				<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-					<i class="fa fa-list"></i> <%= htmlWebpackPlugin.options.i18n['Your Wouafs'] %>
-				</a>
-				<div class="dropdown-menu">
-					<a class="dropdown-item" id="dropdown1-tab" href="#wouafs" role="tab" data-toggle="tab" aria-controls="dropdown1"><i class="fa fa-list"></i> <%= htmlWebpackPlugin.options.i18n['Your Wouafs'] %></a>
-					<a class="dropdown-item" id="dropdown2-tab" href="#favorites" role="tab" data-toggle="tab" aria-controls="dropdown2"><i class="fa fa-star"></i> <%= htmlWebpackPlugin.options.i18n['Your Favorites'] %></a>
-				</div>
-			</li>
-		</ul>
+		<div class="row">
+			<ul class="nav nav-tabs" role="tablist">
+				<li class="nav-item">
+					<a href="#search" class="nav-link active" role="tab" data-toggle="tab">
+						<i class="fa fa-search"></i> <%= htmlWebpackPlugin.options.i18n['Search'] %></a>
+				</li>
+				<li class="nav-item dropdown">
+					<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+						<i class="fa fa-list"></i> <%= htmlWebpackPlugin.options.i18n['Your Wouafs'] %>
+					</a>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" id="dropdown1-tab" href="#wouafs" role="tab" data-toggle="tab" aria-controls="dropdown1"><i class="fa fa-list"></i> <%= htmlWebpackPlugin.options.i18n['Your Wouafs'] %></a>
+						<a class="dropdown-item" id="dropdown2-tab" href="#favorites" role="tab" data-toggle="tab" aria-controls="dropdown2"><i class="fa fa-star"></i> <%= htmlWebpackPlugin.options.i18n['Your Favorites'] %></a>
+					</div>
+				</li>
+			</ul>
+		</div>
 		<!-- Tab panes -->
 		<div class="tab-content">
 			<div role="tabpanel" class="tab-pane active" id="search">
 				<form>
+					<fieldset class="form-group row">
+						<label for="what"><%= htmlWebpackPlugin.options.i18n['What?'] %></label>
+						<div class="input-group">
+							<div class="input-group-addon"><i class="fa fa-question-circle"></i></div>
+							<select class="form-control" id="what" placeholder="<%= htmlWebpackPlugin.options.i18n['Choose a category'] %>"></select>
+						</div>
+						<small class="text-muted categories-help"></small>
+					</fieldset>
 					<fieldset class="form-group row">
 						<label for="where"><%= htmlWebpackPlugin.options.i18n['Where?'] %></label>
 						<div class="input-group">
@@ -91,22 +101,13 @@
 							</div>
 						</div>
 					</fieldset>
-					<fieldset class="form-group row">
-						<label for="what"><%= htmlWebpackPlugin.options.i18n['What?'] %></label>
-						<div class="input-group">
-							<div class="input-group-addon"><i class="fa fa-question-circle"></i></div>
-							<select class="form-control" id="what" placeholder="<%= htmlWebpackPlugin.options.i18n['Choose a category'] %>"></select>
-						</div>
-						<small class="text-muted categories-help"></small>
-					</fieldset>
 					<div class="row">
-						<div class="col-xs-4 col-xs-offset-4">
+						<p class="text-xs-center">
 							<button type="submit" class="btn btn-primary">
 								<i class="fa fa-search"></i> <%= htmlWebpackPlugin.options.i18n['Search!'] %></button>
-						</div>
+						</p>
 					</div>
 				</form>
-
 			</div>
 			<div role="tabpanel" class="tab-pane" id="wouafs">
 				<div class="jumbotron anonymous">
@@ -120,9 +121,27 @@
 						   data-toggle="modal" data-target="#modalWindow"><%= htmlWebpackPlugin.options.i18n['Login'] %></a>
 					</p>
 				</div>
+				<div class="logged">
+					<h5><%= htmlWebpackPlugin.options.i18n['Your Wouafs'] %></h5>
+					<div class="results"></div>
+				</div>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="favorites">
-				Favoris
+				<div class="jumbotron anonymous">
+					<h1><%= htmlWebpackPlugin.options.i18n['Connect!'] %></h1>
+					<p class="lead"><%= htmlWebpackPlugin.options.i18n['create_wouaf_it_account'] %></p>
+					<hr class="m-y-md">
+					<p><%= htmlWebpackPlugin.options.i18n['use_wouaf_it_account'] %></p>
+					<p class="lead text-xs-right">
+						<a class="btn btn-primary btn-lg" href="/login/" role="button"
+						   data-href="login"
+						   data-toggle="modal" data-target="#modalWindow"><%= htmlWebpackPlugin.options.i18n['Login'] %></a>
+					</p>
+				</div>
+				<div class="logged">
+					<h5><%= htmlWebpackPlugin.options.i18n['Your Favorites'] %></h5>
+					<div class="results"></div>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -157,10 +157,10 @@ module.exports = (function() {
 			case 'comment':
 				var commentId = $target.parents('.w-menu-dropdown').data('id');
 				var wouafId = $target.parents('.w-menu-dropdown').data('wouaf');
+				menu.close();
 				switch (action) {
 					case 'delete':
 						//show confirm page
-						menu.close();
 						windows.show({
 							title: i18n.t('Delete your comment'),
 							text: i18n.t('delete_comment_details'),
@@ -195,7 +195,6 @@ module.exports = (function() {
 							return;
 						}
 						//show confirm page
-						menu.close();
 						windows.show({
 							title: i18n.t('Report this comment'),
 							text: i18n.t('report_comment_details'),

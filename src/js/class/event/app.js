@@ -16,6 +16,7 @@ module.exports = (function() {
 		require('./wouaf.js');
 		require('./search.js');
 		require('./menu.js');
+		require('./tabs.js');
 
 		//launch count
 		var launchCount = data.getInt('launchCount');

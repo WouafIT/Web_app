@@ -8,7 +8,7 @@
  */
 (function($) {
 	//Load styles
-	require("../libs/slidebars/0.10.3/dist/slidebars.css");
+	require("../libs/slidebars/0.10.3/dist/slidebars.min.css");
 	require('../libs/DateTimePicker/dist/DateTimePicker.min.css');
 	require("../less/index.less");
 	var data = require('./class/resource/data.js');
