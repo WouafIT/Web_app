@@ -35,7 +35,7 @@
     "html-webpack-plugin": "^2.10.0",
     "twitter-text": "^1.13.2",
 	"html-loader": "^0.4.0",
-	"webpack-merge": "^0.7.3"
+	"webpack-merge": "^0.8.4"
   },
   "devDependencies": {
     "bootstrap": "twbs/bootstrap#v4-dev",
