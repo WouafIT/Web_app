@@ -43,10 +43,7 @@
 					<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 						<i class="fa fa-list"></i> <%= htmlWebpackPlugin.options.i18n['Your Wouafs'] %>
 					</a>
-					<div class="dropdown-menu">
-						<a class="dropdown-item" id="dropdown1-tab" href="#wouafs" role="tab" data-toggle="tab" aria-controls="dropdown1"><i class="fa fa-list"></i> <%= htmlWebpackPlugin.options.i18n['Your Wouafs'] %></a>
-						<a class="dropdown-item" id="dropdown2-tab" href="#favorites" role="tab" data-toggle="tab" aria-controls="dropdown2"><i class="fa fa-star"></i> <%= htmlWebpackPlugin.options.i18n['Your Favorites'] %></a>
-					</div>
+					<div class="dropdown-menu"></div>
 				</li>
 			</ul>
 		</div>
@@ -108,40 +105,6 @@
 						</p>
 					</div>
 				</form>
-			</div>
-			<div role="tabpanel" class="tab-pane" id="wouafs">
-				<div class="jumbotron anonymous">
-					<h1><%= htmlWebpackPlugin.options.i18n['Connect!'] %></h1>
-					<p class="lead"><%= htmlWebpackPlugin.options.i18n['create_wouaf_it_account'] %></p>
-					<hr class="m-y-md">
-					<p><%= htmlWebpackPlugin.options.i18n['use_wouaf_it_account'] %></p>
-					<p class="lead text-xs-right">
-						<a class="btn btn-primary btn-lg" href="/login/" role="button"
-						   data-href="login"
-						   data-toggle="modal" data-target="#modalWindow"><%= htmlWebpackPlugin.options.i18n['Login'] %></a>
-					</p>
-				</div>
-				<div class="logged">
-					<h5><%= htmlWebpackPlugin.options.i18n['Your Wouafs'] %></h5>
-					<div class="results"></div>
-				</div>
-			</div>
-			<div role="tabpanel" class="tab-pane" id="favorites">
-				<div class="jumbotron anonymous">
-					<h1><%= htmlWebpackPlugin.options.i18n['Connect!'] %></h1>
-					<p class="lead"><%= htmlWebpackPlugin.options.i18n['create_wouaf_it_account'] %></p>
-					<hr class="m-y-md">
-					<p><%= htmlWebpackPlugin.options.i18n['use_wouaf_it_account'] %></p>
-					<p class="lead text-xs-right">
-						<a class="btn btn-primary btn-lg" href="/login/" role="button"
-						   data-href="login"
-						   data-toggle="modal" data-target="#modalWindow"><%= htmlWebpackPlugin.options.i18n['Login'] %></a>
-					</p>
-				</div>
-				<div class="logged">
-					<h5><%= htmlWebpackPlugin.options.i18n['Your Favorites'] %></h5>
-					<div class="results"></div>
-				</div>
 			</div>
 		</div>
 	</div>

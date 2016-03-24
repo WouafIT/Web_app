@@ -54,18 +54,6 @@ module.exports = (function() {
 				});
 				return;
 			}
-			//update token and favorites if any
-			if (infos.token) {
-				//login
-				$document.triggerHandler('app.login', infos);
-			} else {
-				//logout
-				$document.triggerHandler('app.logout');
-			}
-			//init categories
-			if (infos.categories) {
-				categories.init(infos.categories);
-			}
 			//init slidebars
 			slidebars.init();
 			//init add button
@@ -83,6 +71,18 @@ module.exports = (function() {
 				shorten:false
 			});
 
+			//update token and favorites if any
+			if (infos.token) {
+				//login
+				$document.triggerHandler('app.login', infos);
+			} else {
+				//logout
+				$document.triggerHandler('app.logout');
+			}
+			//init categories
+			if (infos.categories) {
+				categories.init(infos.categories);
+			}
 			//show server message if any
 			if (infos.message) {
 				//show message page
