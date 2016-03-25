@@ -36,8 +36,9 @@
 		<div class="row">
 			<ul class="nav nav-tabs" role="tablist">
 				<li class="nav-item">
-					<a href="#search" class="nav-link active" role="tab" data-toggle="tab">
-						<i class="fa fa-search"></i> <%= htmlWebpackPlugin.options.i18n['Search'] %></a>
+					<a href="#search" class="nav-link active" id="tab-search" role="tab" data-toggle="tab">
+						<i class="fa fa-search"></i> <%= htmlWebpackPlugin.options.i18n['Search'] %>
+					</a>
 				</li>
 				<li class="nav-item dropdown">
 					<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">

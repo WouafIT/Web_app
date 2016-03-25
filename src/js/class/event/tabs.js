@@ -14,6 +14,7 @@ module.exports = (function() {
 			$previousTab.removeClass('active');
 			if ($activeTab.hasClass('dropdown-item')) {
 				$tabHead.html($activeTab.html());
+				$tabHead.data('id', $activeTab.attr('id'));
 			}
 		}
 	});
@@ -35,11 +36,55 @@ module.exports = (function() {
 		$tabsContent.append('<div role="tabpanel" class="tab-pane" id="'+ data.id +'">'+ data.html +'</div>');
 	});
 
-	$document.triggerHandler('tabs.add', {
+	$document.on('click', 'button.close', function(e) {
+		if ($(e.target).parents('.nav-tabs').length) {
+			e.stopPropagation();
+			e.preventDefault();
+			var $parent = $(e.target).parents('a');
+			var id = $parent.attr('id') || $parent.data('id');
+			if (id && id.substr(0, 4) === 'tab-') {
+				$document.triggerHandler('tabs.remove', id.substr(4));
+			}
+		}
+	});
+
+	$document.on('tabs.show', function(e, name) {
+		$tabs.find('a').removeClass('active');
+		$tabsContent.find('div.tab-pane').removeClass('active');
+		if (name) {
+			$('#'+ name).addClass('active');
+			var $activeTab = $('#tab-'+ name);
+			$activeTab.addClass('active');
+			if ($activeTab.hasClass('dropdown-item')) {
+				$tabHead.addClass('active');
+				$tabHead.html($activeTab.html());
+				$tabHead.data('id', $activeTab.attr('id'));
+			}
+		} else {
+			$('#search').addClass('active');
+			$('#tab-search').addClass('active');
+		}
+	});
+
+	$document.on('tabs.remove', function(e, name) {
+		$dropdown.find('#tab-'+name).remove();
+		var $tab = $tabsContent.find('#'+name);
+		if ($tab.hasClass('active')) {
+			$document.triggerHandler('tabs.show', $dropdown.find('a:first-child').attr('id').substr(4));
+		}
+		$tab.remove();
+		if ($tabHead.data('id') === 'tab-'+ name) {
+			var $activeTab = $dropdown.find('a:first-child');
+			$tabHead.html($activeTab.html());
+			$tabHead.data('id', $activeTab.attr('id'));
+		}
+	});
+
+	/*$document.triggerHandler('tabs.add', {
 		id: 'test',
 		name: '<i class="fa fa-list"></i> Coucou',
 		data: {somedata: true},
 		html: 'html de <strong>test</strong>',
 		removable: true
-	});
+	});*/
 })();
