@@ -206,8 +206,8 @@
 	"Gone": "Révolu",
 	"Currently": "Actuellement",
 	"Menu": "Menu",
-	"{{count}} more. Zoom in to see all of them": "{{count}} Wouaf supplémentaire. Zoomez pour le voir.",
-	"{{count}} more. Zoom in to see all of them_plural": "{{count}} Wouafs supplémentaires. Zoomez pour tous les voir.",
+	"{{count}} more. Zoom in to see all of them": "{{count}} Wouaf supplémentaire. Zoomez pour le consulter.",
+	"{{count}} more. Zoom in to see all of them_plural": "{{count}} Wouafs supplémentaires. Zoomez pour les consulter.",
 
 	"Delete your Wouaf": "Supprimer votre Wouaf ?",
 	"delete_details": "Confirmez-vous la suppression définitive de ce Wouaf ainsi que tous les commentaires associés ?\nVous ne pourrez pas revenir en arrière !",
@@ -288,6 +288,8 @@
 	"Your comment is deleted": "Votre commentaire est supprimé.",
 	"Report this comment": "Signaler ce commentaire ?",
 	"report_comment_details": "Confirmez-vous le signalement du contenu de ce commentaire comme inapproprié ?\nAttention, en cas d'erreur des chatons mourrons !",
-	"This comment has been reported": "Merci pour votre signalement !"
+	"This comment has been reported": "Merci pour votre signalement !",
 
+	"{{count}} result": "{{count}} résultat",
+	"{{count}} result_plural": "{{count}} résultats"
 }

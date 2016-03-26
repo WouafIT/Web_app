@@ -4,6 +4,7 @@ module.exports = (function() {
 	var i18n = require('./i18n.js');
 	var categories = require('./categories.js');
 	var $document = $(document);
+	var oSlidebar;
 
 	// private functions
 	function init () {
@@ -13,7 +14,15 @@ module.exports = (function() {
 		var $when = $('#when');
 		var $categoriesHelp = $form.find('.categories-help');
 
-		$.slidebars();
+		oSlidebar = new $.slidebars();
+
+		$document.on('slidebar.open', function() {
+			oSlidebar.slidebars.open('left');
+		});
+		$document.on('slidebar.close', function() {
+			oSlidebar.slidebars.close();
+		});
+
 		//Dom Events
 		$when.on({
 			'change': showHideCustomDates

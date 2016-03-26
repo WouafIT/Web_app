@@ -5,16 +5,9 @@ module.exports = (function() {
 	var url = require('../resource/url.js');
 	var dtp = require('../resource/datetimepicker.js');
 	var self = {};
-	self.getWouaf = function (obj, collapse) {
+	self.getWouafHeader = function (obj, collapse) {
 		collapse = collapse || false;
 		var title = obj.title || obj.text.substr(0, 49) +'…';
-		var text = utils.textToHTML(obj.text);
-		var authorUrl = url.getAbsoluteURLForStates([{name: 'user', value: obj.author[1]}]);
-		var author = i18n.t('By {{author}}', {
-			author: '<a href="'+ authorUrl +'" data-user="'+ obj.author[1] +'">'+
-					utils.escapeHtml(obj.author[2] || obj.author[1]) +'</a>',
-			interpolation: {escape: false}
-		});
 		//state
 		var time = new Date();
 		obj.state = (obj.date[0].sec * 1000) > time.getTime() ? 'post' : ((obj.date[1].sec * 1000) < time.getTime() ? 'past' : 'current');
@@ -61,14 +54,28 @@ module.exports = (function() {
 				eventLength = i18n.t('Currently') +'<br />'+ eventLength;
 				break;
 		}
-
-		var content = ['<div data-id="'+ obj.id +'"',
-			 	(collapse ? ' class="panel panel-default w-container">' : ' class="w-container">'),
+		return [
 			'<div',
 				(collapse ? ' data-toggle="collapse" data-parent=".w-accordion" data-target="#collapse-'+ obj.id +'" class="panel-title collapsed w-title"' : ' class="w-title"'),
 				' style="background-color: ', categories.getColor(obj.cat) ,'; color: '+ categories.getTextColor(obj.cat) +'">', utils.escapeHtml(title),
 				'<div class="w-cat cat', obj.cat ,'"><span>' , categories.getLabel(obj.cat) , '</span> - ', eventLength ,'</div>',
-			'</div>',
+			'</div>'
+		].join('');
+	};
+
+	self.getWouaf = function (obj, collapse) {
+		collapse = collapse || false;
+		var text = utils.textToHTML(obj.text);
+		var authorUrl = url.getAbsoluteURLForStates([{name: 'user', value: obj.author[1]}]);
+		var author = i18n.t('By {{author}}', {
+			author: '<a href="'+ authorUrl +'" data-user="'+ obj.author[1] +'">'+
+					utils.escapeHtml(obj.author[2] || obj.author[1]) +'</a>',
+			interpolation: {escape: false}
+		});
+
+		var content = ['<div data-id="'+ obj.id +'"',
+			 	(collapse ? ' class="panel panel-default w-container">' : ' class="w-container">'),
+			self.getWouafHeader(obj, collapse),
 			'<div',
 				(collapse ? ' id="collapse-'+ obj.id +'" class="panel-collapse collapse w-content">' : ' class="w-content">'),
 				'<button class="w-menu" data-id="'+ obj.id +'" type="button" data-menu="wouaf">',
@@ -76,7 +83,7 @@ module.exports = (function() {
 				'</button>',
 				'<div class="w-subTitle">', author ,'</div>',
 					'<p>', text ,'</p>'];
-		if (obj.pics.length) {
+		if (obj.pics && obj.pics.length) {
 			content.push('<div class="w-pics">');
 			var pic, thumb;
 			for(var i = 0, l = obj.pics.length; i < l; i++) {

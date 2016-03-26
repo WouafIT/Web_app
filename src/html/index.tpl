@@ -4,9 +4,13 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="theme-color" content="#2B9D48" />
+	<meta name="msapplication-navbutton-color" content="#2B9D48">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#2B9D48">
 	<title><%= htmlWebpackPlugin.options.i18n['Wouaf IT'] %></title>
 	<meta name="description" content="<%= htmlWebpackPlugin.options.i18n['Wouaf IT'] %> -
-	<%= htmlWebpackPlugin.options.i18n['Your social network for your local events'] %>" />
+		<%= htmlWebpackPlugin.options.i18n['Your social network for your local events'] %>" />
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" />
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/min/dropzone.min.css" />

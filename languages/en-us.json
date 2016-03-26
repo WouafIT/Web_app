@@ -288,5 +288,8 @@
 	"Your comment is deleted": "Your comment is deleted.",
 	"Report this comment": "Report this comment?",
 	"report_comment_details": "Do you confirm the reporting of this comment as inappropriate?\nAttention in case of error, kittens may die!",
-	"This comment has been reported": "Thank you for your report!"
+	"This comment has been reported": "Thank you for your report!",
+
+	"{{count}} result": "{{count}} result",
+	"{{count}} result_plural": "{{count}} results"
 }

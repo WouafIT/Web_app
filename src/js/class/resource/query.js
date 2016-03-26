@@ -103,7 +103,7 @@ module.exports = (function() {
 	};
 	var self = {
 		connectionError: connectionError,
-		posts: function(params, callback) {
+		posts: function(params, successCallback, errorCallback) {
 			var searchId = params.searchId;
 			var q = '?key=' + KEY;
 			for (var i in params) {
@@ -130,12 +130,24 @@ module.exports = (function() {
 				method: 'GET',
 				url: 	ENDPOINT + '/wouaf/' + q,
 				data:	null,
-				success: function(results) {
-					results.searchId = searchId;
-					results.resultsType = 'wouafit';
-					callback(results);
+				success:function (result) {
+					if (result && result.results) {
+						result.searchId = searchId;
+						result.resultsType = 'wouafit';
+						successCallback(result);
+					} else if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						connectionError();
+					}
 				},
-				error:	null
+				error:	function (result) {
+					if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						connectionError();
+					}
+				}
 			});
 			/*
 			if (Ti.Platform.osname != 'mobileweb' && data.getString('eventfulKey') && !!data.getBool('eventfulSearch')) {

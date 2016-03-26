@@ -1,6 +1,8 @@
 module.exports = (function() {
 	var data = require('../resource/data.js');
 	var i18n = require('../resource/i18n.js');
+	var tab = require('../ui/tab.js');
+	var map = require('../resource/map.js');
 	var $document = $(document);
 	var $tabs = $('.sb-slidebar .nav-tabs');
 	var $tabsContent = $('.sb-slidebar .tab-content');
@@ -24,16 +26,29 @@ module.exports = (function() {
 			return;
 		}
 		if ($('#'+ data.id).length) {
-			console.error('Error, tab with ID '+ data.id +' already exists');
-			return;
+			$document.triggerHandler('tabs.remove', data.id);
 		}
-		var tab = '<a class="dropdown-item" id="tab-'+data.id+'" href="#'+ data.id +'" role="tab" data-toggle="tab">'+ data.name;
+		var tabHead = '<a class="dropdown-item" id="tab-'+data.id+'" href="#'+ data.id +'" role="tab" data-toggle="tab">'+ data.name;
 		if (data.removable) {
-			tab += ' <button type="button" class="close" aria-label="'+ i18n.t('Close') +'"><span aria-hidden="true">&times;</span></button>';
+			tabHead += ' <button type="button" class="close" aria-label="'+ i18n.t('Close') +'"><span aria-hidden="true">&times;</span></button>';
 		}
-		tab += '</a>';
-		$dropdown.append(tab);
-		$tabsContent.append('<div role="tabpanel" class="tab-pane" id="'+ data.id +'">'+ data.html +'</div>');
+		tabHead += '</a>';
+		$dropdown.append(tabHead);
+		var content ='';
+		if (data.html) {
+			content = data.html;
+		} else {
+			content = tab.getContent(data.data);
+		}
+		$tabsContent.append('<div role="tabpanel" class="tab-pane" id="' + data.id + '">' + content + '</div>');
+	});
+
+	$document.on('click', 'div.w-title', function(e) {
+		if ($(e.target).parents('.tab-pane').length) {
+			e.stopPropagation();
+			var wouafId = $(e.target).parents('.w-container').data('id');
+			map.showResult(wouafId);
+		}
 	});
 
 	$document.on('click', 'button.close', function(e) {
