@@ -35,7 +35,7 @@ module.exports = (function() {
 	self.getColor = function(id) {
 		return colors[id] ? colors[id] : '#2B9D48';
 	};
-	self.getTextColor = function(id) {
+	/*self.getTextColor = function(id) {
 		var c = self.getColor(id);
 		var rgb = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(c);
 		//http://www.w3.org/TR/AERT#color-contrast
@@ -43,7 +43,7 @@ module.exports = (function() {
 			+ (parseInt(parseInt(rgb[2], 16)) * 587)
 			+ (parseInt(parseInt(rgb[3], 16)) * 114)) /1000);
 		return (o > 125) ? '#373A3C' : '#FFF';
-	};
+	};*/
 	self.getAll = function() {
 		return categories;
 	};
