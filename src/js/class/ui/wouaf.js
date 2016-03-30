@@ -57,7 +57,7 @@ module.exports = (function() {
 		return [
 			'<div',
 				(collapse ? ' data-toggle="collapse" data-parent=".w-accordion" data-target="#collapse-'+ obj.id +'" class="panel-title collapsed w-title"' : ' class="w-title"'),
-				' style="border-left: 4px solid ', categories.getColor(obj.cat) ,';">', utils.escapeHtml(title),
+				' style="border-color: ', categories.getColor(obj.cat) ,';">', utils.escapeHtml(title),
 				'<div class="w-cat cat', obj.cat ,'"><span>' , categories.getLabel(obj.cat) , '</span> - ', eventLength ,'</div>',
 			'</div>'
 		].join('');

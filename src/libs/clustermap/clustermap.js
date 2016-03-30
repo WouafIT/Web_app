@@ -125,7 +125,6 @@ var clustermap = function () {
 
 		var selectedNodes = hcmap._selectedNodes;
 
-		// TODO(jydelort): clean this hack to fix unshown markers at zoom level 1 or 2
 		var current_zoom_level = hcmap._map.getZoom();
 		for (var i = 0, l = selectedNodes.length; i < l; i++) {
 			var element;
@@ -189,10 +188,11 @@ var clustermap = function () {
 			colors: [],
 			ids: []
 		};
+		var cinfos, val, i, l;
 		if (node.left != null) {
-			var cinfos = getClusterInfos(hcmap, node.left);
-			for (var i = 0, l = cinfos.colors.length; i < l; i++) {
-				var val = cinfos.colors[i];
+			cinfos = getClusterInfos(hcmap, node.left);
+			for (i = 0, l = cinfos.colors.length; i < l; i++) {
+				val = cinfos.colors[i];
 				if (infos.colors.indexOf(val) == -1) {
 					infos.colors.push(val);
 				}
@@ -201,9 +201,9 @@ var clustermap = function () {
 		}
 
 		if (node.right != null) {
-			var cinfos = getClusterInfos(hcmap, node.right);
-			for (var i = 0, l = cinfos.colors.length; i < l; i++) {
-				var val = cinfos.colors[i];
+			cinfos = getClusterInfos(hcmap, node.right);
+			for (i = 0, l = cinfos.colors.length; i < l; i++) {
+				val = cinfos.colors[i];
 				if (infos.colors.indexOf(val) == -1) {
 					infos.colors.push(val);
 				}
@@ -272,7 +272,9 @@ clustermap.HCMap.prototype.reset = function () {
 clustermap.HCMap.prototype.removeMarkers = function () {
 	if (this._displayedMarkers) {
 		for (var i in this._displayedMarkers) {
-			this._displayedMarkers[i].setMap(null);
+			if (this._displayedMarkers.hasOwnProperty(i)) {
+				this._displayedMarkers[i].setMap(null);
+			}
 		}
 	}
 

@@ -3,6 +3,7 @@ module.exports = (function() {
 	var i18n = require('../resource/i18n.js');
 	var tab = require('../ui/tab.js');
 	var map = require('../resource/map.js');
+	var slidebars = require('../resource/slidebars.js');
 	var $document = $(document);
 	var $tabs = $('.sb-slidebar .nav-tabs');
 	var $tabsContent = $('.sb-slidebar .tab-content');
@@ -48,6 +49,9 @@ module.exports = (function() {
 			e.stopPropagation();
 			var wouafId = $(e.target).parents('.w-container').data('id');
 			map.showResult(wouafId);
+			if (!slidebars.isDualView()) {
+				$document.triggerHandler('slide.close');
+			}
 		}
 	});
 
@@ -94,12 +98,4 @@ module.exports = (function() {
 			$tabHead.data('id', $activeTab.attr('id'));
 		}
 	});
-
-	/*$document.triggerHandler('tabs.add', {
-		id: 'test',
-		name: '<i class="fa fa-list"></i> Coucou',
-		data: {somedata: true},
-		html: 'html de <strong>test</strong>',
-		removable: true
-	});*/
 })();

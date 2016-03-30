@@ -311,6 +311,7 @@ module.exports = (function () {
 		});
 		// Event that closes the Info Window with a click on the map
 		google.maps.event.addDomListener($map.get(0), 'click', function(e) {
+			/*
 			if ((e.target && $(e.target).parents('.w-menu-dropdown, .gm-iw-parent').length) || $('.sb-active').length) {
 				return;
 			}
@@ -318,6 +319,7 @@ module.exports = (function () {
 			$document.triggerHandler('menu.close');
 			infowindow.close();
 			$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: null});
+			*/
 		});
 		google.maps.event.addListener(infowindow, 'closeclick', function(){
 			$document.triggerHandler('menu.close');
@@ -436,6 +438,9 @@ module.exports = (function () {
 		getResult: getResult,
 		getMap: function() {
 			return map;
+		},
+		resize: function() {
+			google.maps.event.trigger(map, "resize");
 		}
 	}
 })();

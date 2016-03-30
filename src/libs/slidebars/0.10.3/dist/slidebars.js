@@ -213,13 +213,23 @@
 				if ( init && side === 'left' && $left ) { // Slidebars is initiated, left is in use and called to open.
 					$( 'html' ).addClass( 'sb-active sb-active-left' ); // Add active classes.
 					$left.addClass( 'sb-active' );
-					animate( $left, $left.css( 'width' ), 'left' ); // Animation
-					setTimeout( function () { leftActive = true; }, 400 ); // Set active variables.
+					var amount = $left.css( 'width' );
+					$( document ).triggerHandler('slidebars.open', {side: 'left', amount: amount} );
+					animate( $left, amount, 'left' ); // Animation
+					setTimeout( function () {
+						leftActive = true;
+						$( document ).triggerHandler('slidebars.opened', {side: 'left', amount: amount} );
+					}, 400 ); // Set active variables.
 				} else if ( init && side === 'right' && $right ) { // Slidebars is initiated, right is in use and called to open.
 					$( 'html' ).addClass( 'sb-active sb-active-right' ); // Add active classes.
 					$right.addClass( 'sb-active' );
-					animate( $right, '-' + $right.css( 'width' ), 'right' ); // Animation
-					setTimeout( function () { rightActive = true; }, 400 ); // Set active variables.
+					var amount = '-' + $right.css( 'width' );
+					$( document ).triggerHandler('slidebars.open', {side: 'right', amount: amount} );
+					animate( $right, amount, 'right' ); // Animation
+					setTimeout( function () {
+						$( document ).triggerHandler('slidebars.opened', {side: 'right', amount: amount} );
+						rightActive = true;
+					}, 400 ); // Set active variables.
 				}
 			}
 		}
@@ -228,10 +238,12 @@
 		function close( url, target ) {
 			if ( leftActive || rightActive ) { // If a Slidebar is open.
 				if ( leftActive ) {
+					$( document ).triggerHandler('slidebars.close', {side: 'left'} );
 					animate( $left, '0px', 'left' ); // Animation
 					leftActive = false;
 				}
 				if ( rightActive ) {
+					$( document ).triggerHandler('slidebars.close', {side: 'right'} );
 					animate( $right, '0px', 'right' ); // Animation
 					rightActive = false;
 				}
@@ -240,6 +252,7 @@
 					$( 'html' ).removeClass( 'sb-active sb-active-left sb-active-right' ); // Remove active classes.
 					if ( $left ) $left.removeClass( 'sb-active' );
 					if ( $right ) $right.removeClass( 'sb-active' );
+					$( document ).triggerHandler('slidebars.closed');
 					if ( typeof url !== 'undefined' ) { // If a link has been passed to the function, go to it.
 						if ( typeof target === undefined ) target = '_self'; // Set to _self if undefined.
 						window.open( url, target ); // Open the url.
@@ -352,7 +365,10 @@
 		
 		// Close Slidebar via site
 		$site.on( 'touchend click', function ( event ) {
-			if ( settings.siteClose && ( leftActive || rightActive ) ) { // If settings permit closing by site and left or right Slidebar is open.
+			if ( leftActive || rightActive ) { // If settings permit closing by site and left or right Slidebar is open.
+				if ((typeof settings.siteClose === 'boolean' && !settings.siteClose ) || ( typeof settings.siteClose === 'function' && !settings.siteClose() )) {
+					return;
+				}
 				eventHandler( event, $( this ) ); // Handle the event.
 				close(); // Close it.
 			}
