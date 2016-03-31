@@ -431,27 +431,21 @@ var figue = function () {
 }() ;
 
 
-figue.Matrix.prototype.toString = function() 
-{
+figue.Matrix.prototype.toString = function() {
 	var lines = [] ;
 	for (var i = 0 ; i < this.rows ; i++) 
 		lines.push (this.mtx[i].join("\t")) ;
 	return lines.join ("\n") ;
-}
+};
 
-figue.Node.prototype.isLeaf = function() 
-{
-	if ((this.left == null) && (this.right == null))
-		return true ;
-	else
-		return false ;
-}
+figue.Node.prototype.isLeaf = function() {
+	return this.left == null && this.right == null;
+};
 
-figue.Node.prototype.buildDendogram = function (sep, balanced,withLabel,withCentroid, withDistance)
-{
+figue.Node.prototype.buildDendogram = function (sep, balanced,withLabel,withCentroid, withDistance) {
 	lines = figue.generateDendogram(this, sep, balanced,withLabel,withCentroid, withDistance) ;
 	return lines.join ("\n") ;	
-}
+};
 
 
 Array.prototype.compare = function(testArr) {
@@ -463,7 +457,7 @@ Array.prototype.compare = function(testArr) {
         if (this[i] !== testArr[i]) return false;
     }
     return true;
-}
+};
 
 module.exports = figue;
 

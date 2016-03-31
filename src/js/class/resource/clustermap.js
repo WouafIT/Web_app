@@ -6,7 +6,7 @@
  *
  */
 
-var figue = require('./figue.js');
+var figue = require('../../../libs/figue/figue.js');
 
 var clustermap = function () {
 	var $document = $(document);
@@ -177,11 +177,30 @@ var clustermap = function () {
 		hcmap._selectedNodes = selectedNodes;
 	}
 
+	function getLeafZoom(hcmap, id, zoomMin, zoomMax) {
+		var MCD, selectedNodes;
+		for (var i = zoomMin; i < zoomMax; i++) {
+			MCD = hcmap._minDistance / Math.pow(2, i);
+			selectedNodes = selectNodes(hcmap._tree, MCD);
+			if (selectedNodes.length == 0) {
+				selectedNodes.push(hcmap._tree);
+			}
+			for (var j = 0, l = selectedNodes.length; j < l; j++) {
+				if (selectedNodes[j].label != -1
+					&& hcmap._elements[ selectedNodes[j].label ].id == id
+					&& selectedNodes[j].isLeaf()) {
+					return i;
+				}
+			}
+		}
+		return zoomMax;
+	}
+
 	function getClusterInfos(hcmap, node) {
 		if (node.isLeaf()) {
 			return {
 				colors: [hcmap._elements[node.label].color],
-				ids: [hcmap._elements[node.label].label]
+				ids: [hcmap._elements[node.label].id]
 			};
 		}
 		var infos = {
@@ -241,9 +260,9 @@ var clustermap = function () {
 
 	return {
 		HCMap: HCMap,
-		ClusterMarker: ClusterMarker
+		ClusterMarker: ClusterMarker,
+		getLeafZoom: getLeafZoom
 	}
-
 }();
 
 clustermap.HCMap.prototype.reset = function () {
@@ -261,7 +280,6 @@ clustermap.HCMap.prototype.reset = function () {
 	}
 
 	this._map = null;
-	this._positions = [];
 	this._elements = [];
 	this._vectors = [];
 	this._selectedNodes = [];

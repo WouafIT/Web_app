@@ -23,7 +23,7 @@ module.exports = (function() {
 		$document.triggerHandler('navigation.set-state');
 	});
 
-	$document.on('navigation.set-state', function(event, state) {
+	$document.on('navigation.set-state', function(e, state) {
 		if (state) {
 			if (!url.isStateValid(state)) {
 				return;
@@ -40,8 +40,8 @@ module.exports = (function() {
 		}
 	});
 
-	$(window).on('popstate', function(event) {
-		var eventStates = event.originalEvent.state;
+	$(window).on('popstate', function(e) {
+		var eventStates = e.originalEvent.state;
 		if (!eventStates) {
 			//append on a link with an anchor
 			return;
@@ -77,7 +77,7 @@ module.exports = (function() {
 		}
 	});
 
-	$document.on('navigation.load-state', function(event, callback) {
+	$document.on('navigation.load-state', function(e, callback) {
 		allowSetState = false; //disallow state change during URL parsing
 		var pathname = window.location.pathname;
 		var mapState = false;

@@ -9,7 +9,8 @@ module.exports = (function() {
 	var $tabsContent = $('.sb-slidebar .tab-content');
 	var $dropdown = $tabs.find('.dropdown-menu');
 	var $tabHead = $tabs.find('a.dropdown-toggle');
-
+	var tabsData = {};
+	//switch tab (fix active indicator)
 	$document.on('shown.bs.tab', 'a[data-toggle="tab"]', function(e) {
 		if (e.relatedTarget) {
 			var $previousTab = $(e.relatedTarget);
@@ -22,6 +23,7 @@ module.exports = (function() {
 		}
 	});
 
+	//add a new tab
 	$document.on('tabs.add', function(e, data) {
 		if (!data || !data.id || !data.name) {
 			return;
@@ -40,33 +42,12 @@ module.exports = (function() {
 			content = data.html;
 		} else {
 			content = tab.getContent(data.data);
+			tabsData[data.id] = data.data;
 		}
 		$tabsContent.append('<div role="tabpanel" class="tab-pane" id="' + data.id + '">' + content + '</div>');
 	});
 
-	$document.on('click', 'div.w-title', function(e) {
-		if ($(e.target).parents('.tab-pane').length) {
-			e.stopPropagation();
-			var wouafId = $(e.target).parents('.w-container').data('id');
-			map.showResult(wouafId);
-			if (!slidebars.isDualView()) {
-				$document.triggerHandler('slide.close');
-			}
-		}
-	});
-
-	$document.on('click', 'button.close', function(e) {
-		if ($(e.target).parents('.nav-tabs').length) {
-			e.stopPropagation();
-			e.preventDefault();
-			var $parent = $(e.target).parents('a');
-			var id = $parent.attr('id') || $parent.data('id');
-			if (id && id.substr(0, 4) === 'tab-') {
-				$document.triggerHandler('tabs.remove', id.substr(4));
-			}
-		}
-	});
-
+	//show tab (show search tab if no name provided)
 	$document.on('tabs.show', function(e, name) {
 		$tabs.find('a').removeClass('active');
 		$tabsContent.find('div.tab-pane').removeClass('active');
@@ -85,6 +66,7 @@ module.exports = (function() {
 		}
 	});
 
+	//remove tab
 	$document.on('tabs.remove', function(e, name) {
 		$dropdown.find('#tab-'+name).remove();
 		var $tab = $tabsContent.find('#'+name);
@@ -92,10 +74,59 @@ module.exports = (function() {
 			$document.triggerHandler('tabs.show', $dropdown.find('a:first-child').attr('id').substr(4));
 		}
 		$tab.remove();
+		if (tabsData[data.id]) {
+			tabsData[data.id] = null;
+			delete tabsData[data.id];
+		}
 		if ($tabHead.data('id') === 'tab-'+ name) {
 			var $activeTab = $dropdown.find('a:first-child');
 			$tabHead.html($activeTab.html());
 			$tabHead.data('id', $activeTab.attr('id'));
 		}
+	});
+
+	//show wouaf infowindow on click
+	$document.on('click', 'div.w-title', function(e) {
+		if ($(e.target).parents('.tab-pane').length) {
+			e.stopPropagation();
+			var wouafId = $(e.target).parents('.w-container').data('id');
+			map.showResult(wouafId);
+			if (!slidebars.isDualView()) {
+				$document.triggerHandler('slide.close');
+			}
+		}
+	});
+
+	//(un)select wouaf in list on navigation change
+	$document.on('navigation.set-state', function (e, state) {
+		if (state && state.name == 'wouaf') {
+			$tabsContent.find('div.w-title.selected').removeClass('selected');
+			if (state.value) {
+				$tabsContent.find('div.w-container[data-id="'+ state.value +'"] .w-title').addClass('selected');
+			}
+		}
+	});
+
+	//click on close tab buttons
+	$document.on('click', 'button.close', function(e) {
+		if ($(e.target).parents('.nav-tabs').length) {
+			e.stopPropagation();
+			e.preventDefault();
+			var $parent = $(e.target).parents('a');
+			var id = $parent.attr('id') || $parent.data('id');
+			if (id && id.substr(0, 4) === 'tab-') {
+				$document.triggerHandler('tabs.remove', id.substr(4));
+			}
+		}
+	});
+
+	//tab filter inactive wouaf
+	$document.on('tabs.filter', function(e, name) {
+		console.info('tabs.filter', arguments);
+	});
+
+	//tab sort wouaf
+	$document.on('tabs.sort', function(e, name) {
+		console.info('tabs.sort', arguments);
 	});
 })();

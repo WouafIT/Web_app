@@ -219,6 +219,10 @@ module.exports = (function() {
 						break;
 				}
 				break;
+			//Actions on Listing menu
+			case 'listing':
+				console.info($target);
+				break;
 		}
 	});
 })();

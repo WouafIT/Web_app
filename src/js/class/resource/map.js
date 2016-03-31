@@ -1,5 +1,5 @@
 module.exports = (function () {
-	var clustermap = require('../../../libs/clustermap/clustermap.js');
+	var clustermap = require('./clustermap.js');
 	var categories = require('./categories.js');
 	var i18n = require('./i18n.js');
 	var data = require('./data.js');
@@ -53,11 +53,11 @@ module.exports = (function () {
 		for (var i = 0, l = json.results.length; i < l; i++) {
 			var post = json.results[i];
 			var element = {
-				'label': post.id,
-				'description': post.text,
-				'cat': post.cat,
-				'coordinates': {'lat': parseFloat(post.loc[0]), 'lng': parseFloat(post.loc[1])},
-				'color': categories.getColor(post.cat)
+				'id': 			post.id,
+				'description': 	post.text,
+				'cat': 			post.cat,
+				'coordinates': 	{'lat': parseFloat(post.loc[0]), 'lng': parseFloat(post.loc[1])},
+				'color': 		categories.getColor(post.cat)
 			};
 			elements.push(element);
 		}
@@ -119,20 +119,26 @@ module.exports = (function () {
 
 	var openPin = function (obj) {
 		$document.triggerHandler('navigation.disable-state');
-		map.setCenter({lat: obj.loc[0], lng: obj.loc[1]});
-		var zoom = map.getZoom();
-		var handleZoom = function(zoom) {
-			google.maps.event.addListenerOnce(map, 'idle', showIW);
-			map.setZoom(zoom);
-		};
-		var showIW = function(){
+		var count = 0;
+		var showIW = function() {
+			count++;
+			var zoom = map.getZoom();
 			var $pin = $map.find('.baseMarker[data-id="'+ obj.id +'"]');
 			if ($pin.length) {
 				google.maps.event.trigger($pin.get(0), 'click');
 				$document.triggerHandler('navigation.enable-state');
 			} else if (zoom < 21) {
-				zoom++;
-				handleZoom(zoom);
+				var pinZoom = clustermap.getLeafZoom(hcmap, obj.id, 10, 21);
+				if (pinZoom != zoom) {
+					google.maps.event.addListenerOnce(map, 'idle', showIW);
+					map.setZoom(pinZoom);
+				} else {
+					if (count > 2) { //avoid bug after setCenter : sometimes pins are not refreshed.
+						count = 0;
+						google.maps.event.trigger(map, 'dragend');
+					}
+					setTimeout(showIW, 400);
+				}
 			} else if (zoom == 21) {
 				$pin = $map.find('.baseMarker[data-id*="'+ obj.id +'"]');
 				if ($pin.length) {
@@ -141,7 +147,10 @@ module.exports = (function () {
 				$document.triggerHandler('navigation.enable-state');
 			}
 		};
-		showIW();
+		setTimeout(function () {
+			google.maps.event.addListenerOnce(map, 'idle', showIW);
+			map.setCenter({lat: obj.loc[0], lng: obj.loc[1]});
+		}, 200);
 	};
 
 	//Custom marker for user location

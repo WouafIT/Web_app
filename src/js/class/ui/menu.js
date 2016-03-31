@@ -8,6 +8,7 @@ module.exports = (function() {
 	var self = {};
 	var $map = $('#map');
 	var $modal = windows.getWindows();
+	var $slidebar = $('.sb-slidebar');
 	var $menu = null;
 	var shown = false;
 
@@ -58,6 +59,10 @@ module.exports = (function() {
 		$menu = $(menu.join(''));
 		$menu.appendTo($map);
 		$menu.hide().removeAttr('hidden');
+		if ($('html').hasClass('sb-active')) {
+			//compensate slidebar menu if opened
+			offset.left -= $('.sb-left').outerWidth();
+		}
 		$menu.css({
 			top: (offset.top + $el.height()),
 			left: (offset.left - $menu.width())
@@ -81,8 +86,8 @@ module.exports = (function() {
 			return;
 		}
 		var offset 		= $el.offset();
-		var isAuthor = $el.parents('blockquote').hasClass('current-user');
-		var wouafId = $el.parents('.modal-comments').data('id');
+		var isAuthor 	= $el.parents('blockquote').hasClass('current-user');
+		var wouafId 	= $el.parents('.modal-comments').data('id');
 		var menu = ['<div class="w-menu-dropdown dropdown-menu" data-id="'+ id +'" data-wouaf="'+ wouafId +'" data-menu="comment" hidden>',
 			(isAuthor
 				? '<a class="dropdown-item" href="#" data-action="delete"><i class="fa fa-trash"></i> '+ i18n.t('Delete') +'</a>'
@@ -96,14 +101,35 @@ module.exports = (function() {
 			top: (offset.top + $el.height()),
 			left: (offset.left - $menu.width() + $el.width())
 		}).show();
-		/*$('.w-accordion').on('scroll', function(e) {
-			if (shown) {
-				self.close();
-				$('.w-accordion').off('scroll');
-			}
-		});*/
 		shown = true;
 	};
+
+	var showListingMenu = function($el) {
+		console.info($el);
+		var id = $el.parents('.tab-pane').attr('id');
+		console.info(id);
+		if (!id) {
+			return;
+		}
+		var offset = $el.offset();
+		var menu = ['<div class="w-menu-dropdown dropdown-menu" data-id="'+ id +'" data-menu="listing" hidden>',
+			'<a class="dropdown-item" href="#" data-action="filter-active"><i class="fa fa-filter"></i> Afficher uniquement les Wouaf actifs</a>',
+			'<a class="dropdown-item" href="#" data-action="sort-proximity"><i class="fa fa-sort-amount-desc"></i> Trier par Proximité</a>',
+			'<a class="dropdown-item" href="#" data-action="sort-start-date"><i class="fa fa-sort-numeric-asc"></i> Trier par Date de début</a>',
+			'<a class="dropdown-item" href="#" data-action="sort-end-date"><i class="fa fa-sort-numeric-asc"></i> Trier par Date de fin</a>',
+			'<a class="dropdown-item" href="#" data-action="sort-comments"><i class="fa fa-sort-amount-desc"></i> Trier par Nombre de commentaires</a>',
+			'<a class="dropdown-item" href="#" data-action="sort-type"><i class="fa fa-sort-alpha-asc"></i> Trier par Type</a>',
+		'</div>'];
+		$menu = $(menu.join(''));
+		$menu.appendTo($slidebar);
+		$menu.hide().removeAttr('hidden');
+		$menu.css({
+			top: (offset.top + $el.height()),
+			left: (offset.left - $menu.width() + $el.width())
+		}).show();
+		shown = true;
+	};
+
 	self.show = function($el) {
 		if (!$el || !$el.length) {
 			return;
@@ -116,6 +142,8 @@ module.exports = (function() {
 			showWouafMenu($el);
 		} else if (type == 'comment') {
 			showCommentMenu($el);
+		} else if (type == 'listing') {
+			showListingMenu($el);
 		}
 	};
 	self.close = function() {
