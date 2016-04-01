@@ -105,9 +105,7 @@ module.exports = (function() {
 	};
 
 	var showListingMenu = function($el) {
-		console.info($el);
 		var id = $el.parents('.tab-pane').attr('id');
-		console.info(id);
 		if (!id) {
 			return;
 		}
@@ -115,8 +113,7 @@ module.exports = (function() {
 		var menu = ['<div class="w-menu-dropdown dropdown-menu" data-id="'+ id +'" data-menu="listing" hidden>',
 			'<a class="dropdown-item" href="#" data-action="filter-active"><i class="fa fa-filter"></i> Afficher uniquement les Wouaf actifs</a>',
 			'<a class="dropdown-item" href="#" data-action="sort-proximity"><i class="fa fa-sort-amount-desc"></i> Trier par Proximité</a>',
-			'<a class="dropdown-item" href="#" data-action="sort-start-date"><i class="fa fa-sort-numeric-asc"></i> Trier par Date de début</a>',
-			'<a class="dropdown-item" href="#" data-action="sort-end-date"><i class="fa fa-sort-numeric-asc"></i> Trier par Date de fin</a>',
+			'<a class="dropdown-item" href="#" data-action="sort-date-start"><i class="fa fa-sort-amount-desc"></i> Trier par Date de début croissante</a>',
 			'<a class="dropdown-item" href="#" data-action="sort-comments"><i class="fa fa-sort-amount-desc"></i> Trier par Nombre de commentaires</a>',
 			'<a class="dropdown-item" href="#" data-action="sort-type"><i class="fa fa-sort-alpha-asc"></i> Trier par Type</a>',
 		'</div>'];

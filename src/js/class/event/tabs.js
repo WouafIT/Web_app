@@ -1,15 +1,18 @@
 module.exports = (function() {
-	var data = require('../resource/data.js');
-	var i18n = require('../resource/i18n.js');
-	var tab = require('../ui/tab.js');
-	var map = require('../resource/map.js');
-	var slidebars = require('../resource/slidebars.js');
-	var $document = $(document);
-	var $tabs = $('.sb-slidebar .nav-tabs');
-	var $tabsContent = $('.sb-slidebar .tab-content');
-	var $dropdown = $tabs.find('.dropdown-menu');
-	var $tabHead = $tabs.find('a.dropdown-toggle');
-	var tabsData = {};
+	var data 			= require('../resource/data.js');
+	var i18n 			= require('../resource/i18n.js');
+	var tab 			= require('../ui/tab.js');
+	var map 			= require('../resource/map.js');
+	var slidebars 		= require('../resource/slidebars.js');
+	var $window			= $(window);
+	var $document 		= $(document);
+	var $slidebar 		= $('.sb-slidebar');
+	var $tabsContent 	= $slidebar.find('.tab-content');
+	var $tabs 			= $slidebar.find('.nav-tabs');
+	var $dropdown 		= $tabs.find('.dropdown-menu');
+	var $tabHead 		= $tabs.find('a.dropdown-toggle');
+	var tabsData 		= {};
+
 	//switch tab (fix active indicator)
 	$document.on('shown.bs.tab', 'a[data-toggle="tab"]', function(e) {
 		if (e.relatedTarget) {
@@ -28,7 +31,11 @@ module.exports = (function() {
 		if (!data || !data.id || !data.name) {
 			return;
 		}
+		var active = data.active || false;
 		if ($('#'+ data.id).length) {
+			if ($('#'+ data.id).hasClass('active')) {
+				active = true;
+			}
 			$document.triggerHandler('tabs.remove', data.id);
 		}
 		var tabHead = '<a class="dropdown-item" id="tab-'+data.id+'" href="#'+ data.id +'" role="tab" data-toggle="tab">'+ data.name;
@@ -45,6 +52,9 @@ module.exports = (function() {
 			tabsData[data.id] = data.data;
 		}
 		$tabsContent.append('<div role="tabpanel" class="tab-pane" id="' + data.id + '">' + content + '</div>');
+		if (active) {
+			$document.triggerHandler('tabs.show', data.id);
+		}
 	});
 
 	//show tab (show search tab if no name provided)
@@ -102,7 +112,16 @@ module.exports = (function() {
 		if (state && state.name == 'wouaf') {
 			$tabsContent.find('div.w-title.selected').removeClass('selected');
 			if (state.value) {
-				$tabsContent.find('div.w-container[data-id="'+ state.value +'"] .w-title').addClass('selected');
+				var $el = $tabsContent.find('div.w-container[data-id="'+ state.value +'"]');
+				if ($el.length) {
+					$el.find('.w-title').addClass('selected');
+					var offsetTop = $el.offset().top;
+					if (offsetTop < 0 || offsetTop > $window.innerHeight()) {
+						$slidebar.animate({
+							scrollTop: offsetTop + $slidebar.scrollTop()
+						}, 300);
+					}
+				}
 			}
 		}
 	});
@@ -121,12 +140,18 @@ module.exports = (function() {
 	});
 
 	//tab filter inactive wouaf
-	$document.on('tabs.filter', function(e, name) {
-		console.info('tabs.filter', arguments);
+	$document.on('tabs.filter', function(e, data) {
+		if (!tabsData[data.id] || !$('#'+ data.id).length) {
+			return;
+		}
+		console.info('tabs.filter', data);
 	});
 
 	//tab sort wouaf
-	$document.on('tabs.sort', function(e, name) {
-		console.info('tabs.sort', arguments);
+	$document.on('tabs.sort', function(e, data) {
+		if (!tabsData[data.id] || !$('#'+ data.id).length) {
+			return;
+		}
+		console.info('tabs.sort', data);
 	});
 })();

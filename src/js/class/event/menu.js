@@ -221,7 +221,25 @@ module.exports = (function() {
 				break;
 			//Actions on Listing menu
 			case 'listing':
-				console.info($target);
+				var listingId = $target.parents('.w-menu-dropdown').data('id');
+				menu.close();
+				switch (action) {
+					case 'filter-active':
+						$document.triggerHandler('tabs.filter', {id: listingId, action: 'active'});
+						break;
+					case 'sort-proximity':
+						$document.triggerHandler('tabs.sort', {id: listingId, action: 'proximity'});
+						break;
+					case 'sort-date-start':
+						$document.triggerHandler('tabs.sort', {id: listingId, action: 'date-start'});
+						break;
+					case 'sort-comments':
+						$document.triggerHandler('tabs.sort', {id: listingId, action: 'comments'});
+						break;
+					case 'sort-type':
+						$document.triggerHandler('tabs.sort', {id: listingId, action: 'type'});
+						break;
+				}
 				break;
 		}
 	});
