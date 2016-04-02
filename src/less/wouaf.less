@@ -10,9 +10,18 @@
 		border-radius: 2px 2px 0 0;
 		line-height: 1.8;
 		border-left: 5px solid @green;
+		position: relative;
 
 		&.panel-title {
 			cursor: pointer;
+		}
+
+		.w-comments {
+			display: none;
+			color: @green;
+			position: absolute;
+			right: 4px;
+			bottom: 1px;
 		}
 	}
 	.w-content {
@@ -21,9 +30,18 @@
 		margin-right: 1px;
 		padding: 0.4rem 0.6rem 0.2rem 0.6rem;
 	}
-	.w-comments{
+	.w-comments {
 		float: right;
 		margin-bottom: 5px;
+	}
+	.w-green {
+		color: @green;
+	}
+	.w-red {
+		color: @red;
+	}
+	.w-yellow {
+		color: @yellow;
 	}
 	.w-subTitle {
 		font-size: 0.8rem;
@@ -95,8 +113,13 @@
 			border-bottom: none;
 		}
 
-		.w-title:hover {
-			background-color: @lighter-grey-selected;
+		.w-title {
+			&:hover {
+				background-color: @lighter-grey-selected;
+			}
+			.w-comments {
+				display: block;
+			}
 		}
 	}
 	.panel:not(:first-child) .w-title {

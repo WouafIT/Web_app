@@ -512,22 +512,50 @@ module.exports = (function() {
 				}
 			});
 		},
-        userPosts: function(uid, callback) {
+        userPosts: function(uid, successCallback, errorCallback) {
             var q = '?key=' + KEY + '&uid=' + uid;
             query({
                 method: 'GET',
                 url:    ENDPOINT + '/user/wouaf/' + q,
-                success:callback,
-                error:  callback
+				success:function (result) {
+					if (result && result.results) {
+						successCallback(result);
+					} else if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						connectionError();
+					}
+				},
+				error:	function (result) {
+					if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						connectionError();
+					}
+				}
             });
         },
-        userFavorites: function(callback) {
+        userFavorites: function(callback, successCallback, errorCallback) {
             var q = '?key=' + KEY + '&uid=' + data.getString('uid') + '&token=' + data.getString('token');
             query({
                 method: 'GET',
                 url:    ENDPOINT + '/user/favorites/' + q,
-                success:callback,
-                error:  callback
+				success:function (result) {
+					if (result && result.results) {
+						successCallback(result);
+					} else if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						connectionError();
+					}
+				},
+				error:	function (result) {
+					if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						connectionError();
+					}
+				}
             });
         },
         createPost: function(datas, successCallback, errorCallback) {

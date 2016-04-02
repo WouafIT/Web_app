@@ -225,18 +225,30 @@ module.exports = (function() {
 				menu.close();
 				switch (action) {
 					case 'filter-active':
-						$document.triggerHandler('tabs.filter', {id: listingId, action: 'active'});
+						$document.triggerHandler('tabs.filter', {id: listingId, action: !$target.hasClass('active')});
 						break;
 					case 'sort-proximity':
+						if ($target.hasClass('active')) {
+							return;
+						}
 						$document.triggerHandler('tabs.sort', {id: listingId, action: 'proximity'});
 						break;
-					case 'sort-date-start':
-						$document.triggerHandler('tabs.sort', {id: listingId, action: 'date-start'});
+					case 'sort-date':
+						if ($target.hasClass('active')) {
+							return;
+						}
+						$document.triggerHandler('tabs.sort', {id: listingId, action: 'date'});
 						break;
 					case 'sort-comments':
+						if ($target.hasClass('active')) {
+							return;
+						}
 						$document.triggerHandler('tabs.sort', {id: listingId, action: 'comments'});
 						break;
 					case 'sort-type':
+						if ($target.hasClass('active')) {
+							return;
+						}
 						$document.triggerHandler('tabs.sort', {id: listingId, action: 'type'});
 						break;
 				}

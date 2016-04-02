@@ -4,6 +4,7 @@ module.exports = (function() {
 	var tab 			= require('../ui/tab.js');
 	var map 			= require('../resource/map.js');
 	var slidebars 		= require('../resource/slidebars.js');
+	var query 			= require('../resource/query.js');
 	var $window			= $(window);
 	var $document 		= $(document);
 	var $slidebar 		= $('.sb-slidebar');
@@ -23,6 +24,7 @@ module.exports = (function() {
 				$tabHead.html($activeTab.html());
 				$tabHead.data('id', $activeTab.attr('id'));
 			}
+			$document.triggerHandler('tabs.shown', $activeTab.attr('id'));
 		}
 	});
 
@@ -70,9 +72,11 @@ module.exports = (function() {
 				$tabHead.html($activeTab.html());
 				$tabHead.data('id', $activeTab.attr('id'));
 			}
+			$document.triggerHandler('tabs.shown', $activeTab.attr('id'));
 		} else {
 			$('#search').addClass('active');
 			$('#tab-search').addClass('active');
+			$document.triggerHandler('tabs.shown', 'search');
 		}
 	});
 
@@ -92,6 +96,23 @@ module.exports = (function() {
 			var $activeTab = $dropdown.find('a:first-child');
 			$tabHead.html($activeTab.html());
 			$tabHead.data('id', $activeTab.attr('id'));
+		}
+	});
+
+	//a tab is shown
+	$document.on('tabs.shown', function(e, name) {
+		if (data.getString('uid')) {
+			if (name == 'tab-wouafs' && !tabsData['wouafs']) {
+				//load user tabs data
+				query.userPosts(data.getString('uid'), function(data) {
+					var content = tab.getContent({type: 'list', data: data}, false);
+					tabsData['wouafs'] = data;
+					var $tabPanel = $('#wouafs .results');
+					$tabPanel.html(content);
+				}, function(msg) {
+					toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
+				});
+			}
 		}
 	});
 
@@ -141,17 +162,34 @@ module.exports = (function() {
 
 	//tab filter inactive wouaf
 	$document.on('tabs.filter', function(e, data) {
-		if (!tabsData[data.id] || !$('#'+ data.id).length) {
+		var $tabPanel = $('#'+ data.id);
+		if (!$tabPanel.length) {
 			return;
 		}
-		console.info('tabs.filter', data);
+		if (!data.action) {
+			$tabPanel.find('.w-container').show();
+		} else {
+			$tabPanel.find('.w-container .w-past').parent().hide();
+		}
+		$tabPanel.find('button.w-menu').data('filter', data.action ? 'yes' : 'no');
 	});
 
 	//tab sort wouaf
 	$document.on('tabs.sort', function(e, data) {
-		if (!tabsData[data.id] || !$('#'+ data.id).length) {
+		var $tabPanel = $('#'+ data.id);
+		if (!$tabPanel.length) {
 			return;
 		}
-		console.info('tabs.sort', data);
+		var $wouafList = $tabPanel.find(".w-container");
+		var dir = data.action == 'comments' ? 'desc' : 'asc';
+		$wouafList.sort(function(a, b){
+			if (dir == 'asc') {
+				return $(a).data(data.action) - $(b).data(data.action);
+			} else {
+				return $(b).data(data.action) - $(a).data(data.action);
+			}
+		});
+		$tabPanel.find('.row').html($wouafList);
+		$tabPanel.find('button.w-menu').data('sort', data.action);
 	});
 })();

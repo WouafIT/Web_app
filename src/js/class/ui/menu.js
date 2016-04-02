@@ -106,16 +106,21 @@ module.exports = (function() {
 
 	var showListingMenu = function($el) {
 		var id = $el.parents('.tab-pane').attr('id');
+		var sort = $el.data('sort');
+		var filter = $el.data('filter');
+		var proximity = $el.data('proximity');
 		if (!id) {
 			return;
 		}
 		var offset = $el.offset();
 		var menu = ['<div class="w-menu-dropdown dropdown-menu" data-id="'+ id +'" data-menu="listing" hidden>',
-			'<a class="dropdown-item" href="#" data-action="filter-active"><i class="fa fa-filter"></i> Afficher uniquement les Wouaf actifs</a>',
-			'<a class="dropdown-item" href="#" data-action="sort-proximity"><i class="fa fa-sort-amount-desc"></i> Trier par Proximité</a>',
-			'<a class="dropdown-item" href="#" data-action="sort-date-start"><i class="fa fa-sort-amount-desc"></i> Trier par Date de début croissante</a>',
-			'<a class="dropdown-item" href="#" data-action="sort-comments"><i class="fa fa-sort-amount-desc"></i> Trier par Nombre de commentaires</a>',
-			'<a class="dropdown-item" href="#" data-action="sort-type"><i class="fa fa-sort-alpha-asc"></i> Trier par Type</a>',
+			'<a class="dropdown-item'+ (filter == 'yes' ? ' active' : '') +'" href="#" data-action="filter-active"><i class="fa fa-filter"></i> Masquer les Wouaf révolus'+ (filter == 'yes' ? ' <i class="fa fa-check"></i>' : '') +'</a>',
+			(proximity == 'yes'
+				? '<a class="dropdown-item'+ (sort == 'proximity' ? ' active' : '') +'" href="#" data-action="sort-proximity"><i class="fa fa-sort-amount-desc"></i> Trier par Proximité'+ (sort == 'proximity' ? ' <i class="fa fa-check"></i>' : '') +'</a>'
+				: ''),
+			'<a class="dropdown-item'+ (sort == 'date' ? ' active' : '') +'" href="#" data-action="sort-date"><i class="fa fa-sort-amount-desc"></i> Trier par Date de début croissante'+ (sort == 'date' ? ' <i class="fa fa-check"></i>' : '') +'</a>',
+			'<a class="dropdown-item'+ (sort == 'comments' ? ' active' : '') +'" href="#" data-action="sort-comments"><i class="fa fa-sort-amount-desc"></i> Trier par Nombre de commentaires'+ (sort == 'comments' ? ' <i class="fa fa-check"></i>' : '') +'</a>',
+			'<a class="dropdown-item'+ (sort == 'type' ? ' active' : '') +'" href="#" data-action="sort-type"><i class="fa fa-sort-alpha-asc"></i> Trier par Catégorie'+ (sort == 'type' ? ' <i class="fa fa-check"></i>' : '') +'</a>',
 		'</div>'];
 		$menu = $(menu.join(''));
 		$menu.appendTo($slidebar);

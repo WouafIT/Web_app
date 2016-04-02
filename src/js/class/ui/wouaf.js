@@ -10,7 +10,7 @@ module.exports = (function() {
 		var title = obj.title || obj.text.substr(0, 49) +'…';
 		//state
 		var time = new Date();
-		obj.state = (obj.date[0].sec * 1000) > time.getTime() ? 'post' : ((obj.date[1].sec * 1000) < time.getTime() ? 'past' : 'current');
+		obj.state = (obj.date[0].sec * 1000) > time.getTime() ? 'w-post' : ((obj.date[1].sec * 1000) < time.getTime() ? 'w-past' : 'w-current');
 		//length
 		var start = new Date();
 		start.setTime(obj.date[0].sec * 1000);
@@ -44,23 +44,24 @@ module.exports = (function() {
 			});
 		}
 		switch (obj.state) {
-			case 'post':
-				eventLength = i18n.t('Upcoming') +'<br />'+ eventLength;
+			case 'w-post':
+				eventLength = i18n.t('Upcoming') +' <i class="fa fa-step-forward w-yellow"></i><br />'+ eventLength;
 				break;
-			case 'past':
-				eventLength = i18n.t('Gone') +'<br />'+ eventLength;
+			case 'w-past':
+				eventLength = i18n.t('Gone') +' <i class="fa fa-step-backward w-red"></i><br />'+ eventLength;
 				break;
-			case 'current':
-				eventLength = i18n.t('Currently') +'<br />'+ eventLength;
+			case 'w-current':
+				eventLength = i18n.t('Currently') +' <i class="fa fa-play w-green"></i><br />'+ eventLength;
 				break;
 		}
 		return [
 			'<div',
 				(collapse
-					? ' data-toggle="collapse" data-parent=".w-accordion" data-target="#collapse-'+ obj.id +'" class="panel-title collapsed w-title"'
-					: ' class="w-title"'),
+					? ' data-toggle="collapse" data-parent=".w-accordion" data-target="#collapse-'+ obj.id +'" class="panel-title collapsed w-title '+ obj.state +'"'
+					: ' class="w-title '+ obj.state +'"'),
 				' style="border-color: ', categories.getColor(obj.cat) ,';">', utils.escapeHtml(title),
 				'<div class="w-cat cat', obj.cat ,'"><span>' , categories.getLabel(obj.cat) , '</span> - ', eventLength ,'</div>',
+				'<div class="w-comments"><i class="fa fa-comment"></i> ', obj.com ,'</div>',
 			'</div>'
 		].join('');
 	};
