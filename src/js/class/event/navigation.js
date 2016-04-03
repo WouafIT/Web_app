@@ -93,13 +93,13 @@ module.exports = (function() {
 							map.getMap().setCenter({lat: parseFloat(coordinates[0]), lng: parseFloat(coordinates[1])});
 							map.getMap().setZoom(parseInt(coordinates[2].substr(0, (coordinates[2].length - 1)), 10));
 						}
-					} else if (part === 'wouaf' && utils.isValidWouafId(part[i + 1])) {
+					} else if (part === 'wouaf' && utils.isValidWouafId(parts[i + 1])) {
 						var wouafId = parts[++i];
 						$document.one('map.show-results', function() {
 							map.showResult(wouafId);
 						});
 						$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: wouafId});
-					} else if (part === 'user' && utils.isValidUsername(part[i + 1])) {
+					} else if (part === 'user' && utils.isValidUsername(parts[i + 1])) {
 						part = parts[++i];
 						windows.show({
 							href: 'user',

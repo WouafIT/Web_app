@@ -319,8 +319,8 @@ module.exports = (function () {
 			$iwOuterParent.parent().addClass('gm-iw-gparent');
 		});
 		// Event that closes the Info Window with a click on the map
-		google.maps.event.addDomListener($map.get(0), 'click', function(e) {
-			/*
+		/*
+		 google.maps.event.addDomListener($map.get(0), 'click', function(e) {
 			if ((e.target && $(e.target).parents('.w-menu-dropdown, .gm-iw-parent').length) || $('.sb-active').length) {
 				return;
 			}
@@ -328,8 +328,8 @@ module.exports = (function () {
 			$document.triggerHandler('menu.close');
 			infowindow.close();
 			$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: null});
-			*/
-		});
+
+		});*/
 		google.maps.event.addListener(infowindow, 'closeclick', function(){
 			$document.triggerHandler('menu.close');
 			$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: null});
