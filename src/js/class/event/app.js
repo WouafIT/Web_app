@@ -54,6 +54,10 @@ module.exports = (function() {
 				});
 				return;
 			}
+			//init categories
+			if (infos.categories) {
+				categories.init(infos.categories);
+			}
 			//init slidebars
 			slidebars.init();
 			//init add button
@@ -78,10 +82,6 @@ module.exports = (function() {
 			} else {
 				//logout
 				$document.triggerHandler('app.logout');
-			}
-			//init categories
-			if (infos.categories) {
-				categories.init(infos.categories);
 			}
 			//show server message if any
 			if (infos.message) {

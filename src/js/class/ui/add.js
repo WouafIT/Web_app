@@ -77,7 +77,7 @@ module.exports = (function() {
 		var maxImages = 3;
 		var maxFilesize = 2;
 		$dropzone.dropzone({
-			url: ENDPOINT + '/file/',
+			url: ENDPOINT + '/file',
 			maxFilesize: maxFilesize,
 			parallelUploads: 3,
 			maxFiles: maxImages,

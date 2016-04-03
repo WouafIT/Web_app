@@ -1,11 +1,11 @@
 ErrorDocument 404 /404.html
 ErrorDocument 403 /403.html
-DirectoryIndex	index.html
+DirectoryIndex	index.php
 
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^(.*)$ index.html?%{QUERY_STRING} [L]
+RewriteRule ^(.*)$ index.php?%{QUERY_STRING} [L]
 
 #AddType image/x-icon .ico
 #

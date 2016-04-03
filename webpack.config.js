@@ -52,7 +52,7 @@ var common = Object.keys(languages).map(function(language) {
 				__DEV__: 		JSON.stringify(JSON.parse(process.env.NODE_ENV === 'dev'))
 			}),
 			new HtmlWebpackPlugin({
-				filename: 'index.html',
+				filename: 'index.php',
 				template: __dirname + '/src/html/index.tpl',
 				data: htmlData,
 				i18n: languageData,

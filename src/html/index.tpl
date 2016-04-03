@@ -21,6 +21,7 @@
 </head>
 <body>
 <div id="splash"></div>
+<div id="page-content"><?php include(__DIR__.'/php/index.php'); ?></div>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/tether/1.1.1/js/tether.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.2/js/bootstrap.min.js"></script>
