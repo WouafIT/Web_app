@@ -1,10 +1,5 @@
 module.exports = (function() {
 	var ENDPOINT 		= API_ENDPOINT;
-	if (__DEV__) {
-		var KEY 			= API_KEY_DEV;
-	} else {
-		var KEY 			= API_KEY_PROD;
-	}
 	var $document = $(document);
 	var data = require('../resource/data.js');
 	var windows = require('../resource/windows.js');
@@ -97,7 +92,7 @@ module.exports = (function() {
 				this.on();
 			},
 			'sending': function(file, xhr, formData) {
-				formData.append("key", KEY);
+				formData.append("key", API_KEY);
 				formData.append("uid", data.getString('uid'));
 				formData.append("token", data.getString('token'));
 			},
@@ -219,7 +214,7 @@ module.exports = (function() {
 					data.setInt('today_publications', result.today_publications);
 				}
 				//reload search
-				$document.triggerHandler('app.search');
+				$document.triggerHandler('app.search', {from: 'add wouaf'});
 
 				windows.close();
 				var toast = require('../resource/toast.js');

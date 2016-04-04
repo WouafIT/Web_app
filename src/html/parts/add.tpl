@@ -21,7 +21,7 @@
 			</fieldset>
 
 			<fieldset class="form-group">
-				<input type="text" class="form-control" placeholder="<%= htmlWebpackPlugin.options.i18n['Enter your title (50 char. max)'] %>" name="title" maxlength="50" />
+				<input type="text" class="form-control" placeholder="<%= htmlWebpackPlugin.options.i18n['Enter your title (80 char. max)'] %>" name="title" maxlength="80" />
 			</fieldset>
 
 			<fieldset class="form-group">

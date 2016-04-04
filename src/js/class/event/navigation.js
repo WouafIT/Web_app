@@ -80,7 +80,6 @@ module.exports = (function() {
 	$document.on('navigation.load-state', function(e, callback) {
 		allowSetState = false; //disallow state change during URL parsing
 		var pathname = window.location.pathname;
-		var mapState = false;
 		if (pathname !== '/') {
 			var part, parts = pathname.split('/');
 			for (var i = 0, l = parts.length; i < l; i++) {
@@ -89,15 +88,18 @@ module.exports = (function() {
 					if (part.substr(0, 1) === '@' && part.substr(-1) === 'z') {
 						var coordinates = part.substr(1, (part.length - 1)).split(',');
 						if (coordinates.length === 3) {
-							mapState = true;
-							map.getMap().setCenter({lat: parseFloat(coordinates[0]), lng: parseFloat(coordinates[1])});
+							var position = {lat: parseFloat(coordinates[0]), lng: parseFloat(coordinates[1])};
+							map.getMap().setCenter(position);
 							map.getMap().setZoom(parseInt(coordinates[2].substr(0, (coordinates[2].length - 1)), 10));
+							//store map position: url
+							data.setObject('position', position);
 						}
 					} else if (part === 'wouaf' && utils.isValidWouafId(parts[i + 1])) {
 						var wouafId = parts[++i];
-						$document.one('map.show-results', function() {
-							map.showResult(wouafId);
-						});
+						//check if wouaf data exists in html
+						if (window.wouafit.wouaf && window.wouafit.wouaf.id == wouafId) {
+							data.setObject('position', {lat: window.wouafit.wouaf.loc[0], lng: window.wouafit.wouaf.loc[1]});
+						}
 						$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: wouafId});
 					} else if (part === 'user' && utils.isValidUsername(parts[i + 1])) {
 						part = parts[++i];
@@ -117,7 +119,7 @@ module.exports = (function() {
 			}
 		}
 		//launch callback
-		callback(mapState);
+		callback();
 		allowSetState = true;
 	});
 	$document.on('click', 'a, button', function(e) {

@@ -23,7 +23,7 @@ module.exports = (function() {
 		}
 		var offset 		= $el.offset();
 		var uid 		= data.getString('uid');
-		var title 		= obj.title || obj.text.substr(0, 49) +'…';
+		var title 		= obj.title || obj.text.substr(0, 79) + (obj.title.length > 79 ? '…' : '');
 		var text 		= utils.textToHTML(obj.text);
 		var wouafUrl 	= url.getAbsoluteURLForStates([{name: 'wouaf', value: obj.id}]);
 		var favs 		= data.getArray('favorites');

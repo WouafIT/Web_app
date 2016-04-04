@@ -7,7 +7,7 @@ module.exports = (function() {
 	var self = {};
 	self.getWouafHeader = function (obj, collapse) {
 		collapse = collapse || false;
-		var title = obj.title || obj.text.substr(0, 49) +'…';
+		var title = obj.title || obj.text.substr(0, 79) + (obj.title.length > 79 ? '…' : '');
 		//state
 		var time = new Date();
 		obj.state = (obj.date[0].sec * 1000) > time.getTime() ? 'w-post' : ((obj.date[1].sec * 1000) < time.getTime() ? 'w-past' : 'w-current');
@@ -59,8 +59,11 @@ module.exports = (function() {
 				(collapse
 					? ' data-toggle="collapse" data-parent=".w-accordion" data-target="#collapse-'+ obj.id +'" class="panel-title collapsed w-title '+ obj.state +'"'
 					: ' class="w-title '+ obj.state +'"'),
-				' style="border-color: ', categories.getColor(obj.cat) ,';">', utils.escapeHtml(title),
-				'<div class="w-cat cat', obj.cat ,'"><span>' , categories.getLabel(obj.cat) , '</span> - ', eventLength ,'</div>',
+				' style="border-color: ', categories.getColor(obj.cat) ,';">',
+				'<div class="w-cat w-cat'+ obj.cat +'">',
+					utils.escapeHtml(title),
+				'</div>',
+				'<div class="w-details"><span>' , categories.getLabel(obj.cat) , '</span> - ', eventLength ,'</div>',
 				'<div class="w-comments"><i class="fa fa-comment"></i> ', obj.com ,'</div>',
 			'</div>'
 		].join('');

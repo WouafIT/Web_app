@@ -101,10 +101,35 @@ module.exports = (function() {
 
 	$document.on('app.start-end', function() {
 		//Init Map
-		map.init();
-		if (__DEV__) {
-			console.info('all done (dev mode)');
-			console.info('launch count: '+data.getInt('launchCount'));
-		}
+		$.when(map.init()).done(function() {
+			//Init navigation state
+			$document.triggerHandler('navigation.load-state', function () {
+				//then set map center to final position
+				var position = data.getObject('position');
+				if (!position && __DEV__) {
+					console.error('No map position setted.')
+				}
+				map.getMap().setCenter(new google.maps.LatLng(position.lat, position.lng));
+
+				//search posts from current position
+				$document.triggerHandler('app.search', {from: 'app.start-end'});
+
+				//add wouaf if any
+				$document.one('map.show-results', function() {
+					var states = data.getObject('navigation');
+					if (states.wouaf) {
+						map.showResult(states.wouaf);
+					}
+				});
+
+				//hide splash
+				$('#splash').fadeOut('fast');
+
+				if (__DEV__) {
+					console.info('all done (dev mode)');
+					console.info('launch count: '+ data.getInt('launchCount'));
+				}
+			});
+		});
 	});
 })();

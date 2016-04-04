@@ -25,7 +25,7 @@ module.exports = (function() {
 					windows.close();
 					return;
 				}
-				var title = obj.title || obj.text.substr(0, 49) +'…';
+				var title = obj.title || obj.text.substr(0, 79) + (obj.title.length > 79 ? '…' : '');
 				if (obj.com) {
 					$modalWindow.find('.modal-title').html(i18n.t('{{count}} comment for {{title}}', {
 						count: obj.com,

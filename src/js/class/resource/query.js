@@ -8,11 +8,6 @@ module.exports = (function() {
 	//==> illimited from client (browser) requests
 	var GOOGLE_BASE_URL = 'https://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=';
 	var ENDPOINT 		= API_ENDPOINT;
-	if (__DEV__) {
-		var KEY 			= API_KEY_DEV;
-	} else {
-		var KEY 			= API_KEY_PROD;
-	}
 	$document.ajaxStart(function() {
 		if (__DEV__) {
 			console.info('Ajax start');
@@ -55,7 +50,7 @@ module.exports = (function() {
 			timeout: 10000,
 			cache: true,
 			success: params.success,
-			headers: {'x-wouafit-api-key': KEY},
+			headers: {'x-wouafit-api-key': API_KEY},
 			error: function(xhr) {
 				if (__DEV__) {
 					console.error('Query error', params, xhr);

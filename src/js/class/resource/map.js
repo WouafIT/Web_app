@@ -61,6 +61,9 @@ module.exports = (function () {
 			};
 			elements.push(element);
 		}
+		google.maps.event.addListenerOnce(map, 'idle', function () {
+			$document.triggerHandler('map.show-results');
+		});
 		// Add all pins
 		hcmap = new clustermap.HCMap({'map': map, 'elements': elements, 'infowindow': infowindow});
 
@@ -78,7 +81,6 @@ module.exports = (function () {
 			}
 		}
 		initialized = true;
-		$document.triggerHandler('map.show-results');
 	};
 	var removePin = function(id) {
 		if (!id || !self.jsonResults || !self.jsonResults.results) {
@@ -148,8 +150,14 @@ module.exports = (function () {
 			}
 		};
 		setTimeout(function () {
-			google.maps.event.addListenerOnce(map, 'idle', showIW);
-			map.setCenter({lat: obj.loc[0], lng: obj.loc[1]});
+			var mapCenter = map.getCenter().toUrlValue(5);
+			var objCenter = new google.maps.LatLng(obj.loc[0], obj.loc[1]).toUrlValue(5);
+			if (mapCenter == objCenter) {
+				showIW();
+			} else {
+				google.maps.event.addListenerOnce(map, 'idle', showIW);
+				map.setCenter({lat: obj.loc[0], lng: obj.loc[1]});
+			}
 		}, 200);
 	};
 
@@ -190,8 +198,8 @@ module.exports = (function () {
 		data.setBool('userGeolocation', true);
 		userLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 		if (!userMarker) {
-			//show map
-			showMap(userLocation);
+			//store map position
+			data.setObject('position', userLocation.toJSON());
 			//show user location
 			userMarker = new locationMarker(userLocation);
 			//watch for location update
@@ -204,6 +212,7 @@ module.exports = (function () {
 			//update user location
 			userMarker.draw(userLocation);
 		}
+		$document.triggerHandler('map.geolocation-done');
 	};
 	//no geolocation
 	var handleNoGeolocation = function (error) {
@@ -216,15 +225,17 @@ module.exports = (function () {
 		}
 		var lastLocation = data.getObject('position');
 		if (lastLocation) {
-			showMap(new google.maps.LatLng(lastLocation.lat, lastLocation.lng));
+			//store map position: last known position
+			data.setObject('position', new google.maps.LatLng(lastLocation.lat, lastLocation.lng).toJSON());
 		}
 		if (i18n.t('languageShort') == 'fr') {
-			//center of france
-			showMap(new google.maps.LatLng(46.427066, 2.430535));
+			//store map position: center of France
+			data.setObject('position', new google.maps.LatLng(46.427066, 2.430535).toJSON());
 			return;
 		}
-		//center of us
-		showMap(new google.maps.LatLng(39.857973, -98.008955));
+		//store map position: center of US
+		data.setObject('position', new google.maps.LatLng(39.857973, -98.008955).toJSON());
+		$document.triggerHandler('map.geolocation-done');
 	};
 	//ask user for his location
 	var askForGeolocation = function () {
@@ -237,22 +248,6 @@ module.exports = (function () {
 				navigator.geolocation.getCurrentPosition(setUserLocation, handleNoGeolocation);
 			}
 		});
-	};
-	//show map on user location, remove splash, launch search
-	var showMap = function (location) {
-		data.setObject('position', location.toJSON());
-
-		//Init app state
-		$document.triggerHandler('navigation.load-state', function(mapState) {
-			if (!mapState) {
-				//set map center
-				map.setCenter(location);
-			}
-			//search posts from current location
-			$document.triggerHandler('app.search');
-		});
-		//hide splash
-		$('#splash').fadeOut('fast');
 	};
 	var updateMapPosition = function() {
 		//put a class on body when zoom is too wide
@@ -268,15 +263,16 @@ module.exports = (function () {
 		if (self.jsonResults.query) {
 			var distance = Math.round(google.maps.geometry.spherical.computeDistanceBetween(center,
 				new google.maps.LatLng(self.jsonResults.query.loc.$near[0], self.jsonResults.query.loc.$near[1])));
-			if (distance >= self.jsonResults.query.loc.$maxDistance * 72600) {//72600 => 110 * 1000 * 0.66
-				//distance is more than 66% of search radius => update search
-				$document.triggerHandler('app.search');
+			if (distance >= self.jsonResults.query.loc.$maxDistance * 93500) {//93500 => 110 * 1000 * 0.85
+				//distance is more than 85% of search radius => update search
+				$document.triggerHandler('app.search', {from: 'position too far from center'});
 			}
 		}
 		$document.triggerHandler('map.update-position');
 	};
 	//Init public method
 	var init = function () {
+		var deferred = $.Deferred();
 		//create map
 		map = new google.maps.Map($map.get(0), {
 			zoom: 9,
@@ -361,6 +357,11 @@ module.exports = (function () {
 		} else {
 			handleNoGeolocation({code: 999, message: 'Browser does not handle geolocation'});
 		}
+		$document.one('map.geolocation-done', function() {
+			deferred.resolve();
+		});
+
+		return deferred.promise();
 	};
 
 	//append a given result to map
@@ -400,6 +401,11 @@ module.exports = (function () {
 	var getResult = function(id) {
 		var deferred = $.Deferred();
 		var obj = getResults([id])[0] || null;
+		//check if wouaf data exists in html
+		if (!obj && window.wouafit.wouaf && window.wouafit.wouaf.id == wouafId) {
+			obj = window.wouafit.wouaf;
+			appendResult(obj);
+		}
 		if (obj) {
 			deferred.resolve(obj);
 		} else {

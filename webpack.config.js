@@ -1,20 +1,28 @@
 const merge = require('webpack-merge');
 const webpack = require("webpack");
 const languages = {
-	"fr-fr": './languages/fr-fr.json',
-	"en-us": './languages/en-us.json'
+	//"en-us": './languages/en-us.json',
+	"fr-fr": './languages/fr-fr.json'
 };
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const TARGET = process.env.npm_lifecycle_event;
 const timestamp = Math.floor(Date.now() / 1000);
+const GOOGLE_API = 'AIzaSyCXCe5iWx-lVBv89H0teRMFjy8s24TMOiQ';
+const API_KEY_DEV = 'deve0f2d-5c24-4e36-8d1c-bfe9701fcdev';
+const API_KEY_PROD = 'dece0f2d-5c24-4e36-8d1c-bfe9701fc526';
 
 var common = Object.keys(languages).map(function(language) {
 	var htmlData = {
-		googleApi: 'AIzaSyCXCe5iWx-lVBv89H0teRMFjy8s24TMOiQ',
+		googleApi: GOOGLE_API,
 		language: language,
 		timestamp: timestamp,
 		year: (new Date()).getFullYear()
+	};
+	var phpData = {
+		"API_KEY": 	process.env.NODE_ENV === 'dev'
+						? API_KEY_DEV
+						: API_KEY_PROD
 	};
 	var languageData = require(languages[language]);
 	return {
@@ -45,8 +53,9 @@ var common = Object.keys(languages).map(function(language) {
 				"DEV_URL": 		JSON.stringify('http://wouafit.local'),
 				"PROD_URL": 	JSON.stringify('https://wouaf.it'),
 				"API_ENDPOINT": JSON.stringify('https://api.wouaf.it'),
-				"API_KEY_PROD": JSON.stringify('dece0f2d-5c24-4e36-8d1c-bfe9701fc526'),
-				"API_KEY_DEV": 	JSON.stringify('deve0f2d-5c24-4e36-8d1c-bfe9701fcdev'),
+				"API_KEY": 		process.env.NODE_ENV === 'dev'
+					? JSON.stringify(API_KEY_DEV)
+					: JSON.stringify(API_KEY_PROD),
 				"LANGUAGE": 	JSON.stringify(language),
 				"BUILD_VERSION":JSON.stringify(timestamp),
 				__DEV__: 		JSON.stringify(JSON.parse(process.env.NODE_ENV === 'dev'))
@@ -140,6 +149,12 @@ var common = Object.keys(languages).map(function(language) {
 				template: __dirname + '/src/html/parts/user.tpl',
 				data: htmlData,
 				i18n: languageData,
+				inject: false
+			}),
+			new HtmlWebpackPlugin({
+				filename: 'php/index.php',
+				template: __dirname + '/src/php/index.php',
+				data: phpData,
 				inject: false
 			}),
 			new CopyWebpackPlugin([

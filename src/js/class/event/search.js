@@ -19,6 +19,7 @@ module.exports = (function() {
 		if (__DEV__) {
 			console.info('Search params', params);
 		}
+		delete params.from;
 		query.posts(params, function(data) {
 			map.setResults(data, true);
 			$document.triggerHandler('tabs.add', {
