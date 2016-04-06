@@ -22,7 +22,7 @@ module.exports = (function() {
 			}
 			query.post(states.wouaf, function (result) {
 				var obj = result.wouaf;
-				var title = obj.title || obj.text.substr(0, 79) + (obj.title.length > 79 ? '…' : '');
+				var title = obj.title || obj.text.substr(0, 79) + (obj.text.length > 79 ? '…' : '');
 				$modalWindow.find('h4').html(i18n.t('Contact an author'));
 				$modalWindow.find('.contact-details').html(i18n.t('Use the form below to contact {{author}}, author of Wouaf {{title}}', {title: title, author: obj.author[2] || obj.author[1]}));
 				handleForm(obj.author[0], obj.id);

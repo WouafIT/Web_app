@@ -7,7 +7,7 @@ module.exports = (function() {
 	var self = {};
 	self.getWouafHeader = function (obj, collapse) {
 		collapse = collapse || false;
-		var title = obj.title || obj.text.substr(0, 79) + (obj.title.length > 79 ? '…' : '');
+		var title = obj.title || obj.text.substr(0, 79) + (obj.text.length > 79 ? '…' : '');
 		//state
 		var time = new Date();
 		obj.state = (obj.date[0].sec * 1000) > time.getTime() ? 'w-post' : ((obj.date[1].sec * 1000) < time.getTime() ? 'w-past' : 'w-current');
