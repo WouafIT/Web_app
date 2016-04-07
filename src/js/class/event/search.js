@@ -5,6 +5,7 @@ module.exports = (function() {
 	var query = require('../resource/query.js');
 	var toast = require('../resource/toast.js');
 	var i18n = require('../resource/i18n.js');
+	var mlRadius = {10: 5, 20: 10, 30: 15, 50: 30, 70: 45, 100: 60, 150: 90, 200: 120, 300: 180};
 
 	//Event to launch a new search
 	$document.on('app.search', function (event, params) {
@@ -20,12 +21,22 @@ module.exports = (function() {
 			console.info('Search params', params);
 		}
 		delete params.from;
-		query.posts(params, function(data) {
-			map.setResults(data, true);
+		query.posts(params, function(result) {
+			map.setResults(result);
+
+			//show results number
+			var notificationLabel 	= i18n.t('{{count}} Wouaf', { count: result.count });
+			var unit 				= data.getString('unit');
+			var radius 				= unit == 'km' ? data.getInt('radius') : mlRadius[data.getInt('radius')];
+			if (result.count == 500) {
+				toast.show(i18n.t('{{max}} displayed on a {{radius}}{{unit}} of the map center (maximum reached)', {max: notificationLabel, radius: radius, unit: i18n.t(unit) }), 4000);
+			} else {
+				toast.show(i18n.t('{{wouaf}} displayed on a {{radius}}{{unit}} of the map center', { count: result.count, wouaf: notificationLabel, radius: radius, unit: i18n.t(unit) }), 4000);
+			}
 			$document.triggerHandler('tabs.add', {
 				id: 'search-results',
-				name: '<i class="fa fa-search-plus"></i> '+ i18n.t('{{count}} result', {count: data.count}),
-				data: {type: 'result', data: data},
+				name: '<i class="fa fa-search-plus"></i> '+ i18n.t('{{count}} result', {count: result.count}),
+				data: {type: 'result', data: result},
 				removable: false
 			});
 		}, function(msg) {

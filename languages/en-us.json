@@ -59,11 +59,11 @@
 
 	"{{count}} Wouaf": "{{count}} Wouaf",
 	"{{count}} Wouaf_plural": "{{count}} Wouafs",
-	"{{wouaf}} displayed": "{{wouaf}} displayed",
-	"{{wouaf}} displayed_plural": "{{wouaf}} displayed",
-	"{{max}} displayed (maximum reached)": "{{max}} displayed (maximum reached)",
+	"{{wouaf}} displayed on a {{radius}}{{unit}} of the map center": "{{wouaf}} displayed on a {{radius}}{{unit}} of the map center",
+	"{{wouaf}} displayed on a {{radius}}{{unit}} of the map center_plural": "{{wouaf}} displayed on a {{radius}}{{unit}} of the map center",
+	"{{max}} displayed on a {{radius}}{{unit}} of the map center (maximum reached)": "{{max}} displayed on a {{radius}}{{unit}} of the map center (maximum reached)",
 
-    "Connect!": "Connect!",
+	"Connect!": "Connect!",
     "create_wouaf_it_account": "If you do not have your Wouaf IT account, it's time to create one! It's free and only takes seconds.",
     "use_wouaf_it_account": "and if you already have your account, what are you waiting for to login?",
 
@@ -135,6 +135,7 @@
 	"Search settings": "Search settings",
 	"Search radius": "Search radius",
 	"Unit search radius": "Unit search radius",
+	"Refresh search results by following the map position": "Refresh search results by following the map position",
 	"Kilometers": "Kilometers",
 	"Miles": "Miles",
 	"km": "km",

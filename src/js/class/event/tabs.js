@@ -118,10 +118,24 @@ module.exports = (function() {
 
 	//show wouaf infowindow on click
 	$document.on('click', 'div.w-title', function(e) {
-		if ($(e.target).parents('.tab-pane').length) {
+		var $tab = $(e.target).parents('.tab-pane');
+		if ($tab.length) {
 			e.stopPropagation();
+			var tabId = $tab.attr('id');
 			var wouafId = $(e.target).parents('.w-container').data('id');
-			map.showResult(wouafId);
+			//grab wouaf data from tab data
+			if (tabsData[tabId]) {
+				var obj;
+				for(var i = 0, l = tabsData[tabId].results.length; i < l; i++) {
+					obj = tabsData[tabId].results[i];
+					if (obj.id == wouafId) {
+						map.showResult(wouafId, obj);
+						break;
+					}
+				}
+			} else {
+				map.showResult(wouafId);
+			}
 			if (!slidebars.isDualView()) {
 				$document.triggerHandler('slide.close');
 			}

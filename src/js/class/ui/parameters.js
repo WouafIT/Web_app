@@ -17,12 +17,14 @@ module.exports = (function() {
 		var $form = $modalWindow.find('form');
 		var $radius = $form.find('select[name=radius]');
 		var $unit = $form.find('select[name=unit]');
+		var $mapFollow = $form.find('input[name=map-follow]');
 		var $facebook = $form.find('input[name=facebook]');
 		var $contact = $form.find('input[name=contact]');
 		var $wouafNotifications = $form.find('input[name=wouaf-notifications]');
 		var $commentsNotifications = $form.find('input[name=comments-notifications]');
 		//set current values
 		$unit.val(data.getString('unit'));
+		$mapFollow.attr("checked", data.getBool('mapFollow'));
 		$facebook.attr("checked", data.getBool('fbPost'));
 		$facebook.attr('disabled', data.getString('loginType') !== 'facebook');
 
@@ -62,6 +64,7 @@ module.exports = (function() {
 			//form submition
 			data.setString('unit', $unit.val());
 			data.setInt('radius', $radius.val());
+			data.setBool('mapFollow', $mapFollow.prop("checked"));
 
 			if (data.getString('uid')) {
 				data.setBool('fbPost', $facebook.prop("checked"));

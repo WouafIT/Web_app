@@ -31,6 +31,7 @@ module.exports = (function() {
 			data.setBool('postNotif', true);
 			data.setBool('commentNotif', true);
 			data.setBool('showPopover', true);
+			data.setBool('mapFollow', true);
 			data.setString('unit', 'km');
 			data.setInt('radius', 300);
 			data.setString('loginType', 'default');
@@ -115,7 +116,7 @@ module.exports = (function() {
 				$document.triggerHandler('app.search', {from: 'app.start-end'});
 
 				//add wouaf if any
-				$document.one('map.show-results', function() {
+				$document.one('map.results-chown', function() {
 					var states = data.getObject('navigation');
 					if (states.wouaf) {
 						map.showResult(states.wouaf);

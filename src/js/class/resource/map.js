@@ -17,13 +17,10 @@ module.exports = (function () {
 		jsonResults: {}
 	};
 	//set map pins on search response
-	var setPins = function (json, showCount) {
-		showCount = showCount !== false;
+	var setPins = function (json) {
 		if (__DEV__) {
 			console.info('Search results', json);
 		}
-		var addResults = false;
-		var resultsType = json.resultsType ? json.resultsType : 'unknown';
 		var elements = [];
 		if (!json.results) {
 			json.results = [];
@@ -31,7 +28,6 @@ module.exports = (function () {
 		} else {
 			//if search Id match, add results
 			if (self.jsonResults && self.jsonResults.searchId && json.searchId && self.jsonResults.searchId == json.searchId) {
-				addResults = json.count;
 				json.count += self.jsonResults.count;
 				json.results = json.results.concat(self.jsonResults.results);
 			} else {
@@ -61,25 +57,17 @@ module.exports = (function () {
 			};
 			elements.push(element);
 		}
-		google.maps.event.addListenerOnce(map, 'idle', function () {
-			$document.triggerHandler('map.show-results');
-		});
+		/*google.maps.event.addListenerOnce(map, 'idle', function () {
+
+		});*/
+		setTimeout(function () {
+			console.info('setPins1 (map.results-chown)');
+			$document.triggerHandler('map.results-chown');
+		}, 400);
+
 		// Add all pins
 		hcmap = new clustermap.HCMap({'map': map, 'elements': elements, 'infowindow': infowindow});
 
-		if (showCount) {
-			//show results number
-			var countResults = addResults ? addResults : json.count;
-			var notificationLabel = '';
-			if (resultsType == 'wouafit') {
-				notificationLabel = i18n.t('{{count}} Wouaf', { count: countResults });
-			}
-			if (countResults == 500) {
-				toast.show(i18n.t('{{max}} displayed (maximum reached)', {max: notificationLabel }));
-			} else {
-				toast.show(i18n.t('{{wouaf}} displayed', { count: countResults, wouaf: notificationLabel }));
-			}
-		}
 		initialized = true;
 	};
 	var removePin = function(id) {
@@ -99,16 +87,44 @@ module.exports = (function () {
 			var json = $.extend(true, {}, self.jsonResults);
 			var now = new Date();
 			json.searchId = now.getTime();
-			setPins(json, false);
+			setPins(json);
 		}
 	};
+	//append a given result to map
+	var appendPin = function(obj) {
+		var deferred = $.Deferred();
+		if (getResults([obj.id]).length) {
+			console.info('appendPin1');
+			deferred.resolve();
+		} else {
+			var results = jQuery.extend(true, {}, self.jsonResults);
+			//add post to map results and display it
+			results.results.push(obj);
+			results.count = results.results.length;
+			var now = new Date();
+			results.searchId = now.getTime();
+			$document.one('map.results-chown', function () {
+				console.info('appendPin2');
+				deferred.resolve();
+			});
+			console.info('appendPin3');
+			setPins(results);
+		}
+		return deferred.promise();
+	};
 
-	var showPin = function (id) {
+	var showPin = function (id, obj) {
 		if (!id || !utils.isValidWouafId(id)) {
 			return;
 		}
-		//check if result exists in current results
+		if (obj) {
+			console.info('showPin1');
+			openPin(obj);
+			return;
+		}
+		//get wouaf data then open it
 		$.when(getResult(id)).done(function(obj) {
+			console.info('showPin2');
 			openPin(obj);
 		}).fail(function(msg) {
 			var windows = require('./windows.js');
@@ -132,6 +148,7 @@ module.exports = (function () {
 			} else if (zoom < 21) {
 				var pinZoom = clustermap.getLeafZoom(hcmap, obj.id, 10, 21);
 				if (pinZoom != zoom) {
+					console.info('showIW1', pinZoom, zoom);
 					google.maps.event.addListenerOnce(map, 'idle', showIW);
 					map.setZoom(pinZoom);
 				} else {
@@ -139,11 +156,13 @@ module.exports = (function () {
 						count = 0;
 						google.maps.event.trigger(map, 'dragend');
 					}
+					console.info('showIW2');
 					setTimeout(showIW, 400);
 				}
 			} else if (zoom == 21) {
 				$pin = $map.find('.baseMarker[data-id*="'+ obj.id +'"]');
 				if ($pin.length) {
+					console.info('showIW3');
 					google.maps.event.trigger($pin.get(0), 'click');
 				}
 				$document.triggerHandler('navigation.enable-state');
@@ -153,10 +172,24 @@ module.exports = (function () {
 			var mapCenter = map.getCenter().toUrlValue(5);
 			var objCenter = new google.maps.LatLng(obj.loc[0], obj.loc[1]).toUrlValue(5);
 			if (mapCenter == objCenter) {
-				showIW();
+				console.info('openPin1');
+				$.when(appendPin(obj)).done(showIW);
 			} else {
-				google.maps.event.addListenerOnce(map, 'idle', showIW);
-				map.setCenter({lat: obj.loc[0], lng: obj.loc[1]});
+				var center = new google.maps.LatLng(obj.loc[0], obj.loc[1]);
+				if (isSearchRefreshNeeded(center)) {
+					console.info('openPin2');
+					$document.one('map.results-chown', function () {
+						console.info('openPin2"');
+						$.when(appendPin(obj)).done(showIW);
+					});
+					map.setCenter(center);
+				} else {
+					$.when(appendPin(obj)).done(function () {
+						console.info('openPin3');
+						google.maps.event.addListenerOnce(map, 'idle', showIW);
+						map.setCenter(center);
+					});
+				}
 			}
 		}, 200);
 	};
@@ -260,15 +293,23 @@ module.exports = (function () {
 		$document.triggerHandler('navigation.set-state', {name: 'map', value: {'center': center.toUrlValue(5), 'zoom': zoom}});
 
 		//check distance between current center and last search
-		if (self.jsonResults.query) {
-			var distance = Math.round(google.maps.geometry.spherical.computeDistanceBetween(center,
-				new google.maps.LatLng(self.jsonResults.query.loc.$near[0], self.jsonResults.query.loc.$near[1])));
-			if (distance >= self.jsonResults.query.loc.$maxDistance * 93500) {//93500 => 110 * 1000 * 0.85
-				//distance is more than 85% of search radius => update search
-				$document.triggerHandler('app.search', {from: 'position too far from center'});
-			}
+		if (isSearchRefreshNeeded(center)) {
+			//distance is more than 85% of search radius => update search
+			$document.triggerHandler('app.search', {from: 'position too far from center'});
 		}
-		$document.triggerHandler('map.update-position');
+		console.info('map.updated-position');
+		$document.triggerHandler('map.updated-position');
+	};
+	var isSearchRefreshNeeded = function (point) {
+		//check distance between current center and last search
+		if (!data.getBool('mapFollow') || !self.jsonResults.query) {
+			return false;
+		}
+		var distance = Math.round(google.maps.geometry.spherical.computeDistanceBetween(
+			point,
+			new google.maps.LatLng(self.jsonResults.query.loc.$near[0], self.jsonResults.query.loc.$near[1])
+		));
+		return (distance >= self.jsonResults.query.loc.$maxDistance * 93500);//93500 => 110 * 1000 * 0.85
 	};
 	//Init public method
 	var init = function () {
@@ -293,6 +334,7 @@ module.exports = (function () {
 		//add map events
 		map.addListener('dragend', updateMapPosition);
 		map.addListener('zoom_changed', updateMapPosition);
+		map.addListener('center_changed', updateMapPosition);
 		$body.addClass('too-wide');
 
 		//customize infowindow
@@ -364,17 +406,6 @@ module.exports = (function () {
 		return deferred.promise();
 	};
 
-	//append a given result to map
-	var appendResult = function(wouaf) {
-		var results = jQuery.extend(true, {}, self.jsonResults);
-		//add post to map results and display it
-		results.results.push(wouaf);
-		results.count = results.results.length;
-		var now = new Date();
-		results.searchId = now.getTime();
-		setPins(results, false);
-	};
-
 	var getResults = function(ids) {
 		ids = ids || [];
 		if (!self.jsonResults.count || !self.jsonResults.results) {
@@ -398,41 +429,38 @@ module.exports = (function () {
 		return results;
 	};
 
-	var getResult = function(id) {
+	var getResult = function(id, obj) {
 		var deferred = $.Deferred();
-		var obj = getResults([id])[0] || null;
-		//check if wouaf data exists in html
-		if (!obj && window.wouafit.wouaf && window.wouafit.wouaf.id == wouafId) {
+		//check if wouaf exists in current search results
+		obj = obj || getResults([id])[0] || null;
+		//else check if wouaf data exists in html
+		if (!obj && window.wouafit.wouaf && window.wouafit.wouaf.id == id) {
 			obj = window.wouafit.wouaf;
-			appendResult(obj);
 		}
 		if (obj) {
 			deferred.resolve(obj);
 		} else {
-			if (initialized) {
-				//no result, grab it from server
+			var getResultFromServer = function(id) {
 				var query = require('./query.js');
 				query.post(id, function (result) {
-					appendResult(result.wouaf);
 					deferred.resolve(result.wouaf);
 				}, function (msg) {
 					deferred.reject(msg);
 				});
+			};
+			if (initialized) { //if map is already initialized and has search results
+				//no result, grab it from server
+				getResultFromServer(id);
 			} else {
 				//wait for map initialization
-				$document.one('map.show-results', function() {
+				$document.one('map.results-chown', function() {
+					//check if wouaf exists in current search results
 					var obj = getResults([id])[0] || null;
 					if (obj) {
 						deferred.resolve(obj);
 					} else {
 						//no result, grab it from server
-						var query = require('./query.js');
-						query.post(id, function (result) {
-							appendResult(result.wouaf);
-							deferred.resolve(result.wouaf);
-						}, function (msg) {
-							deferred.reject(msg);
-						});
+						getResultFromServer(id);
 					}
 				});
 			}

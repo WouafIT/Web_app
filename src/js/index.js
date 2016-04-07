@@ -11,6 +11,9 @@
 	require("../libs/slidebars/0.10.3/dist/slidebars.min.css");
 	require('../libs/DateTimePicker/dist/DateTimePicker.min.css');
 	require("../less/index.less");
+	if (!window.wouafit) {
+		window.wouafit = {};
+	}
 	var data = require('./class/resource/data.js');
 	var $document = $(document);
 
