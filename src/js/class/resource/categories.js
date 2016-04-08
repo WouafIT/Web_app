@@ -1,5 +1,4 @@
 module.exports = (function() {
-	var data = require('./data.js');
 	var i18n = require('./i18n.js');
 	var self = {};
 	var categoriesById = {};

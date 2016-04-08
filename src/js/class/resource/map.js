@@ -3,7 +3,6 @@ module.exports = (function () {
 	var categories = require('./categories.js');
 	var i18n = require('./i18n.js');
 	var data = require('./data.js');
-	var toast = require('./toast.js');
 	var utils = require('../utils.js');
 	var $document = $(document);
 	var map, infowindow; //GMap elements

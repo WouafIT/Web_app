@@ -49,7 +49,6 @@ module.exports = (function() {
 				query.getComments(obj.id, function(result) {
 					var $modalComments = $modalWindow.find('.modal-comments');
 					if (result.count) {
-						var comment = require('./comment.js');
 						var comments = result.comments;
 						$modalComments.data('id', obj.id);
 						$modalComments.html('<p>'+ i18n.t('{{count}} comment', {count: result.count}) +'</p>');

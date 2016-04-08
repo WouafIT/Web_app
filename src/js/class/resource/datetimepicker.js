@@ -68,9 +68,9 @@ module.exports = (function() {
 			if (h12) {
 				if (hours > 12) {
 					hours = hours - 12;
-					hours = hours < 10 ? '0'+ hours : ''+ hours; +' PM';
+					hours = hours < 10 ? '0'+ hours : ''+ hours +' PM';
 				} else {
-					hours = hours < 10 ? '0'+ hours : ''+ hours; +' AM';
+					hours = hours < 10 ? '0'+ hours : ''+ hours +' AM';
 				}
 			} else {
 				hours = hours < 10 ? '0'+ hours : ''+ hours;

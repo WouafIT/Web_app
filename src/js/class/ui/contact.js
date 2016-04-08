@@ -28,7 +28,6 @@ module.exports = (function() {
 				handleForm(obj.author[0], obj.id);
 			}, function () {
 				windows.close();
-				var toast = require('../resource/toast.js');
 				toast.show(i18n.t('An error has occurred, you can not contact the author of this Wouaf'), 5000);
 			});
 		} else if (states.user && utils.isValidUsername(states.user)) {
@@ -46,7 +45,6 @@ module.exports = (function() {
 				handleForm(result.user.uid);
 			}, function () {
 				windows.close();
-				var toast = require('../resource/toast.js');
 				toast.show(i18n.t('An error has occurred, you can not contact this user'), 5000);
 			});*/
 		} else {
@@ -100,7 +98,6 @@ module.exports = (function() {
 					id:         wouafId
 				}, function() {
 					windows.close();
-					var toast = require('../resource/toast.js');
 					toast.show(i18n.t('Your message is sent to the author of this Wouaf'));
 				}, function(msg) { //error
 					alert.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), $form, 'danger');
@@ -111,7 +108,6 @@ module.exports = (function() {
 					email:    	$email.val()
 				}, function() {
 					windows.close();
-					var toast = require('../resource/toast.js');
 					toast.show(i18n.t('Your message is sent, we will come back to you as soon as possible'));
 				}, function(msg) { //error
 					alert.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), $form, 'danger');

@@ -33,7 +33,6 @@ module.exports = (function() {
 			}
 
 			//Query
-			var query = require('../resource/query.js');
 			query.activateUser({
 				activation_key: 	$key.val()
 			}, function(result) { //success
