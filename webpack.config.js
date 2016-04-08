@@ -1,9 +1,5 @@
 const merge = require('webpack-merge');
 const webpack = require("webpack");
-const languages = {
-	//"en-us": './languages/en-us.json',
-	"fr-fr": './languages/fr-fr.json'
-};
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const TARGET = process.env.npm_lifecycle_event;
@@ -11,6 +7,21 @@ const timestamp = Math.floor(Date.now() / 1000);
 const GOOGLE_API = 'AIzaSyCXCe5iWx-lVBv89H0teRMFjy8s24TMOiQ';
 const API_KEY_DEV = 'deve0f2d-5c24-4e36-8d1c-bfe9701fcdev';
 const API_KEY_PROD = 'dece0f2d-5c24-4e36-8d1c-bfe9701fc526';
+var languages;
+if (process.env.LANG_ENV === 'fr') {
+	languages = {
+		"fr-fr": './languages/fr-fr.json'
+	};
+} else if (process.env.LANG_ENV === 'en') {
+	languages = {
+		"en-us": './languages/en-us.json'
+	};
+} else {
+	languages = {
+		"en-us": './languages/en-us.json',
+		"fr-fr": './languages/fr-fr.json'
+	};
+}
 
 var common = Object.keys(languages).map(function(language) {
 	var htmlData = {

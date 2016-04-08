@@ -4,14 +4,16 @@
     "type": "git",
     "url": "git+https://github.com/wouafit/Web_app.git"
   },
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Wouaf IT Web Application",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "NODE_ENV=dev webpack -d --progress --colors",
-    "prod": "NODE_ENV=production webpack -p",
-	"start": "NODE_ENV=dev webpack-dev-server --watch-poll --inline --hot"
+    "test": "echo \"No test specified\" && exit 1",
+    "dev-fr": "NODE_ENV=dev LANG_ENV=fr webpack -d --progress --colors",
+    "dev-en": "NODE_ENV=dev LANG_ENV=en webpack -d --progress --colors",
+    "dev": "NODE_ENV=dev LANG_ENV=all webpack -d --progress --colors",
+    "prod": "NODE_ENV=production LANG_ENV=all webpack -p",
+	"start": "NODE_ENV=dev LANG_ENV=all webpack-dev-server --watch-poll --inline --hot"
   },
   "author": {
     "name": "Sébastien PAUCHET",
