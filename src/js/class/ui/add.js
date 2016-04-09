@@ -87,12 +87,12 @@ module.exports = (function() {
 			dictFileTooBig: i18n.t('This image is too large', {maxFilesize: maxFilesize}),
 			dictResponseError: i18n.t('Error sending the image, try again'),
 			dictMaxFilesExceeded: i18n.t('{{count}} image maximum', {count: maxImages}),
+			headers: {'x-wouafit-api-key': API_KEY},
 			init: function() {
 				uploader = this;
 				this.on();
 			},
 			'sending': function(file, xhr, formData) {
-				formData.append("key", API_KEY);
 				formData.append("uid", data.getString('uid'));
 				formData.append("token", data.getString('token'));
 			},
