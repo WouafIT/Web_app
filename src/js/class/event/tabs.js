@@ -51,7 +51,7 @@ module.exports = (function() {
 			content = data.html;
 		} else {
 			content = tab.getContent(data.data);
-			tabsData[data.id] = data.data;
+			tabsData[data.id] = data.data.data;
 		}
 		$tabsContent.append('<div role="tabpanel" class="tab-pane" id="' + data.id + '">' + content + '</div>');
 		if (active) {
@@ -125,6 +125,7 @@ module.exports = (function() {
 			var wouafId = $(e.target).parents('.w-container').data('id');
 			//grab wouaf data from tab data
 			if (tabsData[tabId]) {
+				console.info(tabsData);
 				var obj;
 				for(var i = 0, l = tabsData[tabId].results.length; i < l; i++) {
 					obj = tabsData[tabId].results[i];
