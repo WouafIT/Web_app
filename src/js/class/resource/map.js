@@ -165,6 +165,9 @@ module.exports = (function () {
 					google.maps.event.trigger($pin.get(0), 'click');
 				} else {
 					console.info('showIW4 - no pin found for id '+ obj.id);
+					//avoid bug after setCenter : sometimes pins are not refreshed.
+					google.maps.event.trigger(map, 'dragend');
+					setTimeout(showIW, 400);
 				}
 				$document.triggerHandler('navigation.enable-state');
 			}
