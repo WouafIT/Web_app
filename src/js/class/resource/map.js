@@ -185,7 +185,8 @@ module.exports = (function () {
 				} else {
 					$.when(appendPin(obj)).done(function () {
 						console.info('openPin3');
-						google.maps.event.addListenerOnce(map, 'idle', showIW);
+						//google.maps.event.addListenerOnce(map, 'idle', showIW);
+						$document.one('map.updated-position', showIW);
 						map.setCenter(center);
 					});
 				}
@@ -333,7 +334,14 @@ module.exports = (function () {
 		//add map events
 		map.addListener('dragend', updateMapPosition);
 		map.addListener('zoom_changed', updateMapPosition);
-		map.addListener('center_changed', updateMapPosition);
+		//need to debounce center_changed event
+		var mapUpdater;
+		var mapSettleTime = function () {
+			clearTimeout(mapUpdater);
+			mapUpdater=setTimeout(updateMapPosition, 200);
+		};
+		map.addListener('center_changed', mapSettleTime);
+
 		$body.addClass('too-wide');
 
 		//customize infowindow
