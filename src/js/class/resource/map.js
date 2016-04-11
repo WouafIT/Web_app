@@ -163,6 +163,8 @@ module.exports = (function () {
 				if ($pin.length) {
 					console.info('showIW3');
 					google.maps.event.trigger($pin.get(0), 'click');
+				} else {
+					console.info('showIW4 - no pin found for id '+ obj.id);
 				}
 				$document.triggerHandler('navigation.enable-state');
 			}
@@ -186,7 +188,10 @@ module.exports = (function () {
 					$.when(appendPin(obj)).done(function () {
 						console.info('openPin3');
 						//google.maps.event.addListenerOnce(map, 'idle', showIW);
-						$document.one('map.updated-position', showIW);
+						$document.one('map.updated-position', function () {
+							console.info('openPin4');
+							showIW();
+						});
 						map.setCenter(center);
 					});
 				}
@@ -332,7 +337,7 @@ module.exports = (function () {
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		});
 		//add map events
-		map.addListener('dragend', updateMapPosition);
+		//map.addListener('dragend', updateMapPosition);
 		map.addListener('zoom_changed', updateMapPosition);
 		//need to debounce center_changed event
 		var mapUpdater;
