@@ -29,9 +29,9 @@ module.exports = (function() {
 			var unit 				= data.getString('unit');
 			var radius 				= unit == 'km' ? data.getInt('radius') : mlRadius[data.getInt('radius')];
 			if (result.count == 500) {
-				toast.show(i18n.t('{{max}} displayed on a {{radius}}{{unit}} of the map center (maximum reached)', {max: notificationLabel, radius: radius, unit: i18n.t(unit) }), 4000);
+				toast.show(i18n.t('{{max}} displayed on a {{radius}}{{unit}} (maximum reached)', {max: notificationLabel, radius: radius, unit: i18n.t(unit) }), 4000);
 			} else {
-				toast.show(i18n.t('{{wouaf}} displayed on a {{radius}}{{unit}} of the map center', { count: result.count, wouaf: notificationLabel, radius: radius, unit: i18n.t(unit) }), 4000);
+				toast.show(i18n.t('{{wouaf}} displayed on a {{radius}}{{unit}}', { count: result.count, wouaf: notificationLabel, radius: radius, unit: i18n.t(unit) }), 4000);
 			}
 			$document.triggerHandler('tabs.add', {
 				id: 'search-results',

@@ -59,9 +59,9 @@
 
 	"{{count}} Wouaf": "{{count}} Wouaf",
 	"{{count}} Wouaf_plural": "{{count}} Wouafs",
-	"{{wouaf}} displayed on a {{radius}}{{unit}} of the map center": "{{wouaf}} affiché sur un rayon de {{radius}}{{unit}} du centre de la carte",
-	"{{wouaf}} displayed on a {{radius}}{{unit}} of the map center_plural": "{{wouaf}} affichés sur un rayon de {{radius}}{{unit}} du centre de la carte",
-	"{{max}} displayed on a {{radius}}{{unit}} of the map center (maximum reached)": "{{max}} affichés sur un rayon de {{radius}}{{unit}} du centre de la carte (maximum atteint)",
+	"{{wouaf}} displayed on a {{radius}}{{unit}}": "{{wouaf}} affiché sur un rayon de {{radius}}{{unit}}",
+	"{{wouaf}} displayed on a {{radius}}{{unit}}_plural": "{{wouaf}} affichés sur un rayon de {{radius}}{{unit}}",
+	"{{max}} displayed on a {{radius}}{{unit}} (maximum reached)": "{{max}} affichés sur un rayon de {{radius}}{{unit}} (maximum atteint)",
 
     "Connect!": "Connectez-vous !",
     "create_wouaf_it_account": "Si vous n'avez pas encore votre compte Wouaf IT, c'est le moment d'en créer un ! C'est gratuit et cela ne prend que quelques secondes.",
