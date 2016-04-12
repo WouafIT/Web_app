@@ -50,7 +50,7 @@ module.exports = (function() {
 			timeout: 10000,
 			cache: true,
 			success: params.success,
-			headers: {'x-wouafit-api-key': API_KEY},
+			headers: {'Authorization': utils.getAuthorization()},
 			error: function(xhr) {
 				if (__DEV__) {
 					console.error('Query error', params, xhr);
@@ -310,9 +310,7 @@ module.exports = (function() {
 				method: 'POST',
 				url: 	ENDPOINT + '/init',
 				data:	{
-					uid: 		data.getString('uid'),
-				    token:      data.getString('token'),
-                    locale:     LANGUAGE
+					locale:     LANGUAGE
                 },
 				success:callback,
 				error:	callback
@@ -359,10 +357,6 @@ module.exports = (function() {
 			query({
 				method: 'POST',
 				url: 	ENDPOINT + '/logout',
-				data:	{
-					uid: 		data.getString('uid'),
-					token: 		data.getString('token')
-				},
 				success:callback,
 				error:	callback
 			});
@@ -438,7 +432,6 @@ module.exports = (function() {
 			});
 		},
 		updateUser: function(datas, successCallback, errorCallback) {
-			datas.token = data.getString('token');
 			query({
 				method: 'PUT',
 				url: 	ENDPOINT + '/users/'+ data.getString('uid'),
@@ -465,9 +458,6 @@ module.exports = (function() {
             query({
                 method: 'DELETE',
                 url:    ENDPOINT + '/users/'+ data.getString('uid'),
-                data:  {
-                    token:      data.getString('token')
-                },
                 success:callback,
                 error:  callback
             });
@@ -518,10 +508,9 @@ module.exports = (function() {
             });
         },
         userFavorites: function(callback, successCallback, errorCallback) {
-            var q = '?token=' + data.getString('token');
             query({
                 method: 'GET',
-                url:    ENDPOINT + '/users/'+ data.getString('uid') +'/favorites' + q,
+                url:    ENDPOINT + '/users/'+ data.getString('uid') +'/favorites',
 				success:function (result) {
 					if (result && result.results) {
 						successCallback(result);
@@ -541,8 +530,6 @@ module.exports = (function() {
             });
         },
         createPost: function(datas, successCallback, errorCallback) {
-			datas.uid = data.getString('uid');
-			datas.token = data.getString('token');
 			query({
 				method: 'PUT',
 				url: 	ENDPOINT + '/wouafs',
@@ -566,14 +553,12 @@ module.exports = (function() {
 			});
 		},
 		addFavorite: function(id, successCallback, errorCallback) {
-			var datas = {
-				token: data.getString('token'),
-				id: id
-			};
 			query({
 				method: 'PUT',
 				url: 	ENDPOINT + '/users/'+ data.getString('uid') +'/favorites',
-				data:	datas,
+				data:	{
+					id: id
+				},
 				success:function (result) {
 					if (result && result.result && result.result == 1) {
 						successCallback(result);
@@ -593,14 +578,12 @@ module.exports = (function() {
 			});
 		},
 		removeFavorite: function(id, successCallback, errorCallback) {
-			var datas = {
-				token: data.getString('token'),
-				id: id
-			};
 			query({
 				method: 'DELETE',
 				url: 	ENDPOINT + '/users/'+ data.getString('uid') +'/favorites',
-				data:	datas,
+				data:	{
+					id: id
+				},
 				success:function (result) {
 					if (result && result.result && result.result == 1) {
 						successCallback(result);
@@ -643,9 +626,7 @@ module.exports = (function() {
             });
         },
 		createComment: function(datas, successCallback, errorCallback) {
-		    datas.uid = data.getString('uid');
-            datas.token = data.getString('token');
-            query({
+		    query({
                 method: 'PUT',
                 url:    ENDPOINT + '/wouafs/'+ datas.id +'/comments',
                 data:  datas,
@@ -668,15 +649,10 @@ module.exports = (function() {
             });
 		},
 		deleteComment: function(id, successCallback, errorCallback) {
-            var datas = {
-				uid: data.getString('uid'),
-				token: data.getString('token')
-			};
             query({
                 method: 'DELETE',
                 url:    ENDPOINT + '/comments/'+ id,
-                data:  datas,
-				success:function (result) {
+                success:function (result) {
 					if (result && result.result && result.result == 1) {
 						successCallback(result);
 					} else if (result && result.msg) {
@@ -695,8 +671,6 @@ module.exports = (function() {
             });
         },
 		contactUser: function(datas, successCallback, errorCallback) {
-			datas.uid = data.getString('uid');
-			datas.token = data.getString('token');
 			query({
 				method: 'POST',
 				url:    ENDPOINT + '/wouafs/'+ datas.id +'/contact',
@@ -720,8 +694,6 @@ module.exports = (function() {
 			});
 		},
 		contact: function(datas, successCallback, errorCallback) {
-			datas.uid = data.getString('uid');
-			datas.token = data.getString('token');
 			query({
 				method: 'POST',
 				url:    ENDPOINT + '/contact',
@@ -745,15 +717,10 @@ module.exports = (function() {
 			});
 		},
 		deletePost: function(id, successCallback, errorCallback) {
-            var datas = {
-                uid: data.getString('uid'),
-                token: data.getString('token')
-            };
             query({
                 method: 'DELETE',
                 url:    ENDPOINT + '/wouafs/'+ id,
-                data:  datas,
-				success:function (result) {
+                success:function (result) {
 					if (result && result.result && result.result == 1) {
 						successCallback(result);
 					} else if (result && result.msg) {
@@ -772,15 +739,10 @@ module.exports = (function() {
             });
        },
        reportPost: function(id, successCallback, errorCallback) {
-            var datas = {
-                uid: data.getString('uid'),
-                token: data.getString('token')
-            };
             query({
                 method: 'POST',
                 url:    ENDPOINT + '/wouafs/'+ id +'/abuse',
-                data:  datas,
-				success:function (result) {
+                success:function (result) {
 					if (result && result.result && result.result == 1) {
 						successCallback(result);
 					} else if (result && result.msg) {
@@ -799,14 +761,9 @@ module.exports = (function() {
             });
         },
 		reportComment: function(id, successCallback, errorCallback) {
-			var datas = {
-				uid: data.getString('uid'),
-				token: data.getString('token')
-			};
 			query({
 				method: 'POST',
 				url:    ENDPOINT + '/comments/'+ id +'/abuse',
-				data:  datas,
 				success:function (result) {
 					if (result && result.result && result.result == 1) {
 						successCallback(result);

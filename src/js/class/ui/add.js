@@ -9,6 +9,7 @@ module.exports = (function() {
 	var twitterText = require('twitter-text');
 	var categories = require('../resource/categories.js');
 	var dtp = require('../resource/datetimepicker.js');
+	var utils = require('../utils');
 	var $modalWindow = windows.getWindows();
 	var durationsLabels = [i18n.t('{{count}} hour', {count: 1}),
 						   i18n.t('{{count}} hour', {count: 2}),
@@ -87,7 +88,7 @@ module.exports = (function() {
 			dictFileTooBig: i18n.t('This image is too large', {maxFilesize: maxFilesize}),
 			dictResponseError: i18n.t('Error sending the image, try again'),
 			dictMaxFilesExceeded: i18n.t('{{count}} image maximum', {count: maxImages}),
-			headers: {'x-wouafit-api-key': API_KEY},
+			headers: {'Authorization': utils.getAuthorization()},
 			init: function() {
 				uploader = this;
 				this.on();

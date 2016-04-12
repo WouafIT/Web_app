@@ -1,5 +1,6 @@
 module.exports = (function() {
 	var twitterText = require('twitter-text');
+	var data = require('./resource/data.js');
 
 	var self = {};
 	//htmlspecialchars
@@ -274,6 +275,14 @@ module.exports = (function() {
 
 	self.ucfirst = function(string) {
 		return string.charAt(0).toUpperCase() + string.slice(1);
+	};
+
+	self.getAuthorization = function() {
+		var key = '';
+		if (data.getString('uid')) {
+			key = ', uid="'+ data.getString('uid') +'", token="'+ data.getString('token') +'"';
+		}
+		return 'WouafIt version="1", key="'+ API_KEY +'"'+ key;
 	};
 
 	return self;
