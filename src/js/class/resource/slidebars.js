@@ -79,9 +79,9 @@ module.exports = (function() {
 		var tabContent = [
 			'<div class="jumbotron anonymous">',
 				'<h1>', i18n.t('Connect!'), '</h1>',
-				'<p class="lead">', i18n.t('create_wouaf_it_account'), '</p>',
+				'<p class="lead">', i18n.t('create_wouaf_it_profile'), '</p>',
 				'<hr class="m-y-md">',
-				'<p>', i18n.t('use_wouaf_it_account'), '</p>',
+				'<p>', i18n.t('use_wouaf_it_profile'), '</p>',
 				'<p class="lead text-xs-right">',
 				'<a class="btn btn-primary btn-lg" href="/login/" role="button"',
 				'	data-href="login"',

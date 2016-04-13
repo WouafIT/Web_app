@@ -11,6 +11,7 @@ module.exports = (function() {
 	var $document = $(document);
 	$document.on('app.start', function() {
 		//load events modules
+		require('./analytics.js');
 		require('./login.js');
 		require('./navigation.js');
 		require('./wouaf.js');
@@ -130,6 +131,8 @@ module.exports = (function() {
 					console.info('all done (dev mode)');
 					console.info('launch count: '+ data.getInt('launchCount'));
 				}
+
+				$document.triggerHandler('app.started');
 			});
 		});
 	});

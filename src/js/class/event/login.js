@@ -73,6 +73,8 @@ module.exports = (function() {
 		if (firstname && lastname) {
 			username = firstname +' '+ lastname;
 		}
-		$('.account-name').html('<img src="'+ gravatar +'" /> '+ utils.escapeHtml(username)).attr('title', i18n.t('Welcome {{username}}', {'username': username}));
+		$('.profile-name').html('<img src="'+ gravatar +'" /> '+ utils.escapeHtml(username)).attr('title', i18n.t('Welcome {{username}}', {'username': username}));
+
+		$document.triggerHandler('app.logged');
 	});
 })();

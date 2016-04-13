@@ -39,7 +39,7 @@ module.exports = (function() {
 				windows.close();
 
 				var toast = require('../resource/toast.js');
-				toast.show(i18n.t('Account activated!'));
+				toast.show(i18n.t('Profile activated!'));
 			}, function(msg) { //error
 				alert.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), $form, 'danger');
 			});

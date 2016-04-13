@@ -21,7 +21,7 @@
 				<a href="/profile/"
 				   data-href="profile"
 				   data-toggle="modal" data-target="#modalWindow">
-					<span class="account-name"><%= htmlWebpackPlugin.options.i18n['My profile'] %></span>
+					<span class="profile-name"><%= htmlWebpackPlugin.options.i18n['My profile'] %></span>
 				</a> |
 				<i class="fa fa-cog"></i> <a href="/parameters/"
 											 data-href="parameters"

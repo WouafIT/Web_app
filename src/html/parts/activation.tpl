@@ -4,7 +4,7 @@
 			<span aria-hidden="true">&times;</span>
 			<span class="sr-only"><%= htmlWebpackPlugin.options.i18n['Close'] %></span>
 		</button>
-		<h4 class="modal-title"><%= htmlWebpackPlugin.options.i18n['Activate your user account'] %></h4>
+		<h4 class="modal-title"><%= htmlWebpackPlugin.options.i18n['Activate your user profile'] %></h4>
 	</div>
 	<div class="modal-body">
 		<form>
@@ -15,7 +15,7 @@
 						   placeholder="<%= htmlWebpackPlugin.options.i18n['Your activation key'] %>" />
 				</div>
 			</fieldset>
-			<p class="text-xs-right"><button type="submit" class="btn btn-primary"><%= htmlWebpackPlugin.options.i18n['Activate your account'] %></button></p>
+			<p class="text-xs-right"><button type="submit" class="btn btn-primary"><%= htmlWebpackPlugin.options.i18n['Activate your profile'] %></button></p>
 		</form>
 	</div>
 	<div class="modal-footer">

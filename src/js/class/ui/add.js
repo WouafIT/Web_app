@@ -199,18 +199,19 @@ module.exports = (function() {
 
 			//Query
 			var query = require('../resource/query.js');
-			query.createPost({
-				 loc: 		($latitude.val() +','+ $longitude.val()),
-				 cat: 		$category.val(),
-				 title:		$title.val(),
-				 text: 		$content.val(),
-				 date: 		Math.round(date.getTime() / 1000),
-				 duration: 	$duration.val(),
-				 fbpost: 	(data.getString('loginType') === 'facebook' && $facebook.prop("checked") ? 1 : 0),
-				 contact: 	($contact.prop("checked") ? 1 : 0),
-				 notif:	 	($wouafNotifications.prop("checked") ? 1 : 0),
-				 pics: 	    JSON.stringify(validImages)
-			} , function(result) { //success
+			var wouafData = {
+				loc: 		($latitude.val() +','+ $longitude.val()),
+				cat: 		$category.val(),
+				title:		$title.val(),
+				text: 		$content.val(),
+				date: 		Math.round(date.getTime() / 1000),
+				duration: 	$duration.val(),
+				fbpost: 	(data.getString('loginType') === 'facebook' && $facebook.prop("checked") ? 1 : 0),
+				contact: 	($contact.prop("checked") ? 1 : 0),
+				notif:	 	($wouafNotifications.prop("checked") ? 1 : 0),
+				pics: 	    JSON.stringify(validImages)
+			};
+			query.createPost(wouafData , function(result) { //success
 				if (result.today_publications) {
 					data.setInt('today_publications', result.today_publications);
 				}
@@ -219,6 +220,8 @@ module.exports = (function() {
 
 				windows.close();
 				toast.show(i18n.t('Your Wouaf is added'));
+
+				$document.triggerHandler('app.added-wouaf', wouafData);
 			}, function(msg) { //error
 				alert.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), $form, 'danger');
 			});

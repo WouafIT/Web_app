@@ -58,7 +58,7 @@ module.exports = (function() {
 				pass: 			$pass.val(),
 				email: 			$email.val(),
 				lang: 			$language.val()
-			}, function(result) { //success
+			}, function() { //success
 				//call login
 				query.login({
 					login: $username.val(),
@@ -82,6 +82,8 @@ module.exports = (function() {
 					title: i18n.t('Welcome'),
 					'text': i18n.t('welcome_to_wouaf_it')
 				});
+
+				$document.triggerHandler('app.created-profile', $language.val());
 			}, function(msg) { //error
 				alert.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), $form, 'danger');
 			});

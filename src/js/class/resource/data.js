@@ -118,8 +118,7 @@ module.exports = (function() {
 		return cdstorage;
 	}
 	//Init cross domain storage
-	var cdPath = __DEV__ ? window.location.protocol +'//'+ window.location.hostname.split('.').slice(1).join('.')
-		: window.location.protocol +'//wouaf.it';
+	var cdPath = __DEV__ ? DEV_URL : PROD_URL;
 	var crossDomainLocalStorage = crossDomainStorage({
 		origin: cdPath,
 		path: '/crossd_iframe.html'

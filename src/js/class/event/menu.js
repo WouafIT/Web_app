@@ -66,6 +66,8 @@ module.exports = (function() {
 									function() { //success
 										map.removeResult(obj.id);
 										toast.show(i18n.t('Your Wouaf is deleted'));
+
+										$document.triggerHandler('app.deleted-wouaf', obj);
 									}, function (msg) { //error
 										toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
 									}
@@ -84,6 +86,8 @@ module.exports = (function() {
 							$target.replaceWith('<a class="dropdown-item" href="#" data-action="unfavorite"><i class="fa fa-star"></i> '+ i18n.t('In your favorites ({{fav}})', {fav: obj.fav}) +'</a>');
 							query.addFavorite(obj.id, function() {
 								toast.show(i18n.t('This Wouaf is added to your favorites'));
+
+								$document.triggerHandler('app.added-favorite', obj);
 							}, function (msg) {
 								toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
 							});
@@ -101,6 +105,8 @@ module.exports = (function() {
 							$target.replaceWith('<a class="dropdown-item" href="#" data-action="favorite"><i class="fa fa-star-o"></i> '+ i18n.t('Add to your favorites ({{fav}})', {fav: obj.fav}) +'</a>');
 							query.removeFavorite(obj.id, function() {
 								toast.show(i18n.t('This Wouaf is removed from your favorites'));
+
+								$document.triggerHandler('app.deleted-favorite', obj);
 							}, function (msg) {
 								toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
 							});
@@ -144,6 +150,8 @@ module.exports = (function() {
 								query.reportPost(obj.id,
 									function() {
 										toast.show(i18n.t('This Wouaf has been reported'));
+
+										$document.triggerHandler('app.reported-wouaf', obj);
 									}, function (msg) {
 										toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
 									}
@@ -177,6 +185,8 @@ module.exports = (function() {
 											'href': 'comments'
 										});
 										toast.show(i18n.t('Your comment is deleted'));
+
+										$document.triggerHandler('app.deleted-comment', obj);
 									}, function (msg) { //error
 										toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
 									}
@@ -205,6 +215,8 @@ module.exports = (function() {
 											'href': 'comments'
 										});
 										toast.show(i18n.t('This comment has been reported'));
+
+										$document.triggerHandler('app.reported-comment', obj);
 									}, function (msg) {
 										toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
 									}

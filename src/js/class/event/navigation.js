@@ -37,6 +37,8 @@ module.exports = (function() {
 		var href = url.getPath(states);
 		if (href !== window.location.pathname) {
 			window.history.pushState(states, '', href);
+
+			$document.triggerHandler('app.pushed-state');
 		}
 	});
 
@@ -75,6 +77,8 @@ module.exports = (function() {
 			map.hideResult();
 			windows.close();
 		}
+
+		$document.triggerHandler('app.poped-state');
 	});
 
 	$document.on('navigation.load-state', function(e, callback) {
@@ -121,6 +125,8 @@ module.exports = (function() {
 		//launch callback
 		callback();
 		allowSetState = true;
+
+		$document.triggerHandler('app.loaded-state');
 	});
 	$document.on('click', 'a, button', function(e) {
 		var $source = $(e.target);

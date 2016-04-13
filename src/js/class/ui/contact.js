@@ -25,7 +25,7 @@ module.exports = (function() {
 				var title = obj.title || obj.text.substr(0, 79) + (obj.text.length > 79 ? '…' : '');
 				$modalWindow.find('h4').html(i18n.t('Contact an author'));
 				$modalWindow.find('.contact-details').html(i18n.t('Use the form below to contact {{author}}, author of Wouaf {{title}}', {title: title, author: obj.author[2] || obj.author[1]}));
-				handleForm(obj.author[0], obj.id);
+				handleForm(obj.author[0], obj);
 			}, function () {
 				windows.close();
 				toast.show(i18n.t('An error has occurred, you can not contact the author of this Wouaf'), 5000);
@@ -57,7 +57,7 @@ module.exports = (function() {
 			handleForm();
 		}
 	};
-	var handleForm = function (recipientId, wouafId) {
+	var handleForm = function (recipientId, obj) {
 		var $form = $modalWindow.find('form');
 		var $remaining = $form.find('.remaining');
 		var $content = $form.find('textarea[name=content]');
@@ -86,19 +86,21 @@ module.exports = (function() {
 		}, function () {
 			//form submition
 			var alert = require('../resource/alert.js');
-			var emailMandatory = (!recipientId && !wouafId && !data.getString('uid'));
+			var emailMandatory = (!recipientId && !obj && !data.getString('uid'));
 			if (!$content.val() || (emailMandatory && !$email.val())) {
 				alert.show(i18n.t('Your form is incomplete, thank you to fill all the fields'), $form);
 				return;
 			}
-			if (recipientId && wouafId) { //contact wouaf author
+			if (recipientId && obj) { //contact wouaf author
 				query.contactUser({
 					text:       $content.val(),
 					contact:    recipientId,
-					id:         wouafId
+					id:         obj.id
 				}, function() {
 					windows.close();
 					toast.show(i18n.t('Your message is sent to the author of this Wouaf'));
+
+					$document.triggerHandler('app.wouaf-contact', obj);
 				}, function(msg) { //error
 					alert.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), $form, 'danger');
 				});
@@ -109,6 +111,8 @@ module.exports = (function() {
 				}, function() {
 					windows.close();
 					toast.show(i18n.t('Your message is sent, we will come back to you as soon as possible'));
+
+					$document.triggerHandler('app.wouafit-contact');
 				}, function(msg) { //error
 					alert.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), $form, 'danger');
 				});

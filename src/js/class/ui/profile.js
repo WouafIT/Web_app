@@ -65,6 +65,8 @@ module.exports = (function() {
 					windows.close();
 					query.deleteUser(
 						function() { //success
+							$document.triggerHandler('app.deleted-profile', user.get('lang'));
+
 							$document.triggerHandler('app.logout');
 							toast.show(i18n.t('Your profile is deleted'));
 						}, function (msg) { //error
@@ -154,6 +156,8 @@ module.exports = (function() {
 						}
 					}
 				});
+
+				$document.triggerHandler('app.edit-profile', $language.val());
 			}, function(msg) { //error
 				alert.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), $form, 'danger');
 			});

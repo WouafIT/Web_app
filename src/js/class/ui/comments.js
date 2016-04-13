@@ -127,6 +127,8 @@ module.exports = (function() {
 					windows.refresh();
 					var toast = require('../resource/toast.js');
 					toast.show(i18n.t('Your comment is published'));
+
+					$document.triggerHandler('app.added-comment', obj);
 				}, function(msg) { //error
 					alert.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), $form, 'danger');
 				});

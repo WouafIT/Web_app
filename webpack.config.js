@@ -1,12 +1,19 @@
-const merge = require('webpack-merge');
-const webpack = require("webpack");
+const merge 			= require('webpack-merge');
+const webpack 			= require("webpack");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const TARGET = process.env.npm_lifecycle_event;
-const timestamp = Math.floor(Date.now() / 1000);
-const GOOGLE_API = 'AIzaSyCXCe5iWx-lVBv89H0teRMFjy8s24TMOiQ';
-const API_KEY_DEV = 'deve0f2d-5c24-4e36-8d1c-bfe9701fcdev';
-const API_KEY_PROD = 'dece0f2d-5c24-4e36-8d1c-bfe9701fc526';
+
+const TARGET 			= process.env.npm_lifecycle_event;
+const TIMESTAMP 		= Math.floor(Date.now() / 1000);
+const GOOGLE_API 		= 'AIzaSyCXCe5iWx-lVBv89H0teRMFjy8s24TMOiQ';
+const GOOGLE_ANALYTICS 	= 'UA-27484897-3';
+const API_KEY_DEV 		= 'deve0f2d-5c24-4e36-8d1c-bfe9701fcdev';
+const API_KEY_PROD 		= 'dece0f2d-5c24-4e36-8d1c-bfe9701fc526';
+const DEV_DOMAIN 		= 'wouafit.local';
+const PROD_DOMAIN 		= 'wouaf.it';
+const API_DOMAIN 		= 'api.wouaf.it';
+const IS_DEV 			= process.env.NODE_ENV === 'dev';
+
 var languages;
 if (process.env.LANG_ENV === 'fr') {
 	languages = {
@@ -25,15 +32,15 @@ if (process.env.LANG_ENV === 'fr') {
 
 var common = Object.keys(languages).map(function(language) {
 	var htmlData = {
-		googleApi: GOOGLE_API,
-		language: language,
-		timestamp: timestamp,
-		year: (new Date()).getFullYear()
+		cookieDomain:	(IS_DEV ? DEV_DOMAIN : PROD_DOMAIN),
+		googleApi: 		GOOGLE_API,
+		googleAnalytics: GOOGLE_ANALYTICS,
+		language: 		language,
+		timestamp: 		TIMESTAMP,
+		year: 			(new Date()).getFullYear()
 	};
 	var phpData = {
-		"API_KEY": 	process.env.NODE_ENV === 'dev'
-						? API_KEY_DEV
-						: API_KEY_PROD
+		"API_KEY": 	IS_DEV ? API_KEY_DEV : API_KEY_PROD
 	};
 	var languageData = require(languages[language]);
 	return {
@@ -61,15 +68,13 @@ var common = Object.keys(languages).map(function(language) {
 		},
 		plugins: [
 			new webpack.DefinePlugin({
-				"DEV_URL": 		JSON.stringify('http://wouafit.local'),
-				"PROD_URL": 	JSON.stringify('https://wouaf.it'),
-				"API_ENDPOINT": JSON.stringify('https://api.wouaf.it'),
-				"API_KEY": 		process.env.NODE_ENV === 'dev'
-					? JSON.stringify(API_KEY_DEV)
-					: JSON.stringify(API_KEY_PROD),
+				"DEV_URL": 		JSON.stringify('http://'+ DEV_DOMAIN),
+				"PROD_URL": 	JSON.stringify('https://'+ PROD_DOMAIN),
+				"API_ENDPOINT": JSON.stringify('https://'+ API_DOMAIN),
+				"API_KEY": 		IS_DEV ? JSON.stringify(API_KEY_DEV) : JSON.stringify(API_KEY_PROD),
 				"LANGUAGE": 	JSON.stringify(language),
-				"BUILD_VERSION":JSON.stringify(timestamp),
-				__DEV__: 		JSON.stringify(JSON.parse(process.env.NODE_ENV === 'dev'))
+				"BUILD_VERSION":JSON.stringify(TIMESTAMP),
+				__DEV__: 		JSON.stringify(JSON.parse(IS_DEV))
 			}),
 			new HtmlWebpackPlugin({
 				filename: 'index.php',
@@ -114,8 +119,8 @@ var common = Object.keys(languages).map(function(language) {
 				inject: false
 			}),
 			new HtmlWebpackPlugin({
-				filename: 'parts/create-account.html',
-				template: __dirname + '/src/html/parts/create-account.tpl',
+				filename: 'parts/create-profile.html',
+				template: __dirname + '/src/html/parts/create-profile.tpl',
 				data: htmlData,
 				i18n: languageData,
 				inject: false
@@ -197,7 +202,7 @@ common.push({
 					from: '../assets-root'
 				}
 			]),
-		  (process.env.NODE_ENV === 'dev' ?
+		  (IS_DEV ?
 			  new CopyWebpackPlugin([
 			  {
 				  from: '../assets-dev'
