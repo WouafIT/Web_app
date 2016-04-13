@@ -9,7 +9,7 @@
 	<meta name="msapplication-navbutton-color" content="#2B9D48">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="#2B9D48">
-	<title><%= htmlWebpackPlugin.options.i18n['Wouaf IT'] %></title>
+	<title><%= htmlWebpackPlugin.options.i18n['Wouaf IT'] %><%= htmlWebpackPlugin.options.data.devTitle %></title>
 	<meta name="description" content="<%= htmlWebpackPlugin.options.i18n['Wouaf IT'] %> -
 		<%= htmlWebpackPlugin.options.i18n['Your social network for your local events'] %>" />
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" />

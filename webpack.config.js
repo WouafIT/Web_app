@@ -37,7 +37,8 @@ var common = Object.keys(languages).map(function(language) {
 		googleAnalytics: GOOGLE_ANALYTICS,
 		language: 		language,
 		timestamp: 		TIMESTAMP,
-		year: 			(new Date()).getFullYear()
+		year: 			(new Date()).getFullYear(),
+		devTitle:		(IS_DEV ? ' (DEV)' : '')
 	};
 	var phpData = {
 		"API_KEY": 	IS_DEV ? API_KEY_DEV : API_KEY_PROD
