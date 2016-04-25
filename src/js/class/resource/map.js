@@ -264,18 +264,17 @@ module.exports = (function () {
 		if (__DEV__) {
 			console.info('No geolocation available, code '+ error.code +': '+ error.message);
 		}
-		var lastLocation = data.getObject('position');
-		if (lastLocation) {
-			//store map position: last known position
-			data.setObject('position', new google.maps.LatLng(lastLocation.lat, lastLocation.lng).toJSON());
+		var location = data.getObject('position');
+		if (!location) {
+			if (i18n.t('languageShort') == 'fr') {
+				//store map position: center of France
+				location = new google.maps.LatLng(46.427066, 2.430535).toJSON();
+			} else {
+				//store map position: center of US
+				location = new google.maps.LatLng(39.857973, -98.008955).toJSON();
+			}
 		}
-		if (i18n.t('languageShort') == 'fr') {
-			//store map position: center of France
-			data.setObject('position', new google.maps.LatLng(46.427066, 2.430535).toJSON());
-			return;
-		}
-		//store map position: center of US
-		data.setObject('position', new google.maps.LatLng(39.857973, -98.008955).toJSON());
+		data.setObject('position', new google.maps.LatLng(location.lat, location.lng).toJSON());
 		$document.triggerHandler('map.geolocation-done');
 	};
 	//ask user for his location

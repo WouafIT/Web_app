@@ -69,7 +69,7 @@ var common = Object.keys(languages).map(function(language) {
 		},
 		plugins: [
 			new webpack.DefinePlugin({
-				"DEV_URL": 		JSON.stringify('http://'+ DEV_DOMAIN),
+				"DEV_URL": 		JSON.stringify('https://'+ DEV_DOMAIN),
 				"PROD_URL": 	JSON.stringify('https://'+ PROD_DOMAIN),
 				"API_ENDPOINT": JSON.stringify('https://'+ API_DOMAIN),
 				"API_KEY": 		IS_DEV ? JSON.stringify(API_KEY_DEV) : JSON.stringify(API_KEY_PROD),
@@ -189,32 +189,46 @@ var common = Object.keys(languages).map(function(language) {
 		}
 	}
 });
-common.push({
-	  name: 'www',
-	  context: __dirname + '/src/js',
-	  entry: './null.js',
-	  output: {
-		  path: __dirname + '/build/www/',
-		  filename: './js/null.js'
-	  },
-	  plugins: [
-		  new CopyWebpackPlugin([
-				{
-					from: '../assets-root'
-				}
-			]),
-		  (IS_DEV ?
-			  new CopyWebpackPlugin([
-			  {
-				  from: '../assets-dev'
-			  }
-		  ]) :  new CopyWebpackPlugin([
-			  {
-				  from: '../assets-prod'
-			  }
-		  ]))
-	  ]
-});
+var www = {
+	name: 'www',
+	context: __dirname + '/src/js',
+	entry: './null.js',
+	output: {
+		path: __dirname + '/build/www/',
+		filename: './js/null.js'
+	},
+	plugins: [
+		new CopyWebpackPlugin([
+			{
+				from: '../assets-root'
+			}
+		]),
+		(IS_DEV ?
+		 new CopyWebpackPlugin([
+			 {
+				 from: '../assets-dev'
+			 }
+		 ]) :  new CopyWebpackPlugin([
+			{
+				from: '../assets-prod'
+			}
+		]))
+	]
+};
+if (IS_DEV) {
+	//generate apache vhosts for dev
+	www.plugins.push(
+		new HtmlWebpackPlugin({
+			filename: '../../vhosts.conf',
+			template: __dirname + '/src/vhosts-dev.conf',
+			data: {
+				"path": __dirname
+			},
+			inject: false
+		})
+	);
+}
+common.push(www);
 
 if(TARGET === 'start') {
 	module.exports = merge(common, {

@@ -218,3 +218,8 @@ pip-log.txt
 
 # Node
 node_modules/
+
+#vhosts
+vhosts.conf
+dev.local.crt
+dev.local.key
