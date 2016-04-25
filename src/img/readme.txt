@@ -1,0 +1,2 @@
+- PNG optimized with pngquant.
+- SVG optimized with https://petercollingridge.appspot.com/svg-editor
