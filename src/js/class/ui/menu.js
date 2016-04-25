@@ -38,6 +38,7 @@ module.exports = (function() {
 			'<span class="st_email_large" displayText="Email"'+ shareOptions +'></span>',
 			'<span class="st_print_large" displayText="Print"'+ shareOptions +'></span>',
 			'</div>',
+			'<div class="dropdown-item"><i class="fa fa-link"></i> <input type="text" class="form-control link" value="'+ wouafUrl +'" /></div>',
 			(obj.author[0] === uid
 				? '<a class="dropdown-item" href="#" data-action="delete"><i class="fa fa-trash"></i> '+ i18n.t('Delete') +'</a>'
 				: '<a class="dropdown-item" href="'+ url.getAbsoluteURLForStates([{name: 'wouaf', value: obj.id}, {name: 'windows', value: 'contact'}]) +'" data-action="contact">' +
@@ -88,7 +89,9 @@ module.exports = (function() {
 		var offset 		= $el.offset();
 		var isAuthor 	= $el.parents('blockquote').hasClass('current-user');
 		var wouafId 	= $el.parents('.modal-comments').data('id');
+		var commentUrl 	= url.getAbsoluteURLForStates([{name: 'wouaf', value: wouafId}, {name: 'windows', value: 'comments'}]);
 		var menu = ['<div class="w-menu-dropdown dropdown-menu" data-id="'+ id +'" data-wouaf="'+ wouafId +'" data-menu="comment" hidden>',
+			'<div class="dropdown-item"><i class="fa fa-link"></i> <input type="text" class="form-control link" value="'+ commentUrl +'" /></div>',
 			(isAuthor
 				? '<a class="dropdown-item" href="#" data-action="delete"><i class="fa fa-trash"></i> '+ i18n.t('Delete') +'</a>'
 				: ''),
