@@ -34,7 +34,7 @@
     "Save": "Enregistrer",
     "Choose a category": "Choississez une catégorie",
 	"Location request": "Demande de localisation",
-	"Location_request_details": "Wouaf IT va vous demander votre autorisation pour activer la géolocalisation sur votre navigateur. Cette demande permettra de centrer automatiquement la carte sur votre position et ainsi de simplifier votre navigation.\n\nNous ne stockons pas votre position sur nos serveurs.\n\nVous pourrez à tout moment modifier cette autorisation dans les paramètres de votre navigateur.",
+	"Location_request_details": "Bienvenue !\nWouaf IT va vous demander votre autorisation pour activer la géolocalisation sur votre navigateur. Cette demande permettra de centrer automatiquement la carte sur votre position et ainsi de simplifier votre navigation.\n\n<strong>Nous ne stockons pas votre position sur nos serveurs.</strong>\n\nVous pourrez à tout moment modifier cette autorisation dans les paramètres de votre navigateur.",
 	"Loading": "Chargement ...",
 	"OK": "OK",
 
