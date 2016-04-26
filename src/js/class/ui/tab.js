@@ -22,7 +22,7 @@ module.exports = (function() {
 			content.push('</div>');
 		} else if (data.type == 'list') {
 			content = content.concat([
-				'<button class="w-menu" type="button" data-menu="listing" data-proximity="no" data-sort="date" data-filter="no">',
+				'<button class="w-menu" type="button" data-menu="listing" data-proximity="no" data-sort="date-desc" data-filter="no">',
 					'<i class="fa fa-cog"></i> '+ i18n.t('Menu'),
 				'</button>',
 				'<div class="row">',

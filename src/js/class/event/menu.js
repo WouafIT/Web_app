@@ -252,11 +252,17 @@ module.exports = (function() {
 						}
 						$document.triggerHandler('tabs.sort', {id: listingId, action: 'proximity'});
 						break;
-					case 'sort-date':
+					case 'sort-date-desc':
 						if ($target.hasClass('active')) {
 							return;
 						}
-						$document.triggerHandler('tabs.sort', {id: listingId, action: 'date'});
+						$document.triggerHandler('tabs.sort', {id: listingId, action: 'date-desc'});
+						break;
+					case 'sort-date-asc':
+						if ($target.hasClass('active')) {
+							return;
+						}
+						$document.triggerHandler('tabs.sort', {id: listingId, action: 'date-asc'});
 						break;
 					case 'sort-comments':
 						if ($target.hasClass('active')) {

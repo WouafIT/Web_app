@@ -117,13 +117,14 @@ module.exports = (function() {
 		}
 		var offset = $el.offset();
 		var menu = ['<div class="w-menu-dropdown dropdown-menu" data-id="'+ id +'" data-menu="listing" hidden>',
-			'<a class="dropdown-item'+ (filter == 'yes' ? ' active' : '') +'" href="#" data-action="filter-active"><i class="fa fa-filter"></i> Masquer les Wouaf révolus'+ (filter == 'yes' ? ' <i class="fa fa-check"></i>' : '') +'</a>',
+			'<a class="dropdown-item'+ (filter == 'yes' ? ' active' : '') +'" href="#" data-action="filter-active"><i class="fa fa-filter"></i> '+i18n.t('Hide Wouafs gone') + (filter == 'yes' ? ' <i class="fa fa-check"></i>' : '') +'</a>',
 			(proximity == 'yes'
-				? '<a class="dropdown-item'+ (sort == 'proximity' ? ' active' : '') +'" href="#" data-action="sort-proximity"><i class="fa fa-sort-amount-desc"></i> Trier par Proximité'+ (sort == 'proximity' ? ' <i class="fa fa-check"></i>' : '') +'</a>'
+				? '<a class="dropdown-item'+ (sort == 'proximity' ? ' active' : '') +'" href="#" data-action="sort-proximity"><i class="fa fa-sort-amount-desc"></i> '+i18n.t('Sort by Proximity') + (sort == 'proximity' ? ' <i class="fa fa-check"></i>' : '') +'</a>'
 				: ''),
-			'<a class="dropdown-item'+ (sort == 'date' ? ' active' : '') +'" href="#" data-action="sort-date"><i class="fa fa-sort-amount-desc"></i> Trier par Date de début croissante'+ (sort == 'date' ? ' <i class="fa fa-check"></i>' : '') +'</a>',
-			'<a class="dropdown-item'+ (sort == 'comments' ? ' active' : '') +'" href="#" data-action="sort-comments"><i class="fa fa-sort-amount-desc"></i> Trier par Nombre de commentaires'+ (sort == 'comments' ? ' <i class="fa fa-check"></i>' : '') +'</a>',
-			'<a class="dropdown-item'+ (sort == 'type' ? ' active' : '') +'" href="#" data-action="sort-type"><i class="fa fa-sort-alpha-asc"></i> Trier par Catégorie'+ (sort == 'type' ? ' <i class="fa fa-check"></i>' : '') +'</a>',
+			'<a class="dropdown-item'+ (sort == 'date-desc' ? ' active' : '') +'" href="#" data-action="sort-date-desc"><i class="fa fa-sort-numeric-desc"></i> '+i18n.t('Sort by Starting Date descending') + (sort == 'date-desc' ? ' <i class="fa fa-check"></i>' : '') +'</a>',
+			'<a class="dropdown-item'+ (sort == 'date-asc' ? ' active' : '') +'" href="#" data-action="sort-date-asc"><i class="fa fa-sort-numeric-asc"></i> '+ i18n.t('Sort by Starting Date ascending') + (sort == 'date-asc' ? ' <i class="fa fa-check"></i>' : '') +'</a>',
+			'<a class="dropdown-item'+ (sort == 'comments' ? ' active' : '') +'" href="#" data-action="sort-comments"><i class="fa fa-sort-amount-desc"></i> '+ i18n.t('Sort by Comments') + (sort == 'comments' ? ' <i class="fa fa-check"></i>' : '') +'</a>',
+			'<a class="dropdown-item'+ (sort == 'type' ? ' active' : '') +'" href="#" data-action="sort-type"><i class="fa fa-sort-alpha-asc"></i> '+ i18n.t('Sort by Category') + (sort == 'type' ? ' <i class="fa fa-check"></i>' : '') +'</a>',
 		'</div>'];
 		$menu = $(menu.join(''));
 		$menu.appendTo($slidebar);

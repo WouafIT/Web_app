@@ -292,5 +292,12 @@
 	"This comment has been reported": "Merci pour votre signalement !",
 
 	"{{count}} result": "{{count}} résultat",
-	"{{count}} result_plural": "{{count}} résultats"
+	"{{count}} result_plural": "{{count}} résultats",
+
+	"Hide Wouafs gone": "Masquer les Wouafs révolu",
+	"Sort by Proximity": "Trier par Proximité",
+	"Sort by Starting Date descending": "Trier par Date de début décroissante",
+	"Sort by Starting Date ascending": "Trier par Date de début croissante",
+	"Sort by Comments": "Trier par Nombre de commentaires",
+	"Sort by Category": "Trier par Catégorie"
 }

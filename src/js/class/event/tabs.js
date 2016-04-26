@@ -196,15 +196,17 @@ module.exports = (function() {
 			return;
 		}
 		var $wouafList = $tabPanel.find(".w-container");
-		var dir = data.action == 'comments' ? 'desc' : 'asc';
-		$wouafList.sort(function(a, b){
-			if (dir == 'asc') {
-				return $(a).data(data.action) - $(b).data(data.action);
-			} else {
-				return $(b).data(data.action) - $(a).data(data.action);
-			}
+		var dir = 'asc';
+		if (data.action == 'comments' || data.action == 'date-desc') {
+			dir = 'desc';
+		}
+		$tabPanel.find('button.w-menu').data('sort', data.action);
+		if (data.action == 'date-desc' || data.action == 'date-asc') {
+			data.action = 'date';
+		}
+		$wouafList.sort(function(a, b) {
+			return (dir == 'asc') ? $(a).data(data.action) - $(b).data(data.action) : $(b).data(data.action) - $(a).data(data.action);
 		});
 		$tabPanel.find('.row').html($wouafList);
-		$tabPanel.find('button.w-menu').data('sort', data.action);
 	});
 })();
