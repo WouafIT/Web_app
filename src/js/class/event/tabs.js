@@ -40,7 +40,7 @@ module.exports = (function() {
 			}
 			$document.triggerHandler('tabs.remove', data.id);
 		}
-		var tabHead = '<a class="dropdown-item" id="tab-'+data.id+'" href="#'+ data.id +'" role="tab" data-toggle="tab">'+ data.name;
+		var tabHead = '<a class="dropdown-item" id="tab-'+ data.id +'" href="#'+ data.id +'" role="tab" data-toggle="tab">'+ data.name;
 		if (data.removable) {
 			tabHead += ' <button type="button" class="close" aria-label="'+ i18n.t('Close') +'"><span aria-hidden="true">&times;</span></button>';
 		}
@@ -88,9 +88,9 @@ module.exports = (function() {
 			$document.triggerHandler('tabs.show', $dropdown.find('a:first-child').attr('id').substr(4));
 		}
 		$tab.remove();
-		if (tabsData[data.id]) {
-			tabsData[data.id] = null;
-			delete tabsData[data.id];
+		if (tabsData[name]) {
+			tabsData[name] = null;
+			delete tabsData[name];
 		}
 		if ($tabHead.data('id') === 'tab-'+ name) {
 			var $activeTab = $dropdown.find('a:first-child');
@@ -100,20 +100,35 @@ module.exports = (function() {
 	});
 
 	//a tab is shown
+	//load personal tab content if needed
 	$document.on('tabs.shown', function(e, name) {
-		if (data.getString('uid')) {
-			if (name == 'tab-wouafs' && !tabsData['wouafs']) {
+		if (name == 'tab-wouafs' && !tabsData['wouafs']) {
+			var loadUserWouafs = function () {
 				//load user tabs data
-				query.userPosts(data.getString('uid'), function(data) {
+				query.userPosts(data.getString('uid'), function (data) {
 					var content = tab.getContent({type: 'list', data: data}, false);
 					tabsData['wouafs'] = data;
 					var $tabPanel = $('#wouafs .results');
 					$tabPanel.html(content);
-				}, function(msg) {
+				}, function (msg) {
 					toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
 				});
+			};
+			if (data.getString('uid')) {
+				loadUserWouafs();
+			} else {
+				$document.one('app.logged', loadUserWouafs);
 			}
 		}
+	});
+	//clean personal tabs on logout
+	$document.on('app.logout', function (e, state) {
+		$('#wouafs .results').html('');
+		$('#favorites .results').html('');
+		tabsData['wouafs'] = null;
+		delete tabsData['wouafs'];
+		tabsData['favorites'] = null;
+		delete tabsData['favorites'];
 	});
 
 	//show wouaf infowindow on click
@@ -125,7 +140,6 @@ module.exports = (function() {
 			var wouafId = $(e.target).parents('.w-container').data('id');
 			//grab wouaf data from tab data
 			if (tabsData[tabId]) {
-				console.info(tabsData);
 				var obj;
 				for(var i = 0, l = tabsData[tabId].results.length; i < l; i++) {
 					obj = tabsData[tabId].results[i];

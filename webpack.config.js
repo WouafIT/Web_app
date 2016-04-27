@@ -189,47 +189,48 @@ var common = Object.keys(languages).map(function(language) {
 		}
 	}
 });
-var www = {
-	name: 'www',
-	context: __dirname + '/src/js',
-	entry: './null.js',
-	output: {
-		path: __dirname + '/build/www/',
-		filename: './js/null.js'
-	},
-	plugins: [
-		new CopyWebpackPlugin([
-			{
-				from: '../assets-root'
-			}
-		]),
-		(IS_DEV ?
-		 new CopyWebpackPlugin([
-			 {
-				 from: '../assets-dev'
-			 }
-		 ]) :  new CopyWebpackPlugin([
-			{
-				from: '../assets-prod'
-			}
-		]))
-	]
-};
-if (IS_DEV) {
-	//generate apache vhosts for dev
-	www.plugins.push(
-		new HtmlWebpackPlugin({
-			filename: '../../vhosts.conf',
-			template: __dirname + '/src/vhosts-dev.conf',
-			data: {
-				"path": __dirname
-			},
-			inject: false
-		})
-	);
+if (process.env.LANG_ENV === 'all') {
+	var www = {
+		name: 'www',
+		context: __dirname + '/src/js',
+		entry: './null.js',
+		output: {
+			path: __dirname + '/build/www/',
+			filename: './js/null.js'
+		},
+		plugins: [
+			new CopyWebpackPlugin([
+				{
+					from: '../assets-root'
+				}
+			]),
+			(IS_DEV ?
+				new CopyWebpackPlugin([
+					{
+						from: '../assets-dev'
+					}
+				]) : new CopyWebpackPlugin([
+				{
+					from: '../assets-prod'
+				}
+			]))
+		]
+	};
+	if (IS_DEV) {
+		//generate apache vhosts for dev
+		www.plugins.push(
+			new HtmlWebpackPlugin({
+				filename: '../../vhosts.conf',
+				template: __dirname + '/src/vhosts-dev.conf',
+				data: {
+					"path": __dirname
+				},
+				inject: false
+			})
+		);
+	}
+	common.push(www);
 }
-common.push(www);
-
 if(TARGET === 'start') {
 	module.exports = merge(common, {
 		devtool: 'eval-source-map',
