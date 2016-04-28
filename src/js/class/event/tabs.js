@@ -156,6 +156,12 @@ module.exports = (function() {
 			loadUserFavorites();
 		}
 	});
+	//update comment count
+	$document.on('wouaf.update-comment', function(e, wouaf) {
+		$tabsContent.find('.w-container[data-id="'+ wouaf.id +'"] .w-comments').html(
+			'<i class="fa fa-comment"></i> '+ wouaf.com
+		);
+	});
 
 	//show wouaf infowindow on click
 	$document.on('click', 'div.w-title', function(e) {

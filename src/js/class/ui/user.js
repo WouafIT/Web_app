@@ -28,25 +28,33 @@ module.exports = (function() {
 				content += '<p><i class="fa fa-at"></i>'+ user.username +'</p>'
 			}
 			if (user.posts) {
-				content += '<p><i class="fa fa-hashtag"></i> '+ i18n.t('{{count}} publication', {count: user.posts}) +'<p>';
+				content += '<p><i class="fa fa-hashtag"></i> '+ i18n.t('{{count}} Wouaf', {count: user.posts}) +'</p>';
+				if (user.fav) {
+					content += '<p><i class="fa fa-star"></i> '+ i18n.t('Of which {{count}} favorite', {count: user.fav}) +'</p>';
+				}
 			} else {
-				content += '<p><i class="fa fa-hashtag"></i> '+ i18n.t('No publications yet') +'<p>';
+				content += '<p><i class="fa fa-hashtag"></i> '+ i18n.t('No Wouafs yet') +'</p>';
+			}
+			if (user.com) {
+				content += '<p><i class="fa fa-comment"></i> '+ i18n.t('{{count}} comment', {count: user.com}) +'</p>';
+			} else {
+				content += '<p><i class="fa fa-comment"></i> '+ i18n.t('No comments yet') +'</p>';
 			}
 			if (user.registration) {
 				var registration = new Date();
 				registration.setTime(user.registration.sec * 1000);
-				content += '<p><i class="fa fa-calendar-o"></i> '+ i18n.t('Registered since {{date}}', {date: dtp.formatDate(registration, 'long')}) +'<p>';
+				content += '<p><i class="fa fa-calendar-o"></i> '+ i18n.t('Registered since {{date}}', {date: dtp.formatDate(registration, 'long')}) +'</p>';
 			}
 			if (user.type) {
-				content += '<p><i class="fa fa-briefcase"></i> '+ i18n.t(utils.ucfirst(user.type)) +'<p>';
+				content += '<p><i class="fa fa-briefcase"></i> '+ i18n.t(utils.ucfirst(user.type)) +'</p>';
 			}
 			if (user.gender) {
-				content += '<p><i class="fa fa-venus-mars"></i> '+ i18n.t(utils.ucfirst(user.gender)) +'<p>';
+				content += '<p><i class="fa fa-venus-mars"></i> '+ i18n.t(utils.ucfirst(user.gender)) +'</p>';
 			}
 			if (user.birthdate) {
 				var birthdate = new Date();
 				birthdate.setTime(user.birthdate.sec * 1000);
-				content += '<p><i class="fa fa-birthday-cake"></i> '+ i18n.t('Born {{date}}', {date: dtp.formatDate(birthdate, 'long')}) +'<p>';
+				content += '<p><i class="fa fa-birthday-cake"></i> '+ i18n.t('Born {{date}}', {date: dtp.formatDate(birthdate, 'long')}) +'</p>';
 			}
 			content += '</div></div>';
 			$modalWindow.find('.modal-body').html(content);

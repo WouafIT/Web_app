@@ -265,9 +265,12 @@
 	"Profile activated!": "Votre compte est activé !\nVous pouvez vous connecter.",
 
 	"User profile {{username}}": "Profil de {{username}}",
-	"{{count}} publication": "{{count}} publication",
-	"{{count}} publication_plural": "{{count}} publications",
-	"No publications yet": "Pas encore de publications",
+	"No Wouafs yet": "Pas encore de Wouafs",
+	"{{count}} comment": "{{count}} commentaire",
+	"{{count}} comment_plural": "{{count}} commentaires",
+	"No comments yet": "Pas encore de commentaires",
+	"Of which {{count}} favorite": "Dont {{count}} favori",
+	"Of which {{count}} favorite_plural": "Dont {{count}} favorites",
 	"Registered since {{date}}": "Enregistré depuis le {{date}}",
 	"Born {{date}}": "Né le {{date}}",
 
