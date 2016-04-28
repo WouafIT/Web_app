@@ -507,7 +507,7 @@ module.exports = (function() {
 				}
             });
         },
-        userFavorites: function(callback, successCallback, errorCallback) {
+        userFavorites: function(successCallback, errorCallback) {
             query({
                 method: 'GET',
                 url:    ENDPOINT + '/users/'+ data.getString('uid') +'/favorites',

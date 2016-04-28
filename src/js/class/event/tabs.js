@@ -5,6 +5,7 @@ module.exports = (function() {
 	var map 			= require('../resource/map.js');
 	var slidebars 		= require('../resource/slidebars.js');
 	var query 			= require('../resource/query.js');
+	var toast 			= require('../resource/toast.js');
 	var $window			= $(window);
 	var $document 		= $(document);
 	var $slidebar 		= $('.sb-slidebar');
@@ -99,26 +100,43 @@ module.exports = (function() {
 		}
 	});
 
+	var loadUserWouafs = function () {
+		if (tabsData['wouafs'] || !data.getString('uid')) {
+			return;
+		}
+		//load user tabs data
+		query.userPosts(data.getString('uid'), function (data) {
+			var content = tab.getContent({type: 'list', data: data}, false);
+			tabsData['wouafs'] = data;
+			var $tabPanel = $('#wouafs .results');
+			$tabPanel.html(content);
+		}, function (msg) {
+			toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
+		});
+	};
+
+	var loadUserFavorites = function () {
+		if (tabsData['favorites'] || !data.getString('uid')) {
+			return;
+		}
+		//load user tabs data
+		query.userFavorites(function (data) {
+			var content = tab.getContent({type: 'list', data: data}, false);
+			tabsData['favorites'] = data;
+			var $tabPanel = $('#favorites .results');
+			$tabPanel.html(content);
+		}, function (msg) {
+			toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
+		});
+	};
+
 	//a tab is shown
 	//load personal tab content if needed
 	$document.on('tabs.shown', function(e, name) {
-		if (name == 'tab-wouafs' && !tabsData['wouafs']) {
-			var loadUserWouafs = function () {
-				//load user tabs data
-				query.userPosts(data.getString('uid'), function (data) {
-					var content = tab.getContent({type: 'list', data: data}, false);
-					tabsData['wouafs'] = data;
-					var $tabPanel = $('#wouafs .results');
-					$tabPanel.html(content);
-				}, function (msg) {
-					toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
-				});
-			};
-			if (data.getString('uid')) {
-				loadUserWouafs();
-			} else {
-				$document.one('app.logged', loadUserWouafs);
-			}
+		if (name == 'tab-wouafs') {
+			loadUserWouafs();
+		} else if (name == 'tab-favorites') {
+			loadUserFavorites();
 		}
 	});
 	//clean personal tabs on logout
@@ -129,6 +147,14 @@ module.exports = (function() {
 		delete tabsData['wouafs'];
 		tabsData['favorites'] = null;
 		delete tabsData['favorites'];
+	});
+	//load personal tabs on login
+	$document.on('app.logged', function (e, state) {
+		if ($('#wouafs').hasClass('active')) {
+			loadUserWouafs();
+		} else if ($('#favorites').hasClass('active')) {
+			loadUserFavorites();
+		}
 	});
 
 	//show wouaf infowindow on click
