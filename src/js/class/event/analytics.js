@@ -1,9 +1,7 @@
 module.exports = (function() {
 	var data = require('../resource/data.js');
-	var user = require('../resource/user.js');
 	var categories = require('../resource/categories.js');
 	var url = require('../resource/url.js');
-	var utils = require('../utils.js');
 	var $document = $(document);
 	var ga = window.ga;
 	if (!ga) {
