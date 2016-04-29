@@ -79,21 +79,23 @@ module.exports = (function() {
 		$mapArea.find('.ch').dequeue("ch");
 	};
 
+	var addWouaf = function() {
+		if (!data.getString('uid')) { //user is not logged, show login window
+			windows.login(i18n.t('Login to create a new wouaf'));
+		} else {
+			$addBtn.hide();
+			$addOkBtn.show();
+			showCrosshair();
+			if (data.getBool('showPopover') !== false) {
+				$addOkBtn.popover('show');
+			}
+		}
+	};
+
 	var self = {};
 	self.init = function() {
 		$addBtn.show();
-		$addBtn.on('click', function() {
-			if (!data.getString('uid')) { //user is not logged, show login window
-				windows.login(i18n.t('Login to create a new wouaf'));
-			} else {
-				$addBtn.hide();
-				$addOkBtn.show();
-				showCrosshair();
-				if (data.getBool('showPopover') !== false) {
-					$addOkBtn.popover('show');
-				}
-			}
-		});
+		$addBtn.on('click', addWouaf);
 		$addOkBtn.on('click', function() {
 			var zoom = map.getMap().getZoom();
 			if (zoom < 13) {
@@ -110,5 +112,6 @@ module.exports = (function() {
 			}
 		});
 	};
+	self.addWouaf = addWouaf;
 	return self;
 })();

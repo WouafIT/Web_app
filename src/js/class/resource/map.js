@@ -60,7 +60,7 @@ module.exports = (function () {
 
 		});*/
 		setTimeout(function () {
-			console.info('setPins1 (map.results-chown)');
+			//console.info('setPins1 (map.results-chown)');
 			$document.triggerHandler('map.results-chown');
 		}, 400);
 
@@ -93,7 +93,7 @@ module.exports = (function () {
 	var appendPin = function(obj) {
 		var deferred = $.Deferred();
 		if (getResults([obj.id]).length) {
-			console.info('appendPin1');
+			//console.info('appendPin1');
 			deferred.resolve();
 		} else {
 			var results = jQuery.extend(true, {}, self.jsonResults);
@@ -103,10 +103,10 @@ module.exports = (function () {
 			var now = new Date();
 			results.searchId = now.getTime();
 			$document.one('map.results-chown', function () {
-				console.info('appendPin2');
+				//console.info('appendPin2');
 				deferred.resolve();
 			});
-			console.info('appendPin3');
+			//console.info('appendPin3');
 			setPins(results);
 		}
 		return deferred.promise();
@@ -117,13 +117,13 @@ module.exports = (function () {
 			return;
 		}
 		if (obj) {
-			console.info('showPin1');
+			//console.info('showPin1');
 			openPin(obj);
 			return;
 		}
 		//get wouaf data then open it
 		$.when(getResult(id)).done(function(obj) {
-			console.info('showPin2');
+			//console.info('showPin2');
 			openPin(obj);
 		}).fail(function(msg) {
 			var windows = require('./windows.js');
@@ -147,7 +147,7 @@ module.exports = (function () {
 			} else if (zoom < 21) {
 				var pinZoom = clustermap.getLeafZoom(hcmap, obj.id, 10, 21);
 				if (pinZoom != zoom) {
-					console.info('showIW1', pinZoom, zoom);
+					//console.info('showIW1', pinZoom, zoom);
 					google.maps.event.addListenerOnce(map, 'idle', showIW);
 					map.setZoom(pinZoom);
 				} else {
@@ -155,16 +155,16 @@ module.exports = (function () {
 						count = 0;
 						google.maps.event.trigger(map, 'dragend');
 					}
-					console.info('showIW2');
+					//console.info('showIW2');
 					setTimeout(showIW, 400);
 				}
 			} else if (zoom == 21) {
 				$pin = $map.find('.baseMarker[data-id*="'+ obj.id +'"]');
 				if ($pin.length) {
-					console.info('showIW3');
+					//console.info('showIW3');
 					google.maps.event.trigger($pin.get(0), 'click');
 				} else {
-					console.info('showIW4 - no pin found for id '+ obj.id);
+					//console.info('showIW4 - no pin found for id '+ obj.id);
 					//avoid bug after setCenter : sometimes pins are not refreshed.
 					google.maps.event.trigger(map, 'dragend');
 					setTimeout(showIW, 400);
@@ -176,23 +176,23 @@ module.exports = (function () {
 			var mapCenter = map.getCenter().toUrlValue(5);
 			var objCenter = new google.maps.LatLng(obj.loc[0], obj.loc[1]).toUrlValue(5);
 			if (mapCenter == objCenter) {
-				console.info('openPin1');
+				//console.info('openPin1');
 				$.when(appendPin(obj)).done(showIW);
 			} else {
 				var center = new google.maps.LatLng(obj.loc[0], obj.loc[1]);
 				if (isSearchRefreshNeeded(center)) {
-					console.info('openPin2');
+					//console.info('openPin2');
 					$document.one('map.results-chown', function () {
-						console.info('openPin2"');
+						//console.info('openPin2"');
 						$.when(appendPin(obj)).done(showIW);
 					});
 					map.setCenter(center);
 				} else {
 					$.when(appendPin(obj)).done(function () {
-						console.info('openPin3');
+						//console.info('openPin3');
 						//google.maps.event.addListenerOnce(map, 'idle', showIW);
 						$document.one('map.updated-position', function () {
-							console.info('openPin4');
+							//console.info('openPin4');
 							showIW();
 						});
 						map.setCenter(center);
@@ -304,7 +304,7 @@ module.exports = (function () {
 			//distance is more than 85% of search radius => update search
 			$document.triggerHandler('app.search', {from: 'position too far from center'});
 		}
-		console.info('map.updated-position');
+		//console.info('map.updated-position');
 		$document.triggerHandler('map.updated-position');
 	};
 	var isSearchRefreshNeeded = function (point) {

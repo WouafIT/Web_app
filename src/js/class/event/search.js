@@ -29,10 +29,13 @@ module.exports = (function() {
 			var unit 				= data.getString('unit');
 			var radius 				= unit == 'km' ? data.getInt('radius') : mlRadius[data.getInt('radius')];
 			if (result.count == 500) {
-				toast.show(i18n.t('{{max}} displayed on a {{radius}}{{unit}} (maximum reached)', {max: notificationLabel, radius: radius, unit: i18n.t(unit) }), 4000);
+				toast.show(i18n.t('{{max}} displayed within {{radius}}{{unit}} (maximum reached)', {max: notificationLabel, radius: radius, unit: i18n.t(unit) }), 4000);
+			} else if (result.count) {
+				toast.show(i18n.t('{{wouaf}} displayed within {{radius}}{{unit}}', { count: result.count, wouaf: notificationLabel, radius: radius, unit: i18n.t(unit) }), 4000);
 			} else {
-				toast.show(i18n.t('{{wouaf}} displayed on a {{radius}}{{unit}}', { count: result.count, wouaf: notificationLabel, radius: radius, unit: i18n.t(unit) }), 4000);
+				toast.show(i18n.t('At the moment there are no Wouaf within {{radius}}{{unit}}', { radius: radius, unit: i18n.t(unit) }), 6000);
 			}
+
 			$document.triggerHandler('tabs.add', {
 				id: 'search-results',
 				name: '<i class="fa fa-search-plus"></i> '+ i18n.t('{{count}} result', {count: result.count}),

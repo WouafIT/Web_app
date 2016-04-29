@@ -12,6 +12,7 @@ module.exports = (function() {
 	$document.on('app.start', function() {
 		//load events modules
 		require('./analytics.js');
+		require('./action.js');
 		require('./login.js');
 		require('./navigation.js');
 		require('./wouaf.js');

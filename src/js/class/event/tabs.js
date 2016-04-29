@@ -57,6 +57,7 @@ module.exports = (function() {
 		$tabsContent.append('<div role="tabpanel" class="tab-pane" id="' + data.id + '">' + content + '</div>');
 		if (active) {
 			$document.triggerHandler('tabs.show', data.id);
+			$document.triggerHandler('slide.open');
 		}
 	});
 
@@ -161,6 +162,10 @@ module.exports = (function() {
 		$tabsContent.find('.w-container[data-id="'+ wouaf.id +'"] .w-comments').html(
 			'<i class="fa fa-comment"></i> '+ wouaf.com
 		);
+	});
+	//delete wouaf
+	$document.on('app.deleted-wouaf', function(e, wouaf) {
+		$tabsContent.find('.w-container[data-id="'+ wouaf.id +'"]').remove();
 	});
 
 	//show wouaf infowindow on click
