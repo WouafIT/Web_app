@@ -6,13 +6,9 @@
 	"Twitter": "Twitter",
 	"Wouaf IT": "Wouaf IT",
 	"Your social network for your local events": "Votre réseau social pour vos évènements locaux",
-	"Menu": "Menu",
-	"Add a Wouaf": "Ajouter un Wouaf",
 	"Login": "Connexion",
-	"Create your profile": "Créer un compte",
 	"My profile": "Mon profil",
 	"Parameters": "Paramètres",
-	"Logout": "Déconnexion",
 	"Search": "Rechercher",
 	"Your Wouafs": "Vos Wouafs",
 	"Your Favorites": "Vos favoris",
@@ -59,9 +55,10 @@
 
 	"{{count}} Wouaf": "{{count}} Wouaf",
 	"{{count}} Wouaf_plural": "{{count}} Wouafs",
-	"{{wouaf}} displayed on a {{radius}}{{unit}}": "{{wouaf}} affiché sur un rayon de {{radius}}{{unit}}",
-	"{{wouaf}} displayed on a {{radius}}{{unit}}_plural": "{{wouaf}} affichés sur un rayon de {{radius}}{{unit}}",
-	"{{max}} displayed on a {{radius}}{{unit}} (maximum reached)": "{{max}} affichés sur un rayon de {{radius}}{{unit}} (maximum atteint)",
+	"{{wouaf}} displayed within {{radius}}{{unit}}": "{{wouaf}} affiché dans un rayon de {{radius}}{{unit}}",
+	"{{wouaf}} displayed within {{radius}}{{unit}}_plural": "{{wouaf}} affichés dans un rayon de {{radius}}{{unit}}",
+	"{{max}} displayed within {{radius}}{{unit}} (maximum reached)": "{{max}} affichés dans un rayon de {{radius}}{{unit}} (maximum atteint)",
+	"At the moment there are no Wouaf within {{radius}}{{unit}}" : "Pour le moment il n'y a aucun Wouaf dans les {{radius}}{{unit}}.\n\nPourquoi ne pas <a href=\"/add/\" data-action=\"add\">en ajouter un</a> ?",
 
     "Connect!": "Connectez-vous !",
     "create_wouaf_it_profile": "Si vous n'avez pas encore votre compte Wouaf IT, c'est le moment d'en créer un ! C'est gratuit et cela ne prend que quelques secondes.",
@@ -88,7 +85,6 @@
 	"Wouaf IT profile": "Compte Wouaf IT",
 	"New Wouaffer? Create your profile!": "Nouveau Wouaffeur ? Créez votre compte !",
 	"Or enter your login": "Ou saisissez vos identifiants",
-	"Lost password?": "Mot de passe perdu ?",
 	"There are errors in your form": "Il y a des erreurs dans votre formulaire ...",
 	"Your form is incomplete, thank you to fill all fields": "Votre formulaire est incomplet, merci de remplir tous les champs.",
 	"Welcome": "Bienvenue !",
@@ -266,11 +262,10 @@
 
 	"User profile {{username}}": "Profil de {{username}}",
 	"No Wouafs yet": "Pas encore de Wouafs",
-	"{{count}} comment": "{{count}} commentaire",
-	"{{count}} comment_plural": "{{count}} commentaires",
 	"No comments yet": "Pas encore de commentaires",
-	"Of which {{count}} favorite": "Dont {{count}} favori",
-	"Of which {{count}} favorite_plural": "Dont {{count}} favorites",
+	"Saved as favorite {{count}} time": "Enregistré en favori {{count}} fois",
+	"Saved as favorite {{count}} time_plural": "Enregistré en favori {{count}} fois",
+	"See his Wouafs": "Voir ses Wouafs",
 	"Registered since {{date}}": "Enregistré depuis le {{date}}",
 	"Born {{date}}": "Né le {{date}}",
 
@@ -302,5 +297,10 @@
 	"Sort by Starting Date descending": "Trier par Date de début décroissante",
 	"Sort by Starting Date ascending": "Trier par Date de début croissante",
 	"Sort by Comments": "Trier par Nombre de commentaires",
-	"Sort by Category": "Trier par Catégorie"
+	"Sort by Category": "Trier par Catégorie",
+
+	"No Wouaf here": "Aucun Wouaf ici ...",
+	"At the moment there are no Wouaf there with your search parameters": "Pour le moment il n'y a aucun Wouaf à cet endroit avec vos paramètres de recherche.",
+	"what if you add one yourself": "et si vous en ajoutiez un vous même ?",
+	"Add a Wouaf": "Ajouter un Wouaf"
 }

@@ -6,13 +6,9 @@
 	"Twitter": "Twitter",
 	"Wouaf IT": "Wouaf IT",
 	"Your social network for your local events": "Your social network for your local events",
-	"Menu": "Menu",
-	"Add a Wouaf": "Add a Wouaf",
 	"Login": "Login",
-	"Create your profile": "Create your profile",
 	"My profile": "My profile",
 	"Parameters": "Parameters",
-	"Logout": "Logout",
 	"Search": "Search",
 	"Your Wouafs": "Your Wouafs",
 	"Your Favorites": "Your Favorites",
@@ -59,9 +55,10 @@
 
 	"{{count}} Wouaf": "{{count}} Wouaf",
 	"{{count}} Wouaf_plural": "{{count}} Wouafs",
-	"{{wouaf}} displayed on a {{radius}}{{unit}}": "{{wouaf}} displayed on a {{radius}}{{unit}}",
-	"{{wouaf}} displayed on a {{radius}}{{unit}}_plural": "{{wouaf}} displayed on a {{radius}}{{unit}}",
-	"{{max}} displayed on a {{radius}}{{unit}} (maximum reached)": "{{max}} displayed on a {{radius}}{{unit}} (maximum reached)",
+	"{{wouaf}} displayed within {{radius}}{{unit}}": "{{wouaf}} displayed on a {{radius}}{{unit}}",
+	"{{wouaf}} displayed within {{radius}}{{unit}}_plural": "{{wouaf}} displayed on a {{radius}}{{unit}}",
+	"{{max}} displayed within {{radius}}{{unit}} (maximum reached)": "{{max}} displayed on a {{radius}}{{unit}} (maximum reached)",
+	"At the moment there are no Wouaf within {{radius}}{{unit}}" : "At the moment there are no Wouaf within {{radius}}{{unit}}.\n\nWhy not <a href=\"/add/\" data-action=\"add\">add one</a>?",
 
 	"Connect!": "Connect!",
     "create_wouaf_it_profile": "If you do not have your Wouaf IT profile, it's time to create one! It's free and only takes seconds.",
@@ -88,7 +85,6 @@
 	"Wouaf IT profile": "Wouaf IT profile",
 	"New Wouaffer? Create your profile!": "New Wouaffer? Create your profile!",
 	"Or enter your login": "Or enter your login",
-	"Lost password?": "Lost password?",
 	"There are errors in your form": "There are errors in your form ...",
 	"Your form is incomplete, thank you to fill all fields": "Your form is incomplete, thank you to fill all fields.",
 	"Welcome": "Welcome!",
@@ -266,11 +262,10 @@
 
 	"User profile {{username}}": "Profile of {{username}}",
 	"No Wouafs yet": "No Wouafs yet",
-	"{{count}} comment": "{{count}} comment",
-	"{{count}} comment_plural": "{{count}} comments",
 	"No comments yet": "No comments yet",
-	"Of which {{count}} favorite": "Of which {{count}} favorite",
-	"Of which {{count}} favorite_plural": "Of which {{count}} favorites",
+	"Saved as favorite {{count}} time": "Saved as favorite {{count}} time",
+	"Saved as favorite {{count}} time_plural": "Saved as favorite {{count}} times",
+	"See his Wouafs": "See his Wouafs",
 	"Registered since {{date}}": "Registered since {{date}}",
 	"Born {{date}}": "Born {{date}}",
 
@@ -302,5 +297,10 @@
 	"Sort by Starting Date descending": "Sort by Starting Date descending",
 	"Sort by Starting Date ascending": "Sort by Starting Date ascending",
 	"Sort by Comments": "Sort by Comments",
-	"Sort by Category": "Sort by Category"
+	"Sort by Category": "Sort by Category",
+
+	"No Wouaf here": "No Wouaf here ...",
+	"At the moment there are no Wouaf there with your search parameters": "At the moment there are no Wouaf there with your search parameters.",
+	"what if you add one yourself": "what if you add one yourself?",
+	"Add a Wouaf": "Add a Wouaf"
 }
