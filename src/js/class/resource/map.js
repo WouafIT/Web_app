@@ -309,6 +309,7 @@ module.exports = (function () {
 	};
 	var isSearchRefreshNeeded = function (point) {
 		//check distance between current center and last search
+		console.info('isSearchRefreshNeeded1', data.getBool('mapFollow'), self.jsonResults.query);
 		if (!data.getBool('mapFollow') || !self.jsonResults.query) {
 			return false;
 		}
@@ -316,6 +317,7 @@ module.exports = (function () {
 			point,
 			new google.maps.LatLng(self.jsonResults.query.loc.$near[0], self.jsonResults.query.loc.$near[1])
 		));
+		console.info('isSearchRefreshNeeded2', distance, self.jsonResults.query.loc.$maxDistance * 93500, distance >= self.jsonResults.query.loc.$maxDistance * 93500);
 		return (distance >= self.jsonResults.query.loc.$maxDistance * 93500);//93500 => 110 * 1000 * 0.85
 	};
 	//Init public method
