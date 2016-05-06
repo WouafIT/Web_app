@@ -130,7 +130,7 @@ module.exports = (function() {
 					if (result && result.results) {
 						result.searchId = searchId;
 						result.resultsType = 'wouafit';
-						successCallback(result);
+						successCallback(result, params);
 					} else if (result && result.msg) {
 						errorCallback(result.msg);
 					} else {

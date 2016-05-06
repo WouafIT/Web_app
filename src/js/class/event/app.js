@@ -115,7 +115,7 @@ module.exports = (function() {
 				map.getMap().setCenter(new google.maps.LatLng(position.lat, position.lng));
 
 				//search posts from current position
-				$document.triggerHandler('app.search', {from: 'app.start-end'});
+				$document.triggerHandler('app.search', {refresh: false});
 
 				//add wouaf if any
 				$document.one('map.results-chown', function() {

@@ -20,20 +20,28 @@ module.exports = (function () {
 		if (__DEV__) {
 			console.info('Search results', json);
 		}
-		var elements = [];
+		var elements = [], i, li, j, lj;
 		if (!json.results) {
 			json.results = [];
 			json.count = 0;
 		} else {
 			//if search Id match, add results
 			if (self.jsonResults && self.jsonResults.searchId && json.searchId && self.jsonResults.searchId == json.searchId) {
-				json.count += self.jsonResults.count;
-				json.results = json.results.concat(self.jsonResults.results);
-			} else {
-				if (self.jsonResults && self.jsonResults.searchId && json.searchId && self.jsonResults.searchId > json.searchId) {
-					//drop old results
-					return;
+				//deduplicate results
+				loopI: for(i = 0, li = json.results.length; i < li; i++) {
+					for(j = 0, lj = self.jsonResults.results.length; j < lj; j++) {
+						if (self.jsonResults.results[j] && json.results[i].id === self.jsonResults.results[j].id) {
+							self.jsonResults.results.splice(j, 1); //remove old result
+							lj--;
+							continue loopI;
+						}
+					}
 				}
+				json.results = json.results.concat(self.jsonResults.results);
+				json.count   = json.results.length;
+			} else if (self.jsonResults && self.jsonResults.searchId && json.searchId && self.jsonResults.searchId > json.searchId) {
+				//drop older results
+				return;
 			}
 		}
 		//remove all previous pins if any and close infowindow
@@ -45,7 +53,7 @@ module.exports = (function () {
 		//save result
 		self.jsonResults = json;
 		//create pins data
-		for (var i = 0, l = json.results.length; i < l; i++) {
+		for (i = 0, li = json.results.length; i < li; i++) {
 			var post = json.results[i];
 			var element = {
 				'id': 			post.id,
@@ -56,9 +64,6 @@ module.exports = (function () {
 			};
 			elements.push(element);
 		}
-		/*google.maps.event.addListenerOnce(map, 'idle', function () {
-
-		});*/
 		setTimeout(function () {
 			//console.info('setPins1 (map.results-chown)');
 			$document.triggerHandler('map.results-chown');
@@ -302,23 +307,22 @@ module.exports = (function () {
 		//check distance between current center and last search
 		if (isSearchRefreshNeeded(center)) {
 			//distance is more than 85% of search radius => update search
-			$document.triggerHandler('app.search', {from: 'position too far from center'});
+			$document.triggerHandler('app.search', {refresh: true});
 		}
 		//console.info('map.updated-position');
 		$document.triggerHandler('map.updated-position');
 	};
 	var isSearchRefreshNeeded = function (point) {
 		//check distance between current center and last search
-		console.info('isSearchRefreshNeeded1', data.getBool('mapFollow'), self);
-		if (!data.getBool('mapFollow') || !self.jsonResults.query) {
+		if (!data.getBool('mapFollow') || !self.jsonResults.params) {
 			return false;
 		}
 		var distance = Math.round(google.maps.geometry.spherical.computeDistanceBetween(
 			point,
-			new google.maps.LatLng(self.jsonResults.query.loc.$near[0], self.jsonResults.query.loc.$near[1])
+			self.jsonResults.params.loc
 		));
-		console.info('isSearchRefreshNeeded2', distance, self.jsonResults.query.loc.$maxDistance * 93500, distance >= self.jsonResults.query.loc.$maxDistance * 93500);
-		return (distance >= self.jsonResults.query.loc.$maxDistance * 93500);//93500 => 110 * 1000 * 0.85
+		//distance is in meters and radius in km, refresh is distance is above 85% of queried radius
+		return (distance >= self.jsonResults.params.radius * 850);//850 => 1000 (m => km) * 0.85 (%)
 	};
 	//Init public method
 	var init = function () {

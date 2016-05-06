@@ -7,6 +7,8 @@ module.exports = (function() {
 	var $document = $(document);
 	var $window = $(window);
 	var $site = $('#sb-site');
+	var $category = $('#what');
+	var $when = $('#when');
 	var oSlidebar;
 
 	var isDualView = function() {
@@ -14,7 +16,7 @@ module.exports = (function() {
 	};
 
 	var showHideCustomDates = function() {
-		if ($('#when').val() === 'custom') {
+		if ($when.val() === 'custom') {
 			$('#search .specific-date').show('fast');
 		} else {
 			$('#search .specific-date').hide('fast');
@@ -25,8 +27,6 @@ module.exports = (function() {
 	var init = function () {
 		var $search = $('#search');
 		var $form = $search.find('form');
-		var $category = $('#what');
-		var $when = $('#when');
 		var $categoriesHelp = $form.find('.categories-help');
 
 		oSlidebar = new $.slidebars({
@@ -44,13 +44,17 @@ module.exports = (function() {
 		$document.on('slidebars.opened', function(e, data) {
 			if (isDualView()) {
 				$site.width('calc(100% - '+ data.amount +')');
+				var center = map.getMap().getCenter();
 				map.resize();
+				map.getMap().setCenter(center);
 			}
 		});
 		$document.on('slidebars.close', function() {
 			if (isDualView()) {
 				$site.width('100%');
+				var center = map.getMap().getCenter();
 				map.resize();
+				map.getMap().setCenter(center);
 			}
 		});
 
@@ -68,9 +72,11 @@ module.exports = (function() {
 		});
 
 		$form.on({
-			'submit': function() {
-				if(__DEV__) {
-					console.info('search');
+			'submit': function(event) {
+				event.preventDefault();
+				$document.triggerHandler('app.search', {refresh: false});
+				if (!isDualView()) {
+					$document.triggerHandler('slide.close');
 				}
 			}
 		});
@@ -107,6 +113,11 @@ module.exports = (function() {
 	// API/data for end-user
 	return {
 		init: init,
-		isDualView: isDualView
+		isDualView: isDualView,
+		getSearchParams: function () {
+			return {
+				cat: $category.val() || null
+			}
+		}
 	}
 })();

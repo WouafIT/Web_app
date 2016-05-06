@@ -216,7 +216,7 @@ module.exports = (function() {
 					data.setInt('today_publications', result.today_publications);
 				}
 				//reload search
-				$document.triggerHandler('app.search', {from: 'add wouaf'});
+				$document.triggerHandler('app.search', {refresh: true});
 
 				windows.close();
 				toast.show(i18n.t('Your Wouaf is added'));
