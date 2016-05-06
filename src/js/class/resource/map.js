@@ -309,7 +309,7 @@ module.exports = (function () {
 	};
 	var isSearchRefreshNeeded = function (point) {
 		//check distance between current center and last search
-		console.info('isSearchRefreshNeeded1', data.getBool('mapFollow'), self.jsonResults.query);
+		console.info('isSearchRefreshNeeded1', data.getBool('mapFollow'), self);
 		if (!data.getBool('mapFollow') || !self.jsonResults.query) {
 			return false;
 		}
