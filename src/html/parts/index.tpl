@@ -67,6 +67,7 @@
 							<input type="text" class="form-control" id="where"
 								   placeholder="<%= htmlWebpackPlugin.options.i18n['Look for a place'] %>" />
 						</div>
+						<input type="hidden" id="where-loc" />
 					</fieldset>
 					<fieldset class="form-group row">
 						<label for="when"><%= htmlWebpackPlugin.options.i18n['When?'] %></label>

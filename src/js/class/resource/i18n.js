@@ -5,7 +5,8 @@ module.exports = (function () {
 		lng: LANGUAGE,
 		lowerCaseLng: true,
 		keySeparator: '::',
-		nsSeparator: ':::'
+		nsSeparator: ':::',
+		initImmediate: false
 	});
 	i18next.addResources(LANGUAGE, "translation", require("../../../../languages/" + LANGUAGE + ".json"));
 	self.t = function () {

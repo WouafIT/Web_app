@@ -9,6 +9,8 @@ module.exports = (function() {
 	var $site = $('#sb-site');
 	var $category = $('#what');
 	var $when = $('#when');
+	var $where = $('#where');
+	var $whereLoc = $('#where-loc');
 	var oSlidebar;
 
 	var isDualView = function() {
@@ -74,11 +76,31 @@ module.exports = (function() {
 		$form.on({
 			'submit': function(event) {
 				event.preventDefault();
+				//cleanup
+				if ($where.val() && !$whereLoc.val()) {
+					$where.val('');
+				}
 				$document.triggerHandler('app.search', {refresh: false});
 				if (!isDualView()) {
 					$document.triggerHandler('slide.close');
 				}
 			}
+		});
+
+		//Places autocomplete
+		var autocomplete = new google.maps.places.Autocomplete(
+			$where.get(0),
+			{types: ['geocode']}
+		);
+
+		// When the user selects an address from the dropdown, populate the address
+		autocomplete.addListener('place_changed', function() {
+			// Get the place details from the autocomplete object.
+			var place = autocomplete.getPlace();
+			$whereLoc.val(JSON.stringify(place.geometry.location.toJSON()));
+		});
+		$where.on('change', function() {
+			$whereLoc.val('');
 		});
 
 		//add wouaf and favorites tabs
@@ -115,8 +137,14 @@ module.exports = (function() {
 		init: init,
 		isDualView: isDualView,
 		getSearchParams: function () {
+			var loc = $whereLoc.val() || null;
+			if (loc) {
+				var position = JSON.parse(loc);
+				loc = new google.maps.LatLng(position.lat, position.lng);
+			}
 			return {
-				cat: $category.val() || null
+				cat: $category.val() || null,
+				loc: loc
 			}
 		}
 	}

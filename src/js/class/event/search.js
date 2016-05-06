@@ -19,6 +19,8 @@ module.exports = (function() {
 		}
 		if (!params.loc) {
 			params.loc = map.getMap().getCenter();
+		} else if (!params.refresh) {
+			map.getMap().setCenter(params.loc);
 		}
 		if (!params.radius) {
 			params.radius = data.getInt('radius');
