@@ -54,7 +54,7 @@ module.exports = (function() {
 		if (states) {
 			if (states.map) {
 				var coordinates = states.map.center.split(',');
-				map.getMap().setCenter({lat: parseFloat(coordinates[0]), lng: parseFloat(coordinates[1])});
+				map.setCenter({lat: parseFloat(coordinates[0]), lng: parseFloat(coordinates[1])}, true);
 				map.getMap().setZoom(parseInt(states.map.zoom, 10));
 			}
 			if (states.wouaf) {
@@ -93,7 +93,7 @@ module.exports = (function() {
 						var coordinates = part.substr(1, (part.length - 1)).split(',');
 						if (coordinates.length === 3) {
 							var position = {lat: parseFloat(coordinates[0]), lng: parseFloat(coordinates[1])};
-							map.getMap().setCenter(position);
+							map.setCenter(position, true);
 							map.getMap().setZoom(parseInt(coordinates[2].substr(0, (coordinates[2].length - 1)), 10));
 							//store map position: url
 							data.setObject('position', position);

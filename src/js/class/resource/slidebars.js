@@ -4,6 +4,7 @@ module.exports = (function() {
 	var i18n = require('./i18n.js');
 	var categories = require('./categories.js');
 	var map = require('./map.js');
+	var dtp = require('./datetimepicker.js');
 	var $document = $(document);
 	var $window = $(window);
 	var $site = $('#sb-site');
@@ -11,6 +12,9 @@ module.exports = (function() {
 	var $when = $('#when');
 	var $where = $('#where');
 	var $whereLoc = $('#where-loc');
+	var $start = $('#start');
+	var $end = $('#end');
+
 	var oSlidebar;
 
 	var isDualView = function() {
@@ -48,7 +52,7 @@ module.exports = (function() {
 				$site.width('calc(100% - '+ data.amount +')');
 				var center = map.getMap().getCenter();
 				map.resize();
-				map.getMap().setCenter(center);
+				map.setCenter(center, false);
 			}
 		});
 		$document.on('slidebars.close', function() {
@@ -56,7 +60,7 @@ module.exports = (function() {
 				$site.width('100%');
 				var center = map.getMap().getCenter();
 				map.resize();
-				map.getMap().setCenter(center);
+				map.setCenter(center, false);
 			}
 		});
 
@@ -79,6 +83,13 @@ module.exports = (function() {
 				//cleanup
 				if ($where.val() && !$whereLoc.val()) {
 					$where.val('');
+				}
+				if ($when.val() === 'custom') {
+					var start = dtp.getInputDate($start);
+					var end = dtp.getInputDate($end);
+					if (!start || !end || !start.getTime() || !end.getTime()) {
+						$when.val('week');
+					}
 				}
 				$document.triggerHandler('app.search', {refresh: false});
 				if (!isDualView()) {
@@ -142,9 +153,48 @@ module.exports = (function() {
 				var position = JSON.parse(loc);
 				loc = new google.maps.LatLng(position.lat, position.lng);
 			}
+			var date = null, duration = null;
+			var today = new Date();
+			today.setHours(0);
+			today.setMinutes(0);
+			today.setSeconds(0);
+			today.setMilliseconds(0);
+			switch ($when.val()) {
+				case 'today':
+					date = Math.round(today.getTime() / 1000);
+					duration = 86400;
+					break;
+				case 'tomorrow':
+					date = Math.round(today.getTime() / 1000) + 86400;
+					duration = 86400;
+					break;
+				case 'week':
+					date = Math.round(today.getTime() / 1000);
+					duration = (86400 * 7);
+					break;
+				case 'month':
+					date = Math.round(today.getTime() / 1000);
+					duration = (86400 * 30);
+					break;
+				case 'custom':
+					var start = dtp.getInputDate($start);
+					var end = dtp.getInputDate($end);
+					if (start && end && start.getTime() && end.getTime()) {
+						date = Math.round(start.getTime() / 1000);
+						duration = Math.round(end.getTime() / 1000) - Math.round(start.getTime() / 1000);
+					}
+					if (!date || !duration || duration < 0) {
+						date = Math.round(today.getTime() / 1000);
+						duration = (86400 * 7);
+						$when.val('week');
+					}
+					break;
+			}
 			return {
 				cat: $category.val() || null,
-				loc: loc
+				loc: loc,
+				date: date,
+				duration: duration
 			}
 		}
 	}

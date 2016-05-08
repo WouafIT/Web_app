@@ -1,4 +1,4 @@
-/* ----------------------------------------------------------------------------- 
+/* -----------------------------------------------------------------------------
 
   jQuery DateTimePicker - Responsive flat design jQuery DateTime Picker plugin for Web & Mobile
   Version 0.1.27
@@ -10,47 +10,47 @@
 
 /*
 
-	language: Simple Chinese
-	file: DateTimePicker-i18n-zh-CN
-	author: Calvin(https://github.com/Calvin-he)
+  language: Japanese
+  file: DateTimePicker-i18n-ja
+  author: JasonYCHuang (https://github.com/JasonYCHuang)
 
 */
 
 (function ($) {
-   $.DateTimePicker.i18n["zh-CN"] = $.extend($.DateTimePicker.i18n["zh-CN"], {
+   $.DateTimePicker.i18n["ja"] = $.extend($.DateTimePicker.i18n["ja"], {
 
-        language: "zh-CN",
+        language: "ja",
         labels: {
             'year': '年',
             'month': '月',
             'day': '日',
-            'hour': '时',
+            'hour': '時',
             'minutes': '分',
             'seconds': '秒',
-            'meridiem': '午'
+            'meridiem': '昼'
         },
         dateTimeFormat: "yyyy-MM-dd HH:mm",
         dateFormat: "yyyy-MM-dd",
         timeFormat: "HH:mm",
 
-        shortDayNames: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
-        fullDayNames: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
+        shortDayNames: ['日曜日', '月曜日', '火曜日', '水曜日', '木曜日', '金曜日', '土曜日'],
+        fullDayNames: ['日曜日', '月曜日', '火曜日', '水曜日', '木曜日', '金曜日', '土曜日'],
         shortMonthNames: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
         fullMonthNames: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
 
-        titleContentDate: "设置日期",
-        titleContentTime: "设置时间",
-        titleContentDateTime: "设置日期和时间",
+        titleContentDate: "日付の設定",
+        titleContentTime: "時刻の設定",
+        titleContentDateTime: "日付と時間の設定",
 
-        setButtonContent: "设置",
-        clearButtonContent: "清除",
+        setButtonContent: "設定",
+        clearButtonContent: "取消",
         formatHumanDate: function (oDate, sMode, sFormat) {
             if (sMode === "date")
                 return  oDate.dayShort + ", " + oDate.yyyy + "年" +  oDate.month +"月" + oDate.dd + "日";
             else if (sMode === "time")
-                return oDate.HH + "时" + oDate.mm + "分" + oDate.ss + "秒";
+                return oDate.HH + "時" + oDate.mm + "分" + oDate.ss + "秒";
             else if (sMode === "datetime")
-                return oDate.dayShort + ", " + oDate.yyyy + "年" +  oDate.month +"月" + oDate.dd + "日 " + oDate.HH + "时" + oDate.mm + "分";
+                return oDate.dayShort + ", " + oDate.yyyy + "年" +  oDate.month +"月" + oDate.dd + "日 " + oDate.HH + "時" + oDate.mm + "分";
         }
     });
 })(jQuery);

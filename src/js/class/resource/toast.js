@@ -7,7 +7,7 @@ module.exports = (function() {
 	self.show = function(text, delay, callback) {
 		delay = delay || 2500;
 		callback = callback || function() {};
-		$toastContent.html('<p>'+ text +'</p>').parent().fadeIn().delay(delay).fadeOut({complete: callback});
+		$toastContent.html('<p>'+ text +'</p>').parent().stop(false, true).fadeIn().delay(delay).fadeOut({complete: callback});
 	};
 	return self;
 })();

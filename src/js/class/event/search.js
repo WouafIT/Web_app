@@ -8,6 +8,7 @@ module.exports = (function() {
 	var slidebars = require('../resource/slidebars.js');
 	var mlRadius = {10: 5, 20: 10, 30: 15, 50: 30, 70: 45, 100: 60, 150: 90, 200: 120, 300: 180};
 	var previousSearchParams = {};
+	var previousSearchCount = 0;
 	//Event to launch a new search
 	$document.on('app.search', function (event, params) {
 		params = params || {};
@@ -20,7 +21,7 @@ module.exports = (function() {
 		if (!params.loc) {
 			params.loc = map.getMap().getCenter();
 		} else if (!params.refresh) {
-			map.getMap().setCenter(params.loc);
+			map.setCenter(params.loc, false);
 		}
 		if (!params.radius) {
 			params.radius = data.getInt('radius');
@@ -28,30 +29,36 @@ module.exports = (function() {
 		if (__DEV__) {
 			console.info('Search params', params);
 		}
-		delete params.refresh;
 		query.posts(params, function(results, params) {
 			//save previous search params
 			previousSearchParams = $.extend({}, params);
 			delete previousSearchParams.loc;
+			delete previousSearchParams.refresh;
 			//add query parameters to results for further reference
 			results.params = params;
 			map.setResults(results);
-
+			var count = map.getResultsCount();
 			//show results number
-			var notificationLabel 	= i18n.t('{{count}} Wouaf', { count: results.count });
+			var notificationLabel;
+			if (params.refresh) {
+				notificationLabel 	= i18n.t('Adding {{count}} Wouaf', { count: count - previousSearchCount });
+			} else {
+				notificationLabel 	= i18n.t('{{count}} Wouaf', { count: count });
+			}
+			previousSearchCount = count;
 			var unit 				= data.getString('unit');
 			var radius 				= unit == 'km' ? data.getInt('radius') : mlRadius[data.getInt('radius')];
-			if (results.count == 500) {
+			if (count == 500) {
 				toast.show(i18n.t('{{max}} displayed within {{radius}}{{unit}} (maximum reached)', {max: notificationLabel, radius: radius, unit: i18n.t(unit) }), 4000);
-			} else if (results.count) {
-				toast.show(i18n.t('{{wouaf}} displayed within {{radius}}{{unit}}', { count: results.count, wouaf: notificationLabel, radius: radius, unit: i18n.t(unit) }), 4000);
+			} else if (count) {
+				toast.show(i18n.t('{{wouaf}} displayed within {{radius}}{{unit}}', { count: count, wouaf: notificationLabel, radius: radius, unit: i18n.t(unit) }), 4000);
 			} else {
 				toast.show(i18n.t('At the moment there are no Wouaf within {{radius}}{{unit}}', { radius: radius, unit: i18n.t(unit) }), 6000);
 			}
 
 			$document.triggerHandler('tabs.add', {
 				id: 'search-results',
-				name: '<i class="fa fa-search-plus"></i> '+ i18n.t('{{count}} result', {count: results.count}),
+				name: '<i class="fa fa-search-plus"></i> '+ i18n.t('{{count}} result', {count: count}),
 				data: {type: 'result', data: results},
 				removable: false
 			});

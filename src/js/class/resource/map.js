@@ -10,6 +10,7 @@ module.exports = (function () {
 	var hcmap;
 	var userMarker;
 	var initialized = false;
+	var disableSearchRefresh = false;
 	var $body = $('body');
 	var $map = $('#map');
 	var self = {
@@ -314,7 +315,7 @@ module.exports = (function () {
 	};
 	var isSearchRefreshNeeded = function (point) {
 		//check distance between current center and last search
-		if (!data.getBool('mapFollow') || !self.jsonResults.params) {
+		if (disableSearchRefresh || !data.getBool('mapFollow') || !self.jsonResults.params) {
 			return false;
 		}
 		var distance = Math.round(google.maps.geometry.spherical.computeDistanceBetween(
@@ -498,12 +499,26 @@ module.exports = (function () {
 		},
 		setResults: setPins,
 		getResults: getResults,
+		getResultsCount: function () {
+			return self.jsonResults.count;
+		},
 		getResult: getResult,
 		getMap: function() {
 			return map;
 		},
 		resize: function() {
 			google.maps.event.trigger(map, "resize");
+		},
+		setCenter: function(latlng, allowSearchRefresh) {
+			if (allowSearchRefresh) {
+				map.setCenter(latlng);
+				return;
+			}
+			disableSearchRefresh = true;
+			map.setCenter(latlng);
+			setTimeout(function () {
+				disableSearchRefresh = false;
+			}, 600);
 		}
 	}
 })();

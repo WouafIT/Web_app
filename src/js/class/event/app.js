@@ -112,7 +112,7 @@ module.exports = (function() {
 				if (!position && __DEV__) {
 					console.error('No map position setted.')
 				}
-				map.getMap().setCenter(new google.maps.LatLng(position.lat, position.lng));
+				map.setCenter(new google.maps.LatLng(position.lat, position.lng), false);
 
 				//search posts from current position
 				$document.triggerHandler('app.search', {refresh: false});

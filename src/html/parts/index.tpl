@@ -65,7 +65,7 @@
 						<div class="input-group">
 							<div class="input-group-addon"><i class="fa fa-crosshairs"></i></div>
 							<input type="text" class="form-control" id="where"
-								   placeholder="<%= htmlWebpackPlugin.options.i18n['Look for a place'] %>" />
+								   placeholder="<%= htmlWebpackPlugin.options.i18n['Current position'] %>" />
 						</div>
 						<input type="hidden" id="where-loc" />
 					</fieldset>
@@ -76,8 +76,8 @@
 							<select class="form-control" id="when" placeholder="<%= htmlWebpackPlugin.options.i18n['Choose a period'] %>">
 								<option value="today"><%= htmlWebpackPlugin.options.i18n['Today'] %></option>
 								<option value="tomorrow"><%= htmlWebpackPlugin.options.i18n['Tomorrow'] %></option>
-								<option value="week" selected="selected"><%= htmlWebpackPlugin.options.i18n['This week'] %></option>
-								<option value="month"><%= htmlWebpackPlugin.options.i18n['This month'] %></option>
+								<option value="week" selected="selected"><%= htmlWebpackPlugin.options.i18n['The next 7 days'] %></option>
+								<option value="month"><%= htmlWebpackPlugin.options.i18n['The next 30 days'] %></option>
 								<option value="custom"><%= htmlWebpackPlugin.options.i18n['Specific dates'] %></option>
 							</select>
 						</div>

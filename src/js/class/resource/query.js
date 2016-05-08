@@ -105,19 +105,12 @@ module.exports = (function() {
 			for (var i in params) {
 				if (params.hasOwnProperty(i)) {
 					var param = params[i];
-					if (i == 'type' || i == 'searchId' || i == 'source' || !param) { //remove event or empty params
+					if (i == 'type' || i == 'searchId' || i == 'refresh' || !param) { //remove event or empty params
 						continue;
 					}
 					if (i == 'loc') {
 						//precision => http://gis.stackexchange.com/questions/8650/how-to-measure-the-accuracy-of-latitude-and-longitude
 						param = params[i].toUrlValue(3); //~110m
-					} else if (i == 'tag') {
-						param = params[i][1];
-					} else if (i == 'date' && params[i]) {
-						param = Math.round(params[i].getTime() / 1000);
-					} else if (i == 'cat' && params[i]) {
-						//var serverCategories = data.getObject('categories');
-						//param = serverCategories[params[i] - 1]['id'];
 					}
 					q += (q ? '&' : '?') + i + '=' + param;
 				}
