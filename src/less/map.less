@@ -49,54 +49,15 @@
 	z-index: -2;
 }
 
-.marker1 {
-	&::before {
-		background-image: url('../img/cat/1.png');
+.marker-backgrounds(8);
+.marker-backgrounds(@n, @i: 1) when (@i =< @n) {
+	.marker@{i} {
+		&::before {
+			background-image: url('../img/cat/@{i}.png');
+		}
 	}
+	.marker-backgrounds(@n, (@i + 1));
 }
-
-.marker2 {
-	&::before {
-		background-image: url('../img/cat/2.png');
-	}
-}
-
-.marker3 {
-	&::before {
-		background-image: url('../img/cat/3.png');
-	}
-}
-
-.marker4 {
-	&::before {
-		background-image: url('../img/cat/4.png');
-	}
-}
-
-.marker5 {
-	&::before {
-		background-image: url('../img/cat/5.png');
-	}
-}
-
-.marker6 {
-	&:before {
-		background-image: url('../img/cat/6.png');
-	}
-}
-
-.marker7 {
-	&:before {
-		background-image: url('../img/cat/7.png');
-	}
-}
-
-.marker8 {
-	&:before {
-		background-image: url('../img/cat/8.png');
-	}
-}
-
 
 .pulseMarker {
 	background-color: @green;

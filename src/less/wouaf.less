@@ -78,29 +78,12 @@
 		background-size: 1.4rem;
 		text-indent: 1.6rem;
 	}
-	.w-cat1 {
-		background-image: url('../img/cat/1.png');
-	}
-	.w-cat2 {
-		background-image: url('../img/cat/2.png');
-	}
-	.w-cat3 {
-		background-image: url('../img/cat/3.png');
-	}
-	.w-cat4 {
-		background-image: url('../img/cat/4.png');
-	}
-	.w-cat5 {
-		background-image: url('../img/cat/5.png');
-	}
-	.w-cat6 {
-		background-image: url('../img/cat/6.png');
-	}
-	.w-cat7 {
-		background-image: url('../img/cat/7.png');
-	}
-	.w-cat8 {
-		background-image: url('../img/cat/8.png');
+	.wouaf-backgrounds(8);
+	.wouaf-backgrounds(@n, @i: 1) when (@i =< @n) {
+		.w-cat@{i} {
+			background-image: url('../img/cat/@{i}.png');
+		}
+		.wouaf-backgrounds(@n, (@i + 1));
 	}
 }
 .w-accordion {
