@@ -67,16 +67,6 @@ module.exports = (function() {
 			add.init();
 			//init date time picker
 			dtp.init();
-			//init sharethis
-			stLight.options({
-				publisher: "2322e10f-9a09-414a-a500-a512981e393c",
-				lang: i18n.t('languageShort'),
-				onhover: false,
-				doNotHash: true,
-				doNotCopy: true,
-				hashAddressBar: false,
-				shorten:false
-			});
 
 			//update token and favorites if any
 			if (infos.token) {

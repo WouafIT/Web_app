@@ -23,20 +23,20 @@ module.exports = (function() {
 		}
 		var offset 		= $el.offset();
 		var uid 		= data.getString('uid');
-		var title 		= obj.title || obj.text.substr(0, 79) + (obj.text.length > 79 ? '…' : '');
+		var title 		= utils.getWouafTitle(obj);
 		var text 		= utils.textToHTML(obj.text);
 		var wouafUrl 	= url.getAbsoluteURLForStates([{name: 'wouaf', value: obj.id}]);
 		var favs 		= data.getArray('favorites');
-		var shareOptions = ' st_url="'+ wouafUrl +'" st_title="'+ utils.escapeHtml(utils.strip_tags(title)) +' - Wouaf IT" st_image="'+
-			url.getAbsoluteURLIcon() +'" st_summary="'+ utils.escapeHtml(utils.strip_tags(text)) +'"';
 		var menu = ['<div class="w-menu-dropdown dropdown-menu" data-id="'+ obj.id +'" data-menu="wouaf" hidden>',
-			'<div class="dropdown-item">',
-			'<span class="st_sharethis_large" displayText="ShareThis"'+ shareOptions +'></span>',
-			'<span class="st_facebook_large" displayText="Facebook"'+ shareOptions +'></span>',
-			'<span class="st_twitter_large" displayText="Tweet"'+ shareOptions +'></span>',
-			'<span class="st_reddit_large" displayText="Reddit"'+ shareOptions +'></span>',
-			'<span class="st_email_large" displayText="Email"'+ shareOptions +'></span>',
-			'<span class="st_print_large" displayText="Print"'+ shareOptions +'></span>',
+			'<div class="dropdown-item sharing"><i class="fa fa-share-alt"></i>',
+				'<span class="share facebook"><a href="https://www.facebook.com/sharer/sharer.php?u='+ encodeURIComponent(wouafUrl) +'" target="_blank" title="'+ i18n.t('Share on Facebook') +'">',
+					'<i class="fa fa-facebook-square"></i></a></span>',
+				'<span class="share twitter"><a href="https://twitter.com/intent/tweet?text='+ encodeURIComponent(title) +'&url='+ encodeURIComponent(wouafUrl) +'&via=Wouaf_IT" target="_blank" title="'+ i18n.t('Share on Twitter') +'">',
+					'<i class="fa fa-twitter-square"></i></a></span>',
+				'<span class="share reddit"><a href="https://www.reddit.com/submit?url='+ encodeURIComponent(wouafUrl) +'&title='+ encodeURIComponent(title) +'" target="_blank" title="'+ i18n.t('Share on Reddit') +'">',
+					'<i class="fa fa-reddit-square"></i></a></span>',
+				'<span class="share email"><a href="mailto:?subject='+ i18n.t('Shared from WouafIT:') +' '+ encodeURIComponent(title) +'&body='+ encodeURIComponent(wouafUrl) +'" target="_blank" title="'+ i18n.t('Share by Email') +'">',
+					'<i class="fa fa-envelope-o"></i></a></span>',
 			'</div>',
 			'<div class="dropdown-item"><i class="fa fa-link"></i> <input type="text" class="form-control link" value="'+ wouafUrl +'" /></div>',
 			(obj.author[0] === uid

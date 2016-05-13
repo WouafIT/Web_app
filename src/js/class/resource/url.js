@@ -82,8 +82,5 @@ module.exports = (function() {
 		var path = self.getPath(statesObj);
 		return (__DEV__ ? DEV_URL : PROD_URL) + path;
 	};
-	self.getAbsoluteURLIcon = function () {
-		return 'https://img.wouaf.it/icon.png';
-	};
 	return self;
 })();

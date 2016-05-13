@@ -25,7 +25,7 @@ module.exports = (function() {
 					windows.close();
 					return;
 				}
-				var title = obj.title || obj.text.substr(0, 79) + (obj.text.length > 79 ? '…' : '');
+				var title = utils.getWouafTitle(obj);
 				if (obj.com) {
 					$modalWindow.find('.modal-title').html(i18n.t('{{count}} comment for {{title}}', {
 						count: obj.com,

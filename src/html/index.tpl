@@ -32,7 +32,6 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.swipebox/1.4.4/js/jquery.swipebox.min.js"></script>
 <script src="//maps.googleapis.com/maps/api/js?key=<%= htmlWebpackPlugin.options.data.googleApi %>&libraries=geometry,places"></script>
-<script src="//ws.sharethis.com/button/buttons.js"></script>
 <script src="/js/build.js?v=<%= htmlWebpackPlugin.options.data.timestamp %>" charset="utf-8"></script>
 <script>
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

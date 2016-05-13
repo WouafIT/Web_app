@@ -234,6 +234,11 @@
 	"Send your message": "Send your message",
 	"Enter your message (1000 char. max)": "Enter your message (1000 char. max)",
 	"Your email address": "Your email address",
+	"Shared from WouafIT:": "Shared from WouafIT:",
+	"Share on Facebook": "Share on Facebook",
+	"Share on Twitter": "Share on Twitter",
+	"Share on Reddit": "Share on Reddit",
+	"Share by Email": "Share by Email",
 
 	"Contact an author": "Contact an author",
 	"Use the form below to contact {{author}}, author of Wouaf {{title}}": "Use the form below to contact {{author}}, author of Wouaf \"{{title}}\".",

@@ -284,6 +284,13 @@ module.exports = (function() {
 		}
 		return 'WouafIt version="1", key="'+ API_KEY +'"'+ key;
 	};
+	self.getWouafTitle = function (obj) {
+		if (obj.title) {
+			return obj.title;
+		}
+		var title = self.strip_tags(obj.text);
+		return title.substr(0, 79) + (title.length > 79 ? '…' : '');
+	};
 
 	return self;
 })();

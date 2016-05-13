@@ -22,7 +22,7 @@ module.exports = (function() {
 				return;
 			}
 			$.when(wouafs.get(states.wouaf)).done(function(obj) {
-				var title = obj.title || obj.text.substr(0, 79) + (obj.text.length > 79 ? '…' : '');
+				var title = utils.getWouafTitle(obj);
 				$modalWindow.find('h4').html(i18n.t('Contact an author'));
 				$modalWindow.find('.contact-details').html(i18n.t('Use the form below to contact {{author}}, author of Wouaf {{title}}', {title: title, author: obj.author[2] || obj.author[1]}));
 				handleForm(obj.author[0], obj);
