@@ -3,6 +3,7 @@ module.exports = (function () {
 	var categories = require('./categories.js');
 	var i18n = require('./i18n.js');
 	var data = require('./data.js');
+	var wouafs = require('./wouafs.js');
 	var utils = require('../utils.js');
 	var $document = $(document);
 	var map, infowindow; //GMap elements
@@ -56,6 +57,7 @@ module.exports = (function () {
 		//create pins data
 		for (i = 0, li = json.results.length; i < li; i++) {
 			var post = json.results[i];
+			wouafs.set(post.id, post);
 			var element = {
 				'id': 			post.id,
 				'description': 	post.text,
@@ -119,7 +121,7 @@ module.exports = (function () {
 	};
 
 	var showPin = function (id, obj) {
-		if (!id || !utils.isValidWouafId(id)) {
+		if (!id || !utils.isId(id)) {
 			return;
 		}
 		if (obj) {
@@ -139,7 +141,6 @@ module.exports = (function () {
 			});
 		});
 	};
-
 	var openPin = function (obj) {
 		$document.triggerHandler('navigation.disable-state');
 		var count = 0;
@@ -453,9 +454,9 @@ module.exports = (function () {
 	var getResult = function(id, obj) {
 		var deferred = $.Deferred();
 		//check if wouaf exists in current search results
-		obj = obj || getResults([id])[0] || null;
+		obj = obj || wouafs.getLocal(id);
 		//else check if wouaf data exists in html
-		if (!obj && window.wouafit.wouaf && window.wouafit.wouaf.id == id) {
+		if (!obj && window.wouafit.wouaf && window.wouafit.wouaf.id === id) {
 			obj = window.wouafit.wouaf;
 		}
 		if (obj) {
@@ -476,7 +477,7 @@ module.exports = (function () {
 				//wait for map initialization
 				$document.one('map.results-chown', function() {
 					//check if wouaf exists in current search results
-					var obj = getResults([id])[0] || null;
+					var obj = wouafs.getLocal(id);
 					if (obj) {
 						deferred.resolve(obj);
 					} else {
@@ -502,7 +503,6 @@ module.exports = (function () {
 		getResultsCount: function () {
 			return self.jsonResults.count;
 		},
-		getResult: getResult,
 		getMap: function() {
 			return map;
 		},

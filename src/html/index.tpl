@@ -13,7 +13,7 @@
 	<meta name="description" content="<%= htmlWebpackPlugin.options.i18n['Wouaf IT'] %> -
 		<%= htmlWebpackPlugin.options.i18n['Your social network for your local events'] %>" />
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css" />
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.css" />
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery.swipebox/1.4.4/css/swipebox.min.css" />
 	<link rel="apple-touch-icon-precomposed" href="apple-touch-icon.png" />

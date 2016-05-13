@@ -98,7 +98,7 @@ module.exports = (function() {
 							//store map position: url
 							data.setObject('position', position);
 						}
-					} else if (part === 'wouaf' && utils.isValidWouafId(parts[i + 1])) {
+					} else if (part === 'wouaf' && utils.isId(parts[i + 1])) {
 						var wouafId = parts[++i];
 						//check if wouaf data exists in html
 						if (window.wouafit.wouaf && window.wouafit.wouaf.id == wouafId) {
@@ -143,7 +143,7 @@ module.exports = (function() {
 			});
 		/*} else if ($source.data('hash')) {
 			console.info('TODO show hash '+ $source.data('hash'));*/
-		} else if ($source.data('wouaf') && utils.isValidWouafId($source.data('wouaf'))) {
+		} else if ($source.data('wouaf') && utils.isId($source.data('wouaf'))) {
 			map.showResult($source.data('wouaf'));
 		} else if ($source.data('show') == 'modal' && $source.data('href') && utils.isValidPageName($source.data('href'))) {
 			windows.show({href: $source.data('href')});

@@ -188,8 +188,8 @@ module.exports = (function() {
 	self.isValidUsername = function (text) {
 		return twitterText.isValidUsername('@'+text);
 	};
-	self.isValidWouafId = function (text) {
-		return /^[a-f0-9]+$/.test(text);
+	self.isId = function (id) {
+		return /^[a-f0-9]{24}$/.test(id);
 	};
 	self.isValidPageName = function (text) {
 		return /^[a-z-]+$/.test(text) && text !== 'wouaf';

@@ -7,6 +7,7 @@ module.exports = (function() {
 	var query = require('../resource/query.js');
 	var toast = require('../resource/toast.js');
 	var data = require('../resource/data.js');
+	var wouafs = require('../resource/wouafs.js');
 	var utils = require('../utils.js');
 
 	//Close menu
@@ -55,7 +56,7 @@ module.exports = (function() {
 			//Actions on Wouaf menu
 			case 'wouaf':
 				var id = $target.parents('.w-menu-dropdown, .w-container').data('id');
-				var obj = map.getResults([id])[0] || null;
+				var obj = wouafs.getLocal(id);
 				if (!obj) {
 					return;
 				}
@@ -72,6 +73,7 @@ module.exports = (function() {
 								query.deletePost(obj.id,
 									function() { //success
 										map.removeResult(obj.id);
+										wouafs.remove(obj.id);
 										toast.show(i18n.t('Your Wouaf is deleted'));
 
 										$document.triggerHandler('app.deleted-wouaf', obj);
@@ -183,7 +185,7 @@ module.exports = (function() {
 								query.deleteComment(commentId,
 									function () { //success
 										//Get comment Wouaf
-										var obj = map.getResults([wouafId])[0] || null;
+										var obj = wouafs.getLocal(wouafId);
 										if (obj) {
 											obj.com--;
 											$document.triggerHandler('wouaf.update-comment', obj);

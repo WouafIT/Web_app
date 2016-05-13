@@ -43,15 +43,15 @@ module.exports = (function() {
 			if (params.refresh) {
 				notificationLabel 	= i18n.t('Adding {{count}} Wouaf', { count: count - previousSearchCount });
 			} else {
-				notificationLabel 	= i18n.t('{{count}} Wouaf', { count: count });
+				notificationLabel 	= i18n.t('{{count}} Wouaf displayed', { count: count });
 			}
 			previousSearchCount = count;
 			var unit 				= data.getString('unit');
 			var radius 				= unit == 'km' ? data.getInt('radius') : mlRadius[data.getInt('radius')];
 			if (count == 500) {
-				toast.show(i18n.t('{{max}} displayed within {{radius}}{{unit}} (maximum reached)', {max: notificationLabel, radius: radius, unit: i18n.t(unit) }), 4000);
+				toast.show(i18n.t('{{max}} within {{radius}}{{unit}} (maximum reached)', {max: notificationLabel, radius: radius, unit: i18n.t(unit) }), 4000);
 			} else if (count) {
-				toast.show(i18n.t('{{wouaf}} displayed within {{radius}}{{unit}}', { count: count, wouaf: notificationLabel, radius: radius, unit: i18n.t(unit) }), 4000);
+				toast.show(i18n.t('{{wouaf}} within {{radius}}{{unit}}', { count: count, wouaf: notificationLabel, radius: radius, unit: i18n.t(unit) }), 4000);
 			} else {
 				toast.show(i18n.t('At the moment there are no Wouaf within {{radius}}{{unit}}', { radius: radius, unit: i18n.t(unit) }), 6000);
 			}

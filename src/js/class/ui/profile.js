@@ -15,6 +15,7 @@ module.exports = (function() {
 			return;
 		}
 		var user = require('../resource/user.js');
+		var users = require('../resource/users.js');
 		var $form = $modalWindow.find('form');
 		var $username = $form.find('input[name=username]');
 		var $description = $form.find('textarea[name=description]');
@@ -65,6 +66,7 @@ module.exports = (function() {
 					windows.close();
 					query.deleteUser(
 						function() { //success
+							users.remove(data.getString('uid'));
 							$document.triggerHandler('app.deleted-profile', user.get('lang'));
 
 							$document.triggerHandler('app.logout');
@@ -145,7 +147,7 @@ module.exports = (function() {
 				$document.triggerHandler('app.login');
 
 				windows.close();
-
+				users.remove(data.getString('uid'));
 				toast.show(i18n.t('Profile saved!'), null, function () {
 					if (originalLanguage != user.get('lang')) {
 						var lang = user.get('lang').toLowerCase().replace('_', '-');

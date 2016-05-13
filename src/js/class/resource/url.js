@@ -55,7 +55,7 @@ module.exports = (function() {
 				}
 				break;
 			case 'wouaf':
-				if (state.value === null || utils.isValidWouafId(state.value)) {
+				if (state.value === null || utils.isId(state.value)) {
 					return true;
 				}
 				break;

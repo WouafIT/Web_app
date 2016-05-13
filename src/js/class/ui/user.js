@@ -6,8 +6,9 @@ module.exports = (function() {
 	var i18n = require('../resource/i18n.js');
 	var query = require('../resource/query.js');
 	var dtp = require('../resource/datetimepicker.js');
+	var url = require('../resource/url.js');
+	var users = require('../resource/users.js');
 	var $modalWindow = windows.getWindows();
-	var $document = $(document);
 
 	self.show = function () {
 		var states = data.getObject('navigation');
@@ -16,8 +17,7 @@ module.exports = (function() {
 			return;
 		}
 		//get user infos
-		query.getUser(states.user, function(result) {
-			var user = result.user;
+		$.when(users.get(states.user)).done(function(user) {
 			var username = user.firstname || user.lastname ? user.firstname +' '+ user.lastname : user.username;
 			$modalWindow.find('.modal-title').html(i18n.t('User profile {{username}}', {username: username.trim()}));
 			var content = '<div class="modal-user">';
@@ -25,11 +25,9 @@ module.exports = (function() {
 				content += '<blockquote class="blockquote">'+ utils.textToHTML(user.description) +'</blockquote>';
 			}
 			content += '<div class="user-infos">';
-			if (user.firstname || user.lastname) {
-				content += '<p><i class="fa fa-at"></i>'+ user.username +'</p>'
-			}
+			content += '<p><i class="fa fa-link"></i> <a href="'+ url.getAbsoluteURLForStates([{name: 'user', value: user.username}]) +'"><i class="fa fa-at"></i>'+ user.username +'</a></p>'
 			if (user.posts) {
-				content += '<p><i class="fa fa-hashtag"></i> '+ i18n.t('{{count}} Wouaf', {count: user.posts}) +'</p>';
+				content += '<p><i class="fa fa-hashtag"></i> <a href="#" data-action="user-wouaf" data-uid="'+ user.uid +'">'+ i18n.t('{{count}} Wouaf', {count: user.posts}) +'</a></p>';
 				if (user.fav) {
 					content += '<p><i class="fa fa-star"></i> '+ i18n.t('Saved as favorite {{count}} time', {count: user.fav}) +'</p>';
 				}
@@ -40,6 +38,16 @@ module.exports = (function() {
 				content += '<p><i class="fa fa-comment"></i> '+ i18n.t('{{count}} comment', {count: user.com}) +'</p>';
 			} else {
 				content += '<p><i class="fa fa-comment"></i> '+ i18n.t('No comments yet') +'</p>';
+			}
+			if (user.following) {
+				content += '<p><i class="fa fa-eye"></i> <span class="follow">'+ i18n.t('Is following {{count}} Wouaffer', {count: user.following});
+			} else {
+				content += '<p><i class="fa fa-eye"></i> <span class="follow">'+ i18n.t('Is not following anyone yet');
+			}
+			if (user.followers) {
+				content += '<br />'+ i18n.t('Is followed by {{count}} Wouaffer', {count: user.followers}) +'</span></p>';
+			} else {
+				content += '<br />'+ i18n.t('Is not followed by anyone yet') +'</span></p>';
 			}
 			if (user.registration) {
 				var registration = new Date();
@@ -60,26 +68,10 @@ module.exports = (function() {
 
 			content += '</div></div>';
 			if (user.posts) {
-				content += '<p class="text-xs-right"><button type="button" class="btn btn-primary view-wouaf">' + i18n.t('See his Wouafs') + '</button></p>';
+				content += '<p class="text-xs-right"><button type="button" data-action="user-wouaf" data-uid="'+ user.uid +'" class="btn btn-primary view-wouaf">' + i18n.t('See his Wouafs') + '</button></p>';
 			}
 			$modalWindow.find('.modal-body').html(content);
-
-			$modalWindow.find('button.view-wouaf').on('click', function () {
-				//load user tabs data
-				query.userPosts(user.uid, function (data) {
-					windows.close();
-					$document.triggerHandler('tabs.add', {
-						id: 'user-'+ user.uid,
-						name: '<i class="fa fa-list"></i> '+ username,
-						active: true,
-						removable: true,
-						data: {type: 'list', data: data}
-					});
-				}, function (msg) {
-					toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
-				});
-			});
-		}, function() {
+		}).fail(function() {
 			var username = states.user || '';
 			windows.close();
 			var toast = require('../resource/toast.js');

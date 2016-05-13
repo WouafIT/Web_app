@@ -1,11 +1,11 @@
 module.exports = (function() {
 	var self = {};
-	var map = require('../resource/map.js');
 	var data = require('../resource/data.js');
 	var utils = require('../utils.js');
 	var i18n = require('../resource/i18n.js');
 	var windows = require('../resource/windows.js');
 	var query = require('../resource/query.js');
+	var wouafs = require('../resource/wouafs.js');
 	var twitterText = require('twitter-text');
 	var alert = require('../resource/alert.js');
 	var comment = require('./comment.js');
@@ -14,12 +14,12 @@ module.exports = (function() {
 
 	self.show = function () {
 		var states = data.getObject('navigation');
-		if (!states.wouaf || !utils.isValidWouafId(states.wouaf)) {
+		if (!states.wouaf || !utils.isId(states.wouaf)) {
 			windows.close();
 			return;
 		}
 		//comment wouaf
-		$.when(map.getResult(states.wouaf))
+		$.when(wouafs.get(states.wouaf))
 			.done(function(obj) {
 				if (!obj) {
 					windows.close();

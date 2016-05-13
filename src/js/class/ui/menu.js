@@ -1,10 +1,10 @@
 module.exports = (function() {
 	var i18n = require('../resource/i18n.js');
-	var map = require('../resource/map.js');
 	var url = require('../resource/url.js');
 	var utils = require('../utils');
 	var data = require('../resource/data.js');
 	var windows = require('../resource/windows.js');
+	var wouafs = require('../resource/wouafs.js');
 	var self = {};
 	var $map = $('#map');
 	var $modal = windows.getWindows();
@@ -17,7 +17,7 @@ module.exports = (function() {
 		if (!id) {
 			return;
 		}
-		var obj = map.getResults([id])[0] || null;
+		var obj = wouafs.getLocal(id);
 		if (!obj) {
 			return;
 		}

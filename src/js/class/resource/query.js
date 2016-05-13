@@ -110,7 +110,7 @@ module.exports = (function() {
 					}
 					if (i == 'loc') {
 						//precision => http://gis.stackexchange.com/questions/8650/how-to-measure-the-accuracy-of-latitude-and-longitude
-						param = params[i].toUrlValue(3); //~110m
+						param = params[i].toUrlValue(2); //~1.1km
 					}
 					q += (q ? '&' : '?') + i + '=' + param;
 				}

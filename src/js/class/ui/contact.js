@@ -7,6 +7,7 @@ module.exports = (function() {
 	var toast = require('../resource/toast.js');
 	var twitterText = require('twitter-text');
 	var query = require('../resource/query.js');
+	var wouafs = require('../resource/wouafs.js');
 	var $modalWindow = windows.getWindows();
 
 	self.show = function () {
@@ -14,19 +15,18 @@ module.exports = (function() {
 		var $form = $modalWindow.find('form');
 		var $email = $form.find('input[name=email]');
 		$email.parents('.form-group').hide().removeAttr('hidden');
-		if (states.wouaf && utils.isValidWouafId(states.wouaf)) {
+		if (states.wouaf && utils.isId(states.wouaf)) {
 			//contact wouaf author
 			if (!data.getString('uid')) { //user is not logged, close window
 				windows.login(i18n.t('Login to contact a user'));
 				return;
 			}
-			query.post(states.wouaf, function (result) {
-				var obj = result.wouaf;
+			$.when(wouafs.get(states.wouaf)).done(function(obj) {
 				var title = obj.title || obj.text.substr(0, 79) + (obj.text.length > 79 ? '…' : '');
 				$modalWindow.find('h4').html(i18n.t('Contact an author'));
 				$modalWindow.find('.contact-details').html(i18n.t('Use the form below to contact {{author}}, author of Wouaf {{title}}', {title: title, author: obj.author[2] || obj.author[1]}));
 				handleForm(obj.author[0], obj);
-			}, function () {
+			}).fail(function(msg) {
 				windows.close();
 				toast.show(i18n.t('An error has occurred, you can not contact the author of this Wouaf'), 5000);
 			});
