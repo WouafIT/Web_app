@@ -4,7 +4,6 @@ module.exports = (function() {
 	var utils = require('../utils.js');
 	var windows = require('../resource/windows.js');
 	var i18n = require('../resource/i18n.js');
-	var query = require('../resource/query.js');
 	var dtp = require('../resource/datetimepicker.js');
 	var url = require('../resource/url.js');
 	var users = require('../resource/users.js');

@@ -6,7 +6,7 @@ module.exports = (function() {
 	var xhr;
 	//Google geocode usage limits : https://developers.google.com/maps/articles/geocodestrat#client
 	//==> illimited from client (browser) requests
-	var GOOGLE_BASE_URL = 'https://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=';
+	//var GOOGLE_BASE_URL = 'https://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=';
 	var ENDPOINT 		= API_ENDPOINT;
 	$document.ajaxStart(function() {
 		if (__DEV__) {
@@ -68,7 +68,7 @@ module.exports = (function() {
 		}
 		xhr = $.ajax(xhr_params);
 	};
-	var geocode = function(address, callback) {
+	/*var geocode = function(address, callback) {
 		$.ajax({
 			url: GOOGLE_BASE_URL + address,
 			type: 'GET',
@@ -96,7 +96,7 @@ module.exports = (function() {
 				callback(false);
 			}
 		});
-	};
+	};*/
 	var self = {
 		connectionError: connectionError,
 		posts: function(params, successCallback, errorCallback) {
