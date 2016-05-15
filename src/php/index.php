@@ -21,15 +21,16 @@ if (!$wouafId && !$userId) {
 } else {
 	$etag = null; //TODO
 }
+header("Last-Modified: " . gmdate("D, d M Y H:i:s", $buildTime) . " GMT");
 if ($etag) {
-	header("Last-Modified: " . gmdate("D, d M Y H:i:s", $buildTime) . " GMT");
 	header('Etag: ' . $etag);
-
-	if (@strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) == $buildTime ||
-		trim($_SERVER['HTTP_IF_NONE_MATCH']) == $etag) {
-		header("HTTP/1.1 304 Not Modified");
-		exit;
-	}
+}
+if ((isset($_SERVER['HTTP_IF_MODIFIED_SINCE'])
+	&& @strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) == $buildTime)
+	|| ($etag && isset($_SERVER['HTTP_IF_NONE_MATCH'])
+			&& trim($_SERVER['HTTP_IF_NONE_MATCH']) == $etag)) {
+	header("HTTP/1.1 304 Not Modified");
+	exit;
 }
 $content = '';
 if (!$requestURI || $requestURI === '/') {
