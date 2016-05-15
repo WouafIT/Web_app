@@ -1,5 +1,11 @@
 DirectoryIndex index.html
 
+<IfModule mod_headers.c>
+	<FilesMatch "\\.(ico|jpe?g|png|gif|css|js|html|eot|svg|svgz|ttf|woff)$">
+		Header set Cache-Control "public, s-maxage=86400, max-age=300"
+	</FilesMatch>
+</IfModule>
+
 RewriteEngine on
 
 RewriteCond %{REQUEST_FILENAME} !-f

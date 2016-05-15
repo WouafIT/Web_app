@@ -1,17 +1,38 @@
 <?php
-$requestURI = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
-$content = '';
-if (!$requestURI || $requestURI === '/') {
-    return $content;
-}
+$buildTime = (int) '<%= htmlWebpackPlugin.options.data.timestamp %>';
 
+$requestURI = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
 //grab vars in URL
 $wouafId = $userId = null;
 if (preg_match('#\/wouaf\/([0-9a-f]{24})\/.*#' , $requestURI, $matches)) {
-    $wouafId = $matches[1];
+	$wouafId = $matches[1];
 }
 if (preg_match('#\/user\/([^/]*)\/.*#' , $requestURI, $matches)) {
-    $userId = $matches[1];
+	$userId = $matches[1];
+}
+//Generate file Etag
+//if no wouaf or user is queried
+//=> etag is md5(url-buildTime)
+//else
+//=> etag should be checked from api server
+if (!$wouafId && !$userId) {
+	$etag = 'W/"' . md5($requestURI . '-' . $buildTime) . '"';
+} else {
+	$etag = null; //TODO
+}
+if ($etag) {
+	header("Last-Modified: " . gmdate("D, d M Y H:i:s", $buildTime) . " GMT");
+	header('Etag: ' . $etag);
+
+	if (@strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) == $buildTime ||
+		trim($_SERVER['HTTP_IF_NONE_MATCH']) == $etag) {
+		header("HTTP/1.1 304 Not Modified");
+		exit;
+	}
+}
+$content = '';
+if (!$requestURI || $requestURI === '/') {
+    return $content;
 }
 if (strpos($requestURI, '/about/') !== false) {
     $content .= file_get_contents(__DIR__.'/../parts/about.html');
