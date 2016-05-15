@@ -10,26 +10,22 @@ if (preg_match('#\/wouaf\/([0-9a-f]{24})\/.*#' , $requestURI, $matches)) {
 if (preg_match('#\/user\/([^/]*)\/.*#' , $requestURI, $matches)) {
 	$userId = $matches[1];
 }
-//Generate file Etag
+//Generate file Last-modified header
 //if no wouaf or user is queried
-//=> etag is md5(url-buildTime)
+//=> Last-modified is last build time
 //else
-//=> etag should be checked from api server
-$etag = null;
-if (!$wouafId && !$userId) {
-	$etag = 'W/"' . md5($requestURI . '-' . $buildTime) . '"';
-} else {
-	$etag = 'W/"' . md5(uniqid() . '-' . $buildTime) . '"'; //TODO => remove uniqid and use Etag data from API
-}
+//=> Last-modified should be checked from api server
 header("Cache-Control: public");
-if (isset($_SERVER['HTTP_IF_NONE_MATCH'])
-	// -gzip is added from moddeflate but we use weak etags so we can strip it
-	&& str_replace('-gzip', '', trim($_SERVER['HTTP_IF_NONE_MATCH'])) == $etag) {
-	header('Etag: '. $_SERVER['HTTP_IF_NONE_MATCH']);
+if (!$wouafId && !$userId) {
+	header("Last-Modified: ".gmdate("D, d M Y H:i:s", $buildTime)." GMT");
+} else {
+	header("Last-Modified: ".gmdate("D, d M Y H:i:s", time())." GMT"); //TODO => remove time() and use Last modified data from API
+}
+if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) &&
+	@strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) == $buildTime) {
 	header("HTTP/1.1 304 Not Modified");
 	exit;
 }
-header('Etag: '. $etag);
 
 $content = '';
 if (!$requestURI || $requestURI === '/') {
