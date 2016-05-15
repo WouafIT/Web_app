@@ -21,6 +21,7 @@ if (!$wouafId && !$userId) {
 } else {
 	$etag = null; //TODO
 }
+header("Cache-Control: public");
 header("Last-Modified: " . gmdate("D, d M Y H:i:s", $buildTime) . " GMT");
 if ($etag) {
 	header('Etag: ' . $etag);
