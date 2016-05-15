@@ -22,12 +22,14 @@ if (!$wouafId && !$userId) {
 	$etag = 'W/"' . md5(uniqid() . '-' . $buildTime) . '"'; //TODO => remove uniqid and use Etag data from API
 }
 header("Cache-Control: public");
-header('Etag: ' . $etag);
 if (isset($_SERVER['HTTP_IF_NONE_MATCH'])
-	&& trim($_SERVER['HTTP_IF_NONE_MATCH']) == $etag) {
+	// -gzip is added from moddeflate but we use weak etags so we can strip it
+	&& str_replace('-gzip', '', trim($_SERVER['HTTP_IF_NONE_MATCH'])) == $etag) {
+	header('Etag: '. $_SERVER['HTTP_IF_NONE_MATCH']);
 	header("HTTP/1.1 304 Not Modified");
 	exit;
 }
+header('Etag: '. $etag);
 
 $content = '';
 if (!$requestURI || $requestURI === '/') {

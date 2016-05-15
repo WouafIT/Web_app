@@ -4,6 +4,9 @@ DirectoryIndex index.html
 
 <IfModule mod_headers.c>
 	FileETag None
+    <FilesMatch "crossd_iframe\.html$">
+		Header unset X-Frame-Options
+	</FilesMatch>
 	<FilesMatch "\.(ico|jpe?g|png|gif|css|eot|svg|svgz|ttf|woff)$">
 		Header unset ETag
 		Header set Cache-Control "public, s-maxage=2592000, max-age=2592000"
