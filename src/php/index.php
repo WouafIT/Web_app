@@ -15,11 +15,13 @@ if (preg_match('#\/user\/([^/]*)\/.*#' , $requestURI, $matches)) {
 //=> Last-modified is last build time
 //else
 //=> Last-modified should be checked from api server
-header("Cache-Control: public");
-if (!$wouafId && !$userId) {
-	header("Last-Modified: ".gmdate("D, d M Y H:i:s", $buildTime)." GMT");
-} else {
+
+if ($wouafId || $userId) {
+	header("Cache-Control: public, s-maxage=300, max-age=60");
 	header("Last-Modified: ".gmdate("D, d M Y H:i:s", time())." GMT"); //TODO => remove time() and use Last modified data from API
+} else {
+	header("Cache-Control: public, s-maxage=300, max-age=60");
+	header("Last-Modified: ".gmdate("D, d M Y H:i:s", $buildTime)." GMT");
 }
 if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) &&
 	@strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) == $buildTime) {
