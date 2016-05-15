@@ -17,10 +17,10 @@ if (preg_match('#\/user\/([^/]*)\/.*#' , $requestURI, $matches)) {
 //=> Last-modified should be checked from api server
 
 if ($wouafId || $userId) {
-	header("Cache-Control: public, s-maxage=7200, max-age=1800");
+	header("Cache-Control: private, max-age=3600");
 	header("Last-Modified: ".gmdate("D, d M Y H:i:s", time())." GMT"); //TODO => remove time() and use Last modified data from API
 } else {
-	header("Cache-Control: public, s-maxage=7200, max-age=1800");
+	header("Cache-Control: max-age=1800, must-revalidate");
 	header("Last-Modified: ".gmdate("D, d M Y H:i:s", $buildTime)." GMT");
 }
 if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) &&
