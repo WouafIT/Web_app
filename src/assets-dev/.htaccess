@@ -1,4 +1,14 @@
+ErrorDocument 404 /404.html
+ErrorDocument 403 /403.html
 DirectoryIndex index.html
+
+<IfModule mod_headers.c>
+	FileETag None
+	<FilesMatch "\.(ico|jpe?g|png|gif|css|js|html|eot|svg|svgz|ttf|woff)$">
+		Header unset ETag
+		Header set Cache-Control "public, s-maxage=86400, max-age=300"
+	</FilesMatch>
+</IfModule>
 
 RewriteEngine on
 

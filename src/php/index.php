@@ -15,6 +15,7 @@ if (preg_match('#\/user\/([^/]*)\/.*#' , $requestURI, $matches)) {
 //=> etag is md5(url-buildTime)
 //else
 //=> etag should be checked from api server
+$etag = null;
 if (!$wouafId && !$userId) {
 	$etag = 'W/"' . md5($requestURI . '-' . $buildTime) . '"';
 } else {
