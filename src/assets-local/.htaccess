@@ -4,9 +4,13 @@ DirectoryIndex	index.php
 
 <IfModule mod_headers.c>
 	FileETag None
-	<FilesMatch "\.(ico|jpe?g|png|gif|css|js|html|eot|svg|svgz|ttf|woff)$">
+	<FilesMatch "\.(ico|jpe?g|png|gif|css|eot|svg|svgz|ttf|woff)$">
 		Header unset ETag
-		Header set Cache-Control "public, s-maxage=86400, max-age=300"
+		Header set Cache-Control "public, s-maxage=2592000, max-age=2592000"
+	</FilesMatch>
+	<FilesMatch "\.(js|html)$">
+		Header unset ETag
+		Header set Cache-Control "public, s-maxage=2592000, max-age=86400"
 	</FilesMatch>
 </IfModule>
 
