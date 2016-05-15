@@ -41,7 +41,8 @@ var common = Object.keys(languages).map(function(language) {
 		devTitle:		(IS_DEV ? ' (DEV)' : '')
 	};
 	var phpData = {
-		"API_KEY": 	IS_DEV ? API_KEY_DEV : API_KEY_PROD
+		timestamp: 		TIMESTAMP,
+		"API_KEY": 		IS_DEV ? API_KEY_DEV : API_KEY_PROD
 	};
 	var languageData = require(languages[language]);
 	return {
