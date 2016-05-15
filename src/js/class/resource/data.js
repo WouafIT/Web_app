@@ -121,7 +121,7 @@ module.exports = (function() {
 	var cdPath = __DEV__ ? DEV_URL : PROD_URL;
 	var crossDomainLocalStorage = crossDomainStorage({
 		origin: cdPath,
-		path: '/crossd_iframe.html'
+		path: '/crossd_iframe.html?v='+ BUILD_VERSION
 	});
 
 	var self = {};
