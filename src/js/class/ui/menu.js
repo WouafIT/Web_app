@@ -26,10 +26,11 @@ module.exports = (function() {
 		var title 		= utils.getWouafTitle(obj);
 		var text 		= utils.textToHTML(obj.text);
 		var wouafUrl 	= url.getAbsoluteURLForStates([{name: 'wouaf', value: obj.id}]);
+		var wouafLocaleUrl = url.getAbsoluteURLForStates([{name: 'wouaf', value: obj.id}], true);
 		var favs 		= data.getArray('favorites');
 		var menu = ['<div class="w-menu-dropdown dropdown-menu" data-id="'+ obj.id +'" data-menu="wouaf" hidden>',
 			'<div class="dropdown-item sharing"><i class="fa fa-share-alt"></i>',
-				'<span class="share facebook"><a href="https://www.facebook.com/sharer/sharer.php?u='+ encodeURIComponent(wouafUrl) +'" target="_blank" title="'+ i18n.t('Share on Facebook') +'">',
+				'<span class="share facebook"><a href="https://www.facebook.com/sharer/sharer.php?u='+ encodeURIComponent(wouafLocaleUrl) +'" target="_blank" title="'+ i18n.t('Share on Facebook') +'">',
 					'<i class="fa fa-facebook-square"></i></a></span>',
 				'<span class="share twitter"><a href="https://twitter.com/intent/tweet?text='+ encodeURIComponent(title) +'&url='+ encodeURIComponent(wouafUrl) +'&via=Wouaf_IT" target="_blank" title="'+ i18n.t('Share on Twitter') +'">',
 					'<i class="fa fa-twitter-square"></i></a></span>',

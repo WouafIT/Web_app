@@ -71,7 +71,8 @@ module.exports = (function() {
 		var states = data.getObject('navigation');
 		return self.getPath(states);
 	};
-	self.getAbsoluteURLForStates = function (states) {
+	self.getAbsoluteURLForStates = function (states, localeUrl) {
+		var localeUrl = localeUrl || false;
 		var statesObj = {};
 		for (var i = 0, l = states.length; i < l; i++) {
 			var state = states[i];
@@ -80,7 +81,11 @@ module.exports = (function() {
 			}
 		}
 		var path = self.getPath(statesObj);
-		return (__DEV__ ? DEV_URL : PROD_URL) + path;
+		if (localeUrl) {
+			return window.location.protocol +'//'+ window.location.hostname + path;
+		} else {
+			return (__DEV__ ? DEV_URL : PROD_URL) + path;
+		}
 	};
 	return self;
 })();
