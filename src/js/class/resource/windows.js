@@ -12,6 +12,7 @@ module.exports = (function() {
 			return;
 		}
 		//Load modal content
+		var start = new Date().getTime();
 		$.get('/parts/'+ href +'.html', {v: BUILD_VERSION})
 		.done(function(html) {
 			$modalContent.html(html);
@@ -29,6 +30,8 @@ module.exports = (function() {
 			self.close();
 			var query = require('./query.js');
 			query.connectionError();
+		}).then(function () {
+			$document.triggerHandler('windows.opened', {time: (new Date().getTime()-start), href: href});
 		});
 		if (!$modal.data('navigationOpen')) {
 			$document.triggerHandler('navigation.set-state', {name: 'windows', value: href});

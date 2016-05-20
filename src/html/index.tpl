@@ -24,6 +24,12 @@
 	<link rel="apple-touch-icon-precomposed" href="apple-touch-icon.png" />
 	<script src="/js/libs/modernizr.js?v=<%= htmlWebpackPlugin.options.data.timestamp %>"></script>
 	<style>#splash {position: absolute;top: 0;left: 0;height: 100%;width: 100%;background: #2B9D48;z-index: 100;} #slogo{margin: auto;display: block;top: 50%;transform: translateY(-60%);position: relative;width:20%;height: auto;}</style>
+	<script>
+		window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+		ga('create', '<%= htmlWebpackPlugin.options.data.googleAnalytics %>', {
+			'cookieDomain': '<%= htmlWebpackPlugin.options.data.cookieDomain %>'
+		});
+	</script>
 </head>
 <body>
 <div id="splash">
@@ -38,13 +44,6 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.swipebox/1.4.4/js/jquery.swipebox.min.js"></script>
 <script src="//maps.googleapis.com/maps/api/js?key=<%= htmlWebpackPlugin.options.data.googleApi %>&libraries=geometry,places"></script>
 <script src="/js/build.js?v=<%= htmlWebpackPlugin.options.data.timestamp %>" charset="utf-8"></script>
-<script>
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', '<%= htmlWebpackPlugin.options.data.googleAnalytics %>', {
-		'cookieDomain': '<%= htmlWebpackPlugin.options.data.cookieDomain %>'
-	});
-	ga('send', 'pageview');
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
 </body>
 </html>

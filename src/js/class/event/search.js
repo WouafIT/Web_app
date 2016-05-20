@@ -41,8 +41,10 @@ module.exports = (function() {
 			//show results number
 			var notificationLabel;
 			if (params.refresh) {
+				$document.triggerHandler('app.refresh-search', params);
 				notificationLabel 	= i18n.t('Adding {{count}} Wouaf', { count: count - previousSearchCount });
 			} else {
+				$document.triggerHandler('app.new-search', params);
 				notificationLabel 	= i18n.t('{{count}} Wouaf displayed', { count: count });
 			}
 			previousSearchCount = count;

@@ -42,6 +42,8 @@ module.exports = (function() {
 				}
 			}
 		}
+		var start = new Date().getTime();
+		var caller = arguments.callee.caller.name;
 		var xhr_params = {
 			url: params.url,
 			type: params.method,
@@ -60,7 +62,7 @@ module.exports = (function() {
 				}
 			},
 			complete: function() {
-				//nothing ?
+				$document.triggerHandler('app.query', {time: (new Date().getTime()-start), caller: caller});
 			}
 		};
 		if (__DEV__) {
@@ -99,7 +101,7 @@ module.exports = (function() {
 	};*/
 	var self = {
 		connectionError: connectionError,
-		posts: function(params, successCallback, errorCallback) {
+		posts: function posts(params, successCallback, errorCallback) {
 			var searchId = params.searchId;
 			var q = '';
 			for (var i in params) {
@@ -275,7 +277,7 @@ module.exports = (function() {
 				});
 			}*/
 		},
-		post: function(id, successCallback, errorCallback) {
+		post: function post(id, successCallback, errorCallback) {
 			query({
 				method: 'GET',
 				url: 	ENDPOINT + '/wouafs/' + id,
@@ -298,7 +300,7 @@ module.exports = (function() {
 				}
 			});
 		},
-		init: function(callback) {
+		init: function init(callback) {
 			query({
 				method: 'POST',
 				url: 	ENDPOINT + '/init',
@@ -309,7 +311,7 @@ module.exports = (function() {
 				error:	callback
 			});
 		},
-		login: function(datas, successCallback, errorCallback) {
+		login: function login(datas, successCallback, errorCallback) {
             query({
                 method: 'POST',
                 url:    ENDPOINT + '/login',
@@ -336,7 +338,7 @@ module.exports = (function() {
 				}
             });
         },
-        fblogin: function(datas, success, error) {
+        fblogin: function fblogin(datas, success, error) {
             datas.did = 'web_app_'+ utils.md5(navigator.userAgent);
             query({
                 method: 'POST',
@@ -346,7 +348,7 @@ module.exports = (function() {
                 error:  error
             });
         },
-        logout: function(callback) {
+        logout: function logout(callback) {
 			query({
 				method: 'POST',
 				url: 	ENDPOINT + '/logout',
@@ -354,7 +356,7 @@ module.exports = (function() {
 				error:	callback
 			});
 		},
-		resetPassword: function(email, successCallback, errorCallback) {
+		resetPassword: function resetPassword(email, successCallback, errorCallback) {
             query({
                 method: 'POST',
                 url:    ENDPOINT + '/reset-password',
@@ -379,7 +381,7 @@ module.exports = (function() {
 				}
             });
         },
-		createUser: function(datas, successCallback, errorCallback) {
+		createUser: function createUser(datas, successCallback, errorCallback) {
 			query({
 				method: 'PUT',
 				url: 	ENDPOINT + '/users',
@@ -402,7 +404,7 @@ module.exports = (function() {
 				}
 			});
 		},
-		getUser: function(user, successCallback, errorCallback) {
+		getUser: function getUser(user, successCallback, errorCallback) {
 			query({
 				method: 'GET',
 				url:    ENDPOINT + '/users/' + user,
@@ -424,7 +426,7 @@ module.exports = (function() {
 				}
 			});
 		},
-		updateUser: function(datas, successCallback, errorCallback) {
+		updateUser: function updateUser(datas, successCallback, errorCallback) {
 			query({
 				method: 'PUT',
 				url: 	ENDPOINT + '/users/'+ data.getString('uid'),
@@ -447,7 +449,7 @@ module.exports = (function() {
 				}
 			});
 		},
-		deleteUser: function(callback) {
+		deleteUser: function deleteUser(callback) {
             query({
                 method: 'DELETE',
                 url:    ENDPOINT + '/users/'+ data.getString('uid'),
@@ -455,7 +457,7 @@ module.exports = (function() {
                 error:  callback
             });
         },
-		activateUser: function(datas, successCallback, errorCallback) {
+		activateUser: function activateUser(datas, successCallback, errorCallback) {
 			query({
 				method: 'POST',
 				url: 	ENDPOINT + '/user-activation',
@@ -478,7 +480,7 @@ module.exports = (function() {
 				}
 			});
 		},
-        userPosts: function(uid, successCallback, errorCallback) {
+        userPosts: function userPosts(uid, successCallback, errorCallback) {
             query({
                 method: 'GET',
                 url:    ENDPOINT + '/users/'+ uid +'/wouafs',
@@ -500,7 +502,7 @@ module.exports = (function() {
 				}
             });
         },
-        userFavorites: function(successCallback, errorCallback) {
+        userFavorites: function userFavorites(successCallback, errorCallback) {
             query({
                 method: 'GET',
                 url:    ENDPOINT + '/users/'+ data.getString('uid') +'/favorites',
@@ -522,7 +524,7 @@ module.exports = (function() {
 				}
             });
         },
-        createPost: function(datas, successCallback, errorCallback) {
+        createPost: function createPost(datas, successCallback, errorCallback) {
 			query({
 				method: 'PUT',
 				url: 	ENDPOINT + '/wouafs',
@@ -545,7 +547,7 @@ module.exports = (function() {
 				}
 			});
 		},
-		addFavorite: function(id, successCallback, errorCallback) {
+		addFavorite: function addFavorite(id, successCallback, errorCallback) {
 			query({
 				method: 'PUT',
 				url: 	ENDPOINT + '/users/'+ data.getString('uid') +'/favorites',
@@ -570,7 +572,7 @@ module.exports = (function() {
 				}
 			});
 		},
-		removeFavorite: function(id, successCallback, errorCallback) {
+		removeFavorite: function removeFavorite(id, successCallback, errorCallback) {
 			query({
 				method: 'DELETE',
 				url: 	ENDPOINT + '/users/'+ data.getString('uid') +'/favorites',
@@ -595,7 +597,7 @@ module.exports = (function() {
 				}
 			});
 		},
-		getComments: function(id, successCallback, errorCallback) {
+		getComments: function getComments(id, successCallback, errorCallback) {
             query({
                 method: 'GET',
                 url:    ENDPOINT + '/wouafs/'+ id +'/comments',
@@ -618,7 +620,7 @@ module.exports = (function() {
 				}
             });
         },
-		createComment: function(datas, successCallback, errorCallback) {
+		createComment: function createComment(datas, successCallback, errorCallback) {
 		    query({
                 method: 'PUT',
                 url:    ENDPOINT + '/wouafs/'+ datas.id +'/comments',
@@ -641,7 +643,7 @@ module.exports = (function() {
 				}
             });
 		},
-		deleteComment: function(id, successCallback, errorCallback) {
+		deleteComment: function deleteComment(id, successCallback, errorCallback) {
             query({
                 method: 'DELETE',
                 url:    ENDPOINT + '/comments/'+ id,
@@ -663,7 +665,7 @@ module.exports = (function() {
 				}
             });
         },
-		contactUser: function(datas, successCallback, errorCallback) {
+		contactUser: function contactUser(datas, successCallback, errorCallback) {
 			query({
 				method: 'POST',
 				url:    ENDPOINT + '/wouafs/'+ datas.id +'/contact',
@@ -686,7 +688,7 @@ module.exports = (function() {
 				}
 			});
 		},
-		contact: function(datas, successCallback, errorCallback) {
+		contact: function contact(datas, successCallback, errorCallback) {
 			query({
 				method: 'POST',
 				url:    ENDPOINT + '/contact',
@@ -709,7 +711,7 @@ module.exports = (function() {
 				}
 			});
 		},
-		deletePost: function(id, successCallback, errorCallback) {
+		deletePost: function deletePost(id, successCallback, errorCallback) {
             query({
                 method: 'DELETE',
                 url:    ENDPOINT + '/wouafs/'+ id,
@@ -731,7 +733,7 @@ module.exports = (function() {
 				}
             });
        },
-       reportPost: function(id, successCallback, errorCallback) {
+       reportPost: function reportPost(id, successCallback, errorCallback) {
             query({
                 method: 'POST',
                 url:    ENDPOINT + '/wouafs/'+ id +'/abuse',
@@ -753,7 +755,7 @@ module.exports = (function() {
 				}
             });
         },
-		reportComment: function(id, successCallback, errorCallback) {
+		reportComment: function reportComment(id, successCallback, errorCallback) {
 			query({
 				method: 'POST',
 				url:    ENDPOINT + '/comments/'+ id +'/abuse',

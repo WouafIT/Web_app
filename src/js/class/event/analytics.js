@@ -4,6 +4,9 @@ module.exports = (function() {
 	var url = require('../resource/url.js');
 	var $document = $(document);
 	var ga = window.ga;
+	var lastHrefLogged;
+	var started = false;
+
 	if (!ga) {
 		if (__DEV__)
 			console.error('GA is not loaded');
@@ -73,22 +76,87 @@ module.exports = (function() {
 	$document.on('app.edit-profile', function (event, language) {
 		ga('send', 'event', 'profile', 'edit', language);
 	});
+	//refresh search
+	$document.on('app.refresh-search', function (event, params) {
+		if (__DEV__)
+			console.info('Analytics - Event - Search - Refresh');
+		ga('send', 'event', 'search', 'resfresh');
+	});
+	//query time
+	$document.on('app.query', function (event, params) {
+		var logEvent = function () {
+			if (__DEV__)
+				console.info('Analytics - Timing - Query - ' + params.caller + ': ' + params.time);
+			ga('send', 'timing', 'Query', params.caller, params.time);
+		};
+		if (started) {
+			logEvent();
+		} else {
+			$document.one('analytics.started', logEvent);
+		}
+	});
+	//windows time
+	$document.on('windows.opened', function (event, params) {
+		if (__DEV__)
+			console.info('Analytics - Timing - Windows - ' + params.href + ': ' + params.time);
+		ga('send', 'timing', 'Windows', params.href, params.time);
+	});
+	//new search
+	var searchCount = 0;
+	$document.on('app.new-search', function (event, params) {
+		if (__DEV__)
+			console.info('Analytics - Event - Search - New'+(!searchCount ? ' - nonInteraction' : ''));
+
+		if (searchCount) {
+			ga('send', 'event', 'search', 'new');
+		} else {
+			ga('send', 'event', 'search', 'new', '', {
+				nonInteraction: true
+			});
+		}
+		searchCount++;
+	});
+
 	//app init
 	$document.on('app.started', function () {
 		var lang = window.location.hostname.substr(0, 5);
-		if (__DEV__)
-			console.info('Analytics - Event - App - Start - '+ (data.getString('uid') ? 'Logged ' : 'Not logged ')+ lang);
 		ga('set', 'language', lang);
-		ga('send', 'event', 'app', 'start', (data.getString('uid') ? 'Logged ' : 'Not logged ')+ lang);
+		var logEvent = function () {
+			if (__DEV__)
+				console.info('Analytics - Event - App - Start - '+ (data.getString('uid') ? 'Logged ' : 'Not logged ')+ lang);
+			ga('send', 'event', 'app', 'start', (data.getString('uid') ? 'Logged ' : 'Not logged ') + lang, {
+				nonInteraction: true
+			});
+		};
+		if (started) {
+			logEvent();
+		} else {
+			$document.one('analytics.started', logEvent);
+		}
 	});
 
 	//navigation
 	var logState = function(name) {
 		var href = url.getAnalyticsPath(data.getObject('navigation'));
-		if (__DEV__)
-			console.info('Analytics - Pageview ' + name + ' - ' + href);
-		ga('set', 'page', href);
-		ga('send', 'pageview');
+		if (lastHrefLogged !== href) {
+			if (__DEV__)
+				console.info('Analytics - Pageview ' + name + ' - ' + href);
+			ga('set', 'page', href);
+			ga('send', 'pageview');
+			if (!lastHrefLogged) {
+				//first page loaded => analytics is now started and can log events
+				started = true;
+				if (window.performance) {
+					//log general application performance for stating
+					var startTime = Math.round(window.performance.now())
+					if (__DEV__)
+						console.info('Analytics - App start time: ' + startTime);
+					ga('send', 'timing', 'App', 'start', startTime);
+				}
+				$document.triggerHandler('analytics.started');
+			}
+			lastHrefLogged = href;
+		}
 	};
 	$document.on('app.loaded-state', function () {
 		logState('load');
