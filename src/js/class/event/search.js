@@ -18,7 +18,6 @@ module.exports = (function() {
 		} else {
 			params = $.extend(params, previousSearchParams);
 		}
-		console.info('Search params1', params, previousSearchParams);
 		if (!params.loc) {
 			params.loc = map.getMap().getCenter();
 		} else if (!params.refresh) {
