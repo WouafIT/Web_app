@@ -2,6 +2,14 @@
 $buildTime = (int) '<%= htmlWebpackPlugin.options.data.timestamp %>';
 
 $requestURI = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
+
+//404 on missing parts files
+if (preg_match('#\/parts\/.*#' , $requestURI, $matches)) {
+    header("HTTP/1.1 404 Not Found");
+    echo file_get_contents(__DIR__.'/../404.html');
+    exit;
+}
+
 //grab vars in URL
 $wouafId = $userId = null;
 if (preg_match('#\/wouaf\/([0-9a-f]{24})\/.*#' , $requestURI, $matches)) {
@@ -61,6 +69,9 @@ if ($wouafId) {
                 $data['canonical'] = 'https://'.$_SERVER['HTTP_HOST'].'/wouaf/'.$wouafId.'/';
                 $data['content'] .= '<script>window.wouafit.wouaf = '.json_encode($wouafData['wouaf']).';</script>';
                 $data['head'] = getWouafOpenGraph($wouafData['wouaf']);
+            } elseif ($wouafData['code'] === 404) {
+                header("HTTP/1.1 404 Not Found");
+                $data['content'] .= '<h1>404 not Found</h1>';
             }
         }
     } catch (Exception $e) {}
@@ -80,6 +91,9 @@ if ($wouafId) {
                 $data['canonical'] = 'https://'.$_SERVER['HTTP_HOST'].'/user/'.$userId.'/';
                 $data['content'] .= '<script>window.wouafit.user = '.json_encode($userData['user']).';</script>';
                 $data['head'] = getUserOpenGraph($userData['user']);
+            } elseif ($wouafData['code'] === 404) {
+                header("HTTP/1.1 404 Not Found");
+                $data['content'] .= '<h1>404 not Found</h1>';
             }
         }
     } catch (Exception $e) {}
