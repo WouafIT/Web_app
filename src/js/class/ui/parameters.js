@@ -18,15 +18,15 @@ module.exports = (function() {
 		var $radius = $form.find('select[name=radius]');
 		var $unit = $form.find('select[name=unit]');
 		var $mapFollow = $form.find('input[name=map-follow]');
-		var $facebook = $form.find('input[name=facebook]');
+		//var $facebook = $form.find('input[name=facebook]');
 		var $contact = $form.find('input[name=contact]');
 		var $wouafNotifications = $form.find('input[name=wouaf-notifications]');
 		var $commentsNotifications = $form.find('input[name=comments-notifications]');
 		//set current values
 		$unit.val(data.getString('unit'));
 		$mapFollow.attr("checked", data.getBool('mapFollow'));
-		$facebook.attr("checked", data.getBool('fbPost'));
-		$facebook.attr('disabled', data.getString('loginType') !== 'facebook');
+		//$facebook.attr("checked", data.getBool('fbPost'));
+		//$facebook.attr('disabled', data.getString('loginType') !== 'facebook');
 
 		$contact.attr("checked", data.getBool('allowContact'));
 		$wouafNotifications.attr("checked", data.getBool('postNotif'));
@@ -49,7 +49,7 @@ module.exports = (function() {
 		$unit.on('change', populateRadius);
 
 		if (!data.getString('uid')) {
-			$facebook.attr('disabled', true);
+			//$facebook.attr('disabled', true);
 			$contact.attr('disabled', true);
 			$wouafNotifications.attr('disabled', true);
 			$commentsNotifications.attr('disabled', true);
@@ -67,7 +67,7 @@ module.exports = (function() {
 			data.setBool('mapFollow', $mapFollow.prop("checked"));
 
 			if (data.getString('uid')) {
-				data.setBool('fbPost', $facebook.prop("checked"));
+				//data.setBool('fbPost', $facebook.prop("checked"));
 				data.setBool('allowContact', $contact.prop("checked"));
 				data.setBool('postNotif', $wouafNotifications.prop("checked"));
 				data.setBool('commentNotif', $commentsNotifications.prop("checked"));

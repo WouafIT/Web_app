@@ -7,6 +7,8 @@
         <h4 class="modal-title"><%= htmlWebpackPlugin.options.i18n['Login'] %></h4>
     </div>
     <div class="modal-body">
+
+		<% /* %>
 		<h3><%= htmlWebpackPlugin.options.i18n['Choose your connection method'] %></h3>
 		<h4><i class="fa fa-facebook-official"></i> <%= htmlWebpackPlugin.options.i18n['Facebook profile'] %></h4>
 		<p class="text-xs-center"><button type="button" class="btn btn-secondary" data-dismiss="modal">Facebook connect</button></p>
@@ -15,6 +17,8 @@
 		<h4><i class="fa fa-google-plus"></i> <%= htmlWebpackPlugin.options.i18n['Google profile'] %></h4>
 		<p class="text-xs-center"><button type="button" class="btn btn-secondary" data-dismiss="modal">Google connect</button></p>
 		<hr />
+		<% */ %>
+
 		<h4 class="wouaf-it"><%= htmlWebpackPlugin.options.i18n['Wouaf IT profile'] %></h4>
 		<p class="text-xs-center"><button type="button" class="btn btn-primary btn-wrap"
 									   data-href="create-profile"

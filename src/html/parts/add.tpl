@@ -68,10 +68,11 @@
 				</div>
 			</div>
 			<br />
-
+			<% /* %>
 			<div class="checkbox">
 				<label><input type="checkbox" name="facebook"> <%= htmlWebpackPlugin.options.i18n['Publish this Wouaf on my Facebook wall'] %></label>
 			</div>
+			<% */ %>
 			<div class="checkbox">
 				<label><input type="checkbox" name="contact"> <%= htmlWebpackPlugin.options.i18n['Allow other Wouaffers to contact me'] %></label>
 			</div>

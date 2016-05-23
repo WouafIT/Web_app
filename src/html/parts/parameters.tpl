@@ -27,9 +27,11 @@
 				<label><input type="checkbox" name="map-follow"> <%= htmlWebpackPlugin.options.i18n['Refresh search results by following the map position'] %></label>
 			</div>
 			<h4><%= htmlWebpackPlugin.options.i18n['Default publish settings'] %></h4>
+			<% /* %>
 			<div class="checkbox">
 				<label><input type="checkbox" name="facebook"> <%= htmlWebpackPlugin.options.i18n['Publish my Wouafs on my Facebook wall'] %></label>
 			</div>
+			<% */ %>
 			<div class="checkbox">
 				<label><input type="checkbox" name="contact"> <%= htmlWebpackPlugin.options.i18n['Allow other Wouaffers to contact me'] %></label>
 			</div>

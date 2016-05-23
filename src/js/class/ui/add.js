@@ -48,7 +48,7 @@ module.exports = (function() {
 		var $categoriesHelp = $form.find('.categories-help');
 		var $longitude = $form.find('input[name=longitude]');
 		var $latitude = $form.find('input[name=latitude]');
-		var $facebook = $form.find('input[name=facebook]');
+		//var $facebook = $form.find('input[name=facebook]');
 		var $contact = $form.find('input[name=contact]');
 		var $wouafNotifications = $form.find('input[name=wouaf-notifications]');
 		var $dropzone = $form.find('div.dropzone');
@@ -136,8 +136,8 @@ module.exports = (function() {
 			$remaining.html(i18n.t('{{count}} character left', {count: count}));
 		});
 
-		$facebook.attr("checked", data.getBool('fbPost'));
-		$facebook.attr('disabled', data.getString('loginType') !== 'facebook');
+		//$facebook.attr("checked", data.getBool('fbPost'));
+		//$facebook.attr('disabled', data.getString('loginType') !== 'facebook');
 		$contact.attr("checked", data.getBool('allowContact'));
 		$wouafNotifications.attr("checked", data.getBool('postNotif'));
 
@@ -206,7 +206,7 @@ module.exports = (function() {
 				text: 		$content.val(),
 				date: 		Math.round(date.getTime() / 1000),
 				duration: 	$duration.val(),
-				fbpost: 	(data.getString('loginType') === 'facebook' && $facebook.prop("checked") ? 1 : 0),
+				//fbpost: 	(data.getString('loginType') === 'facebook' && $facebook.prop("checked") ? 1 : 0),
 				contact: 	($contact.prop("checked") ? 1 : 0),
 				notif:	 	($wouafNotifications.prop("checked") ? 1 : 0),
 				pics: 	    JSON.stringify(validImages)
