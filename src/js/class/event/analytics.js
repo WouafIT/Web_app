@@ -76,12 +76,6 @@ module.exports = (function() {
 	$document.on('app.edit-profile', function (event, language) {
 		ga('send', 'event', 'profile', 'edit', language);
 	});
-	//refresh search
-	$document.on('app.refresh-search', function (event, params) {
-		if (__DEV__)
-			console.info('Analytics - Event - Search - Refresh');
-		ga('send', 'event', 'search', 'resfresh');
-	});
 	//query time
 	$document.on('app.query', function (event, params) {
 		var logEvent = function () {
@@ -115,6 +109,12 @@ module.exports = (function() {
 			});
 		}
 		searchCount++;
+	});
+	//refresh search
+	$document.on('app.refresh-search', function (event, params) {
+		if (__DEV__)
+			console.info('Analytics - Event - Search - Refresh');
+		ga('send', 'event', 'search', 'resfresh');
 	});
 
 	//app init

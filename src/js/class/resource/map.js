@@ -20,7 +20,7 @@ module.exports = (function () {
 	//set map pins on search response
 	var setPins = function (json) {
 		if (__DEV__) {
-			console.info('Search results', json);
+			console.info('Search results '+ json.searchId, json);
 		}
 		var elements = [], i, li, j, lj;
 		if (!json.results) {
@@ -43,6 +43,9 @@ module.exports = (function () {
 				json.count   = json.results.length;
 			} else if (self.jsonResults && self.jsonResults.searchId && json.searchId && self.jsonResults.searchId > json.searchId) {
 				//drop older results
+				if (__DEV__) {
+					console.info('Search drop older results', self.jsonResults.searchId, json.searchId);
+				}
 				return;
 			}
 		}
@@ -92,8 +95,6 @@ module.exports = (function () {
 		if (found) {
 			//clone json result
 			var json = $.extend(true, {}, self.jsonResults);
-			var now = new Date();
-			json.searchId = now.getTime();
 			setPins(json);
 		}
 	};
@@ -108,8 +109,6 @@ module.exports = (function () {
 			//add post to map results and display it
 			results.results.push(obj);
 			results.count = results.results.length;
-			var now = new Date();
-			results.searchId = now.getTime();
 			$document.one('map.results-chown', function () {
 				//console.info('appendPin2');
 				deferred.resolve();
@@ -323,6 +322,7 @@ module.exports = (function () {
 			point,
 			self.jsonResults.params.loc
 		));
+		//console.info(point.toUrlValue(5), self.jsonResults.params.loc.toUrlValue(5), distance, self.jsonResults.params.radius * 850);
 		//distance is in meters and radius in km, refresh is distance is above 85% of queried radius
 		return (distance >= self.jsonResults.params.radius * 850);//850 => 1000 (m => km) * 0.85 (%)
 	};

@@ -12,12 +12,13 @@ module.exports = (function() {
 	//Event to launch a new search
 	$document.on('app.search', function (event, params) {
 		params = params || {};
-		params.searchId = (new Date()).getTime();
 		if (!params.refresh) {
+			params.searchId = (new Date()).getTime();
 			params = $.extend(params, slidebars.getSearchParams());
 		} else {
 			params = $.extend(params, previousSearchParams);
 		}
+		console.info('Search params1', params, previousSearchParams);
 		if (!params.loc) {
 			params.loc = map.getMap().getCenter();
 		} else if (!params.refresh) {
@@ -27,7 +28,7 @@ module.exports = (function() {
 			params.radius = data.getInt('radius');
 		}
 		if (__DEV__) {
-			console.info('Search params', params);
+			console.info('Search params'+ (params.refresh ? ' (refresh)' : '') +' '+ params.searchId, params);
 		}
 		query.posts(params, function(results, params) {
 			//save previous search params
