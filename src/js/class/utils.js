@@ -224,11 +224,11 @@ module.exports = (function() {
 			formattedText += text.substr(pos, indices[0] - pos);
 			//entity
 			if (screenName) {
-				formattedText += '<a href="'+ url.getAbsoluteURLForStates([{name: 'user', value: screenName}]) +'" data-user="'+ screenName +'">@' + screenName + '</a>';
+				formattedText += '<a href="'+ url.getAbsoluteURLForStates([{name: 'user', value: screenName}]) +'" data-user="'+ self.escapeHtml(screenName) +'">@' + self.escapeHtml(screenName) + '</a>';
 			/*} else if (hash) { //hash
 			 	formattedText += '<a href="'+ path +'hash/'+ hash +'/" data-hash="'+ hash +'">#' + hash + '</a>';*/
 			} else if (entityUrl) { //link
-				formattedText += '<a href="'+ (entityUrl.substr(0, 4) != 'http' ? 'http://' : '') + entityUrl +'" target="_blank">' + entityUrl + '</a>';
+				formattedText += '<a href="'+ (entityUrl.substr(0, 4).toLowerCase() !== 'http' ? 'http://' : '') + entityUrl +'" target="_blank">' + self.escapeHtml(entityUrl) + '</a>';
 			}
 			pos = indices[1];
 		}

@@ -102,6 +102,8 @@ module.exports = (function() {
 						var wouafId = parts[++i];
 						//check if wouaf data exists in html
 						if (window.wouafit.wouaf && window.wouafit.wouaf.id == wouafId) {
+							var wouafs = require('../resource/wouafs.js');
+							wouafs.set(wouafId, window.wouafit.wouaf);
 							data.setObject('position', {lat: window.wouafit.wouaf.loc[0], lng: window.wouafit.wouaf.loc[1]});
 						}
 						$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: wouafId});
@@ -127,26 +129,5 @@ module.exports = (function() {
 		allowSetState = true;
 
 		$document.triggerHandler('app.loaded-state');
-	});
-	$document.on('click', 'a, button', function(e) {
-		var $source = $(e.target);
-		if (!$source.length || (!$source.data('user')/* && !$source.data('hash')*/
-			&& !$source.data('wouaf') && !$source.data('show'))) {
-			return;
-		}
-		e.preventDefault();
-		if ($source.data('user') && utils.isValidUsername($source.data('user'))) {
-			windows.show({
-				href: 'user',
-				navigationOpen: {name: 'user', value: $source.data('user')},
-				navigationClose: {name: 'user', value: null}
-			});
-		/*} else if ($source.data('hash')) {
-			console.info('TODO show hash '+ $source.data('hash'));*/
-		} else if ($source.data('wouaf') && utils.isId($source.data('wouaf'))) {
-			map.showResult($source.data('wouaf'));
-		} else if ($source.data('show') == 'modal' && $source.data('href') && utils.isValidPageName($source.data('href'))) {
-			windows.show({href: $source.data('href')});
-		}
 	});
 })();

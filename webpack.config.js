@@ -198,6 +198,17 @@ var common = Object.keys(languages).map(function(language) {
 	}
 });
 if (process.env.LANG_ENV === 'all') {
+	var language = 'en-us';
+	var htmlData = {
+		cookieDomain:	(IS_DEV ? DEV_DOMAIN : PROD_DOMAIN),
+		googleApi: 		GOOGLE_API,
+		googleAnalytics: GOOGLE_ANALYTICS,
+		language: 		language,
+		timestamp: 		TIMESTAMP,
+		year: 			(new Date()).getFullYear(),
+		devTitle:		(IS_DEV ? ' (DEV)' : '')
+	};
+	var languageData = require(languages[language]);
 	var www = {
 		name: 'www',
 		context: __dirname + '/src/js',
@@ -212,6 +223,13 @@ if (process.env.LANG_ENV === 'all') {
 					from: '../assets-root'
 				}
 			]),
+			new HtmlWebpackPlugin({
+				filename: '404.html',
+				template: __dirname + '/languages/parts/en-us/404.tpl',
+				data: htmlData,
+				i18n: languageData,
+				inject: false
+			}),
 			(IS_DEV ?
 				new CopyWebpackPlugin([
 					{

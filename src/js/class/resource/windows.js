@@ -26,10 +26,17 @@ module.exports = (function() {
 					ui.show();
 				}
 			}
-		}).fail(function() {
+		}).fail(function(xhr, status, msg) {
 			self.close();
-			var query = require('./query.js');
-			query.connectionError();
+			if (status === 'error' && msg === 'Not Found') {
+				self.show({
+					title: i18n.t('404_Error_'),
+					text: i18n.t('Error, unknown url')
+				});
+			} else {
+				var query = require('./query.js');
+				query.connectionError();
+			}
 		}).then(function () {
 			$document.triggerHandler('windows.opened', {time: (new Date().getTime()-start), href: href});
 		});

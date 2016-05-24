@@ -4,7 +4,31 @@ module.exports = (function() {
 	var i18n = require('../resource/i18n.js');
 	var query = require('../resource/query.js');
 	var users = require('../resource/users.js');
+	var utils = require('../utils.js');
 	var $document = $(document);
+
+	//user / wouaf links
+	$document.on('click', 'a, button', function(e) {
+		var $source = $(e.target);
+		if (!$source.length || (!$source.data('user')/* && !$source.data('hash')*/
+								&& !$source.data('wouaf') && !$source.data('show'))) {
+			return;
+		}
+		e.preventDefault();
+		if ($source.data('user') && utils.isValidUsername($source.data('user'))) {
+			windows.show({
+				href: 'user',
+				navigationOpen: {name: 'user', value: $source.data('user')},
+				navigationClose: {name: 'user', value: null}
+			});
+			/*} else if ($source.data('hash')) {
+			 console.info('TODO show hash '+ $source.data('hash'));*/
+		} else if ($source.data('wouaf') && utils.isId($source.data('wouaf'))) {
+			map.showResult($source.data('wouaf'));
+		} else if ($source.data('show') == 'modal' && $source.data('href') && utils.isValidPageName($source.data('href'))) {
+			windows.show({href: $source.data('href')});
+		}
+	});
 
 	//action event
 	$document.on('click', 'a[data-action], button[data-action]', function (event) {

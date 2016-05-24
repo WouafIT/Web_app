@@ -129,7 +129,8 @@
 	"An error has occurred: {{error}}": "An error has occurred:\n{{error}}",
 	"An error has occurred, unknown user {{username}}": "An error has occurred:\nUser {{username}} is unknown.",
 	"Connexion error. Are you connected to the Internet? Please try again later": "Connexion error. Are you connected to the Internet?\nPlease try again later...",
-	"Error, unknown url {{error}}": "Error, unknown URL. This content may have been removed...\n{{error}}",
+	"404_Error_": "404 Error...",
+	"Error, unknown url": "Sorry, the requested page was not found.\nEither this URL was mistyped or what content has been removed.",
 
 	"Application settings": "Application settings",
 	"Search settings": "Search settings",

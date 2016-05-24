@@ -129,7 +129,8 @@
 	"An error has occurred: {{error}}": "Une erreur est survenue : \n{{error}}",
 	"An error has occurred, unknown user {{username}}": "Une erreur est survenue : \nL'utilisateur {{username}} est inconnu.",
 	"Connexion error. Are you connected to the Internet? Please try again later": "Erreur de connexion. Etes-vous bien connecté à Internet ?\nMerci de réessayer plus tard ...",
-	"Error, unknown url {{error}}": "Erreur, cette URL est inconnue. Ce contenu à peut-être été supprimé ...\n{{error}}",
+	"404_Error_": "Erreur 404 ...",
+	"Error, unknown url": "Désolé, la page demandée n'a pas été trouvée.\nSoit cette url a été mal saisie, soit ce contenu a été supprimé.",
 
 	"Application settings": "Paramètres de l'application",
 	"Search settings": "Paramètres de recherche",

@@ -12,7 +12,7 @@ module.exports = (function() {
 		var time = dtp.formatTime(date, false);
 		var authorUrl = url.getAbsoluteURLForStates([{name: 'user', value: obj.author[1]}]);
 		var author = i18n.t('By {{author}} on {{date}}', {
-			author: '<a href="'+ authorUrl +'" data-user="'+ obj.author[1] +'">'+
+			author: '<a href="'+ authorUrl +'" data-user="'+ utils.escapeHtml(obj.author[1]) +'">'+
 				utils.escapeHtml(obj.author[2] || obj.author[1]) +'</a>',
 			date: (dtp.formatDate(date, 'long') + (time != '00:00' ? ' '+ i18n.t('at {{at}}', {at: time}) : '')),
 			interpolation: {escape: false}

@@ -132,11 +132,11 @@ module.exports = (function () {
 		$.when(getResult(id)).done(function(obj) {
 			//console.info('showPin2');
 			openPin(obj);
-		}).fail(function(msg) {
+		}).fail(function() {
 			var windows = require('./windows.js');
 			windows.show({
-				title: i18n.t('Error_'),
-				text: i18n.t('Error, unknown url {{error}}', {error: msg[0]})
+				title: i18n.t('404_Error_'),
+				text: i18n.t('Error, unknown url')
 			});
 		});
 	};
@@ -455,10 +455,6 @@ module.exports = (function () {
 		var deferred = $.Deferred();
 		//check if wouaf exists in current search results
 		obj = obj || wouafs.getLocal(id);
-		//else check if wouaf data exists in html
-		if (!obj && window.wouafit.wouaf && window.wouafit.wouaf.id === id) {
-			obj = window.wouafit.wouaf;
-		}
 		if (obj) {
 			deferred.resolve(obj);
 		} else {

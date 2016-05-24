@@ -6,6 +6,7 @@ $requestURI = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
 //404 on missing parts files
 if (preg_match('#\/parts\/.*#' , $requestURI, $matches)) {
     header("HTTP/1.1 404 Not Found");
+    header("Cache-Control: max-age=1800, must-revalidate");
     echo file_get_contents(__DIR__.'/../404.html');
     exit;
 }
