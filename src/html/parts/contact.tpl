@@ -20,7 +20,7 @@
 				<textarea class="form-control" rows="8" name="content" id="content" placeholder="<%= htmlWebpackPlugin.options.i18n['Enter your message (1000 char. max)'] %>"></textarea>
 				<div class="text-xs-right"><small class="text-muted remaining"></small></div>
 			</fieldset>
-			<p class="text-xs-right"><button type="submit" class="btn btn-primary"><%= htmlWebpackPlugin.options.i18n['Send your message'] %></button></p>
+			<p class="text-xs-right"><button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> <%= htmlWebpackPlugin.options.i18n['Send your message'] %></button></p>
 		</form>
 	</div>
 	<div class="modal-footer">

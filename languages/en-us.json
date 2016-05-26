@@ -324,5 +324,7 @@
 	"Follow this Wouaffer": "Follow this Wouaffer",
 	"Unfollow this Wouaffer": "Unfollow this Wouaffer",
 	"You follow this Wouaffer": "From now on you follow this Wouaffer",
-	"You are no longer following this Wouaffer": "You are no longer following this Wouaffer"
+	"You are no longer following this Wouaffer": "You are no longer following this Wouaffer",
+	"All Wouaffer following {{username}}": "All Wouaffer following {{username}}",
+	"All Wouaffer followed by {{username}}": "All Wouaffer followed by {{username}}"
 }

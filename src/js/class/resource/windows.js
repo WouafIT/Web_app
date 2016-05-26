@@ -104,7 +104,7 @@ module.exports = (function() {
 							content += '<button type="button" class="btn btn-secondary" data-dismiss="modal">' + i18n.t('Close') + '</button>';
 						} else {
 							content += '<button type="button" class="btn btn-secondary" data-dismiss="modal">' + i18n.t('Cancel') + '</button>'+
-							'<button type="button" class="btn btn-primary">' + i18n.t('Confirm') + '</button>';
+							'<button type="button" class="btn btn-primary"><i class="fa fa-check"></i> ' + i18n.t('Confirm') + '</button>';
 							$modal.one('shown.bs.modal', function() {
 								$modal.find('button.btn-primary').one('click', function () {
 									options.confirm();

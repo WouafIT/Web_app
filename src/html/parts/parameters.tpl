@@ -42,7 +42,7 @@
 				<label><input type="checkbox" name="comments-notifications"> <%= htmlWebpackPlugin.options.i18n['Being notified by email for feedback on my comments'] %></label>
 			</div>
 
-			<p class="text-xs-right"><button type="submit" class="btn btn-primary"><%= htmlWebpackPlugin.options.i18n['Save'] %></button></p>
+			<p class="text-xs-right"><button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> <%= htmlWebpackPlugin.options.i18n['Save'] %></button></p>
 		</form>
 	</div>
 	<div class="modal-footer">

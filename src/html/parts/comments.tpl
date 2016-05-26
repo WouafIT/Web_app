@@ -19,7 +19,7 @@
 					</label>
 				</div>
 			</div>
-			<p class="text-xs-right"><button type="submit" class="btn btn-primary"><%= htmlWebpackPlugin.options.i18n['Save your comment'] %></button></p>
+			<p class="text-xs-right"><button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> <%= htmlWebpackPlugin.options.i18n['Save your comment'] %></button></p>
 			<hr />
 		</form>
 		<div class="modal-comments"></div>

@@ -16,7 +16,7 @@
 						   placeholder="<%= htmlWebpackPlugin.options.i18n['Email'] %>" />
 				</div>
 			</fieldset>
-			<p class="text-xs-right"><button type="submit" class="btn btn-primary"><%= htmlWebpackPlugin.options.i18n['Reset my password'] %></button></p>
+			<p class="text-xs-right"><button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> <%= htmlWebpackPlugin.options.i18n['Reset my password'] %></button></p>
 		</form>
 	</div>
 </div>

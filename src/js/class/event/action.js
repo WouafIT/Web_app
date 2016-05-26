@@ -115,10 +115,54 @@ module.exports = (function() {
 				}
 				break;
 			case 'user-followers':
-
+				uid = $this.data('uid');
+				if (!uid) {
+					return;
+				}
+				$.when(users.get(uid)).done(function(user) {
+					var username = user.firstname || user.lastname ? user.firstname +' '+ user.lastname : user.username;
+					query.userFollowers(uid, function (result) {
+						windows.close();
+						//load user tabs data
+						$document.triggerHandler('tabs.add', {
+							id: 'user-followers-'+ uid,
+							name: '<i class="fa fa-arrow-right"></i> '+ username,
+							title: i18n.t('All Wouaffer following {{username}}', {'username': username}),
+							active: true,
+							removable: true,
+							data: {type: 'user', data: result}
+						});
+					}, function (msg) {
+						toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
+					});
+				}).fail(function(msg) {
+					toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
+				});
 				break;
 			case 'user-following':
-
+				uid = $this.data('uid');
+				if (!uid) {
+					return;
+				}
+				$.when(users.get(uid)).done(function(user) {
+					var username = user.firstname || user.lastname ? user.firstname +' '+ user.lastname : user.username;
+					query.userFollowing(uid, function (result) {
+						windows.close();
+						//load user tabs data
+						$document.triggerHandler('tabs.add', {
+							id: 'user-following-'+ uid,
+							name: '<i class="fa fa-arrow-left"></i> '+ username,
+							title: i18n.t('All Wouaffer followed by {{username}}', {'username': username}),
+							active: true,
+							removable: true,
+							data: {type: 'user', data: result}
+						});
+					}, function (msg) {
+						toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
+					});
+				}).fail(function(msg) {
+					toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
+				});
 				break;
 		}
 	});

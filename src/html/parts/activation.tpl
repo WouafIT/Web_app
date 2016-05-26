@@ -15,7 +15,7 @@
 						   placeholder="<%= htmlWebpackPlugin.options.i18n['Your activation key'] %>" />
 				</div>
 			</fieldset>
-			<p class="text-xs-right"><button type="submit" class="btn btn-primary"><%= htmlWebpackPlugin.options.i18n['Activate your profile'] %></button></p>
+			<p class="text-xs-right"><button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> <%= htmlWebpackPlugin.options.i18n['Activate your profile'] %></button></p>
 		</form>
 	</div>
 	<div class="modal-footer">

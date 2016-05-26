@@ -22,7 +22,7 @@
 		<h4 class="wouaf-it"><%= htmlWebpackPlugin.options.i18n['Wouaf IT profile'] %></h4>
 		<p class="text-xs-center"><button type="button" class="btn btn-primary btn-wrap"
 									   data-href="create-profile"
-									   data-show="modal" data-target="#modalWindow"><%= htmlWebpackPlugin.options.i18n['New Wouaffer? Create your profile!'] %></button></p>
+									   data-show="modal" data-target="#modalWindow"><i class="fa fa-plus"></i> <%= htmlWebpackPlugin.options.i18n['New Wouaffer? Create your profile!'] %></button></p>
 		<p><%= htmlWebpackPlugin.options.i18n['Or enter your login'] %></p>
 		<form>
 			<fieldset class="form-group">
@@ -44,7 +44,7 @@
 					<input type="checkbox" name="remember"> <%= htmlWebpackPlugin.options.i18n['Remember me'] %>
 				</label>
 			</div>
-			<p class="text-xs-right"><button type="submit" class="btn btn-primary"><%= htmlWebpackPlugin.options.i18n['Login'] %></button></p>
+			<p class="text-xs-right"><button type="submit" class="btn btn-primary"><i class="fa fa-sign-in"></i> <%= htmlWebpackPlugin.options.i18n['Login'] %></button></p>
 			<p class="text-xs-center"><a href="/lost-password/"
 									  data-href="lost-password"
 									  data-show="modal" data-target="#modalWindow"><%= htmlWebpackPlugin.options.i18n['Lost password?'] %></a></p>

@@ -52,6 +52,19 @@ module.exports = (function() {
 				]);
 			}
 			content.push('</div>');
+		} else if (data.type == 'user') {
+			content = content.concat([
+				'<div class="row">todo',
+			]);
+			/*for(i = 0, l = data.data.results.length; i < l; i++) {
+				obj = data.data.results[i];
+				content = content.concat([
+					'<div class="w-container" data-id="'+ obj.id +'" data-date="'+ obj.date[0].sec +'" data-comments="'+ obj.com +'" data-type="'+ obj.cat +'" >',
+						wouaf.getWouafHeader(obj),
+					'</div>'
+				]);
+			}*/
+			content.push('</div>');
 		}
 		return content.join('');
 	};

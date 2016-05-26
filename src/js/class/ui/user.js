@@ -39,14 +39,14 @@ module.exports = (function() {
 				content += '<p><i class="fa fa-comment"></i> '+ i18n.t('No comments yet') +'</p>';
 			}
 			if (user.following) {
-				content += '<p><i class="fa fa-eye"></i> <span class="follow">'+ i18n.t('Is following {{count}} Wouaffer', {count: user.following});
+				content += '<p><i class="fa fa-arrow-left"></i> <a href="#" data-action="user-following" data-uid="'+ user.uid +'">'+ i18n.t('Is following {{count}} Wouaffer', {count: user.following}) +'</a></p>';
 			} else {
-				content += '<p><i class="fa fa-eye"></i> <span class="follow">'+ i18n.t('Is not following anyone yet');
+				content += '<p><i class="fa fa-arrow-left"></i> '+ i18n.t('Is not following anyone yet') +'</p>';
 			}
 			if (user.followers) {
-				content += '<br />'+ i18n.t('Is followed by {{count}} Wouaffer', {count: user.followers}) +'</span></p>';
+				content += '<p><i class="fa fa-arrow-right"></i> <a href="#" data-action="user-followers" data-uid="'+ user.uid +'">'+ i18n.t('Is followed by {{count}} Wouaffer', {count: user.followers}) +'</a></p>';
 			} else {
-				content += '<br />'+ i18n.t('Is not followed by anyone yet') +'</span></p>';
+				content += '<p><i class="fa fa-arrow-right"></i> '+ i18n.t('Is not followed by anyone yet') +'</p>';
 			}
 			if (user.registration) {
 				var registration = new Date();

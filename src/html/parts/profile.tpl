@@ -118,8 +118,8 @@
 			</fieldset>
 
 			<p class="text-xs-right">
-				<button type="button" class="pull-left profile-delete btn btn-danger"><%= htmlWebpackPlugin.options.i18n['Delete your profile'] %></button>
-				<button type="submit" class="btn btn-primary"><%= htmlWebpackPlugin.options.i18n['Save your profile'] %></button>
+				<button type="button" class="pull-left profile-delete btn btn-danger"><i class="fa fa-trash"></i> <%= htmlWebpackPlugin.options.i18n['Delete your profile'] %></button>
+				<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> <%= htmlWebpackPlugin.options.i18n['Save your profile'] %></button>
 			</p>
 		</form>
 	</div>

@@ -51,7 +51,19 @@ module.exports = (function() {
 			dataType: 'json',
 			timeout: 10000,
 			cache: true,
-			success: params.success,
+			success: function(result) {
+				if (params.success) {
+					params.success.apply(this, [result]);
+				} else {
+					if (result && result.result && result.result == 1) {
+						params.successCallback(result);
+					} else if (result && result.msg) {
+						params.errorCallback(result.msg);
+					} else {
+						params.connectionError();
+					}
+				}
+			},
 			headers: {'Authorization': utils.getAuthorization()},
 			error: function(xhr) {
 				if (__DEV__) {
@@ -59,10 +71,17 @@ module.exports = (function() {
 				}
 				if (params.error) {
 					params.error.apply(this, [xhr.responseJSON]);
+				} else {
+					var result = xhr.responseJSON;
+					if (result && result.msg) {
+						params.errorCallback(result.msg);
+					} else {
+						params.connectionError();
+					}
 				}
 			},
 			complete: function() {
-				$document.triggerHandler('app.query', {time: (new Date().getTime()-start), caller: caller});
+				$document.triggerHandler('app.query', {time: (new Date().getTime() - start), caller: caller});
 			}
 		};
 		if (__DEV__) {
@@ -132,13 +151,8 @@ module.exports = (function() {
 						connectionError();
 					}
 				},
-				error:	function (result) {
-					if (result && result.msg) {
-						errorCallback(result.msg);
-					} else {
-						connectionError();
-					}
-				}
+				successCallback: successCallback,
+				errorCallback: errorCallback
 			});
 			/*
 			if (Ti.Platform.osname != 'mobileweb' && data.getString('eventfulKey') && !!data.getBool('eventfulSearch')) {
@@ -291,13 +305,8 @@ module.exports = (function() {
 						connectionError();
 					}
 				},
-				error:	function (result) {
-					if (result && result.msg) {
-						errorCallback(result.msg);
-					} else {
-						connectionError();
-					}
-				}
+				successCallback: successCallback,
+				errorCallback: errorCallback
 			});
 		},
 		init: function init(callback) {
@@ -329,16 +338,11 @@ module.exports = (function() {
 						errorCallback()
 					}
 				},
-				error:	function (result) {
-					if (result && result.msg) {
-						errorCallback(result.msg);
-					} else {
-						errorCallback()
-					}
-				}
+				successCallback: successCallback,
+				errorCallback: errorCallback
 			});
 		},
-		fblogin: function fblogin(datas, success, error) {
+		/*fblogin: function fblogin(datas, success, error) {
 			datas.did = 'web_app_'+ utils.md5(navigator.userAgent);
 			query({
 				method: 'POST',
@@ -347,7 +351,7 @@ module.exports = (function() {
 				success:success,
 				error:  error
 			});
-		},
+		},*/
 		logout: function logout(callback) {
 			query({
 				method: 'POST',
@@ -363,22 +367,8 @@ module.exports = (function() {
 				data:  {
 					email:	  email
 				},
-				success:function (result) {
-					if (result && result.result && result.result == 1) {
-						successCallback(result);
-					} else if (result && result.msg) {
-						errorCallback(result.msg);
-					} else {
-						connectionError();
-					}
-				},
-				error:	function (result) {
-					if (result && result.msg) {
-						errorCallback(result.msg);
-					} else {
-						connectionError();
-					}
-				}
+				successCallback: successCallback,
+				errorCallback: errorCallback
 			});
 		},
 		createUser: function createUser(datas, successCallback, errorCallback) {
@@ -386,22 +376,8 @@ module.exports = (function() {
 				method: 'PUT',
 				url: 	ENDPOINT + '/users',
 				data:	datas,
-				success:function (result) {
-					if (result && result.result && result.result == 1) {
-						successCallback(result);
-					} else if (result && result.msg) {
-						errorCallback(result.msg);
-					} else {
-						connectionError();
-					}
-				},
-				error:	function (result) {
-					if (result && result.msg) {
-						errorCallback(result.msg);
-					} else {
-						connectionError();
-					}
-				}
+				successCallback: successCallback,
+				errorCallback: errorCallback
 			});
 		},
 		getUser: function getUser(user, successCallback, errorCallback) {
@@ -417,13 +393,8 @@ module.exports = (function() {
 						connectionError();
 					}
 				},
-				error:	function (result) {
-					if (result && result.msg) {
-						errorCallback(result.msg);
-					} else {
-						connectionError();
-					}
-				}
+				successCallback: successCallback,
+				errorCallback: errorCallback
 			});
 		},
 		updateUser: function updateUser(datas, successCallback, errorCallback) {
@@ -431,22 +402,8 @@ module.exports = (function() {
 				method: 'PUT',
 				url: 	ENDPOINT + '/users/'+ data.getString('uid'),
 				data:	datas,
-				success:function (result) {
-					if (result && result.result && result.result == 1) {
-						successCallback(result);
-					} else if (result && result.msg) {
-						errorCallback(result.msg);
-					} else {
-						connectionError();
-					}
-				},
-				error:	function (result) {
-					if (result && result.msg) {
-						errorCallback(result.msg);
-					} else {
-						connectionError();
-					}
-				}
+				successCallback: successCallback,
+				errorCallback: errorCallback
 			});
 		},
 		deleteUser: function deleteUser(callback) {
@@ -462,22 +419,8 @@ module.exports = (function() {
 				method: 'POST',
 				url: 	ENDPOINT + '/user-activation',
 				data:	datas,
-				success:function (result) {
-					if (result && result.result && result.result == 1) {
-						successCallback(result);
-					} else if (result && result.msg) {
-						errorCallback(result.msg);
-					} else {
-						connectionError();
-					}
-				},
-				error:	function (result) {
-					if (result && result.msg) {
-						errorCallback(result.msg);
-					} else {
-						connectionError();
-					}
-				}
+				successCallback: successCallback,
+				errorCallback: errorCallback
 			});
 		},
 		userPosts: function userPosts(uid, successCallback, errorCallback) {
@@ -493,13 +436,8 @@ module.exports = (function() {
 						connectionError();
 					}
 				},
-				error:	function (result) {
-					if (result && result.msg) {
-						errorCallback(result.msg);
-					} else {
-						connectionError();
-					}
-				}
+				successCallback: successCallback,
+				errorCallback: errorCallback
 			});
 		},
 		userFavorites: function userFavorites(successCallback, errorCallback) {
@@ -515,13 +453,8 @@ module.exports = (function() {
 						connectionError();
 					}
 				},
-				error:	function (result) {
-					if (result && result.msg) {
-						errorCallback(result.msg);
-					} else {
-						connectionError();
-					}
-				}
+				successCallback: successCallback,
+				errorCallback: errorCallback
 			});
 		},
 		createPost: function createPost(datas, successCallback, errorCallback) {
@@ -529,22 +462,8 @@ module.exports = (function() {
 				method: 'PUT',
 				url: 	ENDPOINT + '/wouafs',
 				data:	datas,
-				success:function (result) {
-					if (result && result.result && result.result == 1) {
-						successCallback(result);
-					} else if (result && result.msg) {
-						errorCallback(result.msg);
-					} else {
-						connectionError();
-					}
-				},
-				error:	function (result) {
-					if (result && result.msg) {
-						errorCallback(result.msg);
-					} else {
-						connectionError();
-					}
-				}
+				successCallback: successCallback,
+				errorCallback: errorCallback
 			});
 		},
 		addFavorite: function addFavorite(id, successCallback, errorCallback) {
@@ -554,22 +473,8 @@ module.exports = (function() {
 				data:	{
 					id: id
 				},
-				success:function (result) {
-					if (result && result.result && result.result == 1) {
-						successCallback(result);
-					} else if (result && result.msg) {
-						errorCallback(result.msg);
-					} else {
-						connectionError();
-					}
-				},
-				error:	function (result) {
-					if (result && result.msg) {
-						errorCallback(result.msg);
-					} else {
-						connectionError();
-					}
-				}
+				successCallback: successCallback,
+				errorCallback: errorCallback
 			});
 		},
 		removeFavorite: function removeFavorite(id, successCallback, errorCallback) {
@@ -579,22 +484,8 @@ module.exports = (function() {
 				data:	{
 					id: id
 				},
-				success:function (result) {
-					if (result && result.result && result.result == 1) {
-						successCallback(result);
-					} else if (result && result.msg) {
-						errorCallback(result.msg);
-					} else {
-						connectionError();
-					}
-				},
-				error:	function (result) {
-					if (result && result.msg) {
-						errorCallback(result.msg);
-					} else {
-						connectionError();
-					}
-				}
+				successCallback: successCallback,
+				errorCallback: errorCallback
 			});
 		},
 		getComments: function getComments(id, successCallback, errorCallback) {
@@ -611,13 +502,8 @@ module.exports = (function() {
 						connectionError();
 					}
 				},
-				error:	function (result) {
-					if (result && result.msg) {
-						errorCallback(result.msg);
-					} else {
-						connectionError();
-					}
-				}
+				successCallback: successCallback,
+				errorCallback: errorCallback
 			});
 		},
 		createComment: function createComment(datas, successCallback, errorCallback) {
@@ -625,44 +511,16 @@ module.exports = (function() {
 				method: 'PUT',
 				url:	ENDPOINT + '/wouafs/'+ datas.id +'/comments',
 				data:  datas,
-				success:function (result) {
-					if (result && result.result && result.result == 1) {
-						successCallback(result);
-					} else if (result && result.msg) {
-						errorCallback(result.msg);
-					} else {
-						connectionError();
-					}
-				},
-				error:	function (result) {
-					if (result && result.msg) {
-						errorCallback(result.msg);
-					} else {
-						connectionError();
-					}
-				}
+				successCallback: successCallback,
+				errorCallback: errorCallback
 			});
 		},
 		deleteComment: function deleteComment(id, successCallback, errorCallback) {
 			query({
 				method: 'DELETE',
 				url:	ENDPOINT + '/comments/'+ id,
-				success:function (result) {
-					if (result && result.result && result.result == 1) {
-						successCallback(result);
-					} else if (result && result.msg) {
-						errorCallback(result.msg);
-					} else {
-						connectionError();
-					}
-				},
-				error:	function (result) {
-					if (result && result.msg) {
-						errorCallback(result.msg);
-					} else {
-						connectionError();
-					}
-				}
+				successCallback: successCallback,
+				errorCallback: errorCallback
 			});
 		},
 		contactUser: function contactUser(datas, successCallback, errorCallback) {
@@ -670,22 +528,8 @@ module.exports = (function() {
 				method: 'POST',
 				url:	ENDPOINT + '/wouafs/'+ datas.id +'/contact',
 				data:  datas,
-				success:function (result) {
-					if (result && result.result && result.result == 1) {
-						successCallback(result);
-					} else if (result && result.msg) {
-						errorCallback(result.msg);
-					} else {
-						connectionError();
-					}
-				},
-				error:	function (result) {
-					if (result && result.msg) {
-						errorCallback(result.msg);
-					} else {
-						connectionError();
-					}
-				}
+				successCallback: successCallback,
+				errorCallback: errorCallback
 			});
 		},
 		contact: function contact(datas, successCallback, errorCallback) {
@@ -693,124 +537,62 @@ module.exports = (function() {
 				method: 'POST',
 				url:	ENDPOINT + '/contact',
 				data:  datas,
-				success:function (result) {
-					if (result && result.result && result.result == 1) {
-						successCallback(result);
-					} else if (result && result.msg) {
-						errorCallback(result.msg);
-					} else {
-						connectionError();
-					}
-				},
-				error:	function (result) {
-					if (result && result.msg) {
-						errorCallback(result.msg);
-					} else {
-						connectionError();
-					}
-				}
+				successCallback: successCallback,
+				errorCallback: errorCallback
 			});
 		},
 		deletePost: function deletePost(id, successCallback, errorCallback) {
 			query({
 				method: 'DELETE',
 				url:	ENDPOINT + '/wouafs/'+ id,
-				success:function (result) {
-					if (result && result.result && result.result == 1) {
-						successCallback(result);
-					} else if (result && result.msg) {
-						errorCallback(result.msg);
-					} else {
-						connectionError();
-					}
-				},
-				error:	function (result) {
-					if (result && result.msg) {
-						errorCallback(result.msg);
-					} else {
-						connectionError();
-					}
-				}
+				successCallback: successCallback,
+				errorCallback: errorCallback
 			});
 		},
 		reportPost: function reportPost(id, successCallback, errorCallback) {
 			query({
 				method: 'POST',
 				url:	ENDPOINT + '/wouafs/'+ id +'/abuse',
-				success:function (result) {
-					if (result && result.result && result.result == 1) {
-						successCallback(result);
-					} else if (result && result.msg) {
-						errorCallback(result.msg);
-					} else {
-						connectionError();
-					}
-				},
-				error:	function (result) {
-					if (result && result.msg) {
-						errorCallback(result.msg);
-					} else {
-						connectionError();
-					}
-				}
+				successCallback: successCallback,
+				errorCallback: errorCallback
 			});
 		},
 		reportComment: function reportComment(id, successCallback, errorCallback) {
 			query({
 				method: 'POST',
 				url:	ENDPOINT + '/comments/'+ id +'/abuse',
-				success:function (result) {
-					if (result && result.result && result.result == 1) {
-						successCallback(result);
-					} else if (result && result.msg) {
-						errorCallback(result.msg);
-					} else {
-						connectionError();
-					}
-				},
-				error:	function (result) {
-					if (result && result.msg) {
-						errorCallback(result.msg);
-					} else {
-						connectionError();
-					}
-				}
+				successCallback: successCallback,
+				errorCallback: errorCallback
 			});
 		},
-		followUser: function reportComment(uid, successCallback, errorCallback) {
+		followUser: function followUser(uid, successCallback, errorCallback) {
 			query({
 				method: 'PUT',
 				url:	ENDPOINT + '/users/'+ data.getString('uid') +'/following',
 				data:	{
 					uid: uid
 				},
-				success:function (result) {
-					if (result && result.result && result.result == 1) {
-						successCallback(result);
-					} else if (result && result.msg) {
-						errorCallback(result.msg);
-					} else {
-						connectionError();
-					}
-				},
-				error:	function (result) {
-					if (result && result.msg) {
-						errorCallback(result.msg);
-					} else {
-						connectionError();
-					}
-				}
+				successCallback: successCallback,
+				errorCallback: errorCallback
 			});
 		},
-		unfollowUser: function reportComment(uid, successCallback, errorCallback) {
+		unfollowUser: function unfollowUser(uid, successCallback, errorCallback) {
 			query({
 				method: 'DELETE',
 				url:	ENDPOINT + '/users/'+ data.getString('uid') +'/following',
 				data:	{
 					uid: uid
 				},
+				successCallback: successCallback,
+				errorCallback: errorCallback
+			});
+		},
+		userFollowing: function userFollowing(uid, successCallback, errorCallback) {
+			query({
+				method: 'GET',
+				url:	ENDPOINT + '/users/'+ uid +'/following',
 				success:function (result) {
-					if (result && result.result && result.result == 1) {
+					if (result && result.results) {
 						successCallback(result);
 					} else if (result && result.msg) {
 						errorCallback(result.msg);
@@ -818,13 +600,25 @@ module.exports = (function() {
 						connectionError();
 					}
 				},
-				error:	function (result) {
-					if (result && result.msg) {
+				successCallback: successCallback,
+				errorCallback: errorCallback
+			});
+		},
+		userFollowers: function userFollowers(uid, successCallback, errorCallback) {
+			query({
+				method: 'GET',
+				url:	ENDPOINT + '/users/'+ uid +'/followers',
+				success:function (result) {
+					if (result && result.results) {
+						successCallback(result);
+					} else if (result && result.msg) {
 						errorCallback(result.msg);
 					} else {
 						connectionError();
 					}
-				}
+				},
+				successCallback: successCallback,
+				errorCallback: errorCallback
 			});
 		}
 	};

@@ -80,7 +80,7 @@
 				<label><input type="checkbox" name="wouaf-notifications"> <%= htmlWebpackPlugin.options.i18n['Being notified by email for feedback on this Wouaf'] %></label>
 			</div>
 
-			<p class="text-xs-right"><button type="submit" class="btn btn-primary"><%= htmlWebpackPlugin.options.i18n['Save your Wouaf'] %></button></p>
+			<p class="text-xs-right"><button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> <%= htmlWebpackPlugin.options.i18n['Save your Wouaf'] %></button></p>
 		</form>
 	</div>
 	<div class="modal-footer">

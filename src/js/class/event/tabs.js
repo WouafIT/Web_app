@@ -54,7 +54,7 @@ module.exports = (function() {
 			content = tab.getContent(data.data);
 			tabsData[data.id] = data.data.data;
 		}
-		$tabsContent.append('<div role="tabpanel" class="tab-pane" id="' + data.id + '">' + content + '</div>');
+		$tabsContent.append('<div role="tabpanel" class="tab-pane" id="' + data.id + '">' + (data.title ? '<h2>'+ data.title +'</h2>' : '') + content + '</div>');
 		if (active) {
 			$document.triggerHandler('tabs.show', data.id);
 			$document.triggerHandler('slide.open');

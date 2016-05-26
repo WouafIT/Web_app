@@ -324,5 +324,7 @@
 	"Follow this Wouaffer": "Suivre ce Wouaffeur",
 	"Unfollow this Wouaffer": "Ne plus suivre ce Wouaffeur",
 	"You follow this Wouaffer": "Vous suivez ce Wouaffeur",
-	"You are no longer following this Wouaffer": "Vous ne suivez plus ce Wouaffeur"
+	"You are no longer following this Wouaffer": "Vous ne suivez plus ce Wouaffeur",
+	"All Wouaffer following {{username}}": "Tous les Wouaffeurs qui suivent {{username}}",
+	"All Wouaffer followed by {{username}}": "Tous les Wouaffeurs suivis par {{username}}"
 }
