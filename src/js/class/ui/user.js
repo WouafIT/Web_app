@@ -66,8 +66,14 @@ module.exports = (function() {
 			}
 
 			content += '</div></div>';
-			if (user.posts) {
+			/*if (user.posts) {
 				content += '<p class="text-xs-right"><button type="button" data-action="user-wouaf" data-uid="'+ user.uid +'" class="btn btn-primary view-wouaf">' + i18n.t('See his Wouafs') + '</button></p>';
+			}*/
+			var following = data.getArray('following');
+			if (utils.indexOf(following, user.uid) === -1) {
+				content += '<p class="text-xs-right"><button type="button" data-action="follow-user" data-uid="' + user.uid + '" class="btn btn-primary view-wouaf"><i class="fa fa-plus-circle"></i> ' + i18n.t('Follow this Wouaffer') + '</button></p>';
+			} else {
+				content += '<p class="text-xs-right"><button type="button" data-action="unfollow-user" data-uid="' + user.uid + '" class="btn btn-primary view-wouaf"><i class="fa fa-pause-circle"></i> ' + i18n.t('Unfollow this Wouaffer') + '</button></p>';
 			}
 			$modalWindow.find('.modal-body').html(content);
 		}).fail(function() {

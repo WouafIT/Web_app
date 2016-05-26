@@ -4,6 +4,7 @@ module.exports = (function() {
 	var i18n = require('../resource/i18n.js');
 	var query = require('../resource/query.js');
 	var users = require('../resource/users.js');
+	var data = require('../resource/data.js');
 	var utils = require('../utils.js');
 	var $document = $(document);
 
@@ -33,6 +34,8 @@ module.exports = (function() {
 	//action event
 	$document.on('click', 'a[data-action], button[data-action]', function (event) {
 		var $this = $(this);
+		var uid;
+		var following;
 		event.stopPropagation();
 		event.preventDefault();
 
@@ -41,17 +44,14 @@ module.exports = (function() {
 				var add = require('../resource/add.js');
 				add.addWouaf();
 				break;
-			case 'follow':
-
-				break;
 			case 'user-wouaf':
-				var uid = $this.data('uid');
+				uid = $this.data('uid');
 				if (!uid) {
 					return;
 				}
 				$.when(users.get(uid)).done(function(user) {
 					var username = user.firstname || user.lastname ? user.firstname +' '+ user.lastname : user.username;
-					query.userPosts(uid, function (data) {
+					query.userPosts(uid, function (result) {
 						windows.close();
 						//load user tabs data
 						$document.triggerHandler('tabs.add', {
@@ -60,7 +60,7 @@ module.exports = (function() {
 							title: i18n.t('All Wouafs by {{username}}', {'username': username}),
 							active: true,
 							removable: true,
-							data: {type: 'list', data: data}
+							data: {type: 'list', data: result}
 						});
 					}, function (msg) {
 						toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
@@ -68,6 +68,51 @@ module.exports = (function() {
 				}).fail(function(msg) {
 					toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
 				});
+				break;
+			case 'follow-user':
+				uid = $this.data('uid');
+				if (!uid) {
+					return;
+				}
+				following = data.getArray('following');
+				if (utils.indexOf(following, uid) === -1) {
+					query.followUser(uid, function () {
+						following.push(uid);
+						data.setArray('following', following);
+
+						$.when(users.get(uid)).done(function(user) {
+							user.followers++;
+
+							windows.refresh();
+							$document.triggerHandler('app.follow-user', uid);
+							toast.show(i18n.t('You follow this Wouaffer'), 5000);
+						});
+					}, function (msg) {
+						toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
+					});
+				}
+				break;
+			case 'unfollow-user':
+				uid = $this.data('uid');
+				if (!uid) {
+					return;
+				}
+				following = data.getArray('following');
+				if (utils.indexOf(following, uid) !== -1) {
+					query.unfollowUser(uid, function () {
+						delete following[utils.indexOf(following, uid)];
+						data.setArray('following', following);
+						$.when(users.get(uid)).done(function(user) {
+							user.followers--;
+
+							windows.refresh();
+							$document.triggerHandler('app.unfollow-user', uid);
+							toast.show(i18n.t('You are no longer following this Wouaffer'), 5000);
+						});
+					}, function (msg) {
+						toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
+					});
+				}
 				break;
 			case 'user-followers':
 

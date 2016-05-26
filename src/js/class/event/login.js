@@ -11,6 +11,7 @@ module.exports = (function() {
 		data.setString('uid', null);
 		data.setString('token', null);
 		data.setArray('favorites', null);
+		data.setArray('following', null);
 		data.setObject('user', null);
 		data.setString('loginType', 'default');
 		data.setInt('today_publications', 0);
@@ -44,6 +45,9 @@ module.exports = (function() {
 			data.setInt('today_publications', params.today_publications, !permanent);
 			if (params.favorites) {
 				data.setArray('favorites', params.favorites, !permanent);
+			}
+			if (params.following) {
+				data.setArray('following', params.following, !permanent);
 			}
 		}
 		$('.anonymous').attr('hidden', true);

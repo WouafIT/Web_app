@@ -281,8 +281,8 @@
 	"Is following {{count}} Wouaffer": "Suit {{count}} Wouaffeur.",
 	"Is following {{count}} Wouaffer_plural": "Suit {{count}} Wouaffeurs.",
 	"Is not following anyone yet": "Ne suit personne.",
-	"Is followed by {{count}} Wouaffer": "Est suivi par {{count}} Wuaffeur.",
-	"Is followed by {{count}} Wouaffer_plural": "Est suivi par {{count}} Wuaffeurs.",
+	"Is followed by {{count}} Wouaffer": "Est suivi par {{count}} Wouaffeur.",
+	"Is followed by {{count}} Wouaffer_plural": "Est suivi par {{count}} Wouaffeurs.",
 	"Is not followed by anyone yet": "N'est pas encore suivi.",
 	"All Wouafs by {{username}}": "Tous les Wouafs de {{username}}",
 
@@ -319,5 +319,10 @@
 	"No Wouaf here": "Aucun Wouaf ici ...",
 	"At the moment there are no Wouaf there with your search parameters": "Pour le moment il n'y a aucun Wouaf à cet endroit avec vos paramètres de recherche.",
 	"what if you add one yourself": "et si vous en ajoutiez un vous même ?",
-	"Add a Wouaf": "Ajouter un Wouaf"
+	"Add a Wouaf": "Ajouter un Wouaf",
+
+	"Follow this Wouaffer": "Suivre ce Wouaffeur",
+	"Unfollow this Wouaffer": "Ne plus suivre ce Wouaffeur",
+	"You follow this Wouaffer": "Vous suivez ce Wouaffeur",
+	"You are no longer following this Wouaffer": "Vous ne suivez plus ce Wouaffeur"
 }

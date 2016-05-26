@@ -20,8 +20,8 @@ module.exports = (function() {
 		loader.hide();
 	});
 	//if needed someday : http://ws.geonames.org/search?q=toulouse&maxRows=5&style=LONG
-    //or http://api.geonames.org/postalCodeSearch
-    // Better ====>>> http://open.mapquestapi.com/geocoding/v1/address?location=Toulouse&callback=renderGeocode
+	//or http://api.geonames.org/postalCodeSearch
+	// Better ====>>> http://open.mapquestapi.com/geocoding/v1/address?location=Toulouse&callback=renderGeocode
 	//doc : http://open.mapquestapi.com/geocoding/
 	
 	//OSM Static maps Images : http://wiki.openstreetmap.org/wiki/Static_map_images
@@ -34,7 +34,7 @@ module.exports = (function() {
 		var i18n = require('./i18n.js');
 		toast.show(i18n.t('Connexion error. Are you connected to the Internet? Please try again later'), 5000);
 	};
-    var query = function (params) {
+	var query = function (params) {
 		for (var i in params.data) {
 			if (params.data.hasOwnProperty(i)) {
 				if (params.data[i] === null) {
@@ -144,16 +144,16 @@ module.exports = (function() {
 			if (Ti.Platform.osname != 'mobileweb' && data.getString('eventfulKey') && !!data.getBool('eventfulSearch')) {
 				//duplicate search on eventful	
 				var q = 'app_key='+ data.getString('eventfulKey') +'&units=km&page_size=100&mature=normal&include=categories&sort_order=popularity';
-                if (!params.date) {
-                    params.date = new Date();
-                }
-                if (!params.duration) {
-                    params.duration = 86400;
-                }
-                for (var i in params) {
+				if (!params.date) {
+					params.date = new Date();
+				}
+				if (!params.duration) {
+					params.duration = 86400;
+				}
+				for (var i in params) {
 					var param = params[i];
 					if (i == 'type' || i == 'searchId' || i == 'source' || i == 'tag' || i == 'cat' || !param) { //remove event or empty params
-					    continue;
+						continue;
 					}
 					if (i == 'date') {
 						//start
@@ -163,15 +163,15 @@ module.exports = (function() {
 						var day = param.getDate();
 						day = day < 10 ? '0' + day : day;
 						//end
-					    var endDate = new Date();
-					    endDate.setTime(param.getTime() + ((params.duration - 86400) * 1000));
-					    var endYear = endDate.getFullYear();
-                        var endMonth = endDate.getMonth() + 1;
-                        endMonth = endMonth < 10 ? '0' + endMonth : endMonth;
-                        var endDay = endDate.getDate();
-                        endDay = endDay < 10 ? '0' + endDay : endDay;
-                        
-                        q += '&date=' + year + month + day + '00-' + endYear + endMonth + endDay + '00';
+						var endDate = new Date();
+						endDate.setTime(param.getTime() + ((params.duration - 86400) * 1000));
+						var endYear = endDate.getFullYear();
+						var endMonth = endDate.getMonth() + 1;
+						endMonth = endMonth < 10 ? '0' + endMonth : endMonth;
+						var endDay = endDate.getDate();
+						endDay = endDay < 10 ? '0' + endDay : endDay;
+						
+						q += '&date=' + year + month + day + '00-' + endYear + endMonth + endDay + '00';
 					} else if (i == 'loc') {
 						q += '&location=' + param;
 					} else if (i == 'radius') {
@@ -270,10 +270,10 @@ module.exports = (function() {
 						callback(datas);
 					},
 					error:	function() {
-					    //empty function to avoid double connection error alert
-					    console.info('eventful error');
-                        console.info(JSON.stringify(arguments));
-                    }
+						//empty function to avoid double connection error alert
+						console.info('eventful error');
+						console.info(JSON.stringify(arguments));
+					}
 				});
 			}*/
 		},
@@ -305,21 +305,21 @@ module.exports = (function() {
 				method: 'POST',
 				url: 	ENDPOINT + '/init',
 				data:	{
-					locale:     LANGUAGE
-                },
+					locale:	 LANGUAGE
+				},
 				success:callback,
 				error:	callback
 			});
 		},
 		login: function login(datas, successCallback, errorCallback) {
-            query({
-                method: 'POST',
-                url:    ENDPOINT + '/login',
-                data:  {
-                    login:      datas.login,
-                    pass:       datas.pass,
-                    did:        'web_app_'+ utils.md5(navigator.userAgent)
-                },
+			query({
+				method: 'POST',
+				url:	ENDPOINT + '/login',
+				data:  {
+					login:	  datas.login,
+					pass:		datas.pass,
+					did:		'web_app_'+ utils.md5(navigator.userAgent)
+				},
 				success:function (result) {
 					if (result && result.user) {
 						successCallback(result);
@@ -336,19 +336,19 @@ module.exports = (function() {
 						errorCallback()
 					}
 				}
-            });
-        },
-        fblogin: function fblogin(datas, success, error) {
-            datas.did = 'web_app_'+ utils.md5(navigator.userAgent);
-            query({
-                method: 'POST',
-                url:    ENDPOINT + '/user/fblogin/',
-                data:  datas,
-                success:success,
-                error:  error
-            });
-        },
-        logout: function logout(callback) {
+			});
+		},
+		fblogin: function fblogin(datas, success, error) {
+			datas.did = 'web_app_'+ utils.md5(navigator.userAgent);
+			query({
+				method: 'POST',
+				url:	ENDPOINT + '/user/fblogin/',
+				data:  datas,
+				success:success,
+				error:  error
+			});
+		},
+		logout: function logout(callback) {
 			query({
 				method: 'POST',
 				url: 	ENDPOINT + '/logout',
@@ -357,12 +357,12 @@ module.exports = (function() {
 			});
 		},
 		resetPassword: function resetPassword(email, successCallback, errorCallback) {
-            query({
-                method: 'POST',
-                url:    ENDPOINT + '/reset-password',
-                data:  {
-                    email:      email
-                },
+			query({
+				method: 'POST',
+				url:	ENDPOINT + '/reset-password',
+				data:  {
+					email:	  email
+				},
 				success:function (result) {
 					if (result && result.result && result.result == 1) {
 						successCallback(result);
@@ -379,8 +379,8 @@ module.exports = (function() {
 						connectionError();
 					}
 				}
-            });
-        },
+			});
+		},
 		createUser: function createUser(datas, successCallback, errorCallback) {
 			query({
 				method: 'PUT',
@@ -407,7 +407,7 @@ module.exports = (function() {
 		getUser: function getUser(user, successCallback, errorCallback) {
 			query({
 				method: 'GET',
-				url:    ENDPOINT + '/users/' + user,
+				url:	ENDPOINT + '/users/' + user,
 				success:function (result) {
 					if (result && result.user) {
 						successCallback(result);
@@ -450,13 +450,13 @@ module.exports = (function() {
 			});
 		},
 		deleteUser: function deleteUser(callback) {
-            query({
-                method: 'DELETE',
-                url:    ENDPOINT + '/users/'+ data.getString('uid'),
-                success:callback,
-                error:  callback
-            });
-        },
+			query({
+				method: 'DELETE',
+				url:	ENDPOINT + '/users/'+ data.getString('uid'),
+				success:callback,
+				error:  callback
+			});
+		},
 		activateUser: function activateUser(datas, successCallback, errorCallback) {
 			query({
 				method: 'POST',
@@ -480,10 +480,10 @@ module.exports = (function() {
 				}
 			});
 		},
-        userPosts: function userPosts(uid, successCallback, errorCallback) {
-            query({
-                method: 'GET',
-                url:    ENDPOINT + '/users/'+ uid +'/wouafs',
+		userPosts: function userPosts(uid, successCallback, errorCallback) {
+			query({
+				method: 'GET',
+				url:	ENDPOINT + '/users/'+ uid +'/wouafs',
 				success:function (result) {
 					if (result && result.results) {
 						successCallback(result);
@@ -500,12 +500,12 @@ module.exports = (function() {
 						connectionError();
 					}
 				}
-            });
-        },
-        userFavorites: function userFavorites(successCallback, errorCallback) {
-            query({
-                method: 'GET',
-                url:    ENDPOINT + '/users/'+ data.getString('uid') +'/favorites',
+			});
+		},
+		userFavorites: function userFavorites(successCallback, errorCallback) {
+			query({
+				method: 'GET',
+				url:	ENDPOINT + '/users/'+ data.getString('uid') +'/favorites',
 				success:function (result) {
 					if (result && result.results) {
 						successCallback(result);
@@ -522,9 +522,9 @@ module.exports = (function() {
 						connectionError();
 					}
 				}
-            });
-        },
-        createPost: function createPost(datas, successCallback, errorCallback) {
+			});
+		},
+		createPost: function createPost(datas, successCallback, errorCallback) {
 			query({
 				method: 'PUT',
 				url: 	ENDPOINT + '/wouafs',
@@ -598,10 +598,10 @@ module.exports = (function() {
 			});
 		},
 		getComments: function getComments(id, successCallback, errorCallback) {
-            query({
-                method: 'GET',
-                url:    ENDPOINT + '/wouafs/'+ id +'/comments',
-                data:  null,
+			query({
+				method: 'GET',
+				url:	ENDPOINT + '/wouafs/'+ id +'/comments',
+				data:  null,
 				success:function (result) {
 					if (result && result.comments) {
 						successCallback(result);
@@ -618,13 +618,13 @@ module.exports = (function() {
 						connectionError();
 					}
 				}
-            });
-        },
+			});
+		},
 		createComment: function createComment(datas, successCallback, errorCallback) {
-		    query({
-                method: 'PUT',
-                url:    ENDPOINT + '/wouafs/'+ datas.id +'/comments',
-                data:  datas,
+			query({
+				method: 'PUT',
+				url:	ENDPOINT + '/wouafs/'+ datas.id +'/comments',
+				data:  datas,
 				success:function (result) {
 					if (result && result.result && result.result == 1) {
 						successCallback(result);
@@ -641,13 +641,13 @@ module.exports = (function() {
 						connectionError();
 					}
 				}
-            });
+			});
 		},
 		deleteComment: function deleteComment(id, successCallback, errorCallback) {
-            query({
-                method: 'DELETE',
-                url:    ENDPOINT + '/comments/'+ id,
-                success:function (result) {
+			query({
+				method: 'DELETE',
+				url:	ENDPOINT + '/comments/'+ id,
+				success:function (result) {
 					if (result && result.result && result.result == 1) {
 						successCallback(result);
 					} else if (result && result.msg) {
@@ -663,12 +663,12 @@ module.exports = (function() {
 						connectionError();
 					}
 				}
-            });
-        },
+			});
+		},
 		contactUser: function contactUser(datas, successCallback, errorCallback) {
 			query({
 				method: 'POST',
-				url:    ENDPOINT + '/wouafs/'+ datas.id +'/contact',
+				url:	ENDPOINT + '/wouafs/'+ datas.id +'/contact',
 				data:  datas,
 				success:function (result) {
 					if (result && result.result && result.result == 1) {
@@ -691,7 +691,7 @@ module.exports = (function() {
 		contact: function contact(datas, successCallback, errorCallback) {
 			query({
 				method: 'POST',
-				url:    ENDPOINT + '/contact',
+				url:	ENDPOINT + '/contact',
 				data:  datas,
 				success:function (result) {
 					if (result && result.result && result.result == 1) {
@@ -712,10 +712,10 @@ module.exports = (function() {
 			});
 		},
 		deletePost: function deletePost(id, successCallback, errorCallback) {
-            query({
-                method: 'DELETE',
-                url:    ENDPOINT + '/wouafs/'+ id,
-                success:function (result) {
+			query({
+				method: 'DELETE',
+				url:	ENDPOINT + '/wouafs/'+ id,
+				success:function (result) {
 					if (result && result.result && result.result == 1) {
 						successCallback(result);
 					} else if (result && result.msg) {
@@ -731,13 +731,13 @@ module.exports = (function() {
 						connectionError();
 					}
 				}
-            });
-       },
-       reportPost: function reportPost(id, successCallback, errorCallback) {
-            query({
-                method: 'POST',
-                url:    ENDPOINT + '/wouafs/'+ id +'/abuse',
-                success:function (result) {
+			});
+		},
+		reportPost: function reportPost(id, successCallback, errorCallback) {
+			query({
+				method: 'POST',
+				url:	ENDPOINT + '/wouafs/'+ id +'/abuse',
+				success:function (result) {
 					if (result && result.result && result.result == 1) {
 						successCallback(result);
 					} else if (result && result.msg) {
@@ -753,12 +753,62 @@ module.exports = (function() {
 						connectionError();
 					}
 				}
-            });
-        },
+			});
+		},
 		reportComment: function reportComment(id, successCallback, errorCallback) {
 			query({
 				method: 'POST',
-				url:    ENDPOINT + '/comments/'+ id +'/abuse',
+				url:	ENDPOINT + '/comments/'+ id +'/abuse',
+				success:function (result) {
+					if (result && result.result && result.result == 1) {
+						successCallback(result);
+					} else if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						connectionError();
+					}
+				},
+				error:	function (result) {
+					if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						connectionError();
+					}
+				}
+			});
+		},
+		followUser: function reportComment(uid, successCallback, errorCallback) {
+			query({
+				method: 'PUT',
+				url:	ENDPOINT + '/users/'+ data.getString('uid') +'/following',
+				data:	{
+					uid: uid
+				},
+				success:function (result) {
+					if (result && result.result && result.result == 1) {
+						successCallback(result);
+					} else if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						connectionError();
+					}
+				},
+				error:	function (result) {
+					if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						connectionError();
+					}
+				}
+			});
+		},
+		unfollowUser: function reportComment(uid, successCallback, errorCallback) {
+			query({
+				method: 'DELETE',
+				url:	ENDPOINT + '/users/'+ data.getString('uid') +'/following',
+				data:	{
+					uid: uid
+				},
 				success:function (result) {
 					if (result && result.result && result.result == 1) {
 						successCallback(result);
