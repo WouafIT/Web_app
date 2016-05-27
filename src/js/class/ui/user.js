@@ -9,6 +9,10 @@ module.exports = (function() {
 	var users = require('../resource/users.js');
 	var $modalWindow = windows.getWindows();
 
+	var getUsername = function (user) {
+		return (user.firstname || user.lastname ? user.firstname +' '+ user.lastname : user.username).trim();
+	};
+
 	self.show = function () {
 		var states = data.getObject('navigation');
 		if (!states || !states.user) { //no user, close windows
@@ -17,8 +21,8 @@ module.exports = (function() {
 		}
 		//get user infos
 		$.when(users.get(states.user)).done(function(user) {
-			var username = user.firstname || user.lastname ? user.firstname +' '+ user.lastname : user.username;
-			$modalWindow.find('.modal-title').html(i18n.t('User profile {{username}}', {username: username.trim()}));
+			var username = getUsername(user);
+			$modalWindow.find('.modal-title').html(i18n.t('User profile {{username}}', {username: username}));
 			var content = '<div class="modal-user">';
 			if (user.description) {
 				content += '<blockquote class="blockquote">'+ utils.textToHTML(user.description) +'</blockquote>';
@@ -39,14 +43,14 @@ module.exports = (function() {
 				content += '<p><i class="fa fa-comment"></i> '+ i18n.t('No comments yet') +'</p>';
 			}
 			if (user.following) {
-				content += '<p><i class="fa fa-arrow-left"></i> <a href="#" data-action="user-following" data-uid="'+ user.uid +'">'+ i18n.t('Is following {{count}} Wouaffer', {count: user.following}) +'</a></p>';
+				content += '<p><i class="fa fa-angle-double-left"></i> <a href="#" data-action="user-following" data-uid="'+ user.uid +'">'+ i18n.t('Is following {{count}} Wouaffer', {count: user.following}) +'</a></p>';
 			} else {
-				content += '<p><i class="fa fa-arrow-left"></i> '+ i18n.t('Is not following anyone yet') +'</p>';
+				content += '<p><i class="fa fa-angle-double-left"></i> '+ i18n.t('Is not following anyone yet') +'</p>';
 			}
 			if (user.followers) {
-				content += '<p><i class="fa fa-arrow-right"></i> <a href="#" data-action="user-followers" data-uid="'+ user.uid +'">'+ i18n.t('Is followed by {{count}} Wouaffer', {count: user.followers}) +'</a></p>';
+				content += '<p><i class="fa fa-angle-double-right"></i> <a href="#" data-action="user-followers" data-uid="'+ user.uid +'">'+ i18n.t('Is followed by {{count}} Wouaffer', {count: user.followers}) +'</a></p>';
 			} else {
-				content += '<p><i class="fa fa-arrow-right"></i> '+ i18n.t('Is not followed by anyone yet') +'</p>';
+				content += '<p><i class="fa fa-angle-double-right"></i> '+ i18n.t('Is not followed by anyone yet') +'</p>';
 			}
 			if (user.registration) {
 				var registration = new Date();
@@ -69,11 +73,13 @@ module.exports = (function() {
 			/*if (user.posts) {
 				content += '<p class="text-xs-right"><button type="button" data-action="user-wouaf" data-uid="'+ user.uid +'" class="btn btn-primary view-wouaf">' + i18n.t('See his Wouafs') + '</button></p>';
 			}*/
-			var following = data.getArray('following');
-			if (utils.indexOf(following, user.uid) === -1) {
-				content += '<p class="text-xs-right"><button type="button" data-action="follow-user" data-uid="' + user.uid + '" class="btn btn-primary view-wouaf"><i class="fa fa-plus-circle"></i> ' + i18n.t('Follow this Wouaffer') + '</button></p>';
-			} else {
-				content += '<p class="text-xs-right"><button type="button" data-action="unfollow-user" data-uid="' + user.uid + '" class="btn btn-primary view-wouaf"><i class="fa fa-pause-circle"></i> ' + i18n.t('Unfollow this Wouaffer') + '</button></p>';
+			if (data.getString('uid') && user.uid !== data.getString('uid')) {
+				var following = data.getArray('following');
+				if (utils.indexOf(following, user.uid) === -1) {
+					content += '<p class="text-xs-right"><button type="button" data-action="follow-user" data-uid="' + user.uid + '" class="btn btn-primary view-wouaf"><i class="fa fa-plus-circle"></i> ' + i18n.t('Follow this Wouaffer') + '</button></p>';
+				} else {
+					content += '<p class="text-xs-right"><button type="button" data-action="unfollow-user" data-uid="' + user.uid + '" class="btn btn-primary view-wouaf"><i class="fa fa-pause-circle"></i> ' + i18n.t('Unfollow this Wouaffer') + '</button></p>';
+				}
 			}
 			$modalWindow.find('.modal-body').html(content);
 		}).fail(function() {
@@ -82,6 +88,15 @@ module.exports = (function() {
 			var toast = require('../resource/toast.js');
 			toast.show(i18n.t('An error has occurred, unknown user {{username}}', {username: username}), 5000);
 		});
+	};
+
+	self.getHeader = function (user) {
+		var username = getUsername(user);
+		return [
+			'<div class="w-title">',
+				username, ' (<i class="fa fa-at"></i>', utils.escapeHtml(user.username) +')',
+			'</div>'
+		].join('');
 	};
 	return self;
 })();

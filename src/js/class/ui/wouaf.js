@@ -5,7 +5,7 @@ module.exports = (function() {
 	var url = require('../resource/url.js');
 	var dtp = require('../resource/datetimepicker.js');
 	var self = {};
-	self.getWouafHeader = function (obj, collapse) {
+	self.getHeader = function (obj, collapse) {
 		collapse = collapse || false;
 		var title = utils.getWouafTitle(obj);
 		//state
@@ -81,7 +81,7 @@ module.exports = (function() {
 
 		var content = ['<div data-id="'+ obj.id +'"',
 			 	(collapse ? ' class="panel panel-default w-container">' : ' class="w-container">'),
-			self.getWouafHeader(obj, collapse),
+			self.getHeader(obj, collapse),
 			'<div',
 				(collapse ? ' id="collapse-'+ obj.id +'" class="panel-collapse collapse w-content">' : ' class="w-content">'),
 				'<button class="w-menu" data-id="'+ obj.id +'" type="button" data-menu="wouaf">',

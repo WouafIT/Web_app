@@ -60,7 +60,6 @@ module.exports = (function () {
 		//create pins data
 		for (i = 0, li = json.results.length; i < li; i++) {
 			var post = json.results[i];
-			wouafs.set(post.id, post);
 			var element = {
 				'id': 			post.id,
 				'description': 	post.text,

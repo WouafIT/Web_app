@@ -5,6 +5,12 @@ module.exports = (function() {
 	self.set = function (id, data) {
 		wouafs[id] = data;
 	};
+	self.sets = function (data) {
+		for (var i = 0, l = data.length; i < l; i++) {
+			var obj = data[i];
+			self.set(obj.id, obj);
+		}
+	};
 	self.getLocal = function (id) {
 		return wouafs[id] || null;
 	};

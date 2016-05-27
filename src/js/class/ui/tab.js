@@ -1,8 +1,12 @@
 module.exports = (function() {
-	var wouaf = require('./wouaf.js');
-	var i18n = require('../resource/i18n.js');
+	var wouaf 	= require('./wouaf.js');
+	var user 	= require('./user.js');
+	var i18n 	= require('../resource/i18n.js');
+	var users 	= require('../resource/users.js');
+	var wouafs 	= require('../resource/wouafs.js');
+
 	var self = {};
-	self.getContent = function (data) {
+	self.getContent = function (data, title) {
 		var content = [], i, l, obj;
 		if (data.type == 'result') {
 			l = data.data.results.length;
@@ -11,13 +15,16 @@ module.exports = (function() {
 					'<button class="w-menu" type="button" data-menu="listing" data-proximity="yes" data-sort="proximity" data-filter="no">',
 						'<i class="fa fa-cog"></i> '+ i18n.t('Menu'),
 					'</button>',
+					'<p class="lead">', i18n.t('{{count}} result for your search', {count: l}) ,'</p>',
 					'<div class="row">',
 				]);
+				//store wouafs
+				wouafs.sets(data.data.results);
 				for(i = 0; i < l; i++) {
 					obj = data.data.results[i];
 					content = content.concat([
-						'<div class="w-container" data-id="'+ obj.id +'" data-proximity="'+ i +'" data-date="'+ obj.date[0].sec +'" data-comments="'+ obj.com +'" data-type="'+ obj.cat +'" >',
-							wouaf.getWouafHeader(obj),
+						'<div class="w-container" data-id="'+ obj.id +'" data-proximity="'+ i +'" data-date="'+ obj.date[0].sec +'" data-comments="'+ obj.com +'" data-type="'+ obj.cat +'">',
+							wouaf.getHeader(obj),
 						'</div>'
 					]);
 				}
@@ -37,33 +44,44 @@ module.exports = (function() {
 				]);
 			}
 		} else if (data.type == 'list') {
+			l = data.data.results.length;
+			if (l) {
+				content = content.concat([
+					'<button class="w-menu" type="button" data-menu="listing" data-proximity="no" data-sort="date-desc" data-filter="no">',
+						'<i class="fa fa-cog"></i> '+ i18n.t('Menu'),
+					'</button>',
+					'<p class="lead">', (title ? title : i18n.t('{{count}} Wouaf', {count: l})) ,'</p>',
+					'<div class="row">',
+				]);
+				//store wouafs
+				wouafs.sets(data.data.results);
+				for(i = 0; i < l; i++) {
+					obj = data.data.results[i];
+					content = content.concat([
+						'<div class="w-container" data-id="'+ obj.id +'" data-date="'+ obj.date[0].sec +'" data-comments="'+ obj.com +'" data-type="'+ obj.cat +'">',
+							wouaf.getHeader(obj),
+						'</div>'
+					]);
+				}
+				content.push('</div>');
+			} else {
+				content = content.concat(['<h4>', i18n.t('No Wouaf yet') ,'</h4>']);
+			}
+		} else if (data.type == 'user') {
 			content = content.concat([
-				'<button class="w-menu" type="button" data-menu="listing" data-proximity="no" data-sort="date-desc" data-filter="no">',
-					'<i class="fa fa-cog"></i> '+ i18n.t('Menu'),
-				'</button>',
+				'<p class="lead">', title ,'</p>',
 				'<div class="row">',
 			]);
+			//store users
+			users.sets(data.data.results);
 			for(i = 0, l = data.data.results.length; i < l; i++) {
 				obj = data.data.results[i];
 				content = content.concat([
-					'<div class="w-container" data-id="'+ obj.id +'" data-date="'+ obj.date[0].sec +'" data-comments="'+ obj.com +'" data-type="'+ obj.cat +'" >',
-						wouaf.getWouafHeader(obj),
+					'<div class="w-container" data-id="'+ obj.id +'">',
+						user.getHeader(obj),
 					'</div>'
 				]);
 			}
-			content.push('</div>');
-		} else if (data.type == 'user') {
-			content = content.concat([
-				'<div class="row">todo',
-			]);
-			/*for(i = 0, l = data.data.results.length; i < l; i++) {
-				obj = data.data.results[i];
-				content = content.concat([
-					'<div class="w-container" data-id="'+ obj.id +'" data-date="'+ obj.date[0].sec +'" data-comments="'+ obj.com +'" data-type="'+ obj.cat +'" >',
-						wouaf.getWouafHeader(obj),
-					'</div>'
-				]);
-			}*/
 			content.push('</div>');
 		}
 		return content.join('');

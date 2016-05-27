@@ -6,6 +6,8 @@ module.exports = (function() {
 	var slidebars 		= require('../resource/slidebars.js');
 	var query 			= require('../resource/query.js');
 	var toast 			= require('../resource/toast.js');
+	var users 			= require('../resource/users.js');
+	var wouafs 			= require('../resource/wouafs.js');
 	var $window			= $(window);
 	var $document 		= $(document);
 	var $slidebar 		= $('.sb-slidebar');
@@ -51,10 +53,9 @@ module.exports = (function() {
 		if (data.html) {
 			content = data.html;
 		} else {
-			content = tab.getContent(data.data);
-			tabsData[data.id] = data.data.data;
+			content = tab.getContent(data.data, data.title);
 		}
-		$tabsContent.append('<div role="tabpanel" class="tab-pane" id="' + data.id + '">' + (data.title ? '<h2>'+ data.title +'</h2>' : '') + content + '</div>');
+		$tabsContent.append('<div role="tabpanel" class="tab-pane" id="' + data.id + '">' + content + '</div>');
 		if (active) {
 			$document.triggerHandler('tabs.show', data.id);
 			$document.triggerHandler('slide.open');
@@ -90,10 +91,6 @@ module.exports = (function() {
 			$document.triggerHandler('tabs.show', $dropdown.find('a:first-child').attr('id').substr(4));
 		}
 		$tab.remove();
-		if (tabsData[name]) {
-			tabsData[name] = null;
-			delete tabsData[name];
-		}
 		if ($tabHead.data('id') === 'tab-'+ name) {
 			var $activeTab = $dropdown.find('a:first-child');
 			$tabHead.html($activeTab.html());
@@ -108,7 +105,7 @@ module.exports = (function() {
 		//load user tabs data
 		query.userPosts(data.getString('uid'), function (data) {
 			var content = tab.getContent({type: 'list', data: data}, false);
-			tabsData['wouafs'] = data;
+			tabsData['wouafs'] = true;
 			var $tabPanel = $('#wouafs .results');
 			$tabPanel.html(content);
 		}, function (msg) {
@@ -123,7 +120,7 @@ module.exports = (function() {
 		//load user tabs data
 		query.userFavorites(function (data) {
 			var content = tab.getContent({type: 'list', data: data}, false);
-			tabsData['favorites'] = data;
+			tabsData['favorites'] = true;
 			var $tabPanel = $('#favorites .results');
 			$tabPanel.html(content);
 		}, function (msg) {
@@ -173,21 +170,8 @@ module.exports = (function() {
 		var $tab = $(e.target).parents('.tab-pane');
 		if ($tab.length) {
 			e.stopPropagation();
-			var tabId = $tab.attr('id');
 			var wouafId = $(e.target).parents('.w-container').data('id');
-			//grab wouaf data from tab data
-			if (tabsData[tabId]) {
-				var obj;
-				for(var i = 0, l = tabsData[tabId].results.length; i < l; i++) {
-					obj = tabsData[tabId].results[i];
-					if (obj.id == wouafId) {
-						map.showResult(wouafId, obj);
-						break;
-					}
-				}
-			} else {
-				map.showResult(wouafId);
-			}
+			map.showResult(wouafId);
 			if (!slidebars.isDualView()) {
 				$document.triggerHandler('slide.close');
 			}

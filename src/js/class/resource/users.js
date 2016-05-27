@@ -8,6 +8,12 @@ module.exports = (function() {
 		users[uid] = data;
 		usernames[data.username] = uid;
 	};
+	self.sets = function (data) {
+		for (var i = 0, l = data.length; i < l; i++) {
+			var obj = data[i];
+			self.set(obj.uid, obj);
+		}
+	};
 	self.getLocal = function (uid) {
 		return users[uid] || null;
 	};

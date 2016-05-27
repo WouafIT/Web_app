@@ -57,7 +57,7 @@ module.exports = (function() {
 						$document.triggerHandler('tabs.add', {
 							id: 'user-'+ uid,
 							name: '<i class="fa fa-user"></i> '+ username,
-							title: i18n.t('All Wouafs by {{username}}', {'username': username}),
+							title: i18n.t('{{count}} Wouaf by {{username}}', {count: result.results.length, 'username': username}),
 							active: true,
 							removable: true,
 							data: {type: 'list', data: result}
@@ -126,8 +126,8 @@ module.exports = (function() {
 						//load user tabs data
 						$document.triggerHandler('tabs.add', {
 							id: 'user-followers-'+ uid,
-							name: '<i class="fa fa-arrow-right"></i> '+ username,
-							title: i18n.t('All Wouaffer following {{username}}', {'username': username}),
+							name: '<i class="fa fa-angle-double-right"></i> '+ username,
+							title: i18n.t('{{count}} Wouaffer following {{username}}', {count: result.results.length, 'username': username}),
 							active: true,
 							removable: true,
 							data: {type: 'user', data: result}
@@ -151,8 +151,8 @@ module.exports = (function() {
 						//load user tabs data
 						$document.triggerHandler('tabs.add', {
 							id: 'user-following-'+ uid,
-							name: '<i class="fa fa-arrow-left"></i> '+ username,
-							title: i18n.t('All Wouaffer followed by {{username}}', {'username': username}),
+							name: '<i class="fa fa-angle-double-left"></i> '+ username,
+							title: i18n.t('{{count}} Wouaffer followed by {{username}}', {count: result.results.length, 'username': username}),
 							active: true,
 							removable: true,
 							data: {type: 'user', data: result}

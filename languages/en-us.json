@@ -284,7 +284,8 @@
 	"Is followed by {{count}} Wouaffer": "Is followed by {{count}} Wouaffer.",
 	"Is followed by {{count}} Wouaffer_plural": "Is followed by {{count}} Wouaffers.",
 	"Is not followed by anyone yet": "Is not followed by anyone yet.",
-	"All Wouafs by {{username}}": "All Wouafs by {{username}}",
+	"{{count}} Wouaf by {{username}}": "{{count}} Wouaf by {{username}}",
+	"{{count}} Wouaf by {{username}}_plural": "{{count}} Wouafs by {{username}}",
 
 	"{{count}} comment for {{title}}": "{{count}} comment for \"{{title}}\"",
 	"{{count}} comment for {{title}}_plural": "{{count}} comments for \"{{title}}\"",
@@ -308,6 +309,9 @@
 
 	"{{count}} result": "{{count}} result",
 	"{{count}} result_plural": "{{count}} results",
+	"{{count}} result for your search": "{{count}} result for your search",
+	"{{count}} result for your search_plural": "{{count}} results for your search",
+	"No Wouaf yet": "No Wouaf yet",
 
 	"Hide Wouafs gone": "Hide Wouafs gone",
 	"Sort by Proximity": "Sort by Proximity",
@@ -325,6 +329,8 @@
 	"Unfollow this Wouaffer": "Unfollow this Wouaffer",
 	"You follow this Wouaffer": "From now on you follow this Wouaffer",
 	"You are no longer following this Wouaffer": "You are no longer following this Wouaffer",
-	"All Wouaffer following {{username}}": "All Wouaffer following {{username}}",
-	"All Wouaffer followed by {{username}}": "All Wouaffer followed by {{username}}"
+	"{{count}} Wouaffer following {{username}}": "{{count}} Wouaffer following {{username}}",
+	"{{count}} Wouaffer following {{username}}_plural": "{{count}} Wouaffers following {{username}}",
+	"{{count}} Wouaffer followed by {{username}}": "{{count}} Wouaffer followed by {{username}}",
+	"{{count}} Wouaffer followed by {{username}}_plural": "{{count}} Wouaffers followed by {{username}}"
 }
