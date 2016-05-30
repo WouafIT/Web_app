@@ -95,6 +95,12 @@ module.exports = (function() {
 		return [
 			'<div class="w-title">',
 				username, ' (<i class="fa fa-at"></i>', utils.escapeHtml(user.username) +')',
+				'<div class="w-details">',
+					'<i class="fa fa-hashtag"></i> ', i18n.t('{{count}} Wouaf', {count: user.posts}) ,' ',
+					(user.followers
+						? '<i class="fa fa-angle-double-right"></i> '+ i18n.t('Is followed by {{count}} Wouaffer', {count: user.followers})
+						: '<i class="fa fa-angle-double-right"></i> '+ i18n.t('Is not followed by anyone yet')),
+				'</div>',
 			'</div>'
 		].join('');
 	};

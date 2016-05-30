@@ -50,6 +50,9 @@ module.exports = (function() {
 		if (!type || !action) {
 			return;
 		}
+		if (__DEV__) {
+			console.info('Handle menu action ('+ type +'): '+ action);
+		}
 		e.preventDefault();
 		var uid = data.getString('uid');
 		switch (type) {
@@ -121,6 +124,43 @@ module.exports = (function() {
 							});
 							delete favs[utils.indexOf(favs, obj.id)];
 							data.setArray('favorites', favs);
+						}
+						break;
+					case 'follow':
+						if (!uid) { //user is not logged, show login window
+							windows.login(i18n.t('Login to follow a Wouaffer'));
+							return;
+						}
+						var following = data.getArray('following');
+						var authorId = $target.data('uid');
+						if (utils.indexOf(following, authorId) === -1) {
+							query.followUser(authorId, function () {
+								following.push(authorId);
+								data.setArray('following', following);
+								$target.replaceWith('<a class="dropdown-item" href="#" data-action="unfollow" data-uid="' + authorId + '"><i class="fa fa-angle-double-right"></i> '+ i18n.t('Unfollow the author') +'</a>');
+								$document.triggerHandler('app.follow-user', authorId);
+								toast.show(i18n.t('You follow this Wouaffer'));
+							}, function (msg) {
+								toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
+							});
+						}
+						break;
+					case 'unfollow':
+						if (!uid) { //user is not logged, return
+							return;
+						}
+						var following = data.getArray('following');
+						var authorId = $target.data('uid');
+						if (utils.indexOf(following, authorId) !== -1) {
+							query.unfollowUser(authorId, function () {
+								delete following[utils.indexOf(following, authorId)];
+								data.setArray('following', following);
+								$target.replaceWith('<a class="dropdown-item" href="#" data-action="follow" data-uid="' + authorId + '"><i class="fa fa-angle-double-right"></i> '+ i18n.t('Follow the author') +'</a>');
+								$document.triggerHandler('app.unfollow-user', authorId);
+								toast.show(i18n.t('You are no longer following this Wouaffer'));
+							}, function (msg) {
+								toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
+							});
 						}
 						break;
 					case 'contact':

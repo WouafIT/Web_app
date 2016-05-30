@@ -38,7 +38,9 @@ module.exports = (function() {
 		var following;
 		event.stopPropagation();
 		event.preventDefault();
-
+		if (__DEV__) {
+			console.info('Handle data-action: '+ $this.data('action'));
+		}
 		switch ($this.data('action')) {
 			case 'add':
 				var add = require('../resource/add.js');

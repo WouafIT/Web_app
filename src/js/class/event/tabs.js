@@ -8,6 +8,8 @@ module.exports = (function() {
 	var toast 			= require('../resource/toast.js');
 	var users 			= require('../resource/users.js');
 	var wouafs 			= require('../resource/wouafs.js');
+	var windows 		= require('../resource/windows.js');
+	var utils 			= require('../utils.js');
 	var $window			= $(window);
 	var $document 		= $(document);
 	var $slidebar 		= $('.sb-slidebar');
@@ -170,10 +172,22 @@ module.exports = (function() {
 		var $tab = $(e.target).parents('.tab-pane');
 		if ($tab.length) {
 			e.stopPropagation();
-			var wouafId = $(e.target).parents('.w-container').data('id');
-			map.showResult(wouafId);
-			if (!slidebars.isDualView()) {
-				$document.triggerHandler('slide.close');
+			var $parent = $(e.target).parents('.w-container');
+			var wouafId = $parent.data('id');
+			if (wouafId) {
+				map.showResult(wouafId);
+				if (!slidebars.isDualView()) {
+					$document.triggerHandler('slide.close');
+				}
+			} else if ($parent.data('user')) {
+				var username = $parent.data('user');
+				if (utils.isValidUsername(username)) {
+					windows.show({
+						href: 'user',
+						navigationOpen: {name: 'user', value: username},
+						navigationClose: {name: 'user', value: null}
+					});
+				}
 			}
 		}
 	});

@@ -18,7 +18,7 @@ module.exports = (function() {
 		if (states.wouaf && utils.isId(states.wouaf)) {
 			//contact wouaf author
 			if (!data.getString('uid')) { //user is not logged, close window
-				windows.login(i18n.t('Login to contact a user'));
+				windows.login(i18n.t('Login to contact a Wouaffer'));
 				return;
 			}
 			$.when(wouafs.get(states.wouaf)).done(function(obj) {
@@ -36,7 +36,7 @@ module.exports = (function() {
 			return;
 			//contact user
 			/*if (!data.getString('uid')) { //user is not logged, close window
-				windows.login(i18n.t('Login to contact a user'));
+				windows.login(i18n.t('Login to contact a Wouaffer'));
 				return;
 			}
 			query.user(states.user, function (result) {
@@ -45,7 +45,7 @@ module.exports = (function() {
 				handleForm(result.user.uid);
 			}, function () {
 				windows.close();
-				toast.show(i18n.t('An error has occurred, you can not contact this user'), 5000);
+				toast.show(i18n.t('An error has occurred, you can not contact this Wouaffer'), 5000);
 			});*/
 		} else {
 			//contact Wouaf IT
