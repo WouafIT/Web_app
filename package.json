@@ -41,5 +41,6 @@
   },
   "devDependencies": {
     "bootstrap": "github:twbs/bootstrap#v4-dev",
+    "webpack-dev-server": "^1.14.1"
   }
 }
