@@ -24,7 +24,6 @@ module.exports = (function() {
 		var offset 		= $el.offset();
 		var uid 		= data.getString('uid');
 		var title 		= utils.getWouafTitle(obj);
-		var text 		= utils.textToHTML(obj.text);
 		var wouafUrl 	= url.getAbsoluteURLForStates([{name: 'wouaf', value: obj.id}]);
 		var wouafLocaleUrl = url.getAbsoluteURLForStates([{name: 'wouaf', value: obj.id}], true);
 		var favs 		= data.getArray('favorites');
