@@ -2,6 +2,7 @@
 	<div id="menu" title="<%= htmlWebpackPlugin.options.i18n['Menu'] %>" class="sb-toggle-left"><i class="fa fa-bars fa-lg"></i></div>
 	<div id="add-zone" hidden>
 		<div class="add-btn" title="<%= htmlWebpackPlugin.options.i18n['Add a Wouaf'] %>"></div>
+		<button class="btn btn-lg btn-secondary"><%= htmlWebpackPlugin.options.i18n['Cancel'] %></button>
 		<button class="btn btn-lg btn-primary"><%= htmlWebpackPlugin.options.i18n['OK'] %></button>
 	</div>
 	<div id="map"></div>
@@ -41,6 +42,7 @@
 						<i class="fa fa-list"></i> <%= htmlWebpackPlugin.options.i18n['Your Wouafs'] %>
 					</a>
 					<div class="dropdown-menu"></div>
+				</li>
 				</li>
 			</ul>
 		</div>

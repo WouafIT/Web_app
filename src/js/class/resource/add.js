@@ -6,8 +6,10 @@ module.exports = (function() {
 	var $mapArea = $('#sb-site');
 	var $addZone = $('#add-zone');
 	var $addBtn = $addZone.find('.add-btn');
-	var $addOkBtn = $addZone.find('button');
+	var $addOkBtn = $addZone.find('button.btn-primary');
+	var $addCancelBtn = $addZone.find('button.btn-secondary');
 	$addBtn.add($addOkBtn).hide();
+	$addBtn.add($addCancelBtn).hide();
 	$addZone.removeAttr('hidden');
 	$addOkBtn.popover({
 		title: i18n.t('Add a new Wouaf'),
@@ -85,6 +87,7 @@ module.exports = (function() {
 		} else {
 			$addBtn.hide();
 			$addOkBtn.show();
+			$addCancelBtn.show();
 			showCrosshair();
 			if (data.getBool('showPopover') !== false) {
 				$addOkBtn.popover('show');
@@ -105,11 +108,19 @@ module.exports = (function() {
 				});
 			} else {
 				$addOkBtn.hide();
+				$addCancelBtn.hide();
 				$addBtn.show();
 				$addOkBtn.popover('hide');
 				hideCrosshair();
 				windows.show({href: 'add'});
 			}
+		});
+		$addCancelBtn.on('click', function() {
+			$addOkBtn.hide();
+			$addCancelBtn.hide();
+			$addBtn.show();
+			$addOkBtn.popover('hide');
+			hideCrosshair();
 		});
 	};
 	self.addWouaf = addWouaf;
