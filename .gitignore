@@ -218,6 +218,7 @@ pip-log.txt
 
 # Node
 node_modules/
+.npm
 
 #vhosts
 vhosts.conf
