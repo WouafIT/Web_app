@@ -70,15 +70,17 @@ module.exports = (function() {
 			}
 
 			content += '</div></div>';
-			/*if (user.posts) {
-				content += '<p class="text-xs-right"><button type="button" data-action="user-wouaf" data-uid="'+ user.uid +'" class="btn btn-primary view-wouaf">' + i18n.t('See his Wouafs') + '</button></p>';
-			}*/
-			if (data.getString('uid') && user.uid !== data.getString('uid')) {
-				var following = data.getArray('following');
-				if (utils.indexOf(following, user.uid) === -1) {
-					content += '<p class="text-xs-right"><button type="button" data-action="follow-user" data-uid="' + user.uid + '" class="btn btn-primary view-wouaf"><i class="fa fa-plus-circle"></i> ' + i18n.t('Follow this Wouaffer') + '</button></p>';
+			var uid = data.getString('uid');
+			if (uid) {
+				if (user.uid !== uid) {
+					var following = data.getArray('following');
+					if (utils.indexOf(following, user.uid) === -1) {
+						content += '<p class="text-xs-right"><button type="button" data-action="follow-user" data-uid="' + user.uid + '" class="btn btn-primary"><i class="fa fa-plus-circle"></i> ' + i18n.t('Follow this Wouaffer') + '</button></p>';
+					} else {
+						content += '<p class="text-xs-right"><button type="button" data-action="unfollow-user" data-uid="' + user.uid + '" class="btn btn-primary"><i class="fa fa-pause-circle"></i> ' + i18n.t('Unfollow this Wouaffer') + '</button></p>';
+					}
 				} else {
-					content += '<p class="text-xs-right"><button type="button" data-action="unfollow-user" data-uid="' + user.uid + '" class="btn btn-primary view-wouaf"><i class="fa fa-pause-circle"></i> ' + i18n.t('Unfollow this Wouaffer') + '</button></p>';
+					content += '<p class="text-xs-right"><button type="button" data-href="profile" data-show="modal" data-target="#modalWindow" class="btn btn-primary"><i class="fa fa-pencil"></i> ' + i18n.t('Edit your profile') + '</button></p>';
 				}
 			}
 			$modalWindow.find('.modal-body').html(content);

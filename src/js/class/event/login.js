@@ -1,8 +1,9 @@
 module.exports = (function() {
-	var data = require('../resource/data.js');
+	var data 	= require('../resource/data.js');
 	var windows = require('../resource/windows.js');
-	var i18n = require('../resource/i18n.js');
-	var utils = require('../utils.js');
+	var i18n 	= require('../resource/i18n.js');
+	var url 	= require('../resource/url.js');
+	var utils 	= require('../utils.js');
 	var $document = $(document);
 
 	//logout event : reset all user infos
@@ -74,10 +75,14 @@ module.exports = (function() {
 		var firstname = user.get('firstname');
 		var lastname = user.get('lastname');
 
+		var $userProfile = $('.user-profile');
+		$userProfile.attr('href', url.getAbsoluteURLForStates([{name: 'user', value: username}]));
+		$userProfile.attr('data-user', username);
+
 		if (firstname && lastname) {
-			username = firstname +' '+ lastname;
+			username = (firstname +' '+ lastname).trim();
 		}
-		$('.profile-name').html('<img src="'+ gravatar +'" /> '+ utils.escapeHtml(username)).attr('title', i18n.t('Welcome {{username}}', {'username': username}));
+		$userProfile.html('<img src="'+ gravatar +'" /> '+ utils.escapeHtml(username)).attr('title', i18n.t('Welcome {{username}}', {'username': username}));
 
 		$document.triggerHandler('app.logged');
 	});

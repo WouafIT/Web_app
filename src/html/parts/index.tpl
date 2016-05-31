@@ -18,11 +18,7 @@
 											 data-toggle="modal" data-target="#modalWindow"><%= htmlWebpackPlugin.options.i18n['Parameters'] %></a>
 			</div>
 			<div class="logged" hidden>
-				<a href="/profile/"
-				   data-href="profile"
-				   data-toggle="modal" data-target="#modalWindow">
-					<span class="profile-name"><%= htmlWebpackPlugin.options.i18n['My profile'] %></span>
-				</a> |
+				<a href="#" class="user-profile"><%= htmlWebpackPlugin.options.i18n['My profile'] %></a> |
 				<i class="fa fa-cog"></i> <a href="/parameters/"
 											 data-href="parameters"
 											 data-toggle="modal" data-target="#modalWindow"><%= htmlWebpackPlugin.options.i18n['Parameters'] %></a> |
@@ -65,7 +61,7 @@
 						<div class="input-group">
 							<div class="input-group-addon"><i class="fa fa-crosshairs"></i></div>
 							<input type="text" class="form-control" id="where"
-								   placeholder="<%= htmlWebpackPlugin.options.i18n['Current position'] %>" />
+								   placeholder="<%= htmlWebpackPlugin.options.i18n['Map center'] %>" />
 						</div>
 						<input type="hidden" id="where-loc" />
 					</fieldset>
