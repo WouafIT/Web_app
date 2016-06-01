@@ -104,7 +104,7 @@ module.exports = (function() {
 		if (searchCount) {
 			ga('send', 'event', 'search', 'new');
 		} else {
-			ga('send', 'event', 'search', 'new', '', {
+			ga('send', 'event', 'search', 'new', '', '', {
 				nonInteraction: true
 			});
 		}
@@ -124,7 +124,7 @@ module.exports = (function() {
 		var logEvent = function () {
 			if (__DEV__)
 				console.info('Analytics - Event - App - Start - '+ (data.getString('uid') ? 'Logged ' : 'Not logged ')+ lang);
-			ga('send', 'event', 'app', 'start', (data.getString('uid') ? 'Logged ' : 'Not logged ') + lang, {
+			ga('send', 'event', 'app', 'start', (data.getString('uid') ? 'Logged ' : 'Not logged ') + lang, '', {
 				nonInteraction: true
 			});
 		};
