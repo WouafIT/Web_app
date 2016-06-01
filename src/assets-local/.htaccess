@@ -2,6 +2,15 @@ ErrorDocument 404 /404.html
 ErrorDocument 403 /404.html
 DirectoryIndex index.php
 
+<IfModule mod_expires.c>
+	<FilesMatch "\.(ico|jpe?g|png|gif|css|eot|svg|svgz|ttf|woff)$">
+		ExpiresDefault "access plus 1 month"
+	</FilesMatch>
+	<FilesMatch "\.(js|html)$">
+		ExpiresDefault "access plus 1 day"
+	</FilesMatch>
+</IfModule>
+
 <IfModule mod_headers.c>
 	FileETag None
     Header unset ETag
