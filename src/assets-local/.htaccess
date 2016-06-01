@@ -3,22 +3,16 @@ ErrorDocument 403 /404.html
 DirectoryIndex index.php
 
 <IfModule mod_expires.c>
-	<FilesMatch "\.(ico|jpe?g|png|gif|css|eot|svg|svgz|ttf|woff)$">
-		ExpiresDefault "access plus 1 month"
-	</FilesMatch>
-	<FilesMatch "\.(js|html)$">
-		ExpiresDefault "access plus 1 day"
+	<FilesMatch "\.(ico|jpe?g|png|gif|css|eot|svg|svgz|ttf|woff|js|html)$">
+		ExpiresDefault "access plus 1 year"
 	</FilesMatch>
 </IfModule>
 
 <IfModule mod_headers.c>
 	FileETag None
     Header unset ETag
-    <FilesMatch "\.(ico|jpe?g|png|gif|css|eot|svg|svgz|ttf|woff)$">
-		Header set Cache-Control "public, s-maxage=2592000, max-age=2592000"
-	</FilesMatch>
-	<FilesMatch "\.(js|html)$">
-		Header set Cache-Control "public, s-maxage=2592000, max-age=86400"
+    <FilesMatch "\.(ico|jpe?g|png|gif|css|eot|svg|svgz|ttf|woff|js|html)$">
+		Header set Cache-Control "public, s-maxage=30672000, max-age=30672000"
 	</FilesMatch>
 </IfModule>
 
