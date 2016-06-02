@@ -2,8 +2,9 @@
 	<div id="menu" title="<%= htmlWebpackPlugin.options.i18n['Menu'] %>" class="sb-toggle-left"><i class="fa fa-bars fa-lg"></i></div>
 	<div id="add-zone" hidden>
 		<div class="add-btn" title="<%= htmlWebpackPlugin.options.i18n['Add a Wouaf'] %>"></div>
-		<button class="btn btn-lg btn-secondary"><%= htmlWebpackPlugin.options.i18n['Cancel'] %></button>
-		<button class="btn btn-lg btn-primary"><%= htmlWebpackPlugin.options.i18n['OK'] %></button>
+		<button class="btn btn-lg btn-secondary cancel"><%= htmlWebpackPlugin.options.i18n['Cancel'] %></button>
+		<button class="btn btn-lg btn-primary location" title="<%= htmlWebpackPlugin.options.i18n['Center on your position'] %>"><i class="fa fa-crosshairs"></i></button>
+		<button class="btn btn-lg btn-primary add"><%= htmlWebpackPlugin.options.i18n['OK'] %></button>
 	</div>
 	<div id="map"></div>
 </div>

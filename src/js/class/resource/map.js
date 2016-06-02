@@ -14,6 +14,7 @@ module.exports = (function () {
 	var disableSearchRefresh = false;
 	var $body = $('body');
 	var $map = $('#map');
+	var zoomMinToAdd = 13;
 	var self = {
 		jsonResults: {}
 	};
@@ -297,7 +298,7 @@ module.exports = (function () {
 	var updateMapPosition = function() {
 		//put a class on body when zoom is too wide
 		var zoom = map.getZoom();
-		$body.toggleClass('too-wide', map.getZoom() < 13);
+		$body.toggleClass('too-wide', map.getZoom() < zoomMinToAdd);
 		//update search if needed
 		var center = map.getCenter();
 		data.setObject('position', center.toJSON());
@@ -514,6 +515,12 @@ module.exports = (function () {
 			setTimeout(function () {
 				disableSearchRefresh = false;
 			}, 600);
+		},
+		centerOnUser: function () {
+			if (userLocation) {
+				map.setCenter(userLocation);
+				map.setZoom(zoomMinToAdd);
+			}
 		}
 	}
 })();

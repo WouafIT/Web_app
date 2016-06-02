@@ -3,13 +3,17 @@ module.exports = (function() {
 	var windows = require('./windows.js');
 	var i18n = require('./i18n.js');
 	var map = require('./map.js');
+	var slidebars = require('../resource/slidebars.js');
+	var $document = $(document);
 	var $mapArea = $('#sb-site');
 	var $addZone = $('#add-zone');
 	var $addBtn = $addZone.find('.add-btn');
-	var $addOkBtn = $addZone.find('button.btn-primary');
-	var $addCancelBtn = $addZone.find('button.btn-secondary');
-	$addBtn.add($addOkBtn).hide();
-	$addBtn.add($addCancelBtn).hide();
+	var $addOkBtn = $addZone.find('button.btn-primary.add');
+	var $locationBtn = $addZone.find('button.btn-primary.location');
+	var $addCancelBtn = $addZone.find('button.btn-secondary.cancel');
+	$addOkBtn.hide();
+	$locationBtn.hide();
+	$addCancelBtn.hide();
 	$addZone.removeAttr('hidden');
 	$addOkBtn.popover({
 		title: i18n.t('Add a new Wouaf'),
@@ -86,13 +90,27 @@ module.exports = (function() {
 			windows.login(i18n.t('Login to create a new wouaf'));
 		} else {
 			$addBtn.hide();
+			if (!slidebars.isDualView()) {
+				$document.triggerHandler('slide.close');
+			}
 			$addOkBtn.show();
+			if (data.getBool('userGeolocation')) {
+				$locationBtn.show();
+			}
 			$addCancelBtn.show();
 			showCrosshair();
 			if (data.getBool('showPopover') !== false) {
 				$addOkBtn.popover('show');
 			}
 		}
+	};
+	var cancelAdd = function() {
+		$addOkBtn.hide();
+		$locationBtn.hide();
+		$addCancelBtn.hide();
+		$addBtn.show();
+		$addOkBtn.popover('hide');
+		hideCrosshair();
 	};
 
 	var self = {};
@@ -107,21 +125,12 @@ module.exports = (function() {
 					text: i18n.t('lack_of_precision_details')
 				});
 			} else {
-				$addOkBtn.hide();
-				$addCancelBtn.hide();
-				$addBtn.show();
-				$addOkBtn.popover('hide');
-				hideCrosshair();
+				cancelAdd();
 				windows.show({href: 'add'});
 			}
 		});
-		$addCancelBtn.on('click', function() {
-			$addOkBtn.hide();
-			$addCancelBtn.hide();
-			$addBtn.show();
-			$addOkBtn.popover('hide');
-			hideCrosshair();
-		});
+		$locationBtn.on('click', map.centerOnUser);
+		$addCancelBtn.on('click', cancelAdd);
 	};
 	self.addWouaf = addWouaf;
 	return self;
