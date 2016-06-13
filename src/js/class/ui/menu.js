@@ -42,13 +42,13 @@ module.exports = (function() {
 			'<div class="dropdown-item"><i class="fa fa-link"></i> <input type="text" class="form-control link" value="'+ wouafUrl +'" /></div>',
 			(obj.author[0] === uid
 				? '<a class="dropdown-item" href="#" data-action="delete"><i class="fa fa-trash"></i> '+ i18n.t('Delete') +'</a>'
-				: 	'<a class="dropdown-item" href="'+ url.getAbsoluteURLForStates([{name: 'wouaf', value: obj.id}, {name: 'windows', value: 'contact'}]) +'" data-action="contact">' +
+				: 	('<a class="dropdown-item" href="'+ url.getAbsoluteURLForStates([{name: 'wouaf', value: obj.id}, {name: 'windows', value: 'contact'}]) +'" data-action="contact">' +
 						'<i class="fa fa-envelope"></i> '+ i18n.t('Contact the author') +'</a>',
 				(uid && utils.indexOf(following, obj.author[0]) !== -1 
 					? '<a class="dropdown-item" href="#" data-action="unfollow" data-uid="' + obj.author[0] + '">' +
 						'<i class="fa fa-angle-double-right"></i> '+ i18n.t('Unfollow the author') +'</a>'
 					: '<a class="dropdown-item" href="#" data-action="follow" data-uid="' + obj.author[0] + '">' +
-					   '<i class="fa fa-angle-double-right"></i> '+ i18n.t('Follow the author') +'</a>')),
+					   '<i class="fa fa-angle-double-right"></i> '+ i18n.t('Follow the author') +'</a>'))),
 			'<a class="dropdown-item" href="'+ url.getAbsoluteURLForStates([{name: 'wouaf', value: obj.id}, {name: 'windows', value: 'comments'}]) +'" data-action="comments">' +
 			'	<i class="fa fa-comment"></i> '+ (obj.com ? i18n.t('View the {{count}} comment', {count: obj.com}) : i18n.t('Add a comment', {count: obj.com})) +'</a>',
 			(uid && utils.indexOf(favs, obj.id) !== -1
