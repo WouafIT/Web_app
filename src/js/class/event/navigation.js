@@ -62,6 +62,9 @@ module.exports = (function() {
 			} else {
 				map.hideResult();
 			}
+			if (states.tag) {
+				$('#hashtag').val(states.tag);
+			}
 			if (states.user) {
 				windows.show({
 					href: 'user',
@@ -114,9 +117,9 @@ module.exports = (function() {
 							navigationOpen: {name: 'user', value: part},
 							navigationClose: {name: 'user', value: null}
 						});
-					/*} else if (part === 'hash') {
+					} else if (part === 'tag' && utils.isValidHashtag(parts[i + 1])) {
 						part = parts[++i];
-						console.info('TODO show user '+ part);*/
+						$('#hashtag').val(part);
 					} else if(utils.isValidPageName(part)) {
 						//load queried windows
 						windows.show({href: part});

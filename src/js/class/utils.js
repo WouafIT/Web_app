@@ -188,6 +188,9 @@ module.exports = (function() {
 	self.isValidUsername = function (text) {
 		return twitterText.isValidUsername('@'+text);
 	};
+	self.isValidHashtag = function (text) {
+		return twitterText.isValidHashtag('#'+text);
+	};
 	self.isId = function (id) {
 		return /^[a-f0-9]{24}$/.test(id);
 	};
@@ -208,7 +211,7 @@ module.exports = (function() {
 		//grab links and tags positions
 		var entities = twitterText.extractUrlsWithIndices(text)
 				.concat(twitterText.extractMentionsOrListsWithIndices(text))
-		/*.concat(twitterText.extractHashtagsWithIndices(text, {checkUrlOverlap: false}))*/;
+				.concat(twitterText.extractHashtagsWithIndices(text, {checkUrlOverlap: false}));
 		if (entities.length) {
 			twitterText.removeOverlappingEntities(entities);
 		}
@@ -216,7 +219,7 @@ module.exports = (function() {
 		var pos = 0;
 		var formattedText = '';
 		for (var i = 0, l = entities.length; i < l; i++) {
-			//var hash = entities[i].hashtag;
+			var hashtag = entities[i].hashtag;
 			var screenName = entities[i].screenName;
 			var entityUrl = entities[i].url;
 			var indices = entities[i].indices;
@@ -225,8 +228,8 @@ module.exports = (function() {
 			//entity
 			if (screenName) {
 				formattedText += '<a href="'+ url.getAbsoluteURLForStates([{name: 'user', value: screenName}]) +'" data-user="'+ self.escapeHtml(screenName) +'">@' + self.escapeHtml(screenName) + '</a>';
-			/*} else if (hash) { //hash
-			 	formattedText += '<a href="'+ path +'hash/'+ hash +'/" data-hash="'+ hash +'">#' + hash + '</a>';*/
+			} else if (hashtag) { //hashtag
+			 	formattedText += '<a href="'+ url.getAbsoluteURLForStates([{name: 'tag', value: hashtag}]) +'" data-tag="'+ self.escapeHtml(hashtag) +'">#'+ self.escapeHtml(hashtag) +'</a>';
 			} else if (entityUrl) { //link
 				formattedText += '<a href="'+ (entityUrl.substr(0, 4).toLowerCase() !== 'http' ? 'http://' : '') + entityUrl +'" target="_blank">' + self.escapeHtml(entityUrl) + '</a>';
 			}

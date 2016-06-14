@@ -99,6 +99,14 @@
 							</div>
 						</div>
 					</fieldset>
+					<fieldset class="form-group row">
+						<label for="where"><%= htmlWebpackPlugin.options.i18n['Hashtag?'] %></label>
+						<div class="input-group">
+							<div class="input-group-addon"><i class="fa fa-hashtag"></i></div>
+							<input type="text" class="form-control" id="hashtag"
+								   placeholder="<%= htmlWebpackPlugin.options.i18n['Keyword Theme'] %>" />
+						</div>
+					</fieldset>
 					<div class="row">
 						<p class="text-xs-center">
 							<button type="submit" class="btn btn-primary">

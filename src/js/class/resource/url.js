@@ -10,14 +10,14 @@ module.exports = (function() {
 		if (states.wouaf) {
 			href += 'wouaf/'+ states.wouaf +'/';
 		}
+		if (states.tag) {
+			href += 'tag/'+ states.tag +'/';
+		}
 		if (states.user) {
 			href += 'user/'+ states.user +'/';
 		} else if (states.windows) {
 			href += states.windows +'/';
 		}
-		/*if (states.hash) {
-		 href += 'hash/'+ states.hash +'/';
-		 }*/
 		return href;
 	};
 	self.getAnalyticsPath = function(states) {
@@ -28,14 +28,14 @@ module.exports = (function() {
 		if (states.wouaf) {
 			href += 'wouaf/wouafId/';
 		}
+		if (states.tag) {
+			href += 'tag/hashtag/';
+		}
 		if (states.user) {
 			href += 'user/userId/';
 		} else if (states.windows) {
 			href += states.windows +'/';
 		}
-		/*if (states.hash) {
-		 href += 'hash/hashId/';
-		 }*/
 		return href;
 	};
 	self.isStateValid = function(state) {
@@ -61,6 +61,11 @@ module.exports = (function() {
 				break;
 			case 'user':
 				if (state.value === null || utils.isValidUsername(state.value)) {
+					return true;
+				}
+				break;
+			case 'tag':
+				if (state.value === null || utils.isValidHashtag(state.value)) {
 					return true;
 				}
 				break;

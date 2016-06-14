@@ -5,6 +5,7 @@ module.exports = (function() {
 	var categories = require('./categories.js');
 	var map = require('./map.js');
 	var dtp = require('./datetimepicker.js');
+	var utils = require('../utils.js');
 	var $document = $(document);
 	var $window = $(window);
 	var $site = $('#sb-site');
@@ -12,6 +13,7 @@ module.exports = (function() {
 	var $when = $('#when');
 	var $where = $('#where');
 	var $whereLoc = $('#where-loc');
+	var $hashtag = $('#hashtag');
 	var $start = $('#start');
 	var $end = $('#end');
 
@@ -83,6 +85,9 @@ module.exports = (function() {
 				//cleanup
 				if ($where.val() && !$whereLoc.val()) {
 					$where.val('');
+				}
+				if ($hashtag.val() && !utils.isValidHashtag($hashtag.val())) {
+					$hashtag.val('');
 				}
 				if ($when.val() === 'custom') {
 					var start = dtp.getInputDate($start);
@@ -192,6 +197,7 @@ module.exports = (function() {
 			}
 			return {
 				cat: $category.val() || null,
+				tag: $hashtag.val() || null,
 				loc: loc,
 				date: date,
 				duration: duration

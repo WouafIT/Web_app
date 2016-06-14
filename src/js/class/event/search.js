@@ -48,8 +48,8 @@ module.exports = (function() {
 				notificationLabel 	= i18n.t('{{count}} Wouaf displayed', { count: count });
 			}
 			previousSearchCount = count;
-			var unit 				= data.getString('unit');
-			var radius 				= unit == 'km' ? data.getInt('radius') : mlRadius[data.getInt('radius')];
+			var unit 			= data.getString('unit');
+			var radius 			= unit == 'km' ? data.getInt('radius') : mlRadius[data.getInt('radius')];
 			if (count == 500) {
 				toast.show(i18n.t('{{max}} within {{radius}}{{unit}} (maximum reached)', {max: notificationLabel, radius: radius, unit: i18n.t(unit) }), 4000);
 			} else if (count) {
