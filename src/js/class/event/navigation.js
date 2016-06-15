@@ -50,7 +50,6 @@ module.exports = (function() {
 		}
 		states = eventStates;
 		data.setObject('navigation', states, true);
-		//TODO : handle hash like #wouafs or #search
 		if (states) {
 			if (states.map) {
 				var coordinates = states.map.center.split(',');
@@ -120,6 +119,7 @@ module.exports = (function() {
 					} else if (part === 'tag' && utils.isValidHashtag(parts[i + 1])) {
 						part = parts[++i];
 						$('#hashtag').val(part);
+						$document.triggerHandler('navigation.set-state', {name: 'tag', value: part});
 					} else if(utils.isValidPageName(part)) {
 						//load queried windows
 						windows.show({href: part});

@@ -11,7 +11,7 @@ module.exports = (function() {
 	//user / wouaf links
 	$document.on('click', 'a, button', function(e) {
 		var $source = $(e.target);
-		if (!$source.length || (!$source.data('user')/* && !$source.data('hash')*/
+		if (!$source.length || (!$source.data('user') && !$source.data('tag')
 								&& !$source.data('wouaf') && !$source.data('show'))) {
 			return;
 		}
@@ -24,6 +24,7 @@ module.exports = (function() {
 			});
 		} else if ($source.data('tag') && utils.isValidHashtag($source.data('wouaf'))) {
 			$('#hashtag').val($source.data('tag'));
+			$document.triggerHandler('app.search', {refresh: false});
 		} else if ($source.data('wouaf') && utils.isId($source.data('wouaf'))) {
 			map.showResult($source.data('wouaf'));
 		} else if ($source.data('show') == 'modal' && $source.data('href') && utils.isValidPageName($source.data('href'))) {

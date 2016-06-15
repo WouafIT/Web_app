@@ -86,8 +86,13 @@ module.exports = (function() {
 				if ($where.val() && !$whereLoc.val()) {
 					$where.val('');
 				}
-				if ($hashtag.val() && !utils.isValidHashtag($hashtag.val())) {
-					$hashtag.val('');
+				if ($hashtag.val()) {
+					if ($hashtag.val().substr(0,1) === '#') {
+						$hashtag.val($hashtag.val().substr(1));
+					}
+					if (!utils.isValidHashtag($hashtag.val())) {
+						$hashtag.val('');
+					}
 				}
 				if ($when.val() === 'custom') {
 					var start = dtp.getInputDate($start);

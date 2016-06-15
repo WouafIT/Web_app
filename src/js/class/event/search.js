@@ -58,6 +58,7 @@ module.exports = (function() {
 				toast.show(i18n.t('At the moment there are no Wouaf within {{radius}}{{unit}}', { radius: radius, unit: i18n.t(unit) }), 6000);
 			}
 
+			$document.triggerHandler('navigation.set-state', {name: 'tag', value: (params.tag ? params.tag : null)});
 			$document.triggerHandler('tabs.add', {
 				id: 'search-results',
 				name: '<i class="fa fa-search-plus"></i> '+ i18n.t('{{count}} result', {count: count}),

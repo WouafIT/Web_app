@@ -7,11 +7,11 @@ module.exports = (function() {
 		if (states.map) {
 			href += '@'+ states.map.center +','+ states.map.zoom +'z/';
 		}
-		if (states.wouaf) {
-			href += 'wouaf/'+ states.wouaf +'/';
-		}
 		if (states.tag) {
 			href += 'tag/'+ states.tag +'/';
+		}
+		if (states.wouaf) {
+			href += 'wouaf/'+ states.wouaf +'/';
 		}
 		if (states.user) {
 			href += 'user/'+ states.user +'/';
@@ -25,11 +25,11 @@ module.exports = (function() {
 		if (states.map) {
 			href += '@location/';
 		}
-		if (states.wouaf) {
-			href += 'wouaf/wouafId/';
-		}
 		if (states.tag) {
 			href += 'tag/hashtag/';
+		}
+		if (states.wouaf) {
+			href += 'wouaf/wouafId/';
 		}
 		if (states.user) {
 			href += 'user/userId/';
