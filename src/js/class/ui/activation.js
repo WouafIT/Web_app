@@ -8,10 +8,6 @@ module.exports = (function() {
 	var $modalWindow = windows.getWindows();
 
 	self.show = function () {
-		if (data.getString('uid')) { //user is logged, close window
-			windows.close();
-			return;
-		}
 		var $form = $modalWindow.find('form');
 		var $key = $form.find('input[name=key]');
 		//form field validation and submition
