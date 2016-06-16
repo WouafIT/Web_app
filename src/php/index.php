@@ -180,11 +180,13 @@ function getUserOpenGraph ($data) {
  */
 function curlGet($url, array $get = NULL, array $options = array()) {
     $defaults = array(
-        CURLOPT_URL => $url. (strpos($url, '?') === FALSE ? '?' : ''). http_build_query($get),
         CURLOPT_HEADER => 0,
         CURLOPT_RETURNTRANSFER => TRUE,
         CURLOPT_TIMEOUT => 4
     );
+    if ($get) {
+        $defaults[CURLOPT_URL] = $url. (strpos($url, '?') === FALSE ? '?' : ''). http_build_query($get);
+    }
 
     $ch = curl_init();
     curl_setopt_array($ch, ($options + $defaults));
