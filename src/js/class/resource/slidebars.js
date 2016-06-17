@@ -97,8 +97,12 @@ module.exports = (function() {
 				if ($when.val() === 'custom') {
 					var start = dtp.getInputDate($start);
 					var end = dtp.getInputDate($end);
-					if (!start || !end || !start.getTime() || !end.getTime()) {
+					if (!end) {
+						end = new Date();
+					}
+					if (!start || !start.getTime() || !end.getTime()) {
 						$when.val('week');
+						showHideCustomDates();
 					}
 				}
 				$document.triggerHandler('app.search', {refresh: false});
@@ -189,7 +193,10 @@ module.exports = (function() {
 				case 'custom':
 					var start = dtp.getInputDate($start);
 					var end = dtp.getInputDate($end);
-					if (start && end && start.getTime() && end.getTime()) {
+					if (!end) {
+						end = new Date();
+					}
+					if (start && start.getTime() && end.getTime()) {
 						date = Math.round(start.getTime() / 1000);
 						duration = Math.round(end.getTime() / 1000) - Math.round(start.getTime() / 1000);
 					}
@@ -197,6 +204,7 @@ module.exports = (function() {
 						date = Math.round(today.getTime() / 1000);
 						duration = (86400 * 7);
 						$when.val('week');
+						showHideCustomDates();
 					}
 					break;
 			}
