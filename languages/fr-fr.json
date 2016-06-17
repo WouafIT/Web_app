@@ -30,7 +30,7 @@
 	"Keyword Theme": "Mot clé, Thématique",
 	"Close": "Fermer",
     "Save": "Enregistrer",
-    "Choose a category": "Choississez une catégorie",
+    "Choose a category": "Choisissez une catégorie",
 	"Location request": "Demande de localisation",
 	"Location_request_details": "Bienvenue !\nWouaf IT va vous demander votre autorisation pour activer la géolocalisation sur votre navigateur. Cette demande permettra de centrer automatiquement la carte sur votre position et ainsi de simplifier votre navigation.\n\n<strong>Nous ne stockons pas votre position sur nos serveurs.</strong>\n\nVous pourrez à tout moment modifier cette autorisation dans les paramètres de votre navigateur.",
 	"Loading": "Chargement ...",
@@ -46,11 +46,11 @@
 	"Services": "Services",
 	"Others": "Autres",
 
-	"Events_details": "Concert, Théatre, Festival, Exposition, Visites, Spectacles, Evènements familiaux, Sport, etc.",
+	"Events_details": "Concert, Théâtre, Festival, Exposition, Visites, Spectacles, Evènements familiaux, Sport, etc.",
 	"Out_details": "Randonnées, Sport, Visites, Voyages, Sorties nocturnes, Entre amis, Rencontres, etc.",
-	"Purchases / Sales_details": "Bons plans, Autos, Motos, Meubles, Vêtements, Electroménager, High-Tech, Informatique, Puericulture, Animaux, etc.",
+	"Purchases / Sales_details": "Bons plans, Autos, Motos, Meubles, Vêtements, Electroménager, High-Tech, Informatique, Puériculture, Animaux, etc.",
 	"Lost / Found_details": "Animaux, Objets, Personnes, etc.",
-	"Donations_details": "Livres, Meubles, Vêtements, Electroménager, Hifi-Vidéo, Informatique, Puericulture, Animaux, etc.",
+	"Donations_details": "Livres, Meubles, Vêtements, Electroménager, Hifi-Vidéo, Informatique, Puériculture, Animaux, etc.",
 	"Exchanges_details": "Objets, Services, Conseils, etc.",
 	"Services_details": "A la personne, Location, Enseignement, A domicile, Garde d'enfants, Garde d'animaux, Covoiturage, Hébergement, etc.",
 	"Others_details": "Tout ce qui ne rentre pas dans les catégories précédentes !",
@@ -68,7 +68,7 @@
 
     "Connect!": "Connectez-vous !",
     "create_wouaf_it_profile": "Si vous n'avez pas encore votre compte Wouaf IT, c'est le moment d'en créer un ! C'est gratuit et cela ne prend que quelques secondes.",
-    "use_wouaf_it_profile": "et si vous avez déjà votre compte, qu'attendez vous pour vous connecter ?",
+    "use_wouaf_it_profile": "et si vous avez déjà votre compte, qu'attendez-vous pour vous connecter ?",
 
 	"ID / Nickname": "Identifiant / Pseudo",
 	"Email": "Email",
@@ -158,7 +158,7 @@
 
 	"Add a new Wouaf": "Ajouter un nouveau Wouaf",
 	"Save your Wouaf": "Publier votre Wouaf",
-	"Add_wouaf_popover": "Positionnez le centre de la carte à l'endroit ou vous souhaitez ajouter votre Wouaf et cliquez sur OK.",
+	"Add_wouaf_popover": "Positionnez le centre de la carte à l'endroit où vous souhaitez ajouter votre Wouaf et cliquez sur OK.",
 	"Publish this Wouaf on my Facebook wall": "Publier ce Wouaf sur mon mur Facebook",
 	"Being notified by email for feedback on this Wouaf": "Etre notifié par email des commentaires sur ce Wouaf",
 	"Lack of precision": "Manque de précision ...",
@@ -267,7 +267,7 @@
 	"Login to report a wouaf": "Connectez-vous pour pouvoir signaler ce Wouaf !",
 	"Login to add a comment": "Connectez-vous pour commenter ce Wouaf !",
 	"Login to report a comment": "Connectez-vous pour pouvoir signaler ce commentaire !",
-	"Login to follow a Wouaffer": "Connectez-vous pour pouvoir suivre un Wouaffer !",
+	"Login to follow a Wouaffer": "Connectez-vous pour pouvoir suivre un Wouaffeur !",
 
 	"Login already exist.": "Cet identifiant existe déjà.",
 
@@ -328,7 +328,7 @@
 
 	"No Wouaf here": "Aucun Wouaf ici ...",
 	"At the moment there are no Wouaf there with your search parameters": "Pour le moment il n'y a aucun Wouaf à cet endroit avec vos paramètres de recherche.",
-	"what if you add one yourself": "et si vous en ajoutiez un vous même ?",
+	"what if you add one yourself": "et si vous en ajoutiez un vous-même ?",
 	"Add a Wouaf": "Ajouter un Wouaf",
 	"Center on your position": "Centrer sur votre position",
 
