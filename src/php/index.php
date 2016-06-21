@@ -50,7 +50,7 @@ if (strpos($requestURI, '/about/') !== false) {
     $data['content'] .= file_get_contents(__DIR__.'/../parts/about.html');
 }
 
-define('API_KEY', '<%= htmlWebpackPlugin.options.data.API_KEY %>');
+define('API_KEY', '<%= htmlWebpackPlugin.options.data.apiKey %>');
 if ($wouafId || $userId) {
     $data['content'] .= '<script>window.wouafit = {};</script>';
 }
@@ -58,7 +58,7 @@ if ($wouafId) {
     try {
         //Get wouaf data from API
         $wouafData = curlGet(
-            'https://api.wouaf.it/wouafs/'.$wouafId,
+            'https://<%= htmlWebpackPlugin.options.data.apiDomain %>/wouafs/'.$wouafId,
             null,
             array(
                 CURLOPT_HTTPHEADER => array('Authorization: WouafIt version="1", key="'.API_KEY.'"')
@@ -69,7 +69,9 @@ if ($wouafId) {
             if ($wouafData['code'] === 200) {
                 $data['canonical'] = 'https://'.$_SERVER['HTTP_HOST'].'/wouaf/'.$wouafId.'/';
                 $data['content'] .= '<script>window.wouafit.wouaf = '.json_encode($wouafData['wouaf']).';</script>';
-                $data['head'] = getWouafOpenGraph($wouafData['wouaf']);
+                $data['head'] = getWouafOpenGraph($wouafData['wouaf'])."\n".
+								'<link rel="alternate" hreflang="fr" href="https://fr-fr.<%= htmlWebpackPlugin.options.data.domain %>/wouaf/'.$wouafId.'/" />'."\n".
+								'<link rel="alternate" hreflang="en" href="https://en-us.<%= htmlWebpackPlugin.options.data.domain %>/wouaf/'.$wouafId.'/" />';
             } elseif ($wouafData['code'] === 404) {
                 header("HTTP/1.1 404 Not Found");
                 $data['content'] .= '<h1>404 not Found</h1>';
@@ -80,7 +82,7 @@ if ($wouafId) {
     try {
         //Get user data from API
         $userData = curlGet(
-            'https://api.wouaf.it/users/'.$userId,
+            'https://<%= htmlWebpackPlugin.options.data.apiDomain %>/users/'.$userId,
             null,
             array(
                 CURLOPT_HTTPHEADER 	=> array('Authorization: WouafIt version="1", key="'.API_KEY.'"')
@@ -91,8 +93,10 @@ if ($wouafId) {
             if ($userData['code'] === 200) {
                 $data['canonical'] = 'https://'.$_SERVER['HTTP_HOST'].'/user/'.$userId.'/';
                 $data['content'] .= '<script>window.wouafit.user = '.json_encode($userData['user']).';</script>';
-                $data['head'] = getUserOpenGraph($userData['user']);
-            } elseif ($wouafData['code'] === 404) {
+                $data['head'] = getUserOpenGraph($userData['user'])."\n".
+								'<link rel="alternate" hreflang="fr" href="https://fr-fr.<%= htmlWebpackPlugin.options.data.domain %>/user/'.$userId.'/" />'."\n".
+								'<link rel="alternate" hreflang="en" href="https://en-us.<%= htmlWebpackPlugin.options.data.domain %>/user/'.$userId.'/" />';
+			} elseif ($wouafData['code'] === 404) {
                 header("HTTP/1.1 404 Not Found");
                 $data['content'] .= '<h1>404 not Found</h1>';
             }
@@ -124,9 +128,9 @@ function getWouafOpenGraph ($data) {
 
     '<meta property="og:article:published_time" content="'.date('c', $data['date'][0]['sec']).'" />'."\n".
     '<meta property="og:article:expiration_time" content="'.date('c', $data['date'][1]['sec']).'" />'."\n".
-    '<meta property="og:article:author" content="https://wouaf.it/user/'.htmlspecialchars($data['author'][1]).'/" />'."\n".
+    '<meta property="og:article:author" content="https://<%= htmlWebpackPlugin.options.data.domain %>/user/'.htmlspecialchars($data['author'][1]).'/" />'."\n".
 
-    '<meta property="og:url" content="https://wouaf.it/wouaf/'.$data['id'].'/" />'."\n".
+    '<meta property="og:url" content="https://<%= htmlWebpackPlugin.options.data.domain %>/wouaf/'.$data['id'].'/" />'."\n".
     '<meta property="og:site_name" content="Wouaf IT" />'."\n".
     '<meta property="og:locale" content="'.$locale.'" />'."\n".
     '<meta property="og:description" content="'.htmlspecialchars($description).'" />'."\n";
@@ -136,7 +140,7 @@ function getWouafOpenGraph ($data) {
             $return .= '<meta property="og:image" content="'.htmlspecialchars($pic).'" />'."\n";
         }
     } else {
-        $return .= '<meta property="og:image" content="https://img.wouaf.it/icon.png" />'."\n";
+        $return .= '<meta property="og:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/icon.png" />'."\n";
     }
 
     return $return;
@@ -151,10 +155,10 @@ function getUserOpenGraph ($data) {
     $title = trim(!empty($data['firstname']) && !empty($data['lastname']) ? $data['firstname'] .' '. $data['lastname'] : $data['username']);
     $return = '<meta property="og:title" content="'.htmlspecialchars($title).'" />'."\n".
               '<meta property="og:type" content="profile" />'."\n".
-              '<meta property="og:url" content="https://wouaf.it/user/'.$data['username'].'/" />'."\n".
+              '<meta property="og:url" content="https://<%= htmlWebpackPlugin.options.data.domain %>/user/'.$data['username'].'/" />'."\n".
               '<meta property="og:site_name" content="Wouaf IT" />'."\n".
               '<meta property="og:locale" content="'.$data['lang'].'" />'."\n".
-              '<meta property="og:image" content="https://img.wouaf.it/icon.png" />'."\n";
+              '<meta property="og:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/icon.png" />'."\n";
     if (!empty($data['description'])) {
         $return .= '<meta property="og:description" content="'.htmlspecialchars(mb_substr(strip_tags($data['description']), 0, 300)).'" />'."\n";
     }
@@ -178,21 +182,22 @@ function getUserOpenGraph ($data) {
  * @return string
  * @throws Exception
  */
-function curlGet($url, array $get = NULL, array $options = array()) {
-    $defaults = array(
-        CURLOPT_HEADER => 0,
-        CURLOPT_RETURNTRANSFER => TRUE,
-        CURLOPT_TIMEOUT => 4
-    );
-    if ($get) {
-        $defaults[CURLOPT_URL] = $url. (strpos($url, '?') === FALSE ? '?' : ''). http_build_query($get);
-    }
+function curlGet($url, array $get = null, array $options = array()) {
+	$defaults = array(
+		CURLOPT_HEADER => 0,
+		CURLOPT_RETURNTRANSFER => true,
+		CURLOPT_TIMEOUT => 4,
+		CURLOPT_URL => $url,
+	);
+	if ($get) {
+		$defaults[CURLOPT_URL] .= (strpos($url, '?') === false ? '?' : ''). http_build_query($get);
+	}
 
-    $ch = curl_init();
-    curl_setopt_array($ch, ($options + $defaults));
-    if( ! $result = curl_exec($ch))  {
-        throw new Exception('CURL error: '.curl_error($ch));
-    }
-    curl_close($ch);
-    return $result;
+	$ch = curl_init();
+	curl_setopt_array($ch, ($options + $defaults));
+	if( ! $result = curl_exec($ch))  {
+		throw new Exception('CURL error: '.curl_error($ch));
+	}
+	curl_close($ch);
+	return $result;
 }

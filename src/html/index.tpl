@@ -17,6 +17,16 @@
 		<%= htmlWebpackPlugin.options.i18n['Your social network for your local events'] %>" />
 	<?php echo $data['head']; ?>
 
+	<link rel="preconnect" href="//wouaf.it" pr="1.0" />
+	<link rel="preconnect" href="//api.wouaf.it" pr="1.0" />
+	<link rel="preconnect" href="//cdnjs.cloudflare.com" pr="1.0" />
+	<link rel="preconnect" href="//maps.googleapis.com" pr="1.0" />
+	<link rel="preconnect" href="//www.google-analytics.com" pr="1.0" />
+	<link rel="preconnect" href="//maps.gstatic.com" pr="1.0" />
+	<link rel="preconnect" href="//fonts.gstatic.com" pr="1.0" />
+	<link rel="preconnect" href="//fonts.googleapis.com" pr="1.0" />
+	<link rel="preconnect" href="//csi.gstatic.com" pr="0.8" />
+
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" />
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.css" />
@@ -44,6 +54,6 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.swipebox/1.4.4/js/jquery.swipebox.min.js"></script>
 <script src="//maps.googleapis.com/maps/api/js?key=<%= htmlWebpackPlugin.options.data.googleApi %>&libraries=geometry,places"></script>
 <script src="/js/build.js?v=<%= htmlWebpackPlugin.options.data.timestamp %>" charset="utf-8"></script>
-<script async src="https://www.google-analytics.com/analytics.js"></script>
+<script async src="//www.google-analytics.com/analytics.js"></script>
 </body>
 </html>

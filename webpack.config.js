@@ -12,6 +12,7 @@ const API_KEY_PROD 		= 'dece0f2d-5c24-4e36-8d1c-bfe9701fc526';
 const DEV_DOMAIN 		= 'wouafit.local';
 const PROD_DOMAIN 		= 'wouaf.it';
 const API_DOMAIN 		= 'api.wouaf.it';
+const IMG_DOMAIN 		= 'img.wouaf.it';
 const IS_DEV 			= process.env.NODE_ENV === 'dev';
 
 var languages;
@@ -33,6 +34,7 @@ if (process.env.LANG_ENV === 'fr') {
 var common = Object.keys(languages).map(function(language) {
 	var htmlData = {
 		cookieDomain:	(IS_DEV ? DEV_DOMAIN : PROD_DOMAIN),
+		imgDomain: 		IMG_DOMAIN,
 		googleApi: 		GOOGLE_API,
 		googleAnalytics: GOOGLE_ANALYTICS,
 		language: 		language,
@@ -41,8 +43,11 @@ var common = Object.keys(languages).map(function(language) {
 		devTitle:		(IS_DEV ? ' (DEV)' : '')
 	};
 	var phpData = {
+		domain: 		(IS_DEV ? DEV_DOMAIN : PROD_DOMAIN),
 		timestamp: 		TIMESTAMP,
-		"API_KEY": 		IS_DEV ? API_KEY_DEV : API_KEY_PROD
+		imgDomain: 		IMG_DOMAIN,
+		apiDomain: 		API_DOMAIN,
+		apiKey: 		IS_DEV ? API_KEY_DEV : API_KEY_PROD
 	};
 	var languageData = require(languages[language]);
 	return {
