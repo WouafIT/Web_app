@@ -82,7 +82,7 @@ module.exports = (function() {
 		if (firstname && lastname) {
 			username = (firstname +' '+ lastname).trim();
 		}
-		$userProfile.html('<img src="'+ gravatar +'" /> '+ utils.escapeHtml(username)).attr('title', i18n.t('Welcome {{username}}', {'username': username}));
+		$userProfile.html('<img src="'+ gravatar +'" width="20" height="20" /> '+ utils.escapeHtml(username)).attr('title', i18n.t('Welcome {{username}}', {'username': username}));
 
 		$document.triggerHandler('app.logged');
 	});

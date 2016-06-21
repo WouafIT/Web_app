@@ -14,7 +14,7 @@ module.exports = (function() {
 		var utils = require('../utils.js');
 		size = size || 80;
 		var email = self.get('email');
-		return email ? '//www.gravatar.com/avatar/' + utils.md5(email.toLowerCase()) + '.jpg?d=identicon&s=' + size : '';
+		return email ? '//www.gravatar.com/avatar/' + utils.md5(email.toLowerCase()) + '.jpg?d=blank&s=' + size : '';
 	};
 	return self;
 })();
