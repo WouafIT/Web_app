@@ -3,6 +3,8 @@ module.exports = (function() {
 	var windows = require('../resource/windows.js');
 	var i18n 	= require('../resource/i18n.js');
 	var url 	= require('../resource/url.js');
+	var user 	= require('../resource/user.js');
+	var users 	= require('../resource/users.js');
 	var utils 	= require('../utils.js');
 	var $document = $(document);
 
@@ -54,8 +56,6 @@ module.exports = (function() {
 		$('.anonymous').attr('hidden', true);
 		$('.logged').removeAttr('hidden');
 
-		var user = require('../resource/user.js');
-
 		//check for language
 		var userLanguage = user.get('lang');
 		var currentLanguage = window.location.hostname.substr(0, 5);
@@ -70,7 +70,7 @@ module.exports = (function() {
 		//TODO : get Facebook or G+ avatars instead of gravatar, if user login with oauth2
 
 		//get gravatar
-		var gravatar = user.gravatar(20);
+		var gravatar = users.gravatar(user.get('hash'), 20);
 		var username = user.get('username');
 		var firstname = user.get('firstname');
 		var lastname = user.get('lastname');
@@ -82,7 +82,7 @@ module.exports = (function() {
 		if (firstname && lastname) {
 			username = (firstname +' '+ lastname).trim();
 		}
-		$userProfile.html('<img src="'+ gravatar +'" width="20" height="20" /> '+ utils.escapeHtml(username)).attr('title', i18n.t('Welcome {{username}}', {'username': username}));
+		$userProfile.html(gravatar +' '+ utils.escapeHtml(username)).attr('title', i18n.t('Welcome {{username}}', {'username': username}));
 
 		$document.triggerHandler('app.logged');
 	});

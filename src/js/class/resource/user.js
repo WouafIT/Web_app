@@ -10,11 +10,5 @@ module.exports = (function() {
 		var user = data.getObject('user') || {};
 		return user[key] || null;
 	};
-	self.gravatar = function (size) {
-		var utils = require('../utils.js');
-		size = size || 80;
-		var email = self.get('email');
-		return email ? '//www.gravatar.com/avatar/' + utils.md5(email.toLowerCase()) + '.jpg?d=blank&s=' + size : '';
-	};
 	return self;
 })();

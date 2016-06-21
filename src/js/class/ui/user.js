@@ -24,6 +24,9 @@ module.exports = (function() {
 			var username = getUsername(user);
 			$modalWindow.find('.modal-title').html(i18n.t('User profile {{username}}', {username: username}));
 			var content = '<div class="modal-user">';
+			if (user.hash) {
+				content += users.gravatar(user.hash);
+			}
 			if (user.description) {
 				content += '<blockquote class="blockquote">'+ utils.textToHTML(user.description) +'</blockquote>';
 			}
