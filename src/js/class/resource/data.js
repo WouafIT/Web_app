@@ -2,6 +2,16 @@ module.exports = (function() {
 	if (!window.localStorage || !window.sessionStorage) {
 		console.error('window.localStorage or window.sessionStorage does not exists');
 	}
+	//Test local storage support (disabled in iOS in private mode)
+	if (typeof window.localStorage === 'object') {
+		try {
+			localStorage.setItem('localStorage', 1);
+			localStorage.removeItem('localStorage');
+		} catch (e) {
+			Storage.prototype._setItem = Storage.prototype.setItem;
+			Storage.prototype.setItem = function() {};
+		}
+	}
 	/**
 	 * Cross domain storage.
 	 * Based on: http://www.nczonline.net/blog/2010/09/07/learning-from-xauth-cross-domain-localstorage/
