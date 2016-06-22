@@ -1,6 +1,11 @@
 module.exports = (function() {
+	var compatibilityMode = false;
+	var compatibilityData = {};
 	if (!window.localStorage || !window.sessionStorage) {
-		console.error('window.localStorage or window.sessionStorage does not exists');
+		if (__DEV__) {
+			console.error('window.localStorage or window.sessionStorage does not exists - Use compatibility mode.');
+		}
+		compatibilityMode = true;
 	}
 	//Test local storage support (disabled in iOS in private mode)
 	if (typeof window.localStorage === 'object') {
@@ -10,6 +15,10 @@ module.exports = (function() {
 		} catch (e) {
 			Storage.prototype._setItem = Storage.prototype.setItem;
 			Storage.prototype.setItem = function() {};
+			compatibilityMode = true;
+			if (__DEV__) {
+				console.error('Local storage disabled - Use compatibility mode.');
+			}
 		}
 	}
 	/**
@@ -138,24 +147,31 @@ module.exports = (function() {
 	// Public methods
 	self.init = function() {
 		var deferred = $.Deferred();
-		$.when(crossDomainLocalStorage.getAll()).done(function(values) {
-			if (values) {
-				for (var i in values) {
-					if (values.hasOwnProperty(i)) {
-						sessionStorage.setItem(i, values[i]);
+		if (compatibilityMode) {
+			deferred.resolve();
+		} else {
+			$.when(crossDomainLocalStorage.getAll()).done(function (values) {
+				if (values) {
+					for (var i in values) {
+						if (values.hasOwnProperty(i)) {
+							sessionStorage.setItem(i, values[i]);
+						}
 					}
 				}
-			}
-			deferred.resolve();
-		});
+				deferred.resolve();
+			});
+		}
 		return deferred.promise();
 	};
 	self.set = function (key, value, type, session) {
 		session = session || false;
 		if (value === null) {
-			//localStorage.removeItem(key);
-			sessionStorage.removeItem(key);
-			crossDomainLocalStorage.setItem(key, null);
+			if (compatibilityMode) {
+				delete compatibilityData[key];
+			} else {
+				sessionStorage.removeItem(key);
+				crossDomainLocalStorage.setItem(key, null);
+			}
 			return;
 		}
 		type = type || typeof value;
@@ -172,7 +188,9 @@ module.exports = (function() {
 				value = JSON.stringify(value);
 				break;
 		}
-		if (session) {
+		if (compatibilityMode) {
+			compatibilityData[key] = value;
+		} else if (session) {
 			sessionStorage.setItem(key, value);
 			crossDomainLocalStorage.setItem(key, null);
 		} else {
@@ -182,7 +200,12 @@ module.exports = (function() {
 	};
 	self.get = function (key, type) {
 		type = type || 'string';
-		var value = sessionStorage.getItem(key) || null;
+		var value;
+		if (compatibilityMode) {
+			value = compatibilityData[key] || null;
+		} else {
+			value = sessionStorage.getItem(key) || null;
+		}
 		switch (type) {
 			case 'bool':
 				value = value === null ? null : (value === 'true');

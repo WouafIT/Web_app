@@ -107,6 +107,8 @@ html, body {
 	width: 100%;
 	top: 20%;
 	z-index: 10000;
+	pointer-events: none;
+	user-select: none;
 
 	> div {
 		background-color: @white;
@@ -117,7 +119,9 @@ html, body {
 		padding: 0.3rem;
 
 		> p {
+			pointer-events: all;
 			margin-bottom: 0;
+			user-select: none;
 		}
 	}
 }

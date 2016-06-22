@@ -242,6 +242,11 @@ module.exports = (function () {
 	};
 	//set user current location
 	var setUserLocation = function (position) {
+		if (!position.coords.latitude || !position.coords.longitude
+			|| isNaN(position.coords.latitude) || isNaN(position.coords.longitude)) {
+			handleNoGeolocation({code: 999, message: 'Invalid location'});
+			return;
+		}
 		data.setBool('userGeolocation', true);
 		userLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 		if (!userMarker) {
@@ -271,7 +276,7 @@ module.exports = (function () {
 			console.info('No geolocation available, code '+ error.code +': '+ error.message);
 		}
 		var location = data.getObject('position');
-		if (!location) {
+		if (!location || isNaN(location.lat) || isNaN(location.lng)) {
 			if (i18n.t('languageShort') == 'fr') {
 				//store map position: center of France
 				location = new google.maps.LatLng(46.427066, 2.430535).toJSON();
