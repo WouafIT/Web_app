@@ -1,11 +1,11 @@
 @media (max-width: 480px) {
+	/* widths on extra small screens. */
 	body {
 		font-size: 0.9rem;
 	}
 	.btn, .dtpicker-button {
 		font-size: 0.9rem;
 	}
-	/* widths on extra small screens. */
 	#toast {
 		width: 95%;
 		margin: 0 2.5%;
@@ -28,26 +28,19 @@
 	}
 	.sb-slidebar {
 		header {
+			min-height: 5rem;
+			
 			nav {
 				.user-profile {
 					max-width: 6.25rem;
-					overflow: hidden;
-					display: inline-block;
-					height: 1.25rem;
-					vertical-align: -0.2rem;
 				}
 			}
 			h1.logo {
 				font-size: 1.9rem;
-				line-height: 2.4rem;
-				padding-left: 4.4rem;
-				height: 5rem;
-				background-position-y: 0.47rem;
+				line-height: 1.9rem;
 			}
 			h2.description {
 				font-size: 0.78rem;
-				margin-top: -1.7rem;
-				margin-left: 4.5rem;
 			}
 		}
 	}
@@ -130,6 +123,18 @@
 			max-height: 16rem;
 		}
 	}
+	.sb-slidebar {
+		nav {
+			.user-profile {
+				max-width: 14rem;
+			}
+		}
+		header {
+			h2.description {
+				font-size: 0.9rem;
+			}
+		}
+	}
 }
 
 @media (min-width: 768px) {
@@ -163,7 +168,18 @@
 
 @media (min-width: 992px) {
 	/* widths on large screens. */
-
+	.sb-slidebar {
+		nav {
+			.user-profile {
+				max-width: 24rem;
+			}
+		}
+		header {
+			h2.description {
+				font-size: 1rem;
+			}
+		}
+	}
 }
 
 @media (min-width: 1200px) {
