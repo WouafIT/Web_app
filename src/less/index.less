@@ -78,6 +78,9 @@ html, body {
 	z-index: 2;
 
 	.add-btn {
+		display: flex;
+		justify-content: center;
+		align-items: center;
 		background-color: @green;
 		border: 1px solid @grey;
 		border-radius: 50%;
@@ -86,10 +89,6 @@ html, body {
 		text-align: center;
 		font-size: 3.5rem;
 		line-height: 3rem;
-
-		&::after {
-			content: "+";
-		}
 	}
 	.location {
 		padding: .3rem 1rem;
