@@ -30,6 +30,7 @@ module.exports = (function() {
 			data.setBool('rules', false);
 			data.setBool('fbPost', true);
 			data.setBool('allowContact', true);
+			data.setBool('followingNotif', true);
 			data.setBool('postNotif', true);
 			data.setBool('commentNotif', true);
 			data.setBool('showPopover', true);

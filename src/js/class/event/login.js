@@ -44,6 +44,12 @@ module.exports = (function() {
 			data.setString('uid', params.uid, !permanent);
 			data.setString('token', params.token, !permanent);
 			data.setObject('user', params.user, !permanent);
+			if (params.user.notifications) {
+				data.setBool('allowContact', params.user.notifications.allowContact);
+				data.setBool('followingNotif', params.user.notifications.followingNotif);
+				data.setBool('postNotif', params.user.notifications.postNotif);
+				data.setBool('commentNotif', params.user.notifications.commentNotif);
+			}
 			data.setString('loginType', 'default', !permanent);
 			data.setInt('today_publications', params.today_publications, !permanent);
 			if (params.favorites) {
