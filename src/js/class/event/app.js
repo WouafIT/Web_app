@@ -27,17 +27,10 @@ module.exports = (function() {
 		//set default vars on first launch
 		if (data.getInt('launchCount') == 1) {
 			//init default app vars
-			data.setBool('rules', false);
-			data.setBool('fbPost', true);
-			data.setBool('allowContact', true);
-			data.setBool('followingNotif', true);
-			data.setBool('postNotif', true);
-			data.setBool('commentNotif', true);
 			data.setBool('showPopover', true);
 			data.setBool('mapFollow', true);
 			data.setString('unit', 'km');
 			data.setInt('radius', 300);
-			data.setString('loginType', 'default');
 			/*//show welcome page
 			 var welcomeWindow = require('ui/welcome');
 			 var welcome = new welcomeWindow();

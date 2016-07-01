@@ -27,22 +27,20 @@
 				<label><input type="checkbox" name="map-follow"> <%= htmlWebpackPlugin.options.i18n['Refresh search results by following the map position'] %></label>
 			</div>
 			<h4><%= htmlWebpackPlugin.options.i18n['Notifications settings'] %></h4>
-			<% /* %>
 			<div class="checkbox">
-				<label><input type="checkbox" name="facebook"> <%= htmlWebpackPlugin.options.i18n['Publish my Wouafs on my Facebook wall'] %></label>
-			</div>
-			<% */ %>
-			<div class="checkbox">
-				<label><input type="checkbox" name="contact"> <%= htmlWebpackPlugin.options.i18n['Allow other Wouaffers to contact me'] %></label>
+				<label><input type="checkbox" name="contact-notifications"> <%= htmlWebpackPlugin.options.i18n['Allow other Wouaffers to contact me'] %></label>
 			</div>
 			<div class="checkbox">
-				<label><input type="checkbox" name="following-notifications"> <%= htmlWebpackPlugin.options.i18n['Being notified by email of new Wouafs from Wouaffers that I follow'] %></label>
+				<label><input type="checkbox" name="follower-notifications"> <%= htmlWebpackPlugin.options.i18n['Be notified by email when a new Wouaffer follow me'] %></label>
 			</div>
 			<div class="checkbox">
-				<label><input type="checkbox" name="wouaf-notifications"> <%= htmlWebpackPlugin.options.i18n['Being notified by email for feedback on my Wouafs'] %></label>
+				<label><input type="checkbox" name="following-notifications"> <%= htmlWebpackPlugin.options.i18n['Be notified by email of new Wouafs from Wouaffers that I follow'] %></label>
 			</div>
 			<div class="checkbox">
-				<label><input type="checkbox" name="comments-notifications"> <%= htmlWebpackPlugin.options.i18n['Being notified by email for feedback on my comments'] %></label>
+				<label><input type="checkbox" name="post-notifications"> <%= htmlWebpackPlugin.options.i18n['Be notified by email for feedback on my Wouafs'] %></label>
+			</div>
+			<div class="checkbox">
+				<label><input type="checkbox" name="comment-notifications"> <%= htmlWebpackPlugin.options.i18n['Be notified by email for feedback on my comments'] %></label>
 			</div>
 
 			<p class="text-xs-right"><button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> <%= htmlWebpackPlugin.options.i18n['Save'] %></button></p>

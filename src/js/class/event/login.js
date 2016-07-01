@@ -16,12 +16,8 @@ module.exports = (function() {
 		data.setArray('favorites', null);
 		data.setArray('following', null);
 		data.setObject('user', null);
-		data.setString('loginType', 'default');
 		data.setInt('today_publications', 0);
-		/*if (Ti.Facebook.loggedIn) {
-		 //disconnect facebook login in case of error
-		 Ti.Facebook.logout();
-		 }*/
+
 		$('.logged').attr('hidden', true);
 		$('.anonymous').removeAttr('hidden');
 	});
@@ -45,12 +41,8 @@ module.exports = (function() {
 			data.setString('token', params.token, !permanent);
 			data.setObject('user', params.user, !permanent);
 			if (params.user.notifications) {
-				data.setBool('allowContact', params.user.notifications.allowContact);
-				data.setBool('followingNotif', params.user.notifications.followingNotif);
-				data.setBool('postNotif', params.user.notifications.postNotif);
-				data.setBool('commentNotif', params.user.notifications.commentNotif);
+				data.setObject('notifications', params.user.notifications, !permanent);
 			}
-			data.setString('loginType', 'default', !permanent);
 			data.setInt('today_publications', params.today_publications, !permanent);
 			if (params.favorites) {
 				data.setArray('favorites', params.favorites, !permanent);
@@ -72,8 +64,6 @@ module.exports = (function() {
 				window.location = window.location.protocol +'//'+ newHostname + window.location.pathname;
 			}
 		}
-
-		//TODO : get Facebook or G+ avatars instead of gravatar, if user login with oauth2
 
 		//get gravatar
 		var gravatar = users.gravatar(user.get('hash'), 20);
