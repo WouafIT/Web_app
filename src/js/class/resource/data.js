@@ -185,6 +185,9 @@ module.exports = (function() {
 				break;
 			case 'object':
 			case 'array':
+				if (type == 'object' && typeof value != 'object') {
+					console.error('Illegal value type '+ JSON.stringify(value) +' for key '+ key);
+				}
 				value = JSON.stringify(value);
 				break;
 		}
@@ -218,6 +221,9 @@ module.exports = (function() {
 				break;
 			case 'object':
 				value = value ? JSON.parse(value) : {};
+				if (typeof value != 'object') {
+					console.error('Illegal value type '+ JSON.stringify(value) +' for key '+ key);
+				}
 				break;
 			case 'array':
 				value = value ? JSON.parse(value) : [];
