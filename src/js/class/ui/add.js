@@ -191,9 +191,8 @@ module.exports = (function() {
 			}
 			$remaining.html(i18n.t('{{count}} character left', {count: count}));
 		});
-		var notifications = data.getObject('notifications');
-		$contactNotifications.attr("checked", notifications.contact);
-		$postNotifications.attr("checked", notifications.post);
+		$contactNotifications.attr("checked", true);
+		$postNotifications.attr("checked", true);
 
 		//help popover
 		$help.popover({
@@ -261,7 +260,7 @@ module.exports = (function() {
 				date: 		Math.round(date.getTime() / 1000),
 				duration: 	$duration.val(),
 				contact: 	($contactNotifications.prop("checked") ? 1 : 0),
-				notif:	 	($postNotifications.prop("checked") ? 1 : 0),
+				suscribe:	($postNotifications.prop("checked") ? 1 : 0),
 				pics: 	    JSON.stringify(validImages)
 			};
 			query.createPost(wouafData , function(result) { //success

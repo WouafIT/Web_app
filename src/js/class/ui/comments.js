@@ -93,7 +93,7 @@ module.exports = (function() {
 			var $form = $modalWindow.find('form');
 			var $remaining = $form.find('.remaining');
 			var $content = $form.find('textarea[name=content]');
-			var $notif = $form.find('input[name=notif]');
+			var $suscribe = $form.find('input[name=suscribe]');
 
 			//content count remaining chars
 			$content.on('change keyup paste', function() {
@@ -104,7 +104,7 @@ module.exports = (function() {
 				}
 				$remaining.html(i18n.t('{{count}} character left', {count: count}));
 			});
-			$notif.attr("checked", data.getBool('commentNotif'));
+			$suscribe.attr("checked", true);
 
 			//form field validation and submition
 			var formUtils = require('./form-utils.js');
@@ -120,7 +120,7 @@ module.exports = (function() {
 				query.createComment({ //comment wouaf
 					id:      	obj.id,
 					text:       $content.val(),
-					notif:    	$notif.val()
+					suscribe:   $suscribe.val()
 				}, function() {
 					obj.com++;
 					$document.triggerHandler('wouaf.update-comment', obj);

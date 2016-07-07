@@ -195,7 +195,7 @@ module.exports = (function() {
 		return /^[a-f0-9]{24}$/.test(id);
 	};
 	self.isValidPageName = function (text) {
-		return /^[a-z-]+$/.test(text) && text !== 'wouaf';
+		return /^[a-z-]+$/.test(text) && text !== 'wouaf' && text !== 'tag';
 	};
 	self.isValidEmail = function (email) {
 		//email validation. validate mostly RF2822

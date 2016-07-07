@@ -506,6 +506,17 @@ module.exports = (function() {
 				errorCallback: errorCallback
 			});
 		},
+		suscribeWouaf: function suscribeWouaf(id, suscribe, successCallback, errorCallback) {
+			query({
+				method: 'PUT',
+				url:	ENDPOINT + '/wouafs/'+ id +'/suscribe',
+				data:  {
+					suscribe: suscribe
+				},
+				successCallback: successCallback,
+				errorCallback: errorCallback
+			});
+		},
 		createComment: function createComment(datas, successCallback, errorCallback) {
 			query({
 				method: 'PUT',

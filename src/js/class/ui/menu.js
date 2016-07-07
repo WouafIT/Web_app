@@ -39,30 +39,45 @@ module.exports = (function() {
 				'<span class="share email"><a href="mailto:?subject='+ i18n.t('Shared from WouafIT:') +' '+ encodeURIComponent(title) +'&body='+ encodeURIComponent(wouafUrl) +'" target="_blank" title="'+ i18n.t('Share by Email') +'">',
 					'<i class="fa fa-envelope-o"></i></a></span>',
 			'</div>',
-			'<div class="dropdown-item"><i class="fa fa-link"></i> <input type="text" class="form-control link" value="'+ wouafUrl +'" /></div>',
-			(obj.author[0] === uid
-				? '<a class="dropdown-item" href="#" data-action="delete"><i class="fa fa-trash"></i> '+ i18n.t('Delete') +'</a>'
-				: 	('<a class="dropdown-item" href="'+ url.getAbsoluteURLForStates([{name: 'wouaf', value: obj.id}, {name: 'windows', value: 'contact'}]) +'" data-action="contact">' +
-						'<i class="fa fa-envelope"></i> '+ i18n.t('Contact the author') +'</a>',
-				(uid && utils.indexOf(following, obj.author[0]) !== -1 
-					? '<a class="dropdown-item" href="#" data-action="unfollow" data-uid="' + obj.author[0] + '">' +
-						'<i class="fa fa-angle-double-right"></i> '+ i18n.t('Unfollow the author') +'</a>'
-					: '<a class="dropdown-item" href="#" data-action="follow" data-uid="' + obj.author[0] + '">' +
-					   '<i class="fa fa-angle-double-right"></i> '+ i18n.t('Follow the author') +'</a>'))),
-			'<a class="dropdown-item" href="'+ url.getAbsoluteURLForStates([{name: 'wouaf', value: obj.id}, {name: 'windows', value: 'comments'}]) +'" data-action="comments">' +
+			'<div class="dropdown-item"><i class="fa fa-link"></i> <input type="text" class="form-control link" value="'+ wouafUrl +'" /></div>'];
+		if (obj.author[0] === uid) { //user is the Wouaf Author
+			menu = menu.concat(['<a class="dropdown-item" href="#" data-action="delete"><i class="fa fa-trash"></i> '+ i18n.t('Delete') +'</a>']);
+			if (obj.contact) {
+				menu = menu.concat(['<a class="dropdown-item" href="#" data-action="disallow-contact">' +
+									'<i class="fa fa-envelope"></i> '+ i18n.t('Disallow contact by email') +'</a>']);
+			} else {
+				menu = menu.concat(['<a class="dropdown-item" href="#" data-action="allow-contact">' +
+									'<i class="fa fa-envelope"></i> '+ i18n.t('Allow contact by email') +'</a>']);
+			}
+		} else {
+			if (obj.contact) {
+				menu = menu.concat(['<a class="dropdown-item" href="'+
+									url.getAbsoluteURLForStates([{name: 'wouaf', value: obj.id}, {name: 'windows', value: 'contact'}]) +'" data-action="contact">' +
+									'<i class="fa fa-envelope"></i> '+ i18n.t('Contact the author') +'</a>']);
+			}
+			if (utils.indexOf(following, obj.author[0]) !== -1) {
+				menu = menu.concat(['<a class="dropdown-item" href="#" data-action="unfollow" data-uid="' + obj.author[0] + '">' +
+									'<i class="fa fa-angle-double-right"></i> ' + i18n.t('Unfollow the author') + '</a>']);
+			} else {
+				menu = menu.concat(['<a class="dropdown-item" href="#" data-action="follow" data-uid="' + obj.author[0] + '">' +
+									'<i class="fa fa-angle-double-right"></i> ' + i18n.t('Follow the author') + '</a>']);
+			}
+			if (utils.indexOf(favs, obj.id) !== -1) {
+				menu = menu.concat(['<a class="dropdown-item" href="#" data-action="unfavorite">' +
+				'<i class="fa fa-star"></i> '+ i18n.t('In your favorites ({{fav}})', {fav: obj.fav}) +'</a>']);
+			} else {
+				menu = menu.concat(['<a class="dropdown-item" href="#" data-action="favorite">' +
+				'<i class="fa fa-star-o"></i> '+ i18n.t('Add to your favorites ({{fav}})', {fav: obj.fav}) +'</a>']);
+			}
+		}
+		menu = menu.concat(['<a class="dropdown-item" href="'+ url.getAbsoluteURLForStates([{name: 'wouaf', value: obj.id}, {name: 'windows', value: 'comments'}]) +'" data-action="comments">' +
 			'	<i class="fa fa-comment"></i> '+ (obj.com ? i18n.t('View the {{count}} comment', {count: obj.com}) : i18n.t('Add a comment', {count: obj.com})) +'</a>',
-			(uid && utils.indexOf(favs, obj.id) !== -1
-				? '<a class="dropdown-item" href="#" data-action="unfavorite">' +
-			'<i class="fa fa-star"></i> '+ i18n.t('In your favorites ({{fav}})', {fav: obj.fav}) +'</a>'
-				: '<a class="dropdown-item" href="#" data-action="favorite">' +
-			'<i class="fa fa-star-o"></i> '+ i18n.t('Add to your favorites ({{fav}})', {fav: obj.fav}) +'</a>'),
-			/*'<a class="dropdown-item" href="#" data-action="like"><i class="fa fa-heart"></i> Voter pour ce Wouaf</a>',*/
 			'<a class="dropdown-item" href="https://maps.google.com/?q='+ obj.loc[0] +','+ obj.loc[1] +'" target="_blank">',
-			'<i class="fa fa-map"></i> '+ i18n.t('View on Google Map') +'</a>',
+			'	<i class="fa fa-map"></i> '+ i18n.t('View on Google Map') +'</a>',
 			'<a class="dropdown-item" href="https://www.google.com/maps/dir//'+ obj.loc[0] +','+ obj.loc[1] +'/" target="_blank">',
-			'<i class="fa fa-location-arrow"></i> '+ i18n.t('Itinerary to this place') +'</a>',
+			'	<i class="fa fa-location-arrow"></i> '+ i18n.t('Itinerary to this place') +'</a>',
 			'<a class="dropdown-item" href="#" data-action="report"><i class="fa fa-ban"></i> '+ i18n.t('Report Abuse') +'</a>',
-			'</div>'];
+			'</div>']);
 		$menu = $(menu.join(''));
 		$menu.appendTo($map);
 		$menu.hide().removeAttr('hidden');

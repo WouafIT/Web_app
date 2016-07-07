@@ -74,7 +74,8 @@ module.exports = (function() {
 		var $userProfile = $('.user-profile');
 		$userProfile.attr('href', url.getAbsoluteURLForStates([{name: 'user', value: username}]));
 		$userProfile.attr('data-user', username);
-
+		$userProfile.data('user', username);
+		
 		if (firstname && lastname) {
 			username = (firstname +' '+ lastname).trim();
 		}

@@ -20,21 +20,15 @@ module.exports = (function() {
 		var $radius = $form.find('select[name=radius]');
 		var $unit = $form.find('select[name=unit]');
 		var $mapFollow = $form.find('input[name=map-follow]');
-		var $contactNotifications = $form.find('input[name=contact-notifications]');
 		var $followingNotifications = $form.find('input[name=following-notifications]');
 		var $followerNotification = $form.find('input[name=follower-notifications]');
-		var $postNotifications = $form.find('input[name=post-notifications]');
-		var $commentNotifications = $form.find('input[name=comment-notifications]');
 		//set current values
 		$unit.val(data.getString('unit'));
 		$mapFollow.attr("checked", data.getBool('mapFollow'));
 		
 		var notifications = data.getObject('notifications');
-		$contactNotifications.attr("checked", notifications.contact);
 		$followingNotifications.attr("checked", notifications.following);
 		$followerNotification.attr("checked", notifications.follower);
-		$postNotifications.attr("checked", notifications.post);
-		$commentNotifications.attr("checked", notifications.comment);
 
 		//populate radius select
 		var populateRadius = function() {
@@ -53,11 +47,8 @@ module.exports = (function() {
 		$unit.on('change', populateRadius);
 
 		if (!data.getString('uid')) {
-			$contactNotifications.attr('disabled', true);
 			$followingNotifications.attr('disabled', true);
-			$postNotifications.attr('disabled', true);
 			$followerNotification.attr('disabled', true);
-			$commentNotifications.attr('disabled', true);
 		}
 
 		//form field validation and submition
@@ -72,12 +63,9 @@ module.exports = (function() {
 			data.setBool('mapFollow', $mapFollow.prop("checked"));
 
 			if (data.getString('uid')) {
-				notifications.contact = !!$contactNotifications.prop("checked");
 				notifications.following = !!$followingNotifications.prop("checked");
 				notifications.follower = !!$followerNotification.prop("checked");
-				notifications.post = !!$postNotifications.prop("checked");
-				notifications.comment = !!$commentNotifications.prop("checked");
-
+				
 				data.setObject('notifications', notifications);
 				//Query
 				query.updateUser({

@@ -1,6 +1,7 @@
 module.exports = (function() {
 	var i18n = require('./i18n.js');
 	var utils = require('../utils.js');
+	var map = require('./map.js');
 	var $document = $(document);
 	var $modal = $('#modalWindow');
 	var $modalContent = $modal.find('.modal-content');
@@ -44,6 +45,7 @@ module.exports = (function() {
 			$document.triggerHandler('navigation.set-state', {name: 'windows', value: href});
 		} else {
 			$document.triggerHandler('navigation.set-state', $modal.data('navigationOpen'));
+			$modal.data('navigationOpen', null);
 		}
 	};
 
@@ -55,6 +57,7 @@ module.exports = (function() {
 			$document.triggerHandler('navigation.set-state', {name: 'windows', value: null});
 		} else {
 			$document.triggerHandler('navigation.set-state', $modal.data('navigationClose'));
+			$modal.data('navigationClose', null);
 		}
 	});
 	$modal.on('show.bs.modal', function (event) {
@@ -62,7 +65,6 @@ module.exports = (function() {
 		var $source = $(event.relatedTarget);
 		if ($source.length && $source.data('href')) {
 			if ($source.attr('href').indexOf('/wouaf/') === -1) {
-				var map = require('./map.js');
 				map.hideResult();
 			}
 			currentOptions = {href: $source.data('href')};

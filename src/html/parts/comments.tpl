@@ -15,7 +15,7 @@
 			<div class="checkbox">
 				<div class="input-group">
 					<label>
-						<input type="checkbox" name="notif"> <%= htmlWebpackPlugin.options.i18n['Receive an email every new comment'] %>
+						<input type="checkbox" name="suscribe"> <%= htmlWebpackPlugin.options.i18n['Receive an email every new comment'] %>
 					</label>
 				</div>
 			</div>

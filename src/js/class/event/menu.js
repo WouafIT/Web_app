@@ -95,7 +95,8 @@ module.exports = (function() {
 						var favs = data.getArray('favorites');
 						if (utils.indexOf(favs, obj.id) === -1) {
 							obj.fav++;
-							$target.replaceWith('<a class="dropdown-item" href="#" data-action="unfavorite"><i class="fa fa-star"></i> '+ i18n.t('In your favorites ({{fav}})', {fav: obj.fav}) +'</a>');
+							$target.replaceWith('<a class="dropdown-item" href="#" data-action="unfavorite">' +
+												'<i class="fa fa-star"></i> '+ i18n.t('In your favorites ({{fav}})', {fav: obj.fav}) +'</a>');
 							query.addFavorite(obj.id, function() {
 								toast.show(i18n.t('This Wouaf is added to your favorites'));
 
@@ -114,7 +115,8 @@ module.exports = (function() {
 						var favs = data.getArray('favorites');
 						if (utils.indexOf(favs, obj.id) !== -1) {
 							obj.fav--;
-							$target.replaceWith('<a class="dropdown-item" href="#" data-action="favorite"><i class="fa fa-star-o"></i> '+ i18n.t('Add to your favorites ({{fav}})', {fav: obj.fav}) +'</a>');
+							$target.replaceWith('<a class="dropdown-item" href="#" data-action="favorite">' +
+												'<i class="fa fa-star-o"></i> '+ i18n.t('Add to your favorites ({{fav}})', {fav: obj.fav}) +'</a>');
 							query.removeFavorite(obj.id, function() {
 								toast.show(i18n.t('This Wouaf is removed from your favorites'));
 
@@ -137,7 +139,8 @@ module.exports = (function() {
 							query.followUser(authorId, function () {
 								following.push(authorId);
 								data.setArray('following', following);
-								$target.replaceWith('<a class="dropdown-item" href="#" data-action="unfollow" data-uid="' + authorId + '"><i class="fa fa-angle-double-right"></i> '+ i18n.t('Unfollow the author') +'</a>');
+								$target.replaceWith('<a class="dropdown-item" href="#" data-action="unfollow" data-uid="' + authorId + '">' +
+													'<i class="fa fa-angle-double-right"></i> '+ i18n.t('Unfollow the author') +'</a>');
 								$document.triggerHandler('app.follow-user', authorId);
 								toast.show(i18n.t('You follow this Wouaffer'));
 							}, function (msg) {
@@ -155,7 +158,8 @@ module.exports = (function() {
 							query.unfollowUser(authorId, function () {
 								delete following[utils.indexOf(following, authorId)];
 								data.setArray('following', following);
-								$target.replaceWith('<a class="dropdown-item" href="#" data-action="follow" data-uid="' + authorId + '"><i class="fa fa-angle-double-right"></i> '+ i18n.t('Follow the author') +'</a>');
+								$target.replaceWith('<a class="dropdown-item" href="#" data-action="follow" data-uid="' + authorId + '">' +
+													'<i class="fa fa-angle-double-right"></i> '+ i18n.t('Follow the author') +'</a>');
 								$document.triggerHandler('app.unfollow-user', authorId);
 								toast.show(i18n.t('You are no longer following this Wouaffer'));
 							}, function (msg) {
@@ -171,6 +175,32 @@ module.exports = (function() {
 						//show contact page
 						windows.show({
 							href: 'contact'
+						});
+						break;
+					case 'disallow-contact':
+						if (obj.author[0] !== uid) { //not user wouaf
+							return;
+						}
+						query.suscribeWouaf(obj.id, false, function () {
+							$target.replaceWith('<a class="dropdown-item" href="#" data-action="allow-contact">' +
+												'<i class="fa fa-envelope"></i> '+ i18n.t('Allow contact by email') +'</a>');
+							obj.contact = 0;
+							toast.show(i18n.t('You can not be contacted from this Wouaf'));
+						}, function (msg) {
+							toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
+						});
+						break;
+					case 'allow-contact':
+						if (obj.author[0] !== uid) { //not user wouaf
+							return;
+						}
+						query.suscribeWouaf(obj.id, true, function () {
+							$target.replaceWith('<a class="dropdown-item" href="#" data-action="disallow-contact">' +
+												'<i class="fa fa-envelope"></i> '+ i18n.t('Disallow contact by email') +'</a>');
+							obj.contact = 1;
+							toast.show(i18n.t('You can now be contacted from this Wouaf'));
+						}, function (msg) {
+							toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
 						});
 						break;
 					case 'comments':
