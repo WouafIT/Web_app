@@ -9,6 +9,7 @@ module.exports = (function() {
 	var query = require('../resource/query.js');
 	var wouafs = require('../resource/wouafs.js');
 	var $modalWindow = windows.getWindows();
+	var $document = $(document);
 
 	self.show = function () {
 		var states = data.getObject('navigation');
