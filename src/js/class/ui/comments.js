@@ -141,9 +141,10 @@ module.exports = (function() {
 				query.createComment({ //comment wouaf
 					id:      	obj.id,
 					text:       $content.val(),
-					subscribe:  $subscribe.val()
+					subscribe:  ($subscribe.prop("checked") ? 1 : 0)
 				}, function() {
 					obj.com++;
+					wouafs.set(obj.id, obj);
 					$document.triggerHandler('wouaf.update-comment', obj);
 					windows.refresh();
 					var toast = require('../resource/toast.js');
