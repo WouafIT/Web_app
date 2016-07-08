@@ -1,6 +1,5 @@
 module.exports = (function() {
 	var self = {};
-	var data = require('../resource/data.js');
 	var utils = require('../utils.js');
 	var windows = require('../resource/windows.js');
 	var i18n = require('../resource/i18n.js');
