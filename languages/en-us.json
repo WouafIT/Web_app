@@ -144,8 +144,10 @@
 	"km": "km",
 	"miles": "miles",
 	"Notifications settings": "Notifications settings",
+	"Allow other Wouaffers to contact me": "Allow other Wouaffers to contact me by email.",
 	"Be notified by email when a new Wouaffer follow me" : "Be notified by email when a new Wouaffer follow me.",
 	"Be notified by email of new Wouafs from Wouaffers that I follow": "Be notified by email of new Wouafs published by Wouaffers that I follow.",
+	"Be notified by email for feedback on this Wouaf": "Be notified by email for feedback on this Wouaf.",
 	"Settings saved!": "Settings saved!",
 
 	"Lost password?": "Lost password?",
@@ -157,7 +159,6 @@
 	"Add a new Wouaf": "Add a new Wouaf",
 	"Save your Wouaf": "Save your Wouaf",
 	"Add_wouaf_popover": "Position the center of the map at the point where you want to add your Wouaf and click OK.",
-	"Be notified by email for feedback on this Wouaf": "Be notified by email for feedback on this Wouaf",
 	"Lack of precision": "Lack of precision...",
 	"lack_of_precision_details": "The defined position lacks of precision. You must zoom in a bit!",
 
@@ -298,7 +299,7 @@
 	"{{count}} comment for {{title}}_plural": "{{count}} comments for \"{{title}}\"",
 	"Enter your comment (1000 char. max)": "Enter your comment (1000 char. max)",
 	"Save your comment": "Save your comment",
-	"Receive an email every new comment": "Receive an email every new comment",
+	"Receive an email every new comment": "Receive an email every new comment.",
 	"Your comment is published": "Your comment is published!",
 	"By {{author}} on {{date}}": "By {{author}} on {{date}}",
 	"No comment yet": "No comment yet.",
@@ -306,6 +307,9 @@
 	"Report an inappropriate comment" : "Report an inappropriate comment",
 	"View the next {{count}} comment": "View the next comment",
 	"View the next {{count}} comment_plural": "View the next {{count}} comments",
+	"Unsubscribe": "Unsubscribe",
+	"Unsubscribe from emails for each new comment": "Unsubscribe from emails for each new comment",
+	"Unsubscribing is taken into account": "Unsubscribing is taken into account.",
 
 	"Delete your comment": "Delete your comment?",
 	"delete_comment_details": "Do you confirm the permanent deletion of this comment?\nYou can not go back!",

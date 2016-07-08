@@ -9,6 +9,7 @@ module.exports = (function() {
 	var twitterText = require('twitter-text');
 	var alert = require('../resource/alert.js');
 	var comment = require('./comment.js');
+	var toast = require('../resource/toast.js');
 	var $modalWindow = windows.getWindows();
 	var $document = $(document);
 
@@ -48,6 +49,27 @@ module.exports = (function() {
 				//load comments
 				query.getComments(obj.id, function(result) {
 					var $modalComments = $modalWindow.find('.modal-comments');
+					var $subscribeZone = $modalWindow.find('.comment-subscribe');
+					var $unsubscribeZone = $modalWindow.find('.comment-unsubscribe');
+					$subscribeZone.hide().removeAttr('hidden');
+					$unsubscribeZone.hide().removeAttr('hidden');
+					if (result.subscribed) {
+						$unsubscribeZone.show();
+						$form.find('input[name=subscribe]').attr("checked", false);
+						$unsubscribeZone.on('click', function () {
+							$unsubscribeZone.hide();
+							query.unsubscribeComments(obj.id, function() {
+								toast.show(i18n.t('Unsubscribing is taken into account'));
+								$subscribeZone.show();
+							},function(msg) {
+								$unsubscribeZone.show();
+								toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
+							});
+						});
+					} else {
+						$subscribeZone.show();
+					}
+
 					if (result.count) {
 						var comments = result.comments;
 						$modalComments.data('id', obj.id);
@@ -81,7 +103,6 @@ module.exports = (function() {
 					}
 				},function(msg) {
 					windows.close();
-					var toast = require('../resource/toast.js');
 					toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
 				});
 			}).fail(function() {
@@ -93,7 +114,7 @@ module.exports = (function() {
 			var $form = $modalWindow.find('form');
 			var $remaining = $form.find('.remaining');
 			var $content = $form.find('textarea[name=content]');
-			var $suscribe = $form.find('input[name=suscribe]');
+			var $subscribe = $form.find('input[name=subscribe]');
 
 			//content count remaining chars
 			$content.on('change keyup paste', function() {
@@ -104,7 +125,7 @@ module.exports = (function() {
 				}
 				$remaining.html(i18n.t('{{count}} character left', {count: count}));
 			});
-			$suscribe.attr("checked", true);
+			$subscribe.attr("checked", true);
 
 			//form field validation and submition
 			var formUtils = require('./form-utils.js');
@@ -120,7 +141,7 @@ module.exports = (function() {
 				query.createComment({ //comment wouaf
 					id:      	obj.id,
 					text:       $content.val(),
-					suscribe:   $suscribe.val()
+					subscribe:  $subscribe.val()
 				}, function() {
 					obj.com++;
 					$document.triggerHandler('wouaf.update-comment', obj);

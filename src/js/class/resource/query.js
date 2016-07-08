@@ -506,13 +506,21 @@ module.exports = (function() {
 				errorCallback: errorCallback
 			});
 		},
-		suscribeWouaf: function suscribeWouaf(id, suscribe, successCallback, errorCallback) {
+		subscribeWouaf: function subscribeWouaf(id, subscribe, successCallback, errorCallback) {
 			query({
 				method: 'PUT',
-				url:	ENDPOINT + '/wouafs/'+ id +'/suscribe',
+				url:	ENDPOINT + '/wouafs/'+ id +'/subscribe',
 				data:  {
-					suscribe: suscribe
+					subscribe: subscribe
 				},
+				successCallback: successCallback,
+				errorCallback: errorCallback
+			});
+		},
+		unsubscribeComments: function unsubscribeComments(id, successCallback, errorCallback) {
+			query({
+				method: 'PUT',
+				url:	ENDPOINT + '/wouafs/'+ id +'/comments/unsubscribe',
 				successCallback: successCallback,
 				errorCallback: errorCallback
 			});

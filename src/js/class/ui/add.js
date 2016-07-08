@@ -260,7 +260,7 @@ module.exports = (function() {
 				date: 		Math.round(date.getTime() / 1000),
 				duration: 	$duration.val(),
 				contact: 	($contactNotifications.prop("checked") ? 1 : 0),
-				suscribe:	($postNotifications.prop("checked") ? 1 : 0),
+				subscribe:	($postNotifications.prop("checked") ? 1 : 0),
 				pics: 	    JSON.stringify(validImages)
 			};
 			query.createPost(wouafData , function(result) { //success

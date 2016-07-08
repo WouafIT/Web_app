@@ -181,7 +181,7 @@ module.exports = (function() {
 						if (obj.author[0] !== uid) { //not user wouaf
 							return;
 						}
-						query.suscribeWouaf(obj.id, 0, function () {
+						query.subscribeWouaf(obj.id, 0, function () {
 							$target.replaceWith('<a class="dropdown-item" href="#" data-action="allow-contact">' +
 												'<i class="fa fa-envelope"></i> '+ i18n.t('Allow contact by email') +'</a>');
 							obj.contact = 0;
@@ -194,7 +194,7 @@ module.exports = (function() {
 						if (obj.author[0] !== uid) { //not user wouaf
 							return;
 						}
-						query.suscribeWouaf(obj.id, 1, function () {
+						query.subscribeWouaf(obj.id, 1, function () {
 							$target.replaceWith('<a class="dropdown-item" href="#" data-action="disallow-contact">' +
 												'<i class="fa fa-envelope"></i> '+ i18n.t('Disallow contact by email') +'</a>');
 							obj.contact = 1;

@@ -12,14 +12,17 @@
 				<textarea class="form-control" rows="8" name="content" id="content" placeholder="<%= htmlWebpackPlugin.options.i18n['Enter your comment (1000 char. max)'] %>"></textarea>
 				<div class="text-xs-right"><small class="text-muted remaining"></small></div>
 			</fieldset>
-			<div class="checkbox">
+			<div class="checkbox comment-subscribe" hidden>
 				<div class="input-group">
 					<label>
-						<input type="checkbox" name="suscribe"> <%= htmlWebpackPlugin.options.i18n['Receive an email every new comment'] %>
+						<input type="checkbox" name="subscribe"> <%= htmlWebpackPlugin.options.i18n['Receive an email every new comment'] %>
 					</label>
 				</div>
 			</div>
-			<p class="text-xs-right"><button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> <%= htmlWebpackPlugin.options.i18n['Save your comment'] %></button></p>
+			<p class="text-xs-right">
+				<button type="button" class="pull-left comment-unsubscribe btn btn-secondary" hidden title="<%= htmlWebpackPlugin.options.i18n['Unsubscribe from emails for each new comment'] %>"><i class="fa fa-ban"></i> <%= htmlWebpackPlugin.options.i18n['Unsubscribe'] %></button>
+				<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> <%= htmlWebpackPlugin.options.i18n['Save your comment'] %></button>
+			</p>
 			<hr />
 		</form>
 		<div class="modal-comments"></div>

@@ -144,8 +144,10 @@
 	"km": "km",
 	"miles": "miles",
 	"Notifications settings": "Paramètres de notifications",
+	"Allow other Wouaffers to contact me": "Permettre aux autres Wouaffeurs de me contacter par email.",
 	"Be notified by email when a new Wouaffer follow me" : "Etre notifié par email lorsqu'un nouveau Wouaffeur me suis.",
 	"Be notified by email of new Wouafs from Wouaffers that I follow": "Etre notifié par email des nouveaux Wouafs publiés par les Wouaffeurs que je suis.",
+	"Be notified by email for feedback on this Wouaf": "Etre notifié par email des commentaires sur ce Wouaf.",
 	"Settings saved!": "Paramètres enregistrés !",
 
 	"Lost password?": "Mot de passe oublié ?",
@@ -157,7 +159,6 @@
 	"Add a new Wouaf": "Ajouter un nouveau Wouaf",
 	"Save your Wouaf": "Publier votre Wouaf",
 	"Add_wouaf_popover": "Positionnez le centre de la carte à l'endroit où vous souhaitez ajouter votre Wouaf et cliquez sur OK.",
-	"Be notified by email for feedback on this Wouaf": "Etre notifié par email des commentaires sur ce Wouaf",
 	"Lack of precision": "Manque de précision ...",
 	"lack_of_precision_details": "La position définie est peu précise. Vous devez zoomer un peu !",
 
@@ -298,7 +299,7 @@
 	"{{count}} comment for {{title}}_plural": "{{count}} commentaires pour \"{{title}}\"",
 	"Enter your comment (1000 char. max)": "Saisissez votre commentaire (1000 car. max)",
 	"Save your comment": "Publier votre commentaire",
-	"Receive an email every new comment": "Recevoir un email à chaque nouveau commentaire",
+	"Receive an email every new comment": "Recevoir un email à chaque nouveau commentaire.",
 	"Your comment is published": "Votre commentaire est publié !",
 	"By {{author}} on {{date}}": "Par {{author}}, le {{date}}",
 	"No comment yet": "Aucun commentaire pour le moment.",
@@ -306,6 +307,9 @@
 	"Report an inappropriate comment" : "Signaler un commentaire inapproprié",
 	"View the next {{count}} comment": "Voir le commentaire suivant",
 	"View the next {{count}} comment_plural": "Voir les {{count}} commentaires suivants",
+	"Unsubscribe": "Se désabonner",
+	"Unsubscribe from emails for each new comment": "Se désabonner des e-mails pour chaque nouveau commentaire",
+	"Unsubscribing is taken into account": "Votre désinscription est prise en compte.",
 
 	"Delete your comment": "Supprimer votre commentaire ?",
 	"delete_comment_details": "Confirmez-vous la suppression définitive de ce commentaire ?\nVous ne pourrez pas revenir en arrière !",
