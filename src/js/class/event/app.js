@@ -43,11 +43,12 @@ module.exports = (function() {
 
 		//init with server infos
 		query.init(function (infos, status, msg) {
-			if (status == 'error') {
+			if (!infos || status == 'error') {
 				//show error page
+				msg = msg || (infos && infos.statusText ? infos.statusText : '');
 				windows.show({
 					title: i18n.t('Error_'),
-					text: i18n.t('Error_details {{status}} {{error}}', { 'status': infos.status, 'error': msg })
+					text: i18n.t('Error_details {{status}} {{error}}', { 'status': infos ? infos.status : 'Status: Server error', 'error': msg })
 				});
 				return;
 			}

@@ -3,6 +3,9 @@ module.exports = (function() {
 	var data = require('./data.js');
 	var utils = require('../utils.js');
 	var loader = require('./loader.js');
+	var toast = require('./toast.js');
+	var i18n = require('./i18n.js');
+
 	var xhr;
 	//Google geocode usage limits : https://developers.google.com/maps/articles/geocodestrat#client
 	//==> illimited from client (browser) requests
@@ -30,8 +33,6 @@ module.exports = (function() {
 	// Better ====>>> http://open.mapquestapi.com/staticmap/
 	
 	var connectionError = function() {
-		var toast = require('./toast.js');
-		var i18n = require('./i18n.js');
 		toast.show(i18n.t('Connexion error. Are you connected to the Internet? Please try again later'), 5000);
 	};
 	var query = function (params) {
@@ -75,8 +76,10 @@ module.exports = (function() {
 					var result = xhr.responseJSON;
 					if (result && result.msg) {
 						params.errorCallback(result.msg);
-					} else {
+					} else if (params.connectionError) {
 						params.connectionError();
+					} else {
+						toast.show(i18n.t('Error_details {{status}} {{error}}', { 'status': xhr.status ? xhr.status : 'Status: Server error', 'error': xhr.statusText ? xhr.statusText : '' }), 5000);
 					}
 				}
 			},

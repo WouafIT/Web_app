@@ -42,8 +42,8 @@ module.exports = (function() {
 		$signwname.attr("checked", user.get('signwname'));
 		$signwname.attr('disabled', !$firstname.val() && !$lastname.val());
 		var birthdate = user.get('birthdate');
-		if (birthdate && birthdate.sec) {
-			dtp.setInputDate($birthdate, new Date(birthdate.sec * 1000));
+		if (birthdate) {
+			dtp.setInputDate($birthdate, new Date(birthdate));
 		}
 
 		//description count remaining chars

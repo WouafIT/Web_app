@@ -8,7 +8,7 @@ module.exports = (function() {
 	var self = {};
 	self.getComment = function (obj, wouaf) {
 		var date = new Date();
-		date.setTime(obj.ts.sec * 1000);
+		date.setTime(obj.ts);
 		var time = dtp.formatTime(date, false);
 		var authorUrl = url.getAbsoluteURLForStates([{name: 'user', value: obj.author[1]}]);
 		var author = i18n.t('By {{author}} on {{date}}', {

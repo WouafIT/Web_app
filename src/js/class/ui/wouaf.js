@@ -10,11 +10,10 @@ module.exports = (function() {
 		var title = utils.getWouafTitle(obj);
 		//state
 		var time = new Date();
-		obj.state = (obj.date[0].sec * 1000) > time.getTime() ? 'w-post' : ((obj.date[1].sec * 1000) < time.getTime() ? 'w-past' : 'w-current');
+		obj.state = (obj.date[0]) > time.getTime() ? 'w-post' : ((obj.date[1]) < time.getTime() ? 'w-past' : 'w-current');
 		//length
-		var start = new Date();
-		start.setTime(obj.date[0].sec * 1000);
-		var length = obj.date[1].sec - obj.date[0].sec;
+		var start = new Date(obj.date[0]);
+		var length = (obj.date[1] - obj.date[0]) / 1000;
 		var eventLength;
 		var oneDay = 86400;
 		var oneWeek = 604800;
@@ -28,8 +27,7 @@ module.exports = (function() {
 		}
 		var timeStart;
 		if (!eventLength) {
-			var end = new Date();
-			end.setTime(obj.date[1].sec * 1000);
+			var end = new Date(obj.date[1]);
 			timeStart = dtp.formatTime(start);
 			var timeEnd = dtp.formatTime(end);
 			eventLength = i18n.t('From {{from}} to {{to}}', {
