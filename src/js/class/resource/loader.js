@@ -14,4 +14,4 @@ module.exports = (function() {
 		$bg.hide();
 	};
 	return self;
-})();
+}());

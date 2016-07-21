@@ -1,11 +1,11 @@
-module.exports = (function() {
-	var wouaf 	= require('./wouaf.js');
-	var user 	= require('./user.js');
-	var utils 	= require('../utils.js');
-	var i18n 	= require('../resource/i18n.js');
-	var users 	= require('../resource/users.js');
-	var wouafs 	= require('../resource/wouafs.js');
+var wouaf 	= require('./wouaf.js');
+var user 	= require('./user.js');
+var utils 	= require('../utils.js');
+var i18n 	= require('../resource/i18n.js');
+var users 	= require('../resource/users.js');
+var wouafs 	= require('../resource/wouafs.js');
 
+module.exports = (function() {
 	var self = {};
 	self.getContent = function (data, title) {
 		var content = [], i, l, obj;
@@ -88,4 +88,4 @@ module.exports = (function() {
 		return content.join('');
 	};
 	return self;
-})();
+}());

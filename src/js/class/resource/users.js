@@ -57,4 +57,4 @@ module.exports = (function() {
 		return '<img src="//www.gravatar.com/avatar/'+ hash +'.jpg?d=blank&s='+ size +'" width="'+ size +'" height="'+ size +'" class="gravatar" />';
 	};
 	return self;
-})();
+}());

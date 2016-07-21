@@ -1,8 +1,12 @@
+var data = require('../resource/data.js');
+var windows = require('../resource/windows.js');
+var i18n = require('../resource/i18n.js');
+var toast = require('../resource/toast.js');
+var query = require('../resource/query.js');
+var alert = require('../resource/alert.js');
+var formUtils = require('./form-utils.js');
+
 module.exports = (function() {
-	var data = require('../resource/data.js');
-	var windows = require('../resource/windows.js');
-	var i18n = require('../resource/i18n.js');
-	var toast = require('../resource/toast.js');
 	var $document = $(document);
 	var $modalWindow = windows.getWindows();
 	var self = {};
@@ -17,7 +21,6 @@ module.exports = (function() {
 		var $remember = $form.find('input[name=remember]');
 
 		//form field validation and submition
-		var formUtils = require('./form-utils.js');
 		formUtils.init($form, function ($field) {
 			//fields validation
 			switch($field.attr('name')) {
@@ -31,14 +34,12 @@ module.exports = (function() {
 			return true;
 		}, function () {
 			//form submition
-			var alert = require('../resource/alert.js');
 			if (!$username.val() || !$pass.val()) {
 				alert.show(i18n.t('Your form is incomplete, thank you to fill all fields'), $form);
 				return;
 			}
 
 			//Query
-			var query = require('../resource/query.js');
 			query.login({
 				login: $username.val(),
 				pass: $pass.val()
@@ -65,4 +66,4 @@ module.exports = (function() {
 		});
 	};
 	return self;
-})();
+}());

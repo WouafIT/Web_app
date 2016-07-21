@@ -1,15 +1,18 @@
+var data = require('../resource/data.js');
+var utils = require('../utils.js');
+var i18n = require('../resource/i18n.js');
+var windows = require('../resource/windows.js');
+var query = require('../resource/query.js');
+var wouafs = require('../resource/wouafs.js');
+var twitterText = require('twitter-text');
+var alert = require('../resource/alert.js');
+var comment = require('./comment.js');
+var toast = require('../resource/toast.js');
+var formUtils = require('./form-utils.js');
+var toast = require('../resource/toast.js');
+
 module.exports = (function() {
 	var self = {};
-	var data = require('../resource/data.js');
-	var utils = require('../utils.js');
-	var i18n = require('../resource/i18n.js');
-	var windows = require('../resource/windows.js');
-	var query = require('../resource/query.js');
-	var wouafs = require('../resource/wouafs.js');
-	var twitterText = require('twitter-text');
-	var alert = require('../resource/alert.js');
-	var comment = require('./comment.js');
-	var toast = require('../resource/toast.js');
 	var $modalWindow = windows.getWindows();
 	var $document = $(document);
 
@@ -128,7 +131,6 @@ module.exports = (function() {
 			$subscribe.attr("checked", true);
 
 			//form field validation and submition
-			var formUtils = require('./form-utils.js');
 			formUtils.init($form, function () {
 				//fields validation
 				return true;
@@ -147,7 +149,6 @@ module.exports = (function() {
 					wouafs.set(obj.id, obj);
 					$document.triggerHandler('wouaf.update-comment', obj);
 					windows.refresh();
-					var toast = require('../resource/toast.js');
 					toast.show(i18n.t('Your comment is published'));
 
 					$document.triggerHandler('app.added-comment', obj);
@@ -158,4 +159,4 @@ module.exports = (function() {
 		}
 	};
 	return self;
-})();
+}());

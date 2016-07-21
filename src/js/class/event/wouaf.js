@@ -76,4 +76,4 @@ module.exports = (function() {
 		});
 		$.swipebox(galleryImg, {hideBarsDelay: 0, loopAtEnd: true, initialIndexOnArray: initialIndex });
 	});
-})();
+}());

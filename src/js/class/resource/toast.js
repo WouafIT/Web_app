@@ -19,4 +19,4 @@ module.exports = (function() {
 		$toastContent.html('<p>'+ text +'</p>').parent().stop(false, true).fadeIn().delay(delay).fadeOut({complete: callback});
 	};
 	return self;
-})();
+}());

@@ -296,4 +296,4 @@ module.exports = (function() {
 	};
 
 	return self;
-})();
+}());

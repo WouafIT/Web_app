@@ -1,9 +1,11 @@
+var windows = require('../resource/windows.js');
+var i18n = require('../resource/i18n.js');
+var query = require('../resource/query.js');
+var data = require('../resource/data.js');
+var toast = require('../resource/toast.js');
+var formUtils = require('./form-utils.js');
+
 module.exports = (function() {
-	var windows = require('../resource/windows.js');
-	var i18n = require('../resource/i18n.js');
-	var query = require('../resource/query.js');
-	var data = require('../resource/data.js');
-	var toast = require('../resource/toast.js');
 	var $modalWindow = windows.getWindows();
 	var self = {};
 
@@ -52,7 +54,6 @@ module.exports = (function() {
 		}
 
 		//form field validation and submition
-		var formUtils = require('./form-utils.js');
 		formUtils.init($form, function ($field) {
 			//fields validation
 			return true;
@@ -82,4 +83,4 @@ module.exports = (function() {
 		});
 	};
 	return self;
-})();
+}());

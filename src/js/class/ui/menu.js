@@ -1,10 +1,11 @@
+var i18n = require('../resource/i18n.js');
+var url = require('../resource/url.js');
+var utils = require('../utils');
+var data = require('../resource/data.js');
+var windows = require('../resource/windows.js');
+var wouafs = require('../resource/wouafs.js');
+
 module.exports = (function() {
-	var i18n = require('../resource/i18n.js');
-	var url = require('../resource/url.js');
-	var utils = require('../utils');
-	var data = require('../resource/data.js');
-	var windows = require('../resource/windows.js');
-	var wouafs = require('../resource/wouafs.js');
 	var self = {};
 	var $map = $('#map');
 	var $modal = windows.getWindows();
@@ -138,14 +139,14 @@ module.exports = (function() {
 		}
 		var offset = $el.offset();
 		var menu = ['<div class="w-menu-dropdown dropdown-menu" data-id="'+ id +'" data-menu="listing" hidden>',
-			'<a class="dropdown-item'+ (filter == 'yes' ? ' active' : '') +'" href="#" data-action="filter-active"><i class="fa fa-filter"></i> '+i18n.t('Hide Wouafs gone') + (filter == 'yes' ? ' <i class="fa fa-check"></i>' : '') +'</a>',
-			(proximity == 'yes'
-				? '<a class="dropdown-item'+ (sort == 'proximity' ? ' active' : '') +'" href="#" data-action="sort-proximity"><i class="fa fa-sort-amount-desc"></i> '+i18n.t('Sort by Proximity') + (sort == 'proximity' ? ' <i class="fa fa-check"></i>' : '') +'</a>'
+			'<a class="dropdown-item'+ (filter === 'yes' ? ' active' : '') +'" href="#" data-action="filter-active"><i class="fa fa-filter"></i> '+i18n.t('Hide Wouafs gone') + (filter === 'yes' ? ' <i class="fa fa-check"></i>' : '') +'</a>',
+			(proximity === 'yes'
+				? '<a class="dropdown-item'+ (sort === 'proximity' ? ' active' : '') +'" href="#" data-action="sort-proximity"><i class="fa fa-sort-amount-desc"></i> '+i18n.t('Sort by Proximity') + (sort === 'proximity' ? ' <i class="fa fa-check"></i>' : '') +'</a>'
 				: ''),
-			'<a class="dropdown-item'+ (sort == 'date-desc' ? ' active' : '') +'" href="#" data-action="sort-date-desc"><i class="fa fa-sort-numeric-desc"></i> '+i18n.t('Sort by Starting Date descending') + (sort == 'date-desc' ? ' <i class="fa fa-check"></i>' : '') +'</a>',
-			'<a class="dropdown-item'+ (sort == 'date-asc' ? ' active' : '') +'" href="#" data-action="sort-date-asc"><i class="fa fa-sort-numeric-asc"></i> '+ i18n.t('Sort by Starting Date ascending') + (sort == 'date-asc' ? ' <i class="fa fa-check"></i>' : '') +'</a>',
-			'<a class="dropdown-item'+ (sort == 'comments' ? ' active' : '') +'" href="#" data-action="sort-comments"><i class="fa fa-sort-amount-desc"></i> '+ i18n.t('Sort by Comments') + (sort == 'comments' ? ' <i class="fa fa-check"></i>' : '') +'</a>',
-			'<a class="dropdown-item'+ (sort == 'type' ? ' active' : '') +'" href="#" data-action="sort-type"><i class="fa fa-sort-alpha-asc"></i> '+ i18n.t('Sort by Category') + (sort == 'type' ? ' <i class="fa fa-check"></i>' : '') +'</a>',
+			'<a class="dropdown-item'+ (sort === 'date-desc' ? ' active' : '') +'" href="#" data-action="sort-date-desc"><i class="fa fa-sort-numeric-desc"></i> '+i18n.t('Sort by Starting Date descending') + (sort === 'date-desc' ? ' <i class="fa fa-check"></i>' : '') +'</a>',
+			'<a class="dropdown-item'+ (sort === 'date-asc' ? ' active' : '') +'" href="#" data-action="sort-date-asc"><i class="fa fa-sort-numeric-asc"></i> '+ i18n.t('Sort by Starting Date ascending') + (sort === 'date-asc' ? ' <i class="fa fa-check"></i>' : '') +'</a>',
+			'<a class="dropdown-item'+ (sort === 'comments' ? ' active' : '') +'" href="#" data-action="sort-comments"><i class="fa fa-sort-amount-desc"></i> '+ i18n.t('Sort by Comments') + (sort === 'comments' ? ' <i class="fa fa-check"></i>' : '') +'</a>',
+			'<a class="dropdown-item'+ (sort === 'type' ? ' active' : '') +'" href="#" data-action="sort-type"><i class="fa fa-sort-alpha-asc"></i> '+ i18n.t('Sort by Category') + (sort === 'type' ? ' <i class="fa fa-check"></i>' : '') +'</a>',
 		'</div>'];
 		$menu = $(menu.join(''));
 		$menu.appendTo($slidebar);
@@ -165,11 +166,11 @@ module.exports = (function() {
 			self.close();
 		}
 		var type = $el.data('menu');
-		if (type == 'wouaf') {
+		if (type === 'wouaf') {
 			showWouafMenu($el);
-		} else if (type == 'comment') {
+		} else if (type === 'comment') {
 			showCommentMenu($el);
-		} else if (type == 'listing') {
+		} else if (type === 'listing') {
 			showListingMenu($el);
 		}
 	};
@@ -185,4 +186,4 @@ module.exports = (function() {
 	};
 
 	return self;
-})();
+}());

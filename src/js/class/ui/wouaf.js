@@ -1,9 +1,10 @@
+var i18n = require('../resource/i18n.js');
+var utils = require('../utils');
+var categories = require('../resource/categories.js');
+var url = require('../resource/url.js');
+var dtp = require('../resource/datetimepicker.js');
+
 module.exports = (function() {
-	var i18n = require('../resource/i18n.js');
-	var utils = require('../utils');
-	var categories = require('../resource/categories.js');
-	var url = require('../resource/url.js');
-	var dtp = require('../resource/datetimepicker.js');
 	var self = {};
 	self.getHeader = function (obj, collapse) {
 		collapse = collapse || false;
@@ -123,4 +124,4 @@ module.exports = (function() {
 	};
 
 	return self;
-})();
+}());

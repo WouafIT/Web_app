@@ -1,13 +1,16 @@
+var data = require('../resource/data.js');
+var utils = require('../utils.js');
+var windows = require('../resource/windows.js');
+var i18n = require('../resource/i18n.js');
+var toast = require('../resource/toast.js');
+var twitterText = require('twitter-text');
+var query = require('../resource/query.js');
+var wouafs = require('../resource/wouafs.js');
+var formUtils = require('./form-utils.js');
+var alert = require('../resource/alert.js');
+
 module.exports = (function() {
 	var self = {};
-	var data = require('../resource/data.js');
-	var utils = require('../utils.js');
-	var windows = require('../resource/windows.js');
-	var i18n = require('../resource/i18n.js');
-	var toast = require('../resource/toast.js');
-	var twitterText = require('twitter-text');
-	var query = require('../resource/query.js');
-	var wouafs = require('../resource/wouafs.js');
 	var $modalWindow = windows.getWindows();
 	var $document = $(document);
 
@@ -75,7 +78,6 @@ module.exports = (function() {
 		});
 
 		//form field validation and submition
-		var formUtils = require('./form-utils.js');
 		formUtils.init($form, function ($field) {
 			//fields validation
 			switch($field.attr('name')) {
@@ -86,7 +88,6 @@ module.exports = (function() {
 			return true;
 		}, function () {
 			//form submition
-			var alert = require('../resource/alert.js');
 			var emailMandatory = (!recipientId && !obj && !data.getString('uid'));
 			if (!$content.val() || (emailMandatory && !$email.val())) {
 				alert.show(i18n.t('Your form is incomplete, thank you to fill all the fields'), $form);
@@ -121,4 +122,4 @@ module.exports = (function() {
 		});
 	};
 	return self;
-})();
+}());

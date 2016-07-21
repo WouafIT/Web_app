@@ -135,4 +135,4 @@ module.exports = (function() {
 	};
 	self.addWouaf = addWouaf;
 	return self;
-})();
+}());

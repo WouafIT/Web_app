@@ -1,15 +1,19 @@
+var data = require('../resource/data.js');
+var windows = require('../resource/windows.js');
+var i18n = require('../resource/i18n.js');
+var toast = require('../resource/toast.js');
+var map = require('../resource/map.js');
+var twitterText = require('twitter-text');
+var categories = require('../resource/categories.js');
+var dtp = require('../resource/datetimepicker.js');
+var utils = require('../utils');
+var formUtils = require('./form-utils.js');
+var alert = require('../resource/alert.js');
+var query = require('../resource/query.js');
+
 module.exports = (function() {
 	var ENDPOINT 		= API_ENDPOINT;
 	var $document = $(document);
-	var data = require('../resource/data.js');
-	var windows = require('../resource/windows.js');
-	var i18n = require('../resource/i18n.js');
-	var toast = require('../resource/toast.js');
-	var map = require('../resource/map.js');
-	var twitterText = require('twitter-text');
-	var categories = require('../resource/categories.js');
-	var dtp = require('../resource/datetimepicker.js');
-	var utils = require('../utils');
 	var $modalWindow = windows.getWindows();
 	var durationsLabels = [i18n.t('{{count}} hour', {count: 1}),
 						   i18n.t('{{count}} hour', {count: 2}),
@@ -226,13 +230,11 @@ module.exports = (function() {
 
 
 		//form field validation and submition
-		var formUtils = require('./form-utils.js');
 		formUtils.init($form, function ($field) {
 			//fields validation
 			return true;
 		}, function () {
 			//form submition
-			var alert = require('../resource/alert.js');
 			if (!$content.val()) {
 				alert.show(i18n.t('Your form is incomplete, thank you to fill at least the content field'), $form);
 				return;
@@ -251,7 +253,6 @@ module.exports = (function() {
 			var date = $dateStart.val() ? dtp.getInputDate($dateStart) : new Date();
 
 			//Query
-			var query = require('../resource/query.js');
 			var wouafData = {
 				loc: 		($latitude.val() +','+ $longitude.val()),
 				cat: 		$category.val(),
@@ -280,4 +281,4 @@ module.exports = (function() {
 		});
 	};
 	return self;
-})();
+}());

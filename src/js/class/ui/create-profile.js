@@ -1,8 +1,12 @@
+var data = require('../resource/data.js');
+var windows = require('../resource/windows.js');
+var utils = require('../utils.js');
+var i18n = require('../resource/i18n.js');
+var formUtils = require('./form-utils.js');
+var alert = require('../resource/alert.js');
+var query = require('../resource/query.js');
+
 module.exports = (function() {
-	var data = require('../resource/data.js');
-	var windows = require('../resource/windows.js');
-	var utils = require('../utils.js');
-	var i18n = require('../resource/i18n.js');
 	var $document = $(document);
 	var $modalWindow = windows.getWindows();
 	var self = {};
@@ -23,7 +27,6 @@ module.exports = (function() {
 			$language.val('en_US');
 		}
 		//form field validation and submition
-		var formUtils = require('./form-utils.js');
 		formUtils.init($form, function ($field) {
 			//fields validation
 			switch($field.attr('name')) {
@@ -44,7 +47,6 @@ module.exports = (function() {
 			return true;
 		}, function () {
 			//form submition
-			var alert = require('../resource/alert.js');
 			if (!$username.val() || !$pass.val()
 				|| !$email.val() || !$language.val() || !$passConfirm.val()) {
 				alert.show(i18n.t('Your form is incomplete, thank you to fill all fields'), $form);
@@ -52,7 +54,6 @@ module.exports = (function() {
 			}
 
 			//Query
-			var query = require('../resource/query.js');
 			query.createUser({
 				username: 		$username.val(),
 				pass: 			$pass.val(),
@@ -90,4 +91,4 @@ module.exports = (function() {
 		});
 	};
 	return self;
-})();
+}());

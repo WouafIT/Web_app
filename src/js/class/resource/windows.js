@@ -1,6 +1,8 @@
 var i18n = require('./i18n.js');
 var utils = require('../utils.js');
 var map = require('./map.js');
+var query = require('./query.js');
+var alert = require('./alert.js');
 
 module.exports = (function() {
 	var $document = $(document);
@@ -36,7 +38,6 @@ module.exports = (function() {
 					text: i18n.t('Error, unknown url')
 				});
 			} else {
-				var query = require('./query.js');
 				query.connectionError();
 			}
 		}).then(function () {
@@ -168,7 +169,6 @@ module.exports = (function() {
 		self.show({
 			href: 'login',
 			open: function () {
-				var alert = require('./alert.js');
 				alert.show(msg, $('.modal-body'), 'danger');
 			}
 		})
@@ -182,4 +182,4 @@ module.exports = (function() {
 		return $modal;
 	};
 	return self;
-})();
+}());

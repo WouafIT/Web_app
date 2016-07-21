@@ -5,6 +5,7 @@ var query = require('../resource/query.js');
 var users = require('../resource/users.js');
 var data = require('../resource/data.js');
 var utils = require('../utils.js');
+var add = require('../resource/add.js');
 
 module.exports = (function() {
 	var $document = $(document);
@@ -45,7 +46,6 @@ module.exports = (function() {
 		}
 		switch ($this.data('action')) {
 			case 'add':
-				var add = require('../resource/add.js');
 				add.addWouaf();
 				break;
 			case 'user-wouaf':
@@ -170,4 +170,4 @@ module.exports = (function() {
 				break;
 		}
 	});
-})();
+}());

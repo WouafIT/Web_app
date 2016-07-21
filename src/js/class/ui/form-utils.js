@@ -1,5 +1,7 @@
+var i18n = require('../resource/i18n.js');
+var alert = require('../resource/alert.js');
+
 module.exports = (function() {
-	var i18n = require('../resource/i18n.js');
 	var self = {};
 	self.init = function($form, fieldsValidation, formSubmit) {
 		$form.find('input, select').on('change', function(e) {
@@ -20,7 +22,6 @@ module.exports = (function() {
 		});
 		$form.on('submit', function (event) {
 			event.preventDefault();
-			var alert = require('../resource/alert.js');
 			$form.find('.alert').hide("fast", function() {
 				$(this).remove();
 			});
@@ -32,4 +33,4 @@ module.exports = (function() {
 		});
 	};
 	return self;
-})();
+}());

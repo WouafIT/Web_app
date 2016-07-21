@@ -82,7 +82,7 @@ var clustermap = function () {
 				return [];
 			} else {
 				selectedNodes = [];
-				if (node.left != null) {
+				if (node.left !== null) {
 					if (node.left.isLeaf()) {
 						selectedNodes.push(node.left);
 					} else {
@@ -93,7 +93,7 @@ var clustermap = function () {
 						}
 					}
 				}
-				if (node.right != null) {
+				if (node.right !== null) {
 					if (node.right.isLeaf()) {
 						selectedNodes.push(node.right);
 					} else {
@@ -171,7 +171,7 @@ var clustermap = function () {
 		var MCD = hcmap._minDistance / Math.pow(2, hcmap._map.getZoom());
 
 		var selectedNodes = selectNodes(hcmap._tree, MCD);
-		if (selectedNodes.length == 0) {
+		if (selectedNodes.length === 0) {
 			selectedNodes.push(hcmap._tree);
 		}
 		hcmap._selectedNodes = selectedNodes;
@@ -182,12 +182,12 @@ var clustermap = function () {
 		for (var i = zoomMin; i < zoomMax; i++) {
 			MCD = hcmap._minDistance / Math.pow(2, i);
 			selectedNodes = selectNodes(hcmap._tree, MCD);
-			if (selectedNodes.length == 0) {
+			if (selectedNodes.length === 0) {
 				selectedNodes.push(hcmap._tree);
 			}
 			for (var j = 0, l = selectedNodes.length; j < l; j++) {
-				if (selectedNodes[j].label != -1
-					&& hcmap._elements[ selectedNodes[j].label ].id == id
+				if (selectedNodes[j].label !== -1
+					&& hcmap._elements[ selectedNodes[j].label ].id === id
 					&& selectedNodes[j].isLeaf()) {
 					return i;
 				}
@@ -208,22 +208,22 @@ var clustermap = function () {
 			ids: []
 		};
 		var cinfos, val, i, l;
-		if (node.left != null) {
+		if (node.left !== null) {
 			cinfos = getClusterInfos(hcmap, node.left);
 			for (i = 0, l = cinfos.colors.length; i < l; i++) {
 				val = cinfos.colors[i];
-				if (infos.colors.indexOf(val) == -1) {
+				if (infos.colors.indexOf(val) === -1) {
 					infos.colors.push(val);
 				}
 			}
 			infos.ids = infos.ids.concat(cinfos.ids);
 		}
 
-		if (node.right != null) {
+		if (node.right !== null) {
 			cinfos = getClusterInfos(hcmap, node.right);
 			for (i = 0, l = cinfos.colors.length; i < l; i++) {
 				val = cinfos.colors[i];
-				if (infos.colors.indexOf(val) == -1) {
+				if (infos.colors.indexOf(val) === -1) {
 					infos.colors.push(val);
 				}
 			}
@@ -321,7 +321,7 @@ clustermap.ClusterMarker.prototype.onAdd = function () {
 		}
 		new_style += ")";
 		div.style.backgroundImage = "linear-gradient" + new_style;
-	} else if (nbColors == 1) {
+	} else if (nbColors === 1) {
 		div.style.background = this._colors[0];
 	}
 

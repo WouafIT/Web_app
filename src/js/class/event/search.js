@@ -70,4 +70,4 @@ module.exports = (function() {
 			toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
 		});
 	});
-})();
+}());

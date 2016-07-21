@@ -3,6 +3,7 @@ var map = require('../resource/map.js');
 var utils = require('../utils.js');
 var data = require('../resource/data.js');
 var url = require('../resource/url.js');
+var wouafs = require('../resource/wouafs.js');
 
 module.exports = (function() {
 	var $document = $(document);
@@ -105,7 +106,6 @@ module.exports = (function() {
 						var wouafId = parts[++i];
 						//check if wouaf data exists in html
 						if (window.wouafit.wouaf && window.wouafit.wouaf.id == wouafId) {
-							var wouafs = require('../resource/wouafs.js');
 							wouafs.set(wouafId, window.wouafit.wouaf);
 							data.setObject('position', {lat: window.wouafit.wouaf.loc[0], lng: window.wouafit.wouaf.loc[1]});
 						}
@@ -134,4 +134,4 @@ module.exports = (function() {
 
 		$document.triggerHandler('app.loaded-state');
 	});
-})();
+}());

@@ -18,4 +18,4 @@ module.exports = (function() {
 		return $alert;
 	};
 	return self;
-})();
+}());

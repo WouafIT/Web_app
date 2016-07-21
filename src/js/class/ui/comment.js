@@ -1,10 +1,10 @@
-module.exports = (function() {
-	var i18n = require('../resource/i18n.js');
-	var dtp = require('../resource/datetimepicker.js');
-	var url = require('../resource/url.js');
-	var utils = require('../utils');
-	var data = require('../resource/data.js');
+var i18n = require('../resource/i18n.js');
+var dtp = require('../resource/datetimepicker.js');
+var url = require('../resource/url.js');
+var utils = require('../utils');
+var data = require('../resource/data.js');
 
+module.exports = (function() {
 	var self = {};
 	self.getComment = function (obj, wouaf) {
 		var date = new Date();
@@ -29,4 +29,4 @@ module.exports = (function() {
 	};
 
 	return self;
-})();
+}());

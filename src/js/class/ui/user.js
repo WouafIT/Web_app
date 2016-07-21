@@ -1,12 +1,14 @@
+var data = require('../resource/data.js');
+var utils = require('../utils.js');
+var windows = require('../resource/windows.js');
+var i18n = require('../resource/i18n.js');
+var dtp = require('../resource/datetimepicker.js');
+var url = require('../resource/url.js');
+var users = require('../resource/users.js');
+var toast = require('../resource/toast.js');
+
 module.exports = (function() {
 	var self = {};
-	var data = require('../resource/data.js');
-	var utils = require('../utils.js');
-	var windows = require('../resource/windows.js');
-	var i18n = require('../resource/i18n.js');
-	var dtp = require('../resource/datetimepicker.js');
-	var url = require('../resource/url.js');
-	var users = require('../resource/users.js');
 	var $modalWindow = windows.getWindows();
 
 	var getUsername = function (user) {
@@ -90,7 +92,6 @@ module.exports = (function() {
 		}).fail(function() {
 			var username = states.user || '';
 			windows.close();
-			var toast = require('../resource/toast.js');
 			toast.show(i18n.t('An error has occurred, unknown user {{username}}', {username: username}), 5000);
 		});
 	};
@@ -110,4 +111,4 @@ module.exports = (function() {
 		].join('');
 	};
 	return self;
-})();
+}());

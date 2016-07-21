@@ -352,4 +352,4 @@ module.exports = (function() {
 				break;
 		}
 	});
-})();
+}());

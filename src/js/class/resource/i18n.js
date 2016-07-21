@@ -13,4 +13,4 @@ module.exports = (function () {
 		return i18next.t.apply(i18next, arguments).replace(/(\r\n|\n|\r)/g, '<br />');
 	};
 	return self;
-})();
+}());

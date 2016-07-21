@@ -257,4 +257,4 @@ module.exports = (function() {
 		});
 		$tabPanel.find('.row').html($wouafList);
 	});
-})();
+}());

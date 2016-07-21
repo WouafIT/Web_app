@@ -45,7 +45,7 @@ module.exports = (function() {
 			}catch(e){
 				return false;
 			}
-		})();
+		}());
 
 		//private methods
 		var _request = function (data) {
@@ -268,4 +268,4 @@ module.exports = (function() {
 		return self.get(key, 'bool');
 	};
 	return self;
-})();
+}());

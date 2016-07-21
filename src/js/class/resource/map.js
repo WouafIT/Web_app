@@ -4,6 +4,8 @@ var i18n = require('./i18n.js');
 var data = require('./data.js');
 var wouafs = require('./wouafs.js');
 var utils = require('../utils.js');
+var windows = require('./windows.js');
+var query = require('./query.js');
 
 module.exports = (function () {
 	var $document = $(document);
@@ -134,7 +136,6 @@ module.exports = (function () {
 			//console.info('showPin2');
 			openPin(obj);
 		}).fail(function() {
-			var windows = require('./windows.js');
 			windows.show({
 				title: i18n.t('404_Error_'),
 				text: i18n.t('Error, unknown url')
@@ -292,7 +293,6 @@ module.exports = (function () {
 	//ask user for his location
 	var askForGeolocation = function () {
 		//show message page
-		var windows = require('./windows.js');
 		windows.show({
 			title: i18n.t('Location request'),
 			text: i18n.t('Location_request_details'),
@@ -465,7 +465,6 @@ module.exports = (function () {
 			deferred.resolve(obj);
 		} else {
 			var getResultFromServer = function(id) {
-				var query = require('./query.js');
 				query.post(id, function (result) {
 					deferred.resolve(result.wouaf);
 				}, function (msg) {
@@ -529,4 +528,4 @@ module.exports = (function () {
 			}
 		}
 	}
-})();
+}());

@@ -168,4 +168,4 @@ module.exports = (function() {
 	$document.on('app.poped-state', function () {
 		logState('pop');
 	});
-})();
+}());

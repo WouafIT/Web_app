@@ -1,11 +1,17 @@
+var data = require('../resource/data.js');
+var windows = require('../resource/windows.js');
+var dtp = require('../resource/datetimepicker.js');
+var i18n = require('../resource/i18n.js');
+var query = require('../resource/query.js');
+var toast = require('../resource/toast.js');
+var twitterText = require('twitter-text');
+var url = require('../resource/url.js');
+var user = require('../resource/user.js');
+var users = require('../resource/users.js');
+var formUtils = require('./form-utils.js');
+var alert = require('../resource/alert.js');
+
 module.exports = (function() {
-	var data = require('../resource/data.js');
-	var windows = require('../resource/windows.js');
-	var dtp = require('../resource/datetimepicker.js');
-	var i18n = require('../resource/i18n.js');
-	var query = require('../resource/query.js');
-	var toast = require('../resource/toast.js');
-	var twitterText = require('twitter-text');
 	var $modalWindow = windows.getWindows();
 	var $document = $(document);
 	var self = {};
@@ -14,8 +20,6 @@ module.exports = (function() {
 			windows.close();
 			return;
 		}
-		var user = require('../resource/user.js');
-		var users = require('../resource/users.js');
 		var $form = $modalWindow.find('form');
 		var $username = $form.find('input[name=username]');
 		var $description = $form.find('textarea[name=description]');
@@ -80,7 +84,6 @@ module.exports = (function() {
 		});
 
 		//form field validation and submition
-		var formUtils = require('./form-utils.js');
 		formUtils.init($form, function ($field) {
 			//fields validation
 			switch($field.attr('name')) {
@@ -110,7 +113,6 @@ module.exports = (function() {
 			return true;
 		}, function () {
 			//form submition
-			var alert = require('../resource/alert.js');
 			if (!$email.val() || !$language.val()) {
 				alert.show(i18n.t('Your form is incomplete, thank you to fill all fields'), $form);
 				return;
@@ -151,7 +153,6 @@ module.exports = (function() {
 				toast.show(i18n.t('Profile saved!'), null, function () {
 					if (originalLanguage != user.get('lang')) {
 						var lang = user.get('lang').toLowerCase().replace('_', '-');
-						var url = require('../resource/url.js');
 						var newHostname = lang + window.location.hostname.substr(5);
 						if (newHostname != window.location.hostname) {
 							window.location = window.location.protocol +'//'+ newHostname + url.getCurrentPath();
@@ -166,4 +167,4 @@ module.exports = (function() {
 		});
 	};
 	return self;
-})();
+}());
