@@ -1,11 +1,11 @@
+var data = require('./data.js');
+var utils = require('../utils.js');
+var loader = require('./loader.js');
+var toast = require('./toast.js');
+var i18n = require('./i18n.js');
+
 module.exports = (function() {
 	var $document = $(document);
-	var data = require('./data.js');
-	var utils = require('../utils.js');
-	var loader = require('./loader.js');
-	var toast = require('./toast.js');
-	var i18n = require('./i18n.js');
-
 	var xhr;
 	//Google geocode usage limits : https://developers.google.com/maps/articles/geocodestrat#client
 	//==> illimited from client (browser) requests
@@ -56,7 +56,7 @@ module.exports = (function() {
 				if (params.success) {
 					params.success.apply(this, [result]);
 				} else {
-					if (result && result.result && result.result == 1) {
+					if (result && result.result && result.result === 1) {
 						params.successCallback(result);
 					} else if (result && result.msg) {
 						params.errorCallback(result.msg);
@@ -129,10 +129,10 @@ module.exports = (function() {
 			for (var i in params) {
 				if (params.hasOwnProperty(i)) {
 					var param = params[i];
-					if (i == 'type' || i == 'searchId' || i == 'refresh' || !param) { //remove event or empty params
+					if (i === 'type' || i === 'searchId' || i === 'refresh' || !param) { //remove event or empty params
 						continue;
 					}
-					if (i == 'loc') {
+					if (i === 'loc') {
 						//precision => http://gis.stackexchange.com/questions/8650/how-to-measure-the-accuracy-of-latitude-and-longitude
 						param = params[i].toUrlValue(2); //~1.1km
 					}
@@ -169,10 +169,10 @@ module.exports = (function() {
 				}
 				for (var i in params) {
 					var param = params[i];
-					if (i == 'type' || i == 'searchId' || i == 'source' || i == 'tag' || i == 'cat' || !param) { //remove event or empty params
+					if (i === 'type' || i === 'searchId' || i === 'source' || i === 'tag' || i === 'cat' || !param) { //remove event or empty params
 						continue;
 					}
-					if (i == 'date') {
+					if (i === 'date') {
 						//start
 						var year = param.getFullYear();
 						var month = param.getMonth() + 1;
@@ -189,9 +189,9 @@ module.exports = (function() {
 						endDay = endDay < 10 ? '0' + endDay : endDay;
 						
 						q += '&date=' + year + month + day + '00-' + endYear + endMonth + endDay + '00';
-					} else if (i == 'loc') {
+					} else if (i === 'loc') {
 						q += '&location=' + param;
-					} else if (i == 'radius') {
+					} else if (i === 'radius') {
 						q += '&within=' + param;
 					}
 				}
@@ -221,7 +221,7 @@ module.exports = (function() {
 									'date': [],
 									'pics': [],
 									'tags': [],
-									'author': ['eventful', (result.owner == 'evdb' ? 'Eventful.com' : result.owner)],
+									'author': ['eventful', (result.owner === 'evdb' ? 'Eventful.com' : result.owner)],
 									'url': result.url
 								};
 								//text
@@ -645,4 +645,4 @@ module.exports = (function() {
 		}
 	};
 	return self;
-})();
+}());
