@@ -21,6 +21,5 @@ ratings:
   - "**.js"
   - "**.php"
 exclude_paths:
-  - "src/old/"
   - "src/libs/"
   - "src/assets-local/js/libs/"
