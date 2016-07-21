@@ -1,7 +1,8 @@
+var data = require('./data.js');
+var utils = require('../utils.js');
+
 module.exports = (function() {
 	var self = {};
-	var data = require('./data.js');
-	var utils = require('../utils.js');
 	self.getPath = function(states) {
 		var href = '/';
 		if (states.map) {

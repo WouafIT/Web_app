@@ -1,7 +1,8 @@
+var map = require('../resource/map.js');
+var i18n = require('../resource/i18n.js');
+var wouaf = require('../ui/wouaf.js');
+
 module.exports = (function() {
-	var map = require('../resource/map.js');
-	var i18n = require('../resource/i18n.js');
-	var wouaf = require('../ui/wouaf.js');
 	var $document = $(document);
 
 	$document.on('app.wouaf-show', function(e, data) {

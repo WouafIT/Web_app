@@ -1,10 +1,11 @@
+var clustermap = require('./clustermap.js');
+var categories = require('./categories.js');
+var i18n = require('./i18n.js');
+var data = require('./data.js');
+var wouafs = require('./wouafs.js');
+var utils = require('../utils.js');
+
 module.exports = (function () {
-	var clustermap = require('./clustermap.js');
-	var categories = require('./categories.js');
-	var i18n = require('./i18n.js');
-	var data = require('./data.js');
-	var wouafs = require('./wouafs.js');
-	var utils = require('../utils.js');
 	var $document = $(document);
 	var map, infowindow; //GMap elements
 	var userLocation;

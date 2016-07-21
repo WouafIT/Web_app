@@ -1,7 +1,7 @@
-module.exports = (function() {
-	var twitterText = require('twitter-text');
-	var data = require('./resource/data.js');
+var twitterText = require('twitter-text');
+var data = require('./resource/data.js');
 
+module.exports = (function() {
 	var self = {};
 	//htmlspecialchars
 	self.escapeHtml = function (text) {

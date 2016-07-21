@@ -1,9 +1,10 @@
+var data = require('./data.js');
+var windows = require('./windows.js');
+var i18n = require('./i18n.js');
+var map = require('./map.js');
+var slidebars = require('../resource/slidebars.js');
+
 module.exports = (function() {
-	var data = require('./data.js');
-	var windows = require('./windows.js');
-	var i18n = require('./i18n.js');
-	var map = require('./map.js');
-	var slidebars = require('../resource/slidebars.js');
 	var $document = $(document);
 	var $mapArea = $('#sb-site');
 	var $addZone = $('#add-zone');

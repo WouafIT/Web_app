@@ -1,13 +1,14 @@
+var slidebars = require('../resource/slidebars.js');
+var data = require('../resource/data.js');
+var map = require('../resource/map.js');
+var query = require('../resource/query.js');
+var windows = require('../resource/windows.js');
+var add = require('../resource/add.js');
+var i18n = require('../resource/i18n.js');
+var dtp = require('../resource/datetimepicker.js');
+var categories = require('../resource/categories.js');
+
 module.exports = (function() {
-	var slidebars = require('../resource/slidebars.js');
-	var data = require('../resource/data.js');
-	var map = require('../resource/map.js');
-	var query = require('../resource/query.js');
-	var windows = require('../resource/windows.js');
-	var add = require('../resource/add.js');
-	var i18n = require('../resource/i18n.js');
-	var dtp = require('../resource/datetimepicker.js');
-	var categories = require('../resource/categories.js');
 	var $document = $(document);
 	$document.on('app.start', function() {
 		//load events modules

@@ -1,11 +1,12 @@
+var windows = require('../resource/windows.js');
+var toast = require('../resource/toast.js');
+var i18n = require('../resource/i18n.js');
+var query = require('../resource/query.js');
+var users = require('../resource/users.js');
+var data = require('../resource/data.js');
+var utils = require('../utils.js');
+
 module.exports = (function() {
-	var windows = require('../resource/windows.js');
-	var toast = require('../resource/toast.js');
-	var i18n = require('../resource/i18n.js');
-	var query = require('../resource/query.js');
-	var users = require('../resource/users.js');
-	var data = require('../resource/data.js');
-	var utils = require('../utils.js');
 	var $document = $(document);
 
 	//user / wouaf links

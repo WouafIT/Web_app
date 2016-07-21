@@ -1,6 +1,6 @@
-module.exports = (function() {
-	var i18n = require('./i18n.js');
+var i18n = require('./i18n.js');
 
+module.exports = (function() {
 	var self = {};
 	self.show = function(text, $parent, type) {
 		type = type || 'warning';

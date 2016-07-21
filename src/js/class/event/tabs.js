@@ -1,13 +1,14 @@
+var data 			= require('../resource/data.js');
+var i18n 			= require('../resource/i18n.js');
+var tab 			= require('../ui/tab.js');
+var map 			= require('../resource/map.js');
+var slidebars 		= require('../resource/slidebars.js');
+var query 			= require('../resource/query.js');
+var toast 			= require('../resource/toast.js');
+var windows 		= require('../resource/windows.js');
+var utils 			= require('../utils.js');
+
 module.exports = (function() {
-	var data 			= require('../resource/data.js');
-	var i18n 			= require('../resource/i18n.js');
-	var tab 			= require('../ui/tab.js');
-	var map 			= require('../resource/map.js');
-	var slidebars 		= require('../resource/slidebars.js');
-	var query 			= require('../resource/query.js');
-	var toast 			= require('../resource/toast.js');
-	var windows 		= require('../resource/windows.js');
-	var utils 			= require('../utils.js');
 	var $window			= $(window);
 	var $document 		= $(document);
 	var $slidebar 		= $('.sb-slidebar');

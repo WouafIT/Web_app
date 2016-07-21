@@ -1,11 +1,12 @@
+var data 	= require('../resource/data.js');
+var windows = require('../resource/windows.js');
+var i18n 	= require('../resource/i18n.js');
+var url 	= require('../resource/url.js');
+var user 	= require('../resource/user.js');
+var users 	= require('../resource/users.js');
+var utils 	= require('../utils.js');
+
 module.exports = (function() {
-	var data 	= require('../resource/data.js');
-	var windows = require('../resource/windows.js');
-	var i18n 	= require('../resource/i18n.js');
-	var url 	= require('../resource/url.js');
-	var user 	= require('../resource/user.js');
-	var users 	= require('../resource/users.js');
-	var utils 	= require('../utils.js');
 	var $document = $(document);
 
 	//logout event : reset all user infos

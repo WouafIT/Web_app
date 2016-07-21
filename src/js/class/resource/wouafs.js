@@ -1,5 +1,6 @@
+var query = require('./query.js');
+
 module.exports = (function() {
-	var query = require('./query.js');
 	var wouafs = {};
 	var self = {};
 	self.set = function (id, data) {

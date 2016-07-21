@@ -1,10 +1,11 @@
+var windows = require('../resource/windows.js');
+var map = require('../resource/map.js');
+var utils = require('../utils.js');
+var data = require('../resource/data.js');
+var url = require('../resource/url.js');
+
 module.exports = (function() {
 	var $document = $(document);
-	var windows = require('../resource/windows.js');
-	var map = require('../resource/map.js');
-	var utils = require('../utils.js');
-	var data = require('../resource/data.js');
-	var url = require('../resource/url.js');
 	var allowSetState = true;
 	var states = {
 		windows: 	null,

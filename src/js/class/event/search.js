@@ -1,11 +1,12 @@
+var data = require('../resource/data.js');
+var map = require('../resource/map.js');
+var query = require('../resource/query.js');
+var toast = require('../resource/toast.js');
+var i18n = require('../resource/i18n.js');
+var slidebars = require('../resource/slidebars.js');
+
 module.exports = (function() {
 	var $document = $(document);
-	var data = require('../resource/data.js');
-	var map = require('../resource/map.js');
-	var query = require('../resource/query.js');
-	var toast = require('../resource/toast.js');
-	var i18n = require('../resource/i18n.js');
-	var slidebars = require('../resource/slidebars.js');
 	var mlRadius = {10: 5, 20: 10, 30: 15, 50: 30, 70: 45, 100: 60, 150: 90, 200: 120, 300: 180};
 	var previousSearchParams = {};
 	var previousSearchCount = 0;

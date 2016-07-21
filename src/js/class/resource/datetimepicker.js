@@ -1,7 +1,8 @@
+var i18n = require('./i18n.js');
+require('../../../libs/DateTimePicker/dist/DateTimePicker.min.js');
+require('../../../libs/DateTimePicker/dist/i18n/DateTimePicker-i18n-'+ LANGUAGE +'.js');
+
 module.exports = (function() {
-	require('../../../libs/DateTimePicker/dist/DateTimePicker.min.js');
-	require('../../../libs/DateTimePicker/dist/i18n/DateTimePicker-i18n-'+ LANGUAGE +'.js');
-	var i18n = require('./i18n.js');
 	var languageShort = i18n.t('languageShort');
 	var locales = $.DateTimePicker.i18n[languageShort];
 	var oDTP;

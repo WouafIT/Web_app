@@ -1,6 +1,7 @@
+var data = require('./data.js');
+
 module.exports = (function() {
 	var self = {};
-	var data = require('./data.js');
 	self.set = function (key, value) {
 		var user = data.getObject('user') || {};
 		user[key] = value;

@@ -1,7 +1,8 @@
+var data = require('../resource/data.js');
+var categories = require('../resource/categories.js');
+var url = require('../resource/url.js');
+
 module.exports = (function() {
-	var data = require('../resource/data.js');
-	var categories = require('../resource/categories.js');
-	var url = require('../resource/url.js');
 	var $document = $(document);
 	var ga = window.ga;
 	var lastHrefLogged;

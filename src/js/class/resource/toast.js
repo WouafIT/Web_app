@@ -1,5 +1,6 @@
+var $ = require('jquery');
+
 module.exports = (function() {
-	var $ = require('jquery');
 	var $toast = $('#toast');
 	$toast.hide().removeAttr('hidden');
 	var $toastContent = $toast.find('> div');

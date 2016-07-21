@@ -1,7 +1,8 @@
+var i18n = require('./i18n.js');
+var utils = require('../utils.js');
+var map = require('./map.js');
+
 module.exports = (function() {
-	var i18n = require('./i18n.js');
-	var utils = require('../utils.js');
-	var map = require('./map.js');
 	var $document = $(document);
 	var $modal = $('#modalWindow');
 	var $modalContent = $modal.find('.modal-content');

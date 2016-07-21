@@ -1,6 +1,7 @@
+var query = require('./query.js');
+var utils = require('../utils.js');
+
 module.exports = (function() {
-	var query = require('./query.js');
-	var utils = require('../utils.js');
 	var users = {};
 	var usernames = {};
 	var self = {};

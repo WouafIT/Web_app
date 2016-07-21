@@ -1,11 +1,12 @@
+//Load Slidebars
+require("../../../libs/slidebars/0.10.3/dist/slidebars.js");
+var i18n = require('./i18n.js');
+var categories = require('./categories.js');
+var map = require('./map.js');
+var dtp = require('./datetimepicker.js');
+var utils = require('../utils.js');
+
 module.exports = (function() {
-	//Load Slidebars
-	require("../../../libs/slidebars/0.10.3/dist/slidebars.js");
-	var i18n = require('./i18n.js');
-	var categories = require('./categories.js');
-	var map = require('./map.js');
-	var dtp = require('./datetimepicker.js');
-	var utils = require('../utils.js');
 	var $document = $(document);
 	var $window = $(window);
 	var $site = $('#sb-site');
