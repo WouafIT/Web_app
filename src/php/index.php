@@ -126,8 +126,8 @@ function getWouafOpenGraph ($data) {
     $return = '<meta property="og:title" content="'.htmlspecialchars($title).'" />'."\n".
     '<meta property="og:type" content="article" />'."\n".
 
-    '<meta property="og:article:published_time" content="'.date('c', $data['date'][0]['sec']).'" />'."\n".
-    '<meta property="og:article:expiration_time" content="'.date('c', $data['date'][1]['sec']).'" />'."\n".
+    '<meta property="og:article:published_time" content="'.date('c', intval($data['date'][0] / 1000)).'" />'."\n".
+    '<meta property="og:article:expiration_time" content="'.date('c', intval($data['date'][1] / 1000)).'" />'."\n".
     '<meta property="og:article:author" content="https://<%= htmlWebpackPlugin.options.data.domain %>/user/'.htmlspecialchars($data['author'][1]).'/" />'."\n".
 
     '<meta property="og:url" content="https://<%= htmlWebpackPlugin.options.data.domain %>/wouaf/'.$data['id'].'/" />'."\n".
