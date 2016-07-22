@@ -47,7 +47,8 @@ var common = Object.keys(languages).map(function(language) {
 		timestamp: 		TIMESTAMP,
 		imgDomain: 		IMG_DOMAIN,
 		apiDomain: 		API_DOMAIN,
-		apiKey: 		IS_DEV ? API_KEY_DEV : API_KEY_PROD
+		apiKey: 		IS_DEV ? API_KEY_DEV : API_KEY_PROD,
+		isDev:			IS_DEV
 	};
 	var languageData = require(languages[language]);
 	return {

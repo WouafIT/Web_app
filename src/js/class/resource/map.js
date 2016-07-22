@@ -466,6 +466,7 @@ module.exports = (function () {
 		} else {
 			var getResultFromServer = function(id) {
 				query.post(id, function (result) {
+					wouafs.set(result.wouaf.id, result.wouaf);
 					deferred.resolve(result.wouaf);
 				}, function (msg) {
 					deferred.reject(msg);

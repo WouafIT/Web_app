@@ -1,4 +1,5 @@
 <?php
+define('__DEV__', '<%= htmlWebpackPlugin.options.data.isDev %>' === 'true');
 $buildTime = (int) '<%= htmlWebpackPlugin.options.data.timestamp %>';
 
 $requestURI = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
@@ -77,7 +78,11 @@ if ($wouafId) {
                 $data['content'] .= '<h1>404 not Found</h1>';
             }
         }
-    } catch (Exception $e) {}
+    } catch (Exception $e) {
+		if (__DEV__) {
+			var_dump($e);exit;
+		}
+	}
 } else if ($userId) {
     try {
         //Get user data from API
@@ -101,7 +106,11 @@ if ($wouafId) {
                 $data['content'] .= '<h1>404 not Found</h1>';
             }
         }
-    } catch (Exception $e) {}
+    } catch (Exception $e) {
+		if (__DEV__) {
+			var_dump($e);exit;
+		}
+	}
 }
 
 return $data;
