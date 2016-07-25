@@ -1,6 +1,5 @@
 var i18n = require('./i18n.js');
 var utils = require('../utils.js');
-var map = require('./map.js');
 var query = require('./query.js');
 var alert = require('./alert.js');
 
@@ -67,6 +66,7 @@ module.exports = (function() {
 		var $source = $(event.relatedTarget);
 		if ($source.length && $source.data('href')) {
 			if ($source.attr('href').indexOf('/wouaf/') === -1) {
+				var map = require('./map.js');
 				map.hideResult();
 			}
 			currentOptions = {href: $source.data('href')};
