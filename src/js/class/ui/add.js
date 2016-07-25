@@ -13,8 +13,8 @@ var query = require('../resource/query.js');
 
 module.exports = (function() {
 	var ENDPOINT 		= API_ENDPOINT;
-	var $document = $(document);
-	var $modalWindow = windows.getWindows();
+	var $document 		= $(document);
+	var $modalWindow 	= windows.getWindows();
 	var durationsLabels = [i18n.t('{{count}} hour', {count: 1}),
 						   i18n.t('{{count}} hour', {count: 2}),
 						   i18n.t('{{count}} hour', {count: 4}),
@@ -100,6 +100,13 @@ module.exports = (function() {
 				uploader.on("thumbnail", function(file) {
 					if (file.resized || file.width <= max_w && file.height <= max_h) {
 						file.resized = true;
+						//check if all files are resized
+						for(var i = 0, il = uploader.files.length; i < il; i++) {
+							if (!uploader.files[i].resized) {
+								return;
+							}
+						}
+						uploader.processQueue();
 						return;
 					}
 					var filename = file.name;
