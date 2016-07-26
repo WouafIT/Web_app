@@ -143,7 +143,7 @@ module.exports = (function() {
 				user.set('signwname', $signwname.prop("checked") ? 1 : 0);
 
 				var birthdate = dtp.getInputDate($birthdate);
-				user.set('birthdate', birthdate ? {'sec': Math.round(birthdate.getTime() / 1000)} : null);
+				user.set('birthdate', birthdate ? birthdate.getTime() : null);
 
 				//login
 				$document.triggerHandler('app.login');
