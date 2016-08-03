@@ -24,6 +24,7 @@ build/
 # Node
 node_modules/
 .npm
+npm-debug.log
 
 #vhosts
 vhosts.conf
