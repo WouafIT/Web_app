@@ -55,13 +55,14 @@ define('API_KEY', '<%= htmlWebpackPlugin.options.data.apiKey %>');
 if ($wouafId || $userId) {
     $data['content'] .= '<script>window.wouafit = {};</script>';
 }
+$locale = substr($_SERVER['HTTP_HOST'], 0, 5) === 'fr-fr' ? 'fr_FR' : 'en_US';
 if ($wouafId) {
     try {
         //Get wouaf data from API
         $wouafData = curlGet(
             'https://<%= htmlWebpackPlugin.options.data.apiDomain %>/wouafs/'.$wouafId,
-            null,
-            array(
+			array('html' => 1),
+			array(
                 CURLOPT_HTTPHEADER => array('Authorization: WouafIt version="1", key="'.API_KEY.'"')
             )
         );
@@ -69,7 +70,8 @@ if ($wouafId) {
             $wouafData = json_decode($wouafData, true);
             if ($wouafData['code'] === 200) {
                 $data['canonical'] = 'https://'.$_SERVER['HTTP_HOST'].'/wouaf/'.$wouafId.'/';
-                $data['content'] .= '<script>window.wouafit.wouaf = '.json_encode($wouafData['wouaf']).';</script>';
+                $data['content'] .= '<script>window.wouafit.wouaf = '.json_encode($wouafData['wouaf']).';</script>'."\n".
+									getWouafHTML($wouafData['wouaf']);
                 $data['head'] = getWouafOpenGraph($wouafData['wouaf'])."\n".
 								'<link rel="alternate" hreflang="fr" href="https://fr-fr.<%= htmlWebpackPlugin.options.data.domain %>/wouaf/'.$wouafId.'/" />'."\n".
 								'<link rel="alternate" hreflang="en" href="https://en-us.<%= htmlWebpackPlugin.options.data.domain %>/wouaf/'.$wouafId.'/" />';
@@ -88,7 +90,7 @@ if ($wouafId) {
         //Get user data from API
         $userData = curlGet(
             'https://<%= htmlWebpackPlugin.options.data.apiDomain %>/users/'.$userId,
-            null,
+            array('html' => 1),
             array(
                 CURLOPT_HTTPHEADER 	=> array('Authorization: WouafIt version="1", key="'.API_KEY.'"')
             )
@@ -97,7 +99,8 @@ if ($wouafId) {
             $userData = json_decode($userData, true);
             if ($userData['code'] === 200) {
                 $data['canonical'] = 'https://'.$_SERVER['HTTP_HOST'].'/user/'.$userId.'/';
-                $data['content'] .= '<script>window.wouafit.user = '.json_encode($userData['user']).';</script>';
+                $data['content'] .= '<script>window.wouafit.user = '.json_encode($userData['user']).';</script>'."\n".
+									getUserHTML($userData['wouaf']);
                 $data['head'] = getUserOpenGraph($userData['user'])."\n".
 								'<link rel="alternate" hreflang="fr" href="https://fr-fr.<%= htmlWebpackPlugin.options.data.domain %>/user/'.$userId.'/" />'."\n".
 								'<link rel="alternate" hreflang="en" href="https://en-us.<%= htmlWebpackPlugin.options.data.domain %>/user/'.$userId.'/" />';
@@ -121,28 +124,23 @@ return $data;
  * @return string
  */
 function getWouafOpenGraph ($data) {
-
-    if (!empty($data['title'])) {
-        $title = $data['title'];
-    } else {
-        $title = strip_tags($data['text']);
-        $title = mb_substr($title, 0, 79). (mb_strlen($title) > 79 ? '…' : '');
-    }
-    $description = strip_tags($data['text']);
+	global $locale;
+	$description = strip_tags($data['text']);
     $description = mb_substr($description, 0, 299).(mb_strlen($description) > 299 ? '…' : '');
-    $locale = substr($_SERVER['HTTP_HOST'], 0, 5) === 'fr-fr' ? 'fr_FR' : 'en_US';
 
-    $return = '<meta property="og:title" content="'.htmlspecialchars($title).'" />'."\n".
-    '<meta property="og:type" content="article" />'."\n".
+	$return = '<meta property="og:title" content="'.htmlspecialchars(getWouafTitle($data)).'" />'."\n".
+	'<meta property="og:type" content="article" />'."\n".
 
-    '<meta property="og:article:published_time" content="'.date('c', intval($data['date'][0] / 1000)).'" />'."\n".
+	'<meta property="og:article:published_time" content="'.date('c', intval($data['date'][0] / 1000)).'" />'."\n".
     '<meta property="og:article:expiration_time" content="'.date('c', intval($data['date'][1] / 1000)).'" />'."\n".
     '<meta property="og:article:author" content="https://<%= htmlWebpackPlugin.options.data.domain %>/user/'.htmlspecialchars($data['author'][1]).'/" />'."\n".
 
     '<meta property="og:url" content="https://<%= htmlWebpackPlugin.options.data.domain %>/wouaf/'.$data['id'].'/" />'."\n".
     '<meta property="og:site_name" content="Wouaf IT" />'."\n".
-    '<meta property="og:locale" content="'.$locale.'" />'."\n".
-    '<meta property="og:description" content="'.htmlspecialchars($description).'" />'."\n";
+	'<meta property="og:locale" content="'.$locale.'" />'."\n".
+	'<meta property="og:latitude" content="'.$data['loc'][0].'" />'."\n".
+	'<meta property="og:longitude" content="'.$data['loc'][1].'" />'."\n".
+	'<meta property="og:description" content="'.htmlspecialchars($description).'" />'."\n";
 
     if (!empty($data['pics']) && is_array($data['pics'])) {
         foreach ($data['pics'] as $pic) {
@@ -151,8 +149,89 @@ function getWouafOpenGraph ($data) {
     } else {
         $return .= '<meta property="og:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/icon.png" />'."\n";
     }
+	if (!empty($data['tags']) && is_array($data['tags'])) {
+		foreach ($data['tags'] as $tag) {
+			$return .= '<meta property="article:tag" content="'.htmlspecialchars($tag).'" />'."\n";
+		}
+	}
+
 
     return $return;
+}
+
+/**
+ * Generate title for a given Wouaf
+ * @param array $data wouaf data
+ * @return string
+ */
+function getWouafTitle($data) {
+	if (!empty($data['title'])) {
+		$title = $data['title'];
+	} else {
+		$title = strip_tags($data['text']);
+		$title = mb_substr($title, 0, 79). (mb_strlen($title) > 79 ? '…' : '');
+	}
+	return $title;
+}
+
+/**
+ * Generate html tags for a given Wouaf
+ * @param array $data wouaf data
+ * @return string
+ */
+function getWouafHTML ($data) {
+	global $locale;
+	setlocale(LC_TIME, $locale.'.utf8');
+	//quick and dirty translation table, not ideal but for now it will work
+	if ($locale === 'fr_FR') {
+		$t = array(
+			'by' 	=> 'Publié par',
+			'from' 	=> 'Du',
+			'to' 	=> 'au',
+			'at' 	=> 'à',
+		);
+	} else  {
+		$t = array(
+			'by' 	=> 'Published by',
+			'from' 	=> 'From',
+			'to' 	=> 'to',
+			'at' 	=> 'at',
+		);
+	}
+	$return = '<div class="h-event">'."\n".
+	'<h1><a href="https://<%= htmlWebpackPlugin.options.data.domain %>/wouaf/'.$data['id'].'/" class="u-url p-name">'.
+		htmlspecialchars(getWouafTitle($data)).'</a></h1>'."\n".
+	'<p>'.$t['by'].' '."\n".
+	'	<a class="p-author h-card" href="https://<%= htmlWebpackPlugin.options.data.domain %>/user/'.htmlspecialchars($data['author'][1]).'/">'."\n".
+	'	'.htmlspecialchars(!empty($data['author'][2]) ? $data['author'][2] : $data['author'][1])."\n".
+	'   </a>'."\n".
+	'</p>'."\n".
+	'<p>'.$t['from'].' <time class="dt-start" datetime="'.date('Y-m-d H:i', intval($data['date'][0] / 1000)).'">'.
+			  strftime('%c', intval($data['date'][0] / 1000)).'</time>'."\n".
+	'	'.$t['to'].' <time class="dt-end" datetime="'.date('Y-m-d H:i', intval($data['date'][1] / 1000)).'">'.
+			  strftime('%c', intval($data['date'][1] / 1000)).'</time>'."\n".
+	'	'.$t['at'].' <span class="p-location h-geo">'."\n".
+	'		<span class="p-latitude">'.$data['loc'][0].'</span>, '."\n".
+	'		<span class="p-longitude">'.$data['loc'][1].'</span>'."\n".
+	'	</span></p>'."\n".
+	'<p class="p-description">'.$data['html'].'</p>'."\n";
+	if (!empty($data['tags']) && is_array($data['tags'])) {
+		$return .= '<p>';
+		foreach ($data['tags'] as $tag) {
+			$return .= '<a href="https://<%= htmlWebpackPlugin.options.data.domain %>/tag/'.htmlspecialchars($tag).'/" class="p-category">'.
+							htmlspecialchars($tag).'</a>, '."\n";
+		}
+		$return .= '</p>';
+	}
+	if (!empty($data['pics']) && is_array($data['pics'])) {
+		$return .= '<p>';
+		foreach ($data['pics'] as $pic) {
+			$return .= '<img src="'.htmlspecialchars($pic).'" class="u-photo" /> '."\n";
+		}
+		$return .= '</p>';
+	}
+	$return .= '</div>';
+	return $return;
 }
 
 /**
@@ -181,6 +260,29 @@ function getUserOpenGraph ($data) {
         $return .= '<meta property="og:profile:first_name" content="'.htmlspecialchars($data['firstname']).'" />'."\n";
     }
     return $return;
+}
+
+/**
+ * Generate OpenGraph meta tags for a given User
+ * @param array $data user data
+ * @return string
+ */
+function getUserHTML ($data) {
+	$title = trim(!empty($data['firstname']) && !empty($data['lastname']) ? $data['firstname'] .' '. $data['lastname'] : $data['username']);
+	$return = '<div class="h-card">'."\n".
+	'<h1><a class="p-name u-url" href="https://<%= htmlWebpackPlugin.options.data.domain %>/user/'.$data['username'].'/">'.htmlspecialchars($title).'</a></h1>'."\n";
+	if (!empty($data['html'])) {
+		$return .= '<p class="p-note">'.$data['html'].'</p>'."\n";
+	}
+	if (!empty($data['lastname'])) {
+		$return .= '<p class="p-family-name">'.$data['lastname'].'</p>'."\n";
+	}
+	if (!empty($data['firstname'])) {
+		$return .= '<p class="p-given-name">'.$data['firstname'].'</p>'."\n";
+	}
+	$return .= '<p class="p-nickname">'.$data['username'].'</p>'."\n".
+			   '</div>';
+	return $return;
 }
 
 /**
