@@ -168,4 +168,22 @@ module.exports = (function() {
 	$document.on('app.poped-state', function () {
 		logState('pop');
 	});
+
+	//App Install: user choice
+	window.addEventListener('beforeinstallprompt', function(e) {
+		e.userChoice.then(function(choiceResult) {
+			var logEvent = function () {
+				if (__DEV__)
+					console.info('Analytics - Event - App - Screen install - '+ (choiceResult.outcome == 'dismissed' ? 'Cancelled ' : 'Added '));
+				ga('send', 'event', 'app', 'Screen install', (choiceResult.outcome == 'dismissed' ? 'Cancelled ' : 'Added '), '', {
+					nonInteraction: true
+				});
+			};
+			if (started) {
+				logEvent();
+			} else {
+				$document.one('analytics.started', logEvent);
+			}
+		});
+	});
 }());

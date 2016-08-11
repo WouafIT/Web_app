@@ -17,6 +17,8 @@
 		<%= htmlWebpackPlugin.options.i18n['Your social network for your local events'] %>" />
 	<?php echo $data['head']; ?>
 
+	<link rel="manifest" href="/manifest.json" />
+
 	<link rel="preconnect" href="//wouaf.it" pr="1.0" />
 	<link rel="preconnect" href="//api.wouaf.it" pr="1.0" />
 	<link rel="preconnect" href="//cdnjs.cloudflare.com" pr="1.0" />

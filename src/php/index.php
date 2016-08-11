@@ -100,7 +100,7 @@ if ($wouafId) {
             if ($userData['code'] === 200) {
                 $data['canonical'] = 'https://'.$_SERVER['HTTP_HOST'].'/user/'.$userId.'/';
                 $data['content'] .= '<script>window.wouafit.user = '.json_encode($userData['user']).';</script>'."\n".
-									getUserHTML($userData['wouaf']);
+									getUserHTML($userData['user']);
                 $data['head'] = getUserOpenGraph($userData['user'])."\n".
 								'<link rel="alternate" hreflang="fr" href="https://fr-fr.<%= htmlWebpackPlugin.options.data.domain %>/user/'.$userId.'/" />'."\n".
 								'<link rel="alternate" hreflang="en" href="https://en-us.<%= htmlWebpackPlugin.options.data.domain %>/user/'.$userId.'/" />';
