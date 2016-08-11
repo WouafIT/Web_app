@@ -5,10 +5,17 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
 	<meta name="theme-color" content="#2B9D48" />
+
 	<meta name="msapplication-navbutton-color" content="#2B9D48" />
+	<meta name="msapplication-TileImage" content="apple-touch-icon-144x144-precomposed.png" />
+	<meta name="msapplication-TileColor" content="#2B9D48" />
+
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta name="apple-mobile-web-app-status-bar-style" content="#2B9D48" />
+	<link rel="apple-touch-icon-precomposed" href="apple-touch-icon.png" />
+
 	<meta name="robots" content="index,follow" />
 	<link rel="canonical" href="<?php echo $data['canonical']; ?>" />
 
@@ -33,7 +40,7 @@
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" />
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.css" />
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery.swipebox/1.4.4/css/swipebox.min.css" />
-	<link rel="apple-touch-icon-precomposed" href="apple-touch-icon.png" />
+
 	<script src="/js/libs/modernizr.js?v=<%= htmlWebpackPlugin.options.data.timestamp %>"></script>
 	<style>#splash {position: absolute;top: 0;left: 0;height: 100%;width: 100%;background: #2B9D48;z-index: 100;} #slogo{margin: auto;display: block;top: 50%;transform: translateY(-60%);position: relative;width:20%;height: auto;}</style>
 	<script>

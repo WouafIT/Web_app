@@ -125,8 +125,8 @@ module.exports = (function() {
 	});
 
 	//Service Worker installation
-	if (navigator.serviceWorker) {
-		navigator.serviceWorker.register('/service-worker.js', {scope: './'})
+	if ('serviceWorker' in navigator) {
+		navigator.serviceWorker.register('/service-worker.js')
 			.then(function (r) {
 				if (__DEV__) {
 					console.log('Registered service worker');
