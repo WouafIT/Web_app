@@ -2,6 +2,12 @@
 
 This is the official version Wouaf IT web client.
 
+How To Build
+---------------------
+npm install
+
+npm run-script dev
+
 Copyright and License
 ---------------------
 Copyright 2016 by Sébastien Pauchet
