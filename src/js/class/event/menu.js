@@ -38,15 +38,10 @@ module.exports = (function() {
 	});
 
 	//Menu Actions
-	$document.on('click', 'a.dropdown-item, a.w-comments', function(e) {
+	$document.on('click', 'a.dropdown-item, a[data-menu]', function(e) {
 		var $target = $(e.target);
-		var type = null;
-		var action = $target.data('action');
-		if ($target.hasClass('w-comments')) {
-			type = $target.data('menu');
-		} else {
-			type = $target.parents('.w-menu-dropdown').data('menu');
-		}
+		var type = $target.data('menu') || $target.parents('a').data('menu') || $target.parents('.w-menu-dropdown').data('menu');
+		var action = $target.data('action') || $target.parents('a').data('action');
 		if (!type || !action) {
 			return;
 		}
@@ -206,16 +201,17 @@ module.exports = (function() {
 					case 'comments':
 						//show comments page
 						menu.close();
+
+						var id = $target.parents('.w-menu-dropdown, .w-container').data('id');
+						var states = data.getObject('navigation');
+						if ((!states.wouaf || !utils.isId(states.wouaf)) && utils.isId(id)) {
+							map.showResult(id);
+						}
 						windows.show({
-							href: 'comments'
+							href: 'comments',
+							data: (id ? {wouafId: id} : null)
 						});
 						break;
-					/*case 'like':
-					 if (!uid) { //user is not logged, show login window
-					 windows.login(i18n.t('Login to like a wouaf'));
-					 return;
-					 }
-					 break;*/
 					case 'report':
 						if (!uid) { //user is not logged, show login window
 							windows.login(i18n.t('Login to report a wouaf'));

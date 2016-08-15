@@ -152,6 +152,11 @@ module.exports = (function() {
 			html: tabContent
 		});
 		$document.triggerHandler('tabs.add', {
+			id: 'following',
+			name: '<i class="fa fa-users"></i> '+ i18n.t('Following'),
+			html: tabContent
+		});
+		$document.triggerHandler('tabs.add', {
 			id: 'favorites',
 			name: '<i class="fa fa-star"></i> '+ i18n.t('Your Favorites'),
 			html: tabContent

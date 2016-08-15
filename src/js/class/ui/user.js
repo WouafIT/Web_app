@@ -100,9 +100,10 @@ module.exports = (function() {
 		var username = getUsername(user);
 		return [
 			'<div class="w-title">',
+				(user.hash ? users.gravatar(user.hash, 20) : ''),
 				username, ' (<i class="fa fa-at"></i>', utils.escapeHtml(user.username) +')',
 				'<div class="w-details">',
-					'<i class="fa fa-hashtag"></i> ', i18n.t('{{count}} Wouaf', {count: user.posts}) ,' ',
+					'<a href="#" data-action="user-wouaf" data-uid="', user.uid ,'"><i class="fa fa-hashtag"></i> ', i18n.t('{{count}} Wouaf', {count: user.posts}) ,'</a> ',
 					(user.followers
 						? '<i class="fa fa-angle-double-right"></i> '+ i18n.t('Is followed by {{count}} Wouaffer', {count: user.followers})
 						: '<i class="fa fa-angle-double-right"></i> '+ i18n.t('Is not followed by anyone yet')),

@@ -9,7 +9,6 @@ var alert = require('../resource/alert.js');
 var comment = require('./comment.js');
 var toast = require('../resource/toast.js');
 var formUtils = require('./form-utils.js');
-var toast = require('../resource/toast.js');
 
 module.exports = (function() {
 	var self = {};
@@ -17,13 +16,21 @@ module.exports = (function() {
 	var $document = $(document);
 
 	self.show = function () {
+		var wouafId;
 		var states = data.getObject('navigation');
 		if (!states.wouaf || !utils.isId(states.wouaf)) {
-			windows.close();
-			return;
+			var options = windows.getOptions();
+			if (options.data && options.data.wouafId && utils.isId(options.data.wouafId)) {
+				wouafId = options.data.wouafId;
+			} else {
+				windows.close();
+				return;
+			}
+		} else {
+			wouafId = states.wouaf;
 		}
 		//comment wouaf
-		$.when(wouafs.get(states.wouaf))
+		$.when(wouafs.get(wouafId))
 			.done(function(obj) {
 				if (!obj) {
 					windows.close();

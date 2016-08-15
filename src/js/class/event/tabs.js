@@ -129,6 +129,21 @@ module.exports = (function() {
 		});
 	};
 
+	var loadUserFollowing = function () {
+		if (tabsData['following'] || !data.getString('uid')) {
+			return;
+		}
+		query.userFollowers(data.getString('uid'), function (data) {
+			var title = i18n.t('You are following {{count}} Wouaffer', {count: data.results.length});
+			var content = tab.getContent({type: 'user', data: data}, title);
+			tabsData['following'] = true;
+			var $tabPanel = $('#following .results');
+			$tabPanel.html(content);
+		}, function (msg) {
+			toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
+		});
+	};
+
 	//a tab is shown
 	//load personal tab content if needed
 	$document.on('tabs.shown', function(e, name) {
@@ -136,16 +151,21 @@ module.exports = (function() {
 			loadUserWouafs();
 		} else if (name == 'tab-favorites') {
 			loadUserFavorites();
+		} else if (name == 'tab-following') {
+			loadUserFollowing();
 		}
 	});
 	//clean personal tabs on logout
 	$document.on('app.logout', function (e, state) {
 		$('#wouafs .results').html('');
 		$('#favorites .results').html('');
+		$('#following .results').html('');
 		tabsData['wouafs'] = null;
 		delete tabsData['wouafs'];
 		tabsData['favorites'] = null;
 		delete tabsData['favorites'];
+		tabsData['following'] = null;
+		delete tabsData['following'];
 	});
 	//load personal tabs on login
 	$document.on('app.logged', function (e, state) {
@@ -153,6 +173,8 @@ module.exports = (function() {
 			loadUserWouafs();
 		} else if ($('#favorites').hasClass('active')) {
 			loadUserFavorites();
+		} else if ($('#following').hasClass('active')) {
+			loadUserFollowing();
 		}
 	});
 	//update comment count

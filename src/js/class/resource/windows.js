@@ -10,13 +10,13 @@ module.exports = (function() {
 	var self = {};
 	var shown = false;
 	var currentOptions = null;
-	var openHrefModal = function(href) {
-		if (!utils.isValidPageName(href)) {
+	var openHrefModal = function(options) {
+		if (!utils.isValidPageName(options.href)) {
 			return;
 		}
 		//Load modal content
 		var start = new Date().getTime();
-		$.get('/parts/'+ href +'.html', {v: BUILD_VERSION})
+		$.get('/parts/'+ options.href +'.html', {v: BUILD_VERSION})
 		.done(function(html) {
 			$modalContent.html(html);
 			var $html = $(html);
@@ -40,10 +40,10 @@ module.exports = (function() {
 				query.connectionError();
 			}
 		}).then(function () {
-			$document.triggerHandler('windows.opened', {time: (new Date().getTime()-start), href: href});
+			$document.triggerHandler('windows.opened', {time: (new Date().getTime()-start), href: options.href});
 		});
 		if (!$modal.data('navigationOpen')) {
-			$document.triggerHandler('navigation.set-state', {name: 'windows', value: href});
+			$document.triggerHandler('navigation.set-state', {name: 'windows', value: options.href});
 		} else {
 			$document.triggerHandler('navigation.set-state', $modal.data('navigationOpen'));
 			$modal.data('navigationOpen', null);
@@ -70,7 +70,7 @@ module.exports = (function() {
 				map.hideResult();
 			}
 			currentOptions = {href: $source.data('href')};
-			openHrefModal($source.data('href'));
+			openHrefModal(currentOptions);
 		}
 	});
 	self.show = function(options) {
@@ -84,7 +84,8 @@ module.exports = (function() {
 			navigationOpen: null,
 			navigationClose: null,
 			confirm:	null,
-			cancel:		null
+			cancel:		null,
+			data: 		null
 		}, options);
 		var open = function (options) {
 			if (options.text) {
@@ -127,7 +128,7 @@ module.exports = (function() {
 				$modalContent.html(content);
 			} else if (options.href) {
 				$modal.one('show.bs.modal', function() {
-					openHrefModal(options.href);
+					openHrefModal(options);
 				});
 			}
 			if (options.open) {
@@ -180,6 +181,9 @@ module.exports = (function() {
 	};
 	self.getWindows = function () {
 		return $modal;
+	};
+	self.getOptions = function () {
+		return currentOptions;
 	};
 	return self;
 }());
