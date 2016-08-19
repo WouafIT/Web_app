@@ -95,12 +95,8 @@ module.exports = (function() {
 			var pic, thumb;
 			for(var i = 0, l = obj.pics.length; i < l; i++) {
 				pic = obj.pics[i];
-				if (pic.substr(0, 4) === 'http' && pic.indexOf('imgur.com') !== -1) {
-					//use https
-					pic = pic.replace('http://', 'https://');
-					//use "b" thumbnail
-					thumb = pic.replace(/\.(jpg|png|gif|bmp|gifv)$/, 'b$&');
-					content.push('<a rel="gallery-'+ obj.id +'" href="'+ pic +'" class="swipebox"><img src="'+ thumb +'" height="90" width="90" /></a>');
+				if (pic.full && pic.full.substr(0, 4) === 'http') {
+					content.push('<a rel="gallery-'+ obj.id +'" href="'+ pic.full +'" class="swipebox"><img src="'+ (pic.thumb ? pic.thumb : pic.full) +'" height="90" width="90" /></a>');
 				}
 			}
 			content.push('</div>');
