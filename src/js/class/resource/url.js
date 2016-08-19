@@ -9,7 +9,7 @@ module.exports = (function() {
 			href += '@'+ states.map.center +','+ states.map.zoom +'z/';
 		}
 		if (states.tag) {
-			href += 'tag/'+ states.tag +'/';
+			href += 'tag/'+ states.tag.toLowerCase() +'/';
 		}
 		if (states.wouaf) {
 			href += 'wouaf/'+ states.wouaf +'/';
