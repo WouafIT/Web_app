@@ -44,7 +44,7 @@ module.exports = (function() {
 		}
 		switch (obj.state) {
 			case 'w-post':
-				eventLength = i18n.t('Upcoming') +' <i class="fa fa-step-forward w-yellow"></i><br />'+ eventLength;
+				eventLength = i18n.t('Upcoming') +' <i class="fa fa-fast-forward w-yellow"></i><br />'+ eventLength;
 				break;
 			case 'w-past':
 				eventLength = i18n.t('Gone') +' <i class="fa fa-step-backward w-red"></i><br />'+ eventLength;
