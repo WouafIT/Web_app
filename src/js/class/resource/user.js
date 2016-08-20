@@ -9,6 +9,9 @@ module.exports = (function() {
 	};
 	self.get = function (key) {
 		var user = data.getObject('user') || {};
+		if (!key) {
+			return user;
+		}
 		return user[key] || null;
 	};
 	return self;

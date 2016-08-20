@@ -49,12 +49,5 @@ module.exports = (function() {
 			delete users[uid];
 		}
 	};
-	self.gravatar = function (hash, size) {
-		if (!hash) {
-			return '';
-		}
-		size = size || 80;
-		return '<img src="//www.gravatar.com/avatar/'+ hash +'.jpg?d=blank&s='+ size +'" width="'+ size +'" height="'+ size +'" class="gravatar" />';
-	};
 	return self;
 }());

@@ -25,10 +25,8 @@ module.exports = (function() {
 		$.when(users.get(states.user)).done(function(user) {
 			var username = getUsername(user);
 			$modalWindow.find('.modal-title').html(i18n.t('User profile {{username}}', {username: username}));
-			var content = '<div class="modal-user">';
-			if (user.hash) {
-				content += users.gravatar(user.hash);
-			}
+			var content = '<div class="modal-user">'
+							+ self.getAvatar(user);
 			if (user.description) {
 				content += '<blockquote class="blockquote">'+ utils.textToHTML(user.description) +'</blockquote>';
 			}
@@ -98,9 +96,10 @@ module.exports = (function() {
 
 	self.getHeader = function (user) {
 		var username = getUsername(user);
+		var avatar 	 = self.getAvatar(user, 20);
 		return [
 			'<div class="w-title">',
-				(user.hash ? users.gravatar(user.hash, 20) : ''),
+				avatar,
 				username, ' (<i class="fa fa-at"></i>', utils.escapeHtml(user.username) +')',
 				'<div class="w-details">',
 					'<a href="#" data-action="user-wouaf" data-uid="', user.uid ,'"><i class="fa fa-hashtag"></i> ', i18n.t('{{count}} Wouaf', {count: user.posts}) ,'</a> ',
@@ -110,6 +109,17 @@ module.exports = (function() {
 				'</div>',
 			'</div>'
 		].join('');
+	};
+
+	self.getAvatar = function(user, size) {
+		size = size || 80;
+		if (user.avatar) {
+			return '<img src="'+ user.avatar +'" width="'+ size +'" height="'+ size +'" class="avatar" />';
+		}
+		if (user.hash) {
+			return '<img src="//www.gravatar.com/avatar/'+ user.hash +'.jpg?d=blank&s='+ size +'" width="'+ size +'" height="'+ size +'" class="avatar" />';
+		}
+		return '';
 	};
 	return self;
 }());

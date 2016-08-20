@@ -24,6 +24,7 @@ module.exports = (function() {
 		var $mapFollow = $form.find('input[name=map-follow]');
 		var $followingNotifications = $form.find('input[name=following-notifications]');
 		var $followerNotification = $form.find('input[name=follower-notifications]');
+		var $newsletterNotification = $form.find('input[name=newsletter-notifications]');
 		//set current values
 		$unit.val(data.getString('unit'));
 		$mapFollow.attr("checked", data.getBool('mapFollow'));
@@ -31,6 +32,7 @@ module.exports = (function() {
 		var notifications = data.getObject('notifications');
 		$followingNotifications.attr("checked", notifications.following);
 		$followerNotification.attr("checked", notifications.follower);
+		$newsletterNotification.attr("checked", notifications.newsletter);
 
 		//populate radius select
 		var populateRadius = function() {
@@ -51,6 +53,7 @@ module.exports = (function() {
 		if (!data.getString('uid')) {
 			$followingNotifications.attr('disabled', true);
 			$followerNotification.attr('disabled', true);
+			$newsletterNotification.attr('disabled', true);
 		}
 
 		//form field validation and submition
@@ -66,7 +69,8 @@ module.exports = (function() {
 			if (data.getString('uid')) {
 				notifications.following = !!$followingNotifications.prop("checked");
 				notifications.follower = !!$followerNotification.prop("checked");
-				
+				notifications.newsletter = !!$newsletterNotification.prop("checked");
+
 				data.setObject('notifications', notifications);
 				//Query
 				query.updateUser({

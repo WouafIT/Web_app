@@ -3,6 +3,7 @@ var windows = require('../resource/windows.js');
 var i18n 	= require('../resource/i18n.js');
 var url 	= require('../resource/url.js');
 var user 	= require('../resource/user.js');
+var userUi 	= require('../ui/user.js');
 var users 	= require('../resource/users.js');
 var utils 	= require('../utils.js');
 
@@ -67,10 +68,10 @@ module.exports = (function() {
 		}
 
 		//get gravatar
-		var gravatar = users.gravatar(user.get('hash'), 20);
-		var username = user.get('username');
-		var firstname = user.get('firstname');
-		var lastname = user.get('lastname');
+		var avatar 		= userUi.getAvatar(user.get(), 20);
+		var username 	= user.get('username');
+		var firstname 	= user.get('firstname');
+		var lastname 	= user.get('lastname');
 
 		var $userProfile = $('.user-profile');
 		$userProfile.attr('href', url.getAbsoluteURLForStates([{name: 'user', value: username}]));
@@ -80,7 +81,7 @@ module.exports = (function() {
 		if (firstname && lastname) {
 			username = (firstname +' '+ lastname).trim();
 		}
-		$userProfile.html(gravatar +' '+ utils.escapeHtml(username)).attr('title', i18n.t('Welcome {{username}}', {'username': username}));
+		$userProfile.html(avatar +' '+ utils.escapeHtml(username)).attr('title', i18n.t('Welcome {{username}}', {'username': username}));
 
 		$document.triggerHandler('app.logged');
 	});

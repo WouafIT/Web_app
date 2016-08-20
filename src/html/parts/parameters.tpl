@@ -33,6 +33,9 @@
 			<div class="checkbox">
 				<label><input type="checkbox" name="following-notifications"> <%= htmlWebpackPlugin.options.i18n['Be notified by email of new Wouafs from Wouaffers that I follow'] %></label>
 			</div>
+			<div class="checkbox">
+				<label><input type="checkbox" name="newsletter-notifications"> <%= htmlWebpackPlugin.options.i18n['Receive the newsletter of Wouaf IT'] %></label>
+			</div>
 
 			<p class="text-xs-right"><button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> <%= htmlWebpackPlugin.options.i18n['Save'] %></button></p>
 		</form>
