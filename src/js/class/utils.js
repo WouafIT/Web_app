@@ -295,7 +295,7 @@ module.exports = (function() {
 		if (data.getString('uid')) {
 			key = ', uid="'+ data.getString('uid') +'", token="'+ data.getString('token') +'"';
 		}
-		return 'WouafIt version="1", key="'+ API_KEY +'"'+ key;
+		return 'WouafIt version="1", key="'+ (data.getString('apiKey') ? data.getString('apiKey') : API_KEY) +'"'+ key;
 	};
 	self.getWouafTitle = function (obj) {
 		if (obj.title) {
