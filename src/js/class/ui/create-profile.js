@@ -31,7 +31,7 @@ module.exports = (function() {
 			//fields validation
 			switch($field.attr('name')) {
 				case 'username':
-					return $field.val().length >= 3 && $field.val().length <= 100
+					return $field.val().length && $field.val().length <= 30
 						&& utils.isValidUsername($field.val());
 					break;
 				case 'pass':
