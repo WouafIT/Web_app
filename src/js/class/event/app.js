@@ -31,7 +31,7 @@ module.exports = (function() {
 			data.setBool('showPopover', true);
 			data.setBool('mapFollow', true);
 			data.setString('unit', 'km');
-			data.setInt('radius', 300);
+			data.setInt('radius', 100);
 			/*//show welcome page
 			 var welcomeWindow = require('ui/welcome');
 			 var welcome = new welcomeWindow();
