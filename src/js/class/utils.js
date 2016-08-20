@@ -1,5 +1,12 @@
 var twitterText = require('twitter-text');
 var data = require('./resource/data.js');
+//Update username allowed length to 30 chars
+twitterText.regexen.validMentionOrList = twitterText.regexSupplant(
+	'(#{validMentionPrecedingChars})' +  // $1: Preceding character
+	'(#{atSigns})' +                     // $2: At mark
+	'([a-zA-Z0-9_]{1,30})' +             // $3: Screen name
+	'(\/[a-zA-Z][a-zA-Z0-9_\-]{0,24})?'  // $4: List (optional)
+	, 'g');
 
 module.exports = (function() {
 	var self = {};
