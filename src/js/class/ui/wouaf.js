@@ -13,34 +13,48 @@ module.exports = (function() {
 		var time = new Date();
 		obj.state = (obj.date[0]) > time.getTime() ? 'w-post' : ((obj.date[1]) < time.getTime() ? 'w-past' : 'w-current');
 		//length
-		var start = new Date(obj.date[0]);
-		var length = (obj.date[1] - obj.date[0]) / 1000;
+		var start 	= new Date(obj.date[0]);
+		var end 	= new Date(obj.date[1]);
+		var length 	= (obj.date[1] - obj.date[0]) / 1000;
+		var endMinusOneSec = new Date(obj.date[1] - 1000);
 		var eventLength;
-		var oneDay = 86400;
-		var oneWeek = 604800;
-		var oneHour = 3600;
-		if (length >= oneWeek && length % oneWeek == 0) {
-			eventLength = i18n.t('{{count}} week', {count: length / oneWeek});
-		} else if (length >= oneDay && length % oneDay == 0 && length <= (oneWeek * 2)) {
-			eventLength = i18n.t('{{count}} day', {count: length / oneDay});
-		} else if (length % oneHour == 0 && length <= (oneDay * 2))  {
-			eventLength = i18n.t('{{count}} hour', {count: length / oneHour});
-		}
-		var timeStart;
-		if (!eventLength) {
-			var end = new Date(obj.date[1]);
-			timeStart = dtp.formatTime(start);
-			var timeEnd = dtp.formatTime(end);
-			eventLength = i18n.t('From {{from}} to {{to}}', {
-				from: dtp.formatDate(start, 'long') + (timeStart != '00:00' ? ' '+ i18n.t('at {{at}}', {at: timeStart}) : ''),
-				to: dtp.formatDate(end, 'long') + (timeEnd != '00:00' ? ' '+ i18n.t('at {{at}}', {at: timeEnd}) : '')
+		if (dtp.formatDate(start) === dtp.formatDate(end)) { //same day event
+			eventLength = i18n.t('On {{on}} from {{from}} to {{to}}', {
+				on: 	dtp.formatDate(start, 'long'),
+				from: 	dtp.formatTime(start),
+				to: 	dtp.formatTime(end)
+			});
+		} else if (dtp.formatDate(start) === dtp.formatDate(endMinusOneSec)) { //same day event
+			eventLength = i18n.t('On {{on}} from {{from}}', {
+				on: 	dtp.formatDate(start, 'long'),
+				from: 	dtp.formatTime(start)
 			});
 		} else {
-			timeStart = dtp.formatTime(start);
-			eventLength = i18n.t('On {{on}} for {{for}}', {
-				on: dtp.formatDate(start, 'long') + (timeStart != '00:00' ? ' '+ i18n.t('at {{at}}', {at: timeStart}) : ''),
-				for: eventLength
-			});
+			var oneDay = 86400;
+			var oneWeek = 604800;
+			var oneHour = 3600;
+			if (length >= oneWeek && length % oneWeek == 0) {
+				eventLength = i18n.t('{{count}} week', {count: length / oneWeek});
+			} else if (length >= oneDay && length % oneDay == 0 && length <= (oneWeek * 2)) {
+				eventLength = i18n.t('{{count}} day', {count: length / oneDay});
+			} else if (length % oneHour == 0 && length <= (oneDay * 2)) {
+				eventLength = i18n.t('{{count}} hour', {count: length / oneHour});
+			}
+			var timeStart;
+			if (!eventLength) {
+				timeStart = dtp.formatTime(start);
+				var timeEnd = dtp.formatTime(end);
+				eventLength = i18n.t('From {{from}} to {{to}}', {
+					from: 	dtp.formatDate(start, 'long') + (timeStart != '00:00' ? ' ' + i18n.t('at {{at}}', {at: timeStart}) : ''),
+					to: 	dtp.formatDate(end, 'long') + (timeEnd != '00:00' ? ' ' + i18n.t('at {{at}}', {at: timeEnd}) : '')
+				});
+			} else {
+				timeStart = dtp.formatTime(start);
+				eventLength = i18n.t('On {{on}} for {{for}}', {
+					on: 	dtp.formatDate(start, 'long') + (timeStart != '00:00' ? ' ' + i18n.t('at {{at}}', {at: timeStart}) : ''),
+					for: 	eventLength
+				});
+			}
 		}
 		switch (obj.state) {
 			case 'w-post':
