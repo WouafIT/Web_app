@@ -37,7 +37,7 @@ module.exports = (function() {
 				eventLength = i18n.t('{{count}} week', {count: length / oneWeek});
 			} else if (length >= oneDay && length % oneDay == 0 && length <= (oneWeek * 2)) {
 				eventLength = i18n.t('{{count}} day', {count: length / oneDay});
-			} else if (length % oneHour == 0 && length <= (oneDay * 2)) {
+			} else if (length % oneHour == 0 && length <= oneDay) {
 				eventLength = i18n.t('{{count}} hour', {count: length / oneHour});
 			}
 			var timeStart;
