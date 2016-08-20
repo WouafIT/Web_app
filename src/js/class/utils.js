@@ -209,6 +209,9 @@ module.exports = (function() {
 		var emailRe = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
 		return emailRe.test(email);
 	};
+	self.isValidUrl = function (url) {
+		return twitterText.isValidUrl(url);
+	};
 
 	self.textToHTML = function(text) {
 		var url = require('./resource/url.js');

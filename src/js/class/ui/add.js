@@ -50,6 +50,7 @@ module.exports = (function() {
 		var $duration = $form.find('select[name=duration]');
 		var $category = $form.find('select[name=category]');
 		var $categoriesHelp = $form.find('.categories-help');
+		var $url = $form.find('input[name=url]');
 		var $longitude = $form.find('input[name=longitude]');
 		var $latitude = $form.find('input[name=latitude]');
 		var $contactNotifications = $form.find('input[name=contact-notifications]');
@@ -235,10 +236,14 @@ module.exports = (function() {
 			}
 		});
 
-
 		//form field validation and submition
 		formUtils.init($form, function ($field) {
 			//fields validation
+			switch($field.attr('name')) {
+				case 'url':
+					return !$field.val().length || utils.isValidUrl($field.val());
+					break;
+			}
 			return true;
 		}, function () {
 			//form submition
@@ -267,6 +272,7 @@ module.exports = (function() {
 				text: 		$content.val(),
 				date: 		Math.round(date.getTime() / 1000),
 				duration: 	$duration.val(),
+				url:		$url.val(),
 				contact: 	($contactNotifications.prop("checked") ? 1 : 0),
 				subscribe:	($postNotifications.prop("checked") ? 1 : 0),
 				pics: 	    JSON.stringify(validImages)

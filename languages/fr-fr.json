@@ -175,6 +175,7 @@
 	"Latitude": "Latitude",
 	"Longitude": "Longitude",
 	"Category": "Catégorie",
+	"More info link": "Lien &quot;Plus d'infos&quot;",
 	"Your Wouaf is published": "Votre Wouaf est publié !",
 	"Your form is incomplete, thank you to fill at least the content field": "Votre formulaire est incomplet, merci de remplir au moins le contenu",
 
@@ -244,6 +245,7 @@
 	"Add a comment": "Ajouter un commentaire ?",
 	"{{count}} comment": "{{count}} commentaire",
 	"{{count}} comment_plural": "{{count}} commentaires",
+	"More info": "Plus d'infos",
 	"Send your message": "Envoyer votre message",
 	"Enter your message (1000 char. max)": "Saisissez votre message (1000 car. max)",
 	"Your email address": "Votre adresse email",

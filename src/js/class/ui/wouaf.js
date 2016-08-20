@@ -103,7 +103,10 @@ module.exports = (function() {
 					'<i class="fa fa-cog"></i> '+ i18n.t('Menu'),
 				'</button>',
 				'<div class="w-subTitle">', author ,'</div>',
-					'<p>', text ,'</p>'];
+					'<p class="w-text">', text ,'</p>'];
+		if (obj.url) {
+			content.push('<p class="w-link"><a href="'+ obj.url +'" target="_blank"><i class="fa fa-external-link"></i> '+ i18n.t('More info') +'</a></p>');
+		}
 		if (obj.pics && obj.pics.length) {
 			content.push('<div class="w-pics">');
 			var pic, thumb;

@@ -49,6 +49,11 @@
 				</div>
 			</fieldset>
 
+			<fieldset class="form-group">
+				<label><%= htmlWebpackPlugin.options.i18n['More info link'] %></label>
+				<input type="text" class="form-control" placeholder="http://..." name="url" />
+			</fieldset>
+
 			<div class="row">
 				<div class="col-lg-6">
 					<label>Latitude</label>
