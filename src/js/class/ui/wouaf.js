@@ -127,7 +127,7 @@ module.exports = (function() {
 	self.getClusterList = function(list, zoom) {
 		var content = ['<div class="w-accordion">'];
 		var l = list.length;
-		var max = zoom !== 21 ? 10 : l;
+		var max = zoom !== 21 ? 30 : l;
 		for(var i = 0; i < l && i < max ; i++) {
 			content.push(self.getWouaf(list[i], true));
 		}
