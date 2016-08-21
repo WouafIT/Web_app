@@ -6,6 +6,7 @@ var wouafs = require('./wouafs.js');
 var utils = require('../utils.js');
 var windows = require('./windows.js');
 var query = require('./query.js');
+var wouaf = require('../ui/wouaf.js');
 
 module.exports = (function () {
 	var $document = $(document);
@@ -56,8 +57,7 @@ module.exports = (function () {
 		//remove all previous pins if any and close infowindow
 		if (hcmap) {
 			hcmap.reset();
-			infowindow.close();
-			$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: null});
+			closePin();
 		}
 		//save result
 		self.jsonResults = json;
@@ -313,8 +313,15 @@ module.exports = (function () {
 
 		//check distance between current center and last search
 		if (isSearchRefreshNeeded(center)) {
-			//distance is more than 85% of search radius => update search
-			$document.triggerHandler('app.search', {refresh: true});
+			if (infowindow.opened) {
+				$document.one('map.infowindow-closed', function () {
+					//distance is more than 85% of search radius => update search
+					$document.triggerHandler('app.search', {refresh: true});
+				});
+			} else {
+				//distance is more than 85% of search radius => update search
+				$document.triggerHandler('app.search', {refresh: true});
+			}
 		}
 		//console.info('map.updated-position');
 		$document.triggerHandler('map.updated-position');
@@ -353,15 +360,14 @@ module.exports = (function () {
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		});
 		//add map events
-		//map.addListener('dragend', updateMapPosition);
-		map.addListener('zoom_changed', updateMapPosition);
-		//need to debounce center_changed event
+		//need to debounce center_changed and zoom_changed event
 		var mapUpdater;
 		var mapSettleTime = function () {
 			clearTimeout(mapUpdater);
-			mapUpdater=setTimeout(updateMapPosition, 200);
+			mapUpdater=setTimeout(updateMapPosition, 1000);
 		};
 		map.addListener('center_changed', mapSettleTime);
+		map.addListener('zoom_changed', mapSettleTime);
 
 		$body.addClass('too-wide');
 
@@ -391,15 +397,10 @@ module.exports = (function () {
 				return;
 			}
 			e.stopPropagation();
-			$document.triggerHandler('menu.close');
-			infowindow.close();
-			$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: null});
-
+		 	closePin();
 		});*/
-		google.maps.event.addListener(infowindow, 'closeclick', function(){
-			$document.triggerHandler('menu.close');
-			$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: null});
-		});
+		google.maps.event.addListener(infowindow, 'closeclick', closePin);
+
 		//check geolocation support and permissions
 		if (navigator.permissions && navigator.geolocation) {
 			navigator.permissions.query({name: 'geolocation'}).then(function (permissionStatus) {
@@ -492,14 +493,46 @@ module.exports = (function () {
 		return deferred.promise();
 	};
 
+	var closePin = function () {
+		if (!infowindow.opened) {
+			return;
+		}
+		infowindow.close();
+		infowindow.opened = false;
+		$document.triggerHandler('menu.close');
+		$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: null});
+		$document.triggerHandler('map.infowindow-closed');
+	};
+
+	$document.on('map.infowindow-open', function(e, data) {
+		if (!data.ids) {
+			return;
+		}
+		//grab results
+		var results = getResults(data.ids);
+		var length = results.length;
+		var content = '';
+		if (!length) {
+			$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: null});
+			return;
+		} else if (results.length === 1) {
+			$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: results[0].id});
+			content = wouaf.getWouaf(results[0]);
+		} else {
+			$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: null});
+			content = wouaf.getClusterList(results, map.getZoom());
+		}
+		// Set infoWindow content
+		infowindow.setContent(content);
+		infowindow.open(map);
+		infowindow.opened = true;
+	});
+
 	return {
 		init: init,
 		removeResult: removePin,
 		showResult: showPin,
-		hideResult: function () {
-			infowindow.close();
-			$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: null});
-		},
+		hideResult: closePin,
 		setResults: setPins,
 		getResults: getResults,
 		getResultsCount: function () {

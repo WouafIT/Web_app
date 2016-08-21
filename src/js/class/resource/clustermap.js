@@ -50,9 +50,7 @@ var clustermap = function () {
 			// cluster the map coordinates
 			this._tree = figue.agglomerate(labels, this._vectors, figue.EUCLIDIAN_DISTANCE, this._linkageType);
 			this._zoom_changed_listener = google.maps.event.addListener(this._map, "zoom_changed", function () {
-				$document.triggerHandler('menu.close');
-				thishcmap._infowindow.close();
-				$document.triggerHandler('history.set-state', {state: 'wouaf', value: null});
+				google.maps.event.trigger(thishcmap._infowindow, 'closeclick');
 				updateNodes(thishcmap);
 				updateMarkers(thishcmap, true);
 			});
@@ -355,7 +353,7 @@ clustermap.ClusterMarker.prototype.onAdd = function () {
 		iw.setPosition(me._latlng);
 		iw.setOptions({pixelOffset: new google.maps.Size(0, (me._cat ? -me._width : me._width / -2))});
 		//trigger handler to open info window with wouaf content
-		$document.triggerHandler('app.wouaf-show', {ids: me._ids, map: me._hcmap._map, iw: iw});
+		$document.triggerHandler('map.infowindow-open', {ids: me._ids});
 	});
 };
 

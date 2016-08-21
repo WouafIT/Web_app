@@ -1,33 +1,7 @@
-var map = require('../resource/map.js');
 var i18n = require('../resource/i18n.js');
-var wouaf = require('../ui/wouaf.js');
 
 module.exports = (function() {
 	var $document = $(document);
-
-	$document.on('app.wouaf-show', function(e, data) {
-		if (!data.ids) {
-			return;
-		}
-		var ids = data.ids;
-		//grab results
-		var results = map.getResults(ids);
-		var length = results.length;
-		var content = '';
-		if (!length) {
-			$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: null});
-			return;
-		} else if (results.length === 1) {
-			$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: results[0].id});
-			content = wouaf.getWouaf(results[0]);
-		} else {
-			$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: null});
-			content = wouaf.getClusterList(results, map.getMap().getZoom());
-		}
-		// Set infoWindow content
-		data.iw.setContent(content);
-		data.iw.open(data.map);
-	});
 	var expanding = false;
 	$document.on('show.bs.collapse', '.w-accordion', function () {
 		expanding = true;
