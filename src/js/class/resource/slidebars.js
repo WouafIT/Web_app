@@ -186,26 +186,26 @@ module.exports = (function() {
 			}
 			var date = null, duration = null;
 			var today = new Date();
-			today.setHours(0);
+			today.setHours(4); //offset 4 hours to avoid events starting days before and finishing during the night
 			today.setMinutes(0);
 			today.setSeconds(0);
 			today.setMilliseconds(0);
 			switch ($when.val()) {
 				case 'today':
 					date = Math.round(today.getTime() / 1000);
-					duration = 86400;
+					duration = 86400 - 14400;
 					break;
 				case 'tomorrow':
 					date = Math.round(today.getTime() / 1000) + 86400;
-					duration = 86400;
+					duration = 86400 - 14400;
 					break;
 				case 'week':
 					date = Math.round(today.getTime() / 1000);
-					duration = (86400 * 7);
+					duration = (86400 * 7) - 14400;
 					break;
 				case 'month':
 					date = Math.round(today.getTime() / 1000);
-					duration = (86400 * 30);
+					duration = (86400 * 30) - 14400;
 					break;
 				case 'custom':
 					var start = dtp.getInputDate($start);
