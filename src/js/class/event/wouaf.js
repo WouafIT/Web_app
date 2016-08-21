@@ -18,6 +18,10 @@ module.exports = (function() {
 		}
 		if ($target.hasClass('in')) {
 			$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: id});
+			//scroll parent
+			var $parent = $target.parents('.w-accordion');
+			var offsetTop = $target.parents('.w-container').offset().top - $parent.offset().top;
+			$parent.animate({scrollTop: offsetTop + $parent.scrollTop()}, 300);
 		} else {
 			$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: null});
 		}
