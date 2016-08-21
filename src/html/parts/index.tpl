@@ -105,6 +105,9 @@
 							<div class="input-group-addon"><i class="fa fa-hashtag"></i></div>
 							<input type="text" class="form-control" id="hashtag"
 								   placeholder="<%= htmlWebpackPlugin.options.i18n['Keyword Theme'] %>" />
+							<div id="hashtag-empty" class="input-group-addon" hidden>
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+							</div>
 						</div>
 					</fieldset>
 					<div class="row">

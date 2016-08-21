@@ -17,6 +17,8 @@ module.exports = (function() {
 	var $hashtag = $('#hashtag');
 	var $start = $('#start');
 	var $end = $('#end');
+	var $emptyHashtag = $('#hashtag-empty');
+	$emptyHashtag.hide().removeAttr('hidden');
 
 	var oSlidebar;
 
@@ -72,6 +74,15 @@ module.exports = (function() {
 			'change': showHideCustomDates
 		});
 		showHideCustomDates();
+		$hashtag.on({
+			'change, keyup': function() {
+				$emptyHashtag.toggle(!!$hashtag.val());
+			}
+		});
+		$emptyHashtag.find('button').click(function() {
+			$hashtag.val('');
+		});
+
 		//populate categories list
 		$category.append('<option value="">'+ i18n.t('All events') +'</option>');
 		$category.append(categories.getHtmlOptions());
