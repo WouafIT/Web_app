@@ -170,6 +170,9 @@ module.exports = (function () {
 				$pin = $map.find('.baseMarker[data-id*="'+ obj.id +'"]');
 				if ($pin.length) {
 					//console.info('showIW3');
+					$document.one('map.infowindow-opened', function () {
+						$map.find('.w-accordion .w-container[data-id="'+ obj.id +'"] .w-title').click();
+					});
 					google.maps.event.trigger($pin.get(0), 'click');
 				} else {
 					//console.info('showIW4 - no pin found for id '+ obj.id);
@@ -526,6 +529,7 @@ module.exports = (function () {
 		infowindow.setContent(content);
 		infowindow.open(map);
 		infowindow.opened = true;
+		$document.triggerHandler('map.infowindow-opened');
 	});
 
 	return {
