@@ -138,6 +138,7 @@
 	"Connexion error. Are you connected to the Internet? Please try again later": "Erreur de connexion. Etes-vous bien connecté à Internet ?\nMerci de réessayer plus tard ...",
 	"404_Error_": "Erreur 404 ...",
 	"Error, unknown url": "Désolé, la page demandée n'a pas été trouvée.\nSoit cette url a été mal saisie, soit ce contenu a été supprimé.",
+	"Error during Facebook login. Please retry": "Erreur durant la connexion Facebook, veuillez réessayer.",
 
 	"Application settings": "Paramètres de l'application",
 	"Search settings": "Paramètres de recherche",

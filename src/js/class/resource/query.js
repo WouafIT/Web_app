@@ -351,6 +351,15 @@ module.exports = (function() {
 				method: 'POST',
 				url:	ENDPOINT + '/fblogin',
 				data:  	data,
+				success:function (result) {
+					if (result && result.user) {
+						successCallback(result);
+					} else if (result && result.msg) {
+						errorCallback(result.msg);
+					} else {
+						errorCallback()
+					}
+				},
 				successCallback: successCallback,
 				errorCallback: errorCallback
 			});
