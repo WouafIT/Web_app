@@ -119,7 +119,7 @@ if ($wouafId) {
 	"<meta property=\"og:description\" content=\"<%= htmlWebpackPlugin.options.i18n['Your social network for your local events'] %>\" />\n".
 	'<meta property="og:type" content="website" />'."\n".
 	'<meta property="og:url" content="https://<%= htmlWebpackPlugin.options.data.domain %>" />'."\n".
-	'<meta property="og:app_id" content="https://<%= htmlWebpackPlugin.options.data.facebookAppId %>" />'."\n".
+	'<meta property="og:app_id" content="<%= htmlWebpackPlugin.options.data.facebookAppId %>" />'."\n".
 	'<meta property="og:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/icon.png" />'."\n";
 }
 
