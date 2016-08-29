@@ -328,7 +328,7 @@ module.exports = (function() {
 				method: 'POST',
 				url:	ENDPOINT + '/login',
 				data:  {
-					login:	  datas.login,
+					login:	  	datas.login,
 					pass:		datas.pass,
 					did:		'web_app_'+ utils.md5(navigator.userAgent)
 				},
@@ -345,16 +345,16 @@ module.exports = (function() {
 				errorCallback: errorCallback
 			});
 		},
-		/*fblogin: function fblogin(datas, success, error) {
-			datas.did = 'web_app_'+ utils.md5(navigator.userAgent);
+		fblogin: function fblogin(data, successCallback, errorCallback) {
+			data.did = 'web_app_'+ utils.md5(navigator.userAgent);
 			query({
 				method: 'POST',
-				url:	ENDPOINT + '/user/fblogin/',
-				data:  datas,
-				success:success,
-				error:  error
+				url:	ENDPOINT + '/fblogin',
+				data:  	data,
+				successCallback: successCallback,
+				errorCallback: errorCallback
 			});
-		},*/
+		},
 		logout: function logout(callback) {
 			query({
 				method: 'POST',

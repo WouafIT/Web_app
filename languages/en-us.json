@@ -91,6 +91,7 @@
 	"Choose your connection method": "Choose your connection method",
 	"Facebook profile": "Facebook profile",
 	"Facebook_profile_details": "By connecting to Wouaf IT with Facebook, you can share your Wouafs on your wall.",
+	"Facebook login": "Facebook login",
 	"Google profile": "Google profile",
 	"Wouaf IT profile": "Wouaf IT profile",
 	"New Wouaffer? Create your profile!": "New Wouaffer? Create your profile!",
@@ -353,5 +354,9 @@
 	"{{count}} Wouaffer following {{username}}": "{{count}} Wouaffer following {{username}}",
 	"{{count}} Wouaffer following {{username}}_plural": "{{count}} Wouaffers following {{username}}",
 	"{{count}} Wouaffer followed by {{username}}": "{{count}} Wouaffer followed by {{username}}",
-	"{{count}} Wouaffer followed by {{username}}_plural": "{{count}} Wouaffers followed by {{username}}"
+	"{{count}} Wouaffer followed by {{username}}_plural": "{{count}} Wouaffers followed by {{username}}",
+
+	"By": "Published by",
+	"to": "to",
+	"at": "at"
 }

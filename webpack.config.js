@@ -14,6 +14,7 @@ const PROD_DOMAIN 		= 'wouaf.it';
 const API_DOMAIN 		= 'api.wouaf.it';
 const IMG_DOMAIN 		= 'img.wouaf.it';
 const IS_DEV 			= process.env.NODE_ENV === 'dev';
+const FACEBOOK_APP_KEY	= '378180725603385';
 
 var languages;
 if (process.env.LANG_ENV === 'fr') {
@@ -48,7 +49,8 @@ var common = Object.keys(languages).map(function(language) {
 		imgDomain: 		IMG_DOMAIN,
 		apiDomain: 		API_DOMAIN,
 		apiKey: 		IS_DEV ? API_KEY_DEV : API_KEY_PROD,
-		isDev:			IS_DEV
+		isDev:			IS_DEV,
+		facebookAppId:	FACEBOOK_APP_KEY
 	};
 	var languageData = require(languages[language]);
 	return {
@@ -76,13 +78,14 @@ var common = Object.keys(languages).map(function(language) {
 		},
 		plugins: [
 			new webpack.DefinePlugin({
-				"DEV_URL": 		JSON.stringify('https://'+ DEV_DOMAIN),
-				"PROD_URL": 	JSON.stringify('https://'+ PROD_DOMAIN),
-				"API_ENDPOINT": JSON.stringify('https://'+ API_DOMAIN),
-				"API_KEY": 		IS_DEV ? JSON.stringify(API_KEY_DEV) : JSON.stringify(API_KEY_PROD),
-				"LANGUAGE": 	JSON.stringify(language),
-				"BUILD_VERSION":JSON.stringify(TIMESTAMP),
-				__DEV__: 		JSON.stringify(JSON.parse(IS_DEV))
+				"DEV_URL": 			JSON.stringify('https://'+ DEV_DOMAIN),
+				"PROD_URL": 		JSON.stringify('https://'+ PROD_DOMAIN),
+				"API_ENDPOINT": 	JSON.stringify('https://'+ API_DOMAIN),
+				"API_KEY": 			IS_DEV ? JSON.stringify(API_KEY_DEV) : JSON.stringify(API_KEY_PROD),
+				"FACEBOOK_APP_KEY": JSON.stringify(FACEBOOK_APP_KEY),
+				"LANGUAGE": 		JSON.stringify(language),
+				"BUILD_VERSION":	JSON.stringify(TIMESTAMP),
+				__DEV__: 			JSON.stringify(JSON.parse(IS_DEV))
 			}),
 			new HtmlWebpackPlugin({
 				filename: 'index.php',
@@ -186,6 +189,7 @@ var common = Object.keys(languages).map(function(language) {
 				filename: 'php/index.php',
 				template: __dirname + '/src/php/index.php',
 				data: phpData,
+				i18n: languageData,
 				inject: false
 			}),
 			new CopyWebpackPlugin([
@@ -197,6 +201,7 @@ var common = Object.keys(languages).map(function(language) {
 		externals: {
 			// require("jquery") is external and available
 			//  on the global var jQuery
+			"FB": "FB",
 			"jquery": "jQuery",
 			"i18next": "i18next",
 			"dropzone": "dropzone"

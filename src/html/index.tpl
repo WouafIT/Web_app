@@ -64,5 +64,14 @@
 <script src="//maps.googleapis.com/maps/api/js?key=<%= htmlWebpackPlugin.options.data.googleApi %>&libraries=geometry,places"></script>
 <script src="/js/build.js?v=<%= htmlWebpackPlugin.options.data.timestamp %>" charset="utf-8"></script>
 <script async src="//www.google-analytics.com/analytics.js"></script>
+<script>
+	(function(d, s, id){
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) {return;}
+			js = d.createElement(s); js.id = id;
+		js.src = "//connect.facebook.net/<%= htmlWebpackPlugin.options.i18n['languageLong'] %>/sdk.js";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+</script>
 </body>
 </html>

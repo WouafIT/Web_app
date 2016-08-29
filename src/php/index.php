@@ -55,7 +55,7 @@ define('API_KEY', '<%= htmlWebpackPlugin.options.data.apiKey %>');
 if ($wouafId || $userId) {
     $data['content'] .= '<script>window.wouafit = {};</script>';
 }
-$locale = substr($_SERVER['HTTP_HOST'], 0, 5) === 'fr-fr' ? 'fr_FR' : 'en_US';
+$locale = "<%= htmlWebpackPlugin.options.i18n['languageLong'] %>";
 if ($wouafId) {
     try {
         //Get wouaf data from API
@@ -114,6 +114,12 @@ if ($wouafId) {
 			var_dump($e);exit;
 		}
 	}
+} else {
+	$data['head'] = "<meta property=\"og:title\" content=\"<%= htmlWebpackPlugin.options.i18n['Wouaf IT'] %>\" />\n".
+	"<meta property=\"og:description\" content=\"<%= htmlWebpackPlugin.options.i18n['Your social network for your local events'] %>\" />\n".
+	'<meta property="og:type" content="website" />'."\n".
+	"<meta property=\"og:url\" content=\"https://<%= htmlWebpackPlugin.options.data.domain %>\" />\n".
+	'<meta property="og:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/icon.png" />'."\n";
 }
 
 return $data;
@@ -129,6 +135,7 @@ function getWouafOpenGraph ($data) {
     $description = mb_substr($description, 0, 299).(mb_strlen($description) > 299 ? '…' : '');
 
 	$return = '<meta property="og:title" content="'.htmlspecialchars(getWouafTitle($data)).'" />'."\n".
+	'<meta property="og:app_id" content="<%= htmlWebpackPlugin.options.data.facebookAppId %>" />'."\n".
 	'<meta property="og:type" content="article" />'."\n".
 
 	'<meta property="og:article:published_time" content="'.date('c', intval($data['date'][0] / 1000)).'" />'."\n".
@@ -154,8 +161,6 @@ function getWouafOpenGraph ($data) {
 			$return .= '<meta property="article:tag" content="'.htmlspecialchars($tag).'" />'."\n";
 		}
 	}
-
-
     return $return;
 }
 
@@ -182,31 +187,22 @@ function getWouafTitle($data) {
 function getWouafHTML ($data) {
 	global $locale;
 	setlocale(LC_TIME, $locale.'.utf8');
-	//quick and dirty translation table, not ideal but for now it will work
-	if ($locale === 'fr_FR') {
-		$t = array(
-			'by' 	=> 'Publié par',
-			'from' 	=> 'Du',
-			'to' 	=> 'au',
-			'at' 	=> 'à',
-		);
-	} else  {
-		$t = array(
-			'by' 	=> 'Published by',
-			'from' 	=> 'From',
-			'to' 	=> 'to',
-			'at' 	=> 'at',
-		);
-	}
+	$t = array(
+		'By' 	=> "<%= htmlWebpackPlugin.options.i18n['By'] %>",
+		'From' 	=> "<%= htmlWebpackPlugin.options.i18n['From'] %>",
+		'to' 	=> "<%= htmlWebpackPlugin.options.i18n['to'] %>",
+		'at' 	=> "<%= htmlWebpackPlugin.options.i18n['at'] %>",
+	);
+
 	$return = '<div class="h-event">'."\n".
 	'<h1><a href="https://<%= htmlWebpackPlugin.options.data.domain %>/wouaf/'.$data['id'].'/" class="u-url p-name">'.
 		htmlspecialchars(getWouafTitle($data)).'</a></h1>'."\n".
-	'<p>'.$t['by'].' '."\n".
+	'<p>'.$t['By'].' '."\n".
 	'	<a class="p-author h-card" href="https://<%= htmlWebpackPlugin.options.data.domain %>/user/'.htmlspecialchars($data['author'][1]).'/">'."\n".
 	'	'.htmlspecialchars(!empty($data['author'][2]) ? $data['author'][2] : $data['author'][1])."\n".
 	'   </a>'."\n".
 	'</p>'."\n".
-	'<p>'.$t['from'].' <time class="dt-start" datetime="'.date('Y-m-d H:i', intval($data['date'][0] / 1000)).'">'.
+	'<p>'.$t['From'].' <time class="dt-start" datetime="'.date('Y-m-d H:i', intval($data['date'][0] / 1000)).'">'.
 			  strftime('%c', intval($data['date'][0] / 1000)).'</time>'."\n".
 	'	'.$t['to'].' <time class="dt-end" datetime="'.date('Y-m-d H:i', intval($data['date'][1] / 1000)).'">'.
 			  strftime('%c', intval($data['date'][1] / 1000)).'</time>'."\n".

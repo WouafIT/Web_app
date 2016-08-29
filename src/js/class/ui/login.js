@@ -5,6 +5,7 @@ var toast = require('../resource/toast.js');
 var query = require('../resource/query.js');
 var alert = require('../resource/alert.js');
 var formUtils = require('./form-utils.js');
+var FB = require('FB');
 
 module.exports = (function() {
 	var $document = $(document);
@@ -15,6 +16,58 @@ module.exports = (function() {
 			windows.close();
 			return;
 		}
+		var $facebookLogin = $modalWindow.find('.facebook-login');
+		//Facebook login
+		FB.init({
+			appId: FACEBOOK_APP_KEY,
+			version: 'v2.7'
+		});
+		$facebookLogin.on('click', function() {
+			FB.login(function(response) {
+				if (response.authResponse) {
+					console.info('You are logged in');
+					// Now you can redirect the user or do an AJAX request to
+					// a PHP script that grabs the signed request from the cookie.
+					var uid = response.authResponse.userID;
+					var accessToken = response.authResponse.accessToken;
+					console.info(uid, accessToken);
+
+					query.fblogin({
+						fid: 		response.authResponse.userID,
+						fbtoken: 	response.authResponse.accessToken
+					}, function(result) {
+						console.info(result);
+						/*if (result.user.firstname && result.user.lastname) {
+							toast.show(i18n.t('Welcome {{username}}', { 'username': result.user.firstname +' '+ result.user.lastname }));
+						} else {
+							toast.show(i18n.t('Welcome {{username}}', { 'username': result.user.username }));
+						}
+						//permanent login ?
+						result.permanent = $remember.prop("checked");
+						//login
+						$document.triggerHandler('app.login', result);
+						windows.close();*/
+					}, function(msg) {
+						console.info(msg);
+						//logout
+						/*$document.triggerHandler('app.logout');
+						if (msg) {
+							alert.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), $form, 'danger');
+						} else {
+							query.connectionError();
+						}*/
+					});
+
+				} else {
+					console.info('User cancelled login or did not fully authorize.');
+				}
+			}, {
+				scope: 'email,manage_pages',
+				enable_profile_selector: true
+			});
+			return false;
+		});
+
 		var $form = $modalWindow.find('form');
 		var $username = $form.find('input[name=username]');
 		var $pass = $form.find('input[name=password]');
