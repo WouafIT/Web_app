@@ -15,7 +15,7 @@ module.exports = (function() {
 		//length
 		var start 	= new Date(obj.date[0]);
 		var end 	= new Date(obj.date[1]);
-		var length 	= (obj.date[1] - obj.date[0]) / 1000;
+		var length 	= Math.round((obj.date[1] - obj.date[0]) / 1000);
 		var endMinusOneSec = new Date(obj.date[1] - 1000);
 		var eventLength;
 		if (dtp.formatDate(start) === dtp.formatDate(end)) { //same day event
