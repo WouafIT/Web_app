@@ -4,7 +4,7 @@ var data = require('./resource/data.js');
 twitterText.regexen.validMentionOrList = twitterText.regexSupplant(
 	'(#{validMentionPrecedingChars})' +  // $1: Preceding character
 	'(#{atSigns})' +                     // $2: At mark
-	'([a-zA-Z0-9_]{1,30})' +             // $3: Screen name
+	'([a-zA-Z0-9_]{1,40})' +             // $3: Screen name
 	'(\/[a-zA-Z][a-zA-Z0-9_\-]{0,24})?'  // $4: List (optional)
 	, 'g');
 

@@ -12,7 +12,7 @@
 			<fieldset class="form-group">
 				<div class="input-group">
 					<div class="input-group-addon"><i class="fa fa-user"></i></div>
-					<input type="text" class="form-control" name="username" maxlength="30"
+					<input type="text" class="form-control" name="username" maxlength="40"
 						   placeholder="<%= htmlWebpackPlugin.options.i18n['ID / Nickname'] %>" />
 				</div>
 			</fieldset>

@@ -113,8 +113,12 @@ module.exports = (function() {
 			return true;
 		}, function () {
 			//form submition
-			if (!$email.val() || !$language.val()) {
-				alert.show(i18n.t('Your form is incomplete, thank you to fill all fields'), $form);
+			if (!$email.val()) {
+				alert.show(i18n.t('Your form is incomplete, thank you to fill your email'), $form);
+				return;
+			}
+			if (!$language.val()) {
+				alert.show(i18n.t('Your form is incomplete, thank you to fill your language'), $form);
 				return;
 			}
 
