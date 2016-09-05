@@ -66,7 +66,7 @@ module.exports = (function() {
 				}
 				content.push('</div>');
 			} else {
-				content = content.concat(['<h4>', i18n.t('No Wouaf yet') ,'</h4>']);
+				content = content.concat(['<p class="lead">', i18n.t('No Wouaf yet') ,'</p>']);
 			}
 		} else if (data.type == 'user') {
 			content = content.concat([
