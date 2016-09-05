@@ -4,6 +4,13 @@ var user 	= require('../resource/user.js');
 module.exports = (function() {
 	var self = {};
 	var $modalWindow = windows.getWindows();
+	var $eventsImport = $modalWindow.find('.events-import');
+	var $pagesImport = $modalWindow.find('.pages-import');
+	var $eventsDisabled = $modalWindow.find('.events-disabled');
+	var $pagesDisabled = $modalWindow.find('.pages-disabled');
+
+	$eventsDisabled.hide().removeAttr('hidden');
+	$pagesDisabled.hide().removeAttr('hidden');
 
 	self.show = function (e) {
 		console.info('facebook-events OK');
@@ -27,11 +34,19 @@ module.exports = (function() {
 						}
 						if (!events) {
 							//block import for events
-							console.info('events are disabled');
+							$eventsDisabled.show();
+							$eventsImport.prop("disabled", true );
+						} else {
+							$eventsDisabled.hide();
+							$eventsImport.removeAttr('disabled');
 						}
 						if (!pages) {
 							//block import for pages
-							console.info('pages are disabled');
+							$pagesDisabled.show();
+							$pagesImport.prop("disabled", true );
+						} else {
+							$pagesDisabled.hide();
+							$pagesImport.removeAttr('disabled');
 						}
 					});
 				}
