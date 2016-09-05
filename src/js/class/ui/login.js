@@ -5,7 +5,6 @@ var toast = require('../resource/toast.js');
 var query = require('../resource/query.js');
 var alert = require('../resource/alert.js');
 var formUtils = require('./form-utils.js');
-var FB = require('FB');
 
 module.exports = (function() {
 	var $document = $(document);
@@ -16,12 +15,8 @@ module.exports = (function() {
 			windows.close();
 			return;
 		}
-		var $facebookLogin = $modalWindow.find('.facebook-login');
+		var $facebookLogin = $modalWindow.find('.btn-facebook');
 		//Facebook login
-		FB.init({
-			appId: FACEBOOK_APP_KEY,
-			version: 'v2.7'
-		});
 		$facebookLogin.on('click', function() {
 			FB.login(function(response) {
 				if (response.authResponse) {

@@ -53,6 +53,11 @@ module.exports = (function() {
 				});
 				return;
 			}
+			//init Facebook
+			FB.init({
+				appId: FACEBOOK_APP_KEY,
+				version: 'v2.7'
+			});
 			//init categories
 			if (infos.categories) {
 				categories.init(infos.categories);

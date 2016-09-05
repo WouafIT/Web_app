@@ -1,11 +1,12 @@
-var data = require('../resource/data.js');
-var utils = require('../utils.js');
+var data 	= require('../resource/data.js');
+var utils 	= require('../utils.js');
 var windows = require('../resource/windows.js');
-var i18n = require('../resource/i18n.js');
-var dtp = require('../resource/datetimepicker.js');
-var url = require('../resource/url.js');
-var users = require('../resource/users.js');
-var toast = require('../resource/toast.js');
+var i18n 	= require('../resource/i18n.js');
+var dtp 	= require('../resource/datetimepicker.js');
+var url 	= require('../resource/url.js');
+var users 	= require('../resource/users.js');
+var userData = require('../resource/user.js');
+var toast 	= require('../resource/toast.js');
 
 module.exports = (function() {
 	var self = {};
@@ -83,10 +84,26 @@ module.exports = (function() {
 						content += '<p class="text-xs-right"><button type="button" data-action="unfollow-user" data-uid="' + user.uid + '" class="btn btn-primary"><i class="fa fa-pause-circle"></i> ' + i18n.t('Unfollow this Wouaffer') + '</button></p>';
 					}
 				} else {
-					content += '<p class="text-xs-right"><button type="button" data-href="profile" data-show="modal" data-target="#modalWindow" class="btn btn-primary"><i class="fa fa-pencil"></i> ' + i18n.t('Edit your profile') + '</button></p>';
+					content += '<p class="text-xs-right m-t-1">' +
+									'<button type="button" data-href="facebook-events" data-show="modal" data-target="#modalWindow" class="pull-left btn btn-facebook" hidden><i class="fa fa-facebook-official"></i> ' + i18n.t('Your Facebook events') + '</button>' +
+									'<button type="button" data-href="profile" data-show="modal" data-target="#modalWindow" class="btn btn-primary"><i class="fa fa-pencil"></i> ' + i18n.t('Edit your profile') + '</button>' +
+							   '</p>';
 				}
 			}
 			$modalWindow.find('.modal-body').html(content);
+			if (uid && user.uid === uid) {
+				var fid = userData.get('fid');
+				if (fid) {
+					FB.getLoginStatus(function (response) {
+						if (response.status === 'connected' && response.authResponse.userID == fid) {
+							$modalWindow.find('.btn-facebook').show().removeAttr('hidden');
+						}
+						if (__DEV__) {
+							console.log('Facebook status:',response);
+						}
+					});
+				}
+			}
 		}).fail(function() {
 			var username = states.user || '';
 			windows.close();

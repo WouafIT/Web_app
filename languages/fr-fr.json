@@ -4,6 +4,7 @@
 	"Search!": "Recherchez !",
 	"Contact": "Contact",
 	"About": "A Propos",
+	"Faq": "FAQ",
 	"Twitter": "Twitter",
 	"Wouaf IT": "Wouaf IT",
 	"Your social network for your local events": "Votre réseau social pour vos évènements locaux",
@@ -104,6 +105,7 @@
 	"welcome_to_wouaf_it": "Bienvenue dans la communauté Wouaf IT !\n\nUn email vous a été envoyé pour activer votre compte.\nSi il n'est pas activé sous 6h, il sera automatiquement supprimé.\n\nVous pouvez maintenant créer votre premier Wouaf. Voulez-vous voir comment cela fonctionne ?",
 
 	"Edit your profile": "Editez votre profil",
+	"Your Facebook events": "Vos évènements Facebook",
 	"Save your profile": "Enregistrer votre profil",
 	"Delete your profile": "Supprimer votre profil",
 	"delete_profile_details": "Etes-vous sur de vouloir supprimer définitivement votre profil ?\nTous vos Wouafs seront définitivement supprimés.\nVos commentaires sur d'autres Wouafs seront conservés.\n\nCette action est irréversible ! Vous confirmez ?",
@@ -358,6 +360,8 @@
 	"{{count}} Wouaffer following {{username}}_plural": "{{count}} Wouaffeurs suivent {{username}}",
 	"{{count}} Wouaffer followed by {{username}}": "{{count}} Wouaffeur suivi par {{username}}",
 	"{{count}} Wouaffer followed by {{username}}_plural": "{{count}} Wouaffeurs suivis par {{username}}",
+
+	"Import": "Importer",
 
 	"By": "Publié par",
 	"to": "au",

@@ -121,12 +121,19 @@
 		</div>
 	</div>
 	<footer class="container">
-		<nav class="nav text-xs-center small">
-			<i class="fa fa-info-circle"></i> <a href="/about/" data-href="about"
-												 data-toggle="modal" data-target="#modalWindow"><%= htmlWebpackPlugin.options.i18n.About %></a> |
-			<i class="fa fa-envelope"></i> <a href="/contact/" data-href="contact"
-											  data-toggle="modal" data-target="#modalWindow"><%= htmlWebpackPlugin.options.i18n.Contact %></a> |
-			<i class="fa fa-twitter"></i> <a href="//twitter.com/wouaf_it" target=_blank"><%= htmlWebpackPlugin.options.i18n.Twitter %></a>
+		<nav class="nav text-xs-center">
+			<span class="line">
+				<i class="fa fa-info-circle"></i>&nbsp;<a href="/about/" data-href="about"
+													 data-toggle="modal" data-target="#modalWindow"><%= htmlWebpackPlugin.options.i18n.About %></a> |
+				<i class="fa fa-question-circle"></i>&nbsp;<a href="/faq/" data-href="faq"
+													 data-toggle="modal" data-target="#modalWindow"><%= htmlWebpackPlugin.options.i18n.Faq %></a> |
+				<i class="fa fa-envelope"></i>&nbsp;<a href="/contact/" data-href="contact"
+												  data-toggle="modal" data-target="#modalWindow"><%= htmlWebpackPlugin.options.i18n.Contact %></a> |
+			</span>
+			<span class="line">
+				<i class="fa fa-twitter"></i>&nbsp;<a href="//twitter.com/wouaf_it" target=_blank"><%= htmlWebpackPlugin.options.i18n.Twitter %></a> |
+				<i class="fa fa-facebook-official"></i>&nbsp;<a href="https://www.facebook.com/wouafit/" target=_blank">Facebook</a>
+			</span>
 		</nav>
 	</footer>
 </div>

@@ -10,7 +10,7 @@
 
 		<h3><%= htmlWebpackPlugin.options.i18n['Choose your connection method'] %></h3>
 		<h4><i class="fa fa-facebook-official"></i> <%= htmlWebpackPlugin.options.i18n['Facebook profile'] %></h4>
-		<p class="text-xs-center"><button type="button" class="btn btn-secondary facebook-login"><i class="fa fa-facebook-official"></i> <%= htmlWebpackPlugin.options.i18n['Facebook login'] %></button></p>
+		<p class="text-xs-center"><button type="button" class="btn btn-secondary btn-facebook"><i class="fa fa-facebook-official"></i> <%= htmlWebpackPlugin.options.i18n['Facebook login'] %></button></p>
 		<small class="text-muted"><%= htmlWebpackPlugin.options.i18n['Facebook_profile_details'] %></small>
 		<hr />
 
