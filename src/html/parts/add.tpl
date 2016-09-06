@@ -9,7 +9,7 @@
 	<div class="modal-body">
 		<h4><%= htmlWebpackPlugin.options.i18n['Fill in the form below:'] %></h4>
 		<form>
-			<div class="text-xs-right"><small class="text-muted help"><i class="fa fa-question-circle"></i> <%= htmlWebpackPlugin.options.i18n['Need help'] %></small></div>
+			<div class="text-xs-right"><small class="help"><i class="fa fa-question-circle"></i> <%= htmlWebpackPlugin.options.i18n['Need help'] %></small></div>
 
 			<fieldset class="form-group">
 				<label for="category"><%= htmlWebpackPlugin.options.i18n['Category'] %></label>
