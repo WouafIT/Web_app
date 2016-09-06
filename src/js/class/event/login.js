@@ -4,7 +4,6 @@ var i18n 	= require('../resource/i18n.js');
 var url 	= require('../resource/url.js');
 var user 	= require('../resource/user.js');
 var userUi 	= require('../ui/user.js');
-var users 	= require('../resource/users.js');
 var utils 	= require('../utils.js');
 
 module.exports = (function() {
