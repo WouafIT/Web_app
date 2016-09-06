@@ -43,13 +43,13 @@ module.exports = (function() {
 						}
 					});
 				} else {
+					$document.triggerHandler('app.logout');
 					alert.show(i18n.t('Error during Facebook login. Please retry'), $modalWindow.find('.modal-body'), 'danger');
 				}
 			}, {
 				scope: 'public_profile,email,user_friends,manage_pages,user_events',
 				enable_profile_selector: true
 			});
-			return false;
 		});
 
 		var $form = $modalWindow.find('form');

@@ -1,25 +1,52 @@
 var windows = require('../resource/windows.js');
 var user 	= require('../resource/user.js');
+var toast 	= require('../resource/toast.js');
+var i18n 	= require('../resource/i18n.js');
+
 
 module.exports = (function() {
 	var self = {};
+	var $document = $(document);
 	var $modalWindow = windows.getWindows();
-	var $eventsImport = $modalWindow.find('.events-import');
-	var $pagesImport = $modalWindow.find('.pages-import');
-	var $eventsDisabled = $modalWindow.find('.events-disabled');
-	var $pagesDisabled = $modalWindow.find('.pages-disabled');
 
-	$eventsDisabled.hide().removeAttr('hidden');
-	$pagesDisabled.hide().removeAttr('hidden');
+	self.show = function () {
+		var $eventsImport = $modalWindow.find('.events-import');
+		var $pagesImport = $modalWindow.find('.pages-import');
+		var $eventsDisabled = $modalWindow.find('.events-disabled');
+		var $pagesDisabled = $modalWindow.find('.pages-disabled');
+		var $eventsRerequest = $modalWindow.find('.events-rerequest');
+		var $pagessRerequest = $modalWindow.find('.pages-rerequest');
 
-	self.show = function (e) {
-		console.info('facebook-events OK');
+		$eventsDisabled.hide().removeAttr('hidden');
+		$pagesDisabled.hide().removeAttr('hidden');
+
+		//add buttons events
+		var rerequestPermissions = function () {
+			FB.login(function(response) {
+				if (response.authResponse) {
+					windows.refresh();
+				} else {
+					$document.triggerHandler('app.logout');
+					toast.show(i18n.t('Error during Facebook login. Please retry'), 5000);
+				}
+			}, {
+				scope: 'public_profile,email,user_friends,manage_pages,user_events',
+				enable_profile_selector: true,
+				auth_type: 'rerequest'
+			});
+		};
+		$eventsRerequest.on('click', rerequestPermissions);
+		$pagessRerequest.on('click', rerequestPermissions);
+
 		//Check facebook permissions
 		var fid = user.get('fid');
 		if (fid) {
 			FB.getLoginStatus(function (response) {
 				if (response.status === 'connected' && response.authResponse.userID == fid) {
-					FB.api('/me/permissions', function (response) {
+					FB.api('/'+ response.authResponse.userID +'/permissions', function (response) {
+						if (__DEV__) {
+							console.info('Facebook permissions:', response);
+						}
 						var events = false;
 						var pages = false;
 						if (response.data) {

@@ -18,7 +18,7 @@
 
 		<div class="events-disabled alert alert-danger" role="alert" hidden>
 			<strong>Oh zut !</strong> Vous n'avez pas accordé à Wouaf IT la permission de gérer vos évènements Facebook. Nous ne pouvons donc pas les importer ...
-			<div class="text-xs-center"><button name="" class="btn btn-success btn-sm">Y remédier ?</button></div>
+			<div class="text-xs-center"><button type="button" class="btn btn-success btn-sm events-rerequest">Y remédier ?</button></div>
 		</div>
 
 		<p class="text-xs-center"><button type="button" class="btn btn-secondary btn-facebook events-import" disabled><i class="fa fa-cloud-download"></i> <%= htmlWebpackPlugin.options.i18n['Import'] %></button></p>
@@ -31,7 +31,7 @@
 
 		<div class="pages-disabled alert alert-danger" role="alert" hidden>
 			<strong>Oh zut !</strong> Vous n'avez pas accordé à Wouaf IT la permission de gérer vos pages Facebook. Nous ne pouvons donc pas importer vos évènements ...
-			<div class="text-xs-center"><button name="" class="btn btn-success btn-sm">Y remédier ?</button></div>
+			<div class="text-xs-center"><button type="button" class="btn btn-success btn-sm pages-rerequest">Y remédier ?</button></div>
 		</div>
 
 		<p class="text-xs-center"><button type="button" class="btn btn-secondary btn-facebook pages-import" disabled><i class="fa fa-cloud-download"></i> <%= htmlWebpackPlugin.options.i18n['Import'] %></button></p>
