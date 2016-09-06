@@ -10,7 +10,7 @@
 		de quartier à la vente de votre canapé en passant par le chien perdu du voisin.</p>
 	<p>Les sources d'informations contributives ont déjà montré leur qualité et leur exhaustivité. Wikipedia, Twitter, Facebook,
 		Reddit et autres sont irremplaçable pour nous informer.</p>
-	<p>Sur Wouaf IT vous pouvez dire à tous, tout ce qu'il se passe autour de vous.</p>
+	<p>Sur Wouaf IT vous pouvez dire à tout le monde, tout ce qu'il se passe autour de vous.</p>
 	<p>Suivez Wouaf IT sur <i class="fa fa-twitter"></i> <a href="https://twitter.com/Wouaf_IT" target=_blank">Twitter</a> et
 		<i class="fa fa-facebook-official"></i> <a href="https://www.facebook.com/wouafit/" target=_blank">Facebook</a> pour plus d'informations !</p>
 
