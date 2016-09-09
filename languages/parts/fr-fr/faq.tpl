@@ -8,6 +8,9 @@
 <div class="modal-body">
 	<p>Puis-je modifier un Wouaf ?</p>
 	<p>Mes évènements Facebook ont été importés, comment puis-je les gérer ?</p>
+	<p>Wouaf IT est-il payant ?</p>
+
+	<p>J'ai une autre question ou un problème => Contact.</p>
 	<p>...</p>
 
 	<p>Suivez Wouaf IT sur <i class="fa fa-twitter"></i> <a href="https://twitter.com/Wouaf_IT" target=_blank">Twitter</a> et
