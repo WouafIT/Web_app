@@ -279,9 +279,6 @@ module.exports = (function() {
 				pics: 	    JSON.stringify(validImages)
 			};
 			query.createPost(wouafData , function(result) { //success
-				if (result.today_publications) {
-					data.setInt('today_publications', result.today_publications);
-				}
 				//reload search
 				$document.triggerHandler('app.search', {refresh: true});
 

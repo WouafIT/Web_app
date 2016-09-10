@@ -17,7 +17,6 @@ module.exports = (function() {
 		data.setArray('favorites', null);
 		data.setArray('following', null);
 		data.setObject('user', null);
-		data.setInt('today_publications', 0);
 
 		$('.logged').attr('hidden', true);
 		$('.anonymous').removeAttr('hidden');
@@ -44,7 +43,6 @@ module.exports = (function() {
 			if (params.user.notifications) {
 				data.setObject('notifications', params.user.notifications, !permanent);
 			}
-			data.setInt('today_publications', params.today_publications, !permanent);
 			if (params.favorites) {
 				data.setArray('favorites', params.favorites, !permanent);
 			}
