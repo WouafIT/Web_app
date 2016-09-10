@@ -272,6 +272,7 @@ module.exports = (function() {
 				text: 		$content.val(),
 				date: 		Math.round(date.getTime() / 1000),
 				duration: 	$duration.val(),
+				tz:			(date.getTimezoneOffset() * -1),
 				url:		$url.val(),
 				contact: 	($contactNotifications.prop("checked") ? 1 : 0),
 				subscribe:	($postNotifications.prop("checked") ? 1 : 0),
