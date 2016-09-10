@@ -181,7 +181,7 @@ module.exports = (function() {
 				break;
 			case 'int':
 			case 'number':
-				value = value.toString();
+				value = value ? value.toString() : '0';
 				break;
 			case 'object':
 			case 'array':
