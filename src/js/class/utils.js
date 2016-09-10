@@ -304,6 +304,11 @@ module.exports = (function() {
 		var title = self.strip_tags(obj.text);
 		return title.substr(0, 79) + (title.length > 79 ? '…' : '');
 	};
+	self.zeroPad = function(num, size) {
+		var s = num+"";
+		while (s.length < size) s = "0" + s;
+		return s;
+	};
 
 	return self;
 }());

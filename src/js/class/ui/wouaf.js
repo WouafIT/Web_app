@@ -12,15 +12,26 @@ module.exports = (function() {
 		//state
 		var time = new Date();
 		obj.state = (obj.date[0]) > time.getTime() ? 'w-post' : ((obj.date[1]) < time.getTime() ? 'w-past' : 'w-current');
+		var timeStart 	= obj.date[0];
+		var timeEnd 	= obj.date[1];
+		//timezone offset
+		var offsetLabel = '';
+		if (obj.tz && parseInt(obj.tz, 10) !== (-1 * time.getTimezoneOffset())) {
+			obj.tz = parseInt(obj.tz, 10);
+			var offset = obj.tz + time.getTimezoneOffset();
+			timeStart = timeStart + (offset * 60 * 1000);
+			timeEnd = timeEnd + (offset * 60 * 1000);
+			offsetLabel = '(UTC'+ (obj.tz > 0 ? '+' : '')+ utils.zeroPad(obj.tz / 60, 2) +')';
+		}
 		//length
-		var start 	= new Date(obj.date[0]);
-		var end 	= new Date(obj.date[1]);
-		var length 	= Math.round((obj.date[1] - obj.date[0]) / 1000);
-		var endMinusOneSec = new Date(obj.date[1] - 1000);
+		var start 	= new Date(timeStart);
+		var end 	= new Date(timeEnd);
+		var length 	= Math.round((timeEnd - timeStart) / 1000);
+		var endMinusOneSec = new Date(timeEnd - 1000);
 		var eventLength;
 		if (dtp.formatDate(start) === dtp.formatDate(end)) { //same day event
 			eventLength = i18n.t('On {{on}} from {{from}} to {{to}}', {
-				on: 	dtp.formatDate(start, 'long'),
+				on: 	dtp.formatDate(start, 'long', obj.tz),
 				from: 	dtp.formatTime(start),
 				to: 	dtp.formatTime(end)
 			});
@@ -55,6 +66,9 @@ module.exports = (function() {
 					for: 	eventLength
 				});
 			}
+		}
+		if (offsetLabel) {
+			eventLength += ' '+offsetLabel;
 		}
 		switch (obj.state) {
 			case 'w-post':

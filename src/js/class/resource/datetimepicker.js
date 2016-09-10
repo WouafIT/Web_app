@@ -1,4 +1,5 @@
 var i18n = require('./i18n.js');
+var utils = require('../utils.js');
 require('../../../libs/DateTimePicker/dist/DateTimePicker.min.js');
 require('../../../libs/DateTimePicker/dist/i18n/DateTimePicker-i18n-'+ LANGUAGE +'.js');
 
@@ -39,9 +40,9 @@ module.exports = (function() {
 		format = format || 'short';
 		if (format == 'short') {
 			if (languageShort == 'fr') {
-				return (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) +'/'+ ((date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)) +'/'+ date.getFullYear();
+				return utils.zeroPad(date.getDate(), 2) +'/'+ utils.zeroPad(date.getMonth() + 1, 2) +'/'+ date.getFullYear();
 			} else {
-				return ((date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)) +'/'+ (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) +'/'+ date.getFullYear();
+				return utils.zeroPad(date.getMonth() + 1, 2) +'/'+ utils.zeroPad(date.getDate(), 2) +'/'+ date.getFullYear();
 			}
 		} else {
 			if (languageShort == 'fr') {
@@ -65,16 +66,16 @@ module.exports = (function() {
 					hours = date.getHours();
 				}
 			}
-			minutes = minutes < 10 ? '0'+ minutes : ''+ minutes;
+			minutes = utils.zeroPad(minutes, 2);
 			if (h12) {
 				if (hours > 12) {
 					hours = hours - 12;
-					hours = hours < 10 ? '0'+ hours : ''+ hours +' PM';
+					hours = utils.zeroPad(hours, 2) +' PM';
 				} else {
-					hours = hours < 10 ? '0'+ hours : ''+ hours +' AM';
+					hours = utils.zeroPad(hours, 2) +' AM';
 				}
 			} else {
-				hours = hours < 10 ? '0'+ hours : ''+ hours;
+				hours = utils.zeroPad(hours, 2);
 			}
 			return hours +':'+ minutes;
 		};
