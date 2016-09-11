@@ -44,7 +44,6 @@ module.exports = (function() {
 
 		//init with server infos
 		query.init(function (infos, status, msg) {
-			console.info('1');
 			if (!infos || status == 'error') {
 				//show error page
 				msg = msg || (infos && infos.statusText ? infos.statusText : '');
@@ -54,7 +53,6 @@ module.exports = (function() {
 				});
 				return;
 			}
-			console.info('2');
 			//init Facebook
 			window.fbAsyncInit = function() {
 				window.FB.init({
@@ -65,7 +63,6 @@ module.exports = (function() {
 			if (window.FB) {
 				window.fbAsyncInit();
 			}
-			console.info('3');
 			//init categories
 			if (infos.categories) {
 				categories.init(infos.categories);
@@ -76,7 +73,6 @@ module.exports = (function() {
 			add.init();
 			//init date time picker
 			dtp.init();
-			console.info('4');
 
 			//update token and favorites if any
 			if (infos.token) {
@@ -86,7 +82,6 @@ module.exports = (function() {
 				//logout
 				$document.triggerHandler('app.logout');
 			}
-			console.info('5');
 			//show server message if any
 			if (infos.message) {
 				//show message page
@@ -105,23 +100,18 @@ module.exports = (function() {
 
 	$document.on('app.start-end', function() {
 		//Init Map
-		console.info('6');
 		$.when(map.init()).done(function() {
-			console.info('7');
 			//Init navigation state
 			$document.triggerHandler('navigation.load-state', function () {
-				console.info('8');
 				//then set map center to final position
 				var position = data.getObject('position');
 				if (!position && __DEV__) {
 					console.error('No map position setted.')
 				}
 				map.setCenter(new google.maps.LatLng(position.lat, position.lng), false);
-				console.info('9');
 
 				//search posts from current position
 				$document.triggerHandler('app.search', {refresh: false});
-				console.info('10');
 
 				//add wouaf if any
 				$document.one('map.results-chown', function() {
@@ -130,7 +120,6 @@ module.exports = (function() {
 						map.showResult(states.wouaf);
 					}
 				});
-				console.info('11');
 
 				//hide splash
 				$('#splash').fadeOut('fast');

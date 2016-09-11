@@ -247,6 +247,7 @@ module.exports = (function () {
 	};
 	//set user current location
 	var setUserLocation = function (position) {
+		console.info('setUserLocation');
 		if (!position.coords.latitude || !position.coords.longitude
 			|| isNaN(position.coords.latitude) || isNaN(position.coords.longitude)) {
 			handleNoGeolocation({code: 999, message: 'Invalid location'});
@@ -273,12 +274,13 @@ module.exports = (function () {
 	};
 	//no geolocation
 	var handleNoGeolocation = function (error) {
+		console.info('handleNoGeolocation');
+		if (__DEV__) {
+			console.info('No geolocation available, code '+ error.code +': '+ error.message);
+		}
 		if (error.code == 3 && userMarker) {
 			//Timeout on high accuracy => skip
 			return;
-		}
-		if (__DEV__) {
-			console.info('No geolocation available, code '+ error.code +': '+ error.message);
 		}
 		var location = data.getObject('position');
 		if (!location || isNaN(location.lat) || isNaN(location.lng)) {
