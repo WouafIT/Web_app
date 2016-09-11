@@ -100,9 +100,7 @@ module.exports = (function() {
 
 	$document.on('app.start-end', function() {
 		//Init Map
-		console.info('1-1');
 		$.when(map.init()).done(function() {
-			console.info('1-2');
 			//Init navigation state
 			$document.triggerHandler('navigation.load-state', function () {
 				//then set map center to final position
