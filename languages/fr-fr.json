@@ -290,9 +290,9 @@
 
 	"Login already exist.": "Cet identifiant existe déjà.",
 
-	"Activate your user profile": "Activer votre compte utilisateur",
+	"Activate your user profile": "Activer votre adresse email",
 	"Your activation key": "Saisissez votre clé d'activation",
-	"Activate your profile": "Activer votre compte",
+	"Activate your profile": "Activer votre email",
 	"Profile activated!": "Votre email est activé !\nVous pouvez vous connecter.",
 
 	"User profile {{username}}": "Profil de {{username}}",

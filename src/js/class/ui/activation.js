@@ -28,7 +28,6 @@ module.exports = (function() {
 				alert.show(i18n.t('Your form is incomplete, thank you to fill all fields'), $form);
 				return;
 			}
-
 			//Query
 			query.activateUser({
 				activation_key: 	$key.val()
@@ -42,14 +41,8 @@ module.exports = (function() {
 		});
 
 		//set current values
-		var validateForm = false;
 		if (window.location.search.indexOf('key=') !== -1) {
 			$key.val(utils.getQueryStringParams()['key']);
-			validateForm = true;
-		}
-
-		if (validateForm) {
-			$form.submit();
 		}
 	};
 	return self;

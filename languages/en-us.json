@@ -290,9 +290,9 @@
 
 	"Login already exist.": "This login already exists.",
 
-	"Activate your user profile": "Activate your user profile",
+	"Activate your user profile": "Activate your email address",
 	"Your activation key": "Enter your activation key",
-	"Activate your profile": "Activate your profile",
+	"Activate your profile": "Activate your email",
 	"Profile activated!": "Your email is activated!\nYou can connect.",
 
 	"User profile {{username}}": "Profile of {{username}}",
