@@ -344,8 +344,9 @@ module.exports = (function () {
 	};
 	//Init public method
 	var init = function () {
-		var deferred = $.Deferred();
 		console.info('1');
+		var deferred = $.Deferred();
+		console.info('1"');
 		//create map
 		map = new google.maps.Map($map.get(0), {
 			zoom: 9,
