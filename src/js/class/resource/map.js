@@ -247,7 +247,6 @@ module.exports = (function () {
 	};
 	//set user current location
 	var setUserLocation = function (position) {
-		console.info('setUserLocation');
 		if (!position.coords.latitude || !position.coords.longitude
 			|| isNaN(position.coords.latitude) || isNaN(position.coords.longitude)) {
 			handleNoGeolocation({code: 999, message: 'Invalid location'});
@@ -274,7 +273,6 @@ module.exports = (function () {
 	};
 	//no geolocation
 	var handleNoGeolocation = function (error) {
-		console.info('handleNoGeolocation');
 		if (__DEV__) {
 			console.info('No geolocation available, code '+ error.code +': '+ error.message);
 		}
@@ -347,6 +345,7 @@ module.exports = (function () {
 	//Init public method
 	var init = function () {
 		var deferred = $.Deferred();
+		console.info('1');
 		//create map
 		map = new google.maps.Map($map.get(0), {
 			zoom: 9,
@@ -364,6 +363,7 @@ module.exports = (function () {
 			},
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		});
+		console.info('2');
 		//add map events
 		//need to debounce center_changed and zoom_changed event
 		var mapUpdater;
@@ -376,6 +376,7 @@ module.exports = (function () {
 
 		$body.addClass('too-wide');
 
+		console.info('3');
 		//customize infowindow
 		infowindow = new google.maps.InfoWindow();
 		google.maps.event.addListener(infowindow, 'domready', function() {
@@ -395,6 +396,7 @@ module.exports = (function () {
 			$iwOuterParent.addClass('gm-iw-parent');
 			$iwOuterParent.parent().addClass('gm-iw-gparent');
 		});
+		console.info('4');
 		// Event that closes the Info Window with a click on the map
 		/*
 		 google.maps.event.addDomListener($map.get(0), 'click', function(e) {
@@ -406,8 +408,10 @@ module.exports = (function () {
 		});*/
 		google.maps.event.addListener(infowindow, 'closeclick', closePin);
 
+		console.info('5');
 		//check geolocation support and permissions
 		if (navigator.permissions && navigator.geolocation) {
+			console.info('6');
 			navigator.permissions.query({name: 'geolocation'}).then(function (permissionStatus) {
 				if (permissionStatus.state === 'granted') {
 					navigator.geolocation.getCurrentPosition(setUserLocation, handleNoGeolocation);
@@ -419,6 +423,7 @@ module.exports = (function () {
 				}
 			});
 		} else if (navigator.geolocation) {
+			console.info('7');
 			//Check for last known location if any
 			var userGeolocation = data.getBool('userGeolocation');
 			if (userGeolocation === null) {
@@ -431,12 +436,14 @@ module.exports = (function () {
 				handleNoGeolocation({code: 999, message: 'Permission denied'});
 			}
 		} else {
+			console.info('8');
 			handleNoGeolocation({code: 999, message: 'Browser does not handle geolocation'});
 		}
 		$document.one('map.geolocation-done', function() {
 			deferred.resolve();
 		});
 
+		console.info('9');
 		return deferred.promise();
 	};
 
