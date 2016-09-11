@@ -1,4 +1,5 @@
 var data = require('./data.js');
+var users = require('./users.js');
 
 module.exports = (function() {
 	var self = {};
@@ -6,6 +7,7 @@ module.exports = (function() {
 		var user = data.getObject('user') || {};
 		user[key] = value;
 		data.setObject('user', user);
+		users.set(user.uid, user);
 	};
 	self.get = function (key) {
 		var user = data.getObject('user') || {};

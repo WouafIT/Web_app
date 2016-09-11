@@ -9,6 +9,7 @@ var alert = require('../resource/alert.js');
 var comment = require('./comment.js');
 var toast = require('../resource/toast.js');
 var formUtils = require('./form-utils.js');
+var user = require('../resource/user.js');
 
 module.exports = (function() {
 	var self = {};
@@ -152,6 +153,9 @@ module.exports = (function() {
 					text:       $content.val(),
 					subscribe:  ($subscribe.prop("checked") ? 1 : 0)
 				}, function() {
+					//add a Wouaf to user count
+					user.set('com', parseInt(user.get('com'), 10) + 1);
+					//Add a comment to the Wouaf
 					obj.com++;
 					wouafs.set(obj.id, obj);
 					$document.triggerHandler('wouaf.update-comment', obj);

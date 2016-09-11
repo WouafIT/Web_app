@@ -10,6 +10,7 @@ var utils = require('../utils');
 var formUtils = require('./form-utils.js');
 var alert = require('../resource/alert.js');
 var query = require('../resource/query.js');
+var user = require('../resource/user.js');
 
 module.exports = (function() {
 	var ENDPOINT 		= API_ENDPOINT;
@@ -279,6 +280,8 @@ module.exports = (function() {
 				pics: 	    JSON.stringify(validImages)
 			};
 			query.createPost(wouafData , function(result) { //success
+				//add a Wouaf to user count
+				user.set('posts', parseInt(user.get('posts'), 10) + 1);
 				//reload search
 				$document.triggerHandler('app.search', {refresh: true});
 
