@@ -7,7 +7,7 @@ module.exports = (function() {
 	//TODO set those colors in the categories database
 	var colors = {
 		1: '#3030BB',
-		2: '#A52C2C',
+		2: '#9103D4',
 		3: '#12A7A7',
 		4: '#68CC36',
 		5: '#BA1CB1',
