@@ -131,6 +131,8 @@
 	"Personal data": "Informations personnelles :",
 	"Personal_data_details": "Les informations ci-dessous sont optionnelles et seront publiques si vous les renseignez. Elles peuvent contribuer à crédibiliser vos publications.",
 	"Profile saved!": "Profil enregistré !",
+	"Email updated": "Adresse email mise à jour !",
+	"email_activation_details": "Un email vous a été envoyé contenant un lien pour confirmer votre nouvelle adresse.\nMerci de confirmer cet adresse email sous 6 heures.",
 
 	"Welcome {{username}}": "Bienvenue {{username}}",
 	"Logout": "Déconnexion",

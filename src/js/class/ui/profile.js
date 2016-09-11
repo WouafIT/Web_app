@@ -147,7 +147,9 @@ module.exports = (function() {
 				user.set('lastname', $lastname.val());
 				user.set('gender', $gender.val());
 				user.set('lang', $language.val());
-				user.set('email', $email.val());
+				if (!result.activation) {
+					user.set('email', $email.val());
+				}
 				user.set('description', $description.val());
 				user.set('type', $type.val());
 				user.set('url', $url.val());
@@ -161,17 +163,27 @@ module.exports = (function() {
 
 				windows.close();
 				users.remove(data.getString('uid'));
-				toast.show(i18n.t('Profile saved!'), null, function () {
-					if (originalLanguage != user.get('lang')) {
-						var lang = user.get('lang').toLowerCase().replace('_', '-');
-						var newHostname = lang + window.location.hostname.substr(5);
-						if (newHostname != window.location.hostname) {
-							window.location = window.location.protocol +'//'+ newHostname + url.getCurrentPath();
+				var profileSaved = function () {
+					toast.show(i18n.t('Profile saved!'), null, function () {
+						if (originalLanguage != user.get('lang')) {
+							var lang = user.get('lang').toLowerCase().replace('_', '-');
+							var newHostname = lang + window.location.hostname.substr(5);
+							if (newHostname != window.location.hostname) {
+								window.location = window.location.protocol +'//'+ newHostname + url.getCurrentPath();
+							}
 						}
-					}
-				});
-
-				$document.triggerHandler('app.edit-profile', $language.val());
+					});
+					$document.triggerHandler('app.edit-profile', $language.val());
+				};
+				if (result.activation) {
+					windows.show({
+						title: i18n.t('Email updated'),
+						text: i18n.t('email_activation_details'),
+						close: profileSaved
+					});
+				} else {
+					profileSaved();
+				}
 			}, function(msg) { //error
 				alert.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), $form, 'danger');
 			});

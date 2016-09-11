@@ -131,6 +131,8 @@
 	"Personal data": "Personal informations:",
 	"Personal_data_details": "The informations below are optional and will be public if you fill them. They can give credibility to your publications.",
 	"Profile saved!": "Profile saved!",
+	"Email updated": "Email address updated!",
+	"email_activation_details": "An email was sent to you containing a link to confirm your new address.\nPlease note, you must validate your modification under 6 hours.",
 
 	"Welcome {{username}}": "Welcome {{username}}",
 	"Logout": "Logout",
