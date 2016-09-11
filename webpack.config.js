@@ -123,6 +123,13 @@ var common = Object.keys(languages).map(function(language) {
 				inject: false
 			}),
 			new HtmlWebpackPlugin({
+				filename: 'parts/facebook-events.html',
+				template: __dirname + '/languages/parts/'+language+'/facebook-events.tpl',
+				data: htmlData,
+				i18n: languageData,
+				inject: false
+			}),
+			new HtmlWebpackPlugin({
                 filename: 'parts/login.html',
                 template: __dirname + '/src/html/parts/login.tpl',
                 data: htmlData,
@@ -188,13 +195,6 @@ var common = Object.keys(languages).map(function(language) {
 			new HtmlWebpackPlugin({
 				filename: 'parts/user.html',
 				template: __dirname + '/src/html/parts/user.tpl',
-				data: htmlData,
-				i18n: languageData,
-				inject: false
-			}),
-			new HtmlWebpackPlugin({
-				filename: 'parts/facebook-events.html',
-				template: __dirname + '/src/html/parts/facebook-events.tpl',
 				data: htmlData,
 				i18n: languageData,
 				inject: false

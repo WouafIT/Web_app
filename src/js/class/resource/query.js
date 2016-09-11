@@ -469,6 +469,24 @@ module.exports = (function() {
 				errorCallback: errorCallback
 			});
 		},
+		requestFbImport: function requestFbPagesImport(datas, successCallback, errorCallback) {
+			query({
+				method: 'POST',
+				url:	ENDPOINT + '/users/'+ data.getString('uid') +'/fb-import',
+				data:	datas,
+				successCallback: successCallback,
+				errorCallback: errorCallback
+			});
+		},
+		requestFbPagesImport: function requestFbPagesImport(datas, successCallback, errorCallback) {
+			query({
+				method: 'POST',
+				url:	ENDPOINT + '/users/'+ data.getString('uid') +'/fb-pages-import',
+				data:	datas,
+				successCallback: successCallback,
+				errorCallback: errorCallback
+			});
+		},
 		createPost: function createPost(datas, successCallback, errorCallback) {
 			query({
 				method: 'PUT',
