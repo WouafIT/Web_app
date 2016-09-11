@@ -13,7 +13,7 @@ const DEV_DOMAIN 		= 'wouafit.local';
 const PROD_DOMAIN 		= 'wouaf.it';
 const API_DOMAIN 		= 'api.wouaf.it';
 const IMG_DOMAIN 		= 'img.wouaf.it';
-const IS_DEV 			= true;//process.env.NODE_ENV === 'dev';
+const IS_DEV 			= process.env.NODE_ENV === 'dev';
 const FACEBOOK_APP_KEY	= '378180725603385';
 
 var languages;

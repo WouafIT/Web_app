@@ -54,10 +54,15 @@ module.exports = (function() {
 				return;
 			}
 			//init Facebook
-			FB.init({
-				appId: FACEBOOK_APP_KEY,
-				version: 'v2.7'
-			});
+			window.fbAsyncInit = function() {
+				window.FB.init({
+					appId: FACEBOOK_APP_KEY,
+					version: 'v2.7'
+				});
+			};
+			if (window.FB) {
+				window.fbAsyncInit();
+			}
 			//init categories
 			if (infos.categories) {
 				categories.init(infos.categories);
