@@ -10,6 +10,7 @@ var user = require('../resource/user.js');
 var users = require('../resource/users.js');
 var formUtils = require('./form-utils.js');
 var alert = require('../resource/alert.js');
+var utils = require('../utils.js');
 
 module.exports = (function() {
 	var $modalWindow = windows.getWindows();
@@ -33,6 +34,7 @@ module.exports = (function() {
 		var $language = $form.find('select[name=language]');
 		var $gender = $form.find('select[name=gender]');
 		var $signwname = $form.find('input[name=signwname]');
+		var $url = $form.find('input[name=url]');
 		var $delete = $form.find('button.profile-delete');
 		//set current values
 		$username.val(user.get('username'));
@@ -43,6 +45,7 @@ module.exports = (function() {
 		$email.val(user.get('email'));
 		$language.val(user.get('lang'));
 		$gender.val(user.get('gender'));
+		$url.val(user.get('url'));
 		$signwname.attr("checked", user.get('signwname'));
 		$signwname.attr('disabled', !$firstname.val() && !$lastname.val());
 		var birthdate = user.get('birthdate');
@@ -87,6 +90,9 @@ module.exports = (function() {
 		formUtils.init($form, function ($field) {
 			//fields validation
 			switch($field.attr('name')) {
+				case 'url':
+					return !$field.val().length || utils.isValidUrl($field.val());
+					break;
 				case 'email':
 					return utils.isValidEmail($field.val());
 					break;
@@ -133,8 +139,8 @@ module.exports = (function() {
 				lastname: 		$lastname.val(),
 				gender: 		$gender.val(),
 				birthdate: 		dtp.getInputServerDate($birthdate),
-				signwname:		($signwname.prop("checked") ? 1 : 0)
-
+				signwname:		($signwname.prop("checked") ? 1 : 0),
+				url:			$url.val()
 			}, function(result) { //success
 				var originalLanguage = user.get('lang');
 				user.set('firstname', $firstname.val());
@@ -144,6 +150,7 @@ module.exports = (function() {
 				user.set('email', $email.val());
 				user.set('description', $description.val());
 				user.set('type', $type.val());
+				user.set('url', $url.val());
 				user.set('signwname', $signwname.prop("checked") ? 1 : 0);
 
 				var birthdate = dtp.getInputDate($birthdate);

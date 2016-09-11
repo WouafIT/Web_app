@@ -10,7 +10,7 @@
 	<p>Mes évènements Facebook ont été importés, comment puis-je les gérer ?</p>
 	<p>Wouaf IT est-il payant ?</p>
 
-	<p>J'ai une autre question ou un problème => Contact.</p>
+	<p>J'ai une autre question, je rencontre un problème, j'ai une idée d'amélioration => Contact.</p>
 	<p>...</p>
 
 	<p>Suivez Wouaf IT sur <i class="fa fa-twitter"></i> <a href="https://twitter.com/Wouaf_IT" target=_blank">Twitter</a> et

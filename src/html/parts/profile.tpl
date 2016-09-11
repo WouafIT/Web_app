@@ -89,7 +89,7 @@
 						   placeholder="<%= htmlWebpackPlugin.options.i18n['Lastname'] %>" />
 				</div>
 			</fieldset>
-			<div class="checkbox">
+			<div class="checkbox form-group">
 				<div class="input-group">
 					<label>
 						<input type="checkbox" name="signwname"> <%= htmlWebpackPlugin.options.i18n['Sign with your name'] %>
@@ -97,6 +97,13 @@
 				</div>
 				<small class="text-muted"><%= htmlWebpackPlugin.options.i18n['Sign_with_your_name_details'] %></small>
 			</div>
+			<fieldset class="form-group">
+				<label for="more-infos"><%= htmlWebpackPlugin.options.i18n['More info link'] %></label>
+				<div class="input-group">
+					<div class="input-group-addon"><i class="fa fa-link"></i></div>
+					<input type="text" class="form-control" placeholder="http://..." id="more-infos" name="url" />
+				</div>
+			</fieldset>
 			<fieldset class="form-group">
 				<label for="gender"><%= htmlWebpackPlugin.options.i18n['Gender'] %></label>
 				<div class="input-group">

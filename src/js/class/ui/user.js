@@ -72,6 +72,9 @@ module.exports = (function() {
 				birthdate.setTime(user.birthdate);
 				content += '<p><i class="fa fa-birthday-cake"></i> '+ i18n.t('Born {{date}}', {date: dtp.formatDate(birthdate, 'long')}) +'</p>';
 			}
+			if (user.url) {
+				content += '<p><i class="fa fa-external-link"></i> <a href="'+ user.url +'" target="_blank"> '+ i18n.t('More info') +'</a></p>';
+			}
 
 			content += '</div></div>';
 			var uid = data.getString('uid');
