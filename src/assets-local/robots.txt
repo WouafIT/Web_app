@@ -4,3 +4,4 @@ Disallow: /ignoring/human/orders
 Disallow: /harm/to/self
 
 Allow: /
+Sitemap: https://sitemap.wouaf.it/sitemapindex.xml
