@@ -11,7 +11,7 @@
 	<p>Wouaf IT est-il payant ?</p>
 
 	<p>J'ai une autre question, je rencontre un problème, j'ai une idée d'amélioration => Contact.</p>
-	<p>...</p>
+	<p>Que veut dire Wouaf IT ? (histoire du chien)</p>
 
 	<p>Suivez Wouaf IT sur <i class="fa fa-twitter"></i> <a href="https://twitter.com/Wouaf_IT" target=_blank">Twitter</a> et
 		<i class="fa fa-facebook-official"></i> <a href="https://www.facebook.com/wouafit/" target=_blank">Facebook</a> pour plus d'informations !</p>
