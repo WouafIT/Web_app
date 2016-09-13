@@ -146,13 +146,19 @@ function getWouafOpenGraph ($data) {
 	global $locale;
 	$description = strip_tags($data['text']);
     $description = mb_substr($description, 0, 299).(mb_strlen($description) > 299 ? '…' : '');
-
+	$start = new DateTime(intval($data['date'][0] / 1000));
+	$end = new DateTime(intval($data['date'][1] / 1000));
+	if ($data['tz']) {
+		$timeZone = new DateTimeZone(timezone_name_from_abbr("", $data['tz'] * 60, 0));
+		$start->setTimezone($timeZone);
+		$end->setTimezone($timeZone);
+	}
 	$return = '<meta property="og:title" content="'.htmlspecialchars(getWouafTitle($data)).'" />'."\n".
 	'<meta property="og:app_id" content="<%= htmlWebpackPlugin.options.data.facebookAppId %>" />'."\n".
 	'<meta property="og:type" content="article" />'."\n".
 
-	'<meta property="og:article:published_time" content="'.date('c', intval($data['date'][0] / 1000)).'" />'."\n".
-    '<meta property="og:article:expiration_time" content="'.date('c', intval($data['date'][1] / 1000)).'" />'."\n".
+	'<meta property="og:article:published_time" content="'.$start->format('c').'" />'."\n".
+    '<meta property="og:article:expiration_time" content="'.$end->format('c').'" />'."\n".
     '<meta property="og:article:author" content="https://<%= htmlWebpackPlugin.options.data.domain %>/user/'.htmlspecialchars($data['author'][1]).'/" />'."\n".
 
     '<meta property="og:url" content="https://<%= htmlWebpackPlugin.options.data.domain %>/wouaf/'.$data['id'].'/" />'."\n".
@@ -206,7 +212,15 @@ function getWouafHTML ($data) {
 		'to' 	=> "<%= htmlWebpackPlugin.options.i18n['to'] %>",
 		'at' 	=> "<%= htmlWebpackPlugin.options.i18n['at'] %>",
 	);
-
+	$start = new DateTime(intval($data['date'][0] / 1000));
+	$end = new DateTime(intval($data['date'][1] / 1000));
+	if ($data['tz']) {
+		$timezoneName = timezone_name_from_abbr("", $data['tz'] * 60, 0);
+		$timeZone = new DateTimeZone($timezoneName);
+		date_default_timezone_set($timezoneName);
+		$start->setTimezone($timeZone);
+		$end->setTimezone($timeZone);
+	}
 	$return = '<div class="h-event">'."\n".
 	'<h1><a href="https://<%= htmlWebpackPlugin.options.data.domain %>/wouaf/'.$data['id'].'/" class="u-url p-name">'.
 		htmlspecialchars(getWouafTitle($data)).'</a></h1>'."\n".
@@ -215,9 +229,9 @@ function getWouafHTML ($data) {
 	'	'.htmlspecialchars(!empty($data['author'][2]) ? $data['author'][2] : $data['author'][1])."\n".
 	'   </a>'."\n".
 	'</p>'."\n".
-	'<p>'.$t['From'].' <time class="dt-start" datetime="'.date('Y-m-d H:i', intval($data['date'][0] / 1000)).'">'.
+	'<p>'.$t['From'].' <time class="dt-start" datetime="'.$start->format('c').'">'.
 			  strftime('%c', intval($data['date'][0] / 1000)).'</time>'."\n".
-	'	'.$t['to'].' <time class="dt-end" datetime="'.date('Y-m-d H:i', intval($data['date'][1] / 1000)).'">'.
+	'	'.$t['to'].' <time class="dt-end" datetime="'.$end->format('c').'">'.
 			  strftime('%c', intval($data['date'][1] / 1000)).'</time>'."\n".
 	'	'.$t['at'].' <span class="p-location h-geo">'."\n".
 	'		<span class="p-latitude">'.$data['loc'][0].'</span>, '."\n".
