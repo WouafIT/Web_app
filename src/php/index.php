@@ -146,8 +146,10 @@ function getWouafOpenGraph ($data) {
 	global $locale;
 	$description = strip_tags($data['text']);
     $description = mb_substr($description, 0, 299).(mb_strlen($description) > 299 ? '…' : '');
-	$start = new DateTime(intval($data['date'][0] / 1000));
-	$end = new DateTime(intval($data['date'][1] / 1000));
+	$start = new DateTime();
+	$start->setTimestamp(intval($data['date'][0] / 1000));
+	$end = new DateTime();
+	$end->setTimestamp(intval($data['date'][1] / 1000));
 	if ($data['tz']) {
 		$timeZone = new DateTimeZone(timezone_name_from_abbr("", $data['tz'] * 60, 0));
 		$start->setTimezone($timeZone);
@@ -212,8 +214,10 @@ function getWouafHTML ($data) {
 		'to' 	=> "<%= htmlWebpackPlugin.options.i18n['to'] %>",
 		'at' 	=> "<%= htmlWebpackPlugin.options.i18n['at'] %>",
 	);
-	$start = new DateTime(intval($data['date'][0] / 1000));
-	$end = new DateTime(intval($data['date'][1] / 1000));
+	$start = new DateTime();
+	$start->setTimestamp(intval($data['date'][0] / 1000));
+	$end = new DateTime();
+	$end->setTimestamp(intval($data['date'][1] / 1000));
 	if ($data['tz']) {
 		$timezoneName = timezone_name_from_abbr("", $data['tz'] * 60, 0);
 		$timeZone = new DateTimeZone($timezoneName);
