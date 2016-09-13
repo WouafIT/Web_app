@@ -61,10 +61,7 @@ if ($wouafId) {
         //Get wouaf data from API
         $wouafData = curlGet(
             'https://<%= htmlWebpackPlugin.options.data.apiDomain %>/wouafs/'.$wouafId,
-			array('html' => 1),
-			array(
-                CURLOPT_HTTPHEADER => array('Authorization: WouafIt version="1", key="'.API_KEY.'"')
-            )
+			array('html' => 1)
         );
         if ($wouafData) {
             $wouafData = json_decode($wouafData, true);
@@ -77,8 +74,13 @@ if ($wouafId) {
 								'<link rel="alternate" hreflang="en" href="https://en-us.<%= htmlWebpackPlugin.options.data.domain %>/wouaf/'.$wouafId.'/" />';
             } elseif ($wouafData['code'] === 404) {
                 header("HTTP/1.1 404 Not Found");
-                $data['content'] .= '<h1>404 not Found</h1>';
-            }
+				$data['head'] 	  = getDefaultOpenGraph();
+				$data['content'] .= '<h1>404 not Found</h1>';
+			} else {
+				if (__DEV__) {
+					var_dump($wouafData);exit;
+				}
+			}
         }
     } catch (Exception $e) {
 		if (__DEV__) {
@@ -90,10 +92,7 @@ if ($wouafId) {
         //Get user data from API
         $userData = curlGet(
             'https://<%= htmlWebpackPlugin.options.data.apiDomain %>/users/'.$userId,
-            array('html' => 1),
-            array(
-                CURLOPT_HTTPHEADER 	=> array('Authorization: WouafIt version="1", key="'.API_KEY.'"')
-            )
+            array('html' => 1)
         );
         if ($userData) {
             $userData = json_decode($userData, true);
@@ -104,10 +103,15 @@ if ($wouafId) {
                 $data['head'] = getUserOpenGraph($userData['user'])."\n".
 								'<link rel="alternate" hreflang="fr" href="https://fr-fr.<%= htmlWebpackPlugin.options.data.domain %>/user/'.$userId.'/" />'."\n".
 								'<link rel="alternate" hreflang="en" href="https://en-us.<%= htmlWebpackPlugin.options.data.domain %>/user/'.$userId.'/" />';
-			} elseif ($wouafData['code'] === 404) {
+			} elseif ($userData['code'] === 404) {
                 header("HTTP/1.1 404 Not Found");
-                $data['content'] .= '<h1>404 not Found</h1>';
-            }
+				$data['head']     = getDefaultOpenGraph();
+				$data['content'] .= '<h1>404 not Found</h1>';
+			} else {
+				if (__DEV__) {
+					var_dump($userData);exit;
+				}
+			}
         }
     } catch (Exception $e) {
 		if (__DEV__) {
@@ -115,15 +119,23 @@ if ($wouafId) {
 		}
 	}
 } else {
-	$data['head'] = "<meta property=\"og:title\" content=\"<%= htmlWebpackPlugin.options.i18n['Wouaf IT'] %>\" />\n".
-	"<meta property=\"og:description\" content=\"<%= htmlWebpackPlugin.options.i18n['Your social network for your local events'] %>\" />\n".
-	'<meta property="og:type" content="website" />'."\n".
-	'<meta property="og:url" content="https://'.$_SERVER['HTTP_HOST'].'/" />'."\n".
-	'<meta property="og:app_id" content="<%= htmlWebpackPlugin.options.data.facebookAppId %>" />'."\n".
-	'<meta property="og:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/icon.png" />'."\n";
+	$data['head'] = getDefaultOpenGraph();
 }
 
 return $data;
+
+/**
+ * Generate default OpenGraph meta tags
+ * @return string
+ */
+function getDefaultOpenGraph() {
+	return "<meta property=\"og:title\" content=\"<%= htmlWebpackPlugin.options.i18n['Wouaf IT'] %>\" />\n".
+		   "<meta property=\"og:description\" content=\"<%= htmlWebpackPlugin.options.i18n['Your social network for your local events'] %>\" />\n".
+		   '<meta property="og:type" content="website" />'."\n".
+		   '<meta property="og:url" content="https://'.$_SERVER['HTTP_HOST'].'/" />'."\n".
+		   '<meta property="og:app_id" content="<%= htmlWebpackPlugin.options.data.facebookAppId %>" />'."\n".
+		   '<meta property="og:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/icon.png" />'."\n";
+}
 
 /**
  * Generate OpenGraph meta tags for a given Wouaf
@@ -296,6 +308,10 @@ function curlGet($url, array $get = null, array $options = array()) {
 		CURLOPT_RETURNTRANSFER => true,
 		CURLOPT_TIMEOUT => 4,
 		CURLOPT_URL => $url,
+		CURLOPT_HTTPHEADER => array(
+			'Origin: https://'.$_SERVER['HTTP_HOST'],
+			'Authorization: WouafIt version="1", key="'.API_KEY.'"'
+		),
 	);
 	if ($get) {
 		$defaults[CURLOPT_URL] .= (strpos($url, '?') === false ? '?' : ''). http_build_query($get);
