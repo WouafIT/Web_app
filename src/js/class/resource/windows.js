@@ -108,7 +108,7 @@ module.exports = (function() {
 						if (!options.confirm) {
 							content += '<button type="button" class="btn btn-secondary" data-dismiss="modal">' + i18n.t('Close') + '</button>';
 						} else {
-							content += '<button type="button" class="btn btn-secondary" data-dismiss="modal">' + i18n.t('Cancel') + '</button>'+
+							content += '<button type="button" class="btn btn-secondary" data-dismiss="modal">' + i18n.t('Cancel') + '</button>&nbsp;'+
 							'<button type="button" class="btn btn-primary"><i class="fa fa-check"></i> ' + i18n.t('Confirm') + '</button>';
 							$modal.one('shown.bs.modal', function() {
 								$modal.find('button.btn-primary').one('click', function () {

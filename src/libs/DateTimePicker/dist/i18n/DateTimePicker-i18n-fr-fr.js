@@ -35,8 +35,8 @@
 		titleContentTime: "Choisir un horaire",
 		titleContentDateTime: "Choisir une date et un horaire",
 	
-		setButtonContent: "Choisir",
-		clearButtonContent: "Effacer",
+		setButtonContent: '<i class="fa fa-check"></i> Choisir',
+		clearButtonContent: 'Effacer',
 		formatHumanDate: function(oDate, sMode, sFormat)
 		{
 			if(sMode === "date")

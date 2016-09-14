@@ -211,8 +211,12 @@
 	"{{count}} day_plural": "{{count}} days",
 	"{{count}} week": "{{count}} week",
 	"{{count}} week_plural": "{{count}} weeks",
+    "Specific end date": "Specific end date",
+    "Until": "Until",
+    "Start and end dates are invalid. The end date must be after the start date": "Start and end dates are invalid. The end date must be after the start date.",
+    "Start and end dates are invalid. Your Wouaf must last at least an hour": "Start and end dates are invalid. Your Wouaf must last at least an hour.",
 
-	"French": "French",
+    "French": "French",
 	"English": "English",
 
 	"By {{author}}": "By {{author}}",

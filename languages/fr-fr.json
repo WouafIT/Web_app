@@ -211,6 +211,10 @@
 	"{{count}} day_plural": "{{count}} jours",
 	"{{count}} week": "{{count}} semaine",
 	"{{count}} week_plural": "{{count}} semaines",
+	"Specific end date": "Date de fin spécifique",
+	"Until": "Jusqu'à",
+	"Start and end dates are invalid. The end date must be after the start date": "Vos dates de début et de fin sont invalides. La date de fin doit être postérieure à la date de début.",
+	"Start and end dates are invalid. Your Wouaf must last at least an hour": "Vos dates de début et de fin sont invalides. Votre Wouaf doit durer au moins une heure.",
 
 	"French": "Français",
 	"English": "Anglais",

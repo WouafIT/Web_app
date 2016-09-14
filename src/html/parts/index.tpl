@@ -95,7 +95,7 @@
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
 								<input type="text" data-field="date" data-startend="end" class="form-control date-period"
-									   data-startendelem=".date-period" id="end" placeholder="<%= htmlWebpackPlugin.options.i18n['Now'] %>" />
+									   data-startendelem=".date-period" id="end" placeholder="<%= htmlWebpackPlugin.options.i18n['End'] %>" />
 							</div>
 						</div>
 					</fieldset>

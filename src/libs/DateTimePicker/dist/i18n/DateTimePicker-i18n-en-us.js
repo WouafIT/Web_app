@@ -33,7 +33,7 @@
 		titleContentTime: "Set Time",
 		titleContentDateTime: "Set Date & Time",
 	
-		setButtonContent: "Set",
+		setButtonContent: '<i class="fa fa-check"></i> Set',
 		clearButtonContent: "Clear"
         
     });

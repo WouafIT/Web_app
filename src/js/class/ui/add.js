@@ -48,6 +48,9 @@ module.exports = (function() {
 		var $title = $form.find('input[name=title]');
 		var $content = $form.find('textarea[name=content]');
 		var $dateStart = $form.find('input[name=date-start]');
+		var $dateEnd = $form.find('input[name=date-end]');
+		var $specificEnd = $form.find('.specific-end');
+		$specificEnd.hide().removeAttr('hidden');
 		var $duration = $form.find('select[name=duration]');
 		var $category = $form.find('select[name=category]');
 		var $categoriesHelp = $form.find('.categories-help');
@@ -73,6 +76,10 @@ module.exports = (function() {
 		for (var i = 0, l = durations.length; i < l; i++) {
 			$duration.append('<option value="'+ durations[i] +'"'+ (i === durations.length - 4 ? ' selected="selected"' : '') +'>'+ durationsLabels[i] +'</option>');
 		}
+		$duration.append('<option value="specific">'+ i18n.t('Specific end date') +'</option>');
+		$duration.on('change', function() {
+			$specificEnd.toggle($(this).val() === 'specific');
+		});
 
 		var maxImages = 3;
 		var maxFilesize = 2; //MB
@@ -244,6 +251,21 @@ module.exports = (function() {
 				case 'url':
 					return !$field.val().length || utils.isValidUrl($field.val());
 					break;
+				case 'date-start':
+				case 'date-end':
+					if ($duration.val() === 'specific' && $dateStart.val() && $dateEnd.val()) {
+						var start = dtp.getInputDate($dateStart);
+						var end = dtp.getInputDate($dateEnd);
+						var duration = 0;
+						if (start && end && start.getTime() && end.getTime()) {
+							duration = Math.round(end.getTime() / 1000) - Math.round(start.getTime() / 1000);
+						}
+						if (duration <= 0) {
+							return false;
+						}
+					}
+					return true;
+					break;
 			}
 			return true;
 		}, function () {
@@ -251,6 +273,23 @@ module.exports = (function() {
 			if (!$content.val()) {
 				alert.show(i18n.t('Your form is incomplete, thank you to fill at least the content field'), $form);
 				return;
+			}
+			//check dates
+			var duration = 0;
+			var start = $dateStart.val() ? dtp.getInputDate($dateStart) : new Date();
+			if ($duration.val() === 'specific') {
+				var end = $dateEnd.val() ? dtp.getInputDate($dateEnd) : new Date();
+				if (start && end && start.getTime() && end.getTime()) {
+					duration = Math.round(end.getTime() / 1000) - Math.round(start.getTime() / 1000);
+				}
+				if (duration <= 0) {
+					alert.show(i18n.t('Start and end dates are invalid. The end date must be after the start date'), $form);
+					return;
+				}
+				if (duration < 3600) {
+					alert.show(i18n.t('Start and end dates are invalid. Your Wouaf must last at least an hour'), $form);
+					return;
+				}
 			}
 			//images
 			var validImages = [];
@@ -262,18 +301,15 @@ module.exports = (function() {
 					}
 				}
 			}
-			//date
-			var date = $dateStart.val() ? dtp.getInputDate($dateStart) : new Date();
-
 			//Query
 			var wouafData = {
 				loc: 		($latitude.val() +','+ $longitude.val()),
 				cat: 		$category.val(),
 				title:		$title.val(),
 				text: 		$content.val(),
-				date: 		Math.round(date.getTime() / 1000),
-				duration: 	$duration.val(),
-				tz:			(date.getTimezoneOffset() * -1),
+				date: 		Math.round(start.getTime() / 1000),
+				duration: 	(duration ? duration : $duration.val()),
+				tz:			(start.getTimezoneOffset() * -1),
 				url:		$url.val(),
 				contact: 	($contactNotifications.prop("checked") ? 1 : 0),
 				subscribe:	($postNotifications.prop("checked") ? 1 : 0),
