@@ -14,7 +14,7 @@ module.exports = (function() {
 			if (l) {
 				content = content.concat([
 					'<button class="w-menu" type="button" data-menu="listing" data-proximity="yes" data-sort="proximity" data-filter="no">',
-						'<i class="fa fa-cog"></i> '+ i18n.t('Menu'),
+						'<i class="fa fa-bars"></i> '+ i18n.t('Menu'),
 					'</button>',
 					'<p class="lead">', i18n.t('{{count}} result for your search', {count: l}) ,'</p>',
 					'<div class="row">',
@@ -49,7 +49,7 @@ module.exports = (function() {
 			if (l) {
 				content = content.concat([
 					'<button class="w-menu" type="button" data-menu="listing" data-proximity="no" data-sort="date-desc" data-filter="no">',
-						'<i class="fa fa-cog"></i> '+ i18n.t('Menu'),
+						'<i class="fa fa-bars"></i> '+ i18n.t('Menu'),
 					'</button>',
 					'<p class="lead">', (title ? title : i18n.t('{{count}} Wouaf', {count: l})) ,'</p>',
 					'<div class="row">',

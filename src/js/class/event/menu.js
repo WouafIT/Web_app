@@ -198,6 +198,20 @@ module.exports = (function() {
 							toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
 						});
 						break;
+					case 'calendar':
+						//show calendar page
+						menu.close();
+
+						var id = $target.parents('.w-menu-dropdown, .w-container').data('id');
+						var states = data.getObject('navigation');
+						if ((!states.wouaf || !utils.isId(states.wouaf)) && utils.isId(id)) {
+							map.showResult(id);
+						}
+						windows.show({
+							href: 'calendar',
+							data: (id ? {wouafId: id} : null)
+						});
+						break;
 					case 'comments':
 						//show comments page
 						menu.close();

@@ -114,7 +114,7 @@ module.exports = (function() {
 			'<div',
 				(collapse ? ' id="collapse-'+ obj.id +'" class="panel-collapse collapse w-content">' : ' class="w-content">'),
 				'<button class="w-menu" data-id="'+ obj.id +'" type="button" data-menu="wouaf">',
-					'<i class="fa fa-cog"></i> '+ i18n.t('Menu'),
+					'<i class="fa fa-bars"></i> '+ i18n.t('Menu'),
 				'</button>',
 				'<div class="w-subTitle">', author ,'</div>',
 					'<p class="w-text">', text ,'</p>'];

@@ -150,7 +150,7 @@ function getWouafOpenGraph ($data) {
 	$start->setTimestamp(intval($data['date'][0] / 1000));
 	$end = new DateTime();
 	$end->setTimestamp(intval($data['date'][1] / 1000));
-	if ($data['tz']) {
+	if (!empty($data['tz'])) {
 		$timeZone = new DateTimeZone(timezone_name_from_abbr("", $data['tz'] * 60, 0));
 		$start->setTimezone($timeZone);
 		$end->setTimezone($timeZone);
@@ -172,7 +172,7 @@ function getWouafOpenGraph ($data) {
 
     if (!empty($data['pics']) && is_array($data['pics'])) {
         foreach ($data['pics'] as $pic) {
-            $return .= '<meta property="og:image" content="'.htmlspecialchars($pic).'" />'."\n";
+            $return .= '<meta property="og:image" content="'.htmlspecialchars($pic['full']).'" />'."\n";
         }
     } else {
         $return .= '<meta property="og:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/icon.png" />'."\n";
@@ -218,7 +218,7 @@ function getWouafHTML ($data) {
 	$start->setTimestamp(intval($data['date'][0] / 1000));
 	$end = new DateTime();
 	$end->setTimestamp(intval($data['date'][1] / 1000));
-	if ($data['tz']) {
+	if (!empty($data['tz'])) {
 		$timezoneName = timezone_name_from_abbr("", $data['tz'] * 60, 0);
 		$timeZone = new DateTimeZone($timezoneName);
 		date_default_timezone_set($timezoneName);
@@ -253,7 +253,7 @@ function getWouafHTML ($data) {
 	if (!empty($data['pics']) && is_array($data['pics'])) {
 		$return .= '<p>';
 		foreach ($data['pics'] as $pic) {
-			$return .= '<img src="'.htmlspecialchars($pic).'" class="u-photo" /> '."\n";
+			$return .= '<img src="'.htmlspecialchars($pic['full']).'" class="u-photo" /> '."\n";
 		}
 		$return .= '</p>';
 	}

@@ -252,7 +252,7 @@
 	"View on Google Map": "View on Google Map",
 	"Itinerary to this place": "Itinerary to this place",
 	"Report Abuse": "Report Abuse",
-	"Add a comment": "Add a comment?",
+	"Add a comment": "Add a comment",
 	"{{count}} comment": "{{count}} comment",
 	"{{count}} comment_plural": "{{count}} comments",
 	"More info": "More info",
@@ -365,8 +365,15 @@
 	"{{count}} Wouaffer followed by {{username}}_plural": "{{count}} Wouaffers followed by {{username}}",
 
 	"Import": "Import",
+	"Add to your calendar": "Add to your calendar",
+	"Add to calendar": "Add to calendar",
+    "Choose your type of calendar below to insert the Wouaf {{title}}": "Choose your type of calendar below to insert the Wouaf &quot;{{title}}&quot;",
+    "Google Calendar": "Google Calendar",
+	"Yahoo Calendar": "Yahoo Calendar",
+    "More details here": "More details here: ",
 
-	"By": "Published by",
+
+  "By": "Published by",
 	"to": "to",
 	"at": "at"
 }

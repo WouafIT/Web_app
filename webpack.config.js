@@ -186,6 +186,13 @@ var common = Object.keys(languages).map(function(language) {
 				inject: false
 			}),
 			new HtmlWebpackPlugin({
+				filename: 'parts/calendar.html',
+				template: __dirname + '/src/html/parts/calendar.tpl',
+				data: htmlData,
+				i18n: languageData,
+				inject: false
+			}),
+			new HtmlWebpackPlugin({
 				filename: 'parts/activation.html',
 				template: __dirname + '/src/html/parts/activation.tpl',
 				data: htmlData,
