@@ -3,13 +3,11 @@ var utils = require('../utils.js');
 var i18n = require('../resource/i18n.js');
 var windows = require('../resource/windows.js');
 var wouafs = require('../resource/wouafs.js');
-var toast = require('../resource/toast.js');
 var url = require('../resource/url.js');
 
 module.exports = (function() {
 	var self = {};
 	var $modalWindow = windows.getWindows();
-	var $document = $(document);
 
 	self.show = function () {
 		var wouafId;
