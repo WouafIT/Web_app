@@ -55,6 +55,7 @@ module.exports = (function() {
 								'&location='+ location +
 								'&sf=true'+
 								'&output=xml#eventpage_6');
+					windows.close();
 				});
 				$btnYahoo.on('click', function () {
 					window.open('https://calendar.yahoo.com/?v=60&view=d&type=20'+
@@ -63,6 +64,7 @@ module.exports = (function() {
 								'&et='+ end.toISOString().replace('.000Z', 'Z').replace(/[:.-]+/g, '') +
 								'&desc='+ encodeURIComponent(i18n.t('More details here'))+ wouafUrl +
 								'&in_loc='+ location);
+					windows.close();
 				});
 				/*$btnOutlook.on('click', function () {
 					window.open('https://outlook.live.com/owa/'+
@@ -89,6 +91,9 @@ module.exports = (function() {
 				'END:VCALENDAR';
 				$btnWindows.attr('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(ics));
 				$btnApple.attr('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(ics));
+
+				$btnWindows.on('click', windows.close);
+				$btnApple.on('click', windows.close);
 			}).fail(function() {
 				windows.close();
 			}
