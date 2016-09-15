@@ -42,7 +42,7 @@ if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) &&
 $data = array(
     'content'   => '',
     'canonical' => 'https://'.$_SERVER['HTTP_HOST'].'/',
-    'head'      => '',
+    'head'      => getDefaultOpenGraph(),
 );
 if (!$requestURI || $requestURI === '/') {
     return $data;
