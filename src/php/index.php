@@ -134,7 +134,7 @@ function getDefaultOpenGraph() {
 		   '<meta property="og:type" content="website" />'."\n".
 		   '<meta property="og:url" content="https://'.$_SERVER['HTTP_HOST'].'/" />'."\n".
 		   '<meta property="fb:app_id" content="<%= htmlWebpackPlugin.options.data.facebookAppId %>" />'."\n".
-		   '<meta property="og:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/icon.png" />'."\n";
+		   '<meta property="og:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/600-315.png" />'."\n";
 }
 
 /**
@@ -175,7 +175,7 @@ function getWouafOpenGraph ($data) {
             $return .= '<meta property="og:image" content="'.htmlspecialchars($pic['full']).'" />'."\n";
         }
     } else {
-        $return .= '<meta property="og:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/icon.png" />'."\n";
+        $return .= '<meta property="og:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/600-315.png" />'."\n";
     }
 	if (!empty($data['tags']) && is_array($data['tags'])) {
 		foreach ($data['tags'] as $tag) {
@@ -295,7 +295,7 @@ function getUserOpenGraph ($data) {
 	if (!empty($data['url'])) {
 		$return .= '<meta property="og:image" content="'.htmlspecialchars($data['url']).'" />'."\n";
 	} else {
-		$return .= '<meta property="og:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/icon.png" />'."\n";
+		$return .= '<meta property="og:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/600-315.png" />'."\n";
 	}
 	return $return;
 }
