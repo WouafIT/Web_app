@@ -133,8 +133,8 @@ function getDefaultOpenGraph() {
 		   "<meta property=\"og:description\" content=\"<%= htmlWebpackPlugin.options.i18n['Your social network for your local events'] %>\" />\n".
 		   '<meta property="og:type" content="website" />'."\n".
 		   '<meta property="og:url" content="https://'.$_SERVER['HTTP_HOST'].'/" />'."\n".
-		   '<meta property="og:app_id" content="<%= htmlWebpackPlugin.options.data.facebookAppId %>" />'."\n".
-		   '<meta property="og:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/icon.png" />'."\n";
+		   '<meta property="fb:app_id" content="<%= htmlWebpackPlugin.options.data.facebookAppId %>" />'."\n".
+		   '<meta property="og:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/icon-512.png" />'."\n";
 }
 
 /**
@@ -156,14 +156,14 @@ function getWouafOpenGraph ($data) {
 		$end->setTimezone($timeZone);
 	}
 	$return = '<meta property="og:title" content="'.htmlspecialchars(getWouafTitle($data)).'" />'."\n".
-	'<meta property="og:app_id" content="<%= htmlWebpackPlugin.options.data.facebookAppId %>" />'."\n".
+	'<meta property="fb:app_id" content="<%= htmlWebpackPlugin.options.data.facebookAppId %>" />'."\n".
 	'<meta property="og:type" content="article" />'."\n".
 
-	'<meta property="og:article:published_time" content="'.$start->format('c').'" />'."\n".
-    '<meta property="og:article:expiration_time" content="'.$end->format('c').'" />'."\n".
-    '<meta property="og:article:author" content="https://<%= htmlWebpackPlugin.options.data.domain %>/user/'.htmlspecialchars($data['author'][1]).'/" />'."\n".
+	'<meta property="article:published_time" content="'.$start->format('c').'" />'."\n".
+    '<meta property="article:expiration_time" content="'.$end->format('c').'" />'."\n".
+    '<meta property="article:author" content="https://'.$_SERVER['HTTP_HOST'].'/user/'.htmlspecialchars($data['author'][1]).'/" />'."\n".
 
-    '<meta property="og:url" content="https://<%= htmlWebpackPlugin.options.data.domain %>/wouaf/'.$data['id'].'/" />'."\n".
+    '<meta property="og:url" content="https://'.$_SERVER['HTTP_HOST'].'/wouaf/'.$data['id'].'/" />'."\n".
     '<meta property="og:site_name" content="Wouaf IT" />'."\n".
 	'<meta property="og:locale" content="'.$locale.'" />'."\n".
 	'<meta property="og:latitude" content="'.$data['loc'][0].'" />'."\n".
@@ -175,7 +175,7 @@ function getWouafOpenGraph ($data) {
             $return .= '<meta property="og:image" content="'.htmlspecialchars($pic['full']).'" />'."\n";
         }
     } else {
-        $return .= '<meta property="og:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/icon.png" />'."\n";
+        $return .= '<meta property="og:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/icon-512.png" />'."\n";
     }
 	if (!empty($data['tags']) && is_array($data['tags'])) {
 		foreach ($data['tags'] as $tag) {
@@ -268,25 +268,36 @@ function getWouafHTML ($data) {
  */
 function getUserOpenGraph ($data) {
     $title = trim(!empty($data['firstname']) && !empty($data['lastname']) ? $data['firstname'] .' '. $data['lastname'] : $data['username']);
-    $return = '<meta property="og:title" content="'.htmlspecialchars($title).'" />'."\n".
+    $return = '<meta property="fb:app_id" content="<%= htmlWebpackPlugin.options.data.facebookAppId %>" />'."\n".
+			  '<meta property="og:title" content="'.htmlspecialchars($title).'" />'."\n".
               '<meta property="og:type" content="profile" />'."\n".
-              '<meta property="og:url" content="https://<%= htmlWebpackPlugin.options.data.domain %>/user/'.$data['username'].'/" />'."\n".
+              '<meta property="og:url" content="https://'.$_SERVER['HTTP_HOST'].'/user/'.$data['username'].'/" />'."\n".
               '<meta property="og:site_name" content="Wouaf IT" />'."\n".
-              '<meta property="og:locale" content="'.$data['lang'].'" />'."\n".
-              '<meta property="og:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/icon.png" />'."\n";
-    if (!empty($data['description'])) {
-        $return .= '<meta property="og:description" content="'.htmlspecialchars(mb_substr(strip_tags($data['description']), 0, 300)).'" />'."\n";
-    }
-    if (!empty($data['gender'])) {
-        $return .= '<meta property="og:profile:gender" content="'.htmlspecialchars($data['gender']).'" />'."\n";
+              '<meta property="og:locale" content="'.$data['lang'].'" />'."\n";
+	if (!empty($data['fid'])) {
+		$return .= '<meta property="fb:profile_id" content="'.htmlspecialchars($data['fid']).'" />'."\n";
+	}
+	if (!empty($data['username'])) {
+		$return .= '<meta property="og:username" content="'.htmlspecialchars($data['username']).'" />'."\n";
+	}
+	if (!empty($data['description'])) {
+		$return .= '<meta property="og:description" content="'.htmlspecialchars(mb_substr(strip_tags($data['description']), 0, 300)).'" />'."\n";
+	}
+	if (!empty($data['gender'])) {
+        $return .= '<meta property="profile:gender" content="'.htmlspecialchars($data['gender']).'" />'."\n";
     }
     if (!empty($data['lastname'])) {
-        $return .= '<meta property="og:profile:last_name" content="'.htmlspecialchars($data['lastname']).'" />'."\n";
+        $return .= '<meta property="profile:last_name" content="'.htmlspecialchars($data['lastname']).'" />'."\n";
     }
-    if (!empty($data['firstname'])) {
-        $return .= '<meta property="og:profile:first_name" content="'.htmlspecialchars($data['firstname']).'" />'."\n";
-    }
-    return $return;
+	if (!empty($data['firstname'])) {
+		$return .= '<meta property="profile:first_name" content="'.htmlspecialchars($data['firstname']).'" />'."\n";
+	}
+	if (!empty($data['url'])) {
+		$return .= '<meta property="og:image" content="'.htmlspecialchars($data['url']).'" />'."\n";
+	} else {
+		$return .= '<meta property="og:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/icon-512.png" />'."\n";
+	}
+	return $return;
 }
 
 /**
