@@ -134,7 +134,7 @@ function getDefaultOpenGraph() {
 		   '<meta property="og:type" content="website" />'."\n".
 		   '<meta property="og:url" content="https://'.$_SERVER['HTTP_HOST'].'/" />'."\n".
 		   '<meta property="fb:app_id" content="<%= htmlWebpackPlugin.options.data.facebookAppId %>" />'."\n".
-		   '<meta property="og:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/icon-512.png" />'."\n";
+		   '<meta property="og:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/icon.png" />'."\n";
 }
 
 /**
@@ -166,8 +166,8 @@ function getWouafOpenGraph ($data) {
     '<meta property="og:url" content="https://'.$_SERVER['HTTP_HOST'].'/wouaf/'.$data['id'].'/" />'."\n".
     '<meta property="og:site_name" content="Wouaf IT" />'."\n".
 	'<meta property="og:locale" content="'.$locale.'" />'."\n".
-	'<meta property="og:latitude" content="'.$data['loc'][0].'" />'."\n".
-	'<meta property="og:longitude" content="'.$data['loc'][1].'" />'."\n".
+	'<meta property="place:location:latitude" content="'.$data['loc'][0].'" />'."\n".
+	'<meta property="place:location:longitude" content="'.$data['loc'][1].'" />'."\n".
 	'<meta property="og:description" content="'.htmlspecialchars($description).'" />'."\n";
 
     if (!empty($data['pics']) && is_array($data['pics'])) {
@@ -175,7 +175,7 @@ function getWouafOpenGraph ($data) {
             $return .= '<meta property="og:image" content="'.htmlspecialchars($pic['full']).'" />'."\n";
         }
     } else {
-        $return .= '<meta property="og:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/icon-512.png" />'."\n";
+        $return .= '<meta property="og:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/icon.png" />'."\n";
     }
 	if (!empty($data['tags']) && is_array($data['tags'])) {
 		foreach ($data['tags'] as $tag) {
@@ -295,7 +295,7 @@ function getUserOpenGraph ($data) {
 	if (!empty($data['url'])) {
 		$return .= '<meta property="og:image" content="'.htmlspecialchars($data['url']).'" />'."\n";
 	} else {
-		$return .= '<meta property="og:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/icon-512.png" />'."\n";
+		$return .= '<meta property="og:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/icon.png" />'."\n";
 	}
 	return $return;
 }
