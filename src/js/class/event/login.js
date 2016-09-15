@@ -15,6 +15,7 @@ module.exports = (function() {
 		data.setString('uid', null);
 		data.setString('token', null);
 		data.setArray('favorites', null);
+		data.setArray('interests', null);
 		data.setArray('following', null);
 		data.setObject('user', null);
 
@@ -45,6 +46,9 @@ module.exports = (function() {
 			}
 			if (params.favorites) {
 				data.setArray('favorites', params.favorites, !permanent);
+			}
+			if (params.interests) {
+				data.setArray('interests', params.interests, !permanent);
 			}
 			if (params.following) {
 				data.setArray('following', params.following, !permanent);

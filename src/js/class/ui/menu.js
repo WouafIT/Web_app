@@ -28,19 +28,35 @@ module.exports = (function() {
 		var wouafUrl 	= url.getAbsoluteURLForStates([{name: 'wouaf', value: obj.id}]);
 		var wouafLocaleUrl = url.getAbsoluteURLForStates([{name: 'wouaf', value: obj.id}], true);
 		var favs 		= data.getArray('favorites');
+		var interests 	= data.getArray('interests');
+
 		var following 	= data.getArray('following');
 		var menu = ['<div class="w-menu-dropdown dropdown-menu" data-id="'+ obj.id +'" data-menu="wouaf" hidden>',
 			'<div class="dropdown-item sharing"><i class="fa fa-share-alt"></i> ', i18n.t('Share'),
 				' <span class="share facebook"><a href="https://www.facebook.com/sharer/sharer.php?u='+ encodeURIComponent(wouafLocaleUrl) +'" target="_blank" title="'+ i18n.t('Share on Facebook') +'">',
 					'<i class="fa fa-facebook-square"></i></a></span>',
-				'<span class="share twitter"><a href="https://twitter.com/intent/tweet?text='+ encodeURIComponent(title) +'&url='+ encodeURIComponent(wouafUrl) +'&via=Wouaf_IT" target="_blank" title="'+ i18n.t('Share on Twitter') +'">',
+				'<span class="share twitter"><a href="https://twitter.com/intent/tweet?text='+ encodeURIComponent(title) +'&url='+ encodeURIComponent(wouafLocaleUrl) +'&via=Wouaf_IT" target="_blank" title="'+ i18n.t('Share on Twitter') +'">',
 					'<i class="fa fa-twitter-square"></i></a></span>',
-				'<span class="share reddit"><a href="https://www.reddit.com/submit?url='+ encodeURIComponent(wouafUrl) +'&title='+ encodeURIComponent(title) +'" target="_blank" title="'+ i18n.t('Share on Reddit') +'">',
+				'<span class="share reddit"><a href="https://www.reddit.com/submit?url='+ encodeURIComponent(wouafLocaleUrl) +'&title='+ encodeURIComponent(title) +'" target="_blank" title="'+ i18n.t('Share on Reddit') +'">',
 					'<i class="fa fa-reddit-square"></i></a></span>',
-				'<span class="share email"><a href="mailto:?subject='+ i18n.t('Shared from WouafIT:') +' '+ encodeURIComponent(title) +'&body='+ encodeURIComponent(wouafUrl) +'" target="_blank" title="'+ i18n.t('Share by Email') +'">',
+				'<span class="share email"><a href="mailto:?subject='+ i18n.t('Shared from WouafIT:') +' '+ encodeURIComponent(title) +'&body='+ encodeURIComponent(wouafLocaleUrl) +'" target="_blank" title="'+ i18n.t('Share by Email') +'">',
 					'<i class="fa fa-envelope-o"></i></a></span>',
 			'</div>',
 			'<div class="dropdown-item"><i class="fa fa-link"></i> <input type="text" class="form-control link" value="'+ wouafUrl +'" /></div>'];
+		if (utils.indexOf(interests, obj.id) !== -1) {
+			menu = menu.concat(['<a class="dropdown-item red" href="#" data-action="notinterested" title="'+ i18n.t('Click to remove your interest') +'">' +
+								'<i class="fa fa-heart"></i> '+ i18n.t('Im interested ({{interest}})', {interest: obj.interest}) +'</a>']);
+		} else {
+			menu = menu.concat(['<a class="dropdown-item" href="#" data-action="interested" title="'+ i18n.t('Click to add your interest') +'">' +
+								'<i class="fa fa-heart-o"></i> '+ i18n.t('Interested ({{interest}})', {interest: obj.interest}) +'</a>']);
+		}
+		if (utils.indexOf(favs, obj.id) !== -1) {
+			menu = menu.concat(['<a class="dropdown-item yellow" href="#" data-action="unfavorite">' +
+								'<i class="fa fa-star"></i> '+ i18n.t('In your favorites ({{fav}})', {fav: obj.fav}) +'</a>']);
+		} else {
+			menu = menu.concat(['<a class="dropdown-item" href="#" data-action="favorite">' +
+								'<i class="fa fa-star-o"></i> '+ i18n.t('Add to your favorites ({{fav}})', {fav: obj.fav}) +'</a>']);
+		}
 		if (obj.author[0] === uid) { //user is the Wouaf Author
 			menu = menu.concat(['<a class="dropdown-item" href="#" data-action="delete"><i class="fa fa-trash"></i> '+ i18n.t('Delete') +'</a>']);
 			if (obj.contact) {
@@ -63,17 +79,11 @@ module.exports = (function() {
 				menu = menu.concat(['<a class="dropdown-item" href="#" data-action="follow" data-uid="' + obj.author[0] + '">' +
 									'<i class="fa fa-angle-double-right"></i> ' + i18n.t('Follow the author') + '</a>']);
 			}
-			if (utils.indexOf(favs, obj.id) !== -1) {
-				menu = menu.concat(['<a class="dropdown-item" href="#" data-action="unfavorite">' +
-				'<i class="fa fa-star"></i> '+ i18n.t('In your favorites ({{fav}})', {fav: obj.fav}) +'</a>']);
-			} else {
-				menu = menu.concat(['<a class="dropdown-item" href="#" data-action="favorite">' +
-				'<i class="fa fa-star-o"></i> '+ i18n.t('Add to your favorites ({{fav}})', {fav: obj.fav}) +'</a>']);
-			}
-			menu = menu.concat(['<a class="dropdown-item" href="#" data-action="calendar">' +
-								'<i class="fa fa-calendar"></i> ' + i18n.t('Add to calendar') + '</a>']);
+			menu = menu.concat([]);
 		}
-		menu = menu.concat(['<a class="dropdown-item" href="'+ url.getAbsoluteURLForStates([{name: 'wouaf', value: obj.id}, {name: 'windows', value: 'comments'}]) +'" data-action="comments">' +
+		menu = menu.concat(['<a class="dropdown-item" href="#" data-action="calendar">',
+			'	<i class="fa fa-calendar"></i> ' + i18n.t('Add to calendar') + '</a>',
+			'<a class="dropdown-item" href="'+ url.getAbsoluteURLForStates([{name: 'wouaf', value: obj.id}, {name: 'windows', value: 'comments'}]) +'" data-action="comments">',
 			'	<i class="fa fa-comment"></i> '+ (obj.com ? i18n.t('View the {{count}} comment', {count: obj.com}) : i18n.t('Add a comment', {count: obj.com})) +'</a>',
 			'<a class="dropdown-item" href="https://maps.google.com/?q='+ obj.loc[0] +','+ obj.loc[1] +'" target="_blank">',
 			'	<i class="fa fa-map"></i> '+ i18n.t('View on Google Map') +'</a>',
@@ -148,6 +158,8 @@ module.exports = (function() {
 			'<a class="dropdown-item'+ (sort === 'date-desc' ? ' active' : '') +'" href="#" data-action="sort-date-desc"><i class="fa fa-sort-numeric-desc"></i> '+i18n.t('Sort by Starting Date descending') + (sort === 'date-desc' ? ' <i class="fa fa-check"></i>' : '') +'</a>',
 			'<a class="dropdown-item'+ (sort === 'date-asc' ? ' active' : '') +'" href="#" data-action="sort-date-asc"><i class="fa fa-sort-numeric-asc"></i> '+ i18n.t('Sort by Starting Date ascending') + (sort === 'date-asc' ? ' <i class="fa fa-check"></i>' : '') +'</a>',
 			'<a class="dropdown-item'+ (sort === 'comments' ? ' active' : '') +'" href="#" data-action="sort-comments"><i class="fa fa-sort-amount-desc"></i> '+ i18n.t('Sort by Comments') + (sort === 'comments' ? ' <i class="fa fa-check"></i>' : '') +'</a>',
+			'<a class="dropdown-item'+ (sort === 'fav' ? ' active' : '') +'" href="#" data-action="sort-fav"><i class="fa fa-sort-amount-desc"></i> '+ i18n.t('Sort by Favorites') + (sort === 'fav' ? ' <i class="fa fa-check"></i>' : '') +'</a>',
+			'<a class="dropdown-item'+ (sort === 'interest' ? ' active' : '') +'" href="#" data-action="sort-interest"><i class="fa fa-sort-amount-desc"></i> '+ i18n.t('Sort by Interest') + (sort === 'interest' ? ' <i class="fa fa-check"></i>' : '') +'</a>',
 			'<a class="dropdown-item'+ (sort === 'type' ? ' active' : '') +'" href="#" data-action="sort-type"><i class="fa fa-sort-alpha-asc"></i> '+ i18n.t('Sort by Category') + (sort === 'type' ? ' <i class="fa fa-check"></i>' : '') +'</a>',
 		'</div>'];
 		$menu = $(menu.join(''));

@@ -151,6 +151,53 @@ module.exports = (function() {
 		}
 		return content.join('');
 	};
+	var $pin, props;
+	self.shake = function(id, o) {
+		if ($pin && $pin.length) {
+			$pin.stop(true, true);
+			$pin.css(props);
+		}
+		var $map = $('#map');
+		$pin = $map.find('.baseMarker[data-id="'+ id +'"]');
+		if (!$pin.length) {
+			$pin = $map.find('.baseMarker[data-id*="'+ id +'"]');
+		}
+		if (!$pin.length) {
+			return;
+		}
+		o = $.extend({
+			direction: "left",
+			distance: 3,
+			times: 3,
+			speed: 100,
+			easing: "swing"
+		}, o);
+		// Create element
+		props = {
+			position: $pin.css("position"),
+			top: $pin.css("top"),
+			bottom: $pin.css("bottom"),
+			left: $pin.css("left"),
+			right: $pin.css("right")
+		};
+		// Adjust
+		var ref = (o.direction == "up" || o.direction == "down") ? "top" : "left";
+		var motion = (o.direction == "up" || o.direction == "left") ? "pos" : "neg";
+		// Animation
+		var animation = {}, animation1 = {}, animation2 = {};
+		animation[ref] = (motion == "pos" ? "-=" : "+=")  + o.distance;
+		animation1[ref] = (motion == "pos" ? "+=" : "-=")  + o.distance * 2;
+		animation2[ref] = (motion == "pos" ? "-=" : "+=")  + o.distance * 2;
+		// Animate
+		$pin.animate(animation, o.speed, o.easing);
+		for (var i = 1, l = o.times; i < l; i++) { // Shakes
+			$pin.animate(animation1, o.speed, o.easing).animate(animation2, o.speed, o.easing);
+		}
+		$pin.animate(animation1, o.speed, o.easing).
+		animate(animation, o.speed / 2, o.easing, function(){ // Last shake
+			$pin.css(props); // Restore
+		});
+	};
 
 	return self;
 }());

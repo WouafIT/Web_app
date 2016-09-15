@@ -518,6 +518,28 @@ module.exports = (function() {
 				errorCallback: errorCallback
 			});
 		},
+		addInterest: function addInterest(id, successCallback, errorCallback) {
+			query({
+				method: 'PUT',
+				url: 	ENDPOINT + '/users/'+ data.getString('uid') +'/interests',
+				data:	{
+					id: id
+				},
+				successCallback: successCallback,
+				errorCallback: errorCallback
+			});
+		},
+		removeInterest: function removeInterest(id, successCallback, errorCallback) {
+			query({
+				method: 'DELETE',
+				url: 	ENDPOINT + '/users/'+ data.getString('uid') +'/interests',
+				data:	{
+					id: id
+				},
+				successCallback: successCallback,
+				errorCallback: errorCallback
+			});
+		},
 		getComments: function getComments(id, successCallback, errorCallback) {
 			query({
 				method: 'GET',

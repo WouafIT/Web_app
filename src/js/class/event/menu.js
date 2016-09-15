@@ -90,7 +90,7 @@ module.exports = (function() {
 						var favs = data.getArray('favorites');
 						if (utils.indexOf(favs, obj.id) === -1) {
 							obj.fav++;
-							$target.replaceWith('<a class="dropdown-item" href="#" data-action="unfavorite">' +
+							$target.replaceWith('<a class="dropdown-item yellow" href="#" data-action="unfavorite">' +
 												'<i class="fa fa-star"></i> '+ i18n.t('In your favorites ({{fav}})', {fav: obj.fav}) +'</a>');
 							query.addFavorite(obj.id, function() {
 								toast.show(i18n.t('This Wouaf is added to your favorites'));
@@ -121,6 +121,47 @@ module.exports = (function() {
 							});
 							delete favs[utils.indexOf(favs, obj.id)];
 							data.setArray('favorites', favs);
+						}
+						break;
+					case 'interested':
+						if (!uid) { //user is not logged, show login window
+							windows.login(i18n.t('Login to show your interest for a wouaf'));
+							return;
+						}
+						var interests 	= data.getArray('interests');
+						if (utils.indexOf(interests, obj.id) === -1) {
+							obj.interest++;
+							$target.replaceWith('<a class="dropdown-item red" href="#" data-action="notinterested" title="'+ i18n.t('Click to remove your interest') +'">' +
+												'<i class="fa fa-heart"></i> '+ i18n.t('Im interested ({{interest}})', {interest: obj.interest}) +'</a>');
+							query.addInterest(obj.id, function() {
+								toast.show(i18n.t('Your interest for this Wouaf is saved'));
+
+								$document.triggerHandler('app.added-interest', obj);
+							}, function (msg) {
+								toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
+							});
+							interests.push(obj.id);
+							data.setArray('interests', interests);
+						}
+						break;
+					case 'notinterested':
+						if (!uid) { //user is not logged, return
+							return;
+						}
+						var interests 	= data.getArray('interests');
+						if (utils.indexOf(interests, obj.id) !== -1) {
+							obj.interest--;
+							$target.replaceWith('<a class="dropdown-item" href="#" data-action="interested" title="'+ i18n.t('Click to add your interest') +'">' +
+												'<i class="fa fa-heart-o"></i> '+ i18n.t('Interested ({{interest}})', {interest: obj.interest}) +'</a>');
+							query.removeInterest(obj.id, function() {
+								toast.show(i18n.t('Your disinterest for this Wouaf is saved'));
+
+								$document.triggerHandler('app.deleted-interest', obj);
+							}, function (msg) {
+								toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
+							});
+							delete interests[utils.indexOf(interests, obj.id)];
+							data.setArray('interests', interests);
 						}
 						break;
 					case 'follow':
@@ -351,6 +392,18 @@ module.exports = (function() {
 							return;
 						}
 						$document.triggerHandler('tabs.sort', {id: listingId, action: 'comments'});
+						break;
+					case 'sort-fav':
+						if ($target.hasClass('active')) {
+							return;
+						}
+						$document.triggerHandler('tabs.sort', {id: listingId, action: 'fav'});
+						break;
+					case 'sort-interest':
+						if ($target.hasClass('active')) {
+							return;
+						}
+						$document.triggerHandler('tabs.sort', {id: listingId, action: 'interest'});
 						break;
 					case 'sort-type':
 						if ($target.hasClass('active')) {

@@ -24,7 +24,7 @@ module.exports = (function() {
 				for(i = 0; i < l; i++) {
 					obj = data.data.results[i];
 					content = content.concat([
-						'<div class="w-container" data-id="'+ obj.id +'" data-proximity="'+ i +'" data-date="'+ obj.date[0] +'" data-comments="'+ obj.com +'" data-type="'+ obj.cat +'">',
+						'<div class="w-container" data-id="'+ obj.id +'" data-proximity="'+ i +'" data-date="'+ obj.date[0] +'" data-comments="'+ obj.com +'" data-fav="'+ obj.fav +'" data-interest="'+ obj.interest +'" data-type="'+ obj.cat +'">',
 							wouaf.getHeader(obj),
 						'</div>'
 					]);
@@ -59,7 +59,7 @@ module.exports = (function() {
 				for(i = 0; i < l; i++) {
 					obj = data.data.results[i];
 					content = content.concat([
-						'<div class="w-container" data-id="'+ obj.id +'" data-date="'+ obj.date[0] +'" data-comments="'+ obj.com +'" data-type="'+ obj.cat +'">',
+						'<div class="w-container" data-id="'+ obj.id +'" data-date="'+ obj.date[0] +'" data-comments="'+ obj.com +'" data-fav="'+ obj.fav +'" data-interest="'+ obj.interest +'" data-type="'+ obj.cat +'">',
 							wouaf.getHeader(obj),
 						'</div>'
 					]);

@@ -7,6 +7,7 @@ var query 			= require('../resource/query.js');
 var toast 			= require('../resource/toast.js');
 var windows 		= require('../resource/windows.js');
 var utils 			= require('../utils.js');
+var wouaf 			= require('../ui/wouaf.js');
 
 module.exports = (function() {
 	var $window			= $(window);
@@ -212,6 +213,13 @@ module.exports = (function() {
 			}
 		}
 	});
+	//shake wouaf pin/cluster on hover
+	$document.on('mouseenter', '.tab-pane .w-container[data-id]', function(e) {
+		var wouafId = $(this).data('id');
+		if (wouafId) {
+			wouaf.shake(wouafId);
+		}
+	});
 
 	//(un)select wouaf in list on navigation change
 	$document.on('navigation.set-state', function (e, state) {
@@ -267,7 +275,10 @@ module.exports = (function() {
 		}
 		var $wouafList = $tabPanel.find(".w-container");
 		var dir = 'asc';
-		if (data.action == 'comments' || data.action == 'date-desc') {
+		if (data.action == 'comments'
+			|| data.action == 'fav'
+			|| data.action == 'interest'
+			|| data.action == 'date-desc') {
 			dir = 'desc';
 		}
 		$tabPanel.find('button.w-menu').data('sort', data.action);

@@ -57,6 +57,14 @@ module.exports = (function() {
 	$document.on('app.deleted-favorite', function (event, wouaf) {
 		ga('send', 'event', 'favorite', 'delete', categories.getLabel(wouaf.cat), wouaf.cat);
 	});
+	//add interest
+	$document.on('app.added-interest', function (event, wouaf) {
+		ga('send', 'event', 'interest', 'add', categories.getLabel(wouaf.cat), wouaf.cat);
+	});
+	//delete interest
+	$document.on('app.deleted-interest', function (event, wouaf) {
+		ga('send', 'event', 'interest', 'delete', categories.getLabel(wouaf.cat), wouaf.cat);
+	});
 	//send contact (Wouaf)
 	$document.on('app.wouaf-contact', function (event, wouaf) {
 		ga('send', 'event', 'contact', 'wouaf', categories.getLabel(wouaf.cat), wouaf.cat);

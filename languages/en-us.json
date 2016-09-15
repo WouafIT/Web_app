@@ -102,7 +102,7 @@
 	"Your form is incomplete, thank you to fill your email": "Your form is incomplete, thank you to fill your email.",
 	"Your form is incomplete, thank you to fill your language": "Your form is incomplete, thank you to fill your language.",
 	"Welcome": "Welcome!",
-	"welcome_to_wouaf_it": "Welcome in the Wouaf IT community!\n\nAn email has been sent to activate your profile.\nIf it is not enabled under 6h it will be automatically deleted.\n\nYou can now create your first Wouaf. Do you want to see how it works?",
+	"welcome_to_wouaf_it": "Welcome in the Wouaf IT community!\n\nAn email has been sent to activate your profile.\nIf it is not enabled under 6h it will be automatically deleted.\n\nTo create your first Wouaf it's simple, click on the &quot;+&quot; at the bottom right!",
 
 	"Edit your profile": "Edit your profile",
 	"Your Facebook events": "Your Facebook events",
@@ -241,8 +241,8 @@
 	"This Wouaf has been reported": "Thank you for your report!",
 	"This Wouaf is added to your favorites": "This Wouaf is added to your favorites",
 	"This Wouaf is removed from your favorites": "This Wouaf is removed from your favorites",
-	"Add to your favorites ({{fav}})": "Add to your favorites ({{fav}})",
-	"In your favorites ({{fav}})": "In your favorites ({{fav}})",
+	"Add to your favorites ({{fav}})": "Add to your favorites? ({{fav}})",
+	"In your favorites ({{fav}})": "In your favorites! ({{fav}})",
 	"Delete": "Delete",
 	"Contact the author": "Contact the author",
 	"Disallow contact by email": "Disallow contact by email",
@@ -350,7 +350,9 @@
 	"Sort by Proximity": "Sort by Proximity",
 	"Sort by Starting Date descending": "Sort by Starting Date descending",
 	"Sort by Starting Date ascending": "Sort by Starting Date ascending",
-	"Sort by Comments": "Sort by Comments",
+	"Sort by Comments": "Sort by number of Comments",
+	"Sort by Favorites": "Sort by number of Favorites",
+	"Sort by Interest": "Sort by number of Interested",
 	"Sort by Category": "Sort by Category",
 
 	"No Wouaf here": "No Wouaf here ...",
@@ -376,8 +378,15 @@
 	"Yahoo Calendar": "Yahoo Calendar",
     "More details here": "More details here: ",
 
+	"Interested ({{interest}})": "Interested? ({{interest}})",
+	"Im interested ({{interest}})": "I am interested! ({{interest}})",
+	"Click to add your interest": "Clic to show your interest",
+	"Click to remove your interest": "Clic to remove your interest",
+	"Login to show your interest for a wouaf": "Login to show your interest for this wouaf!",
+	"Your interest for this Wouaf is saved": "Your interest for this Wouaf is saved.",
+	"Your disinterest for this Wouaf is saved": "Your interest for this Wouaf is removed.",
 
-  "By": "Published by",
+  	"By": "Published by",
 	"to": "to",
 	"at": "at"
 }
