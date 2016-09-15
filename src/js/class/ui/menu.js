@@ -57,7 +57,7 @@ module.exports = (function() {
 			menu = menu.concat(['<a class="dropdown-item" href="#" data-action="favorite">' +
 								'<i class="fa fa-star-o"></i> '+ i18n.t('Add to your favorites ({{fav}})', {fav: obj.fav}) +'</a>']);
 		}
-		menu = menu.concat(['<a class="dropdown-item" href="'+ url.getAbsoluteURLForStates([{name: 'wouaf', value: obj.id}, {name: 'windows', value: 'comments'}]) +'" data-action="comments">',
+		menu = menu.concat(['<a class="dropdown-item green" href="'+ url.getAbsoluteURLForStates([{name: 'wouaf', value: obj.id}, {name: 'windows', value: 'comments'}]) +'" data-action="comments">',
 		'	<i class="fa fa-comment"></i> '+ (obj.com ? i18n.t('View the {{count}} comment', {count: obj.com}) : i18n.t('Add a comment', {count: obj.com})) +'</a>']);
 		if (obj.author[0] === uid) { //user is the Wouaf Author
 			menu = menu.concat(['<a class="dropdown-item" href="#" data-action="delete"><i class="fa fa-trash"></i> '+ i18n.t('Delete') +'</a>']);
