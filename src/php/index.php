@@ -168,8 +168,6 @@ function getWouafOpenGraph ($data) {
     '<meta property="og:url" content="https://'.$_SERVER['HTTP_HOST'].'/wouaf/'.$data['id'].'/" />'."\n".
     '<meta property="og:site_name" content="Wouaf IT" />'."\n".
 	'<meta property="og:locale" content="'.$locale.'" />'."\n".
-	'<meta property="place:location:latitude" content="'.$data['loc'][0].'" />'."\n".
-	'<meta property="place:location:longitude" content="'.$data['loc'][1].'" />'."\n".
 	'<meta property="og:description" content="'.htmlspecialchars($description).'" />'."\n";
 
     if (!empty($data['pics']) && is_array($data['pics'])) {
