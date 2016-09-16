@@ -214,13 +214,14 @@ module.exports = (function() {
 		}
 	});
 	//shake wouaf pin/cluster on hover
-	$document.on('mouseenter', '.tab-pane .w-container[data-id]', function(e) {
-		var wouafId = $(this).data('id');
-		if (wouafId) {
-			wouaf.shake(wouafId);
-		}
-	});
-
+	if (slidebars.isDualView()) {
+		$document.on('mouseenter', '.tab-pane .w-container[data-id]', function (e) {
+			var wouafId = $(this).data('id');
+			if (wouafId) {
+				wouaf.shake(wouafId);
+			}
+		});
+	}
 	//(un)select wouaf in list on navigation change
 	$document.on('navigation.set-state', function (e, state) {
 		if (state && state.name == 'wouaf') {
