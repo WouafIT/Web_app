@@ -100,8 +100,8 @@ module.exports = (function() {
 		}
 	});
 
-	var loadUserWouafs = function () {
-		if (tabsData['wouafs'] || !data.getString('uid')) {
+	var loadUserWouafs = function (force) {
+		if ((tabsData['wouafs'] && !force) || !data.getString('uid')) {
 			return;
 		}
 		//load user tabs data
@@ -110,13 +110,15 @@ module.exports = (function() {
 			tabsData['wouafs'] = true;
 			var $tabPanel = $('#wouafs .results');
 			$tabPanel.html(content);
+			//sort by date
+			$document.triggerHandler('tabs.sort', {id: 'wouafs', action: 'date-desc'});
 		}, function (msg) {
 			toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
 		});
 	};
 
-	var loadUserFavorites = function () {
-		if (tabsData['favorites'] || !data.getString('uid')) {
+	var loadUserFavorites = function (force) {
+		if ((tabsData['favorites'] && !force) || !data.getString('uid')) {
 			return;
 		}
 		//load user tabs data
@@ -125,13 +127,15 @@ module.exports = (function() {
 			tabsData['favorites'] = true;
 			var $tabPanel = $('#favorites .results');
 			$tabPanel.html(content);
+			//sort by date
+			$document.triggerHandler('tabs.sort', {id: 'favorites', action: 'date-desc'});
 		}, function (msg) {
 			toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
 		});
 	};
 
-	var loadUserFollowing = function () {
-		if (tabsData['following'] || !data.getString('uid')) {
+	var loadUserFollowing = function (force) {
+		if ((tabsData['following'] && !force) || !data.getString('uid')) {
 			return;
 		}
 		query.userFollowers(data.getString('uid'), function (data) {
@@ -290,5 +294,18 @@ module.exports = (function() {
 			return (dir == 'asc') ? $(a).data(data.action) - $(b).data(data.action) : $(b).data(data.action) - $(a).data(data.action);
 		});
 		$tabPanel.find('.row').html($wouafList);
+	});
+
+	$document.on('app.added-favorite app.deleted-favorite', function (e, obj) {
+		//TODO, add or remove obj from list instead of reloading all the list from the server
+		loadUserFavorites(true);
+	});
+	$document.on('app.follow-user app.unfollow-user', function (e, obj) {
+		//TODO, add or remove obj from list instead of reloading all the list from the server
+		loadUserFollowing(true);
+	});
+	$document.on('app.deleted-wouaf app.added-wouaf', function (e, obj) {
+		//TODO, add or remove obj from list instead of reloading all the list from the server
+		loadUserWouafs(true);
 	});
 }());
