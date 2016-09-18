@@ -11,6 +11,7 @@
 		<p>Wouaf IT vous permet d'importer en un clic les événements <strong>public</strong> que vous avez déjà créé sur Facebook.</p>
 		<p>Ainsi vous pourrez en faire profiter la communauté Wouaf IT et les rendre plus visibles grace à la carte interactive. Vos événements conserveront un lien vers leur page originale sur Facebook.</p>
 		<p>Vous pourrez à tout moment les supprimer de Wouaf IT si vous le souhaitez.</p>
+		<hr />
 
 		<h4>Importer vos événements personnels</h4>
 		<p>Seuls les événements public dont vous êtes l'auteur seront importés.</p>

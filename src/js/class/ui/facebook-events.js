@@ -54,8 +54,8 @@ module.exports = (function() {
 			FB.getLoginStatus(function (response) {
 				if (response.status === 'connected' && response.authResponse.userID == fid) {
 					var importData = {
-						fid: 	fid,
-						ftoken: response.authResponse.accessToken
+						fid: 	 fid,
+						fbtoken: response.authResponse.accessToken
 					};
 					query.requestFbImport(importData , function() { //success
 						windows.close();
@@ -77,8 +77,8 @@ module.exports = (function() {
 			FB.getLoginStatus(function (response) {
 				if (response.status === 'connected' && response.authResponse.userID == fid) {
 					var importData = {
-						fid: 	fid,
-						ftoken: response.authResponse.accessToken
+						fid: 	 fid,
+						fbtoken: response.authResponse.accessToken
 					};
 					query.requestFbPagesImport(importData , function() { //success
 						windows.close();
