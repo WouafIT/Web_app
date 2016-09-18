@@ -19,6 +19,8 @@ module.exports = (function() {
 	var $end = $('#end');
 	var $emptyHashtag = $('#hashtag-empty');
 	$emptyHashtag.hide().removeAttr('hidden');
+	var $emptyWhere = $('#where-empty');
+	$emptyWhere.hide().removeAttr('hidden');
 
 	var oSlidebar;
 
@@ -81,6 +83,17 @@ module.exports = (function() {
 		});
 		$emptyHashtag.find('button').click(function() {
 			$hashtag.val('');
+			$emptyHashtag.hide();
+		});
+		$where.on({
+			'change, keyup': function() {
+				$emptyWhere.toggle(!!$where.val());
+			}
+		});
+		$emptyWhere.find('button').click(function() {
+			$where.val('');
+			$whereLoc.val('');
+			$emptyWhere.hide();
 		});
 
 		//populate categories list
@@ -97,6 +110,7 @@ module.exports = (function() {
 				//cleanup
 				if ($where.val() && !$whereLoc.val()) {
 					$where.val('');
+					$whereLoc.val('');
 				}
 				if ($hashtag.val()) {
 					if ($hashtag.val().substr(0,1) === '#') {

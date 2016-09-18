@@ -65,6 +65,9 @@
 							<div class="input-group-addon"><i class="fa fa-crosshairs"></i></div>
 							<input type="text" class="form-control" id="where"
 								   placeholder="<%= htmlWebpackPlugin.options.i18n['Map center'] %>" />
+							<div id="where-empty" class="input-group-addon" hidden>
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+							</div>
 						</div>
 						<input type="hidden" id="where-loc" />
 					</fieldset>
