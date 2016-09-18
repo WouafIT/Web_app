@@ -40,6 +40,9 @@
 	"Location_request_details": "Welcome!\nWouaf IT will ask for your permission to activate geolocation in your browser. This request will automatically center the map on your location and then simplify your navigation.\n\n<strong>We do not store your location on our servers.</strong>\n\nYou can always change this permission in your browser settings.",
 	"Loading": "Loading...",
 	"OK": "OK",
+	"I understand": "I understand",
+	"Welcome to Wouaf IT": "Welcome to Wouaf IT",
+	"welcome_details": "Welcome !\nWouaf IT is the first network of local events. It will allow you to easily discover and tell what's happening around you.\nGood discovery !\n\nUsing Wouaf IT, you accept the use of cookies placed by Google and Facebook for statistical use.",
 
 	"All events": "All events",
 	"Events": "Events",

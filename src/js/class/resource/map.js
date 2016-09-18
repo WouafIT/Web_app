@@ -299,6 +299,7 @@ module.exports = (function () {
 		windows.show({
 			title: i18n.t('Location request'),
 			text: i18n.t('Location_request_details'),
+			closeLabel: i18n.t('I understand'),
 			close: function () {
 				navigator.geolocation.getCurrentPosition(setUserLocation, handleNoGeolocation);
 			}

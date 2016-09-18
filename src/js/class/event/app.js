@@ -32,14 +32,6 @@ module.exports = (function() {
 			data.setBool('mapFollow', true);
 			data.setString('unit', 'km');
 			data.setInt('radius', 100);
-			/*//show welcome page
-			 var welcomeWindow = require('ui/welcome');
-			 var welcome = new welcomeWindow();
-			 welcome.addEventListener('close', function () {
-			 //launch app
-			 $document.triggerHandler('app.start');
-			 });
-			 welcome.open();*/
 		}
 
 		//init with server infos
@@ -88,6 +80,16 @@ module.exports = (function() {
 				windows.show({
 					title: 	infos.message.title,
 					text: 	infos.message.msg,
+					close: function () {
+						$document.triggerHandler('app.start-end');
+					}
+				});
+			} else if (data.getInt('launchCount') == 1) {
+				//show message page
+				windows.show({
+					title: i18n.t('Welcome to Wouaf IT'),
+					text: i18n.t('welcome_details'),
+					closeLabel: i18n.t('I understand'),
 					close: function () {
 						$document.triggerHandler('app.start-end');
 					}

@@ -19,9 +19,9 @@
 	<p>Publish on Wouaf IT requires strict adherence of some simple rules:</p>
 	<ul>
 		<li>Do not post offensive content or which can harm others (incitement to hatred, xenophobic or homophobic statements,
-			defamation, pornography, etc.).</li>
+			defamation, etc.).</li>
 		<li>Do not impersonates any person or entity.</li>
-		<li>Do not post anything false, misleading or likely to mislead users.</li>
+		<li>Do not post anything false, deceptive or likely to mislead, deceive or annoy anyone.</li>
 		<li>Do not offer any service in disagreement with the laws of your country of publication.</li>
 	</ul>
 	<p>Wouaf IT will remove any post not complying with these conditions as soon as they are known.</p>
@@ -33,9 +33,9 @@
 		necessary for this deletion spreads to the backup service.</p>
 
 	<p>The web application Wouaf IT is distributed under an open source Apache license. Source code is
-		<a href="https://github.com/WouafIT">available on Github</a>.</p>
+		available on <i class="fa fa-github"></i> <a href="https://github.com/WouafIT">Github</a>.</p>
 	<hr />
-	<p>Wouaf IT © <%= htmlWebpackPlugin.options.data.year %>.</p>
+	<p>Wouaf IT © 2016-<%= htmlWebpackPlugin.options.data.year %>.</p>
 </div>
 <div class="modal-footer">
 	<button type="button" class="btn btn-secondary" data-dismiss="modal"><%= htmlWebpackPlugin.options.i18n['Close'] %></button>
