@@ -107,7 +107,7 @@ module.exports = (function() {
 						content += options.footer;
 					} else {
 						if (!options.confirm) {
-							content += '<button type="button" class="btn btn-secondary" data-dismiss="modal">' + options.closeLabel || i18n.t('Close') + '</button>';
+							content += '<button type="button" class="btn btn-secondary" data-dismiss="modal">' + (options.closeLabel ? options.closeLabel : i18n.t('Close')) + '</button>';
 						} else {
 							content += '<button type="button" class="btn btn-secondary" data-dismiss="modal">' + i18n.t('Cancel') + '</button>&nbsp;'+
 							'<button type="button" class="btn btn-primary"><i class="fa fa-check"></i> ' + i18n.t('Confirm') + '</button>';
