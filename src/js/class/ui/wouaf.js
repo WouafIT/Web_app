@@ -83,7 +83,7 @@ module.exports = (function() {
 		}
 		var locale = ' lang="'+ (obj.lang ? obj.lang.substr(0, 2) : i18n.t('languageShort')) +'"';
 		if (obj.rtl) {
-			locale = ' dir="rtl"';
+			locale += ' dir="rtl"';
 		}
 		return [
 			'<div',
@@ -113,7 +113,7 @@ module.exports = (function() {
 		});
 		var locale = ' lang="'+ (obj.lang ? obj.lang.substr(0, 2) : i18n.t('languageShort')) +'"';
 		if (obj.rtl) {
-			locale = ' dir="rtl"';
+			locale += ' dir="rtl"';
 		}
 		var content = ['<div data-id="'+ obj.id +'"',
 			 	(collapse ? ' class="panel panel-default w-container">' : ' class="w-container">'),
