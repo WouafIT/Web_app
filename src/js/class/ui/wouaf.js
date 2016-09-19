@@ -81,7 +81,7 @@ module.exports = (function() {
 				eventLength = i18n.t('Currently') +' <i class="fa fa-play w-green"></i><br />'+ eventLength;
 				break;
 		}
-		var locale = ' lang="'+ obj.lang.substr(0, 2) +'"';
+		var locale = ' lang="'+ (obj.lang ? obj.lang.substr(0, 2) : i18n.t('languageShort')) +'"';
 		if (obj.rtl) {
 			locale = ' dir="rtl"';
 		}
@@ -111,7 +111,7 @@ module.exports = (function() {
 					utils.escapeHtml(obj.author[2] || obj.author[1]) +'</a>',
 			interpolation: {escape: false}
 		});
-		var locale = ' lang="'+ obj.lang.substr(0, 2) +'"';
+		var locale = ' lang="'+ (obj.lang ? obj.lang.substr(0, 2) : i18n.t('languageShort')) +'"';
 		if (obj.rtl) {
 			locale = ' dir="rtl"';
 		}
