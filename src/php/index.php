@@ -173,7 +173,7 @@ function getWouafOpenGraph ($data) {
 
     '<meta property="og:url" content="https://'.$_SERVER['HTTP_HOST'].'/wouaf/'.$data['id'].'/" />'."\n".
     '<meta property="og:site_name" content="Wouaf IT" />'."\n".
-	'<meta property="og:locale" content="'.$locale.'" />'."\n".
+	'<meta property="og:locale" content="'.(isset($data['lang']) ? $data['lang'] : $locale).'" />'."\n".
 	'<meta property="og:description" content="'.htmlspecialchars($description).'" />'."\n".
 	'<meta name="twitter:card" content="summary" />'."\n".
 	'<meta name="twitter:site" content="@Wouaf_IT" />'."\n".
