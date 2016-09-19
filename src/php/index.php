@@ -136,7 +136,12 @@ function getDefaultOpenGraph() {
 		   '<meta property="fb:app_id" content="<%= htmlWebpackPlugin.options.data.facebookAppId %>" />'."\n".
 		   '<meta property="og:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/600-315.png" />'."\n".
 		   '<meta property="og:image:width" content="600" />'."\n".
-		   '<meta property="og:image:height" content="315" />'."\n";
+		   '<meta property="og:image:height" content="315" />'."\n".
+		   '<meta name="twitter:card" content="summary" />'."\n".
+		   '<meta name="twitter:site" content="@Wouaf_IT" />'."\n".
+		   "<meta name=\"twitter:title\" content=\"<%= htmlWebpackPlugin.options.i18n['Wouaf IT'] %>\" />\n".
+		   "<meta name=\"twitter:description\" content=\"<%= htmlWebpackPlugin.options.i18n['Your social network for your local events'] %>\" />\n".
+		   '<meta name="twitter:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/icon.png" />'."\n";
 }
 
 /**
@@ -157,7 +162,8 @@ function getWouafOpenGraph ($data) {
 		$start->setTimezone($timeZone);
 		$end->setTimezone($timeZone);
 	}
-	$return = '<meta property="og:title" content="'.htmlspecialchars(getWouafTitle($data)).'" />'."\n".
+	$title = getWouafTitle($data);
+	$return = '<meta property="og:title" content="'.htmlspecialchars($title).'" />'."\n".
 	'<meta property="fb:app_id" content="<%= htmlWebpackPlugin.options.data.facebookAppId %>" />'."\n".
 	'<meta property="og:type" content="article" />'."\n".
 
@@ -168,23 +174,31 @@ function getWouafOpenGraph ($data) {
     '<meta property="og:url" content="https://'.$_SERVER['HTTP_HOST'].'/wouaf/'.$data['id'].'/" />'."\n".
     '<meta property="og:site_name" content="Wouaf IT" />'."\n".
 	'<meta property="og:locale" content="'.$locale.'" />'."\n".
-	'<meta property="og:description" content="'.htmlspecialchars($description).'" />'."\n";
+	'<meta property="og:description" content="'.htmlspecialchars($description).'" />'."\n".
+	'<meta name="twitter:card" content="summary" />'."\n".
+	'<meta name="twitter:site" content="@Wouaf_IT" />'."\n".
+	'<meta name="twitter:title" content="'.htmlspecialchars($title).'" />'."\n".
+	'<meta name="twitter:description" content="'.htmlspecialchars($description).'" />'."\n";
 
-    if (!empty($data['pics']) && is_array($data['pics'])) {
-        foreach ($data['pics'] as $pic) {
+	if (!empty($data['pics']) && is_array($data['pics'])) {
+        foreach ($data['pics'] as $k => $pic) {
             $return .= '<meta property="og:image" content="'.htmlspecialchars($pic['full']).'" />'."\n";
+			if (!$k) {
+				$return .= '<meta name="twitter:image" content="'.htmlspecialchars($pic['full']).'" />'."\n";
+			}
         }
     } else {
         $return .= '<meta property="og:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/600-315.png" />'."\n".
 				   '<meta property="og:image:width" content="600" />'."\n".
-				   '<meta property="og:image:height" content="315" />'."\n";
+				   '<meta property="og:image:height" content="315" />'."\n".
+				   '<meta name="twitter:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/icon.png" />'."\n";
     }
 	if (!empty($data['tags']) && is_array($data['tags'])) {
 		foreach ($data['tags'] as $tag) {
 			$return .= '<meta property="article:tag" content="'.htmlspecialchars($tag).'" />'."\n";
 		}
 	}
-    return $return;
+	return $return;
 }
 
 /**
@@ -276,6 +290,7 @@ function getUserOpenGraph ($data) {
               '<meta property="og:url" content="https://'.$_SERVER['HTTP_HOST'].'/user/'.$data['username'].'/" />'."\n".
               '<meta property="og:site_name" content="Wouaf IT" />'."\n".
               '<meta property="og:locale" content="'.$data['lang'].'" />'."\n";
+	$description = mb_substr(strip_tags($data['description']), 0, 300);
 	if (!empty($data['fid'])) {
 		$return .= '<meta property="fb:profile_id" content="'.htmlspecialchars($data['fid']).'" />'."\n";
 	}
@@ -283,7 +298,7 @@ function getUserOpenGraph ($data) {
 		$return .= '<meta property="og:username" content="'.htmlspecialchars($data['username']).'" />'."\n";
 	}
 	if (!empty($data['description'])) {
-		$return .= '<meta property="og:description" content="'.htmlspecialchars(mb_substr(strip_tags($data['description']), 0, 300)).'" />'."\n";
+		$return .= '<meta property="og:description" content="'.htmlspecialchars($description).'" />'."\n";
 	}
 	if (!empty($data['gender'])) {
         $return .= '<meta property="profile:gender" content="'.htmlspecialchars($data['gender']).'" />'."\n";
@@ -294,12 +309,20 @@ function getUserOpenGraph ($data) {
 	if (!empty($data['firstname'])) {
 		$return .= '<meta property="profile:first_name" content="'.htmlspecialchars($data['firstname']).'" />'."\n";
 	}
+	$return .=
+	'<meta name="twitter:card" content="summary" />'."\n".
+	'<meta name="twitter:site" content="@Wouaf_IT" />'."\n".
+	'<meta name="twitter:title" content="'.htmlspecialchars($title).'" />'."\n".
+	'<meta name="twitter:description" content="'.htmlspecialchars($description).'" />'."\n";
+
 	if (!empty($data['url'])) {
-		$return .= '<meta property="og:image" content="'.htmlspecialchars($data['url']).'" />'."\n";
+		$return .= '<meta property="og:image" content="'.htmlspecialchars($data['url']).'" />'."\n".
+				   '<meta name="twitter:image" content="'.htmlspecialchars($data['url']).'" />'."\n";
 	} else {
 		$return .= '<meta property="og:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/600-315.png" />'."\n".
 				   '<meta property="og:image:width" content="600" />'."\n".
-				   '<meta property="og:image:height" content="315" />'."\n";
+				   '<meta property="og:image:height" content="315" />'."\n".
+				   '<meta name="twitter:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/icon.png" />'."\n";
 	}
 	return $return;
 }
