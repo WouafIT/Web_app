@@ -81,13 +81,17 @@ module.exports = (function() {
 				eventLength = i18n.t('Currently') +' <i class="fa fa-play w-green"></i><br />'+ eventLength;
 				break;
 		}
+		var locale = ' lang="'+ obj.lang.substr(0, 2) +'"';
+		if (obj.rtl) {
+			locale = ' dir="rtl"';
+		}
 		return [
 			'<div',
 				(collapse
 					? ' data-toggle="collapse" data-parent=".w-accordion" data-target="#collapse-'+ obj.id +'" class="panel-title collapsed w-title '+ obj.state +'"'
 					: ' class="w-title '+ obj.state +'"'),
 				' style="border-color: ', categories.getColor(obj.cat) ,';">',
-				'<div class="w-cat w-cat'+ obj.cat +'">',
+				'<div class="w-cat w-cat'+ obj.cat +'"', locale ,'>',
 					utils.escapeHtml(title),
 				'</div>',
 				'<div class="w-details"><span>' , categories.getLabel(obj.cat) , '</span> - ', eventLength ,'</div>',
@@ -107,7 +111,10 @@ module.exports = (function() {
 					utils.escapeHtml(obj.author[2] || obj.author[1]) +'</a>',
 			interpolation: {escape: false}
 		});
-
+		var locale = ' lang="'+ obj.lang.substr(0, 2) +'"';
+		if (obj.rtl) {
+			locale = ' dir="rtl"';
+		}
 		var content = ['<div data-id="'+ obj.id +'"',
 			 	(collapse ? ' class="panel panel-default w-container">' : ' class="w-container">'),
 			self.getHeader(obj, collapse),
@@ -117,7 +124,7 @@ module.exports = (function() {
 					'<i class="fa fa-bars"></i> '+ i18n.t('Menu'),
 				'</button>',
 				'<div class="w-subTitle">', author ,'</div>',
-					'<p class="w-text">', text ,'</p>'];
+					'<p class="w-text"', locale ,'>', text ,'</p>'];
 		if (obj.url) {
 			content.push('<p class="w-link"><a href="'+ obj.url +'" target="_blank"><i class="fa fa-external-link"></i> '+ i18n.t('More info') +'</a></p>');
 		}
