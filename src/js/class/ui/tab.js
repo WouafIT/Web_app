@@ -9,7 +9,7 @@ module.exports = (function() {
 	var self = {};
 	self.getContent = function (data, title) {
 		var content = [], i, l, obj;
-		if (data.type == 'result') {
+		if (data.type === 'result') {
 			l = data.data.results.length;
 			if (l) {
 				content = content.concat([
@@ -17,7 +17,7 @@ module.exports = (function() {
 						'<i class="fa fa-bars"></i> '+ i18n.t('Menu'),
 					'</button>',
 					'<p class="lead">', i18n.t('{{count}} result for your search', {count: l}) ,'</p>',
-					'<div class="row">',
+					'<div class="row">'
 				]);
 				//store wouafs
 				wouafs.sets(data.data.results);
@@ -41,10 +41,10 @@ module.exports = (function() {
 						'<a class="btn btn-primary btn-lg" href="/add/" role="button"',
 						' data-action="add">', i18n.t('Add a Wouaf') ,'</a>',
 						'</p>',
-					'</div>',
+					'</div>'
 				]);
 			}
-		} else if (data.type == 'list') {
+		} else if (data.type === 'list') {
 			l = data.data.results.length;
 			if (l) {
 				content = content.concat([
@@ -52,7 +52,7 @@ module.exports = (function() {
 						'<i class="fa fa-bars"></i> '+ i18n.t('Menu'),
 					'</button>',
 					'<p class="lead">', (title ? title : i18n.t('{{count}} Wouaf', {count: l})) ,'</p>',
-					'<div class="row">',
+					'<div class="row">'
 				]);
 				//store wouafs
 				wouafs.sets(data.data.results);
@@ -68,10 +68,10 @@ module.exports = (function() {
 			} else {
 				content = content.concat(['<p class="lead">', i18n.t('No Wouaf yet') ,'</p>']);
 			}
-		} else if (data.type == 'user') {
+		} else if (data.type === 'user') {
 			content = content.concat([
 				'<p class="lead">', title ,'</p>',
-				'<div class="row">',
+				'<div class="row">'
 			]);
 			//store users
 			users.sets(data.data.results);

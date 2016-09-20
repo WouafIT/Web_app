@@ -19,7 +19,6 @@ module.exports = (function() {
 			switch($field.attr('name')) {
 				case 'key':
 					return utils.isValidUserKey($field.val());
-					break;
 			}
 			return true;
 		}, function () {

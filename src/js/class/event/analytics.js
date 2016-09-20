@@ -182,8 +182,8 @@ module.exports = (function() {
 		e.userChoice.then(function(choiceResult) {
 			var logEvent = function () {
 				if (__DEV__)
-					console.info('Analytics - Event - App - Screen install - '+ (choiceResult.outcome == 'dismissed' ? 'Cancelled ' : 'Added '));
-				ga('send', 'event', 'app', 'Screen install', (choiceResult.outcome == 'dismissed' ? 'Cancelled ' : 'Added '), '', {
+					console.info('Analytics - Event - App - Screen install - '+ (choiceResult.outcome === 'dismissed' ? 'Cancelled ' : 'Added '));
+				ga('send', 'event', 'app', 'Screen install', (choiceResult.outcome === 'dismissed' ? 'Cancelled ' : 'Added '), '', {
 					nonInteraction: true
 				});
 			};

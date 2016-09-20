@@ -77,7 +77,7 @@ module.exports = (function() {
 		var _handleMessage = function(event){
 			if (event.origin === _origin) {
 				var data = JSON.parse(event.data);
-				if (typeof _requests[data.id] != 'undefined') {
+				if (typeof _requests[data.id] !== 'undefined') {
 					if (typeof _requests[data.id].deferred !== 'undefined') {
 						_requests[data.id].deferred.resolve(data.value);
 					}
@@ -185,7 +185,7 @@ module.exports = (function() {
 				break;
 			case 'object':
 			case 'array':
-				if (type == 'object' && typeof value != 'object') {
+				if (type === 'object' && typeof value !== 'object') {
 					console.error('Illegal value type '+ JSON.stringify(value) +' for key '+ key);
 				}
 				value = JSON.stringify(value);
@@ -221,7 +221,7 @@ module.exports = (function() {
 				break;
 			case 'object':
 				value = value ? JSON.parse(value) : {};
-				if (typeof value != 'object') {
+				if (typeof value !== 'object') {
 					console.error('Illegal value type '+ JSON.stringify(value) +' for key '+ key);
 				}
 				break;

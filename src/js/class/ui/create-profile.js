@@ -33,16 +33,12 @@ module.exports = (function() {
 				case 'username':
 					return $field.val().length && $field.val().length <= 30
 						&& utils.isValidUsername($field.val());
-					break;
 				case 'pass':
 					return $field.val().length >= 6 && $field.val().length <= 100;
-					break;
 				case 'passConfirm':
-					return $pass.val() == $field.val();
-					break;
+					return $pass.val() === $field.val();
 				case 'email':
 					return utils.isValidEmail($field.val());
-					break;
 			}
 			return true;
 		}, function () {

@@ -26,7 +26,7 @@ module.exports = (function() {
 		data.setInt('launchCount', !launchCount ? 1 : launchCount + 1);
 		data.setInt('connectionAlert', 0);
 		//set default vars on first launch
-		if (data.getInt('launchCount') == 1) {
+		if (data.getInt('launchCount') === 1) {
 			//init default app vars
 			data.setBool('showPopover', true);
 			data.setBool('mapFollow', true);
@@ -36,7 +36,7 @@ module.exports = (function() {
 
 		//init with server infos
 		query.init(function (infos, status, msg) {
-			if (!infos || status == 'error') {
+			if (!infos || status === 'error') {
 				//show error page
 				msg = msg || (infos && infos.statusText ? infos.statusText : '');
 				windows.show({
@@ -84,7 +84,7 @@ module.exports = (function() {
 						$document.triggerHandler('app.start-end');
 					}
 				});
-			} else if (data.getInt('launchCount') == 1) {
+			} else if (data.getInt('launchCount') === 1) {
 				//show message page
 				windows.show({
 					title: i18n.t('Welcome to Wouaf IT'),

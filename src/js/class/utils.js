@@ -25,7 +25,7 @@ module.exports = (function() {
 	//Binary safe string comparison
 	//from http://phpjs.org/functions/strcmp/
 	var strcmp = function (str1, str2) {
-		return ((str1 == str2) ? 0 : ((str1 > str2) ? 1 : -1));
+		return ((str1 === str2) ? 0 : ((str1 > str2) ? 1 : -1));
 	};
 
 	//Returns the result of string comparison using 'natural' algorithm
@@ -33,7 +33,7 @@ module.exports = (function() {
 	var strnatcmp = function (f_string1, f_string2, f_version) {
 		var i = 0;
 
-		if (f_version == undefined) {
+		if (f_version === undefined) {
 			f_version = false;
 		}
 
@@ -59,7 +59,7 @@ module.exports = (function() {
 						text = false;
 					}
 					buffer += chr;
-				} else if ((text === false) && (chr == '.') && (i < (f_string.length - 1)) && (f_string.substring(i + 1, i + 2).match(/\d/))) {
+				} else if ((text === false) && (chr === '.') && (i < (f_string.length - 1)) && (f_string.substring(i + 1, i + 2).match(/\d/))) {
 					result[result.length] = buffer;
 					buffer = '';
 				} else {
@@ -104,7 +104,7 @@ module.exports = (function() {
 				if (isNaN(array2[i])) {
 					text = true;
 
-					if ((r = strcmp(array1[i], array2[i])) != 0) {
+					if ((r = strcmp(array1[i], array2[i])) !== 0) {
 						return r;
 					}
 				} else if (text) {
@@ -120,11 +120,11 @@ module.exports = (function() {
 				}
 			} else {
 				if (text || f_version) {
-					if ((r = (array1[i] - array2[i])) != 0) {
+					if ((r = (array1[i] - array2[i])) !== 0) {
 						return r;
 					}
 				} else {
-					if ((r = strcmp(array1[i].toString(), array2[i].toString())) != 0) {
+					if ((r = strcmp(array1[i].toString(), array2[i].toString())) !== 0) {
 						return r;
 					}
 				}
@@ -245,7 +245,7 @@ module.exports = (function() {
 			}
 			pos = indices[1];
 		}
-		if (pos != text.length) {
+		if (pos !== text.length) {
 			//text after entities
 			formattedText += text.substr(pos, text.length - pos);
 		}

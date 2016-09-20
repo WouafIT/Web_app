@@ -83,7 +83,6 @@ module.exports = (function() {
 			switch($field.attr('name')) {
 				case 'email':
 					return utils.isValidEmail($field.val());
-					break;
 			}
 			return true;
 		}, function () {

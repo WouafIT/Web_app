@@ -29,7 +29,7 @@ module.exports = (function() {
 			$document.triggerHandler('app.search', {refresh: false});
 		} else if ($source.data('wouaf') && utils.isId($source.data('wouaf'))) {
 			map.showResult($source.data('wouaf'));
-		} else if ($source.data('show') == 'modal' && $source.data('href') && utils.isValidPageName($source.data('href'))) {
+		} else if ($source.data('show') === 'modal' && $source.data('href') && utils.isValidPageName($source.data('href'))) {
 			windows.show({href: $source.data('href')});
 		}
 	});

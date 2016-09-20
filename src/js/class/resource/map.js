@@ -33,7 +33,7 @@ module.exports = (function () {
 			json.count = 0;
 		} else {
 			//if search Id match, add results
-			if (self.jsonResults && self.jsonResults.searchId && json.searchId && self.jsonResults.searchId == json.searchId) {
+			if (self.jsonResults && self.jsonResults.searchId && json.searchId && self.jsonResults.searchId === json.searchId) {
 				//deduplicate results
 				loopI: for(i = 0, li = json.results.length; i < li; i++) {
 					for(j = 0, lj = self.jsonResults.results.length; j < lj; j++) {
@@ -89,7 +89,7 @@ module.exports = (function () {
 		}
 		var found = false;
 		for (var i = 0, l = self.jsonResults.results.length; (i < l && !found); i++) {
-			if (self.jsonResults.results[i].id == id) {
+			if (self.jsonResults.results[i].id === id) {
 				self.jsonResults.results.splice(i, 1);
 				self.jsonResults.count--;
 				found = true;
@@ -154,7 +154,7 @@ module.exports = (function () {
 				$document.triggerHandler('navigation.enable-state');
 			} else if (zoom < 21) {
 				var pinZoom = clustermap.getLeafZoom(hcmap, obj.id, 10, 21);
-				if (pinZoom != zoom) {
+				if (pinZoom !== zoom) {
 					//console.info('showIW1', pinZoom, zoom);
 					google.maps.event.addListenerOnce(map, 'idle', showIW);
 					map.setZoom(pinZoom);
@@ -166,7 +166,7 @@ module.exports = (function () {
 					//console.info('showIW2');
 					setTimeout(showIW, 400);
 				}
-			} else if (zoom == 21) {
+			} else if (zoom === 21) {
 				$pin = $map.find('.baseMarker[data-id*="'+ obj.id +'"]');
 				if ($pin.length) {
 					//console.info('showIW3');
@@ -186,7 +186,7 @@ module.exports = (function () {
 		setTimeout(function () {
 			var mapCenter = map.getCenter().toUrlValue(5);
 			var objCenter = new google.maps.LatLng(obj.loc[0], obj.loc[1]).toUrlValue(5);
-			if (mapCenter == objCenter) {
+			if (mapCenter === objCenter) {
 				//console.info('openPin1');
 				$.when(appendPin(obj)).done(showIW);
 			} else {
@@ -276,13 +276,13 @@ module.exports = (function () {
 		if (__DEV__) {
 			console.info('No geolocation available, code '+ error.code +': '+ error.message);
 		}
-		if (error.code == 3 && userMarker) {
+		if (error.code === 3 && userMarker) {
 			//Timeout on high accuracy => skip
 			return;
 		}
 		var location = data.getObject('position');
 		if (!location || isNaN(location.lat) || isNaN(location.lng)) {
-			if (i18n.t('languageShort') == 'fr') {
+			if (i18n.t('languageShort') === 'fr') {
 				//store map position: center of France
 				location = new google.maps.LatLng(46.427066, 2.430535).toJSON();
 			} else {
@@ -454,7 +454,7 @@ module.exports = (function () {
 			var result = self.jsonResults.results[i];
 			if (utils.indexOf(ids, result.id) !== -1) {
 				results.push(result);
-				if (results.length == ids.length) {
+				if (results.length === ids.length) {
 					return results;
 				}
 			}

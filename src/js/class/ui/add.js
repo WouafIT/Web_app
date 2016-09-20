@@ -250,7 +250,6 @@ module.exports = (function() {
 			switch($field.attr('name')) {
 				case 'url':
 					return !$field.val().length || utils.isValidUrl($field.val());
-					break;
 				case 'date-start':
 				case 'date-end':
 					if ($duration.val() === 'specific' && $dateStart.val() && $dateEnd.val()) {
@@ -265,7 +264,6 @@ module.exports = (function() {
 						}
 					}
 					return true;
-					break;
 			}
 			return true;
 		}, function () {

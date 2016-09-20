@@ -14,7 +14,7 @@ module.exports = (function() {
 		var author = i18n.t('By {{author}} on {{date}}', {
 			author: '<a href="'+ authorUrl +'" data-user="'+ utils.escapeHtml(obj.author[1]) +'">'+
 				utils.escapeHtml(obj.author[2] || obj.author[1]) +'</a>',
-			date: (dtp.formatDate(date, 'long') + (time != '00:00' ? ' '+ i18n.t('at {{at}}', {at: time}) : '')),
+			date: (dtp.formatDate(date, 'long') + (time !== '00:00' ? ' '+ i18n.t('at {{at}}', {at: time}) : '')),
 			interpolation: {escape: false}
 		});
 		var className = data.getString('uid') === obj.author[0] ? ' current-user' : '';

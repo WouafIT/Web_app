@@ -10,6 +10,7 @@ var utils = require('../utils.js');
 
 module.exports = (function() {
 	var $document = $(document);
+	var favs, interests, following, authorId, id, states
 	//Close menu
 	$document.on('click', function(e) {
 		if (menu.shown()) {
@@ -32,7 +33,7 @@ module.exports = (function() {
 	//Menu select url link
 	var focusedElement;
 	$document.on('focus', 'input.link', function(e) {
-		if (focusedElement == $(this)) return; //already focused, return so user can now place cursor at specific point in input.
+		if (focusedElement === $(this)) return; //already focused, return so user can now place cursor at specific point in input.
 		focusedElement = $(this);
 		setTimeout(function () { focusedElement.select(); }, 50); //select all text in any field on focus for easy re-entry. Delay sightly to allow focus to "stick" before selecting.
 	});
@@ -53,7 +54,7 @@ module.exports = (function() {
 		switch (type) {
 			//Actions on Wouaf menu
 			case 'wouaf':
-				var id = $target.parents('.w-menu-dropdown, .w-container').data('id');
+				id = $target.parents('.w-menu-dropdown, .w-container').data('id');
 				var obj = wouafs.getLocal(id);
 				if (!obj) {
 					return;
@@ -87,7 +88,7 @@ module.exports = (function() {
 							windows.login(i18n.t('Login to favorite a wouaf'));
 							return;
 						}
-						var favs = data.getArray('favorites');
+						favs = data.getArray('favorites');
 						if (utils.indexOf(favs, obj.id) === -1) {
 							obj.fav++;
 							$target.replaceWith('<a class="dropdown-item yellow" href="#" data-action="unfavorite">' +
@@ -107,7 +108,7 @@ module.exports = (function() {
 						if (!uid) { //user is not logged, return
 							return;
 						}
-						var favs = data.getArray('favorites');
+						favs = data.getArray('favorites');
 						if (utils.indexOf(favs, obj.id) !== -1) {
 							obj.fav--;
 							$target.replaceWith('<a class="dropdown-item" href="#" data-action="favorite">' +
@@ -128,7 +129,7 @@ module.exports = (function() {
 							windows.login(i18n.t('Login to show your interest for a wouaf'));
 							return;
 						}
-						var interests 	= data.getArray('interests');
+						interests 	= data.getArray('interests');
 						if (utils.indexOf(interests, obj.id) === -1) {
 							obj.interest++;
 							$target.replaceWith('<a class="dropdown-item red" href="#" data-action="notinterested" title="'+ i18n.t('Click to remove your interest') +'">' +
@@ -148,7 +149,7 @@ module.exports = (function() {
 						if (!uid) { //user is not logged, return
 							return;
 						}
-						var interests 	= data.getArray('interests');
+						interests 	= data.getArray('interests');
 						if (utils.indexOf(interests, obj.id) !== -1) {
 							obj.interest--;
 							$target.replaceWith('<a class="dropdown-item" href="#" data-action="interested" title="'+ i18n.t('Click to add your interest') +'">' +
@@ -169,8 +170,8 @@ module.exports = (function() {
 							windows.login(i18n.t('Login to follow a Wouaffer'));
 							return;
 						}
-						var following = data.getArray('following');
-						var authorId = $target.data('uid');
+						following = data.getArray('following');
+						authorId = $target.data('uid');
 						if (utils.indexOf(following, authorId) === -1) {
 							query.followUser(authorId, function () {
 								following.push(authorId);
@@ -188,8 +189,8 @@ module.exports = (function() {
 						if (!uid) { //user is not logged, return
 							return;
 						}
-						var following = data.getArray('following');
-						var authorId = $target.data('uid');
+						following = data.getArray('following');
+						authorId = $target.data('uid');
 						if (utils.indexOf(following, authorId) !== -1) {
 							query.unfollowUser(authorId, function () {
 								delete following[utils.indexOf(following, authorId)];
@@ -243,8 +244,8 @@ module.exports = (function() {
 						//show calendar page
 						menu.close();
 
-						var id = $target.parents('.w-menu-dropdown, .w-container').data('id');
-						var states = data.getObject('navigation');
+						id = $target.parents('.w-menu-dropdown, .w-container').data('id');
+						states = data.getObject('navigation');
 						if ((!states.wouaf || !utils.isId(states.wouaf)) && utils.isId(id)) {
 							map.showResult(id);
 						}
@@ -257,8 +258,8 @@ module.exports = (function() {
 						//show comments page
 						menu.close();
 
-						var id = $target.parents('.w-menu-dropdown, .w-container').data('id');
-						var states = data.getObject('navigation');
+						id = $target.parents('.w-menu-dropdown, .w-container').data('id');
+						states = data.getObject('navigation');
 						if ((!states.wouaf || !utils.isId(states.wouaf)) && utils.isId(id)) {
 							map.showResult(id);
 						}

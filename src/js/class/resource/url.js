@@ -78,7 +78,7 @@ module.exports = (function() {
 		return self.getPath(states);
 	};
 	self.getAbsoluteURLForStates = function (states, localeUrl) {
-		var localeUrl = localeUrl || false;
+		localeUrl = localeUrl || false;
 		var statesObj = {};
 		for (var i = 0, l = states.length; i < l; i++) {
 			var state = states[i];

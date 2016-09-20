@@ -8,7 +8,7 @@
 
 var figue = require('../../../libs/figue/figue.js');
 
-var clustermap = function () {
+var clustermap = (function () {
 	var $document = $(document);
 
 	function HCMap(params) {
@@ -261,7 +261,7 @@ var clustermap = function () {
 		ClusterMarker: ClusterMarker,
 		getLeafZoom: getLeafZoom
 	}
-}();
+})();
 
 clustermap.HCMap.prototype.reset = function () {
 	if (this._bounds_changed_listener_start) {

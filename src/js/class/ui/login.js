@@ -63,10 +63,8 @@ module.exports = (function() {
 			switch($field.attr('name')) {
 				case 'username':
 					return $field.val().length >= 3 && $field.val().length <= 100;
-					break;
 				case 'password':
 					return $field.val().length >= 6 && $field.val().length <= 100;
-					break;
 			}
 			return true;
 		}, function () {

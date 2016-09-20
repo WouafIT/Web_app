@@ -105,7 +105,7 @@ module.exports = (function() {
 					} else if (part === 'wouaf' && utils.isId(parts[i + 1])) {
 						var wouafId = parts[++i];
 						//check if wouaf data exists in html
-						if (window.wouafit.wouaf && window.wouafit.wouaf.id == wouafId) {
+						if (window.wouafit.wouaf && window.wouafit.wouaf.id === wouafId) {
 							wouafs.set(wouafId, window.wouafit.wouaf);
 							data.setObject('position', {lat: window.wouafit.wouaf.loc[0], lng: window.wouafit.wouaf.loc[1]});
 						}

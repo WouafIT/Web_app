@@ -152,11 +152,11 @@ module.exports = (function() {
 	//a tab is shown
 	//load personal tab content if needed
 	$document.on('tabs.shown', function(e, name) {
-		if (name == 'tab-wouafs') {
+		if (name === 'tab-wouafs') {
 			loadUserWouafs();
-		} else if (name == 'tab-favorites') {
+		} else if (name === 'tab-favorites') {
 			loadUserFavorites();
-		} else if (name == 'tab-following') {
+		} else if (name === 'tab-following') {
 			loadUserFollowing();
 		}
 	});
@@ -228,7 +228,7 @@ module.exports = (function() {
 	}
 	//(un)select wouaf in list on navigation change
 	$document.on('navigation.set-state', function (e, state) {
-		if (state && state.name == 'wouaf') {
+		if (state && state.name === 'wouaf') {
 			$tabsContent.find('div.w-title.selected').removeClass('selected');
 			if (state.value) {
 				var $el = $tabsContent.find('div.w-container[data-id="'+ state.value +'"]');
@@ -280,18 +280,18 @@ module.exports = (function() {
 		}
 		var $wouafList = $tabPanel.find(".w-container");
 		var dir = 'asc';
-		if (data.action == 'comments'
-			|| data.action == 'fav'
-			|| data.action == 'interest'
-			|| data.action == 'date-desc') {
+		if (data.action === 'comments'
+			|| data.action === 'fav'
+			|| data.action === 'interest'
+			|| data.action === 'date-desc') {
 			dir = 'desc';
 		}
 		$tabPanel.find('button.w-menu').data('sort', data.action);
-		if (data.action == 'date-desc' || data.action == 'date-asc') {
+		if (data.action === 'date-desc' || data.action === 'date-asc') {
 			data.action = 'date';
 		}
 		$wouafList.sort(function(a, b) {
-			return (dir == 'asc') ? $(a).data(data.action) - $(b).data(data.action) : $(b).data(data.action) - $(a).data(data.action);
+			return (dir === 'asc') ? $(a).data(data.action) - $(b).data(data.action) : $(b).data(data.action) - $(a).data(data.action);
 		});
 		$tabPanel.find('.row').html($wouafList);
 	});

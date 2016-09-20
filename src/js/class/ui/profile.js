@@ -92,10 +92,8 @@ module.exports = (function() {
 			switch($field.attr('name')) {
 				case 'url':
 					return !$field.val().length || utils.isValidUrl($field.val());
-					break;
 				case 'email':
 					return utils.isValidEmail($field.val());
-					break;
 				case 'firstname':
 				case 'lastname':
 					var r = $field.val().length <= 100;
@@ -104,17 +102,13 @@ module.exports = (function() {
 						$signwname.attr('checked', false);
 					}
 					return r;
-					break;
 				case 'pass':
 					return !$field.val() || ($field.val().length >= 6 && $field.val().length <= 100);
-					break;
 				case 'passConfirm':
-					return $pass.val() == $field.val();
-					break;
+					return $pass.val() === $field.val();
 				case 'birthdate':
 					var date = dtp.getInputDate($birthdate);
 					return !date || date.getTime() < (new Date().getTime());
-					break;
 			}
 			return true;
 		}, function () {
@@ -165,10 +159,10 @@ module.exports = (function() {
 				users.remove(data.getString('uid'));
 				var profileSaved = function () {
 					toast.show(i18n.t('Profile saved!'), null, function () {
-						if (originalLanguage != user.get('lang')) {
+						if (originalLanguage !== user.get('lang')) {
 							var lang = user.get('lang').toLowerCase().replace('_', '-');
 							var newHostname = lang + window.location.hostname.substr(5);
-							if (newHostname != window.location.hostname) {
+							if (newHostname !== window.location.hostname) {
 								window.location = window.location.protocol +'//'+ newHostname + url.getCurrentPath();
 							}
 						}
