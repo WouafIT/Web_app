@@ -10,6 +10,8 @@ engines:
       - php
   eslint:
     enabled: true
+    exclude_fingerprints:
+        - 8347771ba22e34555d39abb62eeb1a9f
   fixme:
     enabled: true
   phpmd:
