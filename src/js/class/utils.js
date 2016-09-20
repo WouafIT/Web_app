@@ -260,7 +260,7 @@ module.exports = (function() {
 		var query;
 		if(hashBased) {
 			var pos = location.href.indexOf("?");
-			if(pos==-1) return [];
+			if(pos === -1) return [];
 			query = location.href.substr(pos+1);
 		} else {
 			query = location.search.substr(1);

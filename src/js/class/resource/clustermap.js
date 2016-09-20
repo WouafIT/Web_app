@@ -261,7 +261,7 @@ var clustermap = (function () {
 		ClusterMarker: ClusterMarker,
 		getLeafZoom: getLeafZoom
 	}
-})();
+}());
 
 clustermap.HCMap.prototype.reset = function () {
 	if (this._bounds_changed_listener_start) {
