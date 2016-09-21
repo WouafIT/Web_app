@@ -33,7 +33,7 @@ Sorry for that.
 
 Todo
 ---------------------
-See the project page for a list of elements in the TODO list : https://github.com/WouafIT/Web_app/projects/1
+See the project page for the TODO list : https://github.com/WouafIT/Web_app/projects/1
 
 Bugs
 ---------------------
