@@ -10,7 +10,7 @@ var utils = require('../utils.js');
 
 module.exports = (function() {
 	var $document = $(document);
-	var favs, interests, following, authorId, id, states
+	var favs, interests, following, authorId, id, states, obj;
 	//Close menu
 	$document.on('click', function(e) {
 		if (menu.shown()) {
@@ -55,7 +55,7 @@ module.exports = (function() {
 			//Actions on Wouaf menu
 			case 'wouaf':
 				id = $target.parents('.w-menu-dropdown, .w-container').data('id');
-				var obj = wouafs.getLocal(id);
+				obj = wouafs.getLocal(id);
 				if (!obj) {
 					return;
 				}
@@ -307,7 +307,7 @@ module.exports = (function() {
 								query.deleteComment(commentId,
 									function () { //success
 										//Get comment Wouaf
-										var obj = wouafs.getLocal(wouafId);
+										obj = wouafs.getLocal(wouafId);
 										if (obj) {
 											obj.com--;
 											$document.triggerHandler('wouaf.update-comment', obj);
@@ -347,6 +347,7 @@ module.exports = (function() {
 										});
 										toast.show(i18n.t('This comment has been reported'));
 
+										obj = wouafs.getLocal(wouafId);
 										$document.triggerHandler('app.reported-comment', obj);
 									}, function (msg) {
 										toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
