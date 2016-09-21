@@ -31,6 +31,15 @@ the index file uses PHP to generate dynamic data served to visitors (and obvious
 This will be changed to uses a full node server instead but for now this is not in the top of the TODO list. 
 Sorry for that.
 
+Todo
+---------------------
+See the project page for a list of elements in the TODO list : https://github.com/WouafIT/Web_app/projects/1
+
+Bugs
+---------------------
+Declare all bugs on Github: https://github.com/WouafIT/Web_app/issues
+Thank you to add a full reproduction method and details on the platform (browser version, mobile, etc.)
+
 Copyright and License
 ---------------------
 Copyright 2016 by Sébastien Pauchet
