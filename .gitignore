@@ -26,6 +26,9 @@ node_modules/
 .npm
 npm-debug.log
 
+#Config
+config/config.json
+
 #vhosts
 vhosts.conf
 *.local.crt

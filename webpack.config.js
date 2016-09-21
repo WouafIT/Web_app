@@ -1,20 +1,22 @@
 const merge 			= require('webpack-merge');
 const webpack 			= require("webpack");
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin	= require('html-webpack-plugin');
+const CopyWebpackPlugin	= require('copy-webpack-plugin');
 
 const TARGET 			= process.env.npm_lifecycle_event;
 const TIMESTAMP 		= Math.floor(Date.now() / 1000);
-const GOOGLE_API 		= 'AIzaSyCXCe5iWx-lVBv89H0teRMFjy8s24TMOiQ';
-const GOOGLE_ANALYTICS 	= 'UA-27484897-3';
-const API_KEY_DEV 		= 'deve0f2d-5c24-4e36-8d1c-bfe9701fcdev';
-const API_KEY_PROD 		= 'dece0f2d-5c24-4e36-8d1c-bfe9701fc526';
-const DEV_DOMAIN 		= 'wouafit.local';
+const DEV_DOMAIN 		= 'wouafit.local'; //must be accessible via https
 const PROD_DOMAIN 		= 'wouaf.it';
 const API_DOMAIN 		= 'api.wouaf.it';
 const IMG_DOMAIN 		= 'img.wouaf.it';
 const IS_DEV 			= process.env.NODE_ENV === 'dev';
-const FACEBOOK_APP_KEY	= '378180725603385';
+
+var config = require('./config/config.json');
+const GOOGLE_API 		= config.google_api;
+const GOOGLE_ANALYTICS	= config.google_analytics;
+const API_KEY_DEV 		= config.api_key_dev;
+const API_KEY_PROD 		= config.api_key_prod;
+const FACEBOOK_APP_KEY	= config.facebook_app_key;
 
 var languages;
 if (process.env.LANG_ENV === 'fr') {
