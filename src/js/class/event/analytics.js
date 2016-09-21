@@ -146,8 +146,9 @@ module.exports = (function() {
 
 	//navigation
 	var logState = function(name) {
-		var href = url.getAnalyticsPath(data.getObject('navigation'));
-		if (lastHrefLogged !== href) {
+		var navigation 	= data.getObject('navigation');
+		var href 		= url.getAnalyticsPath(navigation);
+		if (href !== '/@location/' && lastHrefLogged !== href) {
 			if (__DEV__)
 				console.info('Analytics - Pageview ' + name + ' - ' + href);
 			ga('set', 'page', href);
@@ -157,7 +158,7 @@ module.exports = (function() {
 				started = true;
 				if (window.performance) {
 					//log general application performance for stating
-					var startTime = Math.round(window.performance.now())
+					var startTime = Math.round(window.performance.now());
 					if (__DEV__)
 						console.info('Analytics - App start time: ' + startTime);
 					ga('send', 'timing', 'App', 'start', startTime);

@@ -27,13 +27,13 @@ module.exports = (function() {
 			href += '@location/';
 		}
 		if (states.tag) {
-			href += 'tag/hashtag/';
+			href += 'tag/'+ states.tag.toLowerCase() +'/';
 		}
 		if (states.wouaf) {
-			href += 'wouaf/wouafId/';
+			href += 'wouaf/'+ states.wouaf +'/';
 		}
 		if (states.user) {
-			href += 'user/userId/';
+			href += 'user/'+ states.user +'/';
 		} else if (states.windows) {
 			href += states.windows +'/';
 		}
