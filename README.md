@@ -4,7 +4,7 @@ This is the official version Wouaf IT web client.
 
 How To Build
 ---------------------
-1. First, install dependencies, by running:
+1. First, install dependencies, by running:  
 `npm install`
 
 2. Create a file ./config/config.json with all the required data (use config.default.json for more infos)
@@ -17,14 +17,13 @@ How To Build
   - Use the Facebook console to create an app and get the App key.
   - Use Google analytics to get an analytics key.
 	
-3. For dev build, run:
-`npm run-script dev`
-
-Or for production build, run:
+3. For dev build, run:  
+`npm run-script dev`  
+Or for production build, run:  
 `npm run-script prod`
 
-4. When you are building for development, a file ./vhost.conf will be created. 
-You can include it from Apache to get all the vhost configuration done.
+4. When you are building for development, a file ./vhost.conf will be created.  
+You can include it from Apache to get all the vhost configuration done.  
 This file contain a comment with the commands to create the self signed certificates to uses.
 
 Note: It's a shame, but for now, even if all the static files are built using node, npm and webpack, 
