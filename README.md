@@ -8,7 +8,7 @@ How To Build
 `npm install`
 
 2. Create a file ./config/config.json with all the required data (use config.default.json for more infos)
-  - Contact Wouaf IT here to ask for API keys: https://wouafit.local/contact/  
+  - Contact Wouaf IT here to ask for API keys: https://wouaf.it/contact/  
 	Thank you to explain the use you intend to do with this API.  
 	It's ok if you want to help to debug, or help to replace the PHP part with a node one 
 	or if you want to develop a native mobile app for Wouaf IT.  
