@@ -120,6 +120,7 @@ module.exports = (function() {
 					} else if (part === 'tag' && utils.isValidHashtag(parts[i + 1])) {
 						part = parts[++i];
 						$('#hashtag').val(part);
+						$('#hashtag-empty').toggle(!!part);
 						$document.triggerHandler('navigation.set-state', {name: 'tag', value: part});
 					} else if(utils.isValidPageName(part)) {
 						//load queried windows
