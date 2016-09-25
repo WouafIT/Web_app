@@ -351,12 +351,8 @@ module.exports = (function () {
 			zoom: 9,
 			panControl: false,
 			streetViewControl: false,
-			mapTypeControl: true,
-			//TODO: Check for implementation of this issue https://code.google.com/p/gmaps-api-issues/issues/detail?id=3866
-			styles: [{ featureType: "poi", elementType: "labels", stylers: [{ visibility: "off" }]}],
-			mapTypeControlOptions: {
-				position: google.maps.ControlPosition.TOP_RIGHT
-			},
+			mapTypeControl: false,
+			clickableIcons: false,
 			zoomControl: true,
 			zoomControlOptions: {
 				position: google.maps.ControlPosition.LEFT_BOTTOM

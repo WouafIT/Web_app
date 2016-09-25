@@ -39,7 +39,7 @@ module.exports = (function() {
 					'<i class="fa fa-twitter-square"></i></a></span>',
 				'<span class="share reddit"><a href="https://www.reddit.com/submit?url='+ encodeURIComponent(wouafLocaleUrl) +'&title='+ encodeURIComponent(title) +'" target="_blank" title="'+ i18n.t('Share on Reddit') +'">',
 					'<i class="fa fa-reddit-square"></i></a></span>',
-				'<span class="share email"><a href="mailto:?subject='+ i18n.t('Shared from WouafIT:') +' '+ encodeURIComponent(title) +'&body='+ encodeURIComponent(wouafLocaleUrl) +'" target="_blank" title="'+ i18n.t('Share by Email') +'">',
+				'<span class="share email"><a href="mailto:?subject='+ i18n.t('Shared from Wouaf IT:') +' '+ encodeURIComponent(title) +'&body='+ encodeURIComponent(wouafLocaleUrl) +'" target="_blank" title="'+ i18n.t('Share by Email') +'">',
 					'<i class="fa fa-envelope-o"></i></a></span>',
 			'</div>',
 			'<div class="dropdown-item"><i class="fa fa-link"></i> <input type="text" class="form-control link" value="'+ wouafUrl +'" /></div>'];
