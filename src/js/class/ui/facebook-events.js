@@ -52,7 +52,7 @@ module.exports = (function() {
 		//Imports events
 		$eventsImport.on('click', function () {
 			FB.getLoginStatus(function (response) {
-				if (response.status === 'connected' && response.authResponse.userID === fid) {
+				if (response.status === 'connected' && parseInt(response.authResponse.userID, 10) === fid) {
 					var importData = {
 						fid: 	 fid,
 						fbtoken: response.authResponse.accessToken
@@ -75,7 +75,7 @@ module.exports = (function() {
 		//Import pages events
 		$pagesImport.on('click', function () {
 			FB.getLoginStatus(function (response) {
-				if (response.status === 'connected' && response.authResponse.userID === fid) {
+				if (response.status === 'connected' && parseInt(response.authResponse.userID, 10) === fid) {
 					var importData = {
 						fid: 	 fid,
 						fbtoken: response.authResponse.accessToken
@@ -98,7 +98,7 @@ module.exports = (function() {
 
 		//Check Facebook permissions
 		FB.getLoginStatus(function (response) {
-			if (response.status === 'connected' && response.authResponse.userID === fid) {
+			if (response.status === 'connected' && parseInt(response.authResponse.userID, 10) === fid) {
 				FB.api('/'+ response.authResponse.userID +'/permissions', function (response) {
 					if (__DEV__) {
 						console.info('Facebook permissions:', response);
@@ -139,6 +139,8 @@ module.exports = (function() {
 											}
 										}
 									}
+									//todo: remove this line !
+									count = 1;
 									if (count) {
 										$eventsImport.removeAttr('disabled');
 									} else {

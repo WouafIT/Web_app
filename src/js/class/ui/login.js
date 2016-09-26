@@ -22,7 +22,7 @@ module.exports = (function() {
 				if (response.authResponse) {
 					//log user on application using accessToken
 					query.fblogin({
-						fid: 		response.authResponse.userID,
+						fid: 		parseInt(response.authResponse.userID, 10),
 						fbtoken: 	response.authResponse.accessToken
 					}, function(result) {
 						if (result.user.firstname && result.user.lastname) {
