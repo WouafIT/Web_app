@@ -54,7 +54,7 @@ module.exports = (function() {
 					return;
 				}
 				$.when(users.get(uid)).done(function(user) {
-					var username = user.firstname || user.lastname ? user.firstname +' '+ user.lastname : user.username;
+					var username = utils.getUsername(user);
 					query.userPosts(uid, function (result) {
 						windows.close();
 						//load user tabs data
@@ -124,7 +124,7 @@ module.exports = (function() {
 					return;
 				}
 				$.when(users.get(uid)).done(function(user) {
-					var username = user.firstname || user.lastname ? user.firstname +' '+ user.lastname : user.username;
+					var username = utils.getUsername(user);
 					query.userFollowers(uid, function (result) {
 						windows.close();
 						//load user tabs data
@@ -149,7 +149,7 @@ module.exports = (function() {
 					return;
 				}
 				$.when(users.get(uid)).done(function(user) {
-					var username = user.firstname || user.lastname ? user.firstname +' '+ user.lastname : user.username;
+					var username = utils.getUsername(user);
 					query.userFollowing(uid, function (result) {
 						windows.close();
 						//load user tabs data

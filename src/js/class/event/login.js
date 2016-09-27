@@ -79,8 +79,8 @@ module.exports = (function() {
 		$userProfile.attr('data-user', username);
 		$userProfile.data('user', username);
 		
-		if (firstname && lastname) {
-			username = (firstname +' '+ lastname).trim();
+		if (firstname || lastname) {
+			username = ((firstname || '') +' '+ (lastname || '')).trim();
 		}
 		$userProfile.html(avatar +' '+ utils.escapeHtml(username)).attr('title', i18n.t('Welcome {{username}}', {'username': username}));
 

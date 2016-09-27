@@ -12,10 +12,6 @@ module.exports = (function() {
 	var self = {};
 	var $modalWindow = windows.getWindows();
 
-	var getUsername = function (user) {
-		return (user.firstname || user.lastname ? user.firstname +' '+ user.lastname : user.username).trim();
-	};
-
 	self.show = function () {
 		var states = data.getObject('navigation');
 		if (!states || !states.user) { //no user, close windows
@@ -24,7 +20,7 @@ module.exports = (function() {
 		}
 		//get user infos
 		$.when(users.get(states.user)).done(function(user) {
-			var username = getUsername(user);
+			var username = utils.getUsername(user);
 			$modalWindow.find('.modal-title').html(i18n.t('User profile {{username}}', {username: username}));
 			var content = '<div class="modal-user">'
 							+ self.getAvatar(user);
@@ -115,7 +111,7 @@ module.exports = (function() {
 	};
 
 	self.getHeader = function (user) {
-		var username = getUsername(user);
+		var username = utils.getUsername(user);
 		var avatar 	 = self.getAvatar(user, 20);
 		return [
 			'<div class="w-title">',

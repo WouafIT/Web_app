@@ -283,7 +283,7 @@ function getWouafHTML ($data) {
  * @return string
  */
 function getUserOpenGraph ($data) {
-    $title = trim(!empty($data['firstname']) && !empty($data['lastname']) ? $data['firstname'] .' '. $data['lastname'] : $data['username']);
+    $title = getUserDisplayName($data);
     $return = '<meta property="fb:app_id" content="<%= htmlWebpackPlugin.options.data.facebookAppId %>" />'."\n".
 			  '<meta property="og:title" content="'.htmlspecialchars($title).'" />'."\n".
               '<meta property="og:type" content="profile" />'."\n".
@@ -333,9 +333,8 @@ function getUserOpenGraph ($data) {
  * @return string
  */
 function getUserHTML ($data) {
-	$title = trim(!empty($data['firstname']) && !empty($data['lastname']) ? $data['firstname'] .' '. $data['lastname'] : $data['username']);
 	$return = '<div class="h-card">'."\n".
-	'<h1><a class="p-name u-url" href="https://<%= htmlWebpackPlugin.options.data.domain %>/user/'.$data['username'].'/">'.htmlspecialchars($title).'</a></h1>'."\n";
+	'<h1><a class="p-name u-url" href="https://<%= htmlWebpackPlugin.options.data.domain %>/user/'.$data['username'].'/">'.htmlspecialchars(getUserDisplayName($data)).'</a></h1>'."\n";
 	if (!empty($data['html'])) {
 		$return .= '<p class="p-note">'.$data['html'].'</p>'."\n";
 	}
@@ -348,6 +347,18 @@ function getUserHTML ($data) {
 	$return .= '<p class="p-nickname">'.$data['username'].'</p>'."\n".
 			   '</div>';
 	return $return;
+}
+
+/**
+ * @param array $data
+ * @return string
+ */
+function getUserDisplayName($data) {
+	if (isset($data['signwname']) && $data['signwname']
+		&& ((isset($data['firstname']) && $data['firstname']) || (isset($data['lastname']) && $data['lastname']))) {
+		return trim(@$data['firstname'].' '.@$data['lastname']);
+	}
+	return isset($data['username']) ? trim($data['username']) : '';
 }
 
 /**

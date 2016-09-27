@@ -5,6 +5,7 @@ var toast = require('../resource/toast.js');
 var query = require('../resource/query.js');
 var alert = require('../resource/alert.js');
 var formUtils = require('./form-utils.js');
+var utils = require('../utils.js');
 
 module.exports = (function() {
 	var $document = $(document);
@@ -25,11 +26,7 @@ module.exports = (function() {
 						fid: 		parseInt(response.authResponse.userID, 10),
 						fbtoken: 	response.authResponse.accessToken
 					}, function(result) {
-						if (result.user.firstname && result.user.lastname) {
-							toast.show(i18n.t('Welcome {{username}}', { 'username': result.user.firstname +' '+ result.user.lastname }));
-						} else {
-							toast.show(i18n.t('Welcome {{username}}', { 'username': result.user.username }));
-						}
+						toast.show(i18n.t('Welcome {{username}}', { 'username': utils.getUsername(result.user)}));
 						result.permanent = true;
 						//login
 						$document.triggerHandler('app.login', result);
@@ -79,11 +76,7 @@ module.exports = (function() {
 				login: $username.val(),
 				pass: $pass.val()
 			}, function(result) {
-				if (result.user.firstname && result.user.lastname) {
-					toast.show(i18n.t('Welcome {{username}}', { 'username': result.user.firstname +' '+ result.user.lastname }));
-				} else {
-					toast.show(i18n.t('Welcome {{username}}', { 'username': result.user.username }));
-				}
+				toast.show(i18n.t('Welcome {{username}}', {'username': utils.getUsername(result.user)}));
 				//permanent login ?
 				result.permanent = $remember.prop("checked");
 				//login
