@@ -38,10 +38,12 @@ module.exports = (function() {
 		if (!data || !data.id || !data.name) {
 			return;
 		}
-		var active = data.active || false;
+		var active 		= data.active || false;
+		var openActive 	= true;
 		if ($('#'+ data.id).length) {
 			if ($('#'+ data.id).hasClass('active')) {
-				active = true;
+				active 		= true;
+				openActive 	= false;
 			}
 			$document.triggerHandler('tabs.remove', data.id);
 		}
@@ -60,7 +62,9 @@ module.exports = (function() {
 		$tabsContent.append('<div role="tabpanel" class="tab-pane" id="' + data.id + '">' + content + '</div>');
 		if (active) {
 			$document.triggerHandler('tabs.show', data.id);
-			$document.triggerHandler('slide.open');
+			if (openActive) {
+				$document.triggerHandler('slide.open');
+			}
 		}
 	});
 

@@ -31,7 +31,7 @@ module.exports = (function() {
 			data.setBool('showPopover', true);
 			data.setBool('mapFollow', true);
 			data.setString('unit', 'km');
-			data.setInt('radius', 100);
+			data.setInt('radius', 70);
 		}
 
 		//init with server infos

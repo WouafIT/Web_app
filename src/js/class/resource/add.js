@@ -38,6 +38,10 @@ module.exports = (function() {
 			$addOkBtn.popover('hide');
 		});
 	});
+	//recenter crosshair on slidebar open/close
+	$document.on('slidebars.opened slidebars.close', function() {
+		$('#ch-c').css({top:'calc(50% - 22px)', left:'calc(50% - 23px)'});
+	});
 
 	var showCrosshair = function () {
 		$mapArea.append('<div class="ch" id="ch-t"></div><div class="ch" id="ch-l"></div><div class="ch" id="ch-r"></div><div class="ch" id="ch-b"></div>')
