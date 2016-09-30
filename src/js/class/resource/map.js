@@ -184,7 +184,12 @@ module.exports = (function () {
 			}
 		};
 		setTimeout(function () {
-			var mapCenter = map.getCenter().toUrlValue(5);
+			var center = map.getCenter();
+			if ((!center || !center.toUrlValue)) {
+				checkMapError();
+				return;
+			}
+			var mapCenter = center.toUrlValue(5);
 			var objCenter = new google.maps.LatLng(obj.loc[0], obj.loc[1]).toUrlValue(5);
 			if (mapCenter === objCenter) {
 				//console.info('openPin1');
@@ -305,12 +310,29 @@ module.exports = (function () {
 			}
 		});
 	};
+	var checkMapError = function() {
+		if ($map.find('.gm-err-container').length) {
+			//Errror during Gmap loading
+			windows.show({
+				title: i18n.t('Error loading map'),
+				text: i18n.t('Error loading map_details')
+					+'<br /><br /><p class="text-xs-center"><img src="https://img.wouaf.it/lolcat.jpg" style="max-width:100%;" /></p>'
+			});
+			//TODO send an ajax request to inform API of the error
+			return true;
+		}
+		return false;
+	};
 	var updateMapPosition = function() {
 		//put a class on body when zoom is too wide
 		var zoom = map.getZoom();
 		$body.toggleClass('too-wide', map.getZoom() < zoomMinToAdd);
 		//update search if needed
 		var center = map.getCenter();
+		if ((!center || !center.toJSON)) {
+			checkMapError();
+			return;
+		}
 		data.setObject('position', center.toJSON());
 		//Precision : ~1.1m
 		$document.triggerHandler('navigation.set-state', {name: 'map', value: {'center': center.toUrlValue(5), 'zoom': zoom}});

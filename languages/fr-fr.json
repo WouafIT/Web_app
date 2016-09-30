@@ -149,6 +149,8 @@
 	"404_Error_": "Erreur 404 ...",
 	"Error, unknown url": "Désolé, la page demandée n'a pas été trouvée.\nSoit cette url a été mal saisie, soit ce contenu a été supprimé.",
 	"Error during Facebook login. Please retry": "Erreur durant la connexion Facebook, veuillez réessayer.",
+	"Error loading map": "Erreur durant le chargement de la carte",
+	"Error loading map_details": "Une erreur est survenue durant le chargement de la carte.\nNavré pour ce désagrément, rechargez votre page ou patientez le temps que nous réglons ce petit problème ...",
 
 	"Application settings": "Paramètres de l'application",
 	"Search settings": "Paramètres de recherche",
