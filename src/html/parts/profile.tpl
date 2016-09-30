@@ -57,6 +57,15 @@
 			<p><%= htmlWebpackPlugin.options.i18n['Personal_data_details'] %></p>
 
 			<fieldset class="form-group">
+				<label for="displayname"><%= htmlWebpackPlugin.options.i18n['Displayname'] %></label>
+				<div class="input-group">
+					<div class="input-group-addon"><i class="fa fa-user"></i></div>
+					<input type="text" class="form-control" name="displayname" id="displayname"
+						   placeholder="<%= htmlWebpackPlugin.options.i18n['Displayname example'] %>" />
+				</div>
+			</fieldset>
+
+			<fieldset class="form-group">
 				<label for="description"><%= htmlWebpackPlugin.options.i18n['Description'] %></label>
 				<textarea class="form-control" rows="5" name="description" id="description" placeholder="<%= htmlWebpackPlugin.options.i18n['Describe yourself briefly (300 char. max)'] %>"></textarea>
 				<div class="text-xs-right"><small class="text-muted remaining"></small></div>
@@ -75,13 +84,6 @@
 				</div>
 			</fieldset>
 
-			<fieldset class="form-group">
-				<div class="input-group">
-					<div class="input-group-addon"><i class="fa fa-user"></i></div>
-					<input type="text" class="form-control" name="displayname"
-						   placeholder="<%= htmlWebpackPlugin.options.i18n['Displayname'] %>" />
-				</div>
-			</fieldset>
 			<fieldset class="form-group">
 				<label for="more-infos"><%= htmlWebpackPlugin.options.i18n['More info link'] %></label>
 				<div class="input-group">
