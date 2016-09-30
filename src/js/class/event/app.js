@@ -157,4 +157,10 @@ module.exports = (function() {
 				}
 			});
 	}
+	//Generic JS error
+	window.onerror = function (msg, url, lineNo, columnNo, error) {
+		if (__DEV__) {
+			console.info('Javascript error', arguments);
+		}
+	}
 }());
