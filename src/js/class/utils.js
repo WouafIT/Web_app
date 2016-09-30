@@ -305,7 +305,7 @@ module.exports = (function() {
 		return title.substr(0, 79) + (title.length > 79 ? '…' : '');
 	};
 	self.getUsername = function (user) {
-		return (user.firstname || user.lastname ? (user.firstname || '') +' '+ (user.lastname || '') : user.username).trim();
+		return (user.displayname || user.username).trim();
 	};
 	self.zeroPad = function(num, size) {
 		var s = num+"";

@@ -78,25 +78,10 @@
 			<fieldset class="form-group">
 				<div class="input-group">
 					<div class="input-group-addon"><i class="fa fa-user"></i></div>
-					<input type="text" class="form-control" name="firstname"
-						   placeholder="<%= htmlWebpackPlugin.options.i18n['Firstname'] %>" />
+					<input type="text" class="form-control" name="displayname"
+						   placeholder="<%= htmlWebpackPlugin.options.i18n['Displayname'] %>" />
 				</div>
 			</fieldset>
-			<fieldset class="form-group">
-				<div class="input-group">
-					<div class="input-group-addon"><i class="fa fa-user"></i></div>
-					<input type="text" class="form-control" name="lastname"
-						   placeholder="<%= htmlWebpackPlugin.options.i18n['Lastname'] %>" />
-				</div>
-			</fieldset>
-			<div class="checkbox form-group">
-				<div class="input-group">
-					<label>
-						<input type="checkbox" name="signwname"> <%= htmlWebpackPlugin.options.i18n['Sign with your name'] %>
-					</label>
-				</div>
-				<small class="text-muted"><%= htmlWebpackPlugin.options.i18n['Sign_with_your_name_details'] %></small>
-			</div>
 			<fieldset class="form-group">
 				<label for="more-infos"><%= htmlWebpackPlugin.options.i18n['More info link'] %></label>
 				<div class="input-group">

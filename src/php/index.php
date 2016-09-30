@@ -303,12 +303,6 @@ function getUserOpenGraph ($data) {
 	if (!empty($data['gender'])) {
         $return .= '<meta property="profile:gender" content="'.htmlspecialchars($data['gender']).'" />'."\n";
     }
-    if (!empty($data['lastname'])) {
-        $return .= '<meta property="profile:last_name" content="'.htmlspecialchars($data['lastname']).'" />'."\n";
-    }
-	if (!empty($data['firstname'])) {
-		$return .= '<meta property="profile:first_name" content="'.htmlspecialchars($data['firstname']).'" />'."\n";
-	}
 	$return .=
 	'<meta name="twitter:card" content="summary" />'."\n".
 	'<meta name="twitter:site" content="@Wouaf_IT" />'."\n".
@@ -338,11 +332,8 @@ function getUserHTML ($data) {
 	if (!empty($data['html'])) {
 		$return .= '<p class="p-note">'.$data['html'].'</p>'."\n";
 	}
-	if (!empty($data['lastname'])) {
-		$return .= '<p class="p-family-name">'.$data['lastname'].'</p>'."\n";
-	}
-	if (!empty($data['firstname'])) {
-		$return .= '<p class="p-given-name">'.$data['firstname'].'</p>'."\n";
+	if (!empty($data['displayname'])) {
+		$return .= '<p class="p-given-name">'.$data['displayname'].'</p>'."\n";
 	}
 	$return .= '<p class="p-nickname">'.$data['username'].'</p>'."\n".
 			   '</div>';
@@ -354,11 +345,7 @@ function getUserHTML ($data) {
  * @return string
  */
 function getUserDisplayName($data) {
-	if (isset($data['signwname']) && $data['signwname']
-		&& ((isset($data['firstname']) && $data['firstname']) || (isset($data['lastname']) && $data['lastname']))) {
-		return trim(@$data['firstname'].' '.@$data['lastname']);
-	}
-	return isset($data['username']) ? trim($data['username']) : '';
+	return !empty($data['displayname']) ? trim($data['displayname']) : (isset($data['username']) ? trim($data['username']) : '');
 }
 
 /**

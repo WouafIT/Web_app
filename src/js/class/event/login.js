@@ -71,16 +71,15 @@ module.exports = (function() {
 		//get gravatar
 		var avatar 		= userUi.getAvatar(user.get(), 20);
 		var username 	= user.get('username');
-		var firstname 	= user.get('firstname');
-		var lastname 	= user.get('lastname');
+		var displayname = user.get('displayname');
 
 		var $userProfile = $('.user-profile');
 		$userProfile.attr('href', url.getAbsoluteURLForStates([{name: 'user', value: username}]));
 		$userProfile.attr('data-user', username);
 		$userProfile.data('user', username);
 		
-		if (firstname || lastname) {
-			username = ((firstname || '') +' '+ (lastname || '')).trim();
+		if (displayname) {
+			username = displayname.trim();
 		}
 		$userProfile.html(avatar +' '+ utils.escapeHtml(username)).attr('title', i18n.t('Welcome {{username}}', {'username': username}));
 

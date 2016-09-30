@@ -26,28 +26,23 @@ module.exports = (function() {
 		var $description = $form.find('textarea[name=description]');
 		var $remaining = $form.find('.remaining');
 		var $type = $form.find('select[name=type]');
-		var $firstname = $form.find('input[name=firstname]');
-		var $lastname = $form.find('input[name=lastname]');
+		var $displayname = $form.find('input[name=displayname]');
 		var $pass = $form.find('input[name=pass]');
 		var $email = $form.find('input[name=email]');
 		var $birthdate = $form.find('input[name=birthdate]');
 		var $language = $form.find('select[name=language]');
 		var $gender = $form.find('select[name=gender]');
-		var $signwname = $form.find('input[name=signwname]');
 		var $url = $form.find('input[name=url]');
 		var $delete = $form.find('button.profile-delete');
 		//set current values
 		$username.val(user.get('username'));
 		$description.val(user.get('description'));
 		$type.val(user.get('type'));
-		$firstname.val(user.get('firstname'));
-		$lastname.val(user.get('lastname'));
+		$displayname.val(user.get('displayname'));
 		$email.val(user.get('email'));
 		$language.val(user.get('lang'));
 		$gender.val(user.get('gender'));
 		$url.val(user.get('url'));
-		$signwname.attr("checked", user.get('signwname'));
-		$signwname.attr('disabled', !$firstname.val() && !$lastname.val());
 		var birthdate = user.get('birthdate');
 		if (birthdate) {
 			dtp.setInputDate($birthdate, new Date(birthdate));
@@ -94,14 +89,8 @@ module.exports = (function() {
 					return !$field.val().length || utils.isValidUrl($field.val());
 				case 'email':
 					return utils.isValidEmail($field.val());
-				case 'firstname':
-				case 'lastname':
-					var r = $field.val().length <= 100;
-					$signwname.attr('disabled', !$firstname.val() && !$lastname.val());
-					if ($signwname.prop('disabled')) {
-						$signwname.attr('checked', false);
-					}
-					return r;
+				case 'displayname':
+					return $field.val().length <= 100;
 				case 'pass':
 					return !$field.val() || ($field.val().length >= 6 && $field.val().length <= 100);
 				case 'passConfirm':
@@ -129,16 +118,13 @@ module.exports = (function() {
 				lang: 			$language.val(),
 				description:	$description.val(),
 				type:			$type.val(),
-				firstname: 		$firstname.val(),
-				lastname: 		$lastname.val(),
+				displayname: 	$displayname.val(),
 				gender: 		$gender.val(),
 				birthdate: 		dtp.getInputServerDate($birthdate),
-				signwname:		($signwname.prop("checked") ? 1 : 0),
 				url:			$url.val()
 			}, function(result) { //success
 				var originalLanguage = user.get('lang');
-				user.set('firstname', $firstname.val());
-				user.set('lastname', $lastname.val());
+				user.set('displayname', $displayname.val());
 				user.set('gender', $gender.val());
 				user.set('lang', $language.val());
 				if (!result.activation) {
@@ -147,7 +133,6 @@ module.exports = (function() {
 				user.set('description', $description.val());
 				user.set('type', $type.val());
 				user.set('url', $url.val());
-				user.set('signwname', $signwname.prop("checked") ? 1 : 0);
 
 				var birthdate = dtp.getInputDate($birthdate);
 				user.set('birthdate', birthdate ? birthdate.getTime() : null);
