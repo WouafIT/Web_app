@@ -7,7 +7,7 @@ var utils = require('../utils.js');
 var windows = require('./windows.js');
 var query = require('./query.js');
 var wouaf = require('../ui/wouaf.js');
-//var slidebars = require('./slidebars.js');
+var slidebars;
 
 module.exports = (function () {
 	var $document = $(document);
@@ -414,14 +414,17 @@ module.exports = (function () {
 			$iwOuterParent.parent().addClass('gm-iw-gparent');
 		});
 		// Event that closes the Info Window with a click on the map
-		/*google.maps.event.addDomListener($map.get(0), 'click', function(e) {
+		google.maps.event.addDomListener($map.get(0), 'click', function(e) {
 			console.info('map click');
+			if (!slidebars) {
+				slidebars = require('./slidebars.js');
+			}
 			if (slidebars.isDualView() || (e.target && $(e.target).parents('.w-menu-dropdown, .gm-iw-parent').length) || $('.sb-active').length) {
 				return;
 			}
 			e.stopPropagation();
 		 	closePin();
-		});*/
+		});
 		google.maps.event.addListener(infowindow, 'closeclick', closePin);
 
 		//check geolocation support and permissions
