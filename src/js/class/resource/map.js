@@ -415,7 +415,6 @@ module.exports = (function () {
 		});
 		// Event that closes the Info Window with a click on the map
 		google.maps.event.addDomListener($map.get(0), 'click', function(e) {
-			console.info('map click');
 			if (!slidebars) {
 				slidebars = require('./slidebars.js');
 			}
