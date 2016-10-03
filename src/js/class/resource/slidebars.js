@@ -21,12 +21,19 @@ module.exports = (function() {
 	$emptyHashtag.hide().removeAttr('hidden');
 	var $emptyWhere = $('#where-empty');
 	$emptyWhere.hide().removeAttr('hidden');
-
+	var width;
 	var oSlidebar;
 
 	var isDualView = function() {
-		return $window.width() >= 768;
+		if (!width) {
+			width = $window.width();
+		}
+		return width >= 768;
 	};
+
+	$window.on('resize', function() {
+		width = $window.width();
+	});
 
 	var showHideCustomDates = function() {
 		if ($when.val() === 'custom') {

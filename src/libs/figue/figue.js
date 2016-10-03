@@ -250,7 +250,7 @@ var figue = function () {
 			clusters[c1].splice(0,0, newCluster) ;
 			cSize[c1] += cSize[c2] ;
 		
-			//Â overwriteÂ rowÂ c1Â with respect to the linkage type
+			// overwrite row c1 with respect to the linkage type
 			for (j = 0 ; j < N ; j++) {
 				if (linkage == figue.SINGLE_LINKAGE) {
 					if (distMatrix[c1][j] > distMatrix[c2][j])
@@ -265,11 +265,11 @@ var figue = function () {
 			}
 			distMatrix[c1][c1] = Infinity ;
 		
-			//Â infinity Â­outÂ oldÂ rowÂ c2Â andÂ columnÂ c2
+			// infinity ­out old row c2 and column c2
 			for (i = 0 ; i < N ; i++)
 				distMatrix[i][c2] = distMatrix[c2][i] = Infinity ;
 	
-			//Â updateÂ dminÂ andÂ replaceÂ onesÂ thatÂ previousÂ pointedÂ to c2 to point to c1
+			// update dmin and replace ones that previous pointed to c2 to point to c1
 			for (j = 0; j < N ; j++) {
 				if (dMin[j] == c2)
 					dMin[j] = c1;
