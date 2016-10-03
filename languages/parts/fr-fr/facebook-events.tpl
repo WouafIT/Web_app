@@ -30,7 +30,7 @@
 		<hr />
 
 		<h4>Importer les événements de vos pages</h4>
-		<p>Seuls les événements public des pages Facebook dont vous êtes administrateur seront importés.</p>
+		<p>Seuls les événements public des pages Facebook dont vous êtes administrateur seront importés dans votre compte Wouaf IT.</p>
 		<p>Si vous avez déjà importé des événements, ils ne seront pas réimportés, seuls les nouveaux événements seront ajoutés.</p>
 		<p>Si des événements publics de vos pages Facebook ont déjà été automatiquement importés, ils seront rattachés à votre compte Wouaf IT, vous pourrez ainsi les gérer comme vous le souhaitez.</p>
 
