@@ -10,9 +10,12 @@ How To Build
 2. Create a file ./config/config.json with all the required data (use config.default.json for more infos)
   - Contact Wouaf IT here to ask for API keys: https://wouaf.it/contact/  
 	Thank you to explain the use you intend to do with this API.  
-	It's ok if you want to help to debug, or help to replace the PHP part with a node one 
-	or if you want to develop a native mobile app for Wouaf IT.  
-	It's not ok (currently) if you want to use API data for another service.
+   - It will be very well received if you want to help develop Wouaf IT (for example, coding, debugging, translating
+	or help to replace the PHP part with a node one or if you want to develop a native mobile app for Wouaf IT).
+   - It will be ok if you want to inject your data into Wouaf IT but you must explain which kind of data and if it is
+    for commercial purpose, there may be charges.
+   - It will not be ok (currently) if you want to use Wouaf IT data for another service, but feel free to ask,
+   perhaps we will make an exception.
   - Use the Google console to get an API Key for Google Map.
   - Use the Facebook console to create an app and get the App key.
   - Use Google analytics to get an analytics key.
