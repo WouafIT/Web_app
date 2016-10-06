@@ -1,6 +1,6 @@
 # [Wouaf IT](https://wouaf.it) [![Code Climate](https://codeclimate.com/github/WouafIT/Web_app/badges/gpa.svg)](https://codeclimate.com/github/WouafIT/Web_app)
 
-This is the official version of Wouaf IT web client.
+This is the official version of the Wouaf IT web client.
 
 How To Build
 ---------------------
