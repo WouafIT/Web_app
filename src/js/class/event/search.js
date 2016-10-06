@@ -56,7 +56,7 @@ module.exports = (function() {
 			} else if (count) {
 				toast.show(i18n.t('{{wouaf}} within {{radius}}{{unit}}', { count: count, wouaf: notificationLabel, radius: radius, unit: i18n.t(unit) }), 4000);
 			} else {
-				toast.show(i18n.t('At the moment there are no Wouaf within {{radius}}{{unit}}', { radius: radius, unit: i18n.t(unit) }), 6000);
+				toast.show(i18n.t('At the moment there are no Wouaf within {{radius}}{{unit}}', { radius: radius, unit: i18n.t(unit) }), 6000, null, true);
 			}
 
 			$document.triggerHandler('navigation.set-state', {name: 'tag', value: (params.tag ? params.tag : null)});

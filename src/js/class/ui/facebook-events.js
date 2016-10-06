@@ -64,7 +64,11 @@ module.exports = (function() {
 							text: i18n.t('facebook_import_details')
 						});
 					}, function(msg) { //error
-						toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
+						if (msg && msg[0]) {
+							toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
+						} else {
+							toast.show(i18n.t('Your import is already in progress'), 5000);
+						}
 					});
 				}
 				if (__DEV__) {
@@ -87,7 +91,11 @@ module.exports = (function() {
 							text: i18n.t('facebook_import_details')
 						});
 					}, function(msg) { //error
-						toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
+						if (msg && msg[0]) {
+							toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
+						} else {
+							toast.show(i18n.t('Your import is already in progress'), 5000);
+						}
 					});
 				}
 				if (__DEV__) {
@@ -139,8 +147,6 @@ module.exports = (function() {
 											}
 										}
 									}
-									//todo: remove this line !
-									count = 1;
 									if (count) {
 										$eventsImport.removeAttr('disabled');
 									} else {

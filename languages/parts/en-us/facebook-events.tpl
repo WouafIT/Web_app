@@ -29,9 +29,9 @@
 		<hr />
 
 		<h4>Import events from your pages</h4>
-		<p>Only public events of the Facebook pages which are an administrator you will be imported.</p>
+		<p>Only public events of the Facebook pages which you are an administrator will be imported.</p>
 		<p>If you have already imported events, they will not be re-imported, only the new ones will be added.</p>
-		<p>If any public events in your Facebook pages have already been imported automatically, they will be attached to your Wouaf IT account, so you can manage them as you wish.</p>
+		<p>If there is any public events in your Facebook pages that already has been imported automatically, they will be attached to your Wouaf IT account, so you can manage them as you wish.</p>
 
 		<div class="pages-disabled alert alert-danger" role="alert" hidden>
 			<strong>Oh snap!</strong> You have not allowed Wouaf IT to see your Facebook pages. We therefore can not import your events...

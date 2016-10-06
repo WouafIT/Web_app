@@ -110,6 +110,7 @@
 	"Edit your profile": "Editez votre profil",
 	"Your Facebook events": "Vos événements Facebook",
 	"facebook_import_details": "Votre demande d'import est bien prise en compte, elle sera traitée dans les minutes à venir. Vous recevrez un email une fois effectué.",
+	"Your import is already in progress": "Votre import est déjà en cours.",
 	"Save your profile": "Enregistrer votre profil",
 	"Delete your profile": "Supprimer votre profil",
 	"delete_profile_details": "Etes-vous sur de vouloir supprimer définitivement votre profil ?\nTous vos Wouafs seront définitivement supprimés.\nVos commentaires sur d'autres Wouafs seront conservés.\n\nCette action est irréversible ! Vous confirmez ?",
