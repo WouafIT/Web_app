@@ -12,7 +12,7 @@
 		<p>So you can share them with the Wouaf IT community and make them more visible thanks to the interactive map. Your events will retain a link to the original page on Facebook.</p>
 		<p>You can always delete them from Wouaf IT if you like.</p>
 
-		<h4>Import your personal events</h4>
+		<h4>Import your personal public events</h4>
 		<p>Only public events of which you are the author will be imported.</p>
 		<p>If you have already imported events, they will not be re-imported, only the new ones will be added.</p>
 
