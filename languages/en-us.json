@@ -113,7 +113,7 @@
 	"Your import is already in progress": "Your import is already in progress.",
 	"Save your profile": "Save your profile",
 	"Delete your profile": "Delete your profile",
-	"delete_profile_details": "Are you sure you want to permanently delete your profile?\nAll your Wouafs will be permanently deleted. Your comments on other Wouafs will be retained.\n\nThis action is irreversible! You confirm ?",
+	"delete_profile_details": "Are you sure you want to permanently delete your profile?\nAll your Wouafs will be permanently deleted. Your comments on other Wouafs will be retained.\n\nThis action is irreversible! Do you confirm?",
 	"Your profile is deleted": "Your profile is deleted.",
 	"Description": "Description",
 	"Describe yourself briefly (300 char. max)": "Describe yourself briefly (300 char. max)",
