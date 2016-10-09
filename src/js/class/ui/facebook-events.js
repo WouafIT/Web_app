@@ -133,11 +133,10 @@ module.exports = (function() {
 						$eventsDisabled.show();
 					} else {
 						//check if user has public events
-						var date = new Date();
-						var today = date.getUTCFullYear() +'-'+ utils.zeroPad(date.getUTCMonth() + 1, 2) +'-'+ utils.zeroPad(date.getUTCDate(), 2);
+						var date = new Date(+new Date - 12096e5);
+						var twoWeeksAgo = date.getUTCFullYear() +'-'+ utils.zeroPad(date.getUTCMonth() + 1, 2) +'-'+ utils.zeroPad(date.getUTCDate(), 2);
 						count = 0;
-						FB.api('/'+ fid +'?fields=events.since('+ today +')'+
-								'.type(created){id,type}',
+						FB.api('/'+ fid +'?fields=events.since('+ twoWeeksAgo +').type(created){id,type}',
 							function (response) {
 								if (response && !response.error) {
 									if (response.events && response.events.data) {
