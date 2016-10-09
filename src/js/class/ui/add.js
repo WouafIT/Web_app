@@ -241,6 +241,9 @@ module.exports = (function() {
 				$('.popover .close').one('click', function () {
 					$help.popover('hide');
 				});
+				$document.one('windows.close', function() {
+					$help.popover('hide');
+				});
 			}
 		});
 

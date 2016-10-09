@@ -49,11 +49,14 @@ module.exports = (function() {
 			$modal.data('navigationOpen', null);
 		}
 	};
-
+	$modal.on('hide.bs.modal', function () {
+		$document.triggerHandler('windows.close');
+	});
 	$modal.on('hidden.bs.modal', function () {
 		$modalContent.html('');
 		shown = false;
 		currentOptions = null;
+		$document.triggerHandler('windows.closed');
 		if (!$modal.data('navigationClose')) {
 			$document.triggerHandler('navigation.set-state', {name: 'windows', value: null});
 		} else {
