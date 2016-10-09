@@ -72,7 +72,7 @@
 	"{{wouaf}} within {{radius}}{{unit}}": "{{wouaf}} on a {{radius}}{{unit}}",
 	"{{wouaf}} within {{radius}}{{unit}}_plural": "{{wouaf}} on a {{radius}}{{unit}}",
 	"{{max}} within {{radius}}{{unit}} (maximum reached)": "{{max}} on a {{radius}}{{unit}} (maximum reached)",
-	"At the moment there are no Wouaf within {{radius}}{{unit}}" : "At the moment there are no Wouaf within {{radius}}{{unit}}.\n\nWhy not <a href=\"/add/\" data-action=\"add\">add one</a>?",
+	"At the moment there are no Wouaf within {{radius}}{{unit}}" : "At the moment there is no Wouaf within {{radius}}{{unit}}.\n\nWhy not <a href=\"/add/\" data-action=\"add\">add one</a>?",
 
 	"Connect!": "Connect!",
     "create_wouaf_it_profile": "If you do not have your Wouaf IT profile, it's time to create one! It's free and only takes seconds.",
@@ -359,7 +359,7 @@
 	"Sort by Category": "Sort by Category",
 
 	"No Wouaf here": "No Wouaf here ...",
-	"At the moment there are no Wouaf there with your search parameters": "At the moment there are no Wouaf there with your search parameters.",
+	"At the moment there are no Wouaf there with your search parameters": "At the moment there is no Wouaf here with your search parameters.",
 	"what if you add one yourself": "what if you add one yourself?",
 	"Add a Wouaf": "Add a Wouaf",
 	"Center on your position": "Center on your position",
