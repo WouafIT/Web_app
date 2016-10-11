@@ -49,7 +49,7 @@ module.exports = (function() {
 			window.fbAsyncInit = function() {
 				window.FB.init({
 					appId: FACEBOOK_APP_KEY,
-					version: 'v2.7'
+					version: 'v2.8'
 				});
 			};
 			if (window.FB) {
