@@ -228,6 +228,7 @@
 	"On {{on}} for {{for}}": "Le {{on}} pendant {{for}}",
 	"On {{on}} from {{from}} to {{to}}": "Le {{on}} de {{from}} à {{to}}",
 	"On {{on}} from {{from}}": "Le {{on}} à partir de {{from}}",
+	"On {{on}}": "Le {{on}}",
 	"Upcoming": "A venir",
 	"Gone": "Révolu",
 	"Currently": "Actuellement",

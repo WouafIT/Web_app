@@ -36,10 +36,16 @@ module.exports = (function() {
 				to: 	dtp.formatTime(end)
 			});
 		} else if (dtp.formatDate(start) === dtp.formatDate(endMinusOneSec)) { //same day event
-			eventLength = i18n.t('On {{on}} from {{from}}', {
-				on: 	dtp.formatDate(start, 'long'),
-				from: 	dtp.formatTime(start)
-			});
+			timeStart = dtp.formatTime(start);
+			if (timeStart !== '00:00') {
+				eventLength = i18n.t('On {{on}} from {{from}}', {
+					on: dtp.formatDate(start, 'long'), from: timeStart
+				});
+			} else {
+				eventLength = i18n.t('On {{on}}', {
+					on: dtp.formatDate(start, 'long')
+				});
+			}
 		} else {
 			var oneDay = 86400;
 			var oneWeek = 604800;
