@@ -80,7 +80,12 @@ module.exports = (function () {
 		}, 400);
 
 		// Add all pins
-		hcmap = new clustermap.HCMap({'map': map, 'elements': elements, 'infowindow': infowindow});
+		hcmap = new clustermap.HCMap({
+			'map': map,
+			'elements': elements,
+			'infowindow': infowindow,
+			'minDistance': 90
+		});
 
 		initialized = true;
 	};
