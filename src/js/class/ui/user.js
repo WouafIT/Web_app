@@ -29,28 +29,30 @@ module.exports = (function() {
 			}
 			content += '<div class="user-infos">';
 			content += '<p><i class="fa fa-link"></i> <a href="'+ url.getAbsoluteURLForStates([{name: 'user', value: user.username}]) +'" data-user="'+ utils.escapeHtml(user.username) +'"><i class="fa fa-at"></i>'+ utils.escapeHtml(user.username) +'</a></p>'
-			if (user.posts) {
-				content += '<p><i class="fa fa-hashtag"></i> <a href="#" data-action="user-wouaf" data-uid="'+ user.uid +'">'+ i18n.t('{{count}} Wouaf', {count: user.posts}) +'</a></p>';
-				if (user.fav) {
-					content += '<p><i class="fa fa-star"></i> '+ i18n.t('Saved as favorite {{count}} time', {count: user.fav}) +'</p>';
+			if (user.status !== 'inactive') {
+				if (user.posts) {
+					content += '<p><i class="fa fa-hashtag"></i> <a href="#" data-action="user-wouaf" data-uid="' + user.uid + '">' + i18n.t('{{count}} Wouaf', {count: user.posts}) + '</a></p>';
+					if (user.fav) {
+						content += '<p><i class="fa fa-star"></i> ' + i18n.t('Saved as favorite {{count}} time', {count: user.fav}) + '</p>';
+					}
+				} else {
+					content += '<p><i class="fa fa-hashtag"></i> ' + i18n.t('No Wouafs yet') + '</p>';
 				}
-			} else {
-				content += '<p><i class="fa fa-hashtag"></i> '+ i18n.t('No Wouafs yet') +'</p>';
-			}
-			if (user.com) {
-				content += '<p><i class="fa fa-comment"></i> '+ i18n.t('{{count}} comment', {count: user.com}) +'</p>';
-			} else {
-				content += '<p><i class="fa fa-comment"></i> '+ i18n.t('No comments yet') +'</p>';
-			}
-			if (user.following) {
-				content += '<p><i class="fa fa-angle-double-left"></i> <a href="#" data-action="user-following" data-uid="'+ user.uid +'">'+ i18n.t('Is following {{count}} Wouaffer', {count: user.following}) +'</a></p>';
-			} else {
-				content += '<p><i class="fa fa-angle-double-left"></i> '+ i18n.t('Is not following anyone yet') +'</p>';
-			}
-			if (user.followers) {
-				content += '<p><i class="fa fa-angle-double-right"></i> <a href="#" data-action="user-followers" data-uid="'+ user.uid +'">'+ i18n.t('Is followed by {{count}} Wouaffer', {count: user.followers}) +'</a></p>';
-			} else {
-				content += '<p><i class="fa fa-angle-double-right"></i> '+ i18n.t('Is not followed by anyone yet') +'</p>';
+				if (user.com) {
+					content += '<p><i class="fa fa-comment"></i> '+ i18n.t('{{count}} comment', {count: user.com}) +'</p>';
+				} else {
+					content += '<p><i class="fa fa-comment"></i> '+ i18n.t('No comments yet') +'</p>';
+				}
+				if (user.following) {
+					content += '<p><i class="fa fa-angle-double-left"></i> <a href="#" data-action="user-following" data-uid="'+ user.uid +'">'+ i18n.t('Is following {{count}} Wouaffer', {count: user.following}) +'</a></p>';
+				} else {
+					content += '<p><i class="fa fa-angle-double-left"></i> '+ i18n.t('Is not following anyone yet') +'</p>';
+				}
+				if (user.followers) {
+					content += '<p><i class="fa fa-angle-double-right"></i> <a href="#" data-action="user-followers" data-uid="'+ user.uid +'">'+ i18n.t('Is followed by {{count}} Wouaffer', {count: user.followers}) +'</a></p>';
+				} else {
+					content += '<p><i class="fa fa-angle-double-right"></i> '+ i18n.t('Is not followed by anyone yet') +'</p>';
+				}
 			}
 			if (user.registration) {
 				var registration = new Date();
@@ -74,7 +76,7 @@ module.exports = (function() {
 
 			content += '</div></div>';
 			var uid = data.getString('uid');
-			if (uid) {
+			if (uid && user.status !== 'inactive') {
 				if (user.uid !== uid) {
 					var following = data.getArray('following');
 					if (utils.indexOf(following, user.uid) === -1) {
