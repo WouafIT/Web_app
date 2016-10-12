@@ -8,7 +8,6 @@ var utils = require('../utils.js');
 
 module.exports = (function() {
 	var $document = $(document);
-	var mlRadius = {10: 5, 20: 10, 30: 15, 50: 30, 70: 45, 100: 60, 150: 90, 200: 120, 300: 180};
 	var previousSearchParams = {};
 	var previousSearchCount = 0;
 	//Event to launch a new search
@@ -36,13 +35,17 @@ module.exports = (function() {
 			previousSearchParams = $.extend({}, params);
 			delete previousSearchParams.loc;
 			delete previousSearchParams.refresh;
-			//keep last coordinates from results
-			var furtherLoc = null;
-			if (results.results.length) {
-				furtherLoc = results.results.slice(-1)[0].loc;
-			}
 			//add query parameters to results for further reference
 			results.params = params;
+			//keep last coordinates from results
+			var maxResultsCount = 1000;
+			var searchResultsCount = results.results.length;
+			if (searchResultsCount === maxResultsCount) {
+				var furtherLoc = results.results.slice(-1)[0].loc;
+				results.params.radius = utils.distance(results.params.loc.lat(), results.params.loc.lng(), furtherLoc[0], furtherLoc[1]);
+			} else {
+				results.params.radius = data.getInt('radius');
+			}
 			map.setResults(results);
 			var count = map.getResultsCount();
 			//show results number
@@ -55,13 +58,10 @@ module.exports = (function() {
 				notificationLabel 	= i18n.t('{{count}} Wouaf displayed', { count: count });
 			}
 			previousSearchCount = count;
-			var unit 			= data.getString('unit');
-			var radius 			= unit === 'km' ? data.getInt('radius') : mlRadius[data.getInt('radius')];
-			if (count === 1000) {
-				//compute max distance
-				console.info('Max distance: '+utils.distance(results.params.loc.lat(), results.params.loc.lng(), furtherLoc[0], furtherLoc[1]));
-				toast.show(i18n.t('{{max}} within {{radius}}{{unit}} (maximum reached)', {max: notificationLabel, radius: radius, unit: i18n.t(unit) }), 4000);
-			} else if (count) {
+			var unit 	= data.getString('unit');
+			var radius 	= unit === 'km' ? results.params.radius : utils.kmToMiles(results.params.radius);
+			radius 		= radius > 10 ? Math.round(radius) : (Math.round(radius * 10) / 10);
+			if (count) {
 				toast.show(i18n.t('{{wouaf}} within {{radius}}{{unit}}', { count: count, wouaf: notificationLabel, radius: radius, unit: i18n.t(unit) }), 4000);
 			} else {
 				toast.show(i18n.t('At the moment there are no Wouaf within {{radius}}{{unit}}', { radius: radius, unit: i18n.t(unit) }), 6000, null, true);

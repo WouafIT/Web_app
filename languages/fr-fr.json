@@ -71,7 +71,6 @@
 	"Adding {{count}} Wouaf_plural": "Ajout de {{count}} Wouafs",
 	"{{wouaf}} within {{radius}}{{unit}}": "{{wouaf}} dans un rayon de {{radius}}{{unit}}",
 	"{{wouaf}} within {{radius}}{{unit}}_plural": "{{wouaf}} dans un rayon de {{radius}}{{unit}}",
-	"{{max}} within {{radius}}{{unit}} (maximum reached)": "{{max}} dans un rayon de {{radius}}{{unit}} (maximum atteint)",
 	"At the moment there are no Wouaf within {{radius}}{{unit}}" : "Pour le moment il n'y a aucun Wouaf dans les {{radius}}{{unit}}.\n\nPourquoi ne pas <a href=\"/add/\" data-action=\"add\">en ajouter un</a> ?",
 
     "Connect!": "Connectez-vous !",

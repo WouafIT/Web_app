@@ -83,8 +83,7 @@ module.exports = (function () {
 		hcmap = new clustermap.HCMap({
 			'map': map,
 			'elements': elements,
-			'infowindow': infowindow,
-			'minDistance': 90
+			'infowindow': infowindow
 		});
 
 		initialized = true;
@@ -370,7 +369,6 @@ module.exports = (function () {
 			point,
 			self.jsonResults.params.loc
 		));
-		//console.info(point.toUrlValue(5), self.jsonResults.params.loc.toUrlValue(5), distance, self.jsonResults.params.radius * 850);
 		//distance is in meters and radius in km, refresh is distance is above 85% of queried radius
 		return (distance >= self.jsonResults.params.radius * 850);//850 => 1000 (m => km) * 0.85 (%)
 	};

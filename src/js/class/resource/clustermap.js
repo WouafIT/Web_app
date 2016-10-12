@@ -15,13 +15,7 @@ var clustermap = (function () {
 		this._map = params.map;
 		this._infowindow = params.infowindow;
 		this._elements = params.elements;
-
-		if (typeof params.minDistance !== 'undefined') {
-			this._minDistance = params.minDistance;
-		} else {
-			this._minDistance = 140;
-		}
-
+		this._minDistance = getMinDistance(this._map.getZoom());
 		if (typeof params.linkageType !== 'undefined') {
 			this._linkageType = params.linkageType;
 		} else {
@@ -51,6 +45,7 @@ var clustermap = (function () {
 			this._tree = figue.agglomerate(labels, this._vectors, figue.EUCLIDIAN_DISTANCE, this._linkageType);
 			this._zoom_changed_listener = google.maps.event.addListener(this._map, "zoom_changed", function () {
 				google.maps.event.trigger(thishcmap._infowindow, 'closeclick');
+				thishcmap._minDistance = getMinDistance(thishcmap._map.getZoom());
 				updateNodes(thishcmap);
 				updateMarkers(thishcmap, true);
 			});
@@ -64,6 +59,13 @@ var clustermap = (function () {
 			updateNodes(thishcmap);
 			updateMarkers(thishcmap, true);
 		}
+	}
+
+	function getMinDistance(zoom) {
+		if (zoom >= 12) {
+			return 90;
+		}
+		return 140;
 	}
 
 	// Node Selection Algorithm as described in:

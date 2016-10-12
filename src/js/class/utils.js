@@ -320,6 +320,9 @@ module.exports = (function() {
 				(1 - c((lon2 - lon1) * p))/2;
 		return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
 	};
+	self.kmToMiles = function(i) {
+		return i*0.621371192;
+	};
 
 	return self;
 }());
