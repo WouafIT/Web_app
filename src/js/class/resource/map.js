@@ -424,7 +424,7 @@ module.exports = (function () {
 			if (!slidebars) {
 				slidebars = require('./slidebars.js');
 			}
-			if (slidebars.isDualView() || (e.target && $(e.target).parents('.w-menu-dropdown, .gm-iw-parent').length) || $('.sb-active').length) {
+			if (/*slidebars.isDualView() || */(e.target && $(e.target).parents('.w-menu-dropdown, .gm-iw-parent').length) || $('.sb-active').length) {
 				return;
 			}
 			e.stopPropagation();
@@ -534,6 +534,26 @@ module.exports = (function () {
 		$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: null});
 		$document.triggerHandler('map.infowindow-closed');
 	};
+	var circles = [];
+	var drawCircle = function(radius) {
+		var circle = new google.maps.Circle({
+			strokeColor: '#2B9D48',
+			strokeOpacity: 0.3,
+			strokeWeight: 2,
+			fillOpacity: 0,
+			clickable: false,
+			map: map,
+			center: map.getCenter(),
+			radius: (radius * 1000)
+		});
+		circles.push(circle);
+	};
+	var resetCircles = function() {
+		for(var i = 0, l = circles.length; i < l; i++) {
+			circles[i].setMap(null);
+		}
+		circles = [];
+	};
 
 	$document.on('map.infowindow-open', function(e, data) {
 		if (!data.ids) {
@@ -567,6 +587,8 @@ module.exports = (function () {
 		hideResult: closePin,
 		setResults: setPins,
 		getResults: getResults,
+		drawCircle: drawCircle,
+		resetCircles: resetCircles,
 		getResultsCount: function () {
 			return self.jsonResults.count;
 		},

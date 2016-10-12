@@ -48,6 +48,9 @@ module.exports = (function() {
 			} else {
 				results.params.radius = data.getInt('radius') || 70;
 			}
+			if (!params.refresh) {
+				map.resetCircles();
+			}
 			map.setResults(results);
 			var count = map.getResultsCount();
 			//show results number
@@ -68,6 +71,7 @@ module.exports = (function() {
 			} else {
 				toast.show(i18n.t('At the moment there are no Wouaf within {{radius}}{{unit}}', { radius: radius, unit: i18n.t(unit) }), 6000, null, true);
 			}
+			map.drawCircle(radius);
 
 			$document.triggerHandler('navigation.set-state', {name: 'tag', value: (params.tag ? params.tag : null)});
 			$document.triggerHandler('tabs.add', {
