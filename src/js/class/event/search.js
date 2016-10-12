@@ -4,6 +4,7 @@ var query = require('../resource/query.js');
 var toast = require('../resource/toast.js');
 var i18n = require('../resource/i18n.js');
 var slidebars = require('../resource/slidebars.js');
+var utils = require('../utils.js');
 
 module.exports = (function() {
 	var $document = $(document);
@@ -35,6 +36,11 @@ module.exports = (function() {
 			previousSearchParams = $.extend({}, params);
 			delete previousSearchParams.loc;
 			delete previousSearchParams.refresh;
+			//keep last coordinates from results
+			var furtherLoc = null;
+			if (results.results.length) {
+				furtherLoc = results.results.slice(-1)[0].loc;
+			}
 			//add query parameters to results for further reference
 			results.params = params;
 			map.setResults(results);
@@ -52,6 +58,8 @@ module.exports = (function() {
 			var unit 			= data.getString('unit');
 			var radius 			= unit === 'km' ? data.getInt('radius') : mlRadius[data.getInt('radius')];
 			if (count === 1000) {
+				//compute max distance
+				console.info('Max distance: '+utils.distance(results.params.loc.lat(), results.params.loc.lng(), furtherLoc[0], furtherLoc[1]));
 				toast.show(i18n.t('{{max}} within {{radius}}{{unit}} (maximum reached)', {max: notificationLabel, radius: radius, unit: i18n.t(unit) }), 4000);
 			} else if (count) {
 				toast.show(i18n.t('{{wouaf}} within {{radius}}{{unit}}', { count: count, wouaf: notificationLabel, radius: radius, unit: i18n.t(unit) }), 4000);

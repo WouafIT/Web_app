@@ -244,10 +244,13 @@ module.exports = (function () {
 			div.className = 'pulseMarker';
 			panes.overlayImage.appendChild(div);
 		}
-		var point = this.getProjection().fromLatLngToDivPixel(this.latlng);
-		if (point) {
-			div.style.left = (point.x + 5) + 'px';
-			div.style.top = (point.y - 17) + 'px';
+		var overlayProjection = this.getProjection();
+		if (overlayProjection) {
+			var point = overlayProjection.fromLatLngToDivPixel(this.latlng);
+			if (point) {
+				div.style.left = (point.x + 5) + 'px';
+				div.style.top = (point.y - 17) + 'px';
+			}
 		}
 	};
 	locationMarker.prototype.remove = function () {
