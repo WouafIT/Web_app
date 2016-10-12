@@ -32,6 +32,7 @@ module.exports = (function() {
 			data.setBool('mapFollow', true);
 			data.setString('unit', 'km');
 			data.setInt('radius', 70);
+			data.setInt('limit', 500);
 		}
 
 		//init with server infos

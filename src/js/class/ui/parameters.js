@@ -21,6 +21,7 @@ module.exports = (function() {
 		var $form = $modalWindow.find('form');
 		var $radius = $form.find('select[name=radius]');
 		var $unit = $form.find('select[name=unit]');
+		var $limit = $form.find('select[name=limit]');
 		var $mapFollow = $form.find('input[name=map-follow]');
 		var $followingNotifications = $form.find('input[name=following-notifications]');
 		var $followerNotification = $form.find('input[name=follower-notifications]');
@@ -49,6 +50,7 @@ module.exports = (function() {
 		populateRadius();
 		$radius.val(data.getInt('radius'));
 		$unit.on('change', populateRadius);
+		$limit.val(data.getInt('limit'));
 
 		if (!data.getString('uid')) {
 			$followingNotifications.attr('disabled', true);
@@ -64,6 +66,7 @@ module.exports = (function() {
 			//form submition
 			data.setString('unit', $unit.val());
 			data.setInt('radius', $radius.val());
+			data.setInt('limit', $limit.val());
 			data.setBool('mapFollow', $mapFollow.prop("checked"));
 
 			if (data.getString('uid')) {

@@ -25,7 +25,10 @@ module.exports = (function() {
 			map.setCenter(params.loc, false);
 		}
 		if (!params.radius) {
-			params.radius = data.getInt('radius');
+			params.radius = data.getInt('radius') || 70;
+		}
+		if (!params.limit) {
+			params.limit = data.getInt('limit') || 500;
 		}
 		if (__DEV__) {
 			console.info('Search params'+ (params.refresh ? ' (refresh)' : '') +' '+ params.searchId, params);
@@ -38,13 +41,12 @@ module.exports = (function() {
 			//add query parameters to results for further reference
 			results.params = params;
 			//keep last coordinates from results
-			var maxResultsCount = 1000;
 			var searchResultsCount = results.results.length;
-			if (searchResultsCount === maxResultsCount) {
+			if (searchResultsCount === results.params.limit) {
 				var furtherLoc = results.results.slice(-1)[0].loc;
 				results.params.radius = utils.distance(results.params.loc.lat(), results.params.loc.lng(), furtherLoc[0], furtherLoc[1]);
 			} else {
-				results.params.radius = data.getInt('radius');
+				results.params.radius = data.getInt('radius') || 70;
 			}
 			map.setResults(results);
 			var count = map.getResultsCount();

@@ -23,6 +23,14 @@
 					<option value="miles"><%= htmlWebpackPlugin.options.i18n['Miles'] %></option>
 				</select>
 			</fieldset>
+			<fieldset class="form-group">
+				<label for="limit"><%= htmlWebpackPlugin.options.i18n['Maximum number of results'] %></label>
+				<select id="limit" name="limit" class="form-control">
+					<option value="200">200</option>
+					<option value="500">500</option>
+					<option value="1000">1000</option>
+				</select>
+			</fieldset>
 			<div class="checkbox">
 				<label><input type="checkbox" name="map-follow"> <%= htmlWebpackPlugin.options.i18n['Refresh search results by following the map position'] %></label>
 			</div>
