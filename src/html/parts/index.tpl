@@ -78,6 +78,7 @@
 							<select class="form-control" id="when" placeholder="<%= htmlWebpackPlugin.options.i18n['Choose a period'] %>">
 								<option value="today"><%= htmlWebpackPlugin.options.i18n['Today'] %></option>
 								<option value="tomorrow"><%= htmlWebpackPlugin.options.i18n['Tomorrow'] %></option>
+								<option value="weekend"><%= htmlWebpackPlugin.options.i18n['This week-end'] %></option>
 								<option value="week" selected="selected"><%= htmlWebpackPlugin.options.i18n['The next 7 days'] %></option>
 								<option value="month"><%= htmlWebpackPlugin.options.i18n['The next 30 days'] %></option>
 								<option value="custom"><%= htmlWebpackPlugin.options.i18n['Specific dates'] %></option>

@@ -214,19 +214,32 @@ module.exports = (function() {
 			switch ($when.val()) {
 				case 'today':
 					date = Math.round(today.getTime() / 1000);
-					duration = 86400 - 14400;
+					duration = 86400 - 14400; //1day - 4h
 					break;
 				case 'tomorrow':
 					date = Math.round(today.getTime() / 1000) + 86400;
-					duration = 86400 - 14400;
+					duration = 86400 - 14400; //1day - 4h
+					break;
+				case 'weekend':
+					var day = today.getDay();
+					var offset = 0;
+					if (day === 0) {//0: sunday
+						offset = - (14400 + 86400 + 21600); //remove 4h + 1day + 6h
+					} else if (day <= 5) {
+						offset = ((5 - day) * 86400) + 50400; //14h
+					} else if (day === 6) {//6: saturday
+						offset = - (14400 + 21600); //remove 4h + 6h
+					}
+					date = Math.round(today.getTime() / 1000) + offset;
+					duration = (86400 * 2) + 21600; //2 days + 6h
 					break;
 				case 'week':
 					date = Math.round(today.getTime() / 1000);
-					duration = (86400 * 7) - 14400;
+					duration = (86400 * 7) - 14400; //7days - 4h
 					break;
 				case 'month':
 					date = Math.round(today.getTime() / 1000);
-					duration = (86400 * 30) - 14400;
+					duration = (86400 * 30) - 14400; //30days - 4h
 					break;
 				case 'custom':
 					var start = dtp.getInputDate($start);
@@ -240,7 +253,7 @@ module.exports = (function() {
 					}
 					if (!date || !duration || duration < 0) {
 						date = Math.round(today.getTime() / 1000);
-						duration = (86400 * 7);
+						duration = (86400 * 7) - 14400; //7days - 4h
 						$when.val('week');
 						showHideCustomDates();
 					}
