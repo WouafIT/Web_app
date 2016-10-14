@@ -19,10 +19,14 @@ module.exports = (function () {
 	var disableSearchRefresh = false;
 	var $body = $('body');
 	var $map = $('#map');
+	var $updateSearch = $('#search-zone');
+	var $crosshairs = $('#crosshairs');
 	var zoomMinToAdd = 13;
 	var self = {
 		jsonResults: {}
 	};
+	$updateSearch.hide().removeAttr('hidden');
+	$crosshairs.show().removeAttr('hidden');
 	//set map pins on search response
 	var setPins = function (json) {
 		if (__DEV__) {
@@ -347,22 +351,30 @@ module.exports = (function () {
 
 		//check distance between current center and last search
 		if (isSearchRefreshNeeded(center)) {
-			if (infowindow.opened) {
-				$document.one('map.infowindow-closed', function () {
+			if (data.getBool('mapFollow')) {
+				if (infowindow.opened) {
+					$document.one('map.infowindow-closed', function () {
+						//distance is more than 85% of search radius => update search
+						$document.triggerHandler('app.search', {refresh: true});
+					});
+				} else {
 					//distance is more than 85% of search radius => update search
 					$document.triggerHandler('app.search', {refresh: true});
-				});
+				}
 			} else {
-				//distance is more than 85% of search radius => update search
-				$document.triggerHandler('app.search', {refresh: true});
+				$updateSearch.show();
 			}
 		}
 		//console.info('map.updated-position');
 		$document.triggerHandler('map.updated-position');
 	};
+	$updateSearch.on('click', function () {
+		$document.triggerHandler('app.search', {refresh: true});
+		$updateSearch.hide();
+	});
 	var isSearchRefreshNeeded = function (point) {
 		//check distance between current center and last search
-		if (disableSearchRefresh || !data.getBool('mapFollow') || !self.jsonResults.params) {
+		if (disableSearchRefresh || !self.jsonResults.params) {
 			return false;
 		}
 		var distance = Math.round(google.maps.geometry.spherical.computeDistanceBetween(
@@ -421,9 +433,9 @@ module.exports = (function () {
 		});
 		// Event that closes the Info Window with a click on the map
 		google.maps.event.addDomListener($map.get(0), 'click', function(e) {
-			if (!slidebars) {
+			/*if (!slidebars) {
 				slidebars = require('./slidebars.js');
-			}
+			}*/
 			if (/*slidebars.isDualView() || */(e.target && $(e.target).parents('.w-menu-dropdown, .gm-iw-parent').length) || $('.sb-active').length) {
 				return;
 			}
@@ -530,6 +542,7 @@ module.exports = (function () {
 		}
 		infowindow.close();
 		infowindow.opened = false;
+		$crosshairs.show();
 		$document.triggerHandler('menu.close');
 		$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: null});
 		$document.triggerHandler('map.infowindow-closed');
@@ -575,6 +588,7 @@ module.exports = (function () {
 		}
 		// Set infoWindow content
 		infowindow.setContent(content);
+		$crosshairs.hide();
 		infowindow.open(map);
 		infowindow.opened = true;
 		$document.triggerHandler('map.infowindow-opened');

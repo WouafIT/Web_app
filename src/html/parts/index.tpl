@@ -6,7 +6,11 @@
 		<button class="btn btn-lg btn-primary location" title="<%= htmlWebpackPlugin.options.i18n['Center on your position'] %>"><i class="fa fa-crosshairs"></i></button>
 		<button class="btn btn-lg btn-primary add"><%= htmlWebpackPlugin.options.i18n['OK'] %></button>
 	</div>
+	<div id="search-zone" hidden>
+		<div class="search-btn" title="<%= htmlWebpackPlugin.options.i18n['Update your search'] %>"><i class="fa fa-search" aria-hidden="true"></i></div>
+	</div>
 	<div id="map"></div>
+	<div id="crosshairs" hidden><i class="fa fa-crosshairs" aria-hidden="true"></i></div>
 </div>
 <div class="sb-slidebar sb-width-wide sb-left">
 	<header>
