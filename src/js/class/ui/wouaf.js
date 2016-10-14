@@ -29,9 +29,19 @@ module.exports = (function() {
 		var length 	= Math.round((timeEnd - timeStart) / 1000);
 		var endMinusOneSec = new Date(timeEnd - 1000);
 		var eventLength;
+		var getStartingDate = function() {
+			var date = dtp.formatDate(start, 'long');
+			if (date === dtp.formatDate(time, 'long')) {
+				return i18n.t('Today');
+			} else if (date === dtp.formatDate((new Date(time.getTime() + 86400000)), 'long')) {
+				return i18n.t('Tomorrow');
+			} else {
+				return i18n.t('On {{on}}', {on: date})
+			}
+		};
 		if (dtp.formatDate(start) === dtp.formatDate(end)) { //same day event
 			eventLength = i18n.t('On {{on}} from {{from}} to {{to}}', {
-				on: 	dtp.formatDate(start, 'long', obj.tz),
+				on: 	getStartingDate(),
 				from: 	dtp.formatTime(start),
 				to: 	dtp.formatTime(end)
 			});
@@ -39,12 +49,10 @@ module.exports = (function() {
 			timeStart = dtp.formatTime(start);
 			if (timeStart !== '00:00') {
 				eventLength = i18n.t('On {{on}} from {{from}}', {
-					on: dtp.formatDate(start, 'long'), from: timeStart
+					on: getStartingDate(), from: timeStart
 				});
 			} else {
-				eventLength = i18n.t('On {{on}}', {
-					on: dtp.formatDate(start, 'long')
-				});
+				eventLength = getStartingDate();
 			}
 		} else {
 			var oneDay = 86400;
@@ -67,7 +75,7 @@ module.exports = (function() {
 			} else {
 				timeStart = dtp.formatTime(start);
 				eventLength = i18n.t('On {{on}} for {{for}}', {
-					on: 	dtp.formatDate(start, 'long') + (timeStart !== '00:00' ? ' ' + i18n.t('at {{at}}', {at: timeStart}) : ''),
+					on: 	getStartingDate() + (timeStart !== '00:00' ? ' ' + i18n.t('at {{at}}', {at: timeStart}) : ''),
 					for: 	eventLength
 				});
 			}
