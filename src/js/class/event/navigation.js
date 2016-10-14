@@ -39,7 +39,9 @@ module.exports = (function() {
 		var href = url.getPath(states);
 		if (href !== window.location.pathname) {
 			window.history.pushState(states, '', href);
-
+			if (__DEV__) {
+				console.info('Push URL: '+href);
+			}
 			$document.triggerHandler('app.pushed-state');
 		}
 	});
@@ -50,8 +52,17 @@ module.exports = (function() {
 			//append on a link with an anchor
 			return;
 		}
+		//allowSetState = false; //disallow state change during URL parsing
 		states = eventStates;
 		data.setObject('navigation', states, true);
+		if (__DEV__) {
+			console.info('Pop URL: ', states);
+		}
+		/*$document.triggerHandler('navigation.load-state', function () {
+			$document.triggerHandler('app.poped-state');
+		});
+		return;*/
+
 		if (states) {
 			if (states.map) {
 				var coordinates = states.map.center.split(',');
@@ -81,7 +92,7 @@ module.exports = (function() {
 			map.hideResult();
 			windows.close();
 		}
-
+		//allowSetState = true;
 		$document.triggerHandler('app.poped-state');
 	});
 
