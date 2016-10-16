@@ -56,9 +56,6 @@ if (strpos($requestURI, '/faq/') !== false) {
 if (strpos($requestURI, '/login/') !== false) {
 	$data['content'] .= file_get_contents(__DIR__.'/../parts/login.html');
 }
-if (strpos($requestURI, '/help/') !== false) {
-	$data['content'] .= file_get_contents(__DIR__.'/../parts/help.html');
-}
 if (strpos($requestURI, '/contact/') !== false) {
 	$data['content'] .= file_get_contents(__DIR__.'/../parts/contact.html');
 }

@@ -7,7 +7,6 @@ Allow: /
 Allow: /contact/
 Allow: /login/
 Allow: /faq/
-Allow: /help/
 Allow: /about/
 
 Sitemap: https://sitemap.wouaf.it/sitemapindex.xml
