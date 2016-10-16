@@ -48,7 +48,19 @@ if (!$requestURI || $requestURI === '/') {
     return $data;
 }
 if (strpos($requestURI, '/about/') !== false) {
-    $data['content'] .= file_get_contents(__DIR__.'/../parts/about.html');
+	$data['content'] .= file_get_contents(__DIR__.'/../parts/about.html');
+}
+if (strpos($requestURI, '/faq/') !== false) {
+	$data['content'] .= file_get_contents(__DIR__.'/../parts/faq.html');
+}
+if (strpos($requestURI, '/login/') !== false) {
+	$data['content'] .= file_get_contents(__DIR__.'/../parts/login.html');
+}
+if (strpos($requestURI, '/help/') !== false) {
+	$data['content'] .= file_get_contents(__DIR__.'/../parts/help.html');
+}
+if (strpos($requestURI, '/contact/') !== false) {
+	$data['content'] .= file_get_contents(__DIR__.'/../parts/contact.html');
 }
 
 define('API_KEY', '<%= htmlWebpackPlugin.options.data.apiKey %>');
