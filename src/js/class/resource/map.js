@@ -307,8 +307,10 @@ module.exports = (function () {
 				location = new google.maps.LatLng(39.857973, -98.008955).toJSON();
 			}
 			data.setBool('geolocation', false);
+			map.setZoom(6);
 		} else {
 			data.setBool('geolocation', true);
+			map.setZoom(7);
 		}
 		data.setObject('position', new google.maps.LatLng(location.lat, location.lng).toJSON());
 		$document.triggerHandler('map.geolocation-done');
