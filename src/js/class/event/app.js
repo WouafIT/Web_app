@@ -33,6 +33,7 @@ module.exports = (function() {
 			data.setString('unit', 'km');
 			data.setInt('radius', 70);
 			data.setInt('limit', 500);
+			data.setBool('geolocation', false)
 		}
 
 		//init with server infos
@@ -55,6 +56,17 @@ module.exports = (function() {
 			};
 			if (window.FB) {
 				window.fbAsyncInit();
+			}
+			//init position
+			if (infos.geolocation && !data.getBool('geolocation')) {
+				var location = data.getObject('position');
+				if (!location || isNaN(location.lat) || isNaN(location.lng)) {
+					var parts = infos.geolocation.split(',');
+					data.setObject('position', {
+						lat: parts[0],
+						lng: parts[1]
+					});
+				}
 			}
 			//init categories
 			if (infos.categories) {
