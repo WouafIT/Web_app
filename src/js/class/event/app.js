@@ -122,10 +122,10 @@ module.exports = (function() {
 					if (states.wouaf) {
 						map.showResult(states.wouaf);
 					}
-					//open sidebar (if dualmode is active)
+					//show results tabs
+					$document.triggerHandler('tabs.show', 'search-results');
 					if (slidebars.isDualView()) {
-						//show results tabs
-						$document.triggerHandler('tabs.show', 'search-results');
+						//open sidebar (if dualmode is active)
 						$document.triggerHandler('slide.open');
 					}
 				});

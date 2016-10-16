@@ -26,7 +26,7 @@ module.exports = (function () {
 		jsonResults: {}
 	};
 	$updateSearch.hide().removeAttr('hidden');
-	$crosshairs.show().removeAttr('hidden');
+	$crosshairs.hide().removeAttr('hidden');
 	//set map pins on search response
 	var setPins = function (json) {
 		if (__DEV__) {
@@ -363,6 +363,7 @@ module.exports = (function () {
 				}
 			} else {
 				$updateSearch.show();
+				$crosshairs.show();
 			}
 		}
 		//console.info('map.updated-position');
@@ -371,6 +372,7 @@ module.exports = (function () {
 	$updateSearch.on('click', function () {
 		$document.triggerHandler('app.search', {refresh: true});
 		$updateSearch.hide();
+		$crosshairs.hide();
 	});
 	var isSearchRefreshNeeded = function (point) {
 		//check distance between current center and last search
@@ -542,7 +544,9 @@ module.exports = (function () {
 		}
 		infowindow.close();
 		infowindow.opened = false;
-		$crosshairs.show();
+		if (!data.getBool('mapFollow')) {
+			$crosshairs.show();
+		}
 		$document.triggerHandler('menu.close');
 		$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: null});
 		$document.triggerHandler('map.infowindow-closed');
@@ -588,7 +592,9 @@ module.exports = (function () {
 		}
 		// Set infoWindow content
 		infowindow.setContent(content);
-		$crosshairs.hide();
+		if (!data.getBool('mapFollow')) {
+			$crosshairs.hide();
+		}
 		infowindow.open(map);
 		infowindow.opened = true;
 		$document.triggerHandler('map.infowindow-opened');

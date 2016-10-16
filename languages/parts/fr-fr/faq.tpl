@@ -7,6 +7,7 @@
 </div>
 <div class="modal-body">
 	<p>Puis-je modifier un Wouaf ?</p>
+	<p>Limite de taille du contenu d'un Wouaf ?</p>
 	<p>Mes événements Facebook ont été importés, comment puis-je les gérer ?</p>
 	<p>Wouaf IT est-il payant ?</p>
 
