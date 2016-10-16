@@ -572,12 +572,12 @@ module.exports = (function () {
 		circles = [];
 	};
 
-	$document.on('map.infowindow-open', function(e, data) {
-		if (!data.ids) {
+	$document.on('map.infowindow-open', function(e, wouafs) {
+		if (!wouafs.ids) {
 			return;
 		}
 		//grab results
-		var results = getResults(data.ids);
+		var results = getResults(wouafs.ids);
 		var length = results.length;
 		var content = '';
 		if (!length) {
@@ -592,9 +592,7 @@ module.exports = (function () {
 		}
 		// Set infoWindow content
 		infowindow.setContent(content);
-		if (!data.getBool('mapFollow')) {
-			$crosshairs.hide();
-		}
+		$crosshairs.hide();
 		infowindow.open(map);
 		infowindow.opened = true;
 		$document.triggerHandler('map.infowindow-opened');

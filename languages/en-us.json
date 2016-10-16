@@ -243,7 +243,7 @@
 	"Your Wouaf is deleted": "Your Wouaf is deleted.",
 
 	"Report this Wouaf": "Report this Wouaf?",
-	"report_details": "Do you confirm the reporting of this Wouaf as abusive?\nAttention in case of error, kittens may die!",
+	"report_details": "Do you confirm the reporting of this Wouaf as inappropriate?\nAttention for unfair reporting, kittens may die!",
 	"This Wouaf has been reported": "Thank you for your report!",
 	"This Wouaf is added to your favorites": "This Wouaf is added to your favorites",
 	"This Wouaf is removed from your favorites": "This Wouaf is removed from your favorites",
@@ -295,7 +295,7 @@
 	"Login to comment a wouaf": "Login to write a comment for this Wouaf!",
 	"Login to like a wouaf": "Login to vote for this Wouaf!",
 	"Login to report a wouaf": "Login to report this Wouaf!",
-	"Login to add a comment": "Login to comment this Wouaf!",
+	"Login to add a comment": "<a href=\"/login/\" data-href=\"login\" data-toggle=\"modal\" data-target=\"#modalWindow\">Login</a> to comment this Wouaf!",
 	"Login to report a comment": "Login to report this comment!",
 	"Login to follow a Wouaffer": "Login to follow a Wouaffer!",
 
@@ -343,7 +343,7 @@
 	"delete_comment_details": "Do you confirm the permanent deletion of this comment?\nYou can not go back!",
 	"Your comment is deleted": "Your comment is deleted.",
 	"Report this comment": "Report this comment?",
-	"report_comment_details": "Do you confirm the reporting of this comment as inappropriate?\nAttention in case of error, kittens may die!",
+	"report_comment_details": "Do you confirm the reporting of this comment as inappropriate?\nAttention for unfair reporting, kittens may die!",
 	"This comment has been reported": "Thank you for your report!",
 
 	"{{count}} result": "{{count}} result",

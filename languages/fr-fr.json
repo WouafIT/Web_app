@@ -243,7 +243,7 @@
 	"Your Wouaf is deleted": "Votre Wouaf est supprimé.",
 
 	"Report this Wouaf": "Signaler ce Wouaf ?",
-	"report_details": "Confirmez-vous le signalement du contenu de ce Wouaf comme abusif ?\nAttention, en cas d'erreur des chatons mourrons !",
+	"report_details": "Confirmez-vous le signalement du contenu de ce Wouaf comme innaproprié ?\nAttention, en cas de signalement abusif des chatons mourrons !",
 	"This Wouaf has been reported": "Merci pour votre signalement !",
 	"This Wouaf is added to your favorites": "Ce Wouaf est ajouté à vos favoris",
 	"This Wouaf is removed from your favorites": "Ce Wouaf est supprimé de vos favoris",
@@ -295,7 +295,7 @@
 	"Login to comment a wouaf": "Connectez-vous pour pouvoir ajouter un commentaire sur ce Wouaf !",
 	"Login to like a wouaf": "Connectez-vous pour pouvoir voter pour ce Wouaf !",
 	"Login to report a wouaf": "Connectez-vous pour pouvoir signaler ce Wouaf !",
-	"Login to add a comment": "Connectez-vous pour commenter ce Wouaf !",
+	"Login to add a comment": "<a href=\"/login/\" data-href=\"login\" data-toggle=\"modal\" data-target=\"#modalWindow\">Connectez-vous</a> pour commenter ce Wouaf !",
 	"Login to report a comment": "Connectez-vous pour pouvoir signaler ce commentaire !",
 	"Login to follow a Wouaffer": "Connectez-vous pour pouvoir suivre un Wouaffeur !",
 
@@ -343,7 +343,7 @@
 	"delete_comment_details": "Confirmez-vous la suppression définitive de ce commentaire ?\nVous ne pourrez pas revenir en arrière !",
 	"Your comment is deleted": "Votre commentaire est supprimé.",
 	"Report this comment": "Signaler ce commentaire ?",
-	"report_comment_details": "Confirmez-vous le signalement du contenu de ce commentaire comme inapproprié ?\nAttention, en cas d'erreur des chatons mourrons !",
+	"report_comment_details": "Confirmez-vous le signalement du contenu de ce commentaire comme inapproprié ?\nAttention, en cas de signalement abusif des chatons mourrons !",
 	"This comment has been reported": "Merci pour votre signalement !",
 
 	"{{count}} result": "{{count}} résultat",
