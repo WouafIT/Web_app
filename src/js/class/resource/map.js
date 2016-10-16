@@ -7,7 +7,6 @@ var utils = require('../utils.js');
 var windows = require('./windows.js');
 var query = require('./query.js');
 var wouaf = require('../ui/wouaf.js');
-var slidebars;
 
 module.exports = (function () {
 	var $document = $(document);
@@ -286,6 +285,7 @@ module.exports = (function () {
 			//update user location
 			userMarker.draw(userLocation);
 		}
+		data.setBool('geolocation', true);
 		$document.triggerHandler('map.geolocation-done');
 	};
 	//no geolocation
@@ -300,12 +300,15 @@ module.exports = (function () {
 		var location = data.getObject('position');
 		if (!location || isNaN(location.lat) || isNaN(location.lng)) {
 			if (i18n.t('languageShort') === 'fr') {
-				//store map position: center of France
-				location = new google.maps.LatLng(46.427066, 2.430535).toJSON();
+				//store map position: center of Paris
+				location = new google.maps.LatLng(48.85656, 2.35243).toJSON();
 			} else {
 				//store map position: center of US
 				location = new google.maps.LatLng(39.857973, -98.008955).toJSON();
 			}
+			data.setBool('geolocation', false);
+		} else {
+			data.setBool('geolocation', true);
 		}
 		data.setObject('position', new google.maps.LatLng(location.lat, location.lng).toJSON());
 		$document.triggerHandler('map.geolocation-done');
@@ -435,10 +438,7 @@ module.exports = (function () {
 		});
 		// Event that closes the Info Window with a click on the map
 		google.maps.event.addDomListener($map.get(0), 'click', function(e) {
-			/*if (!slidebars) {
-				slidebars = require('./slidebars.js');
-			}*/
-			if (/*slidebars.isDualView() || */(e.target && $(e.target).parents('.w-menu-dropdown, .gm-iw-parent').length) || $('.sb-active').length) {
+			if ((e.target && $(e.target).parents('.w-menu-dropdown, .gm-iw-parent').length) || $('.sb-active').length) {
 				return;
 			}
 			e.stopPropagation();

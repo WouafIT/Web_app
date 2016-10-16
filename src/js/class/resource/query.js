@@ -317,7 +317,8 @@ module.exports = (function() {
 				method: 'POST',
 				url: 	ENDPOINT + '/init',
 				data:	{
-					locale:	 LANGUAGE
+					locale:	 	LANGUAGE,
+					geolocate:	(data.getBool('geolocation') ? 0 : 1)
 				},
 				success:callback,
 				error:	callback
