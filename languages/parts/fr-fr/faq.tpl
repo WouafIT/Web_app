@@ -66,7 +66,7 @@
 		de pouvoir dire aux gens géographiquement proches "Hey ! Ici il se passe quelque chose maintenant".
 		<br />
 		Cette idée a pris le temps de murir pour devenir le site actuel après quelques mois de développement.
-		Nous avons odnc nommé "Wouaf" une publication sur le site en référence à ce chien qui, nous l'espérons, a retrouvé
+		Nous avons donc nommé "Wouaf" une publication sur le site en référence à ce chien qui, nous l'espérons, a retrouvé
 		son maitre depuis longtemps.
 	</p>
 
