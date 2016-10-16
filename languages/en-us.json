@@ -295,7 +295,7 @@
 	"Login to comment a wouaf": "Login to write a comment for this Wouaf!",
 	"Login to like a wouaf": "Login to vote for this Wouaf!",
 	"Login to report a wouaf": "Login to report this Wouaf!",
-	"Login to add a comment": "<a href=\"/login/\" data-href=\"login\" data-toggle=\"modal\" data-target=\"#modalWindow\">Login</a> to comment this Wouaf!",
+	"Login to add a comment": "<a href=\"/login/\" data-href=\"login\" data-show=\"modal\" data-target=\"#modalWindow\">Login</a> to comment this Wouaf!",
 	"Login to report a comment": "Login to report this comment!",
 	"Login to follow a Wouaffer": "Login to follow a Wouaffer!",
 
