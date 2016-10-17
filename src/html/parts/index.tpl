@@ -134,7 +134,9 @@
 				<i class="fa fa-info-circle"></i>&nbsp;<a href="/about/" data-href="about"
 													 data-toggle="modal" data-target="#modalWindow"><%= htmlWebpackPlugin.options.i18n.About %></a> |
 				<i class="fa fa-question-circle"></i>&nbsp;<a href="/faq/" data-href="faq"
-													 data-toggle="modal" data-target="#modalWindow"><%= htmlWebpackPlugin.options.i18n.Faq %></a> |
+															  data-toggle="modal" data-target="#modalWindow"><%= htmlWebpackPlugin.options.i18n.Faq %></a> |
+				<i class="fa fa-exclamation-circle"></i>&nbsp;<a href="/tos/" data-href="tos"
+															  data-toggle="modal" data-target="#modalWindow"><%= htmlWebpackPlugin.options.i18n.Tos %></a> |
 				<i class="fa fa-envelope"></i>&nbsp;<a href="/contact/" data-href="contact"
 												  data-toggle="modal" data-target="#modalWindow"><%= htmlWebpackPlugin.options.i18n.Contact %></a> |
 			</span>

@@ -50,6 +50,9 @@ if (!$requestURI || $requestURI === '/') {
 if (strpos($requestURI, '/about/') !== false) {
 	$data['content'] .= file_get_contents(__DIR__.'/../parts/about.html');
 }
+if (strpos($requestURI, '/tos/') !== false) {
+	$data['content'] .= file_get_contents(__DIR__.'/../parts/tos.html');
+}
 if (strpos($requestURI, '/faq/') !== false) {
 	$data['content'] .= file_get_contents(__DIR__.'/../parts/faq.html');
 }

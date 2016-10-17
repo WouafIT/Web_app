@@ -132,6 +132,13 @@ var common = Object.keys(languages).map(function(language) {
 				inject: false
 			}),
 			new HtmlWebpackPlugin({
+				filename: 'parts/tos.html',
+				template: __dirname + '/languages/parts/'+language+'/tos.tpl',
+				data: htmlData,
+				i18n: languageData,
+				inject: false
+			}),
+			new HtmlWebpackPlugin({
                 filename: 'parts/login.html',
                 template: __dirname + '/src/html/parts/login.tpl',
                 data: htmlData,
