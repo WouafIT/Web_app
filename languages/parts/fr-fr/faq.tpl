@@ -30,13 +30,13 @@
 		Wouaf IT et ces contraintes découlent directement de ces choix. Si vous le souhaitez, vous pouvez ajouter un
 		commentaire explicatif ou un lien "Plus d'infos" à votre Wouaf.</p>
 
-	<h4>Puis-je publier du contenu à but lucratif sur WOuaf IT ?</h4>
+	<h4>Puis-je publier du contenu à but lucratif sur Wouaf IT ?</h4>
 	<p>Tant que ce contenu respecte nos <a href="/about/" data-href="about" data-show="modal" data-target="#modalWindow">
 		conditions d'utilisation</a>, vous pouvez le publier.</p>
 
 	<h4>Mes événements Facebook ont été importés, comment puis-je les gérer ?</h4>
 	<p>Pour lancer Wouaf IT, nous avons importé un certain nombre de sources de contenu disponibles sur Internet,
-		parmi lesquelles Facebook et plus précisément les événements public publiés sur les pages de Facebook.
+		parmi lesquelles les événements public publiés sur les pages de Facebook.
 		<br />
 		Si vous êtes l'administrateur de l'une de ces pages, vous pouvez regagner le contrôle de vos événements en suivant ces étapes :
 	</p>
@@ -55,6 +55,10 @@
 
 	<h4>Wouaf IT est-il payant ?</h4>
 	<p>Non Wouaf IT n'est pas payant et il restera gratuit pour les particuliers et petites entreprises !</p>
+
+	<h4>Wouaf IT est-il internationnal ?</h4>
+	<p>A terme oui, Wouaf IT a pour objectif de couvrir tous les pays, mais nous allons monter doucement en puissance.
+		Vous pouvez déjà créer des Wouafs ou vous le souhaitez et nous ajouterons d'autres sources de contenu petit à petit.</p>
 
 	<h4>Que veut dire Wouaf IT ?</h4>
 	<p>L'idée derrière Wouaf IT remonte à 2012, lors d'un trajet en voiture à la campagne en famille. Nous avons croisé
