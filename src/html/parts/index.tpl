@@ -137,10 +137,10 @@
 															  data-toggle="modal" data-target="#modalWindow"><%= htmlWebpackPlugin.options.i18n.Faq %></a> |
 				<i class="fa fa-exclamation-circle"></i>&nbsp;<a href="/tos/" data-href="tos"
 															  data-toggle="modal" data-target="#modalWindow"><%= htmlWebpackPlugin.options.i18n.Tos %></a> |
-				<i class="fa fa-envelope"></i>&nbsp;<a href="/contact/" data-href="contact"
-												  data-toggle="modal" data-target="#modalWindow"><%= htmlWebpackPlugin.options.i18n.Contact %></a> |
 			</span>
 			<span class="line">
+				<i class="fa fa-envelope"></i>&nbsp;<a href="/contact/" data-href="contact"
+												  data-toggle="modal" data-target="#modalWindow"><%= htmlWebpackPlugin.options.i18n.Contact %></a> |
 				<i class="fa fa-twitter"></i>&nbsp;<a href="//twitter.com/wouaf_it" target=_blank"><%= htmlWebpackPlugin.options.i18n.Twitter %></a> |
 				<i class="fa fa-facebook-official"></i>&nbsp;<a href="https://www.facebook.com/wouafit/" target=_blank">Facebook</a>
 			</span>

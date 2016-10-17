@@ -8,7 +8,7 @@
 <div class="modal-body">
 	<p>Imagine a location-based source of information where everyone can report local events. From the neighborhood protest
 		to the sale of your sofa via the lost dog of your neighbor.</p>
-	
+
 	<p>Contributive sources of information have already shown their quality and completeness. Wikipedia, Twitter, Facebook,
 		Reddit and others are irreplaceable to inform us.</p>
 
