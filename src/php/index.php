@@ -3,6 +3,10 @@ define('__DEV__', '<%= htmlWebpackPlugin.options.data.isDev %>' === 'true');
 $buildTime = (int) '<%= htmlWebpackPlugin.options.data.timestamp %>';
 
 $requestURI = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
+//remove query string
+if (strpos($requestURI, '?') !== false) {
+	$requestURI = substr($requestURI, 0, strpos($requestURI, '?'));
+}
 
 //404 on missing parts files
 if (preg_match('#\/parts\/.*#' , $requestURI, $matches)) {
@@ -41,28 +45,23 @@ if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) &&
 
 $data = array(
     'content'   => '',
-    'canonical' => 'https://'.$_SERVER['HTTP_HOST'].'/',
-    'head'      => getDefaultOpenGraph(),
+    'canonical' => 'https://'.$_SERVER['HTTP_HOST'].$requestURI,
+    'head'      => (getDefaultOpenGraph()."\n".
+				   '<link rel="alternate" hreflang="fr" href="https://fr-fr.<%= htmlWebpackPlugin.options.data.domain %>'.$requestURI.'" />'."\n".
+				   '<link rel="alternate" hreflang="en" href="https://en-us.<%= htmlWebpackPlugin.options.data.domain %>'.$requestURI.'" />')
 );
 if (!$requestURI || $requestURI === '/') {
     return $data;
 }
-if (strpos($requestURI, '/about/') !== false) {
-	$data['content'] .= file_get_contents(__DIR__.'/../parts/about.html');
+$staticPages = array(
+	'tos', 'about', 'faq', 'login', 'contact'
+);
+foreach ($staticPages as $staticPage) {
+	if (strpos($requestURI, '/'.$staticPage.'/') !== false) {
+		$data['content'] .= file_get_contents(__DIR__.'/../parts/'.$staticPage.'.html');
+		break;
+	}
 }
-if (strpos($requestURI, '/tos/') !== false) {
-	$data['content'] .= file_get_contents(__DIR__.'/../parts/tos.html');
-}
-if (strpos($requestURI, '/faq/') !== false) {
-	$data['content'] .= file_get_contents(__DIR__.'/../parts/faq.html');
-}
-if (strpos($requestURI, '/login/') !== false) {
-	$data['content'] .= file_get_contents(__DIR__.'/../parts/login.html');
-}
-if (strpos($requestURI, '/contact/') !== false) {
-	$data['content'] .= file_get_contents(__DIR__.'/../parts/contact.html');
-}
-
 define('API_KEY', '<%= htmlWebpackPlugin.options.data.apiKey %>');
 if ($wouafId || $userId) {
     $data['content'] .= '<script>window.wouafit = {};</script>';
@@ -130,8 +129,6 @@ if ($wouafId) {
 			var_dump($e);exit;
 		}
 	}
-} else {
-	$data['head'] = getDefaultOpenGraph();
 }
 
 return $data;
@@ -141,10 +138,11 @@ return $data;
  * @return string
  */
 function getDefaultOpenGraph() {
+	global $requestURI;
 	return "<meta property=\"og:title\" content=\"<%= htmlWebpackPlugin.options.i18n['Wouaf IT'] %>\" />\n".
 		   "<meta property=\"og:description\" content=\"<%= htmlWebpackPlugin.options.i18n['Your social network for your local events'] %>\" />\n".
 		   '<meta property="og:type" content="website" />'."\n".
-		   '<meta property="og:url" content="https://'.$_SERVER['HTTP_HOST'].'/" />'."\n".
+		   '<meta property="og:url" content="https://'.$_SERVER['HTTP_HOST'].$requestURI.'" />'."\n".
 		   '<meta property="fb:app_id" content="<%= htmlWebpackPlugin.options.data.facebookAppId %>" />'."\n".
 		   '<meta property="og:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/600-315.png" />'."\n".
 		   '<meta property="og:image:width" content="600" />'."\n".
