@@ -71,7 +71,7 @@
 		<br />
 		Cette idée a pris le temps de murir pour devenir le site actuel après quelques mois de développement.
 		Nous avons donc nommé "Wouaf" une publication sur le site en référence à ce chien qui, nous l'espérons, a retrouvé
-		son maitre depuis longtemps.
+		son maitre.
 	</p>
 
 	<h5>J'ai du contenu que je souhaite importer automatiquement dans Wouaf IT, comment faire ?</h5>
