@@ -30,9 +30,14 @@
 		Wouaf IT et ces contraintes découlent directement de ces choix. Si vous le souhaitez, vous pouvez ajouter un
 		commentaire explicatif ou un lien "Plus d'infos" à votre Wouaf.</p>
 
+	<h5>Comment puis-je ajouter un avatar sur mon profil ?</h5>
+	<p>Wouaf IT utilise <a href="http://gravatar.com" target="_blank">Gravatar</a> pour la gestion des avatars de ses utilisateurs.
+		Pour ajouter un avatar à votre compte, vous n'avez qu'à créer un compte
+		<a href="http://gravatar.com" target="_blank">Gravatar</a> avec la même adresse email que vous employez sur Wouaf IT.</p>
+
 	<h5>Puis-je publier du contenu à but lucratif sur Wouaf IT ?</h5>
 	<p>Tant que ce contenu respecte nos <a href="/tos/" data-href="tos" data-show="modal" data-target="#modalWindow">
-		conditions d'utilisation</a>, vous pouvez le publier.</p>
+			conditions d'utilisation</a>, vous pouvez le publier.</p>
 
 	<h5>Mes événements Facebook ont été importés, comment puis-je les gérer ?</h5>
 	<p>Pour lancer Wouaf IT, nous avons importé un certain nombre de sources de contenu disponibles sur Internet,
