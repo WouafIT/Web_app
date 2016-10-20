@@ -26,15 +26,20 @@ module.exports = (function() {
 		var $followingNotifications = $form.find('input[name=following-notifications]');
 		var $followerNotification = $form.find('input[name=follower-notifications]');
 		var $newsletterNotification = $form.find('input[name=newsletter-notifications]');
+		var $editProfile = $form.find('button.profile');
 		//set current values
 		$unit.val(data.getString('unit'));
 		$mapFollow.attr("checked", data.getBool('mapFollow'));
-		
+
 		var notifications = data.getObject('notifications');
 		$followingNotifications.attr("checked", notifications.following);
 		$followerNotification.attr("checked", notifications.follower);
 		$newsletterNotification.attr("checked", notifications.newsletter);
 
+		$editProfile.hide().removeAttr('hidden');
+		if (data.getString('uid')) {
+			$editProfile.show();
+		}
 		//populate radius select
 		var populateRadius = function() {
 			var selectedRadius = $radius.val();

@@ -42,7 +42,8 @@
 			'cookieDomain': '<%= htmlWebpackPlugin.options.data.cookieDomain %>'
 		});
 	</script>
-	<style>#splash {position: absolute;top: 0;left: 0;height: 100%;width: 100%;background: #2B9D48;z-index: 100;} #slogo{margin: auto;display: block;top: 50%;transform: translateY(-60%);position: relative;width:20%;height: auto;}</style>
+	<style>#splash {position: absolute;top: 0;left: 0;height: 100%;width: 100%;background: #2B9D48;z-index: 100;}
+		#slogo{margin: auto;display: block;top: 50%;transform: translateY(-60%);position: relative;width:20%;height: auto;}</style>
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" />
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.css" />

@@ -3,6 +3,7 @@ var utils = require('../utils');
 var categories = require('../resource/categories.js');
 var url = require('../resource/url.js');
 var dtp = require('../resource/datetimepicker.js');
+var user = require('./user.js');
 
 module.exports = (function() {
 	var self = {};
@@ -118,10 +119,11 @@ module.exports = (function() {
 	self.getWouaf = function (obj, collapse) {
 		collapse = collapse || false;
 		var text = utils.textToHTML(obj.text);
+		var authorAvatar = user.getAvatar(obj.author, 16);
 		var authorUrl = url.getAbsoluteURLForStates([{name: 'user', value: obj.author[1]}]);
 		var author = i18n.t('By {{author}}', {
 			author: '<a href="'+ authorUrl +'" data-user="'+ utils.escapeHtml(obj.author[1]) +'">'+
-					utils.escapeHtml(obj.author[2] || obj.author[1]) +'</a>',
+					utils.escapeHtml(obj.author[2] || obj.author[1]) +' '+ authorAvatar +'</a>',
 			interpolation: {escape: false}
 		});
 		var locale = ' lang="'+ (obj.lang ? obj.lang.substr(0, 2) : i18n.t('languageShort')) +'"';

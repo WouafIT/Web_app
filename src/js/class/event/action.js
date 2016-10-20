@@ -13,8 +13,15 @@ module.exports = (function() {
 	//user / wouaf links
 	$document.on('click', 'a, button', function(e) {
 		var $source = $(e.target);
-		if (!$source.length || (!$source.data('user') && !$source.data('tag')
-								&& !$source.data('wouaf') && !$source.data('show'))) {
+		if (!$source.length) {
+			return;
+		}
+		var $parents = $source.parents('a, button');
+		if ($parents.length) {
+			$source = $parents;
+		}
+		if (!$source.data('user') && !$source.data('tag')
+								&& !$source.data('wouaf') && !$source.data('show')) {
 			return;
 		}
 		e.preventDefault();

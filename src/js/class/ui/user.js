@@ -130,6 +130,13 @@ module.exports = (function() {
 	};
 
 	self.getAvatar = function(user, size) {
+		if (user.constructor === Array) {
+			//user came from post or comment author field, convert it to object
+			user = {
+				avatar: user[4],
+				hash: user[3]
+			};
+		}
 		size = size || 80;
 		if (user.avatar) {
 			return '<img src="'+ user.avatar +'" width="'+ size +'" height="'+ size +'" class="avatar" />';

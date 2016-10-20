@@ -3,6 +3,7 @@ var dtp = require('../resource/datetimepicker.js');
 var url = require('../resource/url.js');
 var utils = require('../utils');
 var data = require('../resource/data.js');
+var user = require('./user.js');
 
 module.exports = (function() {
 	var self = {};
@@ -10,10 +11,11 @@ module.exports = (function() {
 		var date = new Date();
 		date.setTime(obj.ts);
 		var time = dtp.formatTime(date, false);
+		var authorAvatar = user.getAvatar(obj.author, 16);
 		var authorUrl = url.getAbsoluteURLForStates([{name: 'user', value: obj.author[1]}]);
 		var author = i18n.t('By {{author}} on {{date}}', {
 			author: '<a href="'+ authorUrl +'" data-user="'+ utils.escapeHtml(obj.author[1]) +'">'+
-				utils.escapeHtml(obj.author[2] || obj.author[1]) +'</a>',
+				utils.escapeHtml(obj.author[2] || obj.author[1]) +' '+ authorAvatar +'</a>',
 			date: (dtp.formatDate(date, 'long') + (time !== '00:00' ? ' '+ i18n.t('at {{at}}', {at: time}) : '')),
 			interpolation: {escape: false}
 		});
