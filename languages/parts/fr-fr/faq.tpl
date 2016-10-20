@@ -3,7 +3,7 @@
 		<span aria-hidden="true">&times;</span>
 		<span class="sr-only"><%= htmlWebpackPlugin.options.i18n['Close'] %></span>
 	</button>
-	<h4 class="modal-title">Questions fréquentes</h5>
+	<h4 class="modal-title">Questions fréquentes</h4>
 </div>
 <div class="modal-body">
 	<p>Sur cette page vous trouverez les réponses aux questions les plus fréquentes. Si vous ne trouvez pas votre réponse,
@@ -88,12 +88,12 @@
 
 	<h5>Je souhaite aider au développement de Wouaf IT, comment faire ?</h5>
 	<p>Toutes les bonnes volontés sont appréciées et il reste plein de travail à faire. Vous pouvez jeter un œil sur
-		la page <i class="fa fa-github"></i> <a href="https://github.com/WouafIT">Github</a> du projet, certaines infos
+		la page <i class="fa fa-github"></i> <a href="https://github.com/WouafIT" target="_blank">Github</a> du projet, certaines infos
 		complémentaires s'y trouvent et vous pouvez toujours parler de Wouaf IT autour de vous, le bouche à oreille est
 		la meilleure des aides !</p>
 
-	<p>Suivez Wouaf IT sur <i class="fa fa-twitter"></i> <a href="https://twitter.com/Wouaf_IT" target=_blank">Twitter</a> et
-		<i class="fa fa-facebook-official"></i> <a href="https://www.facebook.com/wouafit/" target=_blank">Facebook</a> pour plus d'informations !</p>
+	<p>Suivez Wouaf IT sur <i class="fa fa-twitter"></i> <a href="https://twitter.com/Wouaf_IT" target="_blank">Twitter</a> et
+		<i class="fa fa-facebook-official"></i> <a href="https://www.facebook.com/wouafit/" target="_blank">Facebook</a> pour plus d'informations !</p>
 	<hr />
 	<p>Wouaf IT © <%= htmlWebpackPlugin.options.data.year %>.</p>
 </div>

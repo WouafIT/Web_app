@@ -141,8 +141,8 @@
 			<span class="line">
 				<i class="fa fa-envelope"></i>&nbsp;<a href="/contact/" data-href="contact"
 												  data-toggle="modal" data-target="#modalWindow"><%= htmlWebpackPlugin.options.i18n.Contact %></a> |
-				<i class="fa fa-twitter"></i>&nbsp;<a href="//twitter.com/wouaf_it" target=_blank"><%= htmlWebpackPlugin.options.i18n.Twitter %></a> |
-				<i class="fa fa-facebook-official"></i>&nbsp;<a href="https://www.facebook.com/wouafit/" target=_blank">Facebook</a>
+				<i class="fa fa-twitter"></i>&nbsp;<a href="//twitter.com/wouaf_it" target="_blank"><%= htmlWebpackPlugin.options.i18n.Twitter %></a> |
+				<i class="fa fa-facebook-official"></i>&nbsp;<a href="https://www.facebook.com/wouafit/" target="_blank">Facebook</a>
 			</span>
 		</nav>
 	</footer>
