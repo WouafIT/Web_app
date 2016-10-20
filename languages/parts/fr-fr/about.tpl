@@ -14,7 +14,7 @@
 
 	<p>Wouaf IT souhaite mettre en avant les événements publics qui sont rares et difficiles à trouver autour de vous.
 		Ces événements qui n'ont que peu ou pas de budget marketing et sont rarement connus en dehors du cercle
-		des proches de l'organisateur. Si le public sait qu'il y a quelque chose, il pourra en profiter tous les jours.</p>
+		des proches de l'organisateur. Si le public sait qu'il y a quelque chose autour de lui, il pourra aussi en profiter !</p>
 
 	<p>Quelques exemples de ce vous pouvez trouver et publier sur Wouaf IT :</p>
 	<ul>
