@@ -13,6 +13,10 @@ module.exports = (function() {
 	//Event to launch a new search
 	$document.on('app.search', function (event, params) {
 		params = params || {};
+		//reset search if more than 2000 results are displayed
+		if (previousSearchCount >= 2000) {
+			params.refresh = false;
+		}
 		if (!params.refresh) {
 			params.searchId = (new Date()).getTime();
 			params = $.extend(params, slidebars.getSearchParams());
