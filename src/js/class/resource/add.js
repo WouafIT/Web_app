@@ -77,7 +77,9 @@ module.exports = (function() {
 			queue: 'ch'
 		}).promise('ch').done(function() {
 			$mapArea.find('.ch').remove();
-			$crosshairs.show();
+			if (!data.getBool('mapFollow')) {
+				$crosshairs.show();
+			}
 		});
 		$('#ch-c').animate({
 			left: '-=53px',
