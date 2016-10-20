@@ -86,7 +86,7 @@
 		Pour en savoir plus, <a href="/contact/" data-href="contact" data-show="modal" data-target="#modalWindow">contactez-nous</a>
 		en décrivant ce que vous souhaitez importer.</p>
 
-	<h5>Je souhaite aider au développement de Wouaf IT, comment faire ?</h5>
+	<h5>Je souhaite aider au développement de Wouaf IT, est ce possible ?</h5>
 	<p>Toutes les bonnes volontés sont appréciées et il reste plein de travail à faire. Vous pouvez jeter un œil sur
 		la page <i class="fa fa-github"></i> <a href="https://github.com/WouafIT" target="_blank">Github</a> du projet, certaines infos
 		complémentaires s'y trouvent et vous pouvez toujours parler de Wouaf IT autour de vous, le bouche à oreille est

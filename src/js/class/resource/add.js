@@ -8,7 +8,6 @@ module.exports = (function() {
 	var $document = $(document);
 	var $mapArea = $('#sb-site');
 	var $addZone = $('#add-zone');
-	var $crosshairs = $('#crosshairs');
 	var $addBtn = $addZone.find('.add-btn');
 	var $addOkBtn = $addZone.find('button.btn-primary.add');
 	var $locationBtn = $addZone.find('button.btn-primary.location');
@@ -44,7 +43,6 @@ module.exports = (function() {
 	});
 
 	var showCrosshair = function () {
-		$crosshairs.hide();
 		$mapArea.append('<div class="ch" id="ch-t"></div><div class="ch" id="ch-l"></div><div class="ch" id="ch-r"></div><div class="ch" id="ch-b"></div>')
 		$('#ch-t, #ch-b').animate({height: '50%'}, {
 			duration: 400,
@@ -77,9 +75,6 @@ module.exports = (function() {
 			queue: 'ch'
 		}).promise('ch').done(function() {
 			$mapArea.find('.ch').remove();
-			if (!data.getBool('mapFollow')) {
-				$crosshairs.show();
-			}
 		});
 		$('#ch-c').animate({
 			left: '-=53px',
