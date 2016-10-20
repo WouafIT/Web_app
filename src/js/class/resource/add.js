@@ -19,12 +19,12 @@ module.exports = (function() {
 	$addZone.removeAttr('hidden');
 	$addOkBtn.popover({
 		title: i18n.t('Add a new Wouaf'),
-		content: i18n.t('Add_wouaf_popover'),
+		content: i18n.t('Add_wouaf_popover', {interpolation: {escape: false}}),
+		html:true,
 		trigger: 'manual',
 		placement: 'top',
 		offset: '0 100',
 		template: ['<div class="popover" role="tooltip">',
-						'<div class="popover-arrow"></div>',
 						'<button type="button" class="close" aria-label="'+ i18n.t('Close') +'">',
 						'<span aria-hidden="true">&times;</span>',
 						'</button>',
@@ -33,7 +33,6 @@ module.exports = (function() {
 					'</div>'].join('')
 	});
 	$addOkBtn.on('shown.bs.popover', function () {
-		$('.popover').appendTo($mapArea);
 		$('.popover .close').one('click', function () {
 			data.setBool('showPopover', false);
 			$addOkBtn.popover('hide');

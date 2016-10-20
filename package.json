@@ -40,7 +40,7 @@
     "webpack-merge": "^0.14.1"
   },
   "devDependencies": {
-    "bootstrap": "4.0.0-alpha.4",
+    "bootstrap": "4.0.0-alpha.5",
     "webpack-dev-server": "^1.16.1"
   }
 }

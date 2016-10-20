@@ -177,7 +177,7 @@
 
 	"Add a new Wouaf": "Ajouter un nouveau Wouaf",
 	"Save your Wouaf": "Publier votre Wouaf",
-	"Add_wouaf_popover": "Positionnez le centre de la carte à l'endroit où vous souhaitez ajouter votre Wouaf et cliquez sur OK.",
+	"Add_wouaf_popover": "Positionnez le centre de la carte à l'endroit où vous souhaitez ajouter votre Wouaf et cliquez sur OK.\nUtilisez le bouton <i class=\"fa fa-crosshairs\"></i> pour zoomer sur votre position.\nSi le viseur est rouge, zoomez un peu pour vous positionner plus précisément.",
 	"Lack of precision": "Manque de précision ...",
 	"lack_of_precision_details": "La position définie est peu précise. Vous devez zoomer un peu !",
 

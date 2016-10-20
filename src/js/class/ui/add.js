@@ -225,7 +225,6 @@ module.exports = (function() {
 			placement: 'bottom',
 			offset: '0 100',
 			template: ['<div class="popover large" role="tooltip">',
-							'<div class="popover-arrow"></div>',
 							'<button type="button" class="close" aria-label="'+ i18n.t('Close') +'">',
 							'<span aria-hidden="true">&times;</span>',
 							'</button>',

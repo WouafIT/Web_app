@@ -177,7 +177,7 @@
 
 	"Add a new Wouaf": "Add a new Wouaf",
 	"Save your Wouaf": "Save your Wouaf",
-	"Add_wouaf_popover": "Position the center of the map at the point where you want to add your Wouaf and click OK.",
+	"Add_wouaf_popover": "Position the center of the map at the point where you want to add your Wouaf and click OK.\nUse the <i class=\"fa-fa crosshairs\"></i> to zoom on your position.\nIf the viewfinder is red, zoom a bit to position yourself more precisely.",
 	"Lack of precision": "Lack of precision...",
 	"lack_of_precision_details": "The defined position lacks of precision. You must zoom in a bit!",
 
