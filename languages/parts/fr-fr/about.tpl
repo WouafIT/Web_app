@@ -12,7 +12,7 @@
 	<p>Les sources d'informations contributives ont déjà montré leur qualité et leur exhaustivité. Wikipedia, Twitter, Facebook,
 		Reddit et bien autres sont irremplaçable pour nous informer.</p>
 
-	<p>Wouaf IT souhaite mettre en avant les événements publics qui sont rares et difficiles à trouver autour de vous.
+	<p>Wouaf IT souhaite mettre en avant les événements publics qui sont rares ou difficiles à trouver autour de vous.
 		Ces événements qui n'ont que peu ou pas de budget marketing et sont rarement connus en dehors du cercle
 		des proches de l'organisateur. Si le public sait qu'il y a quelque chose autour de lui, il pourra aussi en profiter !</p>
 
@@ -36,7 +36,7 @@
 	<p>Suivez Wouaf IT sur <i class="fa fa-twitter"></i> <a href="https://twitter.com/Wouaf_IT" target="_blank">Twitter</a> et
 		<i class="fa fa-facebook-official"></i> <a href="https://www.facebook.com/wouafit/" target="_blank">Facebook</a> pour plus d'informations !</p>
 
-	<p>L'utilisation de Wouaf IT est gratuit. Son code source est distribué sous licence libre Apache et
+	<p>L'utilisation de Wouaf IT est gratuite. Son code source est distribué sous licence libre Apache et
 		disponible sur <i class="fa fa-github"></i> <a href="https://github.com/WouafIT" target="_blank">Github</a>.</p>
 	<hr />
 	<p>Wouaf IT © <%= htmlWebpackPlugin.options.data.year %>.</p>
