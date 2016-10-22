@@ -9,6 +9,7 @@ var query = require('./query.js');
 var wouaf = require('../ui/wouaf.js');
 
 module.exports = (function () {
+	var debug = false;
 	var $document = $(document);
 	var map, infowindow; //GMap elements
 	var userLocation;
@@ -78,7 +79,9 @@ module.exports = (function () {
 			elements.push(element);
 		}
 		setTimeout(function () {
-			//console.info('setPins1 (map.results-chown)');
+			if (debug) {
+				console.info('setPins1 (map.results-chown)');
+			}
 			$document.triggerHandler('map.results-chown');
 		}, 400);
 
@@ -113,7 +116,9 @@ module.exports = (function () {
 	var appendPin = function(obj) {
 		var deferred = $.Deferred();
 		if (getResults([obj.id]).length) {
-			//console.info('appendPin1');
+			if (debug) {
+				console.info('appendPin1');
+			}
 			deferred.resolve();
 		} else {
 			var results = jQuery.extend(true, {}, self.jsonResults);
@@ -121,10 +126,14 @@ module.exports = (function () {
 			results.results.push(obj);
 			results.count = results.results.length;
 			$document.one('map.results-chown', function () {
-				//console.info('appendPin2');
+				if (debug) {
+					console.info('appendPin2');
+				}
 				deferred.resolve();
 			});
-			//console.info('appendPin3');
+			if (debug) {
+				console.info('appendPin3');
+			}
 			setPins(results);
 		}
 		return deferred.promise();
@@ -135,13 +144,17 @@ module.exports = (function () {
 			return;
 		}
 		if (obj) {
-			//console.info('showPin1');
+			if (debug) {
+				console.info('showPin1');
+			}
 			openPin(obj);
 			return;
 		}
 		//get wouaf data then open it
 		$.when(getResult(id)).done(function(obj) {
-			//console.info('showPin2');
+			if (debug) {
+				console.info('showPin2');
+			}
 			openPin(obj);
 		}).fail(function() {
 			windows.show({
@@ -163,7 +176,9 @@ module.exports = (function () {
 			} else if (zoom < 21) {
 				var pinZoom = clustermap.getLeafZoom(hcmap, obj.id, 10, 21);
 				if (pinZoom !== zoom) {
-					//console.info('showIW1', pinZoom, zoom);
+					if (debug) {
+						console.info('showIW1', pinZoom, zoom);
+					}
 					google.maps.event.addListenerOnce(map, 'idle', showIW);
 					map.setZoom(pinZoom);
 				} else {
@@ -171,7 +186,9 @@ module.exports = (function () {
 						count = 0;
 						google.maps.event.trigger(map, 'dragend');
 					}
-					//console.info('showIW2');
+					if (debug) {
+						console.info('showIW2');
+					}
 					setTimeout(showIW, 400);
 				}
 			} else if (zoom === 21) {
@@ -183,7 +200,9 @@ module.exports = (function () {
 					});
 					google.maps.event.trigger($pin.get(0), 'click');
 				} else {
-					//console.info('showIW4 - no pin found for id '+ obj.id);
+					if (debug) {
+						console.info('showIW4 - no pin found for id ' + obj.id);
+					}
 					//avoid bug after setCenter : sometimes pins are not refreshed.
 					google.maps.event.trigger(map, 'dragend');
 					setTimeout(showIW, 400);
@@ -200,23 +219,33 @@ module.exports = (function () {
 			var mapCenter = center.toUrlValue(5);
 			var objCenter = new google.maps.LatLng(obj.loc[0], obj.loc[1]).toUrlValue(5);
 			if (mapCenter === objCenter) {
-				//console.info('openPin1');
+				if (debug) {
+					console.info('openPin1');
+				}
 				$.when(appendPin(obj)).done(showIW);
 			} else {
 				var center = new google.maps.LatLng(obj.loc[0], obj.loc[1]);
 				if (isSearchRefreshNeeded(center)) {
-					//console.info('openPin2');
+					if (debug) {
+						console.info('openPin2');
+					}
 					$document.one('map.results-chown', function () {
-						//console.info('openPin2"');
+						if (debug) {
+							console.info('openPin2"');
+						}
 						$.when(appendPin(obj)).done(showIW);
 					});
 					map.setCenter(center);
 				} else {
 					$.when(appendPin(obj)).done(function () {
-						//console.info('openPin3');
+						if (debug) {
+							console.info('openPin3');
+						}
 						//google.maps.event.addListenerOnce(map, 'idle', showIW);
 						$document.one('map.updated-position', function () {
-							//console.info('openPin4');
+							if (debug) {
+								console.info('openPin4');
+							}
 							showIW();
 						});
 						map.setCenter(center);
@@ -371,7 +400,9 @@ module.exports = (function () {
 				$crosshairs.show();
 			}
 		}
-		//console.info('map.updated-position');
+		if (debug) {
+			console.info('map.updated-position');
+		}
 		$document.triggerHandler('map.updated-position');
 	};
 	$updateSearch.on('click', function () {

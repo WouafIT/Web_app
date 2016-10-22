@@ -205,6 +205,7 @@ module.exports = (function() {
 			var $parent = $(e.target).parents('.w-container');
 			var wouafId = $parent.data('id');
 			if (wouafId) {
+				map.hideResult();
 				map.showResult(wouafId);
 				if (!slidebars.isDualView()) {
 					$document.triggerHandler('slide.close');
