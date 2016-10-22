@@ -96,7 +96,7 @@
 	"ID or Email": "Identifiant ou Email",
 	"Choose your connection method": "Choisissez votre mode de connexion",
 	"Facebook profile": "Compte Facebook",
-	"Facebook_profile_details": "En vous connectant avec Facebook, vous pourrez importer vos événements Facebook dans Wouaf IT.",
+	"Facebook_profile_details": "En vous connectant avec Facebook, vous pourrez importer vos événements Facebook dans Wouaf IT.\nWouaf IT ne publiera jamais en votre nom sur Facebook.",
 	"Facebook login": "Connexion avec Facebook",
 	"Google profile": "Compte Google",
 	"Wouaf IT profile": "Compte Wouaf IT",
