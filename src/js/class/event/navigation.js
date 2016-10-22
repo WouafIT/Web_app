@@ -6,6 +6,7 @@ var url = require('../resource/url.js');
 var wouafs = require('../resource/wouafs.js');
 
 module.exports = (function() {
+	var debug = false;
 	var $document = $(document);
 	var allowSetState = true;
 	var states = {
@@ -17,10 +18,16 @@ module.exports = (function() {
 	data.setObject('navigation', states, true);
 
 	$document.on('navigation.disable-state', function() {
+		if (debug) {
+			console.info('Disable navigation state');
+		}
 		allowSetState = false;
 	});
 
 	$document.on('navigation.enable-state', function() {
+		if (debug) {
+			console.info('Enable navigation state');
+		}
 		allowSetState = true;
 		$document.triggerHandler('navigation.set-state');
 	});
@@ -36,12 +43,13 @@ module.exports = (function() {
 		if (!allowSetState) {
 			return;
 		}
+
 		var href = url.getPath(states);
 		if (href !== window.location.pathname) {
-			window.history.pushState(states, '', href);
-			if (__DEV__) {
-				console.info('Push URL: '+href);
+			if (debug) {
+				console.info('Push URL: '+ href +' (old url: '+ window.location.pathname +')');
 			}
+			window.history.pushState(states, '', href);
 			$document.triggerHandler('app.pushed-state');
 		}
 	});
@@ -52,48 +60,75 @@ module.exports = (function() {
 			//append on a link with an anchor
 			return;
 		}
-		//allowSetState = false; //disallow state change during URL parsing
-		states = eventStates;
-		data.setObject('navigation', states, true);
-		if (__DEV__) {
-			console.info('Pop URL: ', states);
+		allowSetState = false; //disallow state change during URL parsing
+		if (debug) {
+			console.info('Pop URL: ', eventStates);
 		}
-		/*$document.triggerHandler('navigation.load-state', function () {
-			$document.triggerHandler('app.poped-state');
-		});
-		return;*/
-
-		if (states) {
-			if (states.map) {
-				var coordinates = states.map.center.split(',');
-				map.setCenter({lat: parseFloat(coordinates[0]), lng: parseFloat(coordinates[1])}, true);
-				map.getMap().setZoom(parseInt(states.map.zoom, 10));
+		for(var i in eventStates) {
+			if (eventStates.hasOwnProperty(i)) {
+				if (states[i] !== eventStates[i]) {
+					var state = eventStates[i];
+					if (debug) {
+						console.info('Set state: ', i, state);
+					}
+					switch(i) {
+						case 'map':
+							if (state) {
+								var coordinates = state.center.split(',');
+								if (debug) {
+									console.info('Set map: '+coordinates[0]+','+coordinates[1]+','+state.zoom);
+								}
+								map.setCenter({lat: parseFloat(coordinates[0]), lng: parseFloat(coordinates[1])}, true);
+								map.getMap().setZoom(parseInt(state.zoom, 10));
+							}
+							break;
+						case 'wouaf':
+							if (state) {
+								map.showResult(state);
+							} else {
+								map.hideResult();
+							}
+							break;
+						case 'tag':
+							if (state) {
+								$('#hashtag').val(state);
+							} else {
+								$('#hashtag').val('');
+							}
+							break;
+						case 'user':
+							if (state) {
+								windows.show({
+									href: 'user',
+									navigationOpen: {name: 'user', value: state},
+									navigationClose: {name: 'user', value: null}
+								});
+							}
+							break;
+						case 'windows':
+							if (state) {
+								windows.show({href: state});
+							}
+							break;
+					}
+				}
 			}
-			if (states.wouaf) {
-				map.showResult(states.wouaf);
-			} else {
-				map.hideResult();
-			}
-			if (states.tag) {
-				$('#hashtag').val(states.tag);
-			}
-			if (states.user) {
-				windows.show({
-					href: 'user',
-					navigationOpen: {name: 'user', value: states.user},
-					navigationClose: {name: 'user', value: null}
-				});
-			} else if (states.windows) {
-				windows.show({href: states.windows});
-			} else {
-				windows.close();
-			}
-		} else {
-			map.hideResult();
+		}
+		states = eventStates;
+		if (!states.windows && !states.user) {
 			windows.close();
 		}
-		//allowSetState = true;
-		$document.triggerHandler('app.poped-state');
+		if (!states.wouaf) {
+			map.hideResult();
+		}
+
+		data.setObject('navigation', states, true);
+
+		allowSetState = true;
+		$document.triggerHandler('app.popped-state');
+		if (debug) {
+			console.info('Pop URL: End');
+		}
 	});
 
 	$document.on('navigation.load-state', function(e, callback) {

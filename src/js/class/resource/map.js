@@ -143,6 +143,7 @@ module.exports = (function () {
 		if (!id || !utils.isId(id)) {
 			return;
 		}
+		$document.triggerHandler('navigation.disable-state');
 		if (obj) {
 			if (debug) {
 				console.info('showPin1');
@@ -157,6 +158,7 @@ module.exports = (function () {
 			}
 			openPin(obj);
 		}).fail(function() {
+			$document.triggerHandler('navigation.enable-state');
 			windows.show({
 				title: i18n.t('404_Error_'),
 				text: i18n.t('Error, unknown url')
@@ -172,7 +174,6 @@ module.exports = (function () {
 			var $pin = $map.find('.baseMarker[data-id="'+ obj.id +'"]');
 			if ($pin.length) {
 				google.maps.event.trigger($pin.get(0), 'click');
-				$document.triggerHandler('navigation.enable-state');
 			} else if (zoom < 21) {
 				var pinZoom = clustermap.getLeafZoom(hcmap, obj.id, 10, 21);
 				if (pinZoom !== zoom) {
@@ -207,7 +208,6 @@ module.exports = (function () {
 					google.maps.event.trigger(map, 'dragend');
 					setTimeout(showIW, 400);
 				}
-				$document.triggerHandler('navigation.enable-state');
 			}
 		};
 		setTimeout(function () {
@@ -615,6 +615,7 @@ module.exports = (function () {
 		var content = '';
 		if (!length) {
 			$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: null});
+			$document.triggerHandler('navigation.enable-state');
 			return;
 		} else if (results.length === 1) {
 			$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: results[0].id});
@@ -629,6 +630,7 @@ module.exports = (function () {
 		infowindow.open(map);
 		infowindow.opened = true;
 		$document.triggerHandler('map.infowindow-opened');
+		$document.triggerHandler('navigation.enable-state');
 	});
 
 	return {

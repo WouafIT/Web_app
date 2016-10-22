@@ -174,7 +174,7 @@ module.exports = (function() {
 	$document.on('app.pushed-state', function () {
 		logState('push');
 	});
-	$document.on('app.poped-state', function () {
+	$document.on('app.popped-state', function () {
 		logState('pop');
 	});
 
