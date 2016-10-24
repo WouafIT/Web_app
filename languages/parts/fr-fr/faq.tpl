@@ -11,7 +11,7 @@
 		<a href="/contact/" data-href="contact" data-show="modal" data-target="#modalWindow">nous contacter</a> !</p>
 
 	<h5>Quelles sont les limites de contenu d'un Wouaf ?</h5>
-	<p>Il y en a plusieurs :</p>
+	<p>Il y en a quelques unes :</p>
 	<ul>
 		<li>Le texte ne peut pas dépasser 300 caractères.</li>
 		<li>Le titre ne peut pas dépasser 80 caractères.</li>
@@ -36,7 +36,7 @@
 		<a href="http://gravatar.com" target="_blank">Gravatar</a> avec la même adresse email que vous employez sur Wouaf IT.</p>
 
 	<h5>Puis-je publier du contenu à but lucratif sur Wouaf IT ?</h5>
-	<p>Tant que ce contenu respecte nos <a href="/tos/" data-href="tos" data-show="modal" data-target="#modalWindow">
+	<p>Oui, tant que ce contenu respecte nos <a href="/tos/" data-href="tos" data-show="modal" data-target="#modalWindow">
 			conditions d'utilisation</a>, vous pouvez le publier.</p>
 
 	<h5>Mes événements Facebook ont été importés, comment puis-je les gérer ?</h5>
@@ -64,6 +64,11 @@
 	<h5>Wouaf IT est-il internationnal ?</h5>
 	<p>A terme oui, Wouaf IT a pour objectif de couvrir tous les pays, mais nous allons monter doucement en puissance.
 		Vous pouvez déjà créer des Wouafs ou vous le souhaitez et nous ajouterons d'autres sources de contenu petit à petit.</p>
+
+	<h5>Y a t'il des applications mobiles pour Wouaf IT ?</h5>
+	<p>Le site internet a été conçu pour être parfaitement compatible avec les mobiles. Par ailleurs, si vous employez Chrome sur Android,
+		il vous proposera d'installer Wouaf IT sur votre écran d'accueil à partir du deuxième lancement à 24h d'intervalle.
+		Enfin, à terme, des applications natives sont bien prévues pour Android et iOS mais il n'y a pas encore de calendrier précis pour cela.</p>
 
 	<h5>Que veut dire Wouaf IT ?</h5>
 	<p>L'idée derrière Wouaf IT remonte à 2012, lors d'un trajet en voiture à la campagne en famille. Nous avons croisé
