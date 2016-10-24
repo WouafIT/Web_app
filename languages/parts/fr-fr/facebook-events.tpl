@@ -8,13 +8,13 @@
 	</div>
 	<div class="modal-body">
 		<h3>Importation de vos événements Facebook</h3>
-		<p>Wouaf IT vous permet d'importer en un clic les événements <strong>public</strong> que vous avez déjà créé sur Facebook.</p>
-		<p>Ainsi vous pourrez en faire profiter la communauté Wouaf IT et les rendre plus visibles grace à la carte interactive. Vos événements conserveront un lien vers leur page originale sur Facebook.</p>
+		<p>Wouaf IT vous permet d'importer en un clic les événements <strong>publics</strong> que vous avez déjà créé sur Facebook.</p>
+		<p>Ainsi vous pourrez en faire profiter la communauté Wouaf IT et les rendre plus visibles grâce à la carte interactive. Vos événements conserveront un lien vers leur page originale sur Facebook.</p>
 		<p>Vous pourrez à tout moment les supprimer de Wouaf IT si vous le souhaitez.</p>
 		<hr />
 
 		<h4>Importer vos événements personnels</h4>
-		<p>Seuls les événements public dont vous êtes l'auteur seront importés.</p>
+		<p>Seuls les événements publics dont vous êtes l'auteur seront importés.</p>
 		<p>Si vous avez déjà importé des événements, ils ne seront pas réimportés, seuls les nouveaux événements seront ajoutés.</p>
 
 		<div class="events-disabled alert alert-danger" role="alert" hidden>
@@ -30,7 +30,7 @@
 		<hr />
 
 		<h4>Importer les événements de vos pages</h4>
-		<p>Seuls les événements public des pages Facebook dont vous êtes administrateur seront importés dans votre compte Wouaf IT.</p>
+		<p>Seuls les événements publics des pages Facebook dont vous êtes administrateur seront importés dans votre compte Wouaf IT.</p>
 		<p>Si vous avez déjà importé des événements, ils ne seront pas réimportés, seuls les nouveaux événements seront ajoutés.</p>
 		<p>Si des événements publics de vos pages Facebook ont déjà été automatiquement importés, ils seront rattachés à votre compte Wouaf IT, vous pourrez ainsi les gérer comme vous le souhaitez.</p>
 

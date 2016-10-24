@@ -11,7 +11,7 @@
 		<a href="/contact/" data-href="contact" data-show="modal" data-target="#modalWindow">nous contacter</a> !</p>
 
 	<h5>Quelles sont les limites de contenu d'un Wouaf ?</h5>
-	<p>Il y en a quelques unes :</p>
+	<p>Il y en a quelques-unes :</p>
 	<ul>
 		<li>Le texte ne peut pas dépasser 300 caractères.</li>
 		<li>Le titre ne peut pas dépasser 80 caractères.</li>
@@ -41,7 +41,7 @@
 
 	<h5>Mes événements Facebook ont été importés, comment puis-je les gérer ?</h5>
 	<p>Pour lancer Wouaf IT, nous avons importé un certain nombre de sources de contenu disponibles sur Internet,
-		parmi lesquelles les événements public publiés sur les pages de Facebook.
+		parmi lesquelles les événements publics publiés sur les pages de Facebook.
 		<br />
 		Si vous êtes l'administrateur de l'une de ces pages, vous pouvez regagner le contrôle de vos événements en suivant ces étapes :
 	</p>
@@ -61,11 +61,11 @@
 	<h5>Wouaf IT est-il payant ?</h5>
 	<p>Non Wouaf IT n'est pas payant et il restera gratuit pour les particuliers et petites entreprises !</p>
 
-	<h5>Wouaf IT est-il internationnal ?</h5>
+	<h5>Wouaf IT est-il international ?</h5>
 	<p>A terme oui, Wouaf IT a pour objectif de couvrir tous les pays, mais nous allons monter doucement en puissance.
 		Vous pouvez déjà créer des Wouafs ou vous le souhaitez et nous ajouterons d'autres sources de contenu petit à petit.</p>
 
-	<h5>Y a t'il des applications mobiles pour Wouaf IT ?</h5>
+	<h5>Y a-t-il des applications mobiles pour Wouaf IT ?</h5>
 	<p>Le site internet a été conçu pour être parfaitement compatible avec les mobiles. Par ailleurs, si vous employez Chrome sur Android,
 		il vous proposera d'installer Wouaf IT sur votre écran d'accueil à partir du deuxième lancement à 24h d'intervalle.
 		Enfin, à terme, des applications natives sont bien prévues pour Android et iOS mais il n'y a pas encore de calendrier précis pour cela.</p>
@@ -91,7 +91,7 @@
 		Pour en savoir plus, <a href="/contact/" data-href="contact" data-show="modal" data-target="#modalWindow">contactez-nous</a>
 		en décrivant ce que vous souhaitez importer.</p>
 
-	<h5>Je souhaite aider au développement de Wouaf IT, est ce possible ?</h5>
+	<h5>Je souhaite aider au développement de Wouaf IT, est-ce possible ?</h5>
 	<p>Toutes les bonnes volontés sont appréciées et il reste plein de travail à faire. Vous pouvez jeter un œil sur
 		la page <i class="fa fa-github"></i> <a href="https://github.com/WouafIT" target="_blank">Github</a> du projet, certaines infos
 		complémentaires s'y trouvent et vous pouvez toujours parler de Wouaf IT autour de vous, le bouche à oreille est

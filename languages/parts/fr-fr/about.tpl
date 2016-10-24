@@ -26,7 +26,7 @@
 		<li>Offrir des services à domicile (garde d'enfants, ménage, jardinage, ...).</li>
 		<li>Chercher des partenaires de sortie.</li>
 		<li>Retrouver un animal ou un objet perdu et prévenir d'un animal ou d'un objet trouvé.</li>
-		<li>Lancer une alerte (accident, innondation, ...).</li>
+		<li>Lancer une alerte (accident, inondation, ...).</li>
 		<li>Donner ou échanger des objets.</li>
 		<li>et bien d'autres choses encore ...</li>
 	</ul>
