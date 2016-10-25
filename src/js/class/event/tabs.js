@@ -68,7 +68,7 @@ module.exports = (function() {
 			}
 		}
 	});
-	
+
 	//resize tab content (for scrollbars)
 	$document.on('tabs.resize', function() {
 		var $container 		= $slidebar.find('>div.container');
@@ -79,7 +79,7 @@ module.exports = (function() {
 			var $tabHead 	= $panel.find('.tab-head');
 			var $tabContent = $panel.find('>.row');
 			if ($tabContent.length) {
-				console.info($tabHead.text(), $tabHead.outerHeight(), $tabHead.height());
+				//console.info($tabHead.text(), $tabHead.outerHeight(), $tabHead.height());
 				$tabContent.height(containerHeight - tabsHeight - ($tabHead.length ? 36 : 0));
 			} else {
 				$panel.addClass('scrollable');
