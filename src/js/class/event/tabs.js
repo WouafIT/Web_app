@@ -60,12 +60,30 @@ module.exports = (function() {
 			content = tab.getContent(data.data, data.title);
 		}
 		$tabsContent.append('<div role="tabpanel" class="tab-pane" id="' + data.id + '">' + content + '</div>');
+		$document.triggerHandler('tabs.resize');
 		if (active) {
 			$document.triggerHandler('tabs.show', data.id);
 			if (openActive) {
 				$document.triggerHandler('slide.open');
 			}
 		}
+	});
+
+	$document.on('tabs.show', function() {
+		var $container 		= $slidebar.find('>div.container');
+		var containerHeight = $container.outerHeight();
+		var tabsHeight 		= $container.find('>.row').outerHeight();
+		$container.find('.tab-pane').each(function () {
+			var $panel 		= $(this);
+			var $tabHead 	= $panel.find('.tab-head');
+			var $tabContent = $panel.find('>.row');
+			if ($tabContent.length) {
+				$tabContent.height(containerHeight - tabsHeight - ($tabHead.length ? 36 : 0));
+			} else {
+				$panel.addClass('scrollable');
+				$panel.height(containerHeight - tabsHeight);
+			}
+		});
 	});
 
 	//show tab (show search tab if no name provided)

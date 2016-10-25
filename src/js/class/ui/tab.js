@@ -13,10 +13,12 @@ module.exports = (function() {
 			l = data.data.results.length;
 			if (l) {
 				content = content.concat([
-					'<button class="w-menu" type="button" data-menu="listing" data-proximity="yes" data-sort="proximity" data-filter="no">',
-						'<i class="fa fa-bars"></i> ', i18n.t('Menu'),
-					'</button>',
-					'<p class="lead">', i18n.t('{{count}} result for your search', {count: l}) ,'</p>',
+					'<div class="tab-head">',
+						'<button class="w-menu" type="button" data-menu="listing" data-proximity="yes" data-sort="proximity" data-filter="no">',
+							'<i class="fa fa-bars"></i> ', i18n.t('Menu'),
+						'</button>',
+						'<p class="lead">', i18n.t('{{count}} result for your search', {count: l}) ,'</p>',
+					'</div>',
 					'<div class="row">'
 				]);
 				//store wouafs
@@ -48,10 +50,12 @@ module.exports = (function() {
 			l = data.data.results.length;
 			if (l) {
 				content = content.concat([
-					'<button class="w-menu" type="button" data-menu="listing" data-proximity="no" data-sort="date-desc" data-filter="no">',
-						'<i class="fa fa-bars"></i> ', i18n.t('Menu'),
-					'</button>',
-					'<p class="lead">', (title ? title : i18n.t('{{count}} Wouaf', {count: l})) ,'</p>',
+					'<div class="tab-head">',
+						'<button class="w-menu" type="button" data-menu="listing" data-proximity="no" data-sort="date-desc" data-filter="no">',
+							'<i class="fa fa-bars"></i> ', i18n.t('Menu'),
+						'</button>',
+						'<p class="lead">', (title ? title : i18n.t('{{count}} Wouaf', {count: l})) ,'</p>',
+					'</div>',
 					'<div class="row">'
 				]);
 				//store wouafs
@@ -70,7 +74,9 @@ module.exports = (function() {
 			}
 		} else if (data.type === 'user') {
 			content = content.concat([
-				'<p class="lead">', title ,'</p>',
+				'<div class="tab-head">',
+					'<p class="lead">', title ,'</p>',
+				'</div>',
 				'<div class="row">'
 			]);
 			//store users

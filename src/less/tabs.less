@@ -1,4 +1,7 @@
 .tab-pane {
+	>.row {
+		overflow-y: auto;
+	}
 	.w-container {
 		cursor: pointer;
 		border-bottom: 2px solid @white;
@@ -18,6 +21,21 @@
 	}
 	.w-menu {
 		margin-right: 0;
+	}
+	.tab-head {
+		p.lead {
+			margin-bottom: 0.1rem;
+		}
+	}
+	&.scrollable {
+		overflow-y: auto;
+		margin-left: -15px;
+		margin-right: -15px;
+
+		.row {
+			margin-left: 0;
+			margin-right: 0;
+		}
 	}
 }
 .nav-tabs {

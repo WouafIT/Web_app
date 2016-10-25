@@ -33,6 +33,7 @@ module.exports = (function() {
 
 	$window.on('resize', function() {
 		width = $window.width();
+		$document.triggerHandler('tabs.resize');
 	});
 
 	var showHideCustomDates = function() {
