@@ -68,8 +68,9 @@ module.exports = (function() {
 			}
 		}
 	});
-
-	$document.on('tabs.show', function() {
+	
+	//resize tab content (for scrollbars)
+	$document.on('tabs.resize', function() {
 		var $container 		= $slidebar.find('>div.container');
 		var containerHeight = $container.outerHeight();
 		var tabsHeight 		= $container.find('>.row').outerHeight();
@@ -78,6 +79,7 @@ module.exports = (function() {
 			var $tabHead 	= $panel.find('.tab-head');
 			var $tabContent = $panel.find('>.row');
 			if ($tabContent.length) {
+				console.info($tabHead.text(), $tabHead.outerHeight(), $tabHead.height());
 				$tabContent.height(containerHeight - tabsHeight - ($tabHead.length ? 36 : 0));
 			} else {
 				$panel.addClass('scrollable');
@@ -134,6 +136,8 @@ module.exports = (function() {
 			$tabPanel.html(content);
 			//sort by date
 			$document.triggerHandler('tabs.sort', {id: 'wouafs', action: 'date-desc'});
+			//resize tabs
+			$document.triggerHandler('tabs.resize');
 		}, function (msg) {
 			toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
 		});
@@ -151,6 +155,8 @@ module.exports = (function() {
 			$tabPanel.html(content);
 			//sort by date
 			$document.triggerHandler('tabs.sort', {id: 'favorites', action: 'date-desc'});
+			//resize tabs
+			$document.triggerHandler('tabs.resize');
 		}, function (msg) {
 			toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
 		});
@@ -166,6 +172,8 @@ module.exports = (function() {
 			tabsData['following'] = true;
 			var $tabPanel = $('#following .results');
 			$tabPanel.html(content);
+			//resize tabs
+			$document.triggerHandler('tabs.resize');
 		}, function (msg) {
 			toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
 		});
