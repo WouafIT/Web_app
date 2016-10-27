@@ -139,8 +139,8 @@ return $data;
  */
 function getDefaultOpenGraph() {
 	global $requestURI;
-	return "<meta property=\"og:title\" content=\"<%= htmlWebpackPlugin.options.i18n['Wouaf IT'] %>\" />\n".
-		   "<meta property=\"og:description\" content=\"<%= htmlWebpackPlugin.options.i18n['Your social network for your local events'] %>\" />\n".
+	return "<meta property=\"og:title\" content=\"<%= htmlWebpackPlugin.options.i18n['Wouaf IT'] %> - <%= htmlWebpackPlugin.options.i18n['Your social network for your local events'] %>\" />\n".
+		   "<meta property=\"og:description\" content=\"<%= htmlWebpackPlugin.options.i18n['Wouaf_IT_description'] %>\" />\n".
 		   '<meta property="og:type" content="website" />'."\n".
 		   '<meta property="og:url" content="https://'.$_SERVER['HTTP_HOST'].$requestURI.'" />'."\n".
 		   '<meta property="fb:app_id" content="<%= htmlWebpackPlugin.options.data.facebookAppId %>" />'."\n".

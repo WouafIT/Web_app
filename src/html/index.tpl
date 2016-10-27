@@ -21,8 +21,7 @@
 
 	<title><%= htmlWebpackPlugin.options.i18n['Wouaf IT'] %><%= htmlWebpackPlugin.options.data.devTitle %> -
 		<%= htmlWebpackPlugin.options.i18n['Your social network for your local events'] %></title>
-	<meta name="description" content="<%= htmlWebpackPlugin.options.i18n['Wouaf IT'] %> -
-		<%= htmlWebpackPlugin.options.i18n['Wouaf_IT_description'] %>" />
+	<meta name="description" content="<%= htmlWebpackPlugin.options.i18n['Wouaf_IT_description'] %>" />
 	<?php echo $data['head']; ?>
 
 	<link rel="manifest" href="/manifest.json" />
