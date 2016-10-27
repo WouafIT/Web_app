@@ -397,5 +397,8 @@
 
   	"By": "Published by",
 	"to": "to",
-	"at": "at"
+	"at": "at",
+
+	"Incompatible browser": "Incompatible browser...",
+	"Incompatible browser_details": "Sorry, your browser is obsolete.\nIt can not run Wouaf IT properly..."
 }

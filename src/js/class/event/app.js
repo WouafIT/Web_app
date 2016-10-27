@@ -21,6 +21,20 @@ module.exports = (function() {
 		require('./menu.js');
 		require('./tabs.js');
 
+		//Block IE before version 11
+		var ua = window.navigator.userAgent;
+		var msie = ua.indexOf('MSIE ');
+		if (msie > 0) {
+			if (parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10) < 11) {
+				//show message page
+				windows.show({
+					title:	i18n.t('Incompatible browser'),
+					text:	i18n.t('Incompatible browser_details')
+				});
+				return;
+			}
+		}
+
 		//launch count
 		var launchCount = data.getInt('launchCount');
 		data.setInt('launchCount', !launchCount ? 1 : launchCount + 1);

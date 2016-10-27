@@ -397,5 +397,8 @@
 
 	"By": "Publié par",
 	"to": "au",
-	"at": "à"
+	"at": "à",
+
+	"Incompatible browser": "Navigateur incompatible ...",
+	"Incompatible browser_details": "Navré, votre navigateur internet est obsolète.\nIl ne peut faire fonctionner Wouaf IT convenablement ..."
 }
