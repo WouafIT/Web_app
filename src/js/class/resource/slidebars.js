@@ -10,6 +10,7 @@ module.exports = (function() {
 	var $document = $(document);
 	var $window = $(window);
 	var $loader = $('#loader');
+	var $body = $('body');
 	var $site = $('#sb-site');
 	var $category = $('#what');
 	var $when = $('#when');
@@ -28,12 +29,14 @@ module.exports = (function() {
 	var isDualView = function() {
 		if (!width) {
 			width = $window.width();
+			$body.toggleClass('dualview', width >= 768);
 		}
 		return width >= 768;
 	};
 
 	$window.on('resize', function() {
-		width = $window.width();
+		width = null;
+		isDualView();
 		$document.triggerHandler('tabs.resize');
 	});
 

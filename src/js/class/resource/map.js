@@ -473,7 +473,10 @@ module.exports = (function () {
 		var mapClosePin;
 		google.maps.event.addDomListener($map.get(0), 'click', function(e) {
 			var $target = $(e.target);
-			if (!$target.length || $target.parents('.w-menu-dropdown, .gm-iw-parent').length || !$target.parents('#map').length) {
+			if (!$target.length
+				|| $target.parents('.w-menu-dropdown, .gm-iw-parent').length //click inside an infowindow
+				|| !$target.parents('#map').length //click outside the map
+				|| (!$('body').hasClass('dualview') && $('.sb-active').length)) { //click on a map to close the sidepanel (non dualview mode)
 				return;
 			}
 			e.stopPropagation();
