@@ -111,7 +111,7 @@ module.exports = (function() {
 				'<div class="w-details"><span>' , categories.getLabel(obj.cat) , '</span> - ', eventLength ,'</div>',
 				'<div class="w-comments">', (obj.pics && obj.pics.length ? '<i class="fa fa-picture-o"></i> ' : ''),
 					'<a href="', url.getAbsoluteURLForStates([{name: 'wouaf', value: obj.id}, {name: 'windows', value: 'comments'}]) ,
-					'" data-action="comments" data-menu="wouaf"><i class="fa fa-comment"></i> ', obj.com ,'</a></div>',
+					'" data-action="comments" data-menu="wouaf"><i class="fa fa-comment"></i> ', utils.round(obj.com) ,'</a></div>',
 			'</div>'
 		].join('');
 	};

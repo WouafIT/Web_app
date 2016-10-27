@@ -323,6 +323,25 @@ module.exports = (function() {
 	self.kmToMiles = function(i) {
 		return i*0.621371192;
 	};
+	self.round = function(i) {
+		i = parseInt(i, 10);
+		if (i < 1000) {
+			return i;
+		}
+		if (i > 10000000) {
+			return Math.round(i / 1000000) +'M';
+		}
+		if (i > 1000000) {
+			return (Math.round(i / 100000) / 10) +'M';
+		}
+		if (i > 10000) {
+			return Math.round(i / 1000) +'K';
+		}
+		if (i > 1000) {
+			return (Math.round(i / 100) / 10) +'K';
+		}
+		return i;
+	};
 
 	return self;
 }());

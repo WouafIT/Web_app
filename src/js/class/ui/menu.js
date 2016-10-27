@@ -45,17 +45,17 @@ module.exports = (function() {
 			'<div class="dropdown-item"><i class="fa fa-link"></i> <input type="text" class="form-control link" value="'+ wouafUrl +'" /></div>'];
 		if (utils.indexOf(interests, obj.id) !== -1) {
 			menu = menu.concat(['<a class="dropdown-item red" href="#" data-action="notinterested" title="'+ i18n.t('Click to remove your interest') +'">' +
-								'<i class="fa fa-heart"></i> '+ i18n.t('Im interested') + (obj.interest ? ' ('+ obj.interest +')' : '') +'</a>']);
+								'<i class="fa fa-heart"></i> '+ i18n.t('Im interested') + (obj.interest ? ' ('+ utils.round(obj.interest) +')' : '') +'</a>']);
 		} else {
 			menu = menu.concat(['<a class="dropdown-item" href="#" data-action="interested" title="'+ i18n.t('Click to add your interest') +'">' +
-								'<i class="fa fa-heart-o"></i> '+ i18n.t('Interested') + (obj.interest ? ' ('+ obj.interest +')' : '') +'</a>']);
+								'<i class="fa fa-heart-o"></i> '+ i18n.t('Interested') + (obj.interest ? ' ('+ utils.round(obj.interest) +')' : '') +'</a>']);
 		}
 		if (utils.indexOf(favs, obj.id) !== -1) {
 			menu = menu.concat(['<a class="dropdown-item yellow" href="#" data-action="unfavorite">' +
-								'<i class="fa fa-star"></i> '+ i18n.t('In your favorites') + (obj.fav ? ' ('+ obj.fav +')' : '') +'</a>']);
+								'<i class="fa fa-star"></i> '+ i18n.t('In your favorites') + (obj.fav ? ' ('+ utils.round(obj.fav) +')' : '') +'</a>']);
 		} else {
 			menu = menu.concat(['<a class="dropdown-item" href="#" data-action="favorite">' +
-								'<i class="fa fa-star-o"></i> '+ i18n.t('Add to your favorites') + (obj.fav ? ' ('+ obj.fav +')' : '') +'</a>']);
+								'<i class="fa fa-star-o"></i> '+ i18n.t('Add to your favorites') + (obj.fav ? ' ('+ utils.round(obj.fav) +')' : '') +'</a>']);
 		}
 		menu = menu.concat(['<a class="dropdown-item green" href="'+ url.getAbsoluteURLForStates([{name: 'wouaf', value: obj.id}, {name: 'windows', value: 'comments'}]) +'" data-action="comments">',
 		'	<i class="fa fa-comment"></i> '+ (obj.com ? i18n.t('View the {{count}} comment', {count: obj.com}) : i18n.t('Add a comment', {count: obj.com})) +'</a>']);
