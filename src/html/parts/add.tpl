@@ -37,17 +37,17 @@
 					<div class="input-group-addon"><i class="fa fa-calendar-o"></i></div>
 					<input type="text" name="date-start" id="date-start"
 						   data-field="datetime" data-startend="start" class="form-control add-period"
-						   data-startendelem=".add-period"
+						   data-startendelem=".add-period" readonly
 						   placeholder="<%= htmlWebpackPlugin.options.i18n['Now'] %>" />
 				</div>
 			</fieldset>
 			<fieldset class="form-group specific-end" hidden>
 				<label for="date-end"><%= htmlWebpackPlugin.options.i18n['Until'] %></label>
 				<div class="input-group">
-					<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+					<div class="input-group-addon"><i class="fa fa-calendar-o"></i></div>
 					<input type="text" name="date-end" id="date-end"
 						   data-field="datetime" data-startend="end" class="form-control add-period"
-						   data-startendelem=".add-period"
+						   data-startendelem=".add-period" readonly
 						   placeholder="<%= htmlWebpackPlugin.options.i18n['End'] %>" />
 				</div>
 			</fieldset>
