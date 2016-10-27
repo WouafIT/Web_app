@@ -469,13 +469,22 @@ module.exports = (function () {
 			$iwOuterParent.addClass('gm-iw-parent');
 			$iwOuterParent.parent().addClass('gm-iw-gparent');
 		});
-		// Event that closes the Info Window with a click on the map
+		// Event that closes the Info Window with a click on the map (canceled by a timer in dragend)
+		var mapClosePin;
 		google.maps.event.addDomListener($map.get(0), 'click', function(e) {
-			if ((e.target && $(e.target).parents('.w-menu-dropdown, .gm-iw-parent').length) || $('.sb-active').length) {
+			var $target = $(e.target);
+			if (!$target.length || $target.parents('.w-menu-dropdown, .gm-iw-parent').length || !$target.parents('#map').length) {
 				return;
 			}
 			e.stopPropagation();
-		 	closePin();
+			//add a timer to avoid closing infowindow at end of drag (see below)
+			mapClosePin=setTimeout(closePin, 50);
+		});
+		//this event is fired before click event, so add a timer to stop closing infowindow
+		map.addListener('dragend', function () {
+			setTimeout(function () {
+				clearTimeout(mapClosePin);
+			}, 20);
 		});
 		google.maps.event.addListener(infowindow, 'closeclick', closePin);
 
