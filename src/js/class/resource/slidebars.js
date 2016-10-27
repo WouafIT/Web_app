@@ -9,6 +9,7 @@ var utils = require('../utils.js');
 module.exports = (function() {
 	var $document = $(document);
 	var $window = $(window);
+	var $loader = $('#loader');
 	var $site = $('#sb-site');
 	var $category = $('#what');
 	var $when = $('#when');
@@ -68,6 +69,8 @@ module.exports = (function() {
 				var center = map.getMap().getCenter();
 				map.resize();
 				map.setCenter(center, false);
+				//center loader on map
+				$loader.css({'left': 'calc(50% - 6.25rem + '+ (Math.round(parseInt(data.amount, 10) / 2)) +'px)'})
 			}
 		});
 		$document.on('slidebars.close', function() {
@@ -76,6 +79,8 @@ module.exports = (function() {
 				var center = map.getMap().getCenter();
 				map.resize();
 				map.setCenter(center, false);
+				//center loader on map
+				$loader.css({'left': 'calc(50% - 6.25rem)'})
 			}
 		});
 
