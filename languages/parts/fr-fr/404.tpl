@@ -32,6 +32,7 @@
 		ga('create', '<%= htmlWebpackPlugin.options.data.googleAnalytics %>', {
 			'cookieDomain': '<%= htmlWebpackPlugin.options.data.cookieDomain %>'
 		});
+		ga('send', 'pageview');
 	</script>
 </head>
 <body>
