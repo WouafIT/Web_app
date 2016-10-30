@@ -6,11 +6,11 @@
 	<h4 class="modal-title">A propos de Wouaf IT</h4>
 </div>
 <div class="modal-body">
-	<p>Imaginez une source d'information géolocalisée ou tout le monde peut signaler les événements locaux. De la manifestation
+	<p>Imaginez une source d'information géolocalisée où tout le monde peut signaler les événements locaux. De la manifestation
 		de quartier à la vente de votre canapé en passant par le chien perdu du voisin.</p>
 
 	<p>Les sources d'informations contributives ont déjà montré leur qualité et leur exhaustivité. Wikipedia, Twitter, Facebook,
-		Reddit et bien autres sont irremplaçable pour nous informer.</p>
+		Reddit et bien d'autres sont irremplaçables pour nous informer.</p>
 
 	<p>Wouaf IT souhaite mettre en avant les événements publics qui sont rares ou difficiles à trouver autour de vous.
 		Tous ces événements qui n'ont que peu ou pas de budget marketing et sont rarement connus en dehors du cercle
@@ -26,7 +26,7 @@
 		<li>Offrir des services à domicile (garde d'enfants, ménage, jardinage, ...).</li>
 		<li>Chercher des partenaires de sortie.</li>
 		<li>Retrouver un animal ou un objet perdu et prévenir d'un animal ou d'un objet trouvé.</li>
-		<li>Lancer une alerte (accident, inondation, ...).</li>
+		<li>Lancer une alerte (accident, innondation, ...).</li>
 		<li>Donner ou échanger des objets.</li>
 		<li>et bien d'autres choses encore ...</li>
 	</ul>
