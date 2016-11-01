@@ -69,10 +69,10 @@ module.exports = (function() {
 
 		//content count remaining chars
 		$content.on('change keyup paste', function() {
-			var count = 1000 - twitterText.getUnicodeTextLength($content.val());
+			var count = 5000 - twitterText.getUnicodeTextLength($content.val());
 			if (count < 0) {
 				count = 0;
-				$content.val($content.val().substr(0, 1000));
+				$content.val($content.val().substr(0, 5000));
 			}
 			$remaining.html(i18n.t('{{count}} character left', {count: count}));
 		});
