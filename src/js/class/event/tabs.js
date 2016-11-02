@@ -166,7 +166,7 @@ module.exports = (function() {
 		if ((tabsData['following'] && !force) || !data.getString('uid')) {
 			return;
 		}
-		query.userFollowers(data.getString('uid'), function (data) {
+		query.userFollowing(data.getString('uid'), function (data) {
 			var title = i18n.t('You are following {{count}} Wouaffer', {count: data.results.length});
 			var content = tab.getContent({type: 'user', data: data}, title);
 			tabsData['following'] = true;
