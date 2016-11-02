@@ -70,9 +70,11 @@ module.exports = (function() {
 			if (h12) {
 				if (hours > 12) {
 					hours = hours - 12;
-					hours = utils.zeroPad(hours, 2) +' PM';
+					hours = utils.zeroPad(hours, 2);
+					minutes += ' PM'
 				} else {
-					hours = utils.zeroPad(hours, 2) +' AM';
+					hours = utils.zeroPad(hours, 2);
+					minutes += ' AM'
 				}
 			} else {
 				hours = utils.zeroPad(hours, 2);
