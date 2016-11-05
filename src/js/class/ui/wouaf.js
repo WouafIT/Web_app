@@ -86,13 +86,13 @@ module.exports = (function() {
 		}
 		switch (obj.state) {
 			case 'w-post':
-				eventLength = i18n.t('Upcoming') +' <i class="fa fa-fast-forward w-yellow"></i><br />'+ eventLength;
+				eventLength = '<i class="fa fa-fast-forward w-yellow" title="'+ i18n.t('Upcoming') +'"></i> '+ eventLength;
 				break;
 			case 'w-past':
-				eventLength = i18n.t('Gone') +' <i class="fa fa-step-backward w-red"></i><br />'+ eventLength;
+				eventLength = '<i class="fa fa-step-backward w-red" title="'+ i18n.t('Gone') +'"></i> '+ eventLength;
 				break;
 			case 'w-current':
-				eventLength = i18n.t('Currently') +' <i class="fa fa-play w-green"></i><br />'+ eventLength;
+				eventLength = '<i class="fa fa-play w-green" title="'+ i18n.t('Currently') +'"></i> '+ eventLength;
 				break;
 		}
 		var locale = ' lang="'+ (obj.lang ? obj.lang.substr(0, 2) : i18n.t('languageShort')) +'"';
@@ -112,7 +112,7 @@ module.exports = (function() {
 					'<div class="w-comments">', (obj.pics && obj.pics.length ? '<i class="fa fa-picture-o"></i> ' : ''),
 					'<a href="', url.getAbsoluteURLForStates([{name: 'wouaf', value: obj.id}, {name: 'windows', value: 'comments'}]) ,
 						'" data-action="comments" data-menu="wouaf"><i class="fa fa-comment"></i> ', utils.round(obj.com) ,'</a></div>',
-					'<span>' , categories.getLabel(obj.cat) , '</span> - ', eventLength ,
+					'<span>' , categories.getLabel(obj.cat) , '</span><br />', eventLength ,
 				'</div>',
 			'</div>'
 		].join('');
