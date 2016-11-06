@@ -6,9 +6,12 @@ var users = require('../resource/users.js');
 var data = require('../resource/data.js');
 var utils = require('../utils.js');
 var add = require('../resource/add.js');
+var wouafs = require('../resource/wouafs.js');
+var wouaf = require('../ui/wouaf.js');
 
 module.exports = (function() {
 	var $document = $(document);
+	var $popover;
 
 	//user / wouaf links
 	$document.on('click', 'a, button', function(e) {
@@ -171,6 +174,45 @@ module.exports = (function() {
 					}, function (msg) {
 						toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
 					});
+				}).fail(function(msg) {
+					toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
+				});
+				break;
+			case 'date-list':
+				id = $this.data('id');
+				if (!id) {
+					return;
+				}
+				$.when(wouafs.get(id)).done(function(obj) {
+					if ($popover) {
+						$popover.popover('dispose');
+					}
+					var content = '<p>'+ wouaf.getDatesListing(obj).join('<br />') +'</p>';
+					$popover = $this;
+					$popover.popover({
+						title: 		i18n.t('All dates'),
+						content: 	content,
+						html: 		true,
+						trigger: 	'focus',
+						placement: 	'top',
+						offset: 	'0 -60',
+						template: ['<div class="popover date-list" role="tooltip">',
+							'<button type="button" class="close" aria-label="'+ i18n.t('Close') +'">',
+							'<span aria-hidden="true">&times;</span>',
+							'</button>',
+							'<h3 class="popover-title"></h3>',
+							'<div class="popover-content"></div>',
+							'</div>'].join('')
+					});
+					$popover.on('shown.bs.popover', function () {
+						$('.popover .close').one('click', function () {
+							$popover.popover('dispose');
+						});
+						$popover.parents('.w-container').parent().one('scroll', function () {
+							$popover.popover('dispose');
+						});
+					});
+					$popover.popover('show');
 				}).fail(function(msg) {
 					toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
 				});

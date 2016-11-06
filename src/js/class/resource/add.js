@@ -17,13 +17,13 @@ module.exports = (function() {
 	$addCancelBtn.hide();
 	$addZone.removeAttr('hidden');
 	$addOkBtn.popover({
-		title: i18n.t('Add a new Wouaf'),
-		content: i18n.t('Add_wouaf_popover', {interpolation: {escape: false}}),
-		html:true,
-		trigger: 'manual',
-		placement: 'top',
-		offset: '0 100',
-		template: ['<div class="popover" role="tooltip">',
+		title: 		i18n.t('Add a new Wouaf'),
+		content: 	i18n.t('Add_wouaf_popover', {interpolation: {escape: false}}),
+		html:		true,
+		trigger: 	'manual',
+		placement: 	'top',
+		offset: 	'0 100',
+		template: ['<div class="popover offset" role="tooltip">',
 						'<button type="button" class="close" aria-label="'+ i18n.t('Close') +'">',
 						'<span aria-hidden="true">&times;</span>',
 						'</button>',

@@ -232,6 +232,9 @@
 	"On {{on}} from {{from}} to {{to}}": "{{on}} de {{from}} à {{to}}",
 	"On {{on}} from {{from}}": "{{on}} à partir de {{from}}",
 	"On {{on}}": "Le {{on}}",
+	"{{count}} more date": "{{count}} date supplémentaire",
+	"{{count}} more date_plural": "{{count}} dates supplémentaires",
+	"All dates": "Toutes les dates",
 
 	"Upcoming": "A venir",
 	"Gone": "Révolu",

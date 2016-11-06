@@ -9,7 +9,7 @@ module.exports = (function() {
 	var self = {};
 	self.getComment = function (obj, wouaf) {
 		var date = new Date();
-		date.setTime(obj.ts);
+		date.setTime(obj.ts * 1000);
 		var time = dtp.formatTime(date, false);
 		var authorAvatar = user.getAvatar(obj.author, 16);
 		var authorUrl = url.getAbsoluteURLForStates([{name: 'user', value: obj.author[1]}]);

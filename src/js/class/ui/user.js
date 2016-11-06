@@ -56,7 +56,7 @@ module.exports = (function() {
 			}
 			if (user.registration) {
 				var registration = new Date();
-				registration.setTime(user.registration);
+				registration.setTime(user.registration * 1000);
 				content += '<p><i class="fa fa-calendar-o"></i> '+ i18n.t('Registered since {{date}}', {date: dtp.formatDate(registration, 'long')}) +'</p>';
 			}
 			if (user.type) {
@@ -67,7 +67,7 @@ module.exports = (function() {
 			}
 			if (user.birthdate) {
 				var birthdate = new Date();
-				birthdate.setTime(user.birthdate);
+				birthdate.setTime(user.birthdate * 1000);
 				content += '<p><i class="fa fa-birthday-cake"></i> '+ i18n.t('Born {{date}}', {date: dtp.formatDate(birthdate, 'long')}) +'</p>';
 			}
 			if (user.url) {

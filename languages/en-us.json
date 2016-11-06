@@ -237,6 +237,10 @@
 	"Gone": "Gone",
 	"Currently": "Currently",
 	"Menu": "Menu",
+	"{{count}} more date": "{{count}} additional date",
+	"{{count}} more date_plural": "{{count}} additional dates",
+	"All dates": "All dates",
+
 	"{{count}} more. Zoom in to see all of them": "{{count}} more Wouaf. Zoom in to see it.",
 	"{{count}} more. Zoom in to see all of them_plural": "{{count}} more Wouafs. Zoom in to see all of them.",
 

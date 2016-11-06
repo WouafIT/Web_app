@@ -45,7 +45,7 @@ module.exports = (function() {
 		$url.val(user.get('url'));
 		var birthdate = user.get('birthdate');
 		if (birthdate) {
-			dtp.setInputDate($birthdate, new Date(birthdate));
+			dtp.setInputDate($birthdate, new Date(birthdate * 1000));
 		}
 
 		//description count remaining chars
@@ -135,7 +135,7 @@ module.exports = (function() {
 				user.set('url', $url.val());
 
 				var birthdate = dtp.getInputDate($birthdate);
-				user.set('birthdate', birthdate ? birthdate.getTime() : null);
+				user.set('birthdate', birthdate ? (birthdate.getTime() / 1000) : null);
 
 				//login
 				$document.triggerHandler('app.login');

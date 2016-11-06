@@ -7,14 +7,47 @@ var user = require('./user.js');
 
 module.exports = (function() {
 	var self = {};
-	self.getHeader = function (obj, collapse) {
-		collapse = collapse || false;
-		var title = utils.getWouafTitle(obj);
+	self.getDatesListing = function (obj) {
+		var content = [], timeStart, timeEnd;
+		for(var i = 0, l = obj.dates.length; i < l; i++) {
+			timeStart 	= obj.dates[i].start * 1000;
+			timeEnd 	= obj.dates[i].end * 1000;
+			content.push(self.getDateLabel(obj, timeStart, timeEnd, false));
+		}
+		return content;
+	};
+	self.getDateLabel = function (obj, timeStart, timeEnd, moreDate) {
+		var storeResult = !timeStart || !timeEnd;
+		moreDate = (typeof moreDate === 'undefined' || !!moreDate);
+		if (storeResult && obj.dateLabel) {
+			return obj.dateLabel;
+		}
 		//state
 		var time = new Date();
-		obj.state = (obj.date[0]) > time.getTime() ? 'w-post' : ((obj.date[1]) < time.getTime() ? 'w-past' : 'w-current');
-		var timeStart 	= obj.date[0];
-		var timeEnd 	= obj.date[1];
+		var timestamp = time.getTime();
+		var datesLength = obj.dates.length;
+		if (!timeStart || !timeEnd) {
+			timeStart 	= obj.dates[0].start * 1000;
+			timeEnd 	= obj.dates[0].end * 1000;
+			if (datesLength > 1) {
+				var s, e, i, l = obj.dates.length;
+				//get the closest period
+				for(i = 0; i < l; i++) {
+					s = obj.dates[i].start * 1000;
+					e = obj.dates[i].end * 1000;
+					if (s < timestamp && e > timestamp) {
+						timeStart 	= s;
+						timeEnd 	= e;
+						break;
+					} else if (Math.abs(timestamp - s) < Math.abs(timestamp - timeStart) || (s > timestamp && timeStart < timestamp)) {
+						timeStart 	= s;
+						timeEnd 	= e;
+					}
+				}
+			}
+		}
+		//state
+		var state = timeStart > timestamp ? 'w-post' : (timeEnd < timestamp ? 'w-past' : 'w-current');
 		//timezone offset
 		var offsetLabel = '';
 		if (obj.tz && parseInt(obj.tz, 10) !== (-1 * time.getTimezoneOffset())) {
@@ -29,19 +62,19 @@ module.exports = (function() {
 		var end 	= new Date(timeEnd);
 		var length 	= Math.round((timeEnd - timeStart) / 1000);
 		var endMinusOneSec = new Date(timeEnd - 1000);
-		var eventLength;
+		var dateLabel;
 		var getStartingDate = function() {
 			var date = dtp.formatDate(start, 'long');
 			if (date === dtp.formatDate(time, 'long')) {
 				return i18n.t('Today');
-			} else if (date === dtp.formatDate((new Date(time.getTime() + 86400000)), 'long')) {
+			} else if (date === dtp.formatDate((new Date(timestamp + 86400000)), 'long')) {
 				return i18n.t('Tomorrow');
 			} else {
 				return i18n.t('On {{on}}', {on: date})
 			}
 		};
 		if (dtp.formatDate(start) === dtp.formatDate(end)) { //same day event
-			eventLength = i18n.t('On {{on}} from {{from}} to {{to}}', {
+			dateLabel = i18n.t('On {{on}} from {{from}} to {{to}}', {
 				on: 	getStartingDate(),
 				from: 	dtp.formatTime(start),
 				to: 	dtp.formatTime(end)
@@ -49,53 +82,68 @@ module.exports = (function() {
 		} else if (dtp.formatDate(start) === dtp.formatDate(endMinusOneSec)) { //same day event
 			timeStart = dtp.formatTime(start);
 			if (timeStart !== '00:00') {
-				eventLength = i18n.t('On {{on}} from {{from}}', {
+				dateLabel = i18n.t('On {{on}} from {{from}}', {
 					on: getStartingDate(), from: timeStart
 				});
 			} else {
-				eventLength = getStartingDate();
+				dateLabel = getStartingDate();
 			}
 		} else {
 			var oneDay = 86400;
 			var oneWeek = 604800;
 			var oneHour = 3600;
 			if (length >= oneWeek && length % oneWeek === 0) {
-				eventLength = i18n.t('{{count}} week', {count: length / oneWeek});
+				dateLabel = i18n.t('{{count}} week', {count: length / oneWeek});
 			} else if (length >= oneDay && length % oneDay === 0 && length <= (oneWeek * 2)) {
-				eventLength = i18n.t('{{count}} day', {count: length / oneDay});
+				dateLabel = i18n.t('{{count}} day', {count: length / oneDay});
 			} else if (length % oneHour === 0 && length <= oneDay) {
-				eventLength = i18n.t('{{count}} hour', {count: length / oneHour});
+				dateLabel = i18n.t('{{count}} hour', {count: length / oneHour});
 			}
-			if (!eventLength) {
+			if (!dateLabel) {
 				timeStart = dtp.formatTime(start);
 				timeEnd = dtp.formatTime(end);
-				eventLength = i18n.t('From {{from}} to {{to}}', {
+				dateLabel = i18n.t('From {{from}} to {{to}}', {
 					from: 	dtp.formatDate(start, 'long') + (timeStart !== '00:00' ? ' ' + i18n.t('at {{at}}', {at: timeStart}) : ''),
 					to: 	dtp.formatDate(end, 'long') + (timeEnd !== '00:00' ? ' ' + i18n.t('at {{at}}', {at: timeEnd}) : '')
 				});
 			} else {
 				timeStart = dtp.formatTime(start);
-				eventLength = i18n.t('On {{on}} for {{for}}', {
+				dateLabel = i18n.t('On {{on}} for {{for}}', {
 					on: 	getStartingDate() + (timeStart !== '00:00' ? ' ' + i18n.t('at {{at}}', {at: timeStart}) : ''),
-					for: 	eventLength
+					for: 	dateLabel
 				});
 			}
 		}
 		if (offsetLabel) {
-			eventLength += ' '+offsetLabel;
+			dateLabel += ' '+offsetLabel;
 		}
-		switch (obj.state) {
+		switch (state) {
 			case 'w-post':
-				eventLength = '<i class="fa fa-fast-forward w-yellow" title="'+ i18n.t('Upcoming') +'"></i> '+ eventLength;
+				dateLabel = '<i class="fa fa-fast-forward w-yellow" title="'+ i18n.t('Upcoming') +'"></i> '+ dateLabel;
 				break;
 			case 'w-past':
-				eventLength = '<i class="fa fa-step-backward w-red" title="'+ i18n.t('Gone') +'"></i> '+ eventLength;
+				dateLabel = '<i class="fa fa-step-backward w-red" title="'+ i18n.t('Gone') +'"></i> '+ dateLabel;
 				break;
 			case 'w-current':
-				eventLength = '<i class="fa fa-play w-green" title="'+ i18n.t('Currently') +'"></i> '+ eventLength;
+				dateLabel = '<i class="fa fa-play w-green" title="'+ i18n.t('Currently') +'"></i> '+ dateLabel;
 				break;
 		}
-		var locale = ' lang="'+ (obj.lang ? obj.lang.substr(0, 2) : i18n.t('languageShort')) +'"';
+		if (moreDate && datesLength > 1) {
+			dateLabel += '<br /><i class="fa fa-calendar-plus-o" aria-hidden="true"></i> <a href="" data-action="date-list" data-id="'+ obj.id +'">'+ i18n.t('{{count}} more date', {count: (datesLength - 1)}) +'</a>';
+		}
+		if (storeResult) {
+			obj.state 		= state;
+			obj.dateLabel 	= dateLabel;
+		}
+		return dateLabel;
+	};
+
+
+	self.getHeader = function (obj, collapse) {
+		collapse = collapse || false;
+		var title 		= utils.getWouafTitle(obj);
+		var dateLabel 	= self.getDateLabel(obj);
+		var locale 		= ' lang="'+ (obj.lang ? obj.lang.substr(0, 2) : i18n.t('languageShort')) +'"';
 		if (obj.rtl) {
 			locale += ' dir="rtl"';
 		}
@@ -112,7 +160,7 @@ module.exports = (function() {
 					'<div class="w-comments">', (obj.pics && obj.pics.length ? '<i class="fa fa-picture-o"></i> ' : ''),
 					'<a href="', url.getAbsoluteURLForStates([{name: 'wouaf', value: obj.id}, {name: 'windows', value: 'comments'}]) ,
 						'" data-action="comments" data-menu="wouaf"><i class="fa fa-comment"></i> ', utils.round(obj.com) ,'</a></div>',
-					'<span>' , categories.getLabel(obj.cat) , '</span><br />', eventLength ,
+					'<span>' , categories.getLabel(obj.cat) , '</span><br />', dateLabel ,
 				'</div>',
 			'</div>'
 		].join('');

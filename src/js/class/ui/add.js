@@ -224,7 +224,7 @@ module.exports = (function() {
 			trigger: 'manual',
 			placement: 'bottom',
 			offset: '0 100',
-			template: ['<div class="popover large" role="tooltip">',
+			template: ['<div class="popover large offset" role="tooltip">',
 							'<button type="button" class="close" aria-label="'+ i18n.t('Close') +'">',
 							'<span aria-hidden="true">&times;</span>',
 							'</button>',
