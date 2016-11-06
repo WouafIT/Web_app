@@ -211,7 +211,7 @@ module.exports = (function() {
 						$popover.parents('.w-container').parent().one('scroll', function () {
 							$popover.popover('dispose');
 						});
-						$document.one('slidebars.opened', function () {
+						$document.one('slide.open', function () {
 							$popover.popover('dispose');
 						});
 						$document.one('slidebars.close', function () {
