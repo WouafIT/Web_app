@@ -211,6 +211,12 @@ module.exports = (function() {
 						$popover.parents('.w-container').parent().one('scroll', function () {
 							$popover.popover('dispose');
 						});
+						$document.one('slidebars.opened', function () {
+							$popover.popover('dispose');
+						});
+						$document.one('slidebars.close', function () {
+							$popover.popover('dispose');
+						});
 					});
 					$popover.popover('show');
 				}).fail(function(msg) {
