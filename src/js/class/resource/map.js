@@ -7,6 +7,9 @@ var utils = require('../utils.js');
 var windows = require('./windows.js');
 var query = require('./query.js');
 var wouaf = require('../ui/wouaf.js');
+if (typeof google === 'undefined') {
+	alert('Initialization error, please reload the page.');
+}
 
 module.exports = (function () {
 	var debug = false;

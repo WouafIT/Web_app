@@ -6,6 +6,9 @@
  * Licensed under the Apache-2.0 license.
  *
  */
+if (typeof jQuery === 'undefined') {
+	alert('Initialization error, please reload the page.');
+}
 (function($) {
 	//Load styles
 	require("../libs/slidebars/0.10.3/dist/slidebars.min.css");
