@@ -66,7 +66,7 @@
 			opposer au traitement des données vous concernant</a>.</p>
 	<p>Pour en savoir plus, <a href="https://www.cnil.fr/fr/comprendre-vos-droits" target="_blank">consultez vos droits
 			sur le site de la CNIL</a>.</p>
-	<p>Ce site est enregistré à la CNIL sous le n°2006765.</p>
+	<p>Ce site est enregistré à la CNIL sous le n°2007773.</p>
 
 	<h5>Propriété intellectuelle et contrefaçons :</h5>
 	<p>Le site Wouaf IT est réputé propriétaire des droits de propriété intellectuelle ou
