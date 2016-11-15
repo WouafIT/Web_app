@@ -147,6 +147,10 @@ module.exports = (function() {
 						showHideCustomDates();
 					}
 				}
+				$document.one('map.results-chown', function() {
+					//show results tabs
+					$document.triggerHandler('tabs.show', 'search-results');
+				});
 				$document.triggerHandler('app.search', {refresh: false});
 				if (!isDualView()) {
 					$document.triggerHandler('slide.close');

@@ -130,6 +130,8 @@ module.exports = (function() {
 	$document.on('app.start-end', function() {
 		//Init Map
 		$.when(map.init()).done(function() {
+			//get window hash
+			var hash = window.location.hash;
 			//Init navigation state
 			$document.triggerHandler('navigation.load-state', function () {
 				//then set map center to final position
@@ -148,8 +150,13 @@ module.exports = (function() {
 					if (states.wouaf) {
 						map.showResult(states.wouaf);
 					}
-					//show results tabs
-					$document.triggerHandler('tabs.show', 'search-results');
+					if (hash === '#events' && states.user) {
+						//show user events for hash #events
+						$document.triggerHandler('tabs.user-wouafs', {user: states.user});
+					} else {
+						//show results tabs
+						$document.triggerHandler('tabs.show', 'search-results');
+					}
 					if (slidebars.isDualView()) {
 						//open sidebar (if dualmode is active)
 						$document.triggerHandler('slide.open');

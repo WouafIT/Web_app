@@ -8,6 +8,7 @@ var toast 			= require('../resource/toast.js');
 var windows 		= require('../resource/windows.js');
 var utils 			= require('../utils.js');
 var wouaf 			= require('../ui/wouaf.js');
+var users 			= require('../resource/users.js');
 
 module.exports = (function() {
 	var $window			= $(window);
@@ -18,6 +19,31 @@ module.exports = (function() {
 	var $dropdown 		= $tabs.find('.dropdown-menu');
 	var $tabHead 		= $tabs.find('a.dropdown-toggle');
 	var tabsData 		= {};
+
+	$document.on('tabs.user-wouafs', function(e, eventData) {
+		if (!eventData || !eventData.user) {
+			return;
+		}
+		$.when(users.get(eventData.user)).done(function(user) {
+			var uid = user.uid;
+			var username = utils.getUsername(user);
+			query.userPosts(uid, function (result) {
+				//load user tabs data
+				$document.triggerHandler('tabs.add', {
+					id: 'user-'+ uid,
+					name: '<i class="fa fa-user"></i> '+ username,
+					title: i18n.t('{{count}} Wouaf by {{username}}', {count: result.results.length, 'username': username}),
+					active: true,
+					removable: true,
+					data: {type: 'list', data: result}
+				});
+			}, function (msg) {
+				toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
+			});
+		}).fail(function(msg) {
+			toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
+		});
+	});
 
 	//switch tab (fix active indicator)
 	$document.on('shown.bs.tab', 'a[data-toggle="tab"]', function(e) {

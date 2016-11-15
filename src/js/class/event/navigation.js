@@ -4,6 +4,7 @@ var utils = require('../utils.js');
 var data = require('../resource/data.js');
 var url = require('../resource/url.js');
 var wouafs = require('../resource/wouafs.js');
+var users = require('../resource/users.js');
 
 module.exports = (function() {
 	var debug = false;
@@ -133,7 +134,7 @@ module.exports = (function() {
 
 	$document.on('navigation.load-state', function(e, callback) {
 		allowSetState = false; //disallow state change during URL parsing
-		var pathname = window.location.pathname;
+		var pathname 	= window.location.pathname;
 		if (pathname !== '/') {
 			var part, parts = pathname.split('/');
 			for (var i = 0, l = parts.length; i < l; i++) {
@@ -157,17 +158,20 @@ module.exports = (function() {
 						}
 						$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: wouafId});
 					} else if (part === 'user' && utils.isValidUsername(parts[i + 1])) {
-						part = parts[++i];
+						var username = parts[++i];
+						if (window.wouafit.user && window.wouafit.user.username === username) {
+							users.set(window.wouafit.user.uid, window.wouafit.user);
+						}
 						windows.show({
 							href: 'user',
-							navigationOpen: {name: 'user', value: part},
+							navigationOpen: {name: 'user', value: username},
 							navigationClose: {name: 'user', value: null}
 						});
 					} else if (part === 'tag' && utils.isValidHashtag(parts[i + 1])) {
-						part = parts[++i];
-						$('#hashtag').val(part);
-						$('#hashtag-empty').toggle(!!part);
-						$document.triggerHandler('navigation.set-state', {name: 'tag', value: part});
+						var tag = parts[++i];
+						$('#hashtag').val(tag);
+						$('#hashtag-empty').toggle(!!tag);
+						$document.triggerHandler('navigation.set-state', {name: 'tag', value: tag});
 					} else if(utils.isValidPageName(part)) {
 						//load queried windows
 						windows.show({href: part});

@@ -63,25 +63,8 @@ module.exports = (function() {
 				if (!uid) {
 					return;
 				}
-				$.when(users.get(uid)).done(function(user) {
-					var username = utils.getUsername(user);
-					query.userPosts(uid, function (result) {
-						windows.close();
-						//load user tabs data
-						$document.triggerHandler('tabs.add', {
-							id: 'user-'+ uid,
-							name: '<i class="fa fa-user"></i> '+ username,
-							title: i18n.t('{{count}} Wouaf by {{username}}', {count: result.results.length, 'username': username}),
-							active: true,
-							removable: true,
-							data: {type: 'list', data: result}
-						});
-					}, function (msg) {
-						toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
-					});
-				}).fail(function(msg) {
-					toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
-				});
+				windows.close();
+				$document.triggerHandler('tabs.user-wouafs', {user: uid});
 				break;
 			case 'follow-user':
 				uid = $this.data('uid');
