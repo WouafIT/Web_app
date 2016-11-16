@@ -150,7 +150,7 @@ function getDefaultOpenGraph() {
 		   '<meta name="twitter:card" content="summary" />'."\n".
 		   '<meta name="twitter:site" content="@Wouaf_IT" />'."\n".
 		   "<meta name=\"twitter:title\" content=\"<%= htmlWebpackPlugin.options.i18n['Wouaf IT'] %>\" />\n".
-		   "<meta name=\"twitter:description\" content=\"<%= htmlWebpackPlugin.options.i18n['Your social network for your local events'] %>\" />\n".
+		   "<meta name=\"twitter:description\" content=\"<%= htmlWebpackPlugin.options.i18n['Wouaf_IT_description'] %>\" />\n".
 		   '<meta name="twitter:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/icon.png" />'."\n";
 }
 
@@ -293,7 +293,11 @@ function getWouafHTML ($data) {
  * @return string
  */
 function getUserOpenGraph ($data) {
-    $title = getUserDisplayName($data);
+	$t = array(
+		'{{user}} is on Wouaf IT' 	=> "<%= htmlWebpackPlugin.options.i18n['{{user}} is on Wouaf IT'] %>",
+	);
+	$title = getUserDisplayName($data);
+	$title = str_replace('{{user}}', $title, $t['{{user}} is on Wouaf IT']);
     $return = '<meta property="fb:app_id" content="<%= htmlWebpackPlugin.options.data.facebookAppId %>" />'."\n".
 			  '<meta property="og:title" content="'.htmlspecialchars($title).'" />'."\n".
               '<meta property="og:type" content="profile" />'."\n".
@@ -308,7 +312,9 @@ function getUserOpenGraph ($data) {
 		$return .= '<meta property="og:username" content="'.htmlspecialchars($data['username']).'" />'."\n";
 	}
 	if (!empty($data['description'])) {
-		$return .= '<meta property="og:description" content="'.htmlspecialchars($description).'" />'."\n";
+		$return .= "<meta property=\"og:description\" content=\"".htmlspecialchars($description)." - <%= htmlWebpackPlugin.options.i18n['Wouaf_IT_description'] %>\" />\n";
+	} else {
+		$return .= "<meta property=\"og:description\" content=\"<%= htmlWebpackPlugin.options.i18n['Wouaf_IT_description'] %>\" />\n";
 	}
 	if (!empty($data['gender'])) {
         $return .= '<meta property="profile:gender" content="'.htmlspecialchars($data['gender']).'" />'."\n";
@@ -316,9 +322,12 @@ function getUserOpenGraph ($data) {
 	$return .=
 	'<meta name="twitter:card" content="summary" />'."\n".
 	'<meta name="twitter:site" content="@Wouaf_IT" />'."\n".
-	'<meta name="twitter:title" content="'.htmlspecialchars($title).'" />'."\n".
-	'<meta name="twitter:description" content="'.htmlspecialchars($description).'" />'."\n";
-
+	'<meta name="twitter:title" content="'.htmlspecialchars($title).'" />'."\n";
+	if (!empty($data['description'])) {
+		$return .= '<meta name="twitter:description" content="'.htmlspecialchars($description).'" />'."\n";
+	} else {
+		$return .= "<meta name=\"twitter:description\" content=\"<%= htmlWebpackPlugin.options.i18n['Wouaf_IT_description'] %>\" />\n";
+	}
 	if (!empty($data['url'])) {
 		$return .= '<meta property="og:image" content="'.htmlspecialchars($data['url']).'" />'."\n".
 				   '<meta name="twitter:image" content="'.htmlspecialchars($data['url']).'" />'."\n";
