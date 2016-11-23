@@ -69,7 +69,7 @@ module.exports = (function() {
 					//logout
 					$document.triggerHandler('app.logout');
 					if (msg) {
-						alert.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), $form, 'danger');
+						alert.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0]), interpolation: {escape: false}}), $form, 'danger');
 					} else {
 						query.connectionError();
 					}
@@ -82,7 +82,7 @@ module.exports = (function() {
 
 				$document.triggerHandler('app.created-profile', $language.val());
 			}, function(msg) { //error
-				alert.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), $form, 'danger');
+				alert.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0]), interpolation: {escape: false}}), $form, 'danger');
 			});
 		});
 	};
