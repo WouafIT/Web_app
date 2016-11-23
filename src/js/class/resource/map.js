@@ -432,6 +432,7 @@ module.exports = (function () {
 		map = new google.maps.Map($map.get(0), {
 			zoom: 9,
 			panControl: false,
+			fullscreenControl: false,
 			streetViewControl: false,
 			mapTypeControl: false,
 			clickableIcons: false,
