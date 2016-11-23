@@ -409,6 +409,6 @@
 	"Your profile has no valid email address.": "Votre profil n'a pas d'adresse e-mail valide. Ajoutez votre adresse email à votre profil pour permettre l'importation de vos événements Facebook.",
 	"Login and password mismatch.": "Votre identifiant ou votre mot de passe sont incorrect ...",
 	"This username already exist, try another one.": "Ce nom d'utilisateur existe déjà, merci d'en choisir un autre.",
-	"A Facebook user already exists for this email. Please, uses Facebook login instead.": "Un utilisateur Facebook existe déjà pour cette adresse email, merci d'employer l'identification Facebook à la place."
+	"A Facebook user already exists for this email. Please, uses Facebook login instead.": "Un utilisateur Facebook existe déjà pour cette adresse email. Vous pouvez vous connecter grâce au bouton <a href=\"/login/\" data-href=\"login\" data-show=\"modal\" data-target=\"#modalWindow\">Connexion avec Facebook</a> à la place."
 
 }
