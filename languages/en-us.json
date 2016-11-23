@@ -405,5 +405,11 @@
 	"at": "at",
 
 	"Incompatible browser": "Incompatible browser...",
-	"Incompatible browser_details": "Sorry, your browser is too old.\nIt can not run Wouaf IT properly..."
+	"Incompatible browser_details": "Sorry, your browser is too old.\nIt can not run Wouaf IT properly...",
+
+	"Your profile has no valid email address.": "Your profile does not have a valid e-mail address. Add your email address to your profile before importing your Facebook events.",
+	"Login and password mismatch.": "Your username and password do not match.",
+	"This username already exist, try another one.": "This username already exists, please choose another one.",
+	"A Facebook user already exists for this email. Please, uses Facebook login instead.": "A Facebook user already exists for this email address, please use Facebook Login instead."
+
 }
