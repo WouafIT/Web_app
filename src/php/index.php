@@ -1,6 +1,6 @@
 <?php
 define('__DEV__', '<%= htmlWebpackPlugin.options.data.isDev %>' === 'true');
-$buildTime = (int) '<%= htmlWebpackPlugin.options.data.timestamp %>';
+$buildTime = (int)'<%= htmlWebpackPlugin.options.data.timestamp %>';
 
 $requestURI = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
 //remove query string
@@ -9,19 +9,19 @@ if (strpos($requestURI, '?') !== false) {
 }
 
 //404 on missing parts files
-if (preg_match('#\/parts\/.*#' , $requestURI, $matches)) {
-    header("HTTP/1.1 404 Not Found");
-    header("Cache-Control: max-age=1800, must-revalidate");
-    echo file_get_contents(__DIR__.'/../404.html');
-    exit;
+if (preg_match('#\/parts\/.*#', $requestURI, $matches)) {
+	header("HTTP/1.1 404 Not Found");
+	header("Cache-Control: max-age=1800, must-revalidate");
+	echo file_get_contents(__DIR__.'/../404.html');
+	exit;
 }
 
 //grab vars in URL
 $wouafId = $userId = null;
-if (preg_match('#\/wouaf\/([0-9a-f]{24})\/.*#' , $requestURI, $matches)) {
+if (preg_match('#\/wouaf\/([0-9a-f]{24})\/.*#', $requestURI, $matches)) {
 	$wouafId = $matches[1];
 }
-if (preg_match('#\/user\/([^/]*)\/.*#' , $requestURI, $matches)) {
+if (preg_match('#\/user\/([^/]*)\/.*#', $requestURI, $matches)) {
 	$userId = $matches[1];
 }
 //Generate file Last-modified header
@@ -38,20 +38,21 @@ if ($wouafId || $userId) {
 	header("Last-Modified: ".gmdate("D, d M Y H:i:s", $buildTime)." GMT");
 }
 if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) &&
-	@strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) == $buildTime) {
+	@strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) == $buildTime
+) {
 	header("HTTP/1.1 304 Not Modified");
 	exit;
 }
 
 $data = array(
-    'content'   => '',
-    'canonical' => 'https://'.$_SERVER['HTTP_HOST'].$requestURI,
-    'head'      => (getDefaultOpenGraph()."\n".
-				   '<link rel="alternate" hreflang="fr" href="https://fr-fr.<%= htmlWebpackPlugin.options.data.domain %>'.$requestURI.'" />'."\n".
-				   '<link rel="alternate" hreflang="en" href="https://en-us.<%= htmlWebpackPlugin.options.data.domain %>'.$requestURI.'" />')
+	'content'   => '',
+	'canonical' => 'https://'.$_SERVER['HTTP_HOST'].$requestURI,
+	'head'      => (getDefaultMeta().PHP_EOL.
+					'<link rel="alternate" hreflang="fr" href="https://fr-fr.<%= htmlWebpackPlugin.options.data.domain %>'.$requestURI.'" />'.PHP_EOL.
+					'<link rel="alternate" hreflang="en" href="https://en-us.<%= htmlWebpackPlugin.options.data.domain %>'.$requestURI.'" />')
 );
 if (!$requestURI || $requestURI === '/') {
-    return $data;
+	return $data;
 }
 $staticPages = array(
 	'tos', 'about', 'faq', 'login', 'contact'
@@ -64,69 +65,73 @@ foreach ($staticPages as $staticPage) {
 }
 define('API_KEY', '<%= htmlWebpackPlugin.options.data.apiKey %>');
 if ($wouafId || $userId) {
-    $data['content'] .= '<script>window.wouafit = {};</script>';
+	$data['content'] .= '<script>window.wouafit = {};</script>';
 }
 $locale = "<%= htmlWebpackPlugin.options.i18n['languageLong'] %>";
 if ($wouafId) {
-    try {
-        //Get wouaf data from API
-        $wouafData = curlGet(
-            'https://<%= htmlWebpackPlugin.options.data.apiDomain %>/wouafs/'.$wouafId,
+	try {
+		//Get wouaf data from API
+		$wouafData = curlGet(
+			'https://<%= htmlWebpackPlugin.options.data.apiDomain %>/wouafs/'.$wouafId,
 			array('html' => 1)
-        );
-        if ($wouafData) {
-            $wouafData = json_decode($wouafData, true);
-            if ($wouafData['code'] === 200) {
-                $data['canonical'] = 'https://'.$_SERVER['HTTP_HOST'].'/wouaf/'.$wouafId.'/';
-                $data['content'] .= '<script>window.wouafit.wouaf = '.json_encode($wouafData['wouaf']).';</script>'."\n".
+		);
+		if ($wouafData) {
+			$wouafData = json_decode($wouafData, true);
+			if ($wouafData['code'] === 200) {
+				$data['canonical'] = 'https://'.$_SERVER['HTTP_HOST'].'/wouaf/'.$wouafId.'/';
+				$data['content'] .= '<script>window.wouafit.wouaf = '.json_encode($wouafData['wouaf']).';</script>'.PHP_EOL.
 									getWouafHTML($wouafData['wouaf']);
-                $data['head'] = getWouafOpenGraph($wouafData['wouaf'])."\n".
-								'<link rel="alternate" hreflang="fr" href="https://fr-fr.<%= htmlWebpackPlugin.options.data.domain %>/wouaf/'.$wouafId.'/" />'."\n".
+				$data['head'] = getWouafMeta($wouafData['wouaf']).PHP_EOL.
+								'<link rel="alternate" hreflang="fr" href="https://fr-fr.<%= htmlWebpackPlugin.options.data.domain %>/wouaf/'.$wouafId.'/" />'.PHP_EOL.
 								'<link rel="alternate" hreflang="en" href="https://en-us.<%= htmlWebpackPlugin.options.data.domain %>/wouaf/'.$wouafId.'/" />';
-            } elseif ($wouafData['code'] === 404) {
-                header("HTTP/1.1 404 Not Found");
-				$data['head'] 	  = getDefaultOpenGraph();
+			} elseif ($wouafData['code'] === 404) {
+				header("HTTP/1.1 404 Not Found");
+				$data['head'] = getDefaultMeta();
 				$data['content'] .= '<h1>404 not Found</h1>';
 			} else {
 				if (__DEV__) {
-					var_dump($wouafData);exit;
+					var_dump($wouafData);
+					exit;
 				}
 			}
-        }
-    } catch (Exception $e) {
+		}
+	} catch (Exception $e) {
 		if (__DEV__) {
-			var_dump($e);exit;
+			var_dump($e);
+			exit;
 		}
 	}
 } else if ($userId) {
-    try {
-        //Get user data from API
-        $userData = curlGet(
-            'https://<%= htmlWebpackPlugin.options.data.apiDomain %>/users/'.$userId,
-            array('html' => 1)
-        );
-        if ($userData) {
-            $userData = json_decode($userData, true);
-            if ($userData['code'] === 200) {
-                $data['canonical'] = 'https://'.$_SERVER['HTTP_HOST'].'/user/'.$userId.'/';
-                $data['content'] .= '<script>window.wouafit.user = '.json_encode($userData['user']).';</script>'."\n".
+	try {
+		//Get user data from API
+		$userData = curlGet(
+			'https://<%= htmlWebpackPlugin.options.data.apiDomain %>/users/'.$userId,
+			array('html' => 1)
+		);
+		if ($userData) {
+			$userData = json_decode($userData, true);
+			if ($userData['code'] === 200) {
+				$data['canonical'] = 'https://'.$_SERVER['HTTP_HOST'].'/user/'.$userId.'/';
+				$data['content'] .= '<script>window.wouafit.user = '.json_encode($userData['user']).';</script>'.PHP_EOL.
 									getUserHTML($userData['user']);
-                $data['head'] = getUserOpenGraph($userData['user'])."\n".
-								'<link rel="alternate" hreflang="fr" href="https://fr-fr.<%= htmlWebpackPlugin.options.data.domain %>/user/'.$userId.'/" />'."\n".
+				$data['head'] = getUserMeta($userData['user']).PHP_EOL.
+								'<link rel="alternate" hreflang="fr" href="https://fr-fr.<%= htmlWebpackPlugin.options.data.domain %>/user/'.$userId.'/" />'.PHP_EOL.
 								'<link rel="alternate" hreflang="en" href="https://en-us.<%= htmlWebpackPlugin.options.data.domain %>/user/'.$userId.'/" />';
 			} elseif ($userData['code'] === 404) {
-                header("HTTP/1.1 404 Not Found");
-				$data['head']     = getDefaultOpenGraph();
+				header("HTTP/1.1 404 Not Found");
+				$data['head'] = getDefaultMeta();
 				$data['content'] .= '<h1>404 not Found</h1>';
 			} else {
 				if (__DEV__) {
-					var_dump($userData);exit;
+					var_dump($userData);
+					exit;
 				}
 			}
-        }
-    } catch (Exception $e) {
+		}
+	} catch (Exception $e) {
 		if (__DEV__) {
-			var_dump($e);exit;
+			var_dump($e);
+			exit;
 		}
 	}
 }
@@ -135,77 +140,84 @@ return $data;
 
 /**
  * Generate default OpenGraph meta tags
+ *
  * @return string
  */
-function getDefaultOpenGraph() {
+function getDefaultMeta() {
 	global $requestURI;
-	return "<meta property=\"og:title\" content=\"<%= htmlWebpackPlugin.options.i18n['Wouaf IT'] %> - <%= htmlWebpackPlugin.options.i18n['Your social network for your local events'] %>\" />\n".
-		   "<meta property=\"og:description\" content=\"<%= htmlWebpackPlugin.options.i18n['Wouaf_IT_description'] %>\" />\n".
-		   '<meta property="og:type" content="website" />'."\n".
-		   '<meta property="og:url" content="https://'.$_SERVER['HTTP_HOST'].$requestURI.'" />'."\n".
-		   '<meta property="fb:app_id" content="<%= htmlWebpackPlugin.options.data.facebookAppId %>" />'."\n".
-		   '<meta property="og:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/600-315.png" />'."\n".
-		   '<meta property="og:image:width" content="600" />'."\n".
-		   '<meta property="og:image:height" content="315" />'."\n".
-		   '<meta name="twitter:card" content="summary" />'."\n".
-		   '<meta name="twitter:site" content="@Wouaf_IT" />'."\n".
-		   "<meta name=\"twitter:title\" content=\"<%= htmlWebpackPlugin.options.i18n['Wouaf IT'] %>\" />\n".
-		   "<meta name=\"twitter:description\" content=\"<%= htmlWebpackPlugin.options.i18n['Wouaf_IT_description'] %>\" />\n".
-		   '<meta name="twitter:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/icon.png" />'."\n";
+	return "<title><%= htmlWebpackPlugin.options.i18n['Wouaf IT'] %><%= htmlWebpackPlugin.options.data.devTitle %> - <%= htmlWebpackPlugin.options.i18n['Your social network for your local events'] %></title>".PHP_EOL.
+		   "<meta name=\"description\" content=\"<%= htmlWebpackPlugin.options.i18n['Wouaf_IT_description'] %>\" />".PHP_EOL.
+		   "<meta property=\"og:title\" content=\"<%= htmlWebpackPlugin.options.i18n['Wouaf IT'] %> - <%= htmlWebpackPlugin.options.i18n['Your social network for your local events'] %>\" />".PHP_EOL.
+		   "<meta property=\"og:description\" content=\"<%= htmlWebpackPlugin.options.i18n['Wouaf_IT_description'] %>\" />".PHP_EOL.
+		   '<meta property="og:type" content="website" />'.PHP_EOL.
+		   '<meta property="og:url" content="https://'.$_SERVER['HTTP_HOST'].$requestURI.'" />'.PHP_EOL.
+		   '<meta property="fb:app_id" content="<%= htmlWebpackPlugin.options.data.facebookAppId %>" />'.PHP_EOL.
+		   '<meta property="og:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/600-315.png" />'.PHP_EOL.
+		   '<meta property="og:image:width" content="600" />'.PHP_EOL.
+		   '<meta property="og:image:height" content="315" />'.PHP_EOL.
+		   '<meta name="twitter:card" content="summary" />'.PHP_EOL.
+		   '<meta name="twitter:site" content="@Wouaf_IT" />'.PHP_EOL.
+		   "<meta name=\"twitter:title\" content=\"<%= htmlWebpackPlugin.options.i18n['Wouaf IT'] %>\" />".PHP_EOL.
+		   "<meta name=\"twitter:description\" content=\"<%= htmlWebpackPlugin.options.i18n['Wouaf_IT_description'] %>\" />".PHP_EOL.
+		   '<meta name="twitter:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/icon.png" />'.PHP_EOL;
 }
 
 /**
  * Generate OpenGraph meta tags for a given Wouaf
+ *
  * @param array $data wouaf data
  * @return string
  */
-function getWouafOpenGraph ($data) {
+function getWouafMeta($data) {
 	global $locale;
 	$description = strip_tags($data['text']);
-    $description = mb_substr($description, 0, 299).(mb_strlen($description) > 299 ? '…' : '');
-	$start = new DateTime();
-	$start->setTimestamp(intval($data['date'][0] / 1000));
+	$description = mb_substr($description, 0, 299).(mb_strlen($description) > 299 ? '…' : '');
+	$lastDate    = count($data['dates']) - 1;
+	$start       = new DateTime();
+	$start->setTimestamp(intval($data['dates'][0]['start']));
 	$end = new DateTime();
-	$end->setTimestamp(intval($data['date'][1] / 1000));
+	$end->setTimestamp(intval($data['dates'][$lastDate]['end']));
 	if (!empty($data['tz'])) {
 		$timeZone = new DateTimeZone(timezone_name_from_abbr("", $data['tz'] * 60, 0));
 		$start->setTimezone($timeZone);
 		$end->setTimezone($timeZone);
 	}
-	$title = getWouafTitle($data);
-	$return = '<meta property="og:title" content="'.htmlspecialchars($title).'" />'."\n".
-	'<meta property="fb:app_id" content="<%= htmlWebpackPlugin.options.data.facebookAppId %>" />'."\n".
-	'<meta property="og:type" content="article" />'."\n".
+	$title  = getWouafTitle($data);
+	$return = "<title><%= htmlWebpackPlugin.options.i18n['Wouaf IT'] %><%= htmlWebpackPlugin.options.data.devTitle %> - ".htmlspecialchars($title)."</title>".PHP_EOL.
+			  '<meta name="description" content="'.htmlspecialchars(str_replace(PHP_EOL, ' ', $description)).'" />'.PHP_EOL.
+			  '<meta property="og:title" content="'.htmlspecialchars($title).'" />'.PHP_EOL.
+			  '<meta property="fb:app_id" content="<%= htmlWebpackPlugin.options.data.facebookAppId %>" />'.PHP_EOL.
+			  '<meta property="og:type" content="article" />'.PHP_EOL.
 
-	'<meta property="article:published_time" content="'.$start->format('c').'" />'."\n".
-    '<meta property="article:expiration_time" content="'.$end->format('c').'" />'."\n".
-    '<meta property="article:author" content="https://'.$_SERVER['HTTP_HOST'].'/user/'.htmlspecialchars($data['author'][1]).'/" />'."\n".
+			  '<meta property="article:published_time" content="'.$start->format('c').'" />'.PHP_EOL.
+			  '<meta property="article:expiration_time" content="'.$end->format('c').'" />'.PHP_EOL.
+			  '<meta property="article:author" content="https://'.$_SERVER['HTTP_HOST'].'/user/'.htmlspecialchars($data['author'][1]).'/" />'.PHP_EOL.
 
-    '<meta property="og:url" content="https://'.$_SERVER['HTTP_HOST'].'/wouaf/'.$data['id'].'/" />'."\n".
-    '<meta property="og:site_name" content="Wouaf IT" />'."\n".
-	'<meta property="og:locale" content="'.(isset($data['lang']) ? $data['lang'] : $locale).'" />'."\n".
-	'<meta property="og:description" content="'.htmlspecialchars($description).'" />'."\n".
-	'<meta name="twitter:card" content="summary" />'."\n".
-	'<meta name="twitter:site" content="@Wouaf_IT" />'."\n".
-	'<meta name="twitter:title" content="'.htmlspecialchars($title).'" />'."\n".
-	'<meta name="twitter:description" content="'.htmlspecialchars($description).'" />'."\n";
+			  '<meta property="og:url" content="https://'.$_SERVER['HTTP_HOST'].'/wouaf/'.$data['id'].'/" />'.PHP_EOL.
+			  '<meta property="og:site_name" content="Wouaf IT" />'.PHP_EOL.
+			  '<meta property="og:locale" content="'.(isset($data['lang']) ? $data['lang'] : $locale).'" />'.PHP_EOL.
+			  '<meta property="og:description" content="'.htmlspecialchars($description).'" />'.PHP_EOL.
+			  '<meta name="twitter:card" content="summary" />'.PHP_EOL.
+			  '<meta name="twitter:site" content="@Wouaf_IT" />'.PHP_EOL.
+			  '<meta name="twitter:title" content="'.htmlspecialchars($title).'" />'.PHP_EOL.
+			  '<meta name="twitter:description" content="'.htmlspecialchars($description).'" />'.PHP_EOL;
 
 	if (!empty($data['pics']) && is_array($data['pics'])) {
-        foreach ($data['pics'] as $k => $pic) {
-            $return .= '<meta property="og:image" content="'.htmlspecialchars($pic['full']).'" />'."\n";
+		foreach ($data['pics'] as $k => $pic) {
+			$return .= '<meta property="og:image" content="'.htmlspecialchars($pic['full']).'" />'.PHP_EOL;
 			if (!$k) {
-				$return .= '<meta name="twitter:image" content="'.htmlspecialchars($pic['full']).'" />'."\n";
+				$return .= '<meta name="twitter:image" content="'.htmlspecialchars($pic['full']).'" />'.PHP_EOL;
 			}
-        }
-    } else {
-        $return .= '<meta property="og:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/600-315.png" />'."\n".
-				   '<meta property="og:image:width" content="600" />'."\n".
-				   '<meta property="og:image:height" content="315" />'."\n".
-				   '<meta name="twitter:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/icon.png" />'."\n";
-    }
+		}
+	} else {
+		$return .= '<meta property="og:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/600-315.png" />'.PHP_EOL.
+				   '<meta property="og:image:width" content="600" />'.PHP_EOL.
+				   '<meta property="og:image:height" content="315" />'.PHP_EOL.
+				   '<meta name="twitter:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/icon.png" />'.PHP_EOL;
+	}
 	if (!empty($data['tags']) && is_array($data['tags'])) {
 		foreach ($data['tags'] as $tag) {
-			$return .= '<meta property="article:tag" content="'.htmlspecialchars($tag).'" />'."\n";
+			$return .= '<meta property="article:tag" content="'.htmlspecialchars($tag).'" />'.PHP_EOL;
 		}
 	}
 	return $return;
@@ -213,6 +225,7 @@ function getWouafOpenGraph ($data) {
 
 /**
  * Generate title for a given Wouaf
+ *
  * @param array $data wouaf data
  * @return string
  */
@@ -221,65 +234,67 @@ function getWouafTitle($data) {
 		$title = $data['title'];
 	} else {
 		$title = strip_tags($data['text']);
-		$title = mb_substr($title, 0, 79). (mb_strlen($title) > 79 ? '…' : '');
+		$title = mb_substr($title, 0, 79).(mb_strlen($title) > 79 ? '…' : '');
 	}
 	return $title;
 }
 
 /**
  * Generate html tags for a given Wouaf
+ *
  * @param array $data wouaf data
  * @return string
  */
-function getWouafHTML ($data) {
+function getWouafHTML($data) {
 	global $locale;
 	setlocale(LC_TIME, $locale.'.utf8');
-	$t = array(
-		'By' 	=> "<%= htmlWebpackPlugin.options.i18n['By'] %>",
-		'From' 	=> "<%= htmlWebpackPlugin.options.i18n['From'] %>",
-		'to' 	=> "<%= htmlWebpackPlugin.options.i18n['to'] %>",
-		'at' 	=> "<%= htmlWebpackPlugin.options.i18n['at'] %>",
+	$t        = array(
+		'By'   => "<%= htmlWebpackPlugin.options.i18n['By'] %>",
+		'From' => "<%= htmlWebpackPlugin.options.i18n['From'] %>",
+		'to'   => "<%= htmlWebpackPlugin.options.i18n['to'] %>",
+		'at'   => "<%= htmlWebpackPlugin.options.i18n['at'] %>",
 	);
-	$start = new DateTime();
-	$start->setTimestamp(intval($data['date'][0] / 1000));
+	$lastDate = count($data['dates']) - 1;
+	$start    = new DateTime();
+	$start->setTimestamp(intval($data['dates'][0]['start']));
 	$end = new DateTime();
-	$end->setTimestamp(intval($data['date'][1] / 1000));
+	$end->setTimestamp(intval($data['dates'][$lastDate]['end']));
 	if (!empty($data['tz'])) {
 		$timezoneName = timezone_name_from_abbr("", $data['tz'] * 60, 0);
-		$timeZone = new DateTimeZone($timezoneName);
+		$timeZone     = new DateTimeZone($timezoneName);
 		date_default_timezone_set($timezoneName);
 		$start->setTimezone($timeZone);
 		$end->setTimezone($timeZone);
 	}
-	$return = '<div class="h-event">'."\n".
-	'<h1><a href="https://<%= htmlWebpackPlugin.options.data.domain %>/wouaf/'.$data['id'].'/" class="u-url p-name">'.
-		htmlspecialchars(getWouafTitle($data)).'</a></h1>'."\n".
-	'<p>'.$t['By'].' '."\n".
-	'	<a class="p-author h-card" href="https://<%= htmlWebpackPlugin.options.data.domain %>/user/'.htmlspecialchars($data['author'][1]).'/">'."\n".
-	'	'.htmlspecialchars(!empty($data['author'][2]) ? $data['author'][2] : $data['author'][1])."\n".
-	'   </a>'."\n".
-	'</p>'."\n".
-	'<p>'.$t['From'].' <time class="dt-start" datetime="'.$start->format('c').'">'.
-			  strftime('%c', intval($data['date'][0] / 1000)).'</time>'."\n".
-	'	'.$t['to'].' <time class="dt-end" datetime="'.$end->format('c').'">'.
-			  strftime('%c', intval($data['date'][1] / 1000)).'</time>'."\n".
-	'	'.$t['at'].' <span class="p-location h-geo">'."\n".
-	'		<span class="p-latitude">'.$data['loc'][0].'</span>, '."\n".
-	'		<span class="p-longitude">'.$data['loc'][1].'</span>'."\n".
-	'	</span></p>'."\n".
-	'<p class="p-description">'.$data['html'].'</p>'."\n";
+	$return = '<div class="h-event">'.PHP_EOL.
+			  '<h1><a href="https://<%= htmlWebpackPlugin.options.data.domain %>/wouaf/'.$data['id'].'/" class="u-url p-name">'.
+			  htmlspecialchars(getWouafTitle($data)).'</a></h1>'.PHP_EOL.
+			  '<p>'.$t['By'].' '.PHP_EOL.
+			  '	<a class="p-author h-card" href="https://<%= htmlWebpackPlugin.options.data.domain %>/user/'.htmlspecialchars($data['author'][1]).'/">'.PHP_EOL.
+			  '	'.htmlspecialchars(!empty($data['author'][2]) ? $data['author'][2] : $data['author'][1]).PHP_EOL.
+			  '   </a>'.PHP_EOL.
+			  '</p>'.PHP_EOL.
+			  '<p>'.$t['From'].' <time class="dt-start" datetime="'.$start->format('c').'">'.
+			  strftime('%c', intval($data['dates'][0]['start'])).'</time>'.PHP_EOL.
+			  '	'.$t['to'].' <time class="dt-end" datetime="'.$end->format('c').'">'.
+			  strftime('%c', intval($data['dates'][$lastDate]['end'])).'</time>'.PHP_EOL.
+			  '	'.$t['at'].' <span class="p-location h-geo">'.PHP_EOL.
+			  '		<span class="p-latitude">'.$data['loc'][0].'</span>, '.PHP_EOL.
+			  '		<span class="p-longitude">'.$data['loc'][1].'</span>'.PHP_EOL.
+			  '	</span></p>'.PHP_EOL.
+			  '<p class="p-description">'.$data['html'].'</p>'.PHP_EOL;
 	if (!empty($data['tags']) && is_array($data['tags'])) {
 		$return .= '<p>';
 		foreach ($data['tags'] as $tag) {
 			$return .= '<a href="https://<%= htmlWebpackPlugin.options.data.domain %>/tag/'.htmlspecialchars($tag).'/" class="p-category">'.
-							htmlspecialchars($tag).'</a>, '."\n";
+					   htmlspecialchars($tag).'</a>, '.PHP_EOL;
 		}
 		$return .= '</p>';
 	}
 	if (!empty($data['pics']) && is_array($data['pics'])) {
 		$return .= '<p>';
 		foreach ($data['pics'] as $pic) {
-			$return .= '<img src="'.htmlspecialchars($pic['full']).'" class="u-photo" /> '."\n";
+			$return .= '<img src="'.htmlspecialchars($pic['full']).'" class="u-photo" /> '.PHP_EOL;
 		}
 		$return .= '</p>';
 	}
@@ -289,72 +304,76 @@ function getWouafHTML ($data) {
 
 /**
  * Generate OpenGraph meta tags for a given User
+ *
  * @param array $data user data
  * @return string
  */
-function getUserOpenGraph ($data) {
-	$t = array(
-		'{{user}} is on Wouaf IT' 	=> "<%= htmlWebpackPlugin.options.i18n['{{user}} is on Wouaf IT'] %>",
+function getUserMeta($data) {
+	$t           = array(
+		'{{user}} is on Wouaf IT' => "<%= htmlWebpackPlugin.options.i18n['{{user}} is on Wouaf IT'] %>",
 	);
-	$title = getUserDisplayName($data);
-	$title = str_replace('{{user}}', $title, $t['{{user}} is on Wouaf IT']);
-    $return = '<meta property="fb:app_id" content="<%= htmlWebpackPlugin.options.data.facebookAppId %>" />'."\n".
-			  '<meta property="og:title" content="'.htmlspecialchars($title).'" />'."\n".
-              '<meta property="og:type" content="profile" />'."\n".
-              '<meta property="og:url" content="https://'.$_SERVER['HTTP_HOST'].'/user/'.$data['username'].'/" />'."\n".
-              '<meta property="og:site_name" content="Wouaf IT" />'."\n".
-              '<meta property="og:locale" content="'.$data['lang'].'" />'."\n";
+	$title       = getUserDisplayName($data);
+	$title       = str_replace('{{user}}', $title, $t['{{user}} is on Wouaf IT']);
 	$description = mb_substr(strip_tags($data['description']), 0, 300);
+	$return      = "<title><%= htmlWebpackPlugin.options.i18n['Wouaf IT'] %><%= htmlWebpackPlugin.options.data.devTitle %> - ".htmlspecialchars($title)."</title>".PHP_EOL.
+				   '<meta name="description" content="'.htmlspecialchars(str_replace(PHP_EOL, ' ', $description)).'" />'.PHP_EOL.
+				   '<meta property="fb:app_id" content="<%= htmlWebpackPlugin.options.data.facebookAppId %>" />'.PHP_EOL.
+				   '<meta property="og:title" content="'.htmlspecialchars($title).'" />'.PHP_EOL.
+				   '<meta property="og:type" content="profile" />'.PHP_EOL.
+				   '<meta property="og:url" content="https://'.$_SERVER['HTTP_HOST'].'/user/'.$data['username'].'/" />'.PHP_EOL.
+				   '<meta property="og:site_name" content="Wouaf IT" />'.PHP_EOL.
+				   '<meta property="og:locale" content="'.$data['lang'].'" />'.PHP_EOL;
 	if (!empty($data['fid'])) {
-		$return .= '<meta property="fb:profile_id" content="'.htmlspecialchars($data['fid']).'" />'."\n";
+		$return .= '<meta property="fb:profile_id" content="'.htmlspecialchars($data['fid']).'" />'.PHP_EOL;
 	}
 	if (!empty($data['username'])) {
-		$return .= '<meta property="og:username" content="'.htmlspecialchars($data['username']).'" />'."\n";
+		$return .= '<meta property="og:username" content="'.htmlspecialchars($data['username']).'" />'.PHP_EOL;
 	}
 	if (!empty($data['description'])) {
-		$return .= "<meta property=\"og:description\" content=\"".htmlspecialchars($description)." - <%= htmlWebpackPlugin.options.i18n['Wouaf_IT_description'] %>\" />\n";
+		$return .= "<meta property=\"og:description\" content=\"".htmlspecialchars($description)." - <%= htmlWebpackPlugin.options.i18n['Wouaf_IT_description'] %>\" />".PHP_EOL;
 	} else {
-		$return .= "<meta property=\"og:description\" content=\"<%= htmlWebpackPlugin.options.i18n['Wouaf_IT_description'] %>\" />\n";
+		$return .= "<meta property=\"og:description\" content=\"<%= htmlWebpackPlugin.options.i18n['Wouaf_IT_description'] %>\" />".PHP_EOL;
 	}
 	if (!empty($data['gender'])) {
-        $return .= '<meta property="profile:gender" content="'.htmlspecialchars($data['gender']).'" />'."\n";
-    }
+		$return .= '<meta property="profile:gender" content="'.htmlspecialchars($data['gender']).'" />'.PHP_EOL;
+	}
 	$return .=
-	'<meta name="twitter:card" content="summary" />'."\n".
-	'<meta name="twitter:site" content="@Wouaf_IT" />'."\n".
-	'<meta name="twitter:title" content="'.htmlspecialchars($title).'" />'."\n";
+		'<meta name="twitter:card" content="summary" />'.PHP_EOL.
+		'<meta name="twitter:site" content="@Wouaf_IT" />'.PHP_EOL.
+		'<meta name="twitter:title" content="'.htmlspecialchars($title).'" />'.PHP_EOL;
 	if (!empty($data['description'])) {
-		$return .= '<meta name="twitter:description" content="'.htmlspecialchars($description).'" />'."\n";
+		$return .= '<meta name="twitter:description" content="'.htmlspecialchars($description).'" />'.PHP_EOL;
 	} else {
-		$return .= "<meta name=\"twitter:description\" content=\"<%= htmlWebpackPlugin.options.i18n['Wouaf_IT_description'] %>\" />\n";
+		$return .= "<meta name=\"twitter:description\" content=\"<%= htmlWebpackPlugin.options.i18n['Wouaf_IT_description'] %>\" />".PHP_EOL;
 	}
 	if (!empty($data['url'])) {
-		$return .= '<meta property="og:image" content="'.htmlspecialchars($data['url']).'" />'."\n".
-				   '<meta name="twitter:image" content="'.htmlspecialchars($data['url']).'" />'."\n";
+		$return .= '<meta property="og:image" content="'.htmlspecialchars($data['url']).'" />'.PHP_EOL.
+				   '<meta name="twitter:image" content="'.htmlspecialchars($data['url']).'" />'.PHP_EOL;
 	} else {
-		$return .= '<meta property="og:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/600-315.png" />'."\n".
-				   '<meta property="og:image:width" content="600" />'."\n".
-				   '<meta property="og:image:height" content="315" />'."\n".
-				   '<meta name="twitter:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/icon.png" />'."\n";
+		$return .= '<meta property="og:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/600-315.png" />'.PHP_EOL.
+				   '<meta property="og:image:width" content="600" />'.PHP_EOL.
+				   '<meta property="og:image:height" content="315" />'.PHP_EOL.
+				   '<meta name="twitter:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/icon.png" />'.PHP_EOL;
 	}
 	return $return;
 }
 
 /**
  * Generate OpenGraph meta tags for a given User
+ *
  * @param array $data user data
  * @return string
  */
-function getUserHTML ($data) {
-	$return = '<div class="h-card">'."\n".
-	'<h1><a class="p-name u-url" href="https://<%= htmlWebpackPlugin.options.data.domain %>/user/'.$data['username'].'/">'.htmlspecialchars(getUserDisplayName($data)).'</a></h1>'."\n";
+function getUserHTML($data) {
+	$return = '<div class="h-card">'.PHP_EOL.
+			  '<h1><a class="p-name u-url" href="https://<%= htmlWebpackPlugin.options.data.domain %>/user/'.$data['username'].'/">'.htmlspecialchars(getUserDisplayName($data)).'</a></h1>'.PHP_EOL;
 	if (!empty($data['html'])) {
-		$return .= '<p class="p-note">'.$data['html'].'</p>'."\n";
+		$return .= '<p class="p-note">'.$data['html'].'</p>'.PHP_EOL;
 	}
 	if (!empty($data['displayname'])) {
-		$return .= '<p class="p-given-name">'.$data['displayname'].'</p>'."\n";
+		$return .= '<p class="p-given-name">'.$data['displayname'].'</p>'.PHP_EOL;
 	}
-	$return .= '<p class="p-nickname">'.$data['username'].'</p>'."\n".
+	$return .= '<p class="p-nickname">'.$data['username'].'</p>'.PHP_EOL.
 			   '</div>';
 	return $return;
 }
@@ -369,30 +388,31 @@ function getUserDisplayName($data) {
 
 /**
  * Send a GET request using cURL
- * @param string $url to request
- * @param array $get values to send
- * @param array $options for cURL
+ *
+ * @param string $url     to request
+ * @param array  $get     values to send
+ * @param array  $options for cURL
  * @return string
  * @throws Exception
  */
 function curlGet($url, array $get = null, array $options = array()) {
 	$defaults = array(
-		CURLOPT_HEADER => 0,
+		CURLOPT_HEADER         => 0,
 		CURLOPT_RETURNTRANSFER => true,
-		CURLOPT_TIMEOUT => 4,
-		CURLOPT_URL => $url,
-		CURLOPT_HTTPHEADER => array(
+		CURLOPT_TIMEOUT        => 4,
+		CURLOPT_URL            => $url,
+		CURLOPT_HTTPHEADER     => array(
 			'Origin: https://'.$_SERVER['HTTP_HOST'],
 			'Authorization: WouafIt version="1", key="'.API_KEY.'"'
 		),
 	);
 	if ($get) {
-		$defaults[CURLOPT_URL] .= (strpos($url, '?') === false ? '?' : ''). http_build_query($get);
+		$defaults[CURLOPT_URL] .= (strpos($url, '?') === false ? '?' : '').http_build_query($get);
 	}
 
 	$ch = curl_init();
 	curl_setopt_array($ch, ($options + $defaults));
-	if( ! $result = curl_exec($ch))  {
+	if (!$result = curl_exec($ch)) {
 		throw new Exception('CURL error: '.curl_error($ch));
 	}
 	curl_close($ch);
