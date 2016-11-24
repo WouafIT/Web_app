@@ -50,6 +50,7 @@
 						   data-startendelem=".add-period" readonly
 						   placeholder="<%= htmlWebpackPlugin.options.i18n['End'] %>" />
 				</div>
+				<small class="text-muted"><%= htmlWebpackPlugin.options.i18n['Maximum 4 weeks'] %></small>
 			</fieldset>
 
 			<fieldset class="form-group">

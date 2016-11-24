@@ -261,7 +261,7 @@ module.exports = (function() {
 						if (start && end && start.getTime() && end.getTime()) {
 							duration = Math.round(end.getTime() / 1000) - Math.round(start.getTime() / 1000);
 						}
-						if (duration <= 0) {
+						if (duration <= 0 || duration > 2419200) {
 							return false;
 						}
 					}
