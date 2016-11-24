@@ -37,7 +37,7 @@ module.exports = (function() {
 				windows.close();
 				toast.show(i18n.t('A reset email has been sent.'));
 			}, function (msg) {
-				alert.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), $form, 'danger');
+				alert.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0]), interpolation: {escape: false}}), $form, 'danger');
 			});
 		});
 	};
