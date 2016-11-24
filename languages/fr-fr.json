@@ -222,6 +222,7 @@
 	"Until": "Jusqu'à",
 	"Start and end dates are invalid. The end date must be after the start date": "Vos dates de début et de fin sont invalides. La date de fin doit être postérieure à la date de début.",
 	"Start and end dates are invalid. Your Wouaf must last at least an hour": "Vos dates de début et de fin sont invalides. Votre Wouaf doit durer au moins une heure.",
+	"Start and end dates are invalid. Your Wouaf should last a maximum of 4 weeks": "Les dates de début et de fin ne sont pas valides. Votre Wouaf doit durer un maximum de 4 semaines.",
 
 	"French": "Français",
 	"English": "Anglais",

@@ -254,14 +254,14 @@ module.exports = (function() {
 					return !$field.val().length || utils.isValidUrl($field.val());
 				case 'date-start':
 				case 'date-end':
-					if ($duration.val() === 'specific' && $dateStart.val() && $dateEnd.val()) {
-						var start = dtp.getInputDate($dateStart);
+					if ($duration.val() === 'specific' && $dateEnd.val()) {
+						var start = $dateStart.val() ? dtp.getInputDate($dateStart) : (new Date());
 						var end = dtp.getInputDate($dateEnd);
 						var duration = 0;
 						if (start && end && start.getTime() && end.getTime()) {
 							duration = Math.round(end.getTime() / 1000) - Math.round(start.getTime() / 1000);
 						}
-						if (duration <= 0 || duration > 2419200) {
+						if (duration <= 0) {
 							return false;
 						}
 					}
@@ -288,6 +288,10 @@ module.exports = (function() {
 				}
 				if (duration < 3600) {
 					alert.show(i18n.t('Start and end dates are invalid. Your Wouaf must last at least an hour'), $form);
+					return;
+				}
+				if (duration > 2419200) {
+					alert.show(i18n.t('Start and end dates are invalid. Your Wouaf should last a maximum of 4 weeks'), $form);
 					return;
 				}
 			}

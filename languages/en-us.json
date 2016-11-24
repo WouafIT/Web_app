@@ -222,6 +222,7 @@
     "Until": "Until",
     "Start and end dates are invalid. The end date must be after the start date": "Start and end dates are invalid. The end date must be after the start date.",
     "Start and end dates are invalid. Your Wouaf must last at least an hour": "Start and end dates are invalid. Your Wouaf must last at least an hour.",
+	"Start and end dates are invalid. Your Wouaf should last a maximum of 4 weeks": "Start and end dates are invalid. Your Wouaf should last a maximum of 4 weeks.",
 
     "French": "French",
 	"English": "English",
