@@ -272,7 +272,7 @@ function getWouafHTML($data) {
 			  '<p>'.$t['By'].' '.PHP_EOL.
 			  '	<a class="p-author h-card" href="https://<%= htmlWebpackPlugin.options.data.domain %>/user/'.htmlspecialchars($data['author'][1]).'/">'.PHP_EOL.
 			  '	'.htmlspecialchars(!empty($data['author'][2]) ? $data['author'][2] : $data['author'][1]).PHP_EOL.
-			  '   </a>'.PHP_EOL.
+			  ' </a>'.PHP_EOL.
 			  '</p>'.PHP_EOL.
 			  '<p>'.$t['From'].' <time class="dt-start" datetime="'.$start->format('c').'">'.
 			  strftime('%c', intval($data['dates'][0]['start'])).'</time>'.PHP_EOL.
@@ -399,7 +399,7 @@ function curlGet($url, array $get = null, array $options = array()) {
 	$defaults = array(
 		CURLOPT_HEADER         => 0,
 		CURLOPT_RETURNTRANSFER => true,
-		CURLOPT_TIMEOUT        => 4,
+		CURLOPT_TIMEOUT        => 10,
 		CURLOPT_URL            => $url,
 		CURLOPT_HTTPHEADER     => array(
 			'Origin: https://'.$_SERVER['HTTP_HOST'],
