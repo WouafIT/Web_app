@@ -415,5 +415,6 @@
 	"A Facebook user already exists for this username. Please, uses Facebook login instead.": "Un utilisateur Facebook existe déjà pour cet identifiant. Vous pouvez vous connecter grâce au bouton <a href=\"/login/\" data-href=\"login\" data-show=\"modal\" data-target=\"#modalWindow\">Connexion avec Facebook</a> à la place.",
 	"Cannot reset password for a Facebook user. Please, uses Facebook login instead.": "Impossible de réinitialiser le mot de passe d'un utilisateur Facebook. Vous pouvez vous connecter grâce au bouton <a href=\"/login/\" data-href=\"login\" data-show=\"modal\" data-target=\"#modalWindow\">Connexion avec Facebook</a> à la place.",
 	"This email already exist.": "Cette adresse email existe déjà pour un autre utilisateur. Merci d'en utiliser un autre ou bien déconnectez vous et employez la fonction \"J'ai oublié mon mot de passe\" pour obtenir un nouveau mot de passe pour le compte utilisant cette adresse email.",
-	"Unknown email address.": "Adresse email inconnue."
+	"Unknown email address.": "Adresse email inconnue.",
+	"Cannot update email for an unactivated account.": "Impossible de mettre à jour votre adresse email, vuos n'avez pas activé votre précédente adresse. Consultez votre boîte email pour activer votre adresse précédente."
 }

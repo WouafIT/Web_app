@@ -416,5 +416,7 @@
 	"A Facebook user already exists for this username. Please, uses Facebook login instead.": "A Facebook user already exists for this ID. You can connect through the <a href=\"/login/\" data-href=\"login\" data-show=\"modal\" data-target=\"#modalWindow\">Login with Facebook</a> button instead.",
 	"Cannot reset password for a Facebook user. Please, uses Facebook login instead.": "Cannot reset password for a Facebook user. You can connect through the <a href=\"/login/\" data-href=\"login\" data-show=\"modal\" data-target=\"#modalWindow\">Login with Facebook</a> button instead.",
 	"This email already exist.": "This email already exists for another user. Thank you for using another one or disconnect and use the \"I forgot my password\" function to get a new password for the account using this email address.",
-	"Unknown email address.": "Unknown email address."
+	"Unknown email address.": "Unknown email address.",
+	"Cannot update email for an unactivated account.": "Unable to update your email address, you have not activated your previous address. Check your mailbox to activate your previous address."
+
 }
