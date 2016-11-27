@@ -37,7 +37,7 @@
 		<i class="fa fa-facebook-official"></i> <a href="https://www.facebook.com/wouafit/" target="_blank">Facebook</a> pour plus d'informations !</p>
 
 	<p>L'utilisation de Wouaf IT est gratuite. Son code source est distribué sous licence libre Apache et
-		disponible sur <i class="fa fa-github"></i> <a href="https://github.com/WouafIT" target="_blank">Github</a>.</p>
+		est disponible sur <i class="fa fa-github"></i> <a href="https://github.com/WouafIT" target="_blank">Github</a>.</p>
 	<hr />
 	<p>Wouaf IT © <%= htmlWebpackPlugin.options.data.year %>.</p>
 </div>
