@@ -169,6 +169,7 @@
 					<p>Les événements Facebook sont importés une fois par semaine.</p>
 					<p>Une fois qu'un événement Facebook a été importé dans notre système, il ne sera plus mis à jour,
 						même si l'événement d'origine est modifié sur Facebook.</p>
+					<p>Cependant, une fois que vous avez créé votre compte sur Wouaf IT à l'aide du bouton "Connection avec Facebook"
 						vous pouvez gérer vous même vos événements directement depuis notre site.</p>
 				</div>
 			</div>
@@ -191,6 +192,7 @@
 			<div class="card-header" role="tab" id="headingFifteen">
 				<h5>
 					<a data-toggle="collapse" data-parent="#accordion" href="#collapseFifteen" aria-expanded="true" aria-controls="collapseFifteen">
+						Pourquoi la carte me positionne mal à l'ouverture du site ?
 					</a>
 				</h5>
 			</div>

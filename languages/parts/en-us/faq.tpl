@@ -192,6 +192,7 @@
 			<div class="card-header" role="tab" id="headingFifteen">
 				<h5>
 					<a data-toggle="collapse" data-parent="#accordion" href="#collapseFifteen" aria-expanded="true" aria-controls="collapseFifteen">
+						Why does the map position me badly when opening the site?
 					</a>
 				</h5>
 			</div>
