@@ -285,7 +285,7 @@
 			<div class="card-header" role="tab" id="headingTwelve">
 				<h5>
 					<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwelve" aria-expanded="true" aria-controls="collapseTwelve">
-						Je souhaite aider au développement de Wouaf IT, comment faire ?
+						J'aime Wouaf IT, comment faire ?
 					</a>
 				</h5>
 			</div>

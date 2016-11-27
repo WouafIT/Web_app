@@ -283,7 +283,7 @@
 			<div class="card-header" role="tab" id="headingTwelve">
 				<h5>
 					<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwelve" aria-expanded="true" aria-controls="collapseTwelve">
-						I want to help develop Wouaf IT, is it possible?
+						I like Wouaf IT, what to do?
 					</a>
 				</h5>
 			</div>
