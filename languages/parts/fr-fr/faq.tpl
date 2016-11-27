@@ -285,12 +285,13 @@
 			<div class="card-header" role="tab" id="headingTwelve">
 				<h5>
 					<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwelve" aria-expanded="true" aria-controls="collapseTwelve">
-						J'aime Wouaf IT, comment faire ?
+						J'aime Wouaf IT, que faire ?
 					</a>
 				</h5>
 			</div>
 			<div id="collapseTwelve" class="collapse" role="tabpanel" aria-labelledby="headingTwelve">
 				<div class="card-block">
+					<p>Nous vous aimons aussi <i class="fa fa-heart"></i> <i class="fa fa-smile-o"></i></p>
 					<p>Le développement de Wouaf IT et la visibilité des événements qui y sont publiés dépendent d'abord de l'audience du site.
 						Vous pouvez donc parler de Wouaf IT autour de vous et sur vos réseaux sociaux. Le bouche à oreille est la meilleure des aides !
 					</p>

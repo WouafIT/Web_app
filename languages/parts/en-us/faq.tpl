@@ -283,12 +283,13 @@
 			<div class="card-header" role="tab" id="headingTwelve">
 				<h5>
 					<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwelve" aria-expanded="true" aria-controls="collapseTwelve">
-						I like Wouaf IT, what to do?
+						I love Wouaf IT, what to do?
 					</a>
 				</h5>
 			</div>
 			<div id="collapseTwelve" class="collapse" role="tabpanel" aria-labelledby="headingTwelve">
 				<div class="card-block">
+					<p>We love you too <i class="fa fa-heart"></i> <i class="fa fa-smile-o"></i></p>
 					<p>The development of Wouaf IT and the visibility of the events published there depend primarily on the audience of the site.
 						So you can talk about Wouaf IT around you and on your social networks. Word of mouth is the best help!</p>
 					<p>We also need good will to translate the site into different languages, including Spanish, German, etc.
