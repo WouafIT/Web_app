@@ -501,8 +501,14 @@ module.exports = (function () {
 				if (permissionStatus.state === 'granted') {
 					navigator.geolocation.getCurrentPosition(setUserLocation, handleNoGeolocation);
 				} else if (permissionStatus.state === 'prompt') {
-					//show window to ask for permission
-					askForGeolocation();
+					var location = data.getObject('position');
+					if (!location || isNaN(location.lat) || isNaN(location.lng)) {
+						//show window to ask for permission
+						askForGeolocation();
+					} else {
+						//location already known
+						setUserLocation({coords: {latitude: location.lat, longitude: location.lng}});
+					}
 				} else {
 					handleNoGeolocation({code: 999, message: 'Permission denied'});
 				}
