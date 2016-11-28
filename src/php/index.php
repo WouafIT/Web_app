@@ -183,9 +183,9 @@ function getWouafMeta($data) {
 		$end->setTimezone($timeZone);
 	}
 	$title  = getWouafTitle($data);
-	$return = "<title><%= htmlWebpackPlugin.options.i18n['Wouaf IT'] %><%= htmlWebpackPlugin.options.data.devTitle %> - ".htmlspecialchars($title)."</title>".PHP_EOL.
+	$return = "<title>".htmlspecialchars($title)." - <%= htmlWebpackPlugin.options.i18n['Wouaf IT'] %><%= htmlWebpackPlugin.options.data.devTitle %></title>".PHP_EOL.
 			  '<meta name="description" content="'.htmlspecialchars(str_replace(PHP_EOL, ' ', $description)).'" />'.PHP_EOL.
-			  '<meta property="og:title" content="'.htmlspecialchars($title).'" />'.PHP_EOL.
+			  "<meta property=\"og:title\" content=\"".htmlspecialchars($title)." - <%= htmlWebpackPlugin.options.i18n['Wouaf IT'] %>\" />".PHP_EOL.
 			  '<meta property="fb:app_id" content="<%= htmlWebpackPlugin.options.data.facebookAppId %>" />'.PHP_EOL.
 			  '<meta property="og:type" content="article" />'.PHP_EOL.
 
@@ -199,7 +199,7 @@ function getWouafMeta($data) {
 			  '<meta property="og:description" content="'.htmlspecialchars($description).'" />'.PHP_EOL.
 			  '<meta name="twitter:card" content="summary" />'.PHP_EOL.
 			  '<meta name="twitter:site" content="@Wouaf_IT" />'.PHP_EOL.
-			  '<meta name="twitter:title" content="'.htmlspecialchars($title).'" />'.PHP_EOL.
+			  "<meta name=\"twitter:title\" content=\"".htmlspecialchars($title)." - <%= htmlWebpackPlugin.options.i18n['Wouaf IT'] %>\" />".PHP_EOL.
 			  '<meta name="twitter:description" content="'.htmlspecialchars($description).'" />'.PHP_EOL;
 
 	if (!empty($data['pics']) && is_array($data['pics'])) {
