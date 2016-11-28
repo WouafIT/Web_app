@@ -418,5 +418,6 @@
 	"This email already exist.": "This email already exists for another user. Thank you for using another one or disconnect and use the \"I forgot my password\" function to get a new password for the account using this email address.",
 	"Unknown email address.": "Unknown email address.",
 	"Cannot update email for an unactivated account.": "Unable to update your email address, you have not activated your previous address. Check your mailbox to activate your previous address.",
+	"An email has been sent to activate your new email address.": "A confirmation email has been sent to you to validate your new email address. Check your mailbox to activate your address.",
 	"Invalid date and duration. The post is already passed.": "Date and duration invalid, the publication is already gone."
 }
