@@ -312,6 +312,7 @@
 	"Your activation key": "Saisissez votre clé d'activation",
 	"Activate your profile": "Activer votre email",
 	"Profile activated!": "Votre email est activé !\nVous pouvez vous connecter.",
+	"Validate this form to activate your email": "Validez ce formulaire pour activer votre email.",
 
 	"User profile {{username}}": "Profil de {{username}}",
 	"No Wouafs yet": "Pas encore de Wouafs",

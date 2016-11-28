@@ -7,6 +7,7 @@
 		<h4 class="modal-title"><%= htmlWebpackPlugin.options.i18n['Activate your user profile'] %></h4>
 	</div>
 	<div class="modal-body">
+		<p><%= htmlWebpackPlugin.options.i18n['Validate this form to activate your email'] %></p>
 		<form>
 			<fieldset class="form-group">
 				<div class="input-group">

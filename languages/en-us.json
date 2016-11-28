@@ -313,6 +313,7 @@
 	"Your activation key": "Enter your activation key",
 	"Activate your profile": "Activate your email",
 	"Profile activated!": "Your email is activated!\nYou can connect.",
+	"Validate this form to activate your email": "Validate this form to activate your email.",
 
 	"User profile {{username}}": "Profile of {{username}}",
 	"No Wouafs yet": "No Wouafs yet",
