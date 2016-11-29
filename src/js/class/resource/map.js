@@ -294,7 +294,7 @@ module.exports = (function () {
 		}
 	};
 	//set user current location
-	var setUserLocation = function (position) {
+	var setUserLocation = function (position, trackUser) {
 		if (!position.coords.latitude || !position.coords.longitude
 			|| isNaN(position.coords.latitude) || isNaN(position.coords.longitude)) {
 			handleNoGeolocation({code: 999, message: 'Invalid location'});
@@ -308,11 +308,13 @@ module.exports = (function () {
 			//show user location
 			userMarker = new locationMarker(userLocation);
 			//watch for location update
-			navigator.geolocation.watchPosition(setUserLocation, handleNoGeolocation, {
-				enableHighAccuracy: true,
-				maximumAge: 30000,
-				timeout: 27000
-			});
+			if (trackUser !== false) {
+				navigator.geolocation.watchPosition(setUserLocation, handleNoGeolocation, {
+					enableHighAccuracy: true,
+					maximumAge: 30000,
+					timeout: 27000
+				});
+			}
 		} else {
 			//update user location
 			userMarker.draw(userLocation);
@@ -508,7 +510,7 @@ module.exports = (function () {
 						askForGeolocation();
 					} else {
 						//location already known
-						setUserLocation({coords: {latitude: location.lat, longitude: location.lng}});
+						setUserLocation({coords: {latitude: location.lat, longitude: location.lng}}, false);
 					}
 				} else {
 					handleNoGeolocation({code: 999, message: 'Permission denied'});
