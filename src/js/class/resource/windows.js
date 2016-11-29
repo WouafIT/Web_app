@@ -61,7 +61,7 @@ module.exports = (function() {
 		if (navigationClose === false) {
 			return;
 		}
-		if (!$navigationClose) {
+		if (!navigationClose) {
 			$document.triggerHandler('navigation.set-state', {name: 'windows', value: null});
 		} else {
 			$document.triggerHandler('navigation.set-state', $modal.data('navigationClose'));
