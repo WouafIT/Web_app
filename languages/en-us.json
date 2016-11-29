@@ -420,5 +420,6 @@
 	"Unknown email address.": "Unknown email address.",
 	"Cannot update email for an unactivated account.": "Unable to update your email address, you have not activated your previous address. Check your mailbox to activate your previous address.",
 	"An email has been sent to activate your new email address.": "A confirmation email has been sent to you to validate your new email address. Check your mailbox to activate your address.",
-	"Invalid date and duration. The post is already passed.": "Date and duration invalid, the publication is already gone."
+	"Invalid date and duration. The post is already passed.": "Date and duration invalid, the publication is already gone.",
+	"You do not have an email address, thank you for filling your email in your profile so that we can answer you": "You do not have an email address, thank you for filling your email in your profile so that we can answer you."
 }

@@ -419,5 +419,6 @@
 	"Unknown email address.": "Adresse email inconnue.",
 	"Cannot update email for an unactivated account.": "Impossible de mettre à jour votre adresse email, vous n'avez pas activé votre précédente adresse. Consultez votre boîte email pour activer votre adresse précédente.",
 	"An email has been sent to activate your new email address.": "Un email de confirmation vous a été envoyé pour valider votre nouvelle adresse email. Consultez votre boîte email pour activer votre adresse.",
-	"Invalid date and duration. The post is already passed.": "Date et durée invalide, la publication est déjà révolue."
+	"Invalid date and duration. The post is already passed.": "Date et durée invalide, la publication est déjà révolue.",
+	"You do not have an email address, thank you for filling your email in your profile so that we can answer you": "Vous n'avez pas d'adresse email, merci de remplir votre email dans votre profil pour que nous puissions vous répondre."
 }
