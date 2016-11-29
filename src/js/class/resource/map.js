@@ -354,6 +354,7 @@ module.exports = (function () {
 			title: i18n.t('Location request'),
 			text: i18n.t('Location_request_details'),
 			closeLabel: i18n.t('I understand'),
+			navigationClose: false,
 			close: function () {
 				navigator.geolocation.getCurrentPosition(setUserLocation, handleNoGeolocation);
 			}

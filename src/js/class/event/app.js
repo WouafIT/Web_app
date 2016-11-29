@@ -107,6 +107,7 @@ module.exports = (function() {
 				windows.show({
 					title: 	infos.message.title,
 					text: 	infos.message.msg,
+					navigationClose: false,
 					close: function () {
 						$document.triggerHandler('app.start-end');
 					}
@@ -117,6 +118,7 @@ module.exports = (function() {
 					title: i18n.t('Welcome to Wouaf IT'),
 					text: i18n.t('welcome_details'),
 					closeLabel: i18n.t('I understand'),
+					navigationClose: false,
 					close: function () {
 						$document.triggerHandler('app.start-end');
 					}
