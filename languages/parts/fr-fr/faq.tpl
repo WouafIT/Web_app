@@ -218,7 +218,7 @@
 			<div id="collapseEight" class="collapse" role="tabpanel" aria-labelledby="headingEight">
 				<div class="card-block">
 					<p>A terme oui, Wouaf IT a pour objectif de couvrir tous les pays, mais nous allons monter doucement en puissance.
-					Vous pouvez déjà créer des Wouafs ou vous le souhaitez et nous ajouterons d'autres sources de contenu petit à petit.</p>
+					Vous pouvez déjà créer des Wouafs ou vous le souhaitez et nous ajouterons d'autres sources de contenu dans différents pays petit à petit.</p>
 				</div>
 			</div>
 		</div>

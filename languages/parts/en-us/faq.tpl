@@ -218,7 +218,7 @@
 			<div id="collapseEight" class="collapse" role="tabpanel" aria-labelledby="headingEight">
 				<div class="card-block">
 					<p>Eventually yes, Wouaf IT aims to cover all countries, but we will slowly ramp up.
-						You can already create Wouafs anywhere you want and we will add other sources of content little by little.</p>
+						You can already create Wouafs anywhere you want and we will add other sources of content in different countries little by little.</p>
 				</div>
 			</div>
 		</div>
