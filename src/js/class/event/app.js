@@ -198,5 +198,12 @@ module.exports = (function() {
 		if (__DEV__) {
 			console.info('Javascript error', arguments);
 		}
+		query.logJsError({
+			msg: msg,
+			url: url,
+			lineNo: lineNo,
+			columnNo: columnNo,
+			error: error
+		});
 	}
 }());

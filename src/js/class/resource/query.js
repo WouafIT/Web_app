@@ -8,9 +8,13 @@ module.exports = (function() {
 	var $document = $(document);
 	var xhr;
 	var ENDPOINT 		= API_ENDPOINT;
+	var disableLoader 	= false;
 	$document.ajaxStart(function() {
 		if (__DEV__) {
 			console.info('Ajax start');
+		}
+		if (disableLoader) {
+			return;
 		}
 		loader.show(0);
 	}).ajaxStop(function() {
@@ -18,6 +22,7 @@ module.exports = (function() {
 			console.info('Ajax stop');
 		}
 		loader.hide();
+		disableLoader = false;
 	});
 	var connectionError = function() {
 		toast.show(i18n.t('Connexion error. Are you connected to the Internet? Please try again later'), 5000);
@@ -76,6 +81,9 @@ module.exports = (function() {
 		};
 		if (__DEV__) {
 			console.info('New query', xhr_params);
+		}
+		if (params.loader === false) {
+			disableLoader = true;
 		}
 		xhr = $.ajax(xhr_params);
 	};
@@ -513,6 +521,18 @@ module.exports = (function() {
 				},
 				successCallback: successCallback,
 				errorCallback: errorCallback
+			});
+		},
+		logJsError: function userFollowers(infos) {
+			infos = infos || {};
+			infos['uid'] = data.getString('uid');
+			query({
+				loader: false,
+				method: 'POST',
+				url:	ENDPOINT + '/log-client-error',
+				data: 	infos,
+				success:function (result) {},
+				error:function (result) {}
 			});
 		}
 	};

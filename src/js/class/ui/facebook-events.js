@@ -104,7 +104,6 @@ module.exports = (function() {
 				}
 			});
 		});
-
 		//Check Facebook permissions
 		FB.getLoginStatus(function (response) {
 			if (response.status === 'connected' && parseInt(response.authResponse.userID, 10) === fid) {
@@ -125,6 +124,13 @@ module.exports = (function() {
 								pages = true;
 							}
 						}
+					}
+					if (response.error) {
+						query.logJsError({
+							msg: 'Facebook API error for Permissions list call',
+							fid: fid,
+							fberror: response.error
+						});
 					}
 					$noEvents.hide();
 					$eventsDisabled.hide();
@@ -152,6 +158,12 @@ module.exports = (function() {
 									} else {
 										$noEvents.show();
 									}
+								} else if (response && response.error) {
+									query.logJsError({
+										msg: 'Facebook API error for Events list call',
+										fid: fid,
+										fberror: response.error
+									});
 								}
 							}
 						);
@@ -175,6 +187,12 @@ module.exports = (function() {
 									} else {
 										$noPagesEvents.show();
 									}
+								} else if (response && response.error) {
+									query.logJsError({
+										msg: 'Facebook API error for Pages list call',
+										fid: fid,
+										fberror: response.error
+									});
 								}
 							}
 						);
