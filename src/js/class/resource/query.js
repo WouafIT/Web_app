@@ -525,7 +525,8 @@ module.exports = (function() {
 		},
 		logJsError: function userFollowers(infos) {
 			infos = infos || {};
-			infos['uid'] = data.getString('uid');
+			infos.uid = data.getString('uid');
+			infos.pageUrl = window.location.href;
 			query({
 				loader: false,
 				method: 'POST',

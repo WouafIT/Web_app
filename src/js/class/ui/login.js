@@ -19,34 +19,38 @@ module.exports = (function() {
 		var $facebookLogin = $modalWindow.find('.btn-facebook');
 		//Facebook login
 		$facebookLogin.on('click', function() {
-			FB.login(function(response) {
-				if (response.authResponse) {
-					//log user on application using accessToken
-					query.fblogin({
-						fid: 		parseInt(response.authResponse.userID, 10),
-						fbtoken: 	response.authResponse.accessToken
-					}, function(result) {
-						toast.show(i18n.t('Welcome {{username}}', { 'username': utils.getUsername(result.user)}));
-						result.permanent = true;
-						//login
-						$document.triggerHandler('app.login', result);
-						windows.close();
-					}, function(msg) {
+			if (window.FB) {
+				FB.login(function (response) {
+					if (response.authResponse) {
+						//log user on application using accessToken
+						query.fblogin({
+							fid: parseInt(response.authResponse.userID, 10),
+							fbtoken: response.authResponse.accessToken
+						}, function (result) {
+							toast.show(i18n.t('Welcome {{username}}', {'username': utils.getUsername(result.user)}));
+							result.permanent = true;
+							//login
+							$document.triggerHandler('app.login', result);
+							windows.close();
+						}, function (msg) {
+							$document.triggerHandler('app.logout');
+							if (msg) {
+								alert.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), $modalWindow.find('.modal-body'), 'danger');
+							} else {
+								query.connectionError();
+							}
+						});
+					} else {
 						$document.triggerHandler('app.logout');
-						if (msg) {
-							alert.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), $modalWindow.find('.modal-body'), 'danger');
-						} else {
-							query.connectionError();
-						}
-					});
-				} else {
-					$document.triggerHandler('app.logout');
-					alert.show(i18n.t('Error during Facebook login. Please retry'), $modalWindow.find('.modal-body'), 'danger');
-				}
-			}, {
-				scope: 'public_profile,email,user_friends,pages_show_list,user_events',
-				enable_profile_selector: true
-			});
+						alert.show(i18n.t('Error during Facebook login. Please retry'), $modalWindow.find('.modal-body'), 'danger');
+					}
+				}, {
+					scope: 'public_profile,email,user_friends,pages_show_list,user_events',
+					enable_profile_selector: true
+				});
+			} else {
+				alert.show(i18n.t('Error, Facebook is not properly loaded. Please refresh the page or disable your ad blocker'), $modalWindow.find('.modal-body'), 'danger');
+			}
 		});
 
 		var $form = $modalWindow.find('form');

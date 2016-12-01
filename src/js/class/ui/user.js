@@ -94,7 +94,7 @@ module.exports = (function() {
 			$modalWindow.find('.modal-body').html(content);
 			if (uid && user.uid === uid) {
 				var fid = userData.get('fid');
-				if (fid) {
+				if (fid && window.FB) {
 					FB.getLoginStatus(function (response) {
 						if (response.status === 'connected' && parseInt(response.authResponse.userID, 10) === fid) {
 							$modalWindow.find('.btn-facebook').show().removeAttr('hidden');
