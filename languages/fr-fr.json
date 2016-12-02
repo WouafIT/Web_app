@@ -422,5 +422,5 @@
 	"Invalid date and duration. The post is already passed.": "Date et durée invalide, la publication est déjà révolue.",
 	"You do not have an email address, thank you for filling your email in your profile so that we can answer you": "Vous n'avez pas d'adresse email, merci de remplir votre email dans votre profil pour que nous puissions vous répondre.",
 	"Error, Facebook is not properly loaded. Please refresh the page or disable your ad blocker": "Erreur, Facebook n'est pas correctement chargé. Veuillez actualiser la page ou désactiver votre bloqueur d'annonces.",
-	"Forbidden.": "Veuillez rafraichir la page dans le navigateur avant de réessayer."
+	"Forbidden.": "Session invalide, veuillez rafraichir la page dans le navigateur avant de réessayer."
 }

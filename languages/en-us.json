@@ -423,5 +423,5 @@
 	"Invalid date and duration. The post is already passed.": "Date and duration invalid, the publication is already gone.",
 	"You do not have an email address, thank you for filling your email in your profile so that we can answer you": "You do not have an email address, thank you for filling your email in your profile so that we can answer you.",
 	"Error, Facebook is not properly loaded. Please refresh the page or disable your ad blocker": "Error, Facebook is not properly loaded. Please refresh the page or disable your ad blocker.",
-	"Forbidden.": "Please refresh the page in the browser before trying again."
+	"Forbidden.": "Invalid session, please refresh the page in the browser before trying again."
 }
