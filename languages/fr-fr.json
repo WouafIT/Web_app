@@ -421,5 +421,6 @@
 	"An email has been sent to activate your new email address.": "Un email de confirmation vous a été envoyé pour valider votre nouvelle adresse email. Consultez votre boîte email pour activer votre adresse.",
 	"Invalid date and duration. The post is already passed.": "Date et durée invalide, la publication est déjà révolue.",
 	"You do not have an email address, thank you for filling your email in your profile so that we can answer you": "Vous n'avez pas d'adresse email, merci de remplir votre email dans votre profil pour que nous puissions vous répondre.",
-	"Error, Facebook is not properly loaded. Please refresh the page or disable your ad blocker": "Erreur, Facebook n'est pas correctement chargé. Veuillez actualiser la page ou désactiver votre bloqueur d'annonces."
+	"Error, Facebook is not properly loaded. Please refresh the page or disable your ad blocker": "Erreur, Facebook n'est pas correctement chargé. Veuillez actualiser la page ou désactiver votre bloqueur d'annonces.",
+	"Forbidden.": "Une erreur est survenue, veuillez rafraichir la page dans le navigateur avant de réessayer."
 }
