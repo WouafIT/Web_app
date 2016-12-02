@@ -19,7 +19,7 @@ module.exports = (function() {
 		var $facebookLogin = $modalWindow.find('.btn-facebook');
 		//Facebook login
 		$facebookLogin.on('click', function() {
-			if (window.FB) {
+			if (window.FB && FB.login) {
 				FB.login(function (response) {
 					if (response.authResponse) {
 						//log user on application using accessToken
