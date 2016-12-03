@@ -168,7 +168,9 @@ module.exports = (function() {
 		autocomplete.addListener('place_changed', function() {
 			// Get the place details from the autocomplete object.
 			var place = autocomplete.getPlace();
-			$whereLoc.val(JSON.stringify(place.geometry.location.toJSON()));
+			if (place.geometry) {
+				$whereLoc.val(JSON.stringify(place.geometry.location.toJSON()));
+			}
 		});
 		$where.on('change', function() {
 			$whereLoc.val('');
