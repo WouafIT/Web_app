@@ -143,7 +143,7 @@ module.exports = (function() {
 						var date = new Date(+new Date - 12096e5);
 						var twoWeeksAgo = date.getUTCFullYear() +'-'+ utils.zeroPad(date.getUTCMonth() + 1, 2) +'-'+ utils.zeroPad(date.getUTCDate(), 2);
 						count = 0;
-						FB.api('/'+ fid +'?fields=events.since('+ twoWeeksAgo +').type(created){id,type}',
+						FB.api('/me?fields=events.since('+ twoWeeksAgo +').type(created){id,type}',
 							function (response) {
 								if (response && !response.error) {
 									if (response.events && response.events.data) {
@@ -176,7 +176,7 @@ module.exports = (function() {
 						$pagesDisabled.show();
 					} else {
 						count = 0;
-						FB.api('/'+ fid +'?fields=accounts{id}',
+						FB.api('/me?fields=accounts{id}',
 							function (response) {
 								if (response && !response.error) {
 									if (response.accounts && response.accounts.data) {
