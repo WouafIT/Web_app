@@ -230,7 +230,7 @@
 	"By {{author}}": "Par {{author}}",
 	"at {{at}}": "à {{at}}",
 	"From {{from}} to {{to}}": "Du {{from}} au {{to}}",
-	"On {{on}} for {{for}}": "{{on}} et pendant {{for}}",
+	"On {{on}} for {{for}}": "{{on}}, pendant {{for}}",
 	"On {{on}} from {{from}} to {{to}}": "{{on}} de {{from}} à {{to}}",
 	"On {{on}} from {{from}}": "{{on}} à partir de {{from}}",
 	"On {{on}}": "Le {{on}}",
