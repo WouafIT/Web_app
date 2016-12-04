@@ -12,6 +12,9 @@ module.exports = (function() {
 	var self = {};
 	//htmlspecialchars
 	self.escapeHtml = function (text) {
+		if (!text) {
+			return '';
+		}
 		var map = {
 			'&': '&amp;',
 			'<': '&lt;',
@@ -162,6 +165,9 @@ module.exports = (function() {
 
 	//Strip tags from : http://phpjs.org/functions/strip_tags/
 	self.strip_tags = function (input, allowed) {
+	  if (!input) {
+		  return '';
+	  }
 	  allowed = (((allowed || "") + "").toLowerCase().match(/<[a-z][a-z0-9]*>/g) || []).join(''); // making sure the allowed arg is a string containing only tags in lowercase (<a><b><c>)
 	  var tags = /<\/?([a-z][a-z0-9]*)\b[^>]*>/gi,
 		commentsAndPhpTags = /<!--[\s\S]*?-->|<\?(?:php)?[\s\S]*?\?>/gi;
@@ -214,6 +220,9 @@ module.exports = (function() {
 	};
 
 	self.textToHTML = function(text) {
+		if (!text) {
+			return '';
+		}
 		var url = require('./resource/url.js');
 		//remove HTML
 		text = self.escapeHtml(text);
