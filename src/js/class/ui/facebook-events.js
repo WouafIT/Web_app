@@ -18,7 +18,6 @@ module.exports = (function() {
 			windows.close();
 			return;
 		}
-
 		var $eventsImport = $modalWindow.find('.events-import');
 		var $pagesImport = $modalWindow.find('.pages-import');
 		var $eventsDisabled = $modalWindow.find('.events-disabled');
@@ -27,11 +26,18 @@ module.exports = (function() {
 		var $noPagesEvents = $modalWindow.find('.no-pages-events');
 		var $eventsRerequest = $modalWindow.find('.events-rerequest');
 		var $pagessRerequest = $modalWindow.find('.pages-rerequest');
+		var $noEmail = $modalWindow.find('.no-email');
 
 		$eventsDisabled.hide().removeAttr('hidden');
 		$pagesDisabled.hide().removeAttr('hidden');
 		$noEvents.hide().removeAttr('hidden');
 		$noPagesEvents.hide().removeAttr('hidden');
+
+		//check user email
+		if (!user.get('email')) {
+			$noEmail.removeAttr('hidden').show();
+			return;
+		}
 
 		//add buttons events
 		var rerequestPermissions = function () {

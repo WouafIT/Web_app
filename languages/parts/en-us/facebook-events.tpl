@@ -7,6 +7,16 @@
 		<h4 class="modal-title"><%= htmlWebpackPlugin.options.i18n['Your Facebook events'] %></h4>
 	</div>
 	<div class="modal-body">
+		<div class="no-email alert alert-danger" role="alert" hidden>
+			<p><strong>Your profile does not have an email address. You can not import your Facebook events.</strong></p>
+			<p>To access the Facebook event import you must first:</p>
+			<ol>
+				<li>Edit <a href="/profile/" data-href="profile" data-show="modal" data-target="#modalWindow">your profile</a>
+					and add an email address.</li>
+				<li>Validate your new email address by clicking on the confirmation link contained in the email you will receive.</li>
+			</ol>
+		</div>
+
 		<h3>Importing your Facebook events</h3>
 		<p>Wouaf IT allows you with one click to import the <strong>public</strong> events that you have already created on Facebook.</p>
 		<p>So you can share them with the Wouaf IT community and make them more visible thanks to the interactive map. Your events will retain a link to the original page on Facebook.</p>
