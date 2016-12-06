@@ -8,6 +8,7 @@ var query = require('../resource/query.js');
 var wouafs = require('../resource/wouafs.js');
 var formUtils = require('./form-utils.js');
 var alert = require('../resource/alert.js');
+var user 	= require('../resource/user.js');
 
 module.exports = (function() {
 	var self = {};
@@ -55,7 +56,7 @@ module.exports = (function() {
 			//contact Wouaf IT
 			$modalWindow.find('h4').html(i18n.t('Contact Wouaf IT'));
 			$modalWindow.find('.contact-details').html(i18n.t('Use the form below to contact us. All fields are mandatory'));
-			if (!data.getString('uid')) {
+			if (!data.getString('uid') || !user.get('email')) {
 				$email.parents('.form-group').show();
 			}
 			handleForm();
@@ -87,7 +88,7 @@ module.exports = (function() {
 			return true;
 		}, function () {
 			//form submition
-			var emailMandatory = (!recipientId && !obj && !data.getString('uid'));
+			var emailMandatory = (!recipientId && !obj && (!data.getString('uid') || !user.get('email')));
 			if (!$content.val() || (emailMandatory && !$email.val())) {
 				alert.show(i18n.t('Your form is incomplete, thank you to fill all the fields'), $form);
 				return;

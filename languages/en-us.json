@@ -291,7 +291,7 @@
 	"Use the form below to contact {{user}}": "Use the form below to contact {{user}}.",
 	"An error has occurred, you can not contact this Wouaffer": "An error has occurred, you can not contact this Wouaffer...",
 	"Contact Wouaf IT": "Contact Wouaf IT",
-	"Use the form below to contact us. All fields are mandatory": "Use the form below to contact us. All fields are mandatory. If you have any questions about how Wouaf IT works, consider taking a look at our <a href=\"/faq/\" data-href=\"faq\" data-show=\"modal\" data-target=\"#modalWindow\">FAQ</a> before, it probably contains the answers.",
+	"Use the form below to contact us. All fields are mandatory": "Use the form below to contact us. All fields are mandatory.<br />If you have any questions about how Wouaf IT works, consider taking a look at our <a href=\"/faq/\" data-href=\"faq\" data-show=\"modal\" data-target=\"#modalWindow\">FAQ</a> before, it probably contains the answers.",
 	"Your form is incomplete, thank you to fill all the fields": "Your form is incomplete, please fill in all the fields",
 	"Your message is sent, we will come back to you as soon as possible": "Your message has been sent, we will get back to you as soon as possible.",
 	"Your message is sent to the author of this Wouaf": "Your message has been sent to the author of this Wouaf.",

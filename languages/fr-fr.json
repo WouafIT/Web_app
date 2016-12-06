@@ -290,7 +290,7 @@
 	"Use the form below to contact {{user}}": "Utilisez le formulaire ci-dessous pour contacter {{user}}.",
 	"An error has occurred, you can not contact this Wouaffer": "Une erreur est survenue, impossible de contacter ce Wouaffeur ...",
 	"Contact Wouaf IT": "Contacter Wouaf IT",
-	"Use the form below to contact us. All fields are mandatory": "Utilisez le formulaire ci-dessous pour nous contacter. Tous les champs sont obligatoires. Si vous avez des questions sur le fonctionnement de Wouf IT, pensez à jeter un oeil à notre <a href=\"/faq/\" data-href=\"faq\" data-show=\"modal\" data-target=\"#modalWindow\">page FAQ</a> avant, elle contient probablement les réponses.",
+	"Use the form below to contact us. All fields are mandatory": "Utilisez le formulaire ci-dessous pour nous contacter. Tous les champs sont obligatoires.<br />Si vous avez des questions sur le fonctionnement de Wouaf IT, pensez à jeter un oeil à notre <a href=\"/faq/\" data-href=\"faq\" data-show=\"modal\" data-target=\"#modalWindow\">page FAQ</a> avant, elle contient probablement les réponses.",
 	"Your form is incomplete, thank you to fill all the fields": "Votre formulaire est incomplet, merci de remplir tous les champs",
 	"Your message is sent, we will come back to you as soon as possible": "Votre message est envoyé, nous reviendrons vers vous dès que possible.",
 	"Your message is sent to the author of this Wouaf": "Votre message est envoyé à l'auteur de ce Wouaf.",
