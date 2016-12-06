@@ -1,6 +1,5 @@
 var data = require('../resource/data.js');
 var windows = require('../resource/windows.js');
-var dtp = require('../resource/datetimepicker.js');
 var i18n = require('../resource/i18n.js');
 var query = require('../resource/query.js');
 var toast = require('../resource/toast.js');
@@ -29,7 +28,6 @@ module.exports = (function() {
 		var $displayname = $form.find('input[name=displayname]');
 		var $pass = $form.find('input[name=pass]');
 		var $email = $form.find('input[name=email]');
-		var $birthdate = $form.find('input[name=birthdate]');
 		var $language = $form.find('select[name=language]');
 		var $gender = $form.find('select[name=gender]');
 		var $url = $form.find('input[name=url]');
@@ -43,10 +41,6 @@ module.exports = (function() {
 		$language.val(user.get('lang'));
 		$gender.val(user.get('gender'));
 		$url.val(user.get('url'));
-		var birthdate = user.get('birthdate');
-		if (birthdate) {
-			dtp.setInputDate($birthdate, new Date(birthdate * 1000));
-		}
 
 		//description count remaining chars
 		$description.on('change keyup paste', function() {
@@ -95,9 +89,6 @@ module.exports = (function() {
 					return !$field.val() || ($field.val().length >= 6 && $field.val().length <= 100);
 				case 'passConfirm':
 					return $pass.val() === $field.val();
-				case 'birthdate':
-					var date = dtp.getInputDate($birthdate);
-					return !date || date.getTime() < (new Date().getTime());
 			}
 			return true;
 		}, function () {
@@ -120,7 +111,6 @@ module.exports = (function() {
 				type:			$type.val(),
 				displayname: 	$displayname.val(),
 				gender: 		$gender.val(),
-				birthdate: 		dtp.getInputServerDate($birthdate),
 				url:			$url.val()
 			}, function(result) { //success
 				var originalLanguage = user.get('lang');
@@ -133,9 +123,6 @@ module.exports = (function() {
 				user.set('description', $description.val());
 				user.set('type', $type.val());
 				user.set('url', $url.val());
-
-				var birthdate = dtp.getInputDate($birthdate);
-				user.set('birthdate', birthdate ? (birthdate.getTime() / 1000) : null);
 
 				//login
 				$document.triggerHandler('app.login');

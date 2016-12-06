@@ -66,11 +66,6 @@ module.exports = (function() {
 			if (user.gender) {
 				content += '<p><i class="fa fa-venus-mars"></i> '+ i18n.t(utils.ucfirst(user.gender)) +'</p>';
 			}
-			if (user.birthdate) {
-				var birthdate = new Date();
-				birthdate.setTime(user.birthdate * 1000);
-				content += '<p><i class="fa fa-birthday-cake"></i> '+ i18n.t('Born {{date}}', {date: dtp.formatDate(birthdate, 'long')}) +'</p>';
-			}
 			if (user.url) {
 				content += '<p><i class="fa fa-external-link"></i> <a href="'+ user.url +'" target="_blank"> '+ i18n.t('More info') +'</a></p>';
 			}

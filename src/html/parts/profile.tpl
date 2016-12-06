@@ -102,14 +102,6 @@
 					</select>
 				</div>
 			</fieldset>
-			<fieldset class="form-group">
-				<label for="birthdate"><%= htmlWebpackPlugin.options.i18n['Birthdate'] %></label>
-				<div class="input-group">
-					<div class="input-group-addon"><i class="fa fa-birthday-cake"></i></div>
-					<input  type="text" data-field="date" class="form-control" name="birthdate" id="birthdate"
-						   placeholder="<%= htmlWebpackPlugin.options.i18n['Birthdate'] %>" />
-				</div>
-			</fieldset>
 
 			<p class="text-xs-right">
 				<button type="button" class="pull-left profile-delete btn btn-danger"><i class="fa fa-trash"></i> <%= htmlWebpackPlugin.options.i18n['Delete your profile'] %></button>
