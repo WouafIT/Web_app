@@ -21,6 +21,7 @@ module.exports = (function() {
 		//get user infos
 		$.when(users.get(states.user)).done(function(user) {
 			var username = utils.getUsername(user);
+			var profileUrl = url.getAbsoluteURLForStates([{name: 'user', value: user.username}]);
 			$modalWindow.find('.modal-title').html(i18n.t('User profile {{username}}', {username: username}));
 			var content = '<div class="modal-user">'
 							+ self.getAvatar(user);
@@ -28,7 +29,7 @@ module.exports = (function() {
 				content += '<blockquote class="blockquote">'+ utils.textToHTML(user.description) +'</blockquote>';
 			}
 			content += '<div class="user-infos">';
-			content += '<p><i class="fa fa-link"></i> <a href="'+ url.getAbsoluteURLForStates([{name: 'user', value: user.username}]) +'" data-user="'+ utils.escapeHtml(user.username) +'"><i class="fa fa-at"></i>'+ utils.escapeHtml(user.username) +'</a></p>'
+			content += '<p><i class="fa fa-link"></i> <a href="'+ profileUrl +'" data-user="'+ utils.escapeHtml(user.username) +'"><i class="fa fa-at"></i>'+ utils.escapeHtml(user.username) +'</a></p>'
 			if (user.posts) {
 				content += '<p><i class="fa fa-hashtag"></i> <a href="#" data-action="user-wouaf" data-uid="' + user.uid + '">' + i18n.t('{{count}} Wouaf', {count: user.posts}) + '</a></p>';
 				if (user.fav) {
@@ -74,7 +75,14 @@ module.exports = (function() {
 				content += '<p><i class="fa fa-external-link"></i> <a href="'+ user.url +'" target="_blank"> '+ i18n.t('More info') +'</a></p>';
 			}
 
-			content += '</div></div>';
+			content += '<p class="sharing"><i class="fa fa-share-alt"></i> '+ i18n.t('Share') +
+				' <span class="share facebook"><a href="https://www.facebook.com/sharer/sharer.php?u='+ encodeURIComponent(profileUrl) +'" target="_blank" title="'+ i18n.t('Share on Facebook') +'">'+
+					'<i class="fa fa-facebook-square"></i></a></span>'+
+				'<span class="share twitter"><a href="https://twitter.com/intent/tweet?text='+ encodeURIComponent(i18n.t('{{user}} is on Wouaf IT', {'user': username})) +'&url='+ encodeURIComponent(profileUrl) +'&via=Wouaf_IT" target="_blank" title="'+ i18n.t('Share on Twitter') +'">'+
+					'<i class="fa fa-twitter-square"></i></a></span>'+
+			'</p>';
+
+				content += '</div></div>';
 			var uid = data.getString('uid');
 			if (uid) {
 				if (user.uid !== uid) {
