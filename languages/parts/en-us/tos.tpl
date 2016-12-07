@@ -36,7 +36,7 @@
 		use or availability of such websites. The veracity, accuracy, reasonableness, reliability and completeness of the information available on
 		such websites are not verified by Wouaf IT.</p>
 
-	<h5>PProtection of personal data :</h5>
+	<h5>Protection of personal data :</h5>
 	<p>Wouaf IT is and will remain respectful of your personal data. They will not be exploited commercially outside the necessary use
 		for the functioning of the service.</p>
 	<p>You can delete your profile at any time. Your data will be completely and immediately deleted.
