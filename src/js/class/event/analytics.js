@@ -156,7 +156,7 @@ module.exports = (function() {
 			if (!lastHrefLogged) {
 				//first page loaded => analytics is now started and can log events
 				started = true;
-				if (window.performance) {
+				if (window.performance && window.performance.now) {
 					//log general application performance for stating
 					var startTime = Math.round(window.performance.now());
 					if (__DEV__)
