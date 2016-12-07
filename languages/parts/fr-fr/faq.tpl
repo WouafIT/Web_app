@@ -299,7 +299,7 @@
 						Si vous souhaitez contribuer aux traductions,
 						<a href="/contact/" data-href="contact" data-show="modal" data-target="#modalWindow">contactez-nous</a>.</p>
 					<p>Enfin, vous pouvez aller voir la page <i class="fa fa-github"></i> <a href="https://github.com/WouafIT" target="_blank">Github</a>
-						du projet, certaines informations complémentaires s'y trouvent.</p>
+						du projet, certaines informations techniques complémentaires s'y trouvent.</p>
 				</div>
 			</div>
 		</div>

@@ -82,7 +82,7 @@
 
 	<h5>Droit applicable et attribution de juridiction :</h5>
 	<p>Tout litige en relation avec l’utilisation du site Wouaf IT est
-		soumis au droit français. Il est fait attribution exclusive de juridiction aux tribunaux compétents de Nice.</p>
+		soumis au droit français. Il est fait attribution exclusive de juridiction aux tribunaux compétents de Nice - France.</p>
 
 	<h5>Informations légales (10 novembre 2016) :</h5>
 	<p>En vertu de l'article 6 de la loi no 2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique, il est

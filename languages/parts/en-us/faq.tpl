@@ -297,7 +297,7 @@
 						<a href="/contact/" data-href="contact" data-show="modal" data-target="#modalWindow">contact us</a></p>
 					<p>Finally, you can check out the
 						<i class="fa fa-github"></i> <a href="https://github.com/WouafIT" target="_blank">Github</a> project page,
-						some additional infos are in it.</p>
+						some additional technical infos are in it.</p>
 				</div>
 			</div>
 		</div>
