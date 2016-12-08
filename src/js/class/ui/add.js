@@ -168,7 +168,7 @@ module.exports = (function() {
 				});
 			},
 			'sending': function(file, xhr, formData) {
-				if (!formData.has('uid')) {
+				if (formData && formData.has && !formData.has('uid')) {
 					formData.append("uid", data.getString('uid'));
 					formData.append("token", data.getString('token'));
 				}
