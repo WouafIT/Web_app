@@ -361,7 +361,9 @@
 	"{{count}} result for your search_plural": "{{count}} results for your search",
 	"No Wouaf yet": "No Wouaf yet",
 
+	"Filter": "Filter",
 	"Hide Wouafs gone": "Hide past Wouafs",
+	"Sort": "Sort",
 	"Sort by Proximity": "Sort by Proximity",
 	"Sort by Starting Date descending": "Sort by Starting Date descending",
 	"Sort by Starting Date ascending": "Sort by Starting Date ascending",

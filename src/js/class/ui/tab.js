@@ -4,20 +4,28 @@ var utils 	= require('../utils.js');
 var i18n 	= require('../resource/i18n.js');
 var users 	= require('../resource/users.js');
 var wouafs 	= require('../resource/wouafs.js');
+var search 	= require('./search.js');
 
 module.exports = (function() {
 	var self = {};
-	self.getContent = function (data, title) {
+	self.getContent = function (data, title, id) {
 		var content = [], i, l, obj;
+		id = id || utils.getRandomInt(1, 10000);
 		if (data.type === 'result') {
 			l = data.data.results.length;
 			if (l) {
 				content = content.concat([
 					'<div class="tab-head">',
 						'<button class="w-menu" type="button" data-menu="listing" data-proximity="yes" data-sort="proximity" data-filter="no">',
-							'<i class="fa fa-bars"></i> ', i18n.t('Menu'),
+							'<i class="fa fa-sort"></i> ', i18n.t('Sort'),
+						'</button>',
+						'<button class="w-search" type="button" data-toggle="collapse" href="#collapseSearch', id ,'" aria-expanded="false" aria-controls="collapseSearch', id ,'">',
+							'<i class="fa fa-filter"></i> ', i18n.t('Filter'),
 						'</button>',
 						'<p class="lead">', i18n.t('{{count}} result for your search', {count: l}) ,'</p>',
+						'<div class="collapse w-collapse" data-tab="', id ,'" id="collapseSearch', id ,'">',
+							'<div class="card card-block"></div>',
+						'</div>',
 					'</div>',
 					'<div class="row">'
 				]);
@@ -26,7 +34,7 @@ module.exports = (function() {
 				for(i = 0; i < l; i++) {
 					obj = data.data.results[i];
 					content = content.concat([
-					'<div class="w-container" data-id="', obj.id ,'" data-proximity="', i ,'" data-date="', obj.dates[0].start ,'" data-comments="', obj.com ,'" data-fav="', obj.fav ,'" data-interest="', obj.interest ,'" data-type="', obj.cat ,'">',
+						'<div class="w-container" data-id="', obj.id ,'" data-proximity="', i ,'" data-date="', obj.dates[0].start ,'" data-comments="', obj.com ,'" data-fav="', obj.fav ,'" data-interest="', obj.interest ,'" data-type="', obj.cat ,'">',
 							wouaf.getHeader(obj),
 						'</div>'
 					]);
@@ -51,10 +59,16 @@ module.exports = (function() {
 			if (l) {
 				content = content.concat([
 					'<div class="tab-head">',
-						'<button class="w-menu" type="button" data-menu="listing" data-proximity="no" data-sort="date-desc" data-filter="no">',
-							'<i class="fa fa-bars"></i> ', i18n.t('Menu'),
+						'<button class="w-menu" type="button" data-menu="listing" data-proximity="yes" data-sort="proximity" data-filter="no">',
+							'<i class="fa fa-sort"></i> ', i18n.t('Sort'),
+						'</button>',
+						'<button class="w-search" type="button" data-toggle="collapse" href="#collapseSearch', id ,'" aria-expanded="false" aria-controls="collapseSearch', id ,'">',
+							'<i class="fa fa-filter"></i> ', i18n.t('Filter'),
 						'</button>',
 						'<p class="lead">', (title ? title : i18n.t('{{count}} Wouaf', {count: l})) ,'</p>',
+						'<div class="collapse w-collapse" data-tab="', id ,'" id="collapseSearch', id ,'">',
+							'<div class="card card-block"></div>',
+						'</div>',
 					'</div>',
 					'<div class="row">'
 				]);

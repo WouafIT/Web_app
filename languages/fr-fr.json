@@ -360,7 +360,9 @@
 	"{{count}} result for your search_plural": "{{count}} résultats pour votre recherche",
 	"No Wouaf yet": "Aucun wouaf pour le moment",
 
+	"Filter": "Filtrer",
 	"Hide Wouafs gone": "Masquer les Wouafs révolu",
+	"Sort": "Trier",
 	"Sort by Proximity": "Trier par Proximité",
 	"Sort by Starting Date descending": "Trier par Date de début décroissante",
 	"Sort by Starting Date ascending": "Trier par Date de début croissante",

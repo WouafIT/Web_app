@@ -20,6 +20,19 @@ module.exports = (function() {
 	var $tabHead 		= $tabs.find('a.dropdown-toggle');
 	var tabsData 		= {};
 
+	$document.on('show.bs.collapse', '.w-collapse', function (e) {
+		var $target = $(e.target);
+		if (!$target.length) {
+			return;
+		}
+
+		console.info($target);
+
+
+
+	});
+
+
 	$document.on('tabs.user-wouafs', function(e, eventData) {
 		if (!eventData || !eventData.user) {
 			return;
@@ -83,7 +96,7 @@ module.exports = (function() {
 		if (data.html) {
 			content = data.html;
 		} else {
-			content = tab.getContent(data.data, data.title);
+			content = tab.getContent(data.data, data.title, data.id);
 		}
 		$tabsContent.append('<div role="tabpanel" class="tab-pane" id="' + data.id + '">' + content + '</div>');
 		$document.triggerHandler('tabs.resize');

@@ -151,7 +151,6 @@ module.exports = (function() {
 		}
 		var offset = $el.offset();
 		var menu = ['<div class="w-menu-dropdown dropdown-menu" data-id="'+ id +'" data-menu="listing" hidden>',
-			'<a class="dropdown-item'+ (filter === 'yes' ? ' active' : '') +'" href="#" data-action="filter-active"><i class="fa fa-filter"></i> '+i18n.t('Hide Wouafs gone') + (filter === 'yes' ? ' <i class="fa fa-check"></i>' : '') +'</a>',
 			(proximity === 'yes'
 				? '<a class="dropdown-item'+ (sort === 'proximity' ? ' active' : '') +'" href="#" data-action="sort-proximity"><i class="fa fa-sort-amount-desc"></i> '+i18n.t('Sort by Proximity') + (sort === 'proximity' ? ' <i class="fa fa-check"></i>' : '') +'</a>'
 				: ''),
