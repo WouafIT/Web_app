@@ -33,7 +33,7 @@
 
 	<p>Sur Wouaf IT vous pouvez dire à tout le monde, tout ce qu'il se passe autour de vous.</p>
 
-	<p class="text-xs-center"><img src="https://img.wouaf.it/outside.jpg" style="max-width:100%;" /></p>
+	<p class="text-xs-center"><img src="https://img.wouaf.it/outside.jpg" class="rounded img-fluid" /></p>
 
 	<h5>Qui sommes nous ?</h5>
 
