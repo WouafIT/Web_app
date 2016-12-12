@@ -33,6 +33,8 @@
 
 	<p>On Wouaf IT you can tell everybody, everything that is happening around you.</p>
 
+	<p class="text-xs-center"><img src="https://img.wouaf.it/outside.jpg" style="max-width:100%;" /></p>
+
 	<h5>Who are we ?</h5>
 
 	<p>Wouaf IT is the initiative of a 37 year old family man helped by his family and close friends.
