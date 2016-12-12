@@ -7,12 +7,12 @@
 </div>
 <div class="modal-body">
 	<h5>Conditions d'utilisation :</h5>
-	<p>L’utilisation du site Wouaf IT implique l’acceptation pleine et
-		entière des conditions générales d’utilisation ci-après décrites. Ces conditions d’utilisation sont susceptibles
-		d’être modifiées ou complétées à tout moment, les utilisateurs du site Wouaf IT
+	<p>L'utilisation du site Wouaf IT implique l'acceptation pleine et
+		entière des conditions générales d'utilisation ci-après décrites. Ces conditions d'utilisation sont susceptibles
+		d'être modifiées ou complétées à tout moment, les utilisateurs du site Wouaf IT
 		sont donc invités à les consulter de manière régulière.</p>
 	<p>Le site Wouaf IT a pour objet principal de fournir une information
-		concernant l’ensemble des activités et manifestations culturelles, sportives proposés soit par les internautes eux-mêmes
+		concernant l'ensemble des activités et manifestations culturelles, sportives proposés soit par les internautes eux-mêmes
 		soit des organisations ou partenaires.</p>
 	<p>Les services offerts peuvent être plus variés et plus complet. En tout état de cause, l'offre n'est pas limité à la France
 		et la liste des activités proposées peut être étendue à des activités commerciales.</p>
@@ -35,7 +35,7 @@
 		éventuels dommages susceptibles de résulter de l'accès au présent site Internet et de son utilisation. Aucune garantie
 		quant au fonctionnement ininterrompu et exempt d'erreur de ce site Internet n'est par ailleurs fournie.</p>
 	<p>Bien que Wouaf IT mette tout en œuvre pour veiller à actualiser le contenu du présent site Internet, il ne peut
-		donner aucune garantie quant à l’exactitude, la validité,
+		donner aucune garantie quant à l'exactitude, la validité,
 		l'exhaustivité ou la pertinence des informations qui sont publiées sur ce site Internet ou auxquelles l'internaute
 		a accès par l'intermédiaire de ce site Internet. Wouaf IT n'accepte
 		aucune responsabilité en la matière.</p>
@@ -58,8 +58,8 @@
 	<p>Nous ne collectons des informations personnelles relatives à l'utilisateur que pour le besoin
 		de certains services proposés par le site Wouaf IT. L'utilisateur fournit ces
 		informations en toute connaissance de cause, notamment lorsqu'il procède par lui-même à leur saisie. Il est alors
-		précisé à l'utilisateur du site Wouaf IT l’obligation ou non de fournir ces informations.</p>
-	<p>Conformément à la loi « informatique et libertés » du 6 janvier 1978 modifiée, vous disposez d’un droit d’accès et
+		précisé à l'utilisateur du site Wouaf IT l'obligation ou non de fournir ces informations.</p>
+	<p>Conformément à la loi « informatique et libertés » du 6 janvier 1978 modifiée, vous disposez d'un droit d'accès et
 		de rectification aux informations qui vous concernent. Pour faire valloir ce droit,
 		<a href="/contact/" data-href="contact" data-show="modal" data-target="#modalWindow">contactez-nous</a>.</p>
 	<p>Vous pouvez également, pour des motifs légitimes, <a href="https://www.cnil.fr/fr/le-droit-dopposition">vous
@@ -70,18 +70,18 @@
 
 	<h5>Propriété intellectuelle et contrefaçons :</h5>
 	<p>Le site Wouaf IT est réputé propriétaire des droits de propriété intellectuelle ou
-		détient les droits d’usage sur tous les éléments accessibles sur le site, notamment les textes, images, graphismes,
+		détient les droits d'usage sur tous les éléments accessibles sur le site, notamment les textes, images, graphismes,
 		logo, icônes, logiciels. De part l'activité du site, certaines informations sont la propriété de nos partenaires
 		ou de sites tiers.</p>
 	<p>Toute reproduction, représentation, modification, publication, adaptation de tout ou partie des éléments du site,
 		quel que soit le moyen ou le procédé utilisé, est interdite, sauf autorisation écrite préalable du directeur
 		de publication.</p>
-	<p>Toute exploitation non autorisée du site ou de l’un des éléments qu’il contient sera considérée comme
-		constitutive d’une contrefaçon et susceptible d'être poursuivie conformément aux dispositions des articles L.335-2
+	<p>Toute exploitation non autorisée du site ou de l'un des éléments qu'il contient sera considérée comme
+		constitutive d'une contrefaçon et susceptible d'être poursuivie conformément aux dispositions des articles L.335-2
 		et suivants du Code de Propriété Intellectuelle.</p>
 
 	<h5>Droit applicable et attribution de juridiction :</h5>
-	<p>Tout litige en relation avec l’utilisation du site Wouaf IT est
+	<p>Tout litige en relation avec l'utilisation du site Wouaf IT est
 		soumis au droit français. Il est fait attribution exclusive de juridiction aux tribunaux compétents de Nice - France.</p>
 
 	<h5>Informations légales (10 novembre 2016) :</h5>
