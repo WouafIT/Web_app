@@ -37,7 +37,7 @@
 
 	<h5>Qui sommes nous ?</h5>
 
-	<p>Wouaf IT est l’initiative d’un père de famille de 37 ans aidé par sa famille et des amis proches.
+	<p>Wouaf IT est l’initiative d’un père de famille aidé par sa famille et des amis proches.
 		Nous souhaitons fournir un nouveau service de qualité sur Internet qui recensera tous les événements de proximité.
 		Nous sommes basés dans la technopole de Sophia Antipolis, près de Nice.</p>
 

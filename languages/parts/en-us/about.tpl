@@ -37,7 +37,7 @@
 
 	<h5>Who are we ?</h5>
 
-	<p>Wouaf IT is the initiative of a 37 year old family man helped by his family and close friends.
+	<p>Wouaf IT is the initiative of a family man helped by his family and close friends.
 		We want to provide a new quality Internet service that will identify all events nearby.
 		We are based in the technology park of Sophia Antipolis, near Nice - France.</p>
 
