@@ -326,7 +326,7 @@ module.exports = (function() {
 				$document.triggerHandler('app.search', {refresh: true});
 
 				windows.close();
-				toast.show(i18n.t('Your Wouaf is added'));
+				toast.show(i18n.t('Your Wouaf is published'));
 
 				$document.triggerHandler('app.added-wouaf', wouafData);
 			}, function(msg) { //error
