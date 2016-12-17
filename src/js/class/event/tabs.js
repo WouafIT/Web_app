@@ -6,9 +6,12 @@ var slidebars 		= require('../resource/slidebars.js');
 var query 			= require('../resource/query.js');
 var toast 			= require('../resource/toast.js');
 var windows 		= require('../resource/windows.js');
+var wouafs 			= require('../resource/wouafs.js');
 var utils 			= require('../utils.js');
 var wouaf 			= require('../ui/wouaf.js');
 var users 			= require('../resource/users.js');
+var search 			= require('../ui/search.js');
+var categories 		= require('../resource/categories.js');
 
 module.exports = (function() {
 	var $window			= $(window);
@@ -25,8 +28,58 @@ module.exports = (function() {
 		if (!$target.length) {
 			return;
 		}
+		var id = $target.data('tab');
+		$target.html(search.getSearchForm(id));
 
-		console.info($target);
+		var $panel = $target.parents('.tab-pane');
+		var $panelContent = $panel.find('.w-tab-content');
+		var els = $panelContent.find('.w-container').map(function() {
+			return wouafs.getLocal($(this).data('id'));
+		});
+		//extract relevant data from elements
+		var cats = {}, tags = {};
+		for(var i = 0, li = els.length; i < li; i++) {
+			var el = els[i];
+			if (!cats[el.cat]) {
+				cats[el.cat] = 0;
+			}
+			cats[el.cat]++;
+			for(var j = 0, lj = el.tags.length; j < lj; j++) {
+				if (!tags[el.tags[j]]) {
+					tags[el.tags[j]] = 0;
+				}
+				tags[el.tags[j]]++;
+			}
+		}
+		//populate search form with data
+		var $categories = $target.find('#what'+ id);
+		var categoriesHtml = '';
+		Object.keys(cats)
+			.sort()
+			.forEach(function(k, i) {
+				categoriesHtml += '<option value="'+ k +'">'+ categories.getLabel(k) +' ('+ cats[k] +')</option>';
+			});
+		$categories.html(categoriesHtml);
+
+		var $tags = $target.find('#tags'+ id);
+		var tagsHtml = '';
+		Object.keys(tags)
+			.sort()
+			.forEach(function(k, i) {
+				tagsHtml += '<option value="'+ k +'">'+ utils.ucfirst(k) +' ('+ tags[k] +')</option>';
+			});
+		$tags.html(tagsHtml);
+
+
+		//var els = {};
+		//$elements
+
+		//getLocal
+		//get tab wouafs
+		//584ff5b17169cf20e754d408
+
+
+		console.info(cats, tags);
 
 
 
@@ -115,8 +168,8 @@ module.exports = (function() {
 		var tabsHeight 		= $container.find('>.row').outerHeight();
 		$container.find('.tab-pane').each(function () {
 			var $panel 		= $(this);
-			var $tabHead 	= $panel.find('.tab-head');
-			var $tabContent = $panel.find('>.row');
+			var $tabHead 	= $panel.find('.w-tab-head');
+			var $tabContent = $panel.find('.w-tab-content');
 			if ($tabContent.length) {
 				//console.info($tabHead.text(), $tabHead.outerHeight(), $tabHead.height());
 				$tabContent.height(containerHeight - tabsHeight - ($tabHead.length ? 36 : 0));
@@ -364,7 +417,7 @@ module.exports = (function() {
 		$wouafList.sort(function(a, b) {
 			return (dir === 'asc') ? $(a).data(data.action) - $(b).data(data.action) : $(b).data(data.action) - $(a).data(data.action);
 		});
-		$tabPanel.find('.row').html($wouafList);
+		$tabPanel.find('.w-tab-content').html($wouafList);
 	});
 
 	$document.on('app.added-favorite app.deleted-favorite', function (e, obj) {

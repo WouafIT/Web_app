@@ -15,7 +15,7 @@ module.exports = (function() {
 			l = data.data.results.length;
 			if (l) {
 				content = content.concat([
-					'<div class="tab-head">',
+					'<div class="w-tab-head">',
 						'<button class="w-menu" type="button" data-menu="listing" data-proximity="yes" data-sort="proximity" data-filter="no">',
 							'<i class="fa fa-sort"></i> ', i18n.t('Sort'),
 						'</button>',
@@ -27,7 +27,7 @@ module.exports = (function() {
 							'<div class="card card-block"></div>',
 						'</div>',
 					'</div>',
-					'<div class="row">'
+					'<div class="row w-tab-content">'
 				]);
 				//store wouafs
 				wouafs.sets(data.data.results);
@@ -58,7 +58,7 @@ module.exports = (function() {
 			l = data.data.results.length;
 			if (l) {
 				content = content.concat([
-					'<div class="tab-head">',
+					'<div class="w-tab-head">',
 						'<button class="w-menu" type="button" data-menu="listing" data-proximity="yes" data-sort="proximity" data-filter="no">',
 							'<i class="fa fa-sort"></i> ', i18n.t('Sort'),
 						'</button>',
@@ -70,7 +70,7 @@ module.exports = (function() {
 							'<div class="card card-block"></div>',
 						'</div>',
 					'</div>',
-					'<div class="row">'
+					'<div class="row w-tab-content">'
 				]);
 				//store wouafs
 				wouafs.sets(data.data.results);
@@ -88,10 +88,10 @@ module.exports = (function() {
 			}
 		} else if (data.type === 'user') {
 			content = content.concat([
-				'<div class="tab-head">',
+				'<div class="w-tab-head">',
 					'<p class="lead">', title ,'</p>',
 				'</div>',
-				'<div class="row">'
+				'<div class="row w-tab-content">'
 			]);
 			//store users
 			users.sets(data.data.results);

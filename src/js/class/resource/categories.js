@@ -1,4 +1,5 @@
 var i18n = require('./i18n.js');
+var utils = require('../utils.js');
 
 module.exports = (function() {
 	var self = {};
@@ -15,6 +16,7 @@ module.exports = (function() {
 		7: '#CA3737',
 		8: '#CAC537'
 	};
+	var darkColors = {};
 	self.init = function(list) {
 		categories = list;
 		if (categories) {
@@ -34,6 +36,12 @@ module.exports = (function() {
 	};
 	self.getColor = function(id) {
 		return colors[id] ? colors[id] : '#2B9D48';
+	};
+	self.getDarkColor = function (id) {
+		if (!darkColors[id]) {
+			darkColors[id] = utils.lightenDarkenColor(self.getColor(id), -30);
+		}
+		return darkColors[id];
 	};
 	/*self.getTextColor = function(id) {
 		var c = self.getColor(id);

@@ -33,6 +33,7 @@
 		padding: 0.4rem 0.6rem 0.2rem 0.6rem;
 	}
 	.w-text {
+		line-height: 1.2rem;
 		margin-bottom: 0.5rem;
 		overflow-x: auto;
 	}
@@ -69,16 +70,18 @@
 		font-weight: normal;
 		font-size: 0.8rem;
 		line-height: 1.2;
-		padding-bottom: 0.2rem;
 
 		span {
-			font-weight: bold;
+			font-weight: 500;
+			margin-top: 2px;
+			display: inline-block;
 		}
 	}
 	.w-cat {
 		background: url('../img/cat/0.png') top left no-repeat;
 		background-size: 1.4rem;
 		text-indent: 1.6rem;
+		line-height: 1.6rem;
 	}
 	.wouaf-backgrounds(8);
 	.wouaf-backgrounds(@n, @i: 1) when (@i =< @n) {

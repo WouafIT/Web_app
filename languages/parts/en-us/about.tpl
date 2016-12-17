@@ -33,11 +33,20 @@
 
 	<p>On Wouaf IT you can tell everybody, everything that is happening around you.</p>
 
+	<p class="text-xs-center"><img src="https://img.wouaf.it/outside.jpg" class="rounded img-fluid" /></p>
+
+	<h5>Who are we ?</h5>
+
+	<p>Wouaf IT is the initiative of a family man helped by close friends.
+		We want to provide a new quality Internet service that will identify all events nearby.
+		We are based in the technology park of Sophia Antipolis, near Nice - France.</p>
+
+	<p>The use and publication on Wouaf IT are free of charge. Its source code is released under the Apache license and is
+		available on <i class="fa fa-github"></i> <a href="https://github.com/WouafIT" target="_blank">Github</a>.</p>
+
 	<p>Follow Wouaf IT on <i class="fa fa-twitter"></i> <a href="https://twitter.com/Wouaf_IT" target="_blank">Twitter</a> and
 		<i class="fa fa-facebook-official"></i> <a href="https://www.facebook.com/wouafit/" target="_blank">Facebook</a> to get more informations!</p>
 
-	<p>The use of Wouaf IT is free. Its source code is released under the Apache license and is
-		available on <i class="fa fa-github"></i> <a href="https://github.com/WouafIT" target="_blank">Github</a>.</p>
 	<hr />
 	<p>Wouaf IT © <%= htmlWebpackPlugin.options.data.year %>.</p>
 </div>

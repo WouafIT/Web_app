@@ -152,15 +152,16 @@ module.exports = (function() {
 				(collapse
 					? ' data-toggle="collapse" data-parent=".w-accordion" data-target="#collapse-'+ obj.id +'" class="panel-title collapsed w-title '+ obj.state +'"'
 					: ' class="w-title '+ obj.state +'"'),
-				' style="border-color: ', categories.getColor(obj.cat) ,';">',
+				' style="border-color:', categories.getColor(obj.cat) ,';">',
 				'<div class="w-cat w-cat'+ obj.cat +'"', locale ,'>',
 					utils.escapeHtml(title),
 				'</div>',
 				'<div class="w-details">',
+					dateLabel ,
 					'<div class="w-comments">', (obj.pics && obj.pics.length ? '<i class="fa fa-picture-o"></i> ' : ''),
-					'<a href="', url.getAbsoluteURLForStates([{name: 'wouaf', value: obj.id}, {name: 'windows', value: 'comments'}]) ,
-						'" data-action="comments" data-menu="wouaf"><i class="fa fa-comment"></i> ', utils.round(obj.com) ,'</a></div>',
-					'<span>' , categories.getLabel(obj.cat) , '</span><br />', dateLabel ,
+						'<a href="', url.getAbsoluteURLForStates([{name: 'wouaf', value: obj.id}, {name: 'windows', value: 'comments'}]) ,
+							'" data-action="comments" data-menu="wouaf"><i class="fa fa-comment"></i> ', utils.round(obj.com) ,'</a></div>',
+					'<br /><span style="color:', categories.getDarkColor(obj.cat) ,'">' , categories.getLabel(obj.cat) , '</span>',
 				'</div>',
 			'</div>'
 		].join('');
