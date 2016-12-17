@@ -59,7 +59,13 @@
 						<label for="what"><%= htmlWebpackPlugin.options.i18n['What?'] %></label>
 						<div class="input-group">
 							<div class="input-group-addon"><i class="fa fa-question-circle"></i></div>
-							<select class="form-control" id="what" placeholder="<%= htmlWebpackPlugin.options.i18n['Choose a category'] %>"></select>
+							<select class="form-control" id="what"></select>
+						</div>
+					</fieldset>
+					<fieldset class="form-group row hidden sub-what">
+						<div class="input-group">
+							<div class="input-group-addon"><i class="fa fa-question-circle"></i></div>
+							<select class="form-control" id="sub-what"></select>
 						</div>
 						<small class="text-muted categories-help"></small>
 					</fieldset>
@@ -79,7 +85,7 @@
 						<label for="when"><%= htmlWebpackPlugin.options.i18n['When?'] %></label>
 						<div class="input-group">
 							<div class="input-group-addon"><i class="fa fa-calendar-o"></i></div>
-							<select class="form-control" id="when" placeholder="<%= htmlWebpackPlugin.options.i18n['Choose a period'] %>">
+							<select class="form-control" id="when">
 								<option value="today"><%= htmlWebpackPlugin.options.i18n['Today'] %></option>
 								<option value="tomorrow"><%= htmlWebpackPlugin.options.i18n['Tomorrow'] %></option>
 								<option value="weekend"><%= htmlWebpackPlugin.options.i18n['This week-end'] %></option>

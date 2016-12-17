@@ -11,14 +11,17 @@ module.exports = (function() {
 	var $window = $(window);
 	var $loader = $('#loader');
 	var $body = $('body');
+	var $search = $('#search');
 	var $site = $('#sb-site');
 	var $category = $('#what');
+	var $subCategory = $('#sub-what');
 	var $when = $('#when');
 	var $where = $('#where');
 	var $whereLoc = $('#where-loc');
 	var $hashtag = $('#hashtag');
 	var $start = $('#start');
 	var $end = $('#end');
+	$search.find('.sub-what').hide().removeAttr('hidden');
 	var $emptyHashtag = $('#hashtag-empty');
 	$emptyHashtag.hide().removeAttr('hidden');
 	var $emptyWhere = $('#where-empty');
@@ -42,9 +45,9 @@ module.exports = (function() {
 
 	var showHideCustomDates = function() {
 		if ($when.val() === 'custom') {
-			$('#search .specific-date').show('fast');
+			$search.find('.specific-date').show('fast');
 		} else {
-			$('#search .specific-date').hide('fast');
+			$search.find('.specific-date').hide('fast');
 		}
 	};
 
@@ -118,6 +121,19 @@ module.exports = (function() {
 		$categoriesHelp.html(categories.getDetails($category.val()));
 		$category.on('change', function() {
 			$categoriesHelp.html(categories.getDetails($category.val()));
+			if ($category.val() === '') {
+				$search.find('.sub-what').hide('fast');
+			} else {
+				if (categories.get($category.val()).child !== false) {
+					$subCategory.parent().show();
+					$subCategory.html('');
+					$subCategory.append('<option value="">'+ i18n.t('All subtypes of {{type}}', {type: categories.getLabel($category.val())}) +'</option>');
+					$subCategory.append(categories.getHtmlOptions($category.val()));
+				} else {
+					$subCategory.parent().hide();
+				}
+				$search.find('.sub-what').show('fast');
+			}
 		});
 
 		$form.on({
@@ -275,7 +291,7 @@ module.exports = (function() {
 					break;
 			}
 			return {
-				cat: $category.val() || null,
+				cat: $subCategory.val() || $category.val() || null,
 				tag: $hashtag.val() || null,
 				loc: loc,
 				date: date,

@@ -18,7 +18,7 @@ module.exports = (function() {
 	$addZone.removeAttr('hidden');
 	$addOkBtn.popover({
 		title: 		i18n.t('Add a new Wouaf'),
-		content: 	i18n.t('Add_wouaf_popover', {interpolation: {escape: false}}),
+		content: 	i18n.t('Add_wouaf_popover', {interpolation: {escapeValue: false}}),
 		html:		true,
 		trigger: 	'manual',
 		placement: 	'top',
