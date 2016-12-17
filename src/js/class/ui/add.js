@@ -62,7 +62,7 @@ module.exports = (function() {
 		var $dropzone = $form.find('div.dropzone');
 		var uploader = null;
 		//categories
-		$category.append(categories.getHtmlOptions());
+		$category.append(categories.getHtmlOptions(false));
 		$categoriesHelp.html(categories.getDetails($category.val()));
 		$category.on('change', function() {
 			$categoriesHelp.html(categories.getDetails($category.val()));

@@ -21,7 +21,7 @@ module.exports = (function() {
 		categories = list;
 		if (categories) {
 			for(var i = 0, l = categories.length; i < l; i++) {
-				categoriesById[categories[i]['id']] = categories[i];
+				categoriesById[categories[i].id] = categories[i];
 			}
 		}
 	};
@@ -32,9 +32,34 @@ module.exports = (function() {
 		return categoriesById[id] ? i18n.t(categoriesById[id].label) : '';
 	};
 	self.getDetails = function(id) {
-		return categoriesById[id] ? i18n.t(categoriesById[id].label+'_details') : '';
+		if (categoriesById[id] && !categoriesById[id].parent) {
+			return '';
+		}
+		if (categoriesById[id].label === 'Other type of event') {
+			return i18n.t(categoriesById[id].label+'_details');
+		}
+		var label = '';
+		var children = self.getChildren(id);
+		for(var i = 0, l = children.length; i < l; i++) {
+			if (label) {
+				label += ', ';
+			}
+
+			label = children[i] === 'Other' ? i18n.t('') : self.getLabel(children[i]);
+		}
+		return label;
+	};
+	self.getChildren = function(id) {
+		var children = [];
+		for(var i = 0, l = categories.length; i < l; i++) {
+			if (categories[id].parent === id) {
+				children.push(categories[id]);
+			}
+		}
+		return children;
 	};
 	self.getColor = function(id) {
+		id = categoriesById[id].parent ? categoriesById[id].parent : id;
 		return colors[id] ? colors[id] : '#2B9D48';
 	};
 	self.getDarkColor = function (id) {
@@ -55,10 +80,15 @@ module.exports = (function() {
 	self.getAll = function() {
 		return categories;
 	};
-	self.getHtmlOptions = function() {
+	self.getHtmlOptions = function(parent) {
+		parent = typeof parent === 'undefined' ? null : parent;
 		var options = [];
 		for(var i = 0, l = categories.length; i < l; i++) {
-			options.push('<option value="'+ categories[i]['id'] +'">'+ i18n.t(categories[i]['label']) +'</option>');
+			if (parent === false || categories[i].parent === parent) {
+				options.push('<option value="'+ categories[i].id +'">'+
+					(parent === false && categories[i].parent ? '&nbsp;&nbsp;&nbsp;- ' : '')+
+					i18n.t(categories[i].label) +'</option>');
+			}
 		}
 		return options.join('');
 	};
