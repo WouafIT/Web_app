@@ -62,6 +62,7 @@
 	"Concerts": "Concerts",
 	"Theaters": "Theaters",
 	"Shows": "Shows",
+	"Cinema": "Cinema",
 	"Festivals": "Festivals",
 	"Exhibitions": "Exhibitions",
 	"Hiking": "Hiking",
@@ -96,6 +97,7 @@
 	"Pet sitting": "Pet sitting",
 	"Carpooling": "Carpooling",
 	"Accommodation": "Accommodation",
+	"Manifestations": "Manifestations",
 
 	"Other_details": "Anything that does not fit into the above categories!",
 	"etc": "etc.",

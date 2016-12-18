@@ -153,7 +153,7 @@ module.exports = (function() {
 					? ' data-toggle="collapse" data-parent=".w-accordion" data-target="#collapse-'+ obj.id +'" class="panel-title collapsed w-title '+ obj.state +'"'
 					: ' class="w-title '+ obj.state +'"'),
 				' style="border-color:', categories.getColor(obj.cat) ,';">',
-				'<div class="w-cat w-cat'+ obj.cat +'"', locale ,'>',
+				'<div class="w-cat w-cat'+ categories.getRootId(obj.cat) +'"', locale ,'>',
 					utils.escapeHtml(title),
 				'</div>',
 				'<div class="w-details">',
