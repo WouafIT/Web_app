@@ -227,7 +227,7 @@ module.exports = (function () {
 				}
 				$.when(appendPin(obj)).done(showIW);
 			} else {
-				var center = new google.maps.LatLng(obj.loc[0], obj.loc[1]);
+				center = new google.maps.LatLng(obj.loc[0], obj.loc[1]);
 				if (isSearchRefreshNeeded(center)) {
 					if (debug) {
 						console.info('openPin2');
@@ -675,6 +675,9 @@ module.exports = (function () {
 			google.maps.event.trigger(map, "resize");
 		},
 		setCenter: function(latlng, allowSearchRefresh) {
+			if (!map || !map.setCenter) {
+				return;
+			}
 			if (allowSearchRefresh) {
 				map.setCenter(latlng);
 				return;
