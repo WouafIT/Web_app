@@ -75,7 +75,7 @@ module.exports = (function () {
 			var element = {
 				'id': 			post.id,
 				'title': 		categories.getLabel(post.cat) +' - '+ utils.escapeHtml(post.title),
-				'cat': 			post.cat,
+				'cat': 			categories.getRootId(post.cat),
 				'coordinates': 	{'lat': parseFloat(post.loc[0]), 'lng': parseFloat(post.loc[1])},
 				'color': 		categories.getColor(post.cat)
 			};

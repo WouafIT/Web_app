@@ -53,9 +53,9 @@
 <div id="page-content"><?php echo $data['content']; ?></div>
 <script src="//maps.googleapis.com/maps/api/js?key=<%= htmlWebpackPlugin.options.data.googleApi %>&libraries=geometry,places"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.5/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/i18next/3.4.3/i18next.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/i18next/4.1.1/i18next.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.swipebox/1.4.4/js/jquery.swipebox.min.js"></script>
 <script src="//connect.facebook.net/<%= htmlWebpackPlugin.options.i18n['languageLong'] %>/sdk.js"></script>

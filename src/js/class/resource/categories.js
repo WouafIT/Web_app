@@ -5,37 +5,60 @@ module.exports = (function() {
 	var self = {};
 	var categoriesById = {};
 	var categories = [];
-	//TODO set those colors in the categories database
-	var colors = {
-		1: '#3030BB',
-		2: '#9103D4',
-		3: '#12A7A7',
-		4: '#68CC36',
-		5: '#015706',
-		6: '#AA771F',
-		7: '#CA3737',
-		8: '#CAC537'
-	};
 	var darkColors = {};
 	self.init = function(list) {
 		categories = list;
 		if (categories) {
 			for(var i = 0, l = categories.length; i < l; i++) {
-				categoriesById[categories[i]['id']] = categories[i];
+				categoriesById[categories[i].id] = categories[i];
 			}
 		}
 	};
 	self.get = function(id) {
 		return categoriesById[id] || null;
 	};
-	self.getLabel = function(id) {
-		return categoriesById[id] ? i18n.t(categoriesById[id].label) : '';
+	self.getLabel = function(id, withParent) {
+		var label = categoriesById[id] ? i18n.t(categoriesById[id].label) : '';
+		if (!withParent || !categoriesById[id].parent) {
+			return label;
+		}
+		return self.getLabel(categoriesById[id].parent)+ ' &raquo; ' + label;
 	};
 	self.getDetails = function(id) {
-		return categoriesById[id] ? i18n.t(categoriesById[id].label+'_details') : '';
+		if (!categoriesById[id]) {
+			return '';
+		}
+		if (categoriesById[id].parent) {
+			return self.getLabel(id, true);
+		}
+		if (categoriesById[id].label === 'Other type of event') {
+			return i18n.t('Other_details');
+		}
+		var label = '';
+		var children = self.getChildren(id);
+		for(var i = 0, l = children.length; i < l; i++) {
+			if (label) {
+				label += ', ';
+			}
+			label += (children[i].label === 'Other' ? i18n.t('etc') : self.getLabel(children[i].id));
+		}
+		return label;
+	};
+	self.getRootId = function(id) {
+		return categoriesById[id].parent ? categoriesById[id].parent : id;
+	};
+	self.getChildren = function(id) {
+		var children = [];
+		for(var i = 0, l = categories.length; i < l; i++) {
+			if (categories[i].parent === id) {
+				children.push(categories[i]);
+			}
+		}
+		return children;
 	};
 	self.getColor = function(id) {
-		return colors[id] ? colors[id] : '#2B9D48';
+		id = categoriesById[id].parent ? categoriesById[id].parent : id;
+		return categoriesById[id].color ? categoriesById[id].color : '#2B9D48';
 	};
 	self.getDarkColor = function (id) {
 		if (!darkColors[id]) {
@@ -55,10 +78,24 @@ module.exports = (function() {
 	self.getAll = function() {
 		return categories;
 	};
-	self.getHtmlOptions = function() {
+	self.getHtmlOptions = function(parent) {
+		parent = typeof parent === 'undefined' ? null : parent;
 		var options = [];
 		for(var i = 0, l = categories.length; i < l; i++) {
-			options.push('<option value="'+ categories[i]['id'] +'">'+ i18n.t(categories[i]['label']) +'</option>');
+			if (parent === false || categories[i].parent === parent) {
+				if (parent === false && !categories[i].parent) {
+					if (options.length) {
+						options.push('</optgroup>');
+					}
+					if (categories[i].child !== false) {
+						options.push('<optgroup label="'+ utils.escapeHtml(i18n.t(categories[i].label)) +'">');
+					} else {
+						options.push('<option value="'+ categories[i].id +'">'+ i18n.t(categories[i].label) +'</option>');
+					}
+				} else {
+					options.push('<option value="'+ categories[i].id +'">'+ i18n.t(categories[i].label) +'</option>');
+				}
+			}
 		}
 		return options.join('');
 	};

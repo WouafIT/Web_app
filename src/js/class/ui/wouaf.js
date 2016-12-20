@@ -153,7 +153,7 @@ module.exports = (function() {
 					? ' data-toggle="collapse" data-parent=".w-accordion" data-target="#collapse-'+ obj.id +'" class="panel-title collapsed w-title '+ obj.state +'"'
 					: ' class="w-title '+ obj.state +'"'),
 				' style="border-color:', categories.getColor(obj.cat) ,';">',
-				'<div class="w-cat w-cat'+ obj.cat +'"', locale ,'>',
+				'<div class="w-cat w-cat'+ categories.getRootId(obj.cat) +'"', locale ,'>',
 					utils.escapeHtml(title),
 				'</div>',
 				'<div class="w-details">',
@@ -161,7 +161,7 @@ module.exports = (function() {
 					'<div class="w-comments">', (obj.pics && obj.pics.length ? '<i class="fa fa-picture-o"></i> ' : ''),
 						'<a href="', url.getAbsoluteURLForStates([{name: 'wouaf', value: obj.id}, {name: 'windows', value: 'comments'}]) ,
 							'" data-action="comments" data-menu="wouaf"><i class="fa fa-comment"></i> ', utils.round(obj.com) ,'</a></div>',
-					'<br /><span style="color:', categories.getDarkColor(obj.cat) ,'">' , categories.getLabel(obj.cat) , '</span>',
+					'<br /><span style="color:', categories.getDarkColor(obj.cat) ,'">' , categories.getLabel(obj.cat, true) , '</span>',
 				'</div>',
 			'</div>'
 		].join('');
@@ -175,7 +175,7 @@ module.exports = (function() {
 		var author = i18n.t('By {{author}}', {
 			author: '<a href="'+ authorUrl +'" data-user="'+ utils.escapeHtml(obj.author[1]) +'">'+
 					utils.escapeHtml(obj.author[2] || obj.author[1]) +' '+ authorAvatar +'</a>',
-			interpolation: {escape: false}
+			interpolation: {escapeValue: false}
 		});
 		var locale = ' lang="'+ (obj.lang ? obj.lang.substr(0, 2) : i18n.t('languageShort')) +'"';
 		if (obj.rtl) {

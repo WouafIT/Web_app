@@ -72,7 +72,7 @@ module.exports = (function() {
 						});
 					}, function(msg) { //error
 						if (msg && msg[0]) {
-							alert.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0]), interpolation: {escape: false}}), $noEvents.parent(), 'danger');
+							alert.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0]), interpolation: {escapeValue: false}}), $noEvents.parent(), 'danger');
 						} else {
 							toast.show(i18n.t('Your import is already in progress'), 5000);
 						}
@@ -99,7 +99,7 @@ module.exports = (function() {
 						});
 					}, function(msg) { //error
 						if (msg && msg[0]) {
-							alert.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0]), interpolation: {escape: false}}), $noPagesEvents.parent(), 'danger');
+							alert.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0]), interpolation: {escapeValue: false}}), $noPagesEvents.parent(), 'danger');
 						} else {
 							toast.show(i18n.t('Your import is already in progress'), 5000);
 						}

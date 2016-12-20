@@ -17,7 +17,7 @@ module.exports = (function() {
 			author: '<a href="'+ authorUrl +'" data-user="'+ utils.escapeHtml(obj.author[1]) +'">'+
 				utils.escapeHtml(obj.author[2] || obj.author[1]) +' '+ authorAvatar +'</a>',
 			date: (dtp.formatDate(date, 'long') + (time !== '00:00' ? ' '+ i18n.t('at {{at}}', {at: time}) : '')),
-			interpolation: {escape: false}
+			interpolation: {escapeValue: false}
 		});
 		var className = data.getString('uid') === obj.author[0] ? ' current-user' : '';
 		className += wouaf.author[0] === obj.author[0] ? ' wouaf-author' : '';
