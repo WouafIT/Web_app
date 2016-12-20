@@ -130,6 +130,7 @@ module.exports = (function() {
 					$subCategory.append('<option value="">'+ i18n.t('All subtypes of {{type}}', {type: categories.getLabel($category.val())}) +'</option>');
 					$subCategory.append(categories.getHtmlOptions($category.val()));
 				} else {
+					$subCategory.html('');
 					$subCategory.parent().hide();
 				}
 				$search.find('.sub-what').show('fast');
