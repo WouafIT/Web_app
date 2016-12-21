@@ -77,19 +77,19 @@
 			display: inline-block;
 		}
 	}
-	.w-cat {
-		background: url('../img/cat/0.png') top left no-repeat;
-		background-size: 1.4rem;
-		text-indent: 1.6rem;
-		line-height: 1.6rem;
+}
+.w-cat {
+	background: url('../img/cat/0.png') top left no-repeat;
+	background-size: 1.4rem;
+	text-indent: 1.6rem;
+	line-height: 1.6rem;
+}
+.wouaf-backgrounds(8);
+.wouaf-backgrounds(@n, @i: 1) when (@i =< @n) {
+	.w-cat@{i} {
+		background-image: url('../img/cat/@{i}.png');
 	}
-	.wouaf-backgrounds(8);
-	.wouaf-backgrounds(@n, @i: 1) when (@i =< @n) {
-		.w-cat@{i} {
-			background-image: url('../img/cat/@{i}.png');
-		}
-		.wouaf-backgrounds(@n, (@i + 1));
-	}
+	.wouaf-backgrounds(@n, (@i + 1));
 }
 .w-container:nth-child(even) {
 	.w-title {

@@ -5,6 +5,7 @@ var categories = require('./categories.js');
 var map = require('./map.js');
 var dtp = require('./datetimepicker.js');
 var utils = require('../utils.js');
+var windows = require('./windows.js');
 
 module.exports = (function() {
 	var $document = $(document);
@@ -14,7 +15,6 @@ module.exports = (function() {
 	var $search = $('#search');
 	var $site = $('#sb-site');
 	var $category = $('#what');
-	var $subCategory = $('#sub-what');
 	var $when = $('#when');
 	var $where = $('#where');
 	var $whereLoc = $('#where-loc');
@@ -55,7 +55,7 @@ module.exports = (function() {
 	var init = function () {
 		var $search = $('#search');
 		var $form = $search.find('form');
-		var $categoriesHelp = $form.find('.categories-help');
+		var $categorySelector = $form.find('.what .custom-select');
 
 		oSlidebar = new $.slidebars({
 			siteClose: function () {
@@ -115,26 +115,85 @@ module.exports = (function() {
 			$emptyWhere.hide();
 		});
 
-		//populate categories list
-		$category.append('<option value="">'+ i18n.t('All events') +'</option>');
-		$category.append(categories.getHtmlOptions());
-		$categoriesHelp.html(categories.getDetails($category.val()));
-		$category.on('change', function() {
-			$categoriesHelp.html(categories.getDetails($category.val()));
-			if ($category.val() === '') {
-				$search.find('.sub-what').hide('fast');
-			} else {
-				if (categories.get($category.val()).child !== false) {
-					$subCategory.parent().show();
-					$subCategory.html('');
-					$subCategory.append('<option value="">'+ i18n.t('All subtypes of {{type}}', {type: categories.getLabel($category.val())}) +'</option>');
-					$subCategory.append(categories.getHtmlOptions($category.val()));
-				} else {
-					$subCategory.html('');
-					$subCategory.parent().hide();
+		$categorySelector.on('click', function () {
+			//show message page
+			windows.show({
+				title: i18n.t('Select your types'),
+				text: '<div class="multi-select">'+ categories.getMultiSelect($category.val()) +'</div>',
+				closeLabel: i18n.t('OK'),
+				navigationClose: false,
+				open: function () {
+					var $multiSelect = $('#modalWindow .multi-select');
+					var $allCheckboxes = $multiSelect.find('input[type=checkbox]');
+					//grab all checkboxes and add click events
+					$allCheckboxes.on('change', function (e) {
+						var $target = $(e.target);
+						var $fieldset = $target.parents('fieldset');
+						var $checkboxes = $fieldset.find('.content input[type=checkbox]');
+						if ($target.parents('.legend').length) { //if target is a parent category
+							$checkboxes.prop("checked", !!$target.prop("checked"));
+						} else { //if target is a subcategory
+							var $parent = $fieldset.find('.legend input[type=checkbox]');
+							var hasChecked = false, hasUnchecked = false;
+							//get all checkboxes status and set parent category accordingly
+							$checkboxes.each(function () {
+								if (!!$(this).prop("checked")) {
+									hasChecked = true;
+								} else {
+									hasUnchecked = true;
+								}
+							});
+							if (hasChecked && !hasUnchecked) {
+								$parent.prop('indeterminate', false).prop("checked", true);
+							} else if (!hasChecked && hasUnchecked) {
+								$parent.prop('indeterminate', false).prop("checked", false);
+							} else {
+								$parent.prop('indeterminate', true).prop("checked", false);
+							}
+						}
+						//get all selected categories
+						var $allSelectedCheckboxes = $multiSelect.find('input[type=checkbox]:checked');
+						if (!$allSelectedCheckboxes || $allSelectedCheckboxes.length === $allCheckboxes.length) {
+							$category.val('');
+						} else {
+							var values = [];
+							$allSelectedCheckboxes.each(function() {
+								values.push($(this).val());
+							});
+							$category.val(values.join(','));
+						}
+					});
+					//set indeterminate status on partially selected fieldsets
+					$multiSelect.find('fieldset').each(function() {
+						if ($(this).find('.content input[type=checkbox]:checked').length) {
+							var $parent = $(this).find('.legend input[type=checkbox]');
+							if (!$parent.prop('checked')) {
+								$parent.prop('indeterminate', true);
+							}
+						}
+					});
+				},
+				close: function () {
+					//set field value
+					if (!$category.val()) {
+						$categorySelector.html(i18n.t('All events'));
+					} else {
+						var values = $category.val().split(',');
+						if (values.length <= 2) {
+							var content = '';
+							for(var i = 0, l = values.length; i < l; i++) {
+								if (i) {
+									content += ', ';
+								}
+								content += categories.getLabel(values[i]);
+							}
+							$categorySelector.html(content);
+						} else {
+							$categorySelector.html(i18n.t('{{count}} event type', {count: values.length}));
+						}
+					}
 				}
-				$search.find('.sub-what').show('fast');
-			}
+			});
 		});
 
 		$form.on({
@@ -202,12 +261,12 @@ module.exports = (function() {
 				'<p>', i18n.t('use_wouaf_it_profile'), '</p>',
 				'<p class="lead text-xs-right">',
 				'<a class="btn btn-primary btn-lg" href="/login/" role="button"',
-				'	data-href="login"',
-				'	data-toggle="modal" data-target="#modalWindow">', i18n.t('Login'), '</a>',
+				' data-href="login"',
+				' data-toggle="modal" data-target="#modalWindow">', i18n.t('Login'), '</a>',
 				'</p>',
 			'</div>',
 			'<div class="logged">',
-			'	<div class="results"></div>',
+				'<div class="results"></div>',
 			'</div>'].join('');
 
 		$document.triggerHandler('tabs.add', {
@@ -292,7 +351,7 @@ module.exports = (function() {
 					break;
 			}
 			return {
-				cat: $subCategory.val() || $category.val() || null,
+				cat: $category.val() || null,
 				tag: $hashtag.val() || null,
 				loc: loc,
 				date: date,

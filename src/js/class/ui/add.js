@@ -211,8 +211,8 @@ module.exports = (function() {
 			}
 			$remaining.html(i18n.t('{{count}} character left', {count: count}));
 		});
-		$contactNotifications.attr("checked", true);
-		$postNotifications.attr("checked", true);
+		$contactNotifications.prop("checked", true);
+		$postNotifications.prop("checked", true);
 
 		//help popover
 		$help.popover({

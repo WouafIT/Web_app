@@ -2,3 +2,77 @@
 	height: 10px;
 	background-size: 69px 8px;
 }
+.what {
+	.input-group {
+		display: flex;
+	}
+	.input-group-addon {
+		flex: 1;
+		width: 4rem;
+	}
+	.custom-select {
+		cursor: pointer;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+}
+.multi-select {
+	margin-top: 0.6rem;
+
+	fieldset {
+		border: 1px solid silver;
+		border-radius: 0.25rem;
+		margin-bottom: 1.4rem;
+		padding-bottom: 0.3rem;
+		border-left-width: 4px;
+
+		&.no-child {
+			border: 0;
+			margin-left: 0.25rem;
+			margin-bottom: 0;
+		}
+	}
+	.custom-control {
+		padding-left: 1.2rem;
+	}
+	.legend {
+		background-color: @white;
+		position: relative;
+		display: inline-block;
+		top: -0.75rem;
+		padding: 0 0.3rem 0 1.6rem;
+		margin-left: -0.5rem;
+		margin-bottom: 0.5rem;
+		font-weight: bold;
+		color: @greener;
+		line-height: 0.9rem;
+		text-indent: inherit;
+	}
+	.content {
+		margin-top: -1.2rem;
+
+		.custom-control {
+			margin-right: 0.7rem;
+			margin-left: 0.3rem;
+
+			&+.custom-control {
+				margin-left: 0.3rem;
+			}
+		}
+	}
+	.custom-control-description {
+		user-select: none;
+		display: inline-block;
+		padding-top: 0.2rem;
+	}
+	.custom-control-input:checked~.custom-control-indicator {
+		background-color: @green;
+	}
+	.custom-control-input:focus~.custom-control-indicator {
+		box-shadow: 0 0 0 0.075rem @white, 0 0 0 0.2rem @green;
+	}
+	.custom-control-input:indeterminate~.custom-control-indicator {
+		background-color: @green;
+	}
+}

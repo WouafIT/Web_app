@@ -180,7 +180,7 @@ module.exports = (function() {
 		r = r || [];
 		var len = r.length >>> 0;
 
-		var from = Number(arguments[1]) || 0;
+		var from = Number(arguments[2]) || 0;
 		from = (from < 0)
 			 ? Math.ceil(from)
 			 : Math.floor(from);

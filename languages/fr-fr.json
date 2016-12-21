@@ -49,6 +49,9 @@
 
 	"All events": "Tous les types d'événements",
 	"All subtypes of {{type}}": "Tous les sous types de &quot;{{type}}&quot;",
+	"Select your types": "Sélectionnez vos types",
+	"{{count}} event type": "{{count}} type d'événement",
+	"{{count}} event type_plural": "{{count}} types d'événements",
 
 	"Events": "Événements",
 	"Out": "Sorties",
@@ -56,8 +59,7 @@
 	"Lost / Found": "Perdus / Trouvés",
 	"Donations": "Dons / Caritatif",
 	"Exchanges": "Troc / Echanges",
-	"Services": "Services",
-	"Other type of event": "Autre type d'événement",
+	"Other type of event": "Autres types d'événements",
 	"Other": "Autre",
 	"Concerts": "Concerts",
 	"Theaters": "Théatres",
@@ -159,7 +161,6 @@
 	"Individual": "Je suis un Particulier",
 	"Company": "Je représente une Entreprise",
 	"Organization": "Je représente une Association",
-	"Other": "Autre",
 	"Choose your gender": "Choisissez votre genre",
 	"Displayname": "Choisissez votre nom",
 	"Displayname example": "Votre nom ou un pseudonyme",

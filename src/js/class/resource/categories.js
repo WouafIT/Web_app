@@ -99,5 +99,32 @@ module.exports = (function() {
 		}
 		return options.join('');
 	};
+	self.getMultiSelect = function(values) {
+		var i, l;
+		values = values.split(',');
+		var html = [];
+		var selected;
+		for(i = 0, l = categories.length; i < l; i++) {
+			selected = (utils.indexOf(values, categories[i].id) !== -1);
+			if (!categories[i].parent) {
+				if (i) {
+					html.push('</div></fieldset>');
+				}
+				html.push('<fieldset class="'+ (categories[i].child === false ? ' no-child' : '') +
+						  '"style="border-left-color:', self.getColor(categories[i].id) ,';">'+
+						  '<div class="legend w-cat w-cat'+ categories[i].id +'">')
+			}
+			html = html.concat(['<label class="custom-control custom-checkbox', (categories[i].parent ? ' form-check-inline' : '') ,'">',
+				'<input type="checkbox" class="custom-control-input"', (selected ? ' checked="checked"' : '') ,' value="', categories[i].id ,'" />',
+				'<span class="custom-control-indicator"></span>',
+				'<span class="custom-control-description">', i18n.t(categories[i].label) ,'</span>',
+			'</label>']);
+			if (!categories[i].parent) {
+				html.push('</div><div class="content">')
+			}
+		}
+		html.push('</div></fieldset>');
+		return html.join('');
+	};
 	return self;
 }());
