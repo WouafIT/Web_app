@@ -29,12 +29,12 @@ module.exports = (function() {
 		var $editProfile = $form.find('button.profile');
 		//set current values
 		$unit.val(data.getString('unit'));
-		$mapFollow.attr("checked", data.getBool('mapFollow'));
+		$mapFollow.prop("checked", data.getBool('mapFollow'));
 
 		var notifications = data.getObject('notifications');
-		$followingNotifications.attr("checked", notifications.following);
-		$followerNotification.attr("checked", notifications.follower);
-		$newsletterNotification.attr("checked", notifications.newsletter);
+		$followingNotifications.prop("checked", notifications.following);
+		$followerNotification.prop("checked", notifications.follower);
+		$newsletterNotification.prop("checked", notifications.newsletter);
 
 		$editProfile.hide().removeAttr('hidden');
 		if (data.getString('uid')) {

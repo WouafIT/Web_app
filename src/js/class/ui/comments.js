@@ -66,7 +66,7 @@ module.exports = (function() {
 					$unsubscribeZone.hide().removeAttr('hidden');
 					if (result.subscribed) {
 						$unsubscribeZone.show();
-						$form.find('input[name=subscribe]').attr("checked", false);
+						$form.find('input[name=subscribe]').prop("checked", false);
 						$unsubscribeZone.on('click', function () {
 							$unsubscribeZone.hide();
 							query.unsubscribeComments(obj.id, function() {
@@ -136,7 +136,7 @@ module.exports = (function() {
 				}
 				$remaining.html(i18n.t('{{count}} character left', {count: count}));
 			});
-			$subscribe.attr("checked", true);
+			$subscribe.prop("checked", true);
 
 			//form field validation and submition
 			formUtils.init($form, function () {
