@@ -196,7 +196,7 @@ module.exports = (function() {
 		}
 		if (obj.pics && obj.pics.length) {
 			content.push('<div class="w-pics">');
-			var pic, thumb;
+			var pic;
 			for(var i = 0, l = obj.pics.length; i < l; i++) {
 				pic = obj.pics[i];
 				if (pic.full && pic.full.substr(0, 4) === 'http') {
