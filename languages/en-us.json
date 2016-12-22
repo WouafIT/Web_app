@@ -14,6 +14,7 @@
 	"My profile": "My profile",
 	"Parameters": "Parameters",
 	"Search": "Search",
+    "Result": "Result",
 	"Your Wouafs": "Your Wouafs",
 	"Your Favorites": "Your Favorites",
 	"Following": "Following",
@@ -49,8 +50,10 @@
 
 	"All events": "All types of events",
 	"All subtypes of {{type}}": "All subtypes of &quot;{{type}}&quot;",
-	"Select your types": "Select your types",
-	"{{count}} event type": "{{count}} type of event",
+    "Search_details": "Select your search preferences below.",
+	"Select your types": "Select your preferences",
+    "Edit your search": "Edit your search",
+    "{{count}} event type": "{{count}} type of event",
 	"{{count}} event type_plural": "{{count}} types of events",
 
 	"Events": "Events",
@@ -196,6 +199,7 @@
 	"Unit search radius": "Unit search radius",
 	"Maximum number of results": "Maximum number of results",
 	"Refresh search results by following the map position": "Refresh search results by following the map position.",
+	"Save your search settings": "Save your search settings",
 	"Kilometers": "Kilometers",
 	"Miles": "Miles",
 	"km": "km",
@@ -394,8 +398,6 @@
 
 	"{{count}} result": "{{count}} result",
 	"{{count}} result_plural": "{{count}} results",
-	"{{count}} result for your search": "{{count}} result for your search",
-	"{{count}} result for your search_plural": "{{count}} results for your search",
 	"No Wouaf yet": "No Wouaf yet",
 
 	"Hide Wouafs gone": "Hide past Wouafs",

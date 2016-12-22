@@ -17,7 +17,7 @@ module.exports = (function() {
 						'<button class="w-menu" type="button" data-menu="listing" data-proximity="yes" data-sort="proximity" data-filter="no">',
 							'<i class="fa fa-bars"></i> ', i18n.t('Menu'),
 						'</button>',
-						'<p class="lead">', i18n.t('{{count}} result for your search', {count: l}) ,'</p>',
+						'<p class="lead">', i18n.t('{{count}} result', {count: l}) ,' <span class="update-search"> - <a href="#search" data-action="search">', i18n.t('Edit your search') ,'</a></span></p>',
 					'</div>',
 					'<div class="row">'
 				]);

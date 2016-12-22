@@ -55,6 +55,7 @@
 		<div class="tab-content">
 			<div role="tabpanel" class="tab-pane active" id="search">
 				<form>
+					<h6><%= htmlWebpackPlugin.options.i18n['Search_details'] %></h6>
 					<fieldset class="form-group row what">
 						<label for="what"><%= htmlWebpackPlugin.options.i18n['What?'] %></label>
 						<div class="input-group">
@@ -62,13 +63,6 @@
 							<div class="form-control custom-select"><%= htmlWebpackPlugin.options.i18n['All events'] %></div>
 							<input type="hidden" value="" name="what" id="what" />
 						</div>
-					</fieldset>
-					<fieldset class="form-group row hidden sub-what">
-						<div class="input-group">
-							<div class="input-group-addon"><i class="fa fa-question-circle"></i></div>
-							<select class="form-control" id="sub-what"></select>
-						</div>
-						<small class="text-muted categories-help"></small>
 					</fieldset>
 					<fieldset class="form-group row">
 						<label for="where"><%= htmlWebpackPlugin.options.i18n['Where?'] %></label>

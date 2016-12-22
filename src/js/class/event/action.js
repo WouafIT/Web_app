@@ -55,6 +55,12 @@ module.exports = (function() {
 			console.info('Handle data-action: '+ $this.data('action'));
 		}
 		switch ($this.data('action')) {
+			case 'search':
+				//show results tabs
+				$document.triggerHandler('tabs.show', 'search');
+				//open sidebar
+				$document.triggerHandler('slide.open');
+				break;
 			case 'add':
 				add.addWouaf();
 				break;

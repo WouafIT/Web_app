@@ -23,6 +23,7 @@ module.exports = (function() {
 		var $unit = $form.find('select[name=unit]');
 		var $limit = $form.find('select[name=limit]');
 		var $mapFollow = $form.find('input[name=map-follow]');
+		var $saveSearch = $form.find('input[name=save-search]');
 		var $followingNotifications = $form.find('input[name=following-notifications]');
 		var $followerNotification = $form.find('input[name=follower-notifications]');
 		var $newsletterNotification = $form.find('input[name=newsletter-notifications]');
@@ -30,6 +31,7 @@ module.exports = (function() {
 		//set current values
 		$unit.val(data.getString('unit'));
 		$mapFollow.prop("checked", data.getBool('mapFollow'));
+		$saveSearch.prop("checked", data.getBool('saveSearch'));
 
 		var notifications = data.getObject('notifications');
 		$followingNotifications.prop("checked", notifications.following);
@@ -73,6 +75,7 @@ module.exports = (function() {
 			data.setInt('radius', $radius.val());
 			data.setInt('limit', $limit.val());
 			data.setBool('mapFollow', $mapFollow.prop("checked"));
+			data.setBool('saveSearch', $saveSearch.prop("checked"));
 
 			if (data.getString('uid')) {
 				notifications.following = !!$followingNotifications.prop("checked");

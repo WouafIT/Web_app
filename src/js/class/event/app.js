@@ -44,10 +44,15 @@ module.exports = (function() {
 			//init default app vars
 			data.setBool('showPopover', true);
 			data.setBool('mapFollow', true);
+			data.setBool('saveSearch', true);
 			data.setString('unit', 'km');
 			data.setInt('radius', 70);
 			data.setInt('limit', 500);
 			data.setBool('geolocation', false)
+		}
+		//create missing app vars
+		if (data.getBool('saveSearch') === null) {
+			data.setBool('saveSearch', true);
 		}
 
 		//init with server infos

@@ -6,6 +6,7 @@ var map = require('./map.js');
 var dtp = require('./datetimepicker.js');
 var utils = require('../utils.js');
 var windows = require('./windows.js');
+var data = require('./data.js');
 
 module.exports = (function() {
 	var $document = $(document);
@@ -115,6 +116,27 @@ module.exports = (function() {
 			$emptyWhere.hide();
 		});
 
+		var showSelectedTypesLabel = function () {
+			//set field value
+			if (!$category.val()) {
+				$categorySelector.html(i18n.t('All events'));
+			} else {
+				var values = $category.val().split(',');
+				if (values.length <= 2) {
+					var content = '';
+					for(var i = 0, l = values.length; i < l; i++) {
+						if (i) {
+							content += ', ';
+						}
+						content += categories.getLabel(values[i]);
+					}
+					$categorySelector.html(content);
+				} else {
+					$categorySelector.html(i18n.t('{{count}} event type', {count: values.length}));
+				}
+			}
+		};
+
 		$categorySelector.on('click', function () {
 			//show message page
 			windows.show({
@@ -173,28 +195,21 @@ module.exports = (function() {
 						}
 					});
 				},
-				close: function () {
-					//set field value
-					if (!$category.val()) {
-						$categorySelector.html(i18n.t('All events'));
-					} else {
-						var values = $category.val().split(',');
-						if (values.length <= 2) {
-							var content = '';
-							for(var i = 0, l = values.length; i < l; i++) {
-								if (i) {
-									content += ', ';
-								}
-								content += categories.getLabel(values[i]);
-							}
-							$categorySelector.html(content);
-						} else {
-							$categorySelector.html(i18n.t('{{count}} event type', {count: values.length}));
-						}
-					}
-				}
+				close: showSelectedTypesLabel
 			});
 		});
+
+		//set selected values if any
+		if (data.getBool('saveSearch') === true) {
+			var savedSearch = data.getObject('savedSearch');
+			if (savedSearch.cat) {
+				$category.val(savedSearch.cat);
+				showSelectedTypesLabel();
+			}
+			if (savedSearch.when && savedSearch.when !== 'custom') {
+				$when.val(savedSearch.when);
+			}
+		}
 
 		$form.on({
 			'submit': function(event) {
@@ -350,6 +365,14 @@ module.exports = (function() {
 					}
 					break;
 			}
+
+			if (data.getBool('saveSearch') === true) {
+				data.setObject('savedSearch', {
+					cat: $category.val() || null,
+					when: $when.val() || null
+				});
+			}
+
 			return {
 				cat: $category.val() || null,
 				tag: $hashtag.val() || null,

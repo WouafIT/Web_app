@@ -34,6 +34,9 @@
 			<div class="checkbox">
 				<label><input type="checkbox" name="map-follow"> <%= htmlWebpackPlugin.options.i18n['Refresh search results by following the map position'] %></label>
 			</div>
+			<div class="checkbox">
+				<label><input type="checkbox" name="save-search"> <%= htmlWebpackPlugin.options.i18n['Save your search settings'] %></label>
+			</div>
 			<h4><%= htmlWebpackPlugin.options.i18n['Notifications settings'] %></h4>
 			<div class="checkbox">
 				<label><input type="checkbox" name="follower-notifications"> <%= htmlWebpackPlugin.options.i18n['Be notified by email when a new Wouaffer follow me'] %></label>

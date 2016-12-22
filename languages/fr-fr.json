@@ -1,7 +1,7 @@
 {
 	"languageShort": "fr",
 	"languageLong": "fr_FR",
-	"Search!": "Recherchez !",
+	"Search!": "Lancer la recherche !",
 	"Contact": "Contact",
 	"About": "A Propos",
 	"Faq": "FAQ",
@@ -13,7 +13,8 @@
 	"Login": "Connexion",
 	"My profile": "Mon profil",
 	"Parameters": "Paramètres",
-	"Search": "Rechercher",
+	"Search": "Recherche",
+    "Result": "Résultat",
 	"Your Wouafs": "Vos Wouafs",
 	"Your Favorites": "Vos favoris",
 	"Following": "Vos abonnements",
@@ -49,7 +50,9 @@
 
 	"All events": "Tous les types d'événements",
 	"All subtypes of {{type}}": "Tous les sous types de &quot;{{type}}&quot;",
-	"Select your types": "Sélectionnez vos types",
+    "Search_details": "Sélectionnez vos préférences de recherche ci-dessous.",
+    "Edit your search": "Modifier votre recherche",
+	"Select your types": "Sélectionnez vos préférences",
 	"{{count}} event type": "{{count}} type d'événement",
 	"{{count}} event type_plural": "{{count}} types d'événements",
 
@@ -196,6 +199,7 @@
 	"Unit search radius": "Unité du rayon de recherche",
 	"Maximum number of results": "Nombre maximum de résultats",
 	"Refresh search results by following the map position": "Rafraichir les résultats de recherche en suivant la position de la carte.",
+	"Save your search settings": "Enregistrer vos paramètres de recherche",
 	"Kilometers": "Kilomètres",
 	"Miles": "Miles",
 	"km": "km",
@@ -393,8 +397,7 @@
 
 	"{{count}} result": "{{count}} résultat",
 	"{{count}} result_plural": "{{count}} résultats",
-	"{{count}} result for your search": "{{count}} résultat pour votre recherche",
-	"{{count}} result for your search_plural": "{{count}} résultats pour votre recherche",
+	"No Wouaf yet": "Aucun wouaf pour le moment",
 	"No Wouaf yet": "Aucun wouaf pour le moment",
 
 	"Hide Wouafs gone": "Masquer les Wouafs révolu",
