@@ -14,6 +14,8 @@ module.exports = (function() {
 	var $loader = $('#loader');
 	var $body = $('body');
 	var $search = $('#search');
+	var $form = $search.find('form');
+	var $children = $form.find('input[name=children]');
 	var $site = $('#sb-site');
 	var $category = $('#what');
 	var $when = $('#when');
@@ -54,8 +56,6 @@ module.exports = (function() {
 
 	// private functions
 	var init = function () {
-		var $search = $('#search');
-		var $form = $search.find('form');
 		var $categorySelector = $form.find('.what .custom-select');
 
 		oSlidebar = new $.slidebars({
@@ -208,6 +208,9 @@ module.exports = (function() {
 			}
 			if (savedSearch.when && savedSearch.when !== 'custom') {
 				$when.val(savedSearch.when);
+			}
+			if (savedSearch.children) {
+				$children.prop('checked', true);
 			}
 		}
 
@@ -369,13 +372,15 @@ module.exports = (function() {
 			if (data.getBool('saveSearch') === true) {
 				data.setObject('savedSearch', {
 					cat: $category.val() || null,
-					when: $when.val() || null
+					when: $when.val() || null,
+					children: $children.prop('checked')
 				});
 			}
 
 			return {
 				cat: $category.val() || null,
 				tag: $hashtag.val() || null,
+				children: $children.prop('checked'),
 				loc: loc,
 				date: date,
 				duration: duration

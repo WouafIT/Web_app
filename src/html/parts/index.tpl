@@ -64,6 +64,9 @@
 							<input type="hidden" value="" name="what" id="what" />
 						</div>
 					</fieldset>
+					<div class="checkbox">
+						<label><input type="checkbox" name="children"> <i class="fa fa-child"></i> <%= htmlWebpackPlugin.options.i18n['For Children'] %></label>
+					</div>
 					<fieldset class="form-group row">
 						<label for="where"><%= htmlWebpackPlugin.options.i18n['Where?'] %></label>
 						<div class="input-group">
@@ -119,6 +122,7 @@
 							</div>
 						</div>
 					</fieldset>
+
 					<div class="row">
 						<p class="text-xs-center">
 							<button type="submit" class="btn btn-primary">
