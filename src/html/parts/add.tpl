@@ -61,6 +61,9 @@
 				</div>
 			</fieldset>
 
+			<div class="checkbox">
+				<label><input type="checkbox" name="children"> <i class="fa fa-child"></i> <%= htmlWebpackPlugin.options.i18n['Children welcome'] %></label>
+			</div>
 
 			<fieldset class="form-group">
 				<label><%= htmlWebpackPlugin.options.i18n['More info link'] %></label>

@@ -1,4 +1,5 @@
 var i18n = require('../resource/i18n.js');
+var wouaf = require('../ui/wouaf.js');
 
 module.exports = (function() {
 	var $document = $(document);
@@ -31,12 +32,14 @@ module.exports = (function() {
 			$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: null});
 		}
 	});
-	//update comment count
-	$document.on('wouaf.update-comment', function(e, wouaf) {
-		$('#map').find('.w-container[data-id="'+ wouaf.id +'"] a[data-action=comments]').html(
+	//update comments count
+	$document.on('wouaf.update-comment', function(e, obj) {
+		var $wouaf = $('#map').find('.w-container[data-id="'+ obj.id +'"]');
+		$wouaf.find('.w-content a[data-action=comments]').html(
 			'<i class="fa fa-comment"></i> '+
-			(wouaf.com ? i18n.t('{{count}} comment', {count: wouaf.com}) : i18n.t('Add a comment', {count: wouaf.com}))
+			(obj.com ? i18n.t('{{count}} comment', {count: obj.com}) : i18n.t('Add a comment', {count: obj.com}))
 		);
+		$wouaf.find('.w-meta').html(wouaf.getMeta(obj));
 	});
 
 	//Swipebox

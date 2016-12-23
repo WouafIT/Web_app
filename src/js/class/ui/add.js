@@ -52,6 +52,7 @@ module.exports = (function() {
 		var $specificEnd = $form.find('.specific-end');
 		$specificEnd.hide().removeAttr('hidden');
 		var $duration = $form.find('select[name=duration]');
+		var $children = $form.find('input[name=children]');
 		var $category = $form.find('select[name=category]');
 		var $categoriesHelp = $form.find('.categories-help');
 		var $url = $form.find('input[name=url]');
@@ -313,6 +314,7 @@ module.exports = (function() {
 				text: 		$content.val(),
 				date: 		Math.round(start.getTime() / 1000),
 				duration: 	(duration ? duration : $duration.val()),
+				children:	($children.prop("checked") ? 1 : 0),
 				tz:			(start.getTimezoneOffset() * -1),
 				url:		$url.val(),
 				contact: 	($contactNotifications.prop("checked") ? 1 : 0),

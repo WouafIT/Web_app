@@ -158,15 +158,17 @@ module.exports = (function() {
 				'</div>',
 				'<div class="w-details">',
 					dateLabel ,
-					'<div class="w-comments">',
-						(obj.children ? '<i class="fa fa-child" title="'+ i18n.t('For Children') +'"></i> ' : ''),
-						(obj.pics && obj.pics.length ? '<i class="fa fa-picture-o"></i> ' : ''),
-						'<a href="', url.getAbsoluteURLForStates([{name: 'wouaf', value: obj.id}, {name: 'windows', value: 'comments'}]) ,
-							'" data-action="comments" data-menu="wouaf"><i class="fa fa-comment"></i> ', utils.round(obj.com) ,'</a></div>',
+					'<div class="w-meta">', self.getMeta(obj) ,'</div>',
 					'<br /><span style="color:', categories.getDarkColor(obj.cat) ,'">' , categories.getLabel(obj.cat, true) , '</span>',
 				'</div>',
 			'</div>'
 		].join('');
+	};
+	self.getMeta = function (obj){
+		return (obj.children ? '<i class="fa fa-child" title="'+ i18n.t('For Children') +'"></i> ' : '')+
+			(obj.pics && obj.pics.length ? '<i class="fa fa-picture-o" title="'+ i18n.t('Pictures') +'"></i> ' : '')+
+			(obj.com ? '<a href="'+ url.getAbsoluteURLForStates([{name: 'wouaf', value: obj.id}, {name: 'windows', value: 'comments'}])+
+					   '" data-action="comments" data-menu="wouaf"><i class="fa fa-comment"></i> '+ utils.round(obj.com) +'</a>' : '')
 	};
 
 	self.getWouaf = function (obj, collapse) {

@@ -56,6 +56,7 @@
     "{{count}} event type": "{{count}} type of event",
 	"{{count}} event type_plural": "{{count}} types of events",
     "For Children": "For Children!",
+    "Pictures": "Pictures",
 
 	"Events": "Events",
 	"Out": "Out",
@@ -72,7 +73,7 @@
 	"Cinema": "Cinema",
 	"Festivals": "Festivals",
 	"Exhibitions": "Exhibitions",
-	"Hiking": "Hiking",
+	"Hiking": "Walk, get some fresh air",
 	"Sports": "Sports",
 	"Tours": "Tours",
 	"Travels": "Travels",
@@ -237,6 +238,7 @@
 	"Your Wouaf is published": "Your Wouaf is published!",
 	"Your form is incomplete, thank you to fill at least the content field": "Your form is incomplete, please fill in at least the content field",
 	"Maximum 4 weeks": "Maximum duration: 4 weeks",
+    "Children welcome": "Children welcome!",
 
 	"How to enter your content": "How to enter your content",
 	"{{count}} character left": "{{count}} character left",

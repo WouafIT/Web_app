@@ -239,14 +239,12 @@ module.exports = (function() {
 		}
 	});
 	//update comment count
-	$document.on('wouaf.update-comment', function(e, wouaf) {
-		$tabsContent.find('.w-container[data-id="'+ wouaf.id +'"] .w-comments').html(
-			'<i class="fa fa-comment"></i> '+ wouaf.com
-		);
+	$document.on('wouaf.update-comment', function(e, obj) {
+		$tabsContent.find('.w-container[data-id="'+ obj.id +'"] .w-meta').html(wouaf.getMeta(obj));
 	});
 	//delete wouaf
-	$document.on('app.deleted-wouaf', function(e, wouaf) {
-		$tabsContent.find('.w-container[data-id="'+ wouaf.id +'"]').remove();
+	$document.on('app.deleted-wouaf', function(e, obj) {
+		$tabsContent.find('.w-container[data-id="'+ obj.id +'"]').remove();
 	});
 
 	//show wouaf infowindow on click
