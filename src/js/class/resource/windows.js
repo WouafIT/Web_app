@@ -41,7 +41,7 @@ module.exports = (function() {
 			}
 		}).then(function () {
 			$document.triggerHandler('windows.opened', {time: (new Date().getTime()-start), href: options.href});
-			
+
 			if (window.FB) {
 				FB.XFBML.parse();
 			}
