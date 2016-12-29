@@ -55,6 +55,15 @@ module.exports = (function() {
 			console.info('Handle data-action: '+ $this.data('action'));
 		}
 		switch ($this.data('action')) {
+			case 'facebook-share':
+				if (window.FB) {
+					window.FB.ui({
+						method: 'share',
+						mobile_iframe: true,
+						href: decodeURIComponent($this.data('href'))
+					}, function(response){});
+				}
+				break;
 			case 'search':
 				//show results tabs
 				$document.triggerHandler('tabs.show', 'search');
