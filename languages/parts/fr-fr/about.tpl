@@ -6,27 +6,27 @@
 	<h4 class="modal-title">A propos de Wouaf IT</h4>
 </div>
 <div class="modal-body">
-
 	<div id="accordionAbout" role="tablist" aria-multiselectable="true">
 		<div class="card">
 			<div class="card-header" role="tab" id="headingAboutOne">
 				<h5>
-					<a data-toggle="collapse" data-parent="#accordionAbout" href="#collapseAboutOne" aria-expanded="true" aria-controls="collapseAboutOne">
-						Quel est l'usage de Wouaf IT ?
+					<a data-toggle="collapse" data-parent="#accordionAbout" href="#collapseAboutOne" aria-expanded="true"
+					   aria-controls="collapseAboutOne">
+						Quel est le but de Wouaf IT ?
 					</a>
 				</h5>
 			</div>
 			<div id="collapseAboutOne" class="collapse in" role="tabpanel" aria-labelledby="headingAboutOne">
 				<div class="card-block">
-					<p>Imaginez une source d'information géolocalisée où tout le monde peut signaler les événements locaux. De la manifestation
-						de quartier à la vente de votre canapé en passant par le chien perdu du voisin.</p>
+					<p>Imaginez une source d'information géolocalisée où tout le monde peut signaler les événements locaux.
+						De la manifestation de quartier à la vente de votre canapé en passant par le chien perdu du voisin.</p>
 
-					<p>Les sources d'informations contributives ont déjà montré leur qualité et leur exhaustivité. Wikipedia, Twitter, Facebook,
-						Reddit et bien d'autres sont irremplaçables pour nous informer.</p>
+					<p>Les sources d'informations contributives ont déjà montré leur qualité et leur exhaustivité. Wikipedia,
+						Twitter, Facebook, Reddit et bien d'autres sont irremplaçables pour nous informer.</p>
 
 					<p>Wouaf IT souhaite mettre en avant les événements publics qui sont rares ou difficiles à trouver autour de vous.
-						Tous ces événements qui n'ont que peu ou pas de budget marketing et sont rarement connus en dehors du cercle
-						des proches de l'organisateur. Si le public sait qu'il y a quelque chose autour de lui, il pourra aussi en profiter !</p>
+						Tous ces événements qui sont rarement connus en dehors du cercle des proches de l'organisateur.
+						Si le public sait qu'il y a quelque chose autour de lui, il pourra aussi en profiter !</p>
 
 					<p>Quelques exemples de ce vous pouvez trouver et publier sur Wouaf IT :</p>
 					<ul>
@@ -52,16 +52,17 @@
 		<div class="card">
 			<div class="card-header" role="tab" id="headingAboutTwo">
 				<h5>
-					<a data-toggle="collapse" data-parent="#accordionAbout" href="#collapseAboutTwo" aria-expanded="true" aria-controls="collapseAboutTwo">
+					<a data-toggle="collapse" data-parent="#accordionAbout" href="#collapseAboutTwo" aria-expanded="true"
+					   aria-controls="collapseAboutTwo">
 						Qui sommes nous ?
 					</a>
 				</h5>
 			</div>
 			<div id="collapseAboutTwo" class="collapse" role="tabpanel" aria-labelledby="headingAboutTwo">
 				<div class="card-block">
-					<p>Wouaf IT est l'initiative d'un père de famille aidé par des amis proches.
-						Nous souhaitons fournir un nouveau service de qualité sur Internet qui recensera tous les événements de proximité.
-						Nous sommes basés dans la technopole de Sophia Antipolis, près de Nice.</p>
+					<p>Wouaf IT est à l'initiative d'un père de famille aidé par des amis proches.
+						Nous voulons fournir un nouveau service de qualité qui recensera tous les événements de proximité.</p>
+					<p>Nous sommes basés dans la technopole de Sophia Antipolis, près de Nice.</p>
 
 					<p>L'utilisation et la publication sur Wouaf IT sont gratuites. Son code source est distribué sous licence libre Apache et
 						est disponible sur <i class="fa fa-github"></i> <a href="https://github.com/WouafIT" target="_blank">Github</a>.</p>
@@ -71,7 +72,8 @@
 		<div class="card">
 			<div class="card-header" role="tab" id="headingAboutThree">
 				<h5>
-					<a data-toggle="collapse" data-parent="#accordionAbout" href="#collapseAboutThree" aria-expanded="true" aria-controls="collapseAboutThree">
+					<a data-toggle="collapse" data-parent="#accordionAbout" href="#collapseAboutThree"
+					   aria-expanded="true" aria-controls="collapseAboutThree">
 						Qui sont nos fournisseurs de contenu ?
 					</a>
 				</h5>
@@ -79,17 +81,38 @@
 			<div id="collapseAboutThree" class="collapse" role="tabpanel" aria-labelledby="headingAboutThree">
 				<div class="card-block">
 					<p>
-						En dehors des nombreuses contributions des internautes eux mêmes, nous importons un certain nombre
-						d'événements directement depuis des fournisseurs spécialisés dans l'événementiel ou dans un domaine
+						En dehors des contributions des internautes eux mêmes, nous importons des événements directement
+						depuis des fournisseurs de qualité spécialisés dans l'événementiel ou dans un domaine
 						spécifique qui trouve sa place sur Wouaf IT.
 					</p>
 					<p>En voici la liste, merci pour leur contribution !</p>
 					<ul>
-						<li><a href="/user/Fnac_Spectacles/">Fnac Spectacles</a></li>
-						<li><a href="/user/Open_Agenda/">Open Agenda</a></li>
-						<li><a href="/user/Chat_Perdu/">Chat Perdu</a></li>
-						<li><a href="/user/Chien_Perdu/">Chien Perdu</a></li>
-						<li><a href="/user/Infolocale/">Infolocale</a></li>
+						<li>
+							<i class="fa fa-facebook-official"></i> <a href="https://facebook.com" target="_blank">Facebook</a>,
+							grâce à son immense réseau d'utilisateurs dispose d'une base événementielle très importante.
+							Nous importons les événements public de Facebook au moins une fois par semaine.
+						</li>
+						<li>
+							<a href="/user/Fnac_Spectacles/" data-user="Fnac_Spectacles">Fnac Spectacles</a>, propose plus
+							de 60.000 événements par an en France, Suisse et Belgique. Tous les spectacles
+							sont sur <a href="http://www.fnacspectacles.com" target="_blank">www.fnacspectacles.com</a>.
+						</li>
+						<li>
+							<a href="/user/Open_Agenda/" data-user="Open_Agenda">Open Agenda</a>, propose des agendas
+							ouverts pour tous sur <a href="https://openagenda.com" target="_blank">openagenda.com</a>.
+						</li>
+						<li><a href="http://www.infolocale.fr" target="_blank">Infolocale.fr</a>, la solution gratuite pour
+							annoncer vos événements proposé par le <a href="http://www.ouest-france.fr/" target="_blank">
+								Groupe Ouest-France</a>.<br />
+							Retrouvez l’intégralité de ces données sur <a href="http://datainfolocale.opendatasoft.com"
+																		  target="_blank">http://datainfolocale.opendatasoft.com</a>.
+							Le nom <a href="http://www.infolocale.fr" target="_blank">"Infolocale.fr"</a> est une marque déposée du
+							Groupe Ouest-France.
+						</li>
+						<li><a href="/user/Chat_Perdu/" data-user="Chat_Perdu">Chat Perdu</a> et
+							<a href="/user/Chien_Perdu/" data-user="Chien_Perdu">Chien Perdu</a> sont les sites
+							de référence pour publier des avis de recherche concernant vos animaux perdus.
+						</li>
 					</ul>
 				</div>
 			</div>
@@ -103,7 +126,7 @@
 		<a href="https://twitter.com/Wouaf_IT" class="twitter-follow-button" data-show-count="false">Suivre @Wouaf_IT</a>
 	</div>
 	<hr />
-	<p>Wouaf IT © <%= htmlWebpackPlugin.options.data.year %>.</p>
+	<p>Wouaf IT © 2016-<%= htmlWebpackPlugin.options.data.year %>.</p>
 </div>
 <div class="modal-footer">
 	<button type="button" class="btn btn-secondary" data-dismiss="modal"><%= htmlWebpackPlugin.options.i18n['Close'] %></button>
