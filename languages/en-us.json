@@ -215,6 +215,7 @@
 	"Settings saved!": "Settings saved!",
 
 	"Lost password?": "Lost password?",
+	"Reset password": "Reset your password",
 	"Lost_password_details": "Please enter your email address. An email will be sent to reset your password.",
 	"Reset my password": "Reset my password",
 	"A reset email has been sent.": "A reset email has been sent.",
@@ -452,18 +453,24 @@
 	"Incompatible browser": "Incompatible browser...",
 	"Incompatible browser_details": "Sorry, your browser is too old.\nIt can not run Wouaf IT properly...",
 
+	"Update your password": "Update your password",
+	"Enter and confirm your new password below": "Enter and confirm your new password below",
+	"Password updated": "Password updated! You can now log in.",
+
 	"Import error: Your profile has no valid email address.": "Your profile does not have a valid e-mail address. Add your email address to <a href=\"/profile/\" data-href=\"profile\" data-show=\"modal\" data-target=\"#modalWindow\">your profile</a> before importing your Facebook events.",
 	"Login and password mismatch.": "Your username and password do not match.",
 	"This username already exist, try another one.": "This username already exists, please choose another one.",
-	"A Facebook user already exists for this email. Please, uses Facebook login instead.": "A Facebook user already exists for this email address. You can connect through the <a href=\"/login/\" data-href=\"login\" data-show=\"modal\" data-target=\"#modalWindow\">Login with Facebook</a> button instead.",
-	"A Facebook user already exists for this username. Please, uses Facebook login instead.": "A Facebook user already exists for this ID. You can connect through the <a href=\"/login/\" data-href=\"login\" data-show=\"modal\" data-target=\"#modalWindow\">Login with Facebook</a> button instead.",
-	"Cannot reset password for a Facebook user. Please, uses Facebook login instead.": "Cannot reset password for a Facebook user. You can connect through the <a href=\"/login/\" data-href=\"login\" data-show=\"modal\" data-target=\"#modalWindow\">Login with Facebook</a> button instead.",
-	"This email already exist.": "This email already exists for another user. Thank you for using another one or disconnect and use the \"I forgot my password\" function to get a new password for the account using this email address.",
+	"A Facebook user already exists for this email. Please, uses Facebook login instead.": "A Facebook user already exists for this email address. You can connect through the <a href=\"/login/\" data-href=\"login\" data-show=\"modal\" data-target=\"#modalWindow\">Login with Facebook</a> button instead.<br />If problems, <a href=\"/contact/\" data-href=\"contact\" data-show=\"modal\" data-target=\"#modalWindow\">Contact us</a>.",
+	"A Facebook user already exists for this username. Please, uses Facebook login instead.": "A Facebook user already exists for this ID. You can connect through the <a href=\"/login/\" data-href=\"login\" data-show=\"modal\" data-target=\"#modalWindow\">Login with Facebook</a> button instead.<br />If problems, <a href=\"/contact/\" data-href=\"contact\" data-show=\"modal\" data-target=\"#modalWindow\">Contact us</a>.",
+	"Cannot reset password for a Facebook user. Please, uses Facebook login instead.": "Cannot reset password for a Facebook user. You can connect through the <a href=\"/login/\" data-href=\"login\" data-show=\"modal\" data-target=\"#modalWindow\">Login with Facebook</a> button instead.<br />If problems, <a href=\"/contact/\" data-href=\"contact\" data-show=\"modal\" data-target=\"#modalWindow\">Contact us</a>.",
+	"Cannot update. This email already exist.": "This email already exists for another user. Thank you for using another one or disconnect and use the \"I forgot my password\" function to get a new password for the account using this email address.",
+	"Cannot create. This email already exist.": "This email already exists for another user. Thank you for using another one or use the <a href=\"/lost-password/\" data-href=\"lost-password\" data-show=\"modal\" data-target=\"#modalWindow\">Reset Password feature</a> with this email address.",
 	"Unknown email address.": "Unknown email address.",
-	"Cannot update email for an unactivated account.": "Unable to update your email address, you have not activated your previous address. Check your mailbox to activate your previous address.",
 	"An email has been sent to activate your new email address.": "A confirmation email has been sent to you to validate your new email address. Check your mailbox to activate your address.",
 	"Invalid date and duration. The post is already passed.": "Date and duration invalid, the publication is already gone.",
 	"You do not have an email address, thank you for filling your email in your profile so that we can answer you": "You do not have an email address, thank you for filling your email in your profile so that we can answer you.",
 	"Error, Facebook is not properly loaded. Please refresh the page or disable your ad blocker": "Error, Facebook is not properly loaded. Please refresh the page or disable your ad blocker.",
-	"Forbidden.": "Invalid session, please refresh the page in the browser before trying again."
+	"Forbidden.": "Invalid session, please refresh the page in the browser before trying again.",
+	"Reset password request is too old.": "Your password reset request is too old (+ 24h), please make a new request.",
+	"An Infolocale user already exists for that email.": "A user already exists for this email address.<br />It was created using data from the website <a href=\"http://infolocale.fr\" target=\"_blank\">Infolocale</a>.<br />If you want to take ownership of this account, use the <a href=\"/lost-password/\" data-href=\"lost-password\" data-show=\"modal\" data-target=\"#modalWindow\">Reset Password feature</a> with this email address."
 }

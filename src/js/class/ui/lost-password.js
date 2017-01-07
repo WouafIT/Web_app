@@ -33,7 +33,7 @@ module.exports = (function() {
 				return;
 			}
 			//Query
-			query.resetPassword($email.val(), function (result) {
+			query.requestPasswordReset($email.val(), function (result) {
 				windows.close();
 				toast.show(i18n.t('A reset email has been sent.'));
 			}, function (msg) {

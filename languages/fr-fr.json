@@ -215,6 +215,7 @@
 	"Settings saved!": "Paramètres enregistrés !",
 
 	"Lost password?": "Mot de passe oublié ?",
+	"Reset password": "Réinitialisez votre mot de passe",
 	"Lost_password_details": "Veuillez saisir votre adresse email. Un email vous sera envoyé pour réinitialiser votre mot de passe.",
 	"Reset my password": "Réinitialiser mon mot de passe",
 	"A reset email has been sent.": "Un email de réinitialisation vous a été envoyé.",
@@ -452,18 +453,24 @@
 	"Incompatible browser": "Navigateur incompatible ...",
 	"Incompatible browser_details": "Navré, votre navigateur internet est obsolète.\nIl ne peut faire fonctionner Wouaf IT convenablement ...",
 
+	"Update your password": "Mettre à jour votre mot de passe",
+	"Enter and confirm your new password below": "Saisissez et confirmez votre nouveau mot de passe ci-dessous",
+	"Password updated": "Mot de passe mis à jour ! Vous pouvez maintenant vous connecter.",
+
 	"Import error: Your profile has no valid email address.": "Votre profil n'a pas d'adresse e-mail valide. Ajoutez votre adresse email à <a href=\"/profile/\" data-href=\"profile\" data-show=\"modal\" data-target=\"#modalWindow\">votre profil</a> pour permettre l'importation de vos événements Facebook.",
 	"Login and password mismatch.": "Votre identifiant ou votre mot de passe sont incorrect ...",
 	"This username already exist, try another one.": "Ce nom d'utilisateur existe déjà, merci d'en choisir un autre.",
-	"A Facebook user already exists for this email. Please, uses Facebook login instead.": "Un utilisateur Facebook existe déjà pour cette adresse email. Vous pouvez vous connecter grâce au bouton <a href=\"/login/\" data-href=\"login\" data-show=\"modal\" data-target=\"#modalWindow\">Connexion avec Facebook</a> à la place.",
-	"A Facebook user already exists for this username. Please, uses Facebook login instead.": "Un utilisateur Facebook existe déjà pour cet identifiant. Vous pouvez vous connecter grâce au bouton <a href=\"/login/\" data-href=\"login\" data-show=\"modal\" data-target=\"#modalWindow\">Connexion avec Facebook</a> à la place.",
-	"Cannot reset password for a Facebook user. Please, uses Facebook login instead.": "Impossible de réinitialiser le mot de passe d'un utilisateur Facebook. Vous pouvez vous connecter grâce au bouton <a href=\"/login/\" data-href=\"login\" data-show=\"modal\" data-target=\"#modalWindow\">Connexion avec Facebook</a> à la place.",
-	"This email already exist.": "Cette adresse email existe déjà pour un autre utilisateur. Merci d'en utiliser un autre ou bien déconnectez vous et employez la fonction \"J'ai oublié mon mot de passe\" pour obtenir un nouveau mot de passe pour le compte utilisant cette adresse email.",
+	"A Facebook user already exists for this email. Please, uses Facebook login instead.": "Un utilisateur Facebook existe déjà pour cette adresse email. Vous pouvez vous connecter grâce au bouton <a href=\"/login/\" data-href=\"login\" data-show=\"modal\" data-target=\"#modalWindow\">Connexion avec Facebook</a> à la place.<br />En cas de problème, <a href=\"/contact/\" data-href=\"contact\" data-show=\"modal\" data-target=\"#modalWindow\">Contactez-nous</a>.",
+	"A Facebook user already exists for this username. Please, uses Facebook login instead.": "Un utilisateur Facebook existe déjà pour cet identifiant. Vous pouvez vous connecter grâce au bouton <a href=\"/login/\" data-href=\"login\" data-show=\"modal\" data-target=\"#modalWindow\">Connexion avec Facebook</a> à la place.<br />En cas de problème, <a href=\"/contact/\" data-href=\"contact\" data-show=\"modal\" data-target=\"#modalWindow\">Contactez-nous</a>.",
+	"Cannot reset password for a Facebook user. Please, uses Facebook login instead.": "Impossible de réinitialiser le mot de passe d'un utilisateur Facebook. Vous pouvez vous connecter grâce au bouton <a href=\"/login/\" data-href=\"login\" data-show=\"modal\" data-target=\"#modalWindow\">Connexion avec Facebook</a> à la place.<br />En cas de problème, <a href=\"/contact/\" data-href=\"contact\" data-show=\"modal\" data-target=\"#modalWindow\">Contactez-nous</a>.",
+	"Cannot update. This email already exist.": "Cette adresse email existe déjà pour un autre utilisateur. Merci d'en utiliser un autre ou bien déconnectez vous et employez la fonction \"J'ai oublié mon mot de passe\" pour obtenir un nouveau mot de passe pour le compte utilisant cette adresse email.",
+	"Cannot create. This email already exist.": "Cette adresse email existe déjà pour un autre utilisateur. Merci d'en utiliser un autre ou bien utilisez la fonction de <a href=\"/lost-password/\" data-href=\"lost-password\" data-show=\"modal\" data-target=\"#modalWindow\">Réinitialisation du mot de passe</a> avec cette adresse email.",
 	"Unknown email address.": "Adresse email inconnue.",
-	"Cannot update email for an unactivated account.": "Impossible de mettre à jour votre adresse email, vous n'avez pas activé votre précédente adresse. Consultez votre boîte email pour activer votre adresse précédente.",
 	"An email has been sent to activate your new email address.": "Un email de confirmation vous a été envoyé pour valider votre nouvelle adresse email. Consultez votre boîte email pour activer votre adresse.",
 	"Invalid date and duration. The post is already passed.": "Date et durée invalide, la publication est déjà révolue.",
 	"You do not have an email address, thank you for filling your email in your profile so that we can answer you": "Vous n'avez pas d'adresse email, merci de remplir votre email dans votre profil pour que nous puissions vous répondre.",
-	"Error, Facebook is not properly loaded. Please refresh the page or disable your ad blocker": "Erreur, Facebook n'est pas correctement chargé. Veuillez actualiser la page ou désactiver votre bloqueur d'annonces.",
-	"Forbidden.": "Session invalide, veuillez rafraichir la page dans le navigateur avant de réessayer."
+	"Error, Facebook is not properly loaded. Please refresh the page or disable your ad blocker": "Facebook n'est pas correctement chargé. Veuillez actualiser la page ou désactiver votre bloqueur d'annonces.",
+	"Forbidden.": "Session invalide, veuillez rafraichir la page dans le navigateur avant de réessayer.",
+	"Reset password request is too old.": "Votre demande de réinitialisation de mot de passe est trop ancienne (+24h), merci d'effectuer une nouvele demande.",
+	"An Infolocale user already exists for that email.": "Un utilisateur existe déjà pour cette adresse email.<br />Il a été créé à partir de données provenant du site <a href=\"http://infolocale.fr\" target=\"_blank\">Infolocale</a>.<br />Si vous souhaitez prendre possession de ce compte, utilisez la fonction de <a href=\"/lost-password/\" data-href=\"lost-password\" data-show=\"modal\" data-target=\"#modalWindow\">Réinitialisation du mot de passe</a> avec cette adresse email."
 }
