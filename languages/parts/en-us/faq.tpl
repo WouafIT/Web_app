@@ -304,6 +304,11 @@
 	</div>
 	<p>Follow Wouaf IT on <i class="fa fa-twitter"></i> <a href="https://twitter.com/Wouaf_IT" target="_blank">Twitter</a> and
 		<i class="fa fa-facebook-official"></i> <a href="https://www.facebook.com/wouafit/" target="_blank">Facebook</a> to get more informations!</p>
+	<div class="text-xs-right">
+		<div class="fb-like" data-href="https://www.facebook.com/wouafit/" data-layout="button_count" data-action="like"
+			 data-size="small" data-show-faces="true" data-share="true"></div>
+		<a href="https://twitter.com/Wouaf_IT" class="twitter-follow-button" data-show-count="false">Follow @Wouaf_IT</a>
+	</div>
 	<hr />
 	<p>Wouaf IT © <%= htmlWebpackPlugin.options.data.year %>.</p>
 </div>

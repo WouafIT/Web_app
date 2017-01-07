@@ -123,7 +123,7 @@ module.exports = (function() {
 	$document.on('app.refresh-search', function (event, params) {
 		if (__DEV__)
 			console.info('Analytics - Event - Search - Refresh');
-		ga('send', 'event', 'search', 'resfresh');
+		ga('send', 'event', 'search', 'refresh');
 	});
 
 	//app init

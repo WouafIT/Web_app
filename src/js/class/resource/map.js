@@ -429,6 +429,7 @@ module.exports = (function () {
 	//Init public method
 	var init = function () {
 		var deferred = $.Deferred();
+
 		//create map
 		map = new google.maps.Map($map.get(0), {
 			zoom: 9,
@@ -443,6 +444,35 @@ module.exports = (function () {
 			},
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		});
+		//update map styles
+		map.setOptions({styles: [
+			{
+				"featureType": "road.arterial",
+				"elementType": "labels",
+				"stylers": [
+					{
+						"visibility": "off"
+					}
+				]
+			},
+			{
+				"featureType": "road.highway",
+				"elementType": "labels",
+				"stylers": [
+					{
+						"visibility": "off"
+					}
+				]
+			},
+			{
+				"featureType": "road.local",
+				"stylers": [
+					{
+						"visibility": "off"
+					}
+				]
+			}
+		]});
 		//add map events
 		//need to debounce center_changed and zoom_changed event
 		var mapUpdater;

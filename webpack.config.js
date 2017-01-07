@@ -209,6 +209,13 @@ var common = Object.keys(languages).map(function(language) {
 				inject: false
 			}),
 			new HtmlWebpackPlugin({
+				filename: 'parts/reset-password.html',
+				template: __dirname + '/src/html/parts/reset-password.tpl',
+				data: htmlData,
+				i18n: languageData,
+				inject: false
+			}),
+			new HtmlWebpackPlugin({
 				filename: 'parts/user.html',
 				template: __dirname + '/src/html/parts/user.tpl',
 				data: htmlData,

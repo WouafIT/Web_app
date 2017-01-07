@@ -41,6 +41,13 @@ module.exports = (function() {
 			}
 		}).then(function () {
 			$document.triggerHandler('windows.opened', {time: (new Date().getTime()-start), href: options.href});
+			//Launch DOM parsing for social buttons
+			if (window.FB) {
+				FB.XFBML.parse($modalContent[0]);
+			}
+			if (window.twttr) {
+				twttr.widgets.load($modalContent[0]);
+			}
 		});
 		if (!$modal.data('navigationOpen')) {
 			$document.triggerHandler('navigation.set-state', {name: 'windows', value: options.href});

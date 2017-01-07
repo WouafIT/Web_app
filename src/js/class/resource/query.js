@@ -206,13 +206,22 @@ module.exports = (function() {
 				error:	callback
 			});
 		},
-		resetPassword: function resetPassword(email, successCallback, errorCallback) {
+		requestPasswordReset: function requestPasswordReset(email, successCallback, errorCallback) {
 			query({
 				method: 'POST',
-				url:	ENDPOINT + '/reset-password',
+				url:	ENDPOINT + '/request-password-reset',
 				data:  {
 					email:	  email
 				},
+				successCallback: successCallback,
+				errorCallback: errorCallback
+			});
+		},
+		resetPassword: function resetPassword(datas, successCallback, errorCallback) {
+			query({
+				method: 'POST',
+				url:	ENDPOINT + '/reset-password',
+				data:  	datas,
 				successCallback: successCallback,
 				errorCallback: errorCallback
 			});

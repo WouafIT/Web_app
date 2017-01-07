@@ -70,7 +70,8 @@ module.exports = (function() {
 			window.fbAsyncInit = function() {
 				window.FB.init({
 					appId: FACEBOOK_APP_KEY,
-					version: 'v2.8'
+					version: 'v2.8',
+					xfbml: false
 				});
 			};
 			if (window.FB) {

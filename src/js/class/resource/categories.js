@@ -101,8 +101,18 @@ module.exports = (function() {
 	};
 	self.getMultiSelect = function(values) {
 		var i, l;
-		values = values.split(',');
-		var html = [];
+		values = values ? values.split(',') : [];
+		var html = [
+			'<fieldset class="no-child">',
+				'<div class="legend">',
+					'<label class="custom-control custom-checkbox">',
+						'<input type="checkbox" class="custom-control-input"', (!values.length ? ' checked="checked"' : '') ,' value="all" />',
+						'<span class="custom-control-indicator"></span>',
+						'<span class="custom-control-description">', i18n.t('All events') ,'</span>',
+					'</label>',
+				'</div>',
+			'</fieldset>'
+		];
 		var selected;
 		for(i = 0, l = categories.length; i < l; i++) {
 			selected = (utils.indexOf(values, categories[i].id) !== -1);
@@ -111,7 +121,7 @@ module.exports = (function() {
 					html.push('</div></fieldset>');
 				}
 				html.push('<fieldset class="'+ (categories[i].child === false ? ' no-child' : '') +
-						  '"style="border-left-color:', self.getColor(categories[i].id) ,';">'+
+						  '" style="border-left-color:', self.getColor(categories[i].id) ,';">'+
 						  '<div class="legend w-cat w-cat'+ categories[i].id +'">')
 			}
 			html = html.concat(['<label class="custom-control custom-checkbox', (categories[i].parent ? ' form-check-inline' : '') ,'">',

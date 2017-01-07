@@ -147,14 +147,28 @@ module.exports = (function() {
 				open: function () {
 					var $multiSelect = $('#modalWindow .multi-select');
 					var $allCheckboxes = $multiSelect.find('input[type=checkbox]');
+					var $allEventsCheckbox = $multiSelect.find('input[type=checkbox][value=all]');
 					//grab all checkboxes and add click events
 					$allCheckboxes.on('change', function (e) {
-						var $target = $(e.target);
-						var $fieldset = $target.parents('fieldset');
+						var $target 	= $(e.target);
+						var $fieldset 	= $target.parents('fieldset');
 						var $checkboxes = $fieldset.find('.content input[type=checkbox]');
+						var checked = !!$target.prop("checked");
 						if ($target.parents('.legend').length) { //if target is a parent category
-							$checkboxes.prop("checked", !!$target.prop("checked"));
+							if ($target.val() === 'all') {
+								if (checked) {
+									$allCheckboxes.prop('indeterminate', false).prop("checked", false);
+								}
+							} else {
+								$checkboxes.prop("checked", checked);
+								if (checked) {
+									$allEventsCheckbox.prop("checked", false);
+								}
+							}
 						} else { //if target is a subcategory
+							if (checked) {
+								$allEventsCheckbox.prop("checked", false);
+							}
 							var $parent = $fieldset.find('.legend input[type=checkbox]');
 							var hasChecked = false, hasUnchecked = false;
 							//get all checkboxes status and set parent category accordingly
@@ -175,12 +189,18 @@ module.exports = (function() {
 						}
 						//get all selected categories
 						var $allSelectedCheckboxes = $multiSelect.find('input[type=checkbox]:checked');
-						if (!$allSelectedCheckboxes || $allSelectedCheckboxes.length === $allCheckboxes.length) {
+						if (!$allSelectedCheckboxes.length || $allSelectedCheckboxes.length === ($allCheckboxes.length - 1)) {
 							$category.val('');
+							$allCheckboxes.prop('indeterminate', false).prop("checked", false);
+							$allEventsCheckbox.prop("checked", true);
 						} else {
+							$allEventsCheckbox.prop("checked", false);
 							var values = [];
 							$allSelectedCheckboxes.each(function() {
-								values.push($(this).val());
+								var val = $(this).val();
+								if (val !== 'all') {
+									values.push(val);
+								}
 							});
 							$category.val(values.join(','));
 						}

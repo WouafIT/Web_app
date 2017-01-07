@@ -4,7 +4,7 @@
 			<span aria-hidden="true">&times;</span>
 			<span class="sr-only"><%= htmlWebpackPlugin.options.i18n['Close'] %></span>
 		</button>
-		<h4 class="modal-title"><%= htmlWebpackPlugin.options.i18n['Lost password?'] %></h4>
+		<h4 class="modal-title"><%= htmlWebpackPlugin.options.i18n['Reset password'] %></h4>
 	</div>
 	<div class="modal-body">
 		<p><%= htmlWebpackPlugin.options.i18n['Lost_password_details'] %></p>
