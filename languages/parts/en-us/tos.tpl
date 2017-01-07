@@ -83,7 +83,7 @@
 		<a href="https://twitter.com/Wouaf_IT" class="twitter-follow-button" data-show-count="false">Follow @Wouaf_IT</a>
 	</div>
 	<hr />
-	<p>Wouaf IT © <%= htmlWebpackPlugin.options.data.year %>.</p>
+	<p>Wouaf IT © 2016-<%= htmlWebpackPlugin.options.data.year %>.</p>
 </div>
 <div class="modal-footer">
 	<button type="button" class="btn btn-secondary" data-dismiss="modal"><%= htmlWebpackPlugin.options.i18n['Close'] %></button>
