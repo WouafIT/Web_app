@@ -84,13 +84,13 @@ module.exports = (function() {
 				if (user.uid !== uid) {
 					var following = data.getArray('following');
 					if (utils.indexOf(following, user.uid) === -1) {
-						content += '<p class="text-xs-right"><button type="button" data-action="follow-user" data-uid="' + user.uid + '" class="btn btn-primary"><i class="fa fa-plus-circle"></i> ' + i18n.t('Follow this Wouaffer') + '</button></p>';
+						content += '<p class="text-right"><button type="button" data-action="follow-user" data-uid="' + user.uid + '" class="btn btn-primary"><i class="fa fa-plus-circle"></i> ' + i18n.t('Follow this Wouaffer') + '</button></p>';
 					} else {
-						content += '<p class="text-xs-right"><button type="button" data-action="unfollow-user" data-uid="' + user.uid + '" class="btn btn-primary"><i class="fa fa-pause-circle"></i> ' + i18n.t('Unfollow this Wouaffer') + '</button></p>';
+						content += '<p class="text-right"><button type="button" data-action="unfollow-user" data-uid="' + user.uid + '" class="btn btn-primary"><i class="fa fa-pause-circle"></i> ' + i18n.t('Unfollow this Wouaffer') + '</button></p>';
 					}
 				} else {
-					content += '<p class="text-xs-right m-t-1">' +
-									'<button type="button" data-href="facebook-events" data-show="modal" data-target="#modalWindow" class="pull-left btn btn-facebook" hidden><i class="fa fa-facebook-official"></i> ' + i18n.t('Your Facebook events') + '</button>' +
+					content += '<p class="text-right m-t-1">' +
+									'<button type="button" data-href="facebook-events" data-show="modal" data-target="#modalWindow" class="float-left btn btn-facebook" hidden><i class="fa fa-facebook-official"></i> ' + i18n.t('Your Facebook events') + '</button>' +
 									'<button type="button" data-href="profile" data-show="modal" data-target="#modalWindow" class="btn btn-primary"><i class="fa fa-pencil"></i> ' + i18n.t('Edit your profile') + '</button>' +
 							   '</p>';
 				}

@@ -25,7 +25,7 @@ module.exports = (function() {
 		offset: 	'0 100',
 		template: ['<div class="popover offset" role="tooltip">',
 						'<button type="button" class="close" aria-label="'+ i18n.t('Close') +'">',
-						'<span aria-hidden="true">&times;</span>',
+							'<span aria-hidden="true">&times;</span>',
 						'</button>',
 						'<h3 class="popover-title"></h3>',
 						'<div class="popover-content"></div>',

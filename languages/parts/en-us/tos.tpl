@@ -1,9 +1,8 @@
 <div class="modal-header">
+	<h4 class="modal-title">Terms of Service</h4>
 	<button type="button" class="close" data-dismiss="modal" aria-label="<%= htmlWebpackPlugin.options.i18n['Close'] %>">
 		<span aria-hidden="true">&times;</span>
-		<span class="sr-only"><%= htmlWebpackPlugin.options.i18n['Close'] %></span>
 	</button>
-	<h4 class="modal-title">Terms of Service</h4>
 </div>
 <div class="modal-body">
 	<h5>Terms of use :</h5>
@@ -77,7 +76,7 @@
 
 	<p>Follow Wouaf IT on <i class="fa fa-twitter"></i> <a href="https://twitter.com/Wouaf_IT" target="_blank">Twitter</a> and
 		<i class="fa fa-facebook-official"></i> <a href="https://www.facebook.com/wouafit/" target="_blank">Facebook</a> to get more informations!</p>
-	<div class="text-xs-right">
+	<div class="text-right">
 		<div class="fb-like" data-href="https://www.facebook.com/wouafit/" data-layout="button_count" data-action="like"
 			 data-size="small" data-show-faces="true" data-share="true"></div>
 		<a href="https://twitter.com/Wouaf_IT" class="twitter-follow-button" data-show-count="false">Follow @Wouaf_IT</a>

@@ -105,15 +105,15 @@ module.exports = (function() {
 		var open = function (options) {
 			if (options.text) {
 				var content =
-					'<div class="modal-header">' +
-					'	<button type="button" class="close" data-dismiss="modal" aria-label="' + i18n.t('Close') + '">' +
-					'		<span aria-hidden="true">&times;</span>' +
-					'		<span class="sr-only">' + i18n.t('Close') + '</span>' +
-					'	</button>';
+					'<div class="modal-header">';
 				if (options.title) {
 					content += '<h4 class="modal-title">' + options.title + '</h4>';
 				}
-				content += ' </div>' +
+				content +=
+					'	<button type="button" class="close" data-dismiss="modal" aria-label="' + i18n.t('Close') + '">' +
+					'		<span aria-hidden="true">&times;</span>' +
+					'	</button>' +
+					' </div>' +
 					'<div class="modal-body">'+ options.text +'</div>';
 				if (options.footer !== false) {
 					content += '<div class="modal-footer">';

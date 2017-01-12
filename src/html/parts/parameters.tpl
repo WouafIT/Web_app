@@ -1,10 +1,9 @@
 <div data-ui="parameters">
 	<div class="modal-header">
+		<h4 class="modal-title"><%= htmlWebpackPlugin.options.i18n['Application settings'] %></h4>
 		<button type="button" class="close" data-dismiss="modal" aria-label="<%= htmlWebpackPlugin.options.i18n['Close'] %>">
 			<span aria-hidden="true">&times;</span>
-			<span class="sr-only"><%= htmlWebpackPlugin.options.i18n['Close'] %></span>
 		</button>
-		<h4 class="modal-title"><%= htmlWebpackPlugin.options.i18n['Application settings'] %></h4>
 	</div>
 	<div class="modal-body">
 		<h4><%= htmlWebpackPlugin.options.i18n['Search settings'] %></h4>
@@ -48,8 +47,8 @@
 				<label><input type="checkbox" name="newsletter-notifications"> <%= htmlWebpackPlugin.options.i18n['Receive the newsletter of Wouaf IT'] %></label>
 			</div>
 
-			<p class="text-xs-right">
-				<button type="button" hidden data-href="profile" data-show="modal" data-target="#modalWindow" class="profile pull-left btn btn-secondary"><i class="fa fa-pencil"></i> <%= htmlWebpackPlugin.options.i18n['Edit your profile'] %></button>
+			<p class="text-right">
+				<button type="button" hidden data-href="profile" data-show="modal" data-target="#modalWindow" class="profile float-left btn btn-secondary"><i class="fa fa-pencil"></i> <%= htmlWebpackPlugin.options.i18n['Edit your profile'] %></button>
 				<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> <%= htmlWebpackPlugin.options.i18n['Save'] %></button>
 			</p>
 		</form>

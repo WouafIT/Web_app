@@ -1,10 +1,9 @@
 <div data-ui="create-profile">
     <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="<%= htmlWebpackPlugin.options.i18n['Close'] %>">
+		<h4 class="modal-title"><%= htmlWebpackPlugin.options.i18n['Create your profile'] %></h4>
+		<button type="button" class="close" data-dismiss="modal" aria-label="<%= htmlWebpackPlugin.options.i18n['Close'] %>">
             <span aria-hidden="true">&times;</span>
-            <span class="sr-only"><%= htmlWebpackPlugin.options.i18n['Close'] %></span>
         </button>
-        <h4 class="modal-title"><%= htmlWebpackPlugin.options.i18n['Create your profile'] %></h4>
     </div>
     <div class="modal-body">
 		<h4><%= htmlWebpackPlugin.options.i18n['Fill in the form below:'] %></h4>
@@ -48,13 +47,13 @@
 					</select>
 				</div>
 			</fieldset>
-			<div class="checkbox text-xs-center">
+			<div class="checkbox text-center">
 				<label>
 					<input type="checkbox" name="remember"> <%= htmlWebpackPlugin.options.i18n['Remember me on each connection'] %>
 				</label>
 			</div>
 
-			<p class="text-xs-right"><button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> <%= htmlWebpackPlugin.options.i18n['Create your profile'] %></button></p>
+			<p class="text-right"><button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> <%= htmlWebpackPlugin.options.i18n['Create your profile'] %></button></p>
 		</form>
 	</div>
     <div class="modal-footer">

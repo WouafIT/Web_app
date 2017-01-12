@@ -1,9 +1,8 @@
 <div class="modal-header">
+	<h4 class="modal-title">About Wouaf IT</h4>
 	<button type="button" class="close" data-dismiss="modal" aria-label="<%= htmlWebpackPlugin.options.i18n['Close'] %>">
 		<span aria-hidden="true">&times;</span>
-		<span class="sr-only"><%= htmlWebpackPlugin.options.i18n['Close'] %></span>
 	</button>
-	<h4 class="modal-title">About Wouaf IT</h4>
 </div>
 <div class="modal-body">
 
@@ -17,7 +16,7 @@
 					</a>
 				</h5>
 			</div>
-			<div id="collapseAboutOne" class="collapse in" role="tabpanel" aria-labelledby="headingAboutOne">
+			<div id="collapseAboutOne" class="collapse show" role="tabpanel" aria-labelledby="headingAboutOne">
 				<div class="card-block">
 					<p>Imagine a location-based source of information where everyone can report local events.
 						From the neighborhood protest to the sale of your sofa via the lost dog of your neighbor.</p>
@@ -46,7 +45,7 @@
 
 					<p>On Wouaf IT you can tell everybody, everything that is happening around you.</p>
 
-					<p class="text-xs-center"><img src="https://img.wouaf.it/outside.jpg" class="rounded img-fluid" /></p>
+					<p class="text-center"><img src="https://img.wouaf.it/outside.jpg" class="rounded img-fluid" /></p>
 				</div>
 			</div>
 		</div>
@@ -121,7 +120,7 @@
 
 	<p>Follow Wouaf IT on <i class="fa fa-twitter"></i> <a href="https://twitter.com/Wouaf_IT" target="_blank">Twitter</a> and
 		<i class="fa fa-facebook-official"></i> <a href="https://www.facebook.com/wouafit/" target="_blank">Facebook</a> to get more informations!</p>
-	<div class="text-xs-right">
+	<div class="text-right">
 		<div class="fb-like" data-href="https://www.facebook.com/wouafit/" data-layout="button_count" data-action="like"
 			 data-size="small" data-show-faces="true" data-share="true"></div>
 		<a href="https://twitter.com/Wouaf_IT" class="twitter-follow-button" data-show-count="false">Follow @Wouaf_IT</a>

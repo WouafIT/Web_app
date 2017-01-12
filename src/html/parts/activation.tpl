@@ -1,10 +1,9 @@
 <div data-ui="activation">
 	<div class="modal-header">
+		<h4 class="modal-title"><%= htmlWebpackPlugin.options.i18n['Activate your user profile'] %></h4>
 		<button type="button" class="close" data-dismiss="modal" aria-label="<%= htmlWebpackPlugin.options.i18n['Close'] %>">
 			<span aria-hidden="true">&times;</span>
-			<span class="sr-only"><%= htmlWebpackPlugin.options.i18n['Close'] %></span>
 		</button>
-		<h4 class="modal-title"><%= htmlWebpackPlugin.options.i18n['Activate your user profile'] %></h4>
 	</div>
 	<div class="modal-body">
 		<p><%= htmlWebpackPlugin.options.i18n['Validate this form to activate your email'] %></p>
@@ -16,7 +15,7 @@
 						   placeholder="<%= htmlWebpackPlugin.options.i18n['Your activation key'] %>" />
 				</div>
 			</fieldset>
-			<p class="text-xs-right"><button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> <%= htmlWebpackPlugin.options.i18n['Activate your profile'] %></button></p>
+			<p class="text-right"><button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> <%= htmlWebpackPlugin.options.i18n['Activate your profile'] %></button></p>
 		</form>
 	</div>
 	<div class="modal-footer">

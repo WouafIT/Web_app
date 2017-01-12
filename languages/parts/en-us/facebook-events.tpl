@@ -1,10 +1,9 @@
 <div data-ui="facebook-events">
 	<div class="modal-header">
+		<h4 class="modal-title"><%= htmlWebpackPlugin.options.i18n['Your Facebook events'] %></h4>
 		<button type="button" class="close" data-dismiss="modal" aria-label="<%= htmlWebpackPlugin.options.i18n['Close'] %>">
 			<span aria-hidden="true">&times;</span>
-			<span class="sr-only"><%= htmlWebpackPlugin.options.i18n['Close'] %></span>
 		</button>
-		<h4 class="modal-title"><%= htmlWebpackPlugin.options.i18n['Your Facebook events'] %></h4>
 	</div>
 	<div class="modal-body">
 		<div class="no-email alert alert-danger" role="alert" hidden>
@@ -38,14 +37,14 @@
 
 						<div class="events-disabled alert alert-danger" role="alert" hidden>
 							<strong>Oh snap!</strong> You have not allowed Wouaf IT to see your Facebook events. We therefore can not import your events...
-							<div class="text-xs-center"><button type="button" class="btn btn-success btn-sm events-rerequest">Fix this?</button></div>
+							<div class="text-center"><button type="button" class="btn btn-success btn-sm events-rerequest">Fix this?</button></div>
 						</div>
 
 						<div class="no-events alert alert-warning" role="alert" hidden>
 							<strong>Oh snap!</strong> You have no public events to come. So we can not import anything...
 						</div>
 
-						<p class="text-xs-center"><button type="button" class="btn btn-secondary btn-facebook events-import" disabled><i class="fa fa-cloud-download"></i> <%= htmlWebpackPlugin.options.i18n['Import'] %></button></p>
+						<p class="text-center"><button type="button" class="btn btn-secondary btn-facebook events-import" disabled><i class="fa fa-cloud-download"></i> <%= htmlWebpackPlugin.options.i18n['Import'] %></button></p>
 
 					</div>
 				</div>
@@ -66,14 +65,14 @@
 
 						<div class="pages-disabled alert alert-danger" role="alert" hidden>
 							<strong>Oh snap!</strong> You have not allowed Wouaf IT to see your Facebook pages. We therefore can not import your events...
-							<div class="text-xs-center"><button type="button" class="btn btn-success btn-sm pages-rerequest">Fix this?</button></div>
+							<div class="text-center"><button type="button" class="btn btn-success btn-sm pages-rerequest">Fix this?</button></div>
 						</div>
 
 						<div class="no-pages-events alert alert-warning" role="alert" hidden>
 							<strong>Oh snap!</strong> You have no Facebook page that you are an administrator. So we can not import anything ...
 						</div>
 
-						<p class="text-xs-center"><button type="button" class="btn btn-secondary btn-facebook pages-import" disabled><i class="fa fa-cloud-download"></i> <%= htmlWebpackPlugin.options.i18n['Import'] %></button></p>
+						<p class="text-center"><button type="button" class="btn btn-secondary btn-facebook pages-import" disabled><i class="fa fa-cloud-download"></i> <%= htmlWebpackPlugin.options.i18n['Import'] %></button></p>
 					</div>
 				</div>
 			</div>

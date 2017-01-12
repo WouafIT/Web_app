@@ -1,15 +1,14 @@
 <div data-ui="add">
 	<div class="modal-header">
+		<h4 class="modal-title"><%= htmlWebpackPlugin.options.i18n['Add a new Wouaf'] %></h4>
 		<button type="button" class="close" data-dismiss="modal" aria-label="<%= htmlWebpackPlugin.options.i18n['Close'] %>">
 			<span aria-hidden="true">&times;</span>
-			<span class="sr-only"><%= htmlWebpackPlugin.options.i18n['Close'] %></span>
 		</button>
-		<h4 class="modal-title"><%= htmlWebpackPlugin.options.i18n['Add a new Wouaf'] %></h4>
 	</div>
 	<div class="modal-body">
 		<h4><%= htmlWebpackPlugin.options.i18n['Fill in the form below:'] %></h4>
 		<form>
-			<div class="text-xs-right"><small class="help"><i class="fa fa-question-circle"></i> <%= htmlWebpackPlugin.options.i18n['Need help'] %></small></div>
+			<div class="text-right"><small class="help"><i class="fa fa-question-circle"></i> <%= htmlWebpackPlugin.options.i18n['Need help'] %></small></div>
 
 			<fieldset class="form-group">
 				<label for="category"><%= htmlWebpackPlugin.options.i18n['Category'] %></label>
@@ -26,7 +25,7 @@
 
 			<fieldset class="form-group">
 				<textarea class="form-control" rows="5" name="content" id="content" placeholder="<%= htmlWebpackPlugin.options.i18n['Enter your content (300 char. max)'] %>"></textarea>
-				<div class="text-xs-right"><small class="text-muted remaining"></small></div>
+				<div class="text-right"><small class="text-muted remaining"></small></div>
 			</fieldset>
 
 			<div class="dropzone"></div>
@@ -96,7 +95,7 @@
 				<label><input type="checkbox" name="post-notifications"> <%= htmlWebpackPlugin.options.i18n['Be notified by email for feedback on this Wouaf'] %></label>
 			</div>
 
-			<p class="text-xs-right"><button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> <%= htmlWebpackPlugin.options.i18n['Save your Wouaf'] %></button></p>
+			<p class="text-right"><button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> <%= htmlWebpackPlugin.options.i18n['Save your Wouaf'] %></button></p>
 		</form>
 	</div>
 	<div class="modal-footer">

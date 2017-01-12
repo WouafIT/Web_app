@@ -17,7 +17,7 @@ module.exports = (function() {
 		if (!id) {
 			return;
 		}
-		if ($target.hasClass('in')) {
+		if ($target.hasClass('show')) {
 			$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: id});
 			//scroll parent
 			var $parent = $target.parents('.w-accordion');

@@ -277,7 +277,7 @@ module.exports = (function() {
 						windows.show({
 							title: i18n.t('Report this Wouaf'),
 							text: (i18n.t('report_details')
-									+'<br /><br /><p class="text-xs-center"><img src="https://img.wouaf.it/kill-kitten.jpg" style="max-width:100%;" /></p>'),
+									+'<br /><br /><p class="text-center"><img src="https://img.wouaf.it/kill-kitten.jpg" style="max-width:100%;" /></p>'),
 							confirm: function() {
 								query.reportPost(obj.id,
 									function() {
@@ -340,7 +340,7 @@ module.exports = (function() {
 						windows.show({
 							title: i18n.t('Report this comment'),
 							text: (i18n.t('report_comment_details')
-									+'<br /><br /><p class="text-xs-center"><img src="https://img.wouaf.it/kill-kitten.jpg" style="max-width:100%;" /></p>'),
+									+'<br /><br /><p class="text-center"><img src="https://img.wouaf.it/kill-kitten.jpg" style="max-width:100%;" /></p>'),
 							confirm: function() {
 								query.reportComment(commentId,
 									function() {

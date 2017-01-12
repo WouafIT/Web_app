@@ -1,10 +1,9 @@
 <div data-ui="profile">
 	<div class="modal-header">
+		<h4 class="modal-title"><%= htmlWebpackPlugin.options.i18n['Edit your profile'] %></h4>
 		<button type="button" class="close" data-dismiss="modal" aria-label="<%= htmlWebpackPlugin.options.i18n['Close'] %>">
 			<span aria-hidden="true">&times;</span>
-			<span class="sr-only"><%= htmlWebpackPlugin.options.i18n['Close'] %></span>
 		</button>
-		<h4 class="modal-title"><%= htmlWebpackPlugin.options.i18n['Edit your profile'] %></h4>
 	</div>
 	<div class="modal-body">
 		<h4><%= htmlWebpackPlugin.options.i18n['Edit your profile information below:'] %></h4>
@@ -68,7 +67,7 @@
 			<fieldset class="form-group">
 				<label for="description"><%= htmlWebpackPlugin.options.i18n['Description'] %></label>
 				<textarea class="form-control" rows="5" name="description" id="description" placeholder="<%= htmlWebpackPlugin.options.i18n['Describe yourself briefly (300 char. max)'] %>"></textarea>
-				<div class="text-xs-right"><small class="text-muted remaining"></small></div>
+				<div class="text-right"><small class="text-muted remaining"></small></div>
 			</fieldset>
 
 			<fieldset class="form-group">
@@ -103,8 +102,8 @@
 				</div>
 			</fieldset>
 
-			<p class="text-xs-right">
-				<button type="button" class="pull-left profile-delete btn btn-danger"><i class="fa fa-trash"></i> <%= htmlWebpackPlugin.options.i18n['Delete your profile'] %></button>
+			<p class="text-right">
+				<button type="button" class="float-left profile-delete btn btn-danger"><i class="fa fa-trash"></i> <%= htmlWebpackPlugin.options.i18n['Delete your profile'] %></button>
 				<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> <%= htmlWebpackPlugin.options.i18n['Save your profile'] %></button>
 			</p>
 		</form>

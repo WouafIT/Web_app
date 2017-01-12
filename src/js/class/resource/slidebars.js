@@ -297,7 +297,7 @@ module.exports = (function() {
 				'<p class="lead">', i18n.t('create_wouaf_it_profile'), '</p>',
 				'<hr class="m-y-md">',
 				'<p>', i18n.t('use_wouaf_it_profile'), '</p>',
-				'<p class="lead text-xs-right">',
+				'<p class="lead text-right">',
 				'<a class="btn btn-primary btn-lg" href="/login/" role="button"',
 				' data-href="login"',
 				' data-toggle="modal" data-target="#modalWindow">', i18n.t('Login'), '</a>',

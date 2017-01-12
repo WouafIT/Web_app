@@ -224,7 +224,7 @@ module.exports = (function() {
 		}
 		content.push('</div>');
 		if (l > max) {
-			content.push('<div class="w-more"><p class="text-muted text-xs-center">'+ i18n.t('{{count}} more. Zoom in to see all of them', {count: l - max}) +'</p></div>');
+			content.push('<div class="w-more"><p class="text-muted text-center">'+ i18n.t('{{count}} more. Zoom in to see all of them', {count: l - max}) +'</p></div>');
 		}
 		return content.join('');
 	};

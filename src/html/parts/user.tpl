@@ -1,10 +1,9 @@
 <div data-ui="user">
 	<div class="modal-header">
+		<h4 class="modal-title"></h4>
 		<button type="button" class="close" data-dismiss="modal" aria-label="<%= htmlWebpackPlugin.options.i18n['Close'] %>">
 			<span aria-hidden="true">&times;</span>
-			<span class="sr-only"><%= htmlWebpackPlugin.options.i18n['Close'] %></span>
 		</button>
-		<h4 class="modal-title"></h4>
 	</div>
 	<div class="modal-body"></div>
 	<div class="modal-footer">

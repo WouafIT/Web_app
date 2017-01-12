@@ -20,7 +20,7 @@
 		<%= htmlWebpackPlugin.options.i18n['Your social network for your local events'] %></title>
 	<meta name="description" content="<%= htmlWebpackPlugin.options.i18n['Wouaf IT'] %> -
 		<%= htmlWebpackPlugin.options.i18n['Wouaf_IT_description'] %>" />
-	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" />
 	<link rel="apple-touch-icon-precomposed" href="apple-touch-icon.png" />
 	<style>body{background: #2B9D48 url(https://<%= htmlWebpackPlugin.options.data.imgDomain %>/logo.png) 20% 0 no-repeat;color: #FFF;}

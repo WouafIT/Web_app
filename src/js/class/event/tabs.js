@@ -99,16 +99,15 @@ module.exports = (function() {
 	$document.on('tabs.resize', function() {
 		var $container 		= $slidebar.find('>div.container');
 		var containerHeight = $container.outerHeight();
-		var tabsHeight 		= $container.find('>.row').outerHeight();
+		var tabsHeight 		= $container.find('.nav-tabs').outerHeight();
 		$container.find('.tab-pane').each(function () {
 			var $panel 		= $(this);
 			var $tabHead 	= $panel.find('.tab-head');
-			var $tabContent = $panel.find('>.row');
+			var $tabContent = $panel.find('.tab-content-list');
 			if ($tabContent.length) {
 				//console.info($tabHead.text(), $tabHead.outerHeight(), $tabHead.height());
 				$tabContent.height(containerHeight - tabsHeight - ($tabHead.length ? 36 : 0));
 			} else {
-				$panel.addClass('scrollable');
 				$panel.height(containerHeight - tabsHeight);
 			}
 		});
@@ -349,7 +348,7 @@ module.exports = (function() {
 		$wouafList.sort(function(a, b) {
 			return (dir === 'asc') ? $(a).data(data.action) - $(b).data(data.action) : $(b).data(data.action) - $(a).data(data.action);
 		});
-		$tabPanel.find('.row').html($wouafList);
+		$tabPanel.find('.tab-content-list').html($wouafList);
 	});
 
 	$document.on('app.added-favorite app.deleted-favorite', function (e, obj) {

@@ -366,7 +366,7 @@ module.exports = (function () {
 			windows.show({
 				title: i18n.t('Error loading map'),
 				text: i18n.t('Error loading map_details')
-					+'<br /><br /><p class="text-xs-center"><img src="https://img.wouaf.it/lolcat.jpg" style="max-width:100%;" /></p>'
+					+'<br /><br /><p class="text-center"><img src="https://img.wouaf.it/lolcat.jpg" style="max-width:100%;" /></p>'
 			});
 			//TODO send an ajax request to inform API of the error
 			return true;

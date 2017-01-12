@@ -19,7 +19,7 @@ module.exports = (function() {
 						'</button>',
 						'<p class="lead">', i18n.t('{{count}} result', {count: l}) ,' <span class="update-search"> - <a href="#search" data-action="search">', i18n.t('Edit your search') ,'</a></span></p>',
 					'</div>',
-					'<div class="row">'
+					'<div class="tab-content-list">'
 				]);
 				//store wouafs
 				wouafs.sets(data.data.results);
@@ -39,7 +39,7 @@ module.exports = (function() {
 						'<p class="lead">', i18n.t('At the moment there are no Wouaf there with your search parameters') ,'</p>',
 						'<hr class="m-y-md">',
 						'<p>', i18n.t('what if you add one yourself') ,'</p>',
-						'<p class="lead text-xs-right">',
+						'<p class="lead text-right">',
 						'<a class="btn btn-primary btn-lg" href="/add/" role="button"',
 						' data-action="add">', i18n.t('Add a Wouaf') ,'</a>',
 						'</p>',
@@ -56,7 +56,7 @@ module.exports = (function() {
 						'</button>',
 						'<p class="lead">', (title ? title : i18n.t('{{count}} Wouaf', {count: l})) ,'</p>',
 					'</div>',
-					'<div class="row">'
+					'<div class="tab-content-list">'
 				]);
 				//store wouafs
 				wouafs.sets(data.data.results);
@@ -77,7 +77,7 @@ module.exports = (function() {
 				'<div class="tab-head">',
 					'<p class="lead">', title ,'</p>',
 				'</div>',
-				'<div class="row">'
+				'<div class="tab-content-list">'
 			]);
 			//store users
 			users.sets(data.data.results);

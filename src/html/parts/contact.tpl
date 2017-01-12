@@ -1,10 +1,9 @@
 <div data-ui="contact">
     <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="<%= htmlWebpackPlugin.options.i18n['Close'] %>">
+		<h4 class="modal-title"></h4>
+		<button type="button" class="close" data-dismiss="modal" aria-label="<%= htmlWebpackPlugin.options.i18n['Close'] %>">
             <span aria-hidden="true">&times;</span>
-            <span class="sr-only"><%= htmlWebpackPlugin.options.i18n['Close'] %></span>
         </button>
-        <h4 class="modal-title"></h4>
     </div>
     <div class="modal-body">
 		<form>
@@ -18,9 +17,9 @@
 			</fieldset>
 			<fieldset class="form-group">
 				<textarea class="form-control" rows="8" name="content" id="content" placeholder="<%= htmlWebpackPlugin.options.i18n['Enter your message (5000 char. max)'] %>"></textarea>
-				<div class="text-xs-right"><small class="text-muted remaining"></small></div>
+				<div class="text-right"><small class="text-muted remaining"></small></div>
 			</fieldset>
-			<p class="text-xs-right"><button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> <%= htmlWebpackPlugin.options.i18n['Send your message'] %></button></p>
+			<p class="text-right"><button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> <%= htmlWebpackPlugin.options.i18n['Send your message'] %></button></p>
 		</form>
 	</div>
 	<div class="modal-footer">

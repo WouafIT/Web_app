@@ -14,7 +14,7 @@
 </div>
 <div class="sb-slidebar sb-width-wide sb-left">
 	<header>
-		<nav class="nav pull-right">
+		<nav class="float-right">
 			<div class="anonymous">
 				<i class="fa fa-sign-in"></i> <a href="/login/"
 												 data-href="login"
@@ -35,22 +35,19 @@
 		<h2 class="description"><%= htmlWebpackPlugin.options.i18n['Your social network for your local events'] %></h2>
 	</header>
 	<div class="container">
-		<div class="row">
-			<ul class="nav nav-tabs" role="tablist">
-				<li class="nav-item">
-					<a href="#search" class="nav-link active" id="tab-search" role="tab" data-toggle="tab">
-						<i class="fa fa-search"></i> <%= htmlWebpackPlugin.options.i18n['Search'] %>
-					</a>
-				</li>
-				<li class="nav-item dropdown">
-					<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-						<i class="fa fa-list"></i> <%= htmlWebpackPlugin.options.i18n['Your Wouafs'] %>
-					</a>
-					<div class="dropdown-menu"></div>
-				</li>
-				</li>
-			</ul>
-		</div>
+		<ul class="nav nav-tabs" role="tablist">
+			<li class="nav-item">
+				<a href="#search" class="nav-link active" id="tab-search" role="tab" data-toggle="tab">
+					<i class="fa fa-search"></i> <%= htmlWebpackPlugin.options.i18n['Search'] %>
+				</a>
+			</li>
+			<li class="nav-item dropdown">
+				<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+					<i class="fa fa-list"></i> <%= htmlWebpackPlugin.options.i18n['Your Wouafs'] %>
+				</a>
+				<div class="dropdown-menu"></div>
+			</li>
+		</ul>
 		<!-- Tab panes -->
 		<div class="tab-content">
 			<div role="tabpanel" class="tab-pane active" id="search">
@@ -61,8 +58,8 @@
 						<div class="input-group">
 							<div class="input-group-addon"><i class="fa fa-question-circle"></i></div>
 							<div class="form-control custom-select"><%= htmlWebpackPlugin.options.i18n['All events'] %></div>
-							<input type="hidden" value="" name="what" id="what" />
 						</div>
+						<input type="hidden" value="" name="what" id="what" />
 					</fieldset>
 					<div class="checkbox">
 						<label><input type="checkbox" name="children"> <i class="fa fa-child"></i> <%= htmlWebpackPlugin.options.i18n['For Children'] %></label>
@@ -74,7 +71,7 @@
 							<input type="text" class="form-control" id="where"
 								   placeholder="<%= htmlWebpackPlugin.options.i18n['Map center'] %>" />
 							<div id="where-empty" class="input-group-addon" hidden>
-								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<button type="button" class="close">&times;</button>
 							</div>
 						</div>
 						<input type="hidden" id="where-loc" />
@@ -118,23 +115,20 @@
 							<input type="text" class="form-control" id="hashtag"
 								   placeholder="<%= htmlWebpackPlugin.options.i18n['Keyword Theme'] %>" />
 							<div id="hashtag-empty" class="input-group-addon" hidden>
-								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<button type="button" class="close">&times;</button>
 							</div>
 						</div>
 					</fieldset>
-
-					<div class="row">
-						<p class="text-xs-center">
-							<button type="submit" class="btn btn-primary">
-								<i class="fa fa-search"></i> <%= htmlWebpackPlugin.options.i18n['Search!'] %></button>
-						</p>
+					<div class="text-center">
+						<button type="submit" class="btn btn-primary">
+							<i class="fa fa-search"></i> <%= htmlWebpackPlugin.options.i18n['Search!'] %></button>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
 	<footer class="container">
-		<nav class="nav text-xs-center">
+		<nav class="text-center">
 			<span class="line">
 				<i class="fa fa-info-circle"></i>&nbsp;<a href="/about/" data-href="about"
 													 data-toggle="modal" data-target="#modalWindow"><%= htmlWebpackPlugin.options.i18n.About %></a> |
