@@ -185,7 +185,7 @@ module.exports = (function() {
 		self.show({
 			href: 'login',
 			open: function () {
-				alert.show(msg, $('.modal-body'), 'danger');
+				alert.show(msg, $('.modal-body'), 'warning');
 			}
 		})
 	};
