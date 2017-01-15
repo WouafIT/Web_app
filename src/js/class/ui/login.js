@@ -90,7 +90,7 @@ module.exports = (function() {
 				//logout
 				$document.triggerHandler('app.logout');
 				if (msg) {
-					alert.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0]), interpolation: {escapeValue: false}}), $form, 'danger');
+					alert.show(i18n.t('Heads up {{error}}', {error: i18n.t(msg[0]), interpolation: {escapeValue: false}}), $form, 'warning');
 				} else {
 					query.connectionError();
 				}

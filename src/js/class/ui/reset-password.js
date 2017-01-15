@@ -39,7 +39,7 @@ module.exports = (function() {
 
 				toast.show(i18n.t('Password updated'));
 			}, function(msg) { //error
-				alert.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), $form, 'danger');
+				alert.show(i18n.t('Heads up {{error}}', {error: i18n.t(msg[0]), interpolation: {escapeValue: false}}), $form, 'warning');
 			});
 		});
 
