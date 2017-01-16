@@ -58,6 +58,7 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/i18next/4.2.0/i18next.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.swipebox/1.4.4/js/jquery.swipebox.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.1/zxcvbn.js"></script>
 <script src="//connect.facebook.net/<%= htmlWebpackPlugin.options.i18n['languageLong'] %>/sdk.js"></script>
 <script src="//platform.twitter.com/widgets.js"></script>
 <script src="//www.google-analytics.com/analytics.js"></script>

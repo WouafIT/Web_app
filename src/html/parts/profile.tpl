@@ -24,13 +24,15 @@
 				<small class="text-muted"><%= htmlWebpackPlugin.options.i18n['We\'ll never share your email with anyone else.'] %></small>
 			</fieldset>
 
-
 			<fieldset class="form-group">
 				<label for="password"><%= htmlWebpackPlugin.options.i18n['Enter a new password if you want to change it'] %></label>
 				<div class="input-group">
 					<div class="input-group-addon"><i class="fa fa-key"></i></div>
 					<input id="password" type="password" class="form-control" name="pass"
 						   placeholder="<%= htmlWebpackPlugin.options.i18n['Password'] %>" />
+				</div>
+				<div class="progress">
+					<div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
 				</div>
 			</fieldset>
 			<fieldset class="form-group">

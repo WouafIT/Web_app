@@ -10,6 +10,7 @@ var users = require('../resource/users.js');
 var formUtils = require('./form-utils.js');
 var alert = require('../resource/alert.js');
 var utils = require('../utils.js');
+var password = require('../resource/password.js');
 
 module.exports = (function() {
 	var $modalWindow = windows.getWindows();
@@ -32,6 +33,8 @@ module.exports = (function() {
 		var $gender = $form.find('select[name=gender]');
 		var $url = $form.find('input[name=url]');
 		var $delete = $form.find('button.profile-delete');
+		var $progress = $form.find('.progress-bar');
+
 		//set current values
 		$username.val(user.get('username'));
 		$description.val(user.get('description'));
@@ -41,6 +44,10 @@ module.exports = (function() {
 		$language.val(user.get('lang'));
 		$gender.val(user.get('gender'));
 		$url.val(user.get('url'));
+
+		$pass.on('change keyup paste', function () {
+			password.score($pass, $progress, [$username.val(), $displayname.val()]);
+		});
 
 		//description count remaining chars
 		$description.on('change keyup paste', function() {

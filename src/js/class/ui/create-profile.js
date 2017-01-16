@@ -5,6 +5,7 @@ var i18n = require('../resource/i18n.js');
 var formUtils = require('./form-utils.js');
 var alert = require('../resource/alert.js');
 var query = require('../resource/query.js');
+var password = require('../resource/password.js');
 
 module.exports = (function() {
 	var $document = $(document);
@@ -22,10 +23,14 @@ module.exports = (function() {
 		var $email = $form.find('input[name=email]');
 		var $language = $form.find('select[name=language]');
 		var $remember = $form.find('input[name=remember]');
+		var $progress = $form.find('.progress-bar');
 		//set current language
 		if (window.location.hostname.substr(0, 5) !== 'fr-fr') {
 			$language.val('en_US');
 		}
+		$pass.on('change keyup paste', function () {
+			password.score($pass, $progress, [$username.val()]);
+		});
 		//form field validation and submition
 		formUtils.init($form, function ($field) {
 			//fields validation

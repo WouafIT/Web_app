@@ -15,6 +15,9 @@
 					<input id="password" type="password" class="form-control" name="pass"
 						   placeholder="<%= htmlWebpackPlugin.options.i18n['Password'] %>" />
 				</div>
+				<div class="progress">
+					<div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+				</div>
 			</fieldset>
 			<fieldset class="form-group">
 				<div class="input-group">

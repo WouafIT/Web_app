@@ -5,6 +5,7 @@ var query = require('../resource/query.js');
 var formUtils = require('./form-utils.js');
 var alert = require('../resource/alert.js');
 var toast = require('../resource/toast.js');
+var password = require('../resource/password.js');
 
 module.exports = (function() {
 	var self = {};
@@ -14,6 +15,12 @@ module.exports = (function() {
 		var $form = $modalWindow.find('form');
 		var $key = $form.find('input[name=reset-password]');
 		var $pass = $form.find('input[name=pass]');
+		var $progress = $form.find('.progress-bar');
+
+		$pass.on('change keyup paste', function () {
+			password.score($pass, $progress, []);
+		});
+
 		//form field validation and submition
 		formUtils.init($form, function ($field) {
 			//fields validation

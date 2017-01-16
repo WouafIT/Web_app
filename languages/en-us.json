@@ -459,6 +459,12 @@
 	"Enter and confirm your new password below": "Enter and confirm your new password below",
 	"Password updated": "Password updated! You can now log in.",
 
+	"tooWeak": "Weak",
+	"weak": "Poor",
+	"medium": "Medium",
+	"strong": "Strong",
+	"veryStrong": "Very Strong",
+
 	"Import error: Your profile has no valid email address.": "Your profile does not have a valid e-mail address. Add your email address to <a href=\"/profile/\" data-href=\"profile\" data-show=\"modal\" data-target=\"#modalWindow\">your profile</a> before importing your Facebook events.",
 	"Login and password mismatch.": "Your username and password do not match.",
 	"This username already exist, try another one.": "This username already exists, please choose another one.",
