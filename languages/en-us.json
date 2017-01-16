@@ -123,7 +123,8 @@
     "create_wouaf_it_profile": "If you do not have your Wouaf IT profile, it's time to create one! It's free and only takes seconds.",
     "use_wouaf_it_profile": "and if you already have your profile, what are you waiting for to login?",
 
-	"ID / Nickname": "ID / Nickname",
+	"ID / Username": "ID / Username",
+	"ID / Username_details": "Your username must not contain spaces or special characters.",
 	"Email": "Email",
 	"Password": "Password",
 	"Remember me": "Remember me",
