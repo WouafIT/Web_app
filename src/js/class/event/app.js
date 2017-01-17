@@ -203,12 +203,9 @@ module.exports = (function() {
 	window.onerror = function (msg, url, lineNo, columnNo, error) {
 		if (__DEV__) {
 			console.info('Javascript error', arguments);
-		}
-		if (msg === 'Script error.' && lineNo === 0 && columnNo === 0 && !url) {
-			return;
-		}
-		if (!__DEV__ && msg === 'Error: Modal is transitioning') {
-			window.location.reload();
+		} else if ((msg === 'Script error.' && lineNo === 0 && columnNo === 0 && !url)
+					|| msg.indexOf('is transitioning') !== -1
+				) {
 			return;
 		}
 		query.logJsError({
