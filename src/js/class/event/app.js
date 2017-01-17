@@ -207,6 +207,10 @@ module.exports = (function() {
 		if (msg === 'Script error.' && lineNo === 0 && columnNo === 0 && !url) {
 			return;
 		}
+		if (!__DEV__ && msg === 'Error: Modal is transitioning') {
+			window.location.reload();
+			return;
+		}
 		query.logJsError({
 			msg: msg,
 			url: url,
