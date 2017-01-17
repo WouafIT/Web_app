@@ -261,6 +261,15 @@ module.exports = (function() {
 				errorCallback: errorCallback
 			});
 		},
+		updateUsername: function updateUsername(datas, successCallback, errorCallback) {
+			query({
+				method: 'PUT',
+				url: 	ENDPOINT + '/users/'+ data.getString('uid')+'/username',
+				data:	datas,
+				successCallback: successCallback,
+				errorCallback: errorCallback
+			});
+		},
 		deleteUser: function deleteUser(callback) {
 			query({
 				method: 'DELETE',

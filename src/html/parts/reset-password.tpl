@@ -6,7 +6,6 @@
 		</button>
 	</div>
 	<div class="modal-body">
-		<p><%= htmlWebpackPlugin.options.i18n['Entrez'] %></p>
 		<form>
 			<fieldset class="form-group">
 				<label for="password"><%= htmlWebpackPlugin.options.i18n['Enter and confirm your new password below'] %></label>

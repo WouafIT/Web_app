@@ -12,9 +12,9 @@
 				<div class="input-group">
 					<div class="input-group-addon"><i class="fa fa-user"></i></div>
 					<input type="text" class="form-control" name="username" maxlength="40"
-						   placeholder="<%= htmlWebpackPlugin.options.i18n['ID / Username'] %>" />
+						   placeholder="<%= htmlWebpackPlugin.options.i18n['Username'] %>" />
 				</div>
-				<small class="text-muted"><%= htmlWebpackPlugin.options.i18n['ID / Username_details'] %></small>
+				<small class="text-muted"><%= htmlWebpackPlugin.options.i18n['Username_details'] %></small>
 			</fieldset>
 			<fieldset class="form-group">
 				<div class="input-group">

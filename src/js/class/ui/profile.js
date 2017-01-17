@@ -34,6 +34,7 @@ module.exports = (function() {
 		var $url = $form.find('input[name=url]');
 		var $delete = $form.find('button.profile-delete');
 		var $progress = $form.find('.progress-bar');
+		var $editUsername = $form.find('.edit-username');
 
 		//set current values
 		$username.val(user.get('username'));
@@ -44,6 +45,12 @@ module.exports = (function() {
 		$language.val(user.get('lang'));
 		$gender.val(user.get('gender'));
 		$url.val(user.get('url'));
+
+		$editUsername.on('click', function() {
+			windows.show({
+				href: 'edit-username'
+			});
+		});
 
 		$pass.on('change keyup paste', function () {
 			password.score($pass, $progress, [$username.val(), $displayname.val()]);

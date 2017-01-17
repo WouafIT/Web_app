@@ -123,8 +123,8 @@
     "create_wouaf_it_profile": "Si vous n'avez pas encore votre compte Wouaf IT, c'est le moment d'en créer un ! C'est gratuit et cela ne prend que quelques secondes.",
     "use_wouaf_it_profile": "et si vous avez déjà votre compte, qu'attendez-vous pour vous connecter ?",
 
-	"ID / Username": "Identifiant / Pseudo",
-	"ID / Username_details": "Votre identifiant ne doit pas contenir d'espace ou de caractères spéciaux.",
+	"Username": "Identifiant",
+	"Username_details": "Votre identifiant ne doit pas contenir d'espace ou de caractères spéciaux. Ne vous inquietez pas, vous pourrez le modifier plus tard.",
 	"Email": "Email",
 	"Password": "Mot de passe",
 	"Remember me": "Se souvenir de moi",
@@ -404,7 +404,6 @@
 	"{{count}} result": "{{count}} résultat",
 	"{{count}} result_plural": "{{count}} résultats",
 	"No Wouaf yet": "Aucun wouaf pour le moment",
-	"No Wouaf yet": "Aucun wouaf pour le moment",
 
 	"Hide Wouafs gone": "Masquer les Wouafs révolu",
 	"Sort by Proximity": "Trier par Proximité",
@@ -464,6 +463,11 @@
 	"medium": "Normal",
 	"strong": "Fort",
 	"veryStrong": "Très fort",
+
+	"Edit your username": "Mettre à jour votre identifiant",
+	"Validate your username": "Valider votre identifiant",
+	"Edit your username_details": "Votre identifiant ne doit pas contenir d'espace ou de caractères spéciaux. Attention si vous modifiez votre identifiant, l'adresse URL vers votre profil sera modifiée en conséquence.",
+	"Username updated": "Votre identifiant a bien été mis à jour !",
 
 	"Import error: Your profile has no valid email address.": "Votre profil n'a pas d'adresse e-mail valide. Ajoutez votre adresse email à <a href=\"/profile/\" data-href=\"profile\" data-show=\"modal\" data-target=\"#modalWindow\">votre profil</a> pour permettre l'importation de vos événements Facebook.",
 	"Login and password mismatch.": "Votre identifiant ou votre mot de passe sont incorrect ...",

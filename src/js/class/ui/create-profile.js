@@ -28,6 +28,19 @@ module.exports = (function() {
 		if (window.location.hostname.substr(0, 5) !== 'fr-fr') {
 			$language.val('en_US');
 		}
+		$username.on('change keyup keydown keypress paste', function (e) {
+			var invalidChars = /[^0-9a-z_]/gi;
+			if (e.type === 'keypress') {
+				var char = String.fromCharCode(e.keyCode || e.which);
+				if (char && invalidChars.test(char)) {
+					e.preventDefault();
+				}
+			}
+			var value = $username.val();
+			if(value && invalidChars.test(value)) {
+				$username.val(value.replace(invalidChars, ''));
+			}
+		});
 		$pass.on('change keyup paste', function () {
 			password.score($pass, $progress, [$username.val()]);
 		});
@@ -36,7 +49,7 @@ module.exports = (function() {
 			//fields validation
 			switch($field.attr('name')) {
 				case 'username':
-					return $field.val().length && $field.val().length <= 30
+					return $field.val().length && $field.val().length <= 40
 						&& utils.isValidUsername($field.val());
 				case 'pass':
 					return $field.val().length >= 6 && $field.val().length <= 100;

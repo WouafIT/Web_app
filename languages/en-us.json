@@ -123,8 +123,8 @@
     "create_wouaf_it_profile": "If you do not have your Wouaf IT profile, it's time to create one! It's free and only takes seconds.",
     "use_wouaf_it_profile": "and if you already have your profile, what are you waiting for to login?",
 
-	"ID / Username": "ID / Username",
-	"ID / Username_details": "Your username must not contain spaces or special characters.",
+	"Username": "Username",
+	"Username_details": "Your username must not contain spaces or special characters. Do not worry, you can change it later.",
 	"Email": "Email",
 	"Password": "Password",
 	"Remember me": "Remember me",
@@ -464,6 +464,11 @@
 	"medium": "Medium",
 	"strong": "Strong",
 	"veryStrong": "Very Strong",
+
+	"Edit your username": "Edit your username",
+	"Validate your username": "Validate your username",
+	"Edit your username_details": "Your username must not contain spaces or special characters. Be careful if you change your username, the link URL to your profile will be modified accordingly.",
+	"Username updated": "Your username has been updated!",
 
 	"Import error: Your profile has no valid email address.": "Your profile does not have a valid e-mail address. Add your email address to <a href=\"/profile/\" data-href=\"profile\" data-show=\"modal\" data-target=\"#modalWindow\">your profile</a> before importing your Facebook events.",
 	"Login and password mismatch.": "Your username and password do not match.",

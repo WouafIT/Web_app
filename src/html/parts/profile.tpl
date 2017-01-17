@@ -12,7 +12,10 @@
 				<div class="input-group">
 					<div class="input-group-addon"><i class="fa fa-user"></i></div>
 					<input type="text" class="form-control" name="username" readonly
-						   placeholder="<%= htmlWebpackPlugin.options.i18n['ID / Nickname'] %>" />
+						   placeholder="<%= htmlWebpackPlugin.options.i18n['Username'] %>" />
+					<span class="input-group-btn">
+						<button class="edit-username btn btn-secondary" type="button"><i class="fa fa-pencil"></i></button>
+					</span>
 				</div>
 			</fieldset>
 			<fieldset class="form-group">
