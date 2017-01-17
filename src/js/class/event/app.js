@@ -204,6 +204,9 @@ module.exports = (function() {
 		if (__DEV__) {
 			console.info('Javascript error', arguments);
 		}
+		if (msg === 'Script error.' && lineNo === 0 && columnNo === 0 && !url) {
+			return;
+		}
 		query.logJsError({
 			msg: msg,
 			url: url,
