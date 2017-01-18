@@ -23,7 +23,7 @@
 					<p>Les sources d'informations contributives ont déjà montré leur qualité et leur exhaustivité. Wikipedia,
 						Twitter, Facebook, Reddit et bien d'autres sont irremplaçables pour nous informer.</p>
 
-					<p>Wouaf IT souhaite mettre en avant les événements publics qui sont rares ou difficiles à trouver autour de vous.
+					<p>Wouaf IT met en avant les événements publics qui sont rares ou difficiles à trouver autour de vous.
 						Tous ces événements qui sont rarement connus en dehors du cercle des proches de l'organisateur.
 						Si le public sait qu'il y a quelque chose autour de lui, il pourra aussi en profiter !</p>
 

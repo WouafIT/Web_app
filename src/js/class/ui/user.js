@@ -21,7 +21,6 @@ module.exports = (function() {
 		//get user infos
 		$.when(users.get(states.user)).done(function(user) {
 			var username = utils.getUsername(user);
-			var profileUrl = url.getAbsoluteURLForStates([{name: 'user', value: user.username}]);
 			var profileLocaleUrl = url.getAbsoluteURLForStates([{name: 'user', value: user.username}], true);
 			$modalWindow.find('.modal-title').html(i18n.t('User profile {{username}}', {username: username}));
 			var content = '<div class="modal-user">'
@@ -30,9 +29,9 @@ module.exports = (function() {
 				content += '<blockquote class="blockquote">'+ utils.textToHTML(user.description) +'</blockquote>';
 			}
 			content += '<div class="user-infos">';
-			content += '<p><i class="fa fa-link"></i> <a href="'+ profileUrl +'" data-user="'+ utils.escapeHtml(user.username) +'"><i class="fa fa-at"></i>'+ utils.escapeHtml(user.username) +'</a></p>'
+			content += '<p><i class="fa fa-link"></i> <a href="'+ profileLocaleUrl +'" data-user="'+ utils.escapeHtml(user.username) +'"><i class="fa fa-at"></i>'+ utils.escapeHtml(user.username) +'</a></p>'
 			if (user.posts) {
-				content += '<p><i class="fa fa-hashtag"></i> <a href="#" data-action="user-wouaf" data-uid="' + user.uid + '">' + i18n.t('{{count}} Wouaf', {count: user.posts}) + '</a></p>';
+				content += '<p><i class="fa fa-hashtag"></i> <a href="'+ profileLocaleUrl +'#events" data-action="user-wouaf" data-uid="' + user.uid + '">' + i18n.t('{{count}} Wouaf', {count: user.posts}) + '</a></p>';
 				if (user.fav) {
 					content += '<p><i class="fa fa-star"></i> ' + i18n.t('Saved as favorite {{count}} time', {count: user.fav}) + '</p>';
 				}
