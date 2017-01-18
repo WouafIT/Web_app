@@ -31,6 +31,11 @@ module.exports = (function() {
 					title:	i18n.t('Incompatible browser'),
 					text:	i18n.t('Incompatible browser_details')
 				});
+				window.$buoop = {vs:{i:9,f:-8,o:-8,s:8,c:-8},unsupported:false,mobile:false,api:4};
+				var e = document.createElement("script");
+				e.src = "//browser-update.org/update.min.js";
+				document.body.appendChild(e);
+				
 				return;
 			}
 		}

@@ -485,5 +485,6 @@
 	"Error, Facebook is not properly loaded. Please refresh the page or disable your ad blocker": "Error, Facebook is not properly loaded. Please refresh the page or disable your ad blocker.",
 	"Forbidden.": "Invalid session, please refresh the page in the browser before trying again.",
 	"Reset password request is too old.": "Your password reset request is too old (+ 24h), please make a new request.",
-	"An Infolocale user already exists for that email.": "A profile already exists for this email address.\nIt was created using data from the website <a href=\"http://infolocale.fr\" target=\"_blank\">Infolocale</a>.\nIf you want to take ownership of this account, use the <a href=\"/lost-password/\" data-href=\"lost-password\" data-show=\"modal\" data-target=\"#modalWindow\">Reset Password</a> feature with this email address."
+	"An Infolocale user already exists for that email.": "A profile already exists for this email address.\nIt was created using data from the website <a href=\"http://infolocale.fr\" target=\"_blank\">Infolocale</a>.\nIf you want to take ownership of this account, use the <a href=\"/lost-password/\" data-href=\"lost-password\" data-show=\"modal\" data-target=\"#modalWindow\">Reset Password</a> feature with this email address.",
+	"User not found.": "This user profile is unknown."
 }

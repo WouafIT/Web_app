@@ -6,7 +6,7 @@
  * Licensed under the Apache-2.0 license.
  *
  */
-if (typeof jQuery === 'undefined') {
+if (typeof jQuery === 'undefined' || typeof 'google' === 'undefined') {
 	alert('Initialization error, please reload the page.');
 }
 (function($) {

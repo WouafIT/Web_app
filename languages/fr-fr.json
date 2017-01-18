@@ -484,5 +484,6 @@
 	"Error, Facebook is not properly loaded. Please refresh the page or disable your ad blocker": "Les fonctions Facebook ne se sont pas correctement chargées. Veuillez actualiser la page ou désactiver votre bloqueur de publicités.",
 	"Forbidden.": "Votre session est invalide. Veuillez actualiser la page dans le navigateur avant de réessayer.",
 	"Reset password request is too old.": "Votre demande de réinitialisation de mot de passe est trop ancienne (+24h), merci d'effectuer une nouvele demande.",
-	"An Infolocale user already exists for that email.": "Un profil existe déjà pour cette adresse email.\nIl a été créé à partir de données provenant du site <a href=\"http://infolocale.fr\" target=\"_blank\">Infolocale</a>.\nSi vous souhaitez prendre possession de ce compte, utilisez la fonction de <a href=\"/lost-password/\" data-href=\"lost-password\" data-show=\"modal\" data-target=\"#modalWindow\">Réinitialisation du mot de passe</a> avec cette adresse email."
+	"An Infolocale user already exists for that email.": "Un profil existe déjà pour cette adresse email.\nIl a été créé à partir de données provenant du site <a href=\"http://infolocale.fr\" target=\"_blank\">Infolocale</a>.\nSi vous souhaitez prendre possession de ce compte, utilisez la fonction de <a href=\"/lost-password/\" data-href=\"lost-password\" data-show=\"modal\" data-target=\"#modalWindow\">Réinitialisation du mot de passe</a> avec cette adresse email.",
+	"User not found.": "Ce profil utilisateur est inconnu."
 }
