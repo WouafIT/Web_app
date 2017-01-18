@@ -11,6 +11,20 @@ var categories = require('../resource/categories.js');
 module.exports = (function() {
 	var $document = $(document);
 	$document.on('app.start', function() {
+		//Block IE before version 11
+		var ua = window.navigator.userAgent;
+		var msie = ua.indexOf('MSIE ');
+		if (msie > 0) {
+			if (parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10) < 11) {
+				//show message page
+				windows.show({
+					title:	i18n.t('Incompatible browser'),
+					text:	i18n.t('Incompatible browser_details')
+				});
+				return;
+			}
+		}
+
 		//load events modules
 		require('./analytics.js');
 		require('./action.js');

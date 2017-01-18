@@ -25,8 +25,6 @@ if (typeof jQuery === 'undefined' || typeof 'google' === 'undefined') {
 			var e = document.createElement("script");
 			e.src = "//browser-update.org/update.min.js";
 			document.body.appendChild(e);
-
-			return;
 		}
 	}
 
