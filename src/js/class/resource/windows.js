@@ -128,7 +128,7 @@ module.exports = (function() {
 							$modal.one('shown.bs.modal', function() {
 								$modal.find('button.btn-primary').one('click', function () {
 									options.confirm();
-									$modal.modal('hide');
+									self.close();
 								});
 								if (options.cancel) {
 									$modal.find('button.btn-secondary').one('click', function () {
@@ -173,13 +173,17 @@ module.exports = (function() {
 				$document.triggerHandler('navigation.enable-state');
 				open(options);
 			});
-			$modal.modal('hide');
+			self.close();
 		} else {
 			open(options);
 		}
 	};
 	self.close = function () {
-		$modal.modal('hide');
+		try {
+			$modal.modal('hide');
+		} catch (e) {
+			$modal.one('shown.bs.modal', self.close);
+		}
 	};
 	self.login = function(msg) {
 		self.show({
