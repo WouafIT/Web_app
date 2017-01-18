@@ -24,7 +24,7 @@
 					<p>Contributive sources of information have already shown their quality and completeness. Wikipedia,
 						Twitter, Facebook, Reddit and others are irreplaceable to inform us.</p>
 
-					<p>Wouaf IT wants to highlight public events that are rare or hard to find around you.
+					<p>Wouaf IT highlight public events that are rare or hard to find around you.
 						All these events that are rarely known outside the inner circle of the organizer.
 						If the public knows there is something around him, he can also enjoy it!</p>
 
