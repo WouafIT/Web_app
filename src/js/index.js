@@ -21,7 +21,7 @@ if (typeof jQuery === 'undefined' || typeof 'google' === 'undefined') {
 	if (msie > 0) {
 		if (parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10) < 11) {
 			//show message page
-			var windows = require('./resource/windows.js');
+			var windows = require('./class/resource/windows.js');
 			windows.show({
 							 title:	i18n.t('Incompatible browser'),
 							 text:	i18n.t('Incompatible browser_details')
