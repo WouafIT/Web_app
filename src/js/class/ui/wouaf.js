@@ -4,6 +4,7 @@ var categories = require('../resource/categories.js');
 var url = require('../resource/url.js');
 var dtp = require('../resource/datetimepicker.js');
 var user = require('./user.js');
+var data = require('../resource/data.js');
 
 module.exports = (function() {
 	var self = {};
@@ -172,16 +173,16 @@ module.exports = (function() {
 	};
 
 	self.getWouaf = function (obj, collapse) {
-		collapse = collapse || false;
-		var text = utils.textToHTML(obj.text);
+		collapse 		= collapse || false;
+		var text 		= utils.textToHTML(obj.text);
 		var authorAvatar = user.getAvatar(obj.author, 16);
-		var authorUrl = url.getAbsoluteURLForStates([{name: 'user', value: obj.author[1]}]);
-		var author = i18n.t('By {{author}}', {
-			author: '<a href="'+ authorUrl +'" data-user="'+ utils.escapeHtml(obj.author[1]) +'">'+
-					utils.escapeHtml(obj.author[2] || obj.author[1]) +' '+ authorAvatar +'</a>',
-			interpolation: {escapeValue: false}
+		var authorUrl 	= url.getAbsoluteURLForStates([{name: 'user', value: obj.author[1]}]);
+		var author 		= i18n.t('By {{author}}', {
+				author: '<a href="'+ authorUrl +'" data-user="'+ utils.escapeHtml(obj.author[1]) +'">'+
+						utils.escapeHtml(obj.author[2] || obj.author[1]) +' '+ authorAvatar +'</a>',
+				interpolation: {escapeValue: false}
 		});
-		var locale = ' lang="'+ (obj.lang ? obj.lang.substr(0, 2) : i18n.t('languageShort')) +'"';
+		var locale 		= ' lang="'+ (obj.lang ? obj.lang.substr(0, 2) : i18n.t('languageShort')) +'"';
 		if (obj.rtl) {
 			locale += ' dir="rtl"';
 		}
@@ -209,8 +210,20 @@ module.exports = (function() {
 			}
 			content.push('</div>');
 		}
+		content.push('<div class="w-bottom">');
+		if (obj.interest) {
+			var interests = data.getArray('interests');
+			if (utils.indexOf(interests, obj.id) !== -1) {
+				content = content.concat(['<a class="w-fav" href="#" data-action="notinterested" title="', i18n.t('Click to remove your interest') ,'">',
+										  '<i class="fa fa-heart w-red"></i> ', utils.round(obj.interest) ,'</a>']);
+			} else {
+				content = content.concat(['<a class="w-fav" href="#" data-action="interested" title="', i18n.t('Click to add your interest') ,'">',
+										  '<i class="fa fa-heart-o"></i> ', utils.round(obj.interest) ,'</a>']);
+			}
+		}
 		content = content.concat(['<a href="'+ url.getAbsoluteURLForStates([{name: 'wouaf', value: obj.id}, {name: 'windows', value: 'comments'}]) +'" class="w-comments" data-action="comments" data-menu="wouaf"><i class="fa fa-comment"></i> '+
 							(obj.com ? i18n.t('{{count}} comment', {count: obj.com}) : i18n.t('Add a comment', {count: obj.com})) +'</a>',
+					'</div>',
 				'</div>',
 			'</div>']);
 		return content.join('');

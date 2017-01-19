@@ -90,12 +90,11 @@ module.exports = (function() {
 						}
 						favs = data.getArray('favorites');
 						if (utils.indexOf(favs, obj.id) === -1) {
-							obj.fav++;
-							$target.replaceWith('<a class="dropdown-item yellow" href="#" data-action="unfavorite">' +
-												'<i class="fa fa-star"></i> '+ i18n.t('In your favorites') + (obj.fav ? ' ('+ utils.round(obj.fav) +')' : '') +'</a>');
 							query.addFavorite(obj.id, function() {
+								obj.fav++;
+								 $target.replaceWith('<a class="dropdown-item" href="#" data-action="unfavorite">' +
+													'<i class="fa fa-star w-yellow"></i> '+ i18n.t('In your favorites') + (obj.fav ? ' ('+ utils.round(obj.fav) +')' : '') +'</a>');
 								toast.show(i18n.t('This Wouaf is added to your favorites'));
-
 								$document.triggerHandler('app.added-favorite', obj);
 							}, function (msg) {
 								toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
@@ -110,12 +109,11 @@ module.exports = (function() {
 						}
 						favs = data.getArray('favorites');
 						if (utils.indexOf(favs, obj.id) !== -1) {
-							obj.fav--;
-							$target.replaceWith('<a class="dropdown-item" href="#" data-action="favorite">' +
-												'<i class="fa fa-star-o"></i> '+ i18n.t('Add to your favorites') + (obj.fav ? ' ('+ utils.round(obj.fav) +')' : '') +'</a>');
 							query.removeFavorite(obj.id, function() {
+								obj.fav--;
+								 $target.replaceWith('<a class="dropdown-item" href="#" data-action="favorite">' +
+													'<i class="fa fa-star-o"></i> '+ i18n.t('Add to your favorites') + (obj.fav ? ' ('+ utils.round(obj.fav) +')' : '') +'</a>');
 								toast.show(i18n.t('This Wouaf is removed from your favorites'));
-
 								$document.triggerHandler('app.deleted-favorite', obj);
 							}, function (msg) {
 								toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
@@ -131,12 +129,11 @@ module.exports = (function() {
 						}
 						interests 	= data.getArray('interests');
 						if (utils.indexOf(interests, obj.id) === -1) {
-							obj.interest++;
-							$target.replaceWith('<a class="dropdown-item red" href="#" data-action="notinterested" title="'+ i18n.t('Click to remove your interest') +'">' +
-												'<i class="fa fa-heart"></i> '+ i18n.t('Im interested') + (obj.interest ? ' ('+ utils.round(obj.interest) +')' : '') +'</a>');
 							query.addInterest(obj.id, function() {
+								obj.interest++;
+								$target.replaceWith('<a class="dropdown-item" href="#" data-action="notinterested" title="'+ i18n.t('Click to remove your interest') +'">' +
+													'<i class="fa fa-heart w-red"></i> '+ i18n.t('Im interested') + (obj.interest ? ' ('+ utils.round(obj.interest) +')' : '') +'</a>');
 								toast.show(i18n.t('Your interest for this Wouaf is saved'));
-
 								$document.triggerHandler('app.added-interest', obj);
 							}, function (msg) {
 								toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
@@ -151,12 +148,11 @@ module.exports = (function() {
 						}
 						interests 	= data.getArray('interests');
 						if (utils.indexOf(interests, obj.id) !== -1) {
-							obj.interest--;
-							$target.replaceWith('<a class="dropdown-item" href="#" data-action="interested" title="'+ i18n.t('Click to add your interest') +'">' +
-												'<i class="fa fa-heart-o"></i> '+ i18n.t('Interested') + (obj.interest ? ' ('+ utils.round(obj.interest) +')' : '') +'</a>');
 							query.removeInterest(obj.id, function() {
+								obj.interest--;
+								$target.replaceWith('<a class="dropdown-item" href="#" data-action="interested" title="'+ i18n.t('Click to add your interest') +'">' +
+													'<i class="fa fa-heart-o"></i> '+ i18n.t('Interested') + (obj.interest ? ' ('+ utils.round(obj.interest) +')' : '') +'</a>');
 								toast.show(i18n.t('Your disinterest for this Wouaf is saved'));
-
 								$document.triggerHandler('app.deleted-interest', obj);
 							}, function (msg) {
 								toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);

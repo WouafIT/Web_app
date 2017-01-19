@@ -49,6 +49,8 @@ module.exports = (function() {
 		var $this = $(this);
 		var uid;
 		var following;
+		var interests;
+		var id, obj;
 		event.stopPropagation();
 		event.preventDefault();
 		if (__DEV__) {
@@ -80,6 +82,53 @@ module.exports = (function() {
 				}
 				windows.close();
 				$document.triggerHandler('tabs.user-wouafs', {user: uid});
+				break;
+			case 'interested':
+				uid = data.getString('uid');
+				if (!uid) { //user is not logged, show login window
+					windows.login(i18n.t('Login to show your interest for a wouaf'));
+					return;
+				}
+				id = $this.parents('.w-container').data('id');
+				obj = wouafs.getLocal(id);
+				if (!obj) {
+					return;
+				}
+				interests 	= data.getArray('interests');
+				if (utils.indexOf(interests, obj.id) === -1) {
+					query.addInterest(obj.id, function() {
+						obj.interest++;
+						toast.show(i18n.t('Your interest for this Wouaf is saved'));
+						$document.triggerHandler('app.added-interest', obj);
+					}, function (msg) {
+						toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
+					});
+					interests.push(obj.id);
+					data.setArray('interests', interests);
+				}
+				break;
+			case 'notinterested':
+				uid = data.getString('uid');
+				if (!uid) { //user is not logged, return
+					return;
+				}
+				id = $this.parents('.w-container').data('id');
+				obj = wouafs.getLocal(id);
+				if (!obj) {
+					return;
+				}
+				interests 	= data.getArray('interests');
+				if (utils.indexOf(interests, obj.id) !== -1) {
+					query.removeInterest(obj.id, function() {
+						obj.interest--;
+						toast.show(i18n.t('Your disinterest for this Wouaf is saved'));
+						$document.triggerHandler('app.deleted-interest', obj);
+					}, function (msg) {
+						toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
+					});
+					delete interests[utils.indexOf(interests, obj.id)];
+					data.setArray('interests', interests);
+				}
 				break;
 			case 'follow-user':
 				uid = $this.data('uid');
@@ -220,6 +269,11 @@ module.exports = (function() {
 				}).fail(function(msg) {
 					toast.show(i18n.t('An error has occurred: {{error}}', {error: i18n.t(msg[0])}), 5000);
 				});
+				break;
+			default:
+				if (__DEV__) {
+					console.info('No data-action: '+ $this.data('action'));
+				}
 				break;
 		}
 	});

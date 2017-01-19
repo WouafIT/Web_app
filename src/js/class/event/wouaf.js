@@ -1,5 +1,7 @@
 var i18n = require('../resource/i18n.js');
 var wouaf = require('../ui/wouaf.js');
+var data = require('../resource/data.js');
+var utils = require('../utils.js');
 
 module.exports = (function() {
 	var $document = $(document);
@@ -40,6 +42,25 @@ module.exports = (function() {
 			(obj.com ? i18n.t('{{count}} comment', {count: obj.com}) : i18n.t('Add a comment', {count: obj.com}))
 		);
 		$wouaf.find('.w-meta').html(wouaf.getMeta(obj));
+	});
+	//update interest count
+	$document.on('app.added-interest app.deleted-interest', function(e, obj) {
+		var $wouaf = $('#map').find('.w-container[data-id="'+ obj.id +'"]');
+		var content = '';
+		if (obj.interest) {
+			var interests = data.getArray('interests');
+			if (utils.indexOf(interests, obj.id) !== -1) {
+				content = ['<a class="w-fav" href="#" data-action="notinterested" title="', i18n.t('Click to remove your interest') ,'">',
+										  '<i class="fa fa-heart w-red"></i> ', utils.round(obj.interest) ,'</a>'].join('');
+			} else {
+				content = ['<a class="w-fav" href="#" data-action="interested" title="', i18n.t('Click to add your interest') ,'">',
+										  '<i class="fa fa-heart-o"></i> ', utils.round(obj.interest) ,'</a>'].join('');
+			}
+		}
+		$wouaf.find('.w-bottom .w-fav').remove();
+		if (content) {
+			$wouaf.find('.w-bottom').prepend(content);
+		}
 	});
 
 	//Swipebox
