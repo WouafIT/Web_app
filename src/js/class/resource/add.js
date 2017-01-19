@@ -18,7 +18,7 @@ module.exports = (function() {
 	$addZone.removeAttr('hidden');
 	$addOkBtn.popover({
 		title: 		i18n.t('Add a new Wouaf'),
-		content: 	i18n.t('Add_wouaf_popover', {interpolation: {escapeValue: false}}),
+		content: 	i18n.t('Add_wouaf_popover_2', {interpolation: {escapeValue: false}}),
 		html:		true,
 		trigger: 	'manual',
 		placement: 	'top',
@@ -40,6 +40,35 @@ module.exports = (function() {
 	//recenter crosshair on slidebar open/close
 	$document.on('slidebars.opened slidebars.close', function() {
 		$('#ch-c').css({top:'calc(50% - 22px)', left:'calc(50% - 23px)'});
+	});
+	//show popover to explain how to create a wouaf after first login
+	$document.on('app.logged', function () {
+		if (data.getInt('loginCount') === 1) {
+			$addBtn.popover({
+				title: 		i18n.t('Add a new Wouaf'),
+				content: 	i18n.t('Add_wouaf_popover_1', {interpolation: {escapeValue: false}}),
+				html:		true,
+				trigger: 	'manual',
+				placement: 	'top',
+				offset: 	'0 100',
+				template: ['<div class="popover offset" role="tooltip">',
+						   '<button type="button" class="close" aria-label="'+ i18n.t('Close') +'">',
+						   		'<span aria-hidden="true">&times;</span>',
+						   '</button>',
+						   '<h3 class="popover-title"></h3>',
+						   '<div class="popover-content"></div>',
+						   '</div>'].join('')
+			});
+			$addBtn.on('shown.bs.popover', function () {
+				$('.popover .close').one('click', function () {
+					$addBtn.popover('hide');
+				});
+			});
+			$addBtn.one('click', function () {
+				$addBtn.popover('hide');
+			});
+			$addBtn.popover('show');
+		}
 	});
 
 	var showCrosshair = function () {

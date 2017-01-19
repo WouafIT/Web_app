@@ -49,6 +49,7 @@ module.exports = (function() {
 			data.setInt('radius', 70);
 			data.setInt('limit', 500);
 			data.setBool('geolocation', false)
+			data.setInt('loginCount', 0);
 		}
 		//create missing app vars
 		if (data.getBool('saveSearch') === null) {

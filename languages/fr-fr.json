@@ -46,7 +46,7 @@
 	"OK": "OK",
 	"I understand": "J'ai compris",
 	"Welcome to Wouaf IT": "Bienvenue sur Wouaf IT",
-	"welcome_details": "Bienvenue !\nWouaf IT est le premier réseau d'événements locaux. Il va vous permettre de dire et découvrir facilement tout ce qu'il se passe autour de vous.\nBonne découverte !\n\nEn utilisant Wouaf IT, vous acceptez l'usage de cookies à usage statistique.",
+	"welcome_details": "Bienvenue !\nWouaf IT est le premier réseau d'événements locaux. Il va vous permettre de dire et découvrir facilement tout ce qu'il se passe autour de vous.\nBonne découverte !\n\nEn utilisant Wouaf IT, vous acceptez l'usage de cookies à but statistique.",
 
 	"All events": "Tous les types d'événements",
 	"All subtypes of {{type}}": "Tous les sous types de &quot;{{type}}&quot;",
@@ -224,7 +224,8 @@
 
 	"Add a new Wouaf": "Ajouter un nouveau Wouaf",
 	"Save your Wouaf": "Publier votre Wouaf",
-	"Add_wouaf_popover": "Positionnez le centre de la carte à l'endroit où vous souhaitez ajouter votre Wouaf et cliquez sur OK.\nUtilisez le bouton <i class=\"fa fa-crosshairs\"></i> pour zoomer sur votre position.\nSi le viseur est rouge, zoomez un peu pour vous positionner plus précisément.",
+	"Add_wouaf_popover_1": "Cliquez ici pour ajouter un nouveau Wouaf !",
+	"Add_wouaf_popover_2": "Positionnez le centre de la carte à l'endroit où vous souhaitez ajouter votre Wouaf et cliquez sur OK.\nUtilisez le bouton <i class=\"fa fa-crosshairs\"></i> pour zoomer sur votre position.\nSi le viseur est rouge, zoomez un peu pour vous positionner plus précisément.",
 	"Lack of precision": "Manque de précision ...",
 	"lack_of_precision_details": "La position définie est peu précise. Vous devez zoomer un peu !",
 

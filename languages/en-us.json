@@ -46,7 +46,7 @@
 	"OK": "OK",
 	"I understand": "I understand",
 	"Welcome to Wouaf IT": "Welcome to Wouaf IT",
-	"welcome_details": "Welcome !\nWouaf IT is the first network of local events. It will allow you to easily discover and tell people what's happening around you.\nGood discovery !\n\nUsing Wouaf IT, you accept the use of cookies for statistical use.",
+	"welcome_details": "Welcome !\nWouaf IT is the first network of local events. It will allow you to easily discover and tell people what's happening around you.\nGood discovery !\n\nUsing Wouaf IT, you agree to the use of statistical cookies.",
 
 	"All events": "All types of events",
 	"All subtypes of {{type}}": "All subtypes of &quot;{{type}}&quot;",
@@ -224,7 +224,8 @@
 
 	"Add a new Wouaf": "Add a new Wouaf",
 	"Save your Wouaf": "Save your Wouaf",
-	"Add_wouaf_popover": "Position the center of the map at the point where you want to add your Wouaf and click OK.\nUse the <i class=\"fa-fa crosshairs\"></i> to zoom on your position.\nIf the viewfinder is red, zoom a bit to position yourself more precisely.",
+	"Add_wouaf_popover_1": "Click here to add a new Wouaf!",
+	"Add_wouaf_popover_2": "Position the center of the map at the point where you want to add your Wouaf and click OK.\nUse the <i class=\"fa-fa crosshairs\"></i> to zoom on your position.\nIf the viewfinder is red, zoom a bit to position yourself more precisely.",
 	"Lack of precision": "Lack of precision...",
 	"lack_of_precision_details": "The defined position lacks precision. You must zoom in a bit!",
 

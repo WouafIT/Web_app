@@ -37,6 +37,7 @@ module.exports = (function() {
 	$document.on('app.login', function(event, params) {
 		var permanent = (params && params.permanent === true) || data.getBool('permanent') === true;
 		if(params) {
+			data.setInt('loginCount', data.getInt('loginCount') + 1);
 			data.setBool('permanent', permanent);
 			data.setString('uid', params.uid, !permanent);
 			data.setString('token', params.token, !permanent);
