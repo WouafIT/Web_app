@@ -43,7 +43,7 @@ module.exports = (function() {
 	});
 	//show popover to explain how to create a wouaf after first login
 	$document.on('app.logged', function () {
-		if (data.getInt('loginCount') === 1) {
+		if (data.getInt('loginCount') === 1 && data.getBool('showPopover') !== false) {
 			$addBtn.popover({
 				title: 		i18n.t('Add a new Wouaf'),
 				content: 	i18n.t('Add_wouaf_popover_1', {interpolation: {escapeValue: false}}),
