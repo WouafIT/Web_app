@@ -323,6 +323,9 @@ function getUserMeta($data) {
 				   '<meta property="og:url" content="https://'.$_SERVER['HTTP_HOST'].'/user/'.$data['username'].'/" />'.PHP_EOL.
 				   '<meta property="og:site_name" content="Wouaf IT" />'.PHP_EOL.
 				   '<meta property="og:locale" content="'.$data['lang'].'" />'.PHP_EOL;
+	if (!empty($data['avatar'])) {
+		$return .= '<meta property="og:image" content="'.htmlspecialchars($data['avatar']).'" />'.PHP_EOL;
+	}
 	if (!empty($data['fid'])) {
 		$return .= '<meta property="fb:profile_id" content="'.htmlspecialchars($data['fid']).'" />'.PHP_EOL;
 	}
