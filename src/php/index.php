@@ -343,6 +343,9 @@ function getWouafHTML($data) {
 	if (!empty($data['pics']) && is_array($data['pics'])) {
 		$microformat['image'] = $data['pics'][0]['full'];
 	}
+	if (!empty($data['url'])) {
+		$microformat['sameAs'] = $data['url'];
+	}
 	$return .= '<script type="application/ld+json">'.json_encode($microformat).'</script>';
 
 	return $return;
@@ -410,8 +413,9 @@ function getUserMeta($data) {
  * @return string
  */
 function getUserHTML($data) {
+	$name 	= getUserDisplayName($data);
 	$return = '<div class="h-card">'.PHP_EOL.
-			  '<h1><a class="p-name u-url" href="https://<%= htmlWebpackPlugin.options.data.domain %>/user/'.$data['username'].'/">'.htmlspecialchars(getUserDisplayName($data)).'</a></h1>'.PHP_EOL;
+			  '<h1><a class="p-name u-url" href="https://<%= htmlWebpackPlugin.options.data.domain %>/user/'.$data['username'].'/">'.htmlspecialchars($name).'</a></h1>'.PHP_EOL;
 	if (!empty($data['html'])) {
 		$return .= '<p class="p-note">'.$data['html'].'</p>'.PHP_EOL;
 	}
@@ -420,6 +424,22 @@ function getUserHTML($data) {
 	}
 	$return .= '<p class="p-nickname">'.$data['username'].'</p>'.PHP_EOL.
 			   '</div>';
+	//microformat
+	$microformat = array(
+		"@context" 		=> "http://schema.org",
+		"@type" 		=> "Person",
+		"name" 			=> $name,
+		"description" 	=> $data['text'],
+		"url" 			=> 'https://<%= htmlWebpackPlugin.options.data.domain %>/user/'.$data['username'].'/',
+	);
+	if (!empty($data['avatar'])) {
+		$microformat['image'] = $data['avatar'];
+	}
+	if (!empty($data['url'])) {
+		$microformat['sameAs'] = $data['url'];
+	}
+	$return .= '<script type="application/ld+json">'.json_encode($microformat).'</script>';
+
 	return $return;
 }
 
