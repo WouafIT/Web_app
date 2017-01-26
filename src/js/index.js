@@ -1,7 +1,7 @@
 /*!
  * Wouaf IT Web App
  *
- * Copyright 2016, Sébastien PAUCHET
+ * Copyright 2016-2017, Sébastien PAUCHET
  * contact@wouaf.it
  * Licensed under the Apache-2.0 license.
  *

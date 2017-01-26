@@ -241,6 +241,25 @@ function getWouafTitle($data) {
 }
 
 /**
+ * Generate ISO_8601 duration
+ *
+ * @param int $seconds
+ * @return string
+ */
+function iso8601_duration($seconds) {
+	$days = floor($seconds / 86400);
+	$seconds = $seconds % 86400;
+
+	$hours = floor($seconds / 3600);
+	$seconds = $seconds % 3600;
+
+	$minutes = floor($seconds / 60);
+	$seconds = $seconds % 60;
+
+	return sprintf('P%dDT%dH%dM%dS', $days, $hours, $minutes, $seconds);
+}
+
+/**
  * Generate html tags for a given Wouaf
  *
  * @param array $data wouaf data
@@ -267,7 +286,8 @@ function getWouafHTML($data) {
 		$start->setTimezone($timeZone);
 		$end->setTimezone($timeZone);
 	}
-	$safe_title = htmlspecialchars(getWouafTitle($data));
+	$title 		= getWouafTitle($data);
+	$safe_title = htmlspecialchars($title);
 	$return = '<div class="h-event">'.PHP_EOL.
 			  '<h1><a href="https://<%= htmlWebpackPlugin.options.data.domain %>/wouaf/'.$data['id'].'/" class="u-url p-name">'.
 			  $safe_title.'</a></h1>'.PHP_EOL.
@@ -301,6 +321,30 @@ function getWouafHTML($data) {
 		$return .= '</p>';
 	}
 	$return .= '</div>';
+	//microformat
+	$microformat = array(
+		"@context" 		=> "http://schema.org",
+		"@type" 		=> "Event",
+		"name" 			=> $title,
+		"description" 	=> $data['text'],
+		"url" 			=> 'https://<%= htmlWebpackPlugin.options.data.domain %>/wouaf/'.$data['id'].'/',
+		"startDate" 	=> $start->format('c'),
+		"endDate" 		=> $end->format('c'),
+		"duration" 		=> iso8601_duration($end->getTimestamp() - $start->getTimestamp()),
+		"location"		=> array(
+			"@type" 		=> "Place",
+			"geo" 			=>  [
+				"@type"  		=>  "GeoCoordinates",
+			  	"latitude"  	=>  $data['loc'][0],
+			  	"longitude"  	=>  $data['loc'][1]
+			]
+		),
+	);
+	if (!empty($data['pics']) && is_array($data['pics'])) {
+		$microformat['image'] = $pic[0]['full'];
+	}
+	$return .= '<script type="application/ld+json">'.json_encode($microformat).'</script>';
+
 	return $return;
 }
 
