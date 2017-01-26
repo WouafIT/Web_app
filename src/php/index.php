@@ -341,7 +341,7 @@ function getWouafHTML($data) {
 		),
 	);
 	if (!empty($data['pics']) && is_array($data['pics'])) {
-		$microformat['image'] = $pic[0]['full'];
+		$microformat['image'] = $data['pics'][0]['full'];
 	}
 	$return .= '<script type="application/ld+json">'.json_encode($microformat).'</script>';
 
