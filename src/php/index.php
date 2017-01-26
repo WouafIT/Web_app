@@ -323,9 +323,6 @@ function getUserMeta($data) {
 				   '<meta property="og:url" content="https://'.$_SERVER['HTTP_HOST'].'/user/'.$data['username'].'/" />'.PHP_EOL.
 				   '<meta property="og:site_name" content="Wouaf IT" />'.PHP_EOL.
 				   '<meta property="og:locale" content="'.$data['lang'].'" />'.PHP_EOL;
-	if (!empty($data['avatar'])) {
-		$return .= '<meta property="og:image" content="'.htmlspecialchars($data['avatar']).'" />'.PHP_EOL;
-	}
 	if (!empty($data['fid'])) {
 		$return .= '<meta property="fb:profile_id" content="'.htmlspecialchars($data['fid']).'" />'.PHP_EOL;
 	}
@@ -349,9 +346,9 @@ function getUserMeta($data) {
 	} else {
 		$return .= "<meta name=\"twitter:description\" content=\"<%= htmlWebpackPlugin.options.i18n['Wouaf_IT_description'] %>\" />".PHP_EOL;
 	}
-	if (!empty($data['url'])) {
-		$return .= '<meta property="og:image" content="'.htmlspecialchars($data['url']).'" />'.PHP_EOL.
-				   '<meta name="twitter:image" content="'.htmlspecialchars($data['url']).'" />'.PHP_EOL;
+	if (!empty($data['avatar'])) {
+		$return .= '<meta property="og:image" content="'.htmlspecialchars($data['avatar']).'" />'.PHP_EOL.
+				   '<meta name="twitter:image" content="'.htmlspecialchars($data['avatar']).'" />'.PHP_EOL;
 	} else {
 		$return .= '<meta property="og:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/600-315.png" />'.PHP_EOL.
 				   '<meta property="og:image:width" content="600" />'.PHP_EOL.
