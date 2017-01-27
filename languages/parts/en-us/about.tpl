@@ -112,6 +112,10 @@
 							<a href="/user/Chien_Perdu/" data-user="Chien_Perdu">Chien Perdu</a> are the reference websites
 							to publish notices of research about your lost pets.
 						</li>
+						<li><a href="/user/Sowprog/" data-user="Sowprog">Sowprog</a> helps you quickly communicate your
+							programming on multiple channels. In one entry, your event is automatically published on their
+							agendas and mobile apps partners.
+						</li>
 					</ul>
 				</div>
 			</div>

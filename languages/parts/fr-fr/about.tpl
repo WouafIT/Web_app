@@ -112,6 +112,10 @@
 							<a href="/user/Chien_Perdu/" data-user="Chien_Perdu">Chien Perdu</a> sont les sites
 							de référence pour publier des avis de recherche concernant vos animaux perdus.
 						</li>
+						<li><a href="/user/Sowprog/" data-user="Sowprog">Sowprog</a> vous aide à communiquer rapidement
+							votre programmation sur de multiples canaux. En une saisie, votre événement est automatiquement
+							publié sur leurs agendas spectacle et applications mobiles partenaires.
+						</li>
 					</ul>
 				</div>
 			</div>
