@@ -443,12 +443,13 @@ function getUserHTML($data) {
 	}
 	$return .= '<p class="p-nickname">'.$data['username'].'</p>'.PHP_EOL.
 			   '</div>';
+	$type = empty($data['type']) || $data['type'] === 'individual' ? 'Person' : 'Organization';
 	//microformat
 	$microformat = array(
 		"@context" 		=> "http://schema.org",
-		"@type" 		=> "Person",
+		"@type" 		=> $type,
 		"name" 			=> $name,
-		"description" 	=> $data['text'],
+		"description" 	=> $data['description'],
 		"url" 			=> 'https://<%= htmlWebpackPlugin.options.data.domain %>/user/'.$data['username'].'/',
 	);
 	if (!empty($data['avatar'])) {
