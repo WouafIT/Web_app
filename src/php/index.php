@@ -352,6 +352,8 @@ function getWouafHTML($data) {
 		"duration" 		=> iso8601_duration($end->getTimestamp() - $start->getTimestamp()),
 		"location"		=> array(
 			"@type" 		=> "Place",
+			"name"			=> '',
+			"address"		=> '',
 			"geo" 			=>  [
 				"@type"  		=>  "GeoCoordinates",
 			  	"latitude"  	=>  $data['loc'][0],
