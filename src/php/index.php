@@ -43,9 +43,28 @@ if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) &&
 	header("HTTP/1.1 304 Not Modified");
 	exit;
 }
-
+//microformat
+$microformat = array(
+		array(
+		"@context" 		=> "http://schema.org",
+		"@type" 		=> "Organization",
+		"name" 			=> 'Wouaf IT',
+		"logo"			=> "https://img.wouaf.it/icon-512.png",
+		"description" 	=> "<%= htmlWebpackPlugin.options.i18n['Wouaf_IT_description'] %>",
+		"url" 			=> 'https://wouaf.it/',
+		"SameAs"		=> array(
+			"https://www.facebook.com/wouafit/",
+			"https://twitter.com/Wouaf_IT",
+		),
+	), array(
+		"@context" 		=> "http://schema.org",
+		"@type" 		=> "WebSite",
+		"name" 			=> 'Wouaf IT',
+		"url" 			=> 'https://wouaf.it/',
+	),
+);
 $data = array(
-	'content'   => '',
+	'content'   => '<script type="application/ld+json">'.json_encode($microformat).'</script>',
 	'canonical' => 'https://'.$_SERVER['HTTP_HOST'].$requestURI,
 	'head'      => (getDefaultMeta().PHP_EOL.
 					'<link rel="alternate" hreflang="fr" href="https://fr-fr.<%= htmlWebpackPlugin.options.data.domain %>'.$requestURI.'" />'.PHP_EOL.
