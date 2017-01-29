@@ -10,6 +10,7 @@ module.exports = (function() {
 	var $document = $(document);
 	var previousSearchParams = {};
 	var previousSearchCount = 0;
+	var searchDescription = '';
 	//Event to launch a new search
 	$document.on('app.search', function (event, params) {
 		params = params || {};
@@ -20,6 +21,7 @@ module.exports = (function() {
 		if (!params.refresh) {
 			params.searchId = (new Date()).getTime();
 			params = $.extend(params, slidebars.getSearchParams());
+			searchDescription = slidebars.getSearchDescription();
 		} else {
 			params = $.extend(params, previousSearchParams);
 		}
@@ -76,12 +78,11 @@ module.exports = (function() {
 				toast.show(i18n.t('At the moment there are no Wouaf within {{radius}}{{unit}}', { radius: radius, unit: i18n.t(unit) }), 6000, null, true);
 			}
 			map.drawCircle(radius);
-
 			$document.triggerHandler('navigation.set-state', {name: 'tag', value: (params.tag ? params.tag : null)});
 			$document.triggerHandler('tabs.add', {
 				id: 'search-results',
 				name: '<i class="fa fa-search-plus"></i> '+ i18n.t('{{count}} result', {count: count}),
-				data: {type: 'result', data: results},
+				data: {type: 'result', data: results, description: searchDescription},
 				removable: false
 			});
 		}, function(msg) {

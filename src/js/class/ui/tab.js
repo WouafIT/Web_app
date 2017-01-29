@@ -17,7 +17,10 @@ module.exports = (function() {
 						'<button class="w-menu" type="button" data-menu="listing" data-proximity="yes" data-sort="proximity" data-filter="no">',
 							'<i class="fa fa-bars"></i> ', i18n.t('Menu'),
 						'</button>',
-						'<p class="lead">', i18n.t('{{count}} result', {count: l}) ,' <span class="update-search"> - <a href="#search" data-action="search">', i18n.t('Edit your search') ,'</a></span></p>',
+						'<p class="lead">',
+							'<span class="update-search"><a href="#search" data-action="search" title="', i18n.t('Edit your search') ,'"><i class="fa fa-pencil"></i> ', data.description ,'</a> : </span>',
+							i18n.t('{{count}} result', {count: l}) ,
+						'</p>',
 					'</div>',
 					'<div class="tab-content-list">'
 				]);
@@ -36,7 +39,9 @@ module.exports = (function() {
 				content = content.concat([
 					'<div class="jumbotron">',
 						'<h1>', i18n.t('No Wouaf here') ,'</h1>',
-						'<p class="lead">', i18n.t('At the moment there are no Wouaf there with your search parameters') ,'</p>',
+						'<p class="lead">', i18n.t('At the moment there are no Wouaf there with your search parameters ({{params}})',
+							{params: '<a href="#search" data-action="search" title="'+ i18n.t('Edit your search') +'"><i class="fa fa-pencil"></i> '+ data.description +'</a>', interpolation: {escapeValue: false}}) ,
+						'</p>',
 						'<hr class="m-y-md">',
 						'<p>', i18n.t('what if you add one yourself') ,'</p>',
 						'<p class="lead text-right">',

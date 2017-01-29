@@ -323,52 +323,108 @@ module.exports = (function() {
 			html: tabContent
 		});
 	};
+	var getSearchParams = function () {
+		var loc = $whereLoc.val() || null;
+		if (loc) {
+			var position = JSON.parse(loc);
+			loc = new google.maps.LatLng(position.lat, position.lng);
+		}
+		var date = null, duration = null;
+		var today = new Date();
+		today.setHours(4); //offset 4 hours to avoid events starting days before and finishing during the night
+		today.setMinutes(0);
+		today.setSeconds(0);
+		today.setMilliseconds(0);
+		switch ($when.val()) {
+			case 'today':
+				date = Math.round(today.getTime() / 1000);
+				duration = 86400 - 14400; //1day - 4h
+				break;
+			case 'tomorrow':
+				date = Math.round(today.getTime() / 1000) + 86400;
+				duration = 86400 - 14400; //1day - 4h
+				break;
+			case 'weekend':
+				var day = today.getDay();
+				var offset = 0;
+				if (day === 0) {//0: sunday
+					offset = - (14400 + 86400 + 21600); //remove 4h + 1day + 6h
+				} else if (day <= 5) {
+					offset = ((5 - day) * 86400) + 50400; //14h
+				} else if (day === 6) {//6: saturday
+					offset = - (14400 + 21600); //remove 4h + 6h
+				}
+				date = Math.round(today.getTime() / 1000) + offset;
+				duration = (86400 * 2) + 21600; //2 days + 6h
+				break;
+			case 'week':
+				date = Math.round(today.getTime() / 1000);
+				duration = (86400 * 7) - 14400; //7days - 4h
+				break;
+			case 'month':
+				date = Math.round(today.getTime() / 1000);
+				duration = (86400 * 30) - 14400; //30days - 4h
+				break;
+			case 'custom':
+				var start = dtp.getInputDate($start);
+				var end = dtp.getInputDate($end);
+				if (!end) {
+					end = new Date();
+				}
+				if (start && start.getTime() && end.getTime()) {
+					date = Math.round(start.getTime() / 1000);
+					duration = Math.round(end.getTime() / 1000) - Math.round(start.getTime() / 1000);
+				}
+				if (!date || !duration || duration < 0) {
+					date = Math.round(today.getTime() / 1000);
+					duration = (86400 * 7) - 14400; //7days - 4h
+					$when.val('week');
+					showHideCustomDates();
+				}
+				break;
+		}
+
+		if (data.getBool('saveSearch') === true) {
+			data.setObject('savedSearch', {
+				cat: $category.val() || null,
+				when: $when.val() || null,
+				children: $children.prop('checked')
+			});
+		}
+
+		return {
+			cat: $category.val() || null,
+			tag: $hashtag.val() || null,
+			children: $children.prop('checked'),
+			loc: loc,
+			date: date,
+			duration: duration
+		}
+	};
 
 	// API/data for end-user
 	return {
 		init: init,
 		isDualView: isDualView,
-		getSearchParams: function () {
-			var loc = $whereLoc.val() || null;
-			if (loc) {
-				var position = JSON.parse(loc);
-				loc = new google.maps.LatLng(position.lat, position.lng);
-			}
-			var date = null, duration = null;
-			var today = new Date();
-			today.setHours(4); //offset 4 hours to avoid events starting days before and finishing during the night
-			today.setMinutes(0);
-			today.setSeconds(0);
-			today.setMilliseconds(0);
+		getSearchParams: getSearchParams,
+		getSearchDescription: function() {
+			var params = getSearchParams();
+			var description = '';
 			switch ($when.val()) {
 				case 'today':
-					date = Math.round(today.getTime() / 1000);
-					duration = 86400 - 14400; //1day - 4h
+					description += i18n.t('Today');
 					break;
 				case 'tomorrow':
-					date = Math.round(today.getTime() / 1000) + 86400;
-					duration = 86400 - 14400; //1day - 4h
+					description += i18n.t('Tomorrow');
 					break;
 				case 'weekend':
-					var day = today.getDay();
-					var offset = 0;
-					if (day === 0) {//0: sunday
-						offset = - (14400 + 86400 + 21600); //remove 4h + 1day + 6h
-					} else if (day <= 5) {
-						offset = ((5 - day) * 86400) + 50400; //14h
-					} else if (day === 6) {//6: saturday
-						offset = - (14400 + 21600); //remove 4h + 6h
-					}
-					date = Math.round(today.getTime() / 1000) + offset;
-					duration = (86400 * 2) + 21600; //2 days + 6h
+					description += i18n.t('This week-end');
 					break;
 				case 'week':
-					date = Math.round(today.getTime() / 1000);
-					duration = (86400 * 7) - 14400; //7days - 4h
+					description += i18n.t('This week');
 					break;
 				case 'month':
-					date = Math.round(today.getTime() / 1000);
-					duration = (86400 * 30) - 14400; //30days - 4h
+					description += i18n.t('This month');
 					break;
 				case 'custom':
 					var start = dtp.getInputDate($start);
@@ -376,35 +432,19 @@ module.exports = (function() {
 					if (!end) {
 						end = new Date();
 					}
-					if (start && start.getTime() && end.getTime()) {
-						date = Math.round(start.getTime() / 1000);
-						duration = Math.round(end.getTime() / 1000) - Math.round(start.getTime() / 1000);
-					}
-					if (!date || !duration || duration < 0) {
-						date = Math.round(today.getTime() / 1000);
-						duration = (86400 * 7) - 14400; //7days - 4h
-						$when.val('week');
-						showHideCustomDates();
-					}
+					description += i18n.t('{{start}} - {{end}}', {'start': dtp.formatDate(start, 'shortest'), 'end': dtp.formatDate(end, 'shortest')});
 					break;
 			}
-
-			if (data.getBool('saveSearch') === true) {
-				data.setObject('savedSearch', {
-					cat: $category.val() || null,
-					when: $when.val() || null,
-					children: $children.prop('checked')
-				});
+			if (params.cat) {
+				description += ', '+ i18n.t('{{count}} type', {count: params.cat.split(',').length});
 			}
-
-			return {
-				cat: $category.val() || null,
-				tag: $hashtag.val() || null,
-				children: $children.prop('checked'),
-				loc: loc,
-				date: date,
-				duration: duration
+			if (params.children) {
+				description += ', '+ i18n.t('Children');
 			}
+			if (params.tag) {
+				description += ', '+ utils.ucfirst(utils.escapeHtml(params.tag).toLowerCase());
+			}
+			return description;
 		}
 	}
 }());

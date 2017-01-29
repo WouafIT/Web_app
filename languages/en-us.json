@@ -29,6 +29,8 @@
 	"This week-end": "This week-end",
 	"The next 7 days": "The next 7 days",
 	"The next 30 days": "The next 30 days",
+	"This week": "This week",
+	"This month": "This month",
 	"Specific dates": "Specific dates",
 	"From": "From",
 	"Start": "Start",
@@ -57,6 +59,11 @@
 	"{{count}} event type_plural": "{{count}} types of events",
     "For Children": "For Children!",
     "Pictures": "Pictures",
+	"{{count}} type": "{{count}}&nbsp;type",
+	"{{count}} type_plural": "{{count}}&nbsp;types",
+	"Children": "Children",
+	"Tag: {{tag}}": "Tag: {{tag}}",
+	"{{start}} - {{end}}": "{{start}} &raquo; {{end}}",
 
 	"Events": "Events",
 	"Out": "Out",
@@ -403,8 +410,8 @@
 	"report_comment_details": "Are you sure you want to report that this comment is inappropriate?\nWarning! Unfair reporting, may result in kittens dying!",
 	"This comment has been reported": "Thank you for your report!",
 
-	"{{count}} result": "{{count}} result",
-	"{{count}} result_plural": "{{count}} results",
+	"{{count}} result": "{{count}}&nbsp;result",
+	"{{count}} result_plural": "{{count}}&nbsp;results",
 	"No Wouaf yet": "No Wouaf yet",
 
 	"Hide Wouafs gone": "Hide past Wouafs",
@@ -417,7 +424,7 @@
 	"Sort by Category": "Sort by Category",
 
 	"No Wouaf here": "No Wouaf here ...",
-	"At the moment there are no Wouaf there with your search parameters": "At the moment there is no Wouaf here with your search parameters.",
+	"At the moment there are no Wouaf there with your search parameters ({{params}})": "At the moment there is no Wouaf here with your search parameters ({{params}}).",
 	"what if you add one yourself": "what if you add one yourself?",
 	"Add a Wouaf": "Add a Wouaf",
 	"Center on your position": "Center on your position",

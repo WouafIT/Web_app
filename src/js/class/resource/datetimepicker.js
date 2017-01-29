@@ -38,7 +38,13 @@ module.exports = (function() {
 	//Dates formating functions
 	self.formatDate = function(date, format) {
 		format = format || 'short';
-		if (format === 'short') {
+		if (format === 'shortest') {
+			if (languageShort === 'fr') {
+				return utils.zeroPad(date.getDate(), 2) +'/'+ utils.zeroPad(date.getMonth() + 1, 2);
+			} else {
+				return utils.zeroPad(date.getMonth() + 1, 2) +'/'+ utils.zeroPad(date.getDate(), 2);
+			}
+		} else if (format === 'short') {
 			if (languageShort === 'fr') {
 				return utils.zeroPad(date.getDate(), 2) +'/'+ utils.zeroPad(date.getMonth() + 1, 2) +'/'+ date.getFullYear();
 			} else {
