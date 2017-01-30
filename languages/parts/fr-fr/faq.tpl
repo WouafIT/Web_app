@@ -97,7 +97,8 @@
 			<div id="collapseSeventeen" class="collapse" role="tabpanel" aria-labelledby="headingSeventeen">
 				<div class="card-block">
 					<p>Non, nous ne faisons pas de saisie manuelle de vos événements. Pour ajouter vos événements sur Wouaf IT
-						vous devez créer votre compte et les insérer, cela ne prend qu'une minute et tout est expliqué sur cette page.</p>
+						vous devez créer votre compte et les insérer, cela ne prend qu'une minute et toute la marche à suivre est
+						expliqué sur cette page.</p>
 				</div>
 			</div>
 		</div>
@@ -171,6 +172,24 @@
 			</div>
 		</div>
 		<div class="card">
+			<div class="card-header" role="tab" id="headingFourteen">
+				<h5>
+					<a data-toggle="collapse" data-parent="#accordion" href="#collapseFourteen" aria-expanded="true" aria-controls="collapseFourteen">
+						A quelle fréquence sont importés les événements Facebook ?
+					</a>
+				</h5>
+			</div>
+			<div id="collapseFourteen" class="collapse" role="tabpanel" aria-labelledby="headingFourteen">
+				<div class="card-block">
+					<p>Les événements Facebook sont importés une fois par semaine.</p>
+					<p>Une fois qu'un événement Facebook a été importé dans notre système, il ne sera plus mis à jour,
+						même si l'événement d'origine est modifié sur Facebook.</p>
+					<p>Cependant, une fois que vous avez créé votre compte sur Wouaf IT à l'aide du bouton "Connection avec Facebook"
+						vous pouvez gérer vous même vos événements directement depuis notre site.</p>
+				</div>
+			</div>
+		</div>
+		<div class="card">
 			<div class="card-header" role="tab" id="headingSixteen">
 				<h5>
 					<a data-toggle="collapse" data-parent="#accordion" href="#collapseSixteen" aria-expanded="true" aria-controls="collapseSixteen">
@@ -188,24 +207,6 @@
 						<li>Il est situé à plus de 10km d'une ville de plus de 5000 habitants.</li>
 					</ul>
 					<p>Dans tous les cas, vous pouvez toujours créer votre compte sur Wouaf IT et saisir vous même les événemenents manquants !</p>
-				</div>
-			</div>
-		</div>
-		<div class="card">
-			<div class="card-header" role="tab" id="headingFourteen">
-				<h5>
-					<a data-toggle="collapse" data-parent="#accordion" href="#collapseFourteen" aria-expanded="true" aria-controls="collapseFourteen">
-						A quelle fréquence sont importés les événements Facebook ?
-					</a>
-				</h5>
-			</div>
-			<div id="collapseFourteen" class="collapse" role="tabpanel" aria-labelledby="headingFourteen">
-				<div class="card-block">
-					<p>Les événements Facebook sont importés une fois par semaine.</p>
-					<p>Une fois qu'un événement Facebook a été importé dans notre système, il ne sera plus mis à jour,
-						même si l'événement d'origine est modifié sur Facebook.</p>
-					<p>Cependant, une fois que vous avez créé votre compte sur Wouaf IT à l'aide du bouton "Connection avec Facebook"
-						vous pouvez gérer vous même vos événements directement depuis notre site.</p>
 				</div>
 			</div>
 		</div>
@@ -330,7 +331,7 @@
 					<p>Le développement de Wouaf IT et la visibilité des événements qui y sont publiés dépendent d'abord de l'audience du site.
 						Vous pouvez donc parler de Wouaf IT autour de vous et sur vos réseaux sociaux. Le bouche à oreille est la meilleure des aides !
 					</p>
-					<p>Nous avons aussi besoin de bonnes volontés pour traduire le site en différentes langues, notamment Espagnol, Allemand, etc.
+					<p>Nous avons aussi besoin de bonnes volontés pour traduire le site en différentes langues, notamment Espagnol, Allemand, Italien, etc.
 						Si vous souhaitez contribuer aux traductions,
 						<a href="/contact/" data-href="contact" data-show="modal" data-target="#modalWindow">contactez-nous</a>.</p>
 					<p>Enfin, vous pouvez aller voir la page <i class="fa fa-github"></i> <a href="https://github.com/WouafIT" target="_blank">Github</a>

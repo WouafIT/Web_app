@@ -98,7 +98,7 @@
 			<div id="collapseSeventeen" class="collapse" role="tabpanel" aria-labelledby="headingSeventeen">
 				<div class="card-block">
 					<p>No, we do not enter your events manually. To add your events on Wouaf IT you have to create your
-						account and insert them, it only takes a minute and everything is explained on this page.</p>
+						account and insert them, it takes only one minute and the whole process is explained on this page.</p>
 				</div>
 			</div>
 		</div>
@@ -171,6 +171,24 @@
 			</div>
 		</div>
 		<div class="card">
+			<div class="card-header" role="tab" id="headingFourteen">
+				<h5>
+					<a data-toggle="collapse" data-parent="#accordion" href="#collapseFourteen" aria-expanded="true" aria-controls="collapseFourteen">
+						How often are Facebook events imported?
+					</a>
+				</h5>
+			</div>
+			<div id="collapseFourteen" class="collapse" role="tabpanel" aria-labelledby="headingFourteen">
+				<div class="card-block">
+					<p>Facebook events are imported once a week.</p>
+					<p>Once a Facebook event has been imported into our system, it will no longer be updated, even if the
+						original event is changed to Facebook.</p>
+					<p>However, once you have created your account on Wouaf IT using the button "Login with Facebook" you
+						can manage your events directly from Wouaf IT.</p>
+				</div>
+			</div>
+		</div>
+		<div class="card">
 			<div class="card-header" role="tab" id="headingSixteen">
 				<h5>
 					<a data-toggle="collapse" data-parent="#accordion" href="#collapseSixteen" aria-expanded="true" aria-controls="collapseSixteen">
@@ -188,24 +206,6 @@
 						<li>It is located more than 10km from a city of more than 5000 inhabitants.</li>
 					</ul>
 					<p>In any case, you can always create your account on Wouaf IT and enter the missing events yourself!</p>
-				</div>
-			</div>
-		</div>
-		<div class="card">
-			<div class="card-header" role="tab" id="headingFourteen">
-				<h5>
-					<a data-toggle="collapse" data-parent="#accordion" href="#collapseFourteen" aria-expanded="true" aria-controls="collapseFourteen">
-						How often are Facebook events imported?
-					</a>
-				</h5>
-			</div>
-			<div id="collapseFourteen" class="collapse" role="tabpanel" aria-labelledby="headingFourteen">
-				<div class="card-block">
-					<p>Facebook events are imported once a week.</p>
-					<p>Once a Facebook event has been imported into our system, it will no longer be updated, even if the
-						original event is changed to Facebook.</p>
-					<p>However, once you have created your account on Wouaf IT using the button "Login with Facebook" you
-						can manage your events directly from Wouaf IT.</p>
 				</div>
 			</div>
 		</div>
@@ -327,7 +327,7 @@
 					<p>We love you too <i class="fa fa-heart"></i> <i class="fa fa-smile-o"></i></p>
 					<p>The development of Wouaf IT and the visibility of the events published there depend primarily on the audience of the site.
 						So you can talk about Wouaf IT around you and on your social networks. Word of mouth is the best help!</p>
-					<p>We also need good will to translate the site into different languages, including Spanish, German, etc.
+					<p>We also need good will to translate the site into different languages, including Spanish, German, Italian, etc.
 						If you would like to contribute to the translations, please
 						<a href="/contact/" data-href="contact" data-show="modal" data-target="#modalWindow">contact us</a></p>
 					<p>Finally, you can check out the
