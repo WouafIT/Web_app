@@ -74,7 +74,7 @@
 			<div class="card-header" role="tab" id="headingThree">
 				<h5>
 					<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
-						Pourquoi ces contraintes ?
+						Pourquoi ces limites ?
 					</a>
 				</h5>
 			</div>
@@ -83,6 +83,21 @@
 					<p>Un Wouaf doit rester un événement rapide à consulter et éphémère. C'est dans cette optique qu'a été pensé
 					Wouaf IT et ces contraintes découlent directement de ces choix. Si vous le souhaitez, vous pouvez ajouter un
 					commentaire explicatif ou un lien "Plus d'infos" à votre Wouaf.</p>
+				</div>
+			</div>
+		</div>
+		<div class="card">
+			<div class="card-header" role="tab" id="headingSeventeen">
+				<h5>
+					<a data-toggle="collapse" data-parent="#accordion" href="#collapseSeventeen" aria-expanded="true" aria-controls="collapseSeventeen">
+						Puis-je vous envoyer mes événements par email ?
+					</a>
+				</h5>
+			</div>
+			<div id="collapseSeventeen" class="collapse" role="tabpanel" aria-labelledby="headingSeventeen">
+				<div class="card-block">
+					<p>Non, nous ne faisons pas de saisie manuelle de vos événements. Pour ajouter vos événements sur Wouaf IT
+						vous devez créer votre compte et les insérer, cela ne prend qu'une minute et tout est expliqué sur cette page.</p>
 				</div>
 			</div>
 		</div>
@@ -152,6 +167,27 @@
 
 					<p>N'hésitez pas à <a href="/contact/" data-href="contact" data-show="modal" data-target="#modalWindow">nous contacter</a>
 						si vous avez des questions ou en cas de problème !</p>
+				</div>
+			</div>
+		</div>
+		<div class="card">
+			<div class="card-header" role="tab" id="headingSixteen">
+				<h5>
+					<a data-toggle="collapse" data-parent="#accordion" href="#collapseSixteen" aria-expanded="true" aria-controls="collapseSixteen">
+						Certains événements Facebook ne sont pas repris sur Wouaf IT, pourquoi ?
+					</a>
+				</h5>
+			</div>
+			<div id="collapseSixteen" class="collapse" role="tabpanel" aria-labelledby="headingSixteen">
+				<div class="card-block">
+					<p>Il peut y avoir plusieurs raisons pour lesquelles un événement Facebook n'aparait pas sur Wouaf IT :</p>
+					<ul>
+						<li>Cet événement n'est pas public.</li>
+						<li>Il est déjà révolu au moment de l'import hebdomadaire.</li>
+						<li>Il n'est pas correctement géolocalisé (pas d'adresse précise).</li>
+						<li>Il est situé à plus de 10km d'une ville de plus de 5000 habitants.</li>
+					</ul>
+					<p>Dans tous les cas, vous pouvez toujours créer votre compte sur Wouaf IT et saisir vous même les événemenents manquants !</p>
 				</div>
 			</div>
 		</div>

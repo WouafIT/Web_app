@@ -75,7 +75,7 @@
 			<div class="card-header" role="tab" id="headingThree">
 				<h5>
 					<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
-						Why these constraints?
+						Why these limits?
 					</a>
 				</h5>
 			</div>
@@ -84,6 +84,21 @@
 					<p>A Wouaf must remain an event fast to consult and ephemeral. It is in this perspective that was thought
 						Wouaf IT and constraints arise directly from these choices. If you wish, you can add a
 						explanatory comment or a link "More" to your Wouaf.</p>
+				</div>
+			</div>
+		</div>
+		<div class="card">
+			<div class="card-header" role="tab" id="headingSeventeen">
+				<h5>
+					<a data-toggle="collapse" data-parent="#accordion" href="#collapseSeventeen" aria-expanded="true" aria-controls="collapseSeventeen">
+						Can I send my events by email?
+					</a>
+				</h5>
+			</div>
+			<div id="collapseSeventeen" class="collapse" role="tabpanel" aria-labelledby="headingSeventeen">
+				<div class="card-block">
+					<p>No, we do not enter your events manually. To add your events on Wouaf IT you have to create your
+						account and insert them, it only takes a minute and everything is explained on this page.</p>
 				</div>
 			</div>
 		</div>
@@ -152,6 +167,27 @@
 
 					<p>Do not hesitate to <a href="/contact/" data-href="contact" data-show="modal" data-target="#modalWindow">contact us</a>
 						in case of problems!</p>
+				</div>
+			</div>
+		</div>
+		<div class="card">
+			<div class="card-header" role="tab" id="headingSixteen">
+				<h5>
+					<a data-toggle="collapse" data-parent="#accordion" href="#collapseSixteen" aria-expanded="true" aria-controls="collapseSixteen">
+						Some Facebook events are not included on Wouaf IT, why?
+					</a>
+				</h5>
+			</div>
+			<div id="collapseSixteen" class="collapse" role="tabpanel" aria-labelledby="headingSixteen">
+				<div class="card-block">
+					<p>There may be several reasons why a Facebook event did not appear on Wouaf IT:</p>
+					<ul>
+						<li>This event is not public.</li>
+						<li>It is already gone at the time of the weekly import.</li>
+						<li>It is not properly geolocated (no precise address).</li>
+						<li>It is located more than 10km from a city of more than 5000 inhabitants.</li>
+					</ul>
+					<p>In any case, you can always create your account on Wouaf IT and enter the missing events yourself!</p>
 				</div>
 			</div>
 		</div>
