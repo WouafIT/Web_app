@@ -8,19 +8,20 @@ module.exports = (function() {
 		compatibilityMode = true;
 	}
 	//Test local storage support (disabled in iOS in private mode)
-	if (typeof window.localStorage === 'object') {
-		try {
+	try {
+		if (typeof window.localStorage === 'object') {
 			localStorage.setItem('localStorage', 1);
 			localStorage.removeItem('localStorage');
-		} catch (e) {
-			Storage.prototype._setItem = Storage.prototype.setItem;
-			Storage.prototype.setItem = function() {};
-			compatibilityMode = true;
-			if (__DEV__) {
-				console.error('Local storage disabled - Use compatibility mode.');
-			}
+		}
+	} catch (e) {
+		Storage.prototype._setItem = Storage.prototype.setItem;
+		Storage.prototype.setItem = function() {};
+		compatibilityMode = true;
+		if (__DEV__) {
+			console.error('Local storage disabled - Use compatibility mode.');
 		}
 	}
+
 	/**
 	 * Cross domain storage.
 	 * Based on: http://www.nczonline.net/blog/2010/09/07/learning-from-xauth-cross-domain-localstorage/
