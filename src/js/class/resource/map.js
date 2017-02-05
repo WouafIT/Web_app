@@ -76,7 +76,7 @@ module.exports = (function () {
 				'id': 			post.id,
 				'title': 		categories.getLabel(post.cat) +' - '+ utils.escapeHtml(post.title),
 				'cat': 			categories.getRootId(post.cat),
-				'coordinates': 	{'lat': parseFloat(post.loc[0]), 'lng': parseFloat(post.loc[1])},
+				'coordinates': 	{'lat': parseFloat(post.geo[0]), 'lng': parseFloat(post.geo[1])},
 				'color': 		categories.getColor(post.cat)
 			};
 			elements.push(element);
@@ -220,14 +220,14 @@ module.exports = (function () {
 				return;
 			}
 			var mapCenter = center.toUrlValue(5);
-			var objCenter = new google.maps.LatLng(obj.loc[0], obj.loc[1]).toUrlValue(5);
+			var objCenter = new google.maps.LatLng(obj.geo[0], obj.geo[1]).toUrlValue(5);
 			if (mapCenter === objCenter) {
 				if (debug) {
 					console.info('openPin1');
 				}
 				$.when(appendPin(obj)).done(showIW);
 			} else {
-				center = new google.maps.LatLng(obj.loc[0], obj.loc[1]);
+				center = new google.maps.LatLng(obj.geo[0], obj.geo[1]);
 				if (isSearchRefreshNeeded(center)) {
 					if (debug) {
 						console.info('openPin2');
@@ -421,7 +421,7 @@ module.exports = (function () {
 		}
 		var distance = Math.round(google.maps.geometry.spherical.computeDistanceBetween(
 			point,
-			self.jsonResults.params.loc
+			self.jsonResults.params.geo
 		));
 		//distance is in meters and radius in km, refresh is distance is above 85% of queried radius
 		return (distance >= self.jsonResults.params.radius * 850);//850 => 1000 (m => km) * 0.85 (%)

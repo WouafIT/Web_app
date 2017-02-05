@@ -42,7 +42,7 @@ module.exports = (function() {
 		$type.val(user.get('type'));
 		$displayname.val(user.get('displayname'));
 		$email.val(user.get('email'));
-		$language.val(user.get('lang'));
+		$language.val(user.get('locale'));
 		$gender.val(user.get('gender'));
 		$url.val(user.get('url'));
 
@@ -77,7 +77,7 @@ module.exports = (function() {
 					query.deleteUser(
 						function() { //success
 							users.remove(data.getString('uid'));
-							$document.triggerHandler('app.deleted-profile', user.get('lang'));
+							$document.triggerHandler('app.deleted-profile', user.get('locale'));
 
 							$document.triggerHandler('app.logout');
 							toast.show(i18n.t('Your profile is deleted'));
@@ -120,17 +120,17 @@ module.exports = (function() {
 			query.updateUser({
 				pass: 			$pass.val(),
 				email: 			$email.val(),
-				lang: 			$language.val(),
+				locale: 		$language.val(),
 				description:	$description.val(),
 				type:			$type.val(),
 				displayname: 	$displayname.val(),
 				gender: 		$gender.val(),
 				url:			$url.val()
 			}, function(result) { //success
-				var originalLanguage = user.get('lang');
+				var originalLanguage = user.get('locale');
 				user.set('displayname', $displayname.val());
 				user.set('gender', $gender.val());
-				user.set('lang', $language.val());
+				user.set('locale', $language.val());
 				if (!result.activation) {
 					user.set('email', $email.val());
 				}
@@ -145,9 +145,9 @@ module.exports = (function() {
 				users.remove(data.getString('uid'));
 				var profileSaved = function () {
 					toast.show(i18n.t('Profile saved!'), null, function () {
-						if (originalLanguage !== user.get('lang')) {
-							var lang = user.get('lang').toLowerCase().replace('_', '-');
-							var newHostname = lang + window.location.hostname.substr(5);
+						if (originalLanguage !== user.get('locale')) {
+							var locale = user.get('locale').toLowerCase().replace('_', '-');
+							var newHostname = locale + window.location.hostname.substr(5);
 							if (newHostname !== window.location.hostname) {
 								window.location = window.location.protocol +'//'+ newHostname + url.getCurrentPath();
 							}

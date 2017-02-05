@@ -25,10 +25,10 @@ module.exports = (function() {
 		} else {
 			params = $.extend(params, previousSearchParams);
 		}
-		if (!params.loc) {
-			params.loc = map.getMap().getCenter();
+		if (!params.geo) {
+			params.geo = map.getMap().getCenter();
 		} else if (!params.refresh) {
-			map.setCenter(params.loc, false);
+			map.setCenter(params.geo, false);
 		}
 		if (!params.radius) {
 			params.radius = data.getInt('radius') || 70;
@@ -42,15 +42,15 @@ module.exports = (function() {
 		query.posts(params, function(results, params) {
 			//save previous search params
 			previousSearchParams = $.extend({}, params);
-			delete previousSearchParams.loc;
+			delete previousSearchParams.geo;
 			delete previousSearchParams.refresh;
 			//add query parameters to results for further reference
 			results.params = params;
 			//keep last coordinates from results
 			var searchResultsCount = results.results.length;
 			if (searchResultsCount === results.params.limit) {
-				var furtherLoc = results.results.slice(-1)[0].loc;
-				results.params.radius = utils.distance(results.params.loc.lat(), results.params.loc.lng(), furtherLoc[0], furtherLoc[1]);
+				var furtherLoc = results.results.slice(-1)[0].geo;
+				results.params.radius = utils.distance(results.params.geo.lat(), results.params.geo.lng(), furtherLoc[0], furtherLoc[1]);
 			} else {
 				results.params.radius = data.getInt('radius') || 70;
 			}

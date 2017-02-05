@@ -324,10 +324,10 @@ module.exports = (function() {
 		});
 	};
 	var getSearchParams = function () {
-		var loc = $whereLoc.val() || null;
-		if (loc) {
-			var position = JSON.parse(loc);
-			loc = new google.maps.LatLng(position.lat, position.lng);
+		var geo = $whereLoc.val() || null;
+		if (geo) {
+			var position = JSON.parse(geo);
+			geo = new google.maps.LatLng(position.lat, position.lng);
 		}
 		var date = null, duration = null;
 		var today = new Date();
@@ -396,7 +396,7 @@ module.exports = (function() {
 			cat: $category.val() || null,
 			tag: $hashtag.val() || null,
 			children: $children.prop('checked'),
-			loc: loc,
+			geo: geo,
 			date: date,
 			duration: duration
 		}

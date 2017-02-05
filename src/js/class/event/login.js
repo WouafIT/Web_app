@@ -59,11 +59,11 @@ module.exports = (function() {
 		$('.logged').removeAttr('hidden');
 
 		//check for language
-		var userLanguage = user.get('lang');
+		var userLanguage = user.get('locale');
 		var currentLanguage = window.location.hostname.substr(0, 5);
 		if (permanent && userLanguage && currentLanguage !== userLanguage) {
-			var lang = userLanguage.toLowerCase().replace('_', '-');
-			var newHostname = lang + window.location.hostname.substr(5);
+			var locale = userLanguage.toLowerCase().replace('_', '-');
+			var newHostname = locale + window.location.hostname.substr(5);
 			if (newHostname !== window.location.hostname) {
 				window.location = window.location.protocol +'//'+ newHostname + window.location.pathname;
 			}
