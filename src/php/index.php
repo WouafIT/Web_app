@@ -354,14 +354,14 @@ function getWouafHTML($data) {
 			"location"		=> array(
 				"@type" 		=> "Place",
 				"name"			=> $data['location']['name'],
-				"address"		=> ($data['location']['address'].' '.
+				"address"		=> ($data['location']['address'].', '.
 									$data['location']['zip'].' '.
-									$data['location']['city'].' '.
+									$data['location']['city'].', '.
 									$data['location']['country']),
 				"geo" 			=>  [
 					"@type"  		=>  "GeoCoordinates",
-					"latitude"  	=>  $data['loc'][0],
-					"longitude"  	=>  $data['loc'][1]
+					"latitude"  	=>  $data['geo'][0],
+					"longitude"  	=>  $data['geo'][1]
 				]
 			),
 		);
