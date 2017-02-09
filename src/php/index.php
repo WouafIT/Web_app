@@ -340,35 +340,41 @@ function getWouafHTML($data) {
 		$return .= '</p>';
 	}
 	$return .= '</div>';
-	//microformat
-	$microformat = array(
-		"@context" 		=> "http://schema.org",
-		"@type" 		=> "Event",
-		"name" 			=> $title,
-		"description" 	=> $data['text'],
-		"url" 			=> 'https://<%= htmlWebpackPlugin.options.data.domain %>/wouaf/'.$data['id'].'/',
-		"startDate" 	=> $start->format('c'),
-		"endDate" 		=> $end->format('c'),
-		"duration" 		=> iso8601_duration($end->getTimestamp() - $start->getTimestamp()),
-		"location"		=> array(
-			"@type" 		=> "Place",
-			"name"			=> '',
-			"address"		=> '',
-			"geo" 			=>  [
-				"@type"  		=>  "GeoCoordinates",
-			  	"latitude"  	=>  $data['loc'][0],
-			  	"longitude"  	=>  $data['loc'][1]
-			]
-		),
-	);
-	if (!empty($data['pics']) && is_array($data['pics'])) {
-		$microformat['image'] = $data['pics'][0]['full'];
-	}
-	if (!empty($data['url'])) {
-		$microformat['sameAs'] = $data['url'];
-	}
-	$return .= '<script type="application/ld+json">'.json_encode($microformat).'</script>';
 
+	if (!empty($data['location'])) {
+		//microformat
+		$microformat = array(
+			"@context" 		=> "http://schema.org",
+			"@type" 		=> "Event",
+			"name" 			=> $title,
+			"description" 	=> $data['text'],
+			"url" 			=> 'https://<%= htmlWebpackPlugin.options.data.domain %>/wouaf/'.$data['id'].'/',
+			"startDate" 	=> $start->format('c'),
+			"endDate" 		=> $end->format('c'),
+			"duration" 		=> iso8601_duration($end->getTimestamp() - $start->getTimestamp()),
+			"location"		=> array(
+				"@type" 		=> "Place",
+				"name"			=> $data['location']['name'],
+				"address"		=> ($data['location']['address'].' '.
+									$data['location']['zip'].' '.
+									$data['location']['city'].' '.
+									$data['location']['country']),
+				"geo" 			=>  [
+					"@type"  		=>  "GeoCoordinates",
+					"latitude"  	=>  $data['loc'][0],
+					"longitude"  	=>  $data['loc'][1]
+				]
+			),
+		);
+
+		if (!empty($data['pics']) && is_array($data['pics'])) {
+			$microformat['image'] = $data['pics'][0]['full'];
+		}
+		if (!empty($data['url'])) {
+			$microformat['sameAs'] = $data['url'];
+		}
+		$return .= '<script type="application/ld+json">'.json_encode($microformat).'</script>';
+	}
 	return $return;
 }
 
