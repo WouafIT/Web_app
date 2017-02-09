@@ -98,7 +98,7 @@ module.exports = (function() {
 					if (i === 'type' || i === 'searchId' || i === 'refresh' || !param) { //remove event or empty params
 						continue;
 					}
-					if (i === 'loc') {
+					if (i === 'geo') {
 						//precision => http://gis.stackexchange.com/questions/8650/how-to-measure-the-accuracy-of-latitude-and-longitude
 						param = params[i].toUrlValue(2); //~1.1km
 					}

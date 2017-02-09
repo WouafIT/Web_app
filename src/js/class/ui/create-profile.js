@@ -72,7 +72,7 @@ module.exports = (function() {
 				username: 		$username.val(),
 				pass: 			$pass.val(),
 				email: 			$email.val(),
-				lang: 			$language.val()
+				locale: 		$language.val()
 			}, function() { //success
 				//call login
 				query.login({

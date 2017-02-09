@@ -128,12 +128,12 @@ module.exports = (function() {
 
 	//app init
 	$document.on('app.started', function () {
-		var lang = window.location.hostname.substr(0, 5);
-		ga('set', 'language', lang);
+		var language = window.location.hostname.substr(0, 5);
+		ga('set', 'language', language);
 		var logEvent = function () {
 			if (__DEV__)
-				console.info('Analytics - Event - App - Start - '+ (data.getString('uid') ? 'Logged ' : 'Not logged ')+ lang);
-			ga('send', 'event', 'app', 'start', (data.getString('uid') ? 'Logged ' : 'Not logged ') + lang, '', {
+				console.info('Analytics - Event - App - Start - '+ (data.getString('uid') ? 'Logged ' : 'Not logged ')+ language);
+			ga('send', 'event', 'app', 'start', (data.getString('uid') ? 'Logged ' : 'Not logged ') + language, '', {
 				nonInteraction: true
 			});
 		};

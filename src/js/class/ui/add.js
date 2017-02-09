@@ -310,7 +310,7 @@ module.exports = (function() {
 			}
 			//Query
 			var wouafData = {
-				loc: 		($latitude.val() +','+ $longitude.val()),
+				geo: 		($latitude.val() +','+ $longitude.val()),
 				cat: 		$category.val(),
 				title:		$title.val(),
 				text: 		$content.val(),

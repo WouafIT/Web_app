@@ -370,18 +370,18 @@ clustermap.ClusterMarker.prototype.draw = function () {
 	var overlayProjection = this.getProjection();
 	// Retrieve the southwest and northeast coordinates of this overlay
 	// in latlngs and convert them to pixels coordinates.
-	var loc = overlayProjection.fromLatLngToDivPixel(this._params.latlng);
+	var geo = overlayProjection.fromLatLngToDivPixel(this._params.latlng);
 
 	// Set the marker at the right position.
-	this._div.style.left = (loc.x - this._params.width / 2) + 'px';
+	this._div.style.left = (geo.x - this._params.width / 2) + 'px';
 	if (this._params.cat) {
-		this._div.style.top = (loc.y - this._params.width - 6) + 'px';
+		this._div.style.top = (geo.y - this._params.width - 6) + 'px';
 	} else {
-		this._div.style.top = (loc.y - this._params.width / 2) + 'px';
+		this._div.style.top = (geo.y - this._params.width / 2) + 'px';
 	}
 	if (this._shadow) {
-		this._shadow.style.left = (loc.x - 7) + 'px';
-		this._shadow.style.top = (loc.y -((60 - this._params.width) / 5)) + 'px';
+		this._shadow.style.left = (geo.x - 7) + 'px';
+		this._shadow.style.top = (geo.y -((60 - this._params.width) / 5)) + 'px';
 	}
 };
 

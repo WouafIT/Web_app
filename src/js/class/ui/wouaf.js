@@ -144,7 +144,7 @@ module.exports = (function() {
 		collapse = collapse || false;
 		var title 		= utils.getWouafTitle(obj);
 		var dateLabel 	= self.getDateLabel(obj);
-		var locale 		= ' lang="'+ (obj.lang ? obj.lang.substr(0, 2) : i18n.t('languageShort')) +'"';
+		var locale 		= ' lang="'+ (obj.locale ? obj.locale.substr(0, 2) : i18n.t('languageShort')) +'"';
 		if (obj.rtl) {
 			locale += ' dir="rtl"';
 		}
@@ -182,7 +182,7 @@ module.exports = (function() {
 						utils.escapeHtml(obj.author[2] || obj.author[1]) +' '+ authorAvatar +'</a>',
 				interpolation: {escapeValue: false}
 		});
-		var locale 		= ' lang="'+ (obj.lang ? obj.lang.substr(0, 2) : i18n.t('languageShort')) +'"';
+		var locale 		= ' lang="'+ (obj.locale ? obj.locale.substr(0, 2) : i18n.t('languageShort')) +'"';
 		if (obj.rtl) {
 			locale += ' dir="rtl"';
 		}

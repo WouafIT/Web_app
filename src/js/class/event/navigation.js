@@ -154,7 +154,7 @@ module.exports = (function() {
 						//check if wouaf data exists in html
 						if (window.wouafit.wouaf && window.wouafit.wouaf.id === wouafId) {
 							wouafs.set(wouafId, window.wouafit.wouaf);
-							data.setObject('position', {lat: window.wouafit.wouaf.loc[0], lng: window.wouafit.wouaf.loc[1]});
+							data.setObject('position', {lat: window.wouafit.wouaf.geo[0], lng: window.wouafit.wouaf.geo[1]});
 						}
 						$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: wouafId});
 					} else if (part === 'user' && utils.isValidUsername(parts[i + 1])) {

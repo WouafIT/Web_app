@@ -215,7 +215,7 @@ function getWouafMeta($data) {
 
 			  '<meta property="og:url" content="https://'.$_SERVER['HTTP_HOST'].'/wouaf/'.$data['id'].'/" />'.PHP_EOL.
 			  '<meta property="og:site_name" content="Wouaf IT" />'.PHP_EOL.
-			  '<meta property="og:locale" content="'.(isset($data['lang']) ? $data['lang'] : $locale).'" />'.PHP_EOL.
+			  '<meta property="og:locale" content="'.(isset($data['locale']) ? $data['locale'] : $locale).'" />'.PHP_EOL.
 			  '<meta property="og:description" content="'.$safe_description.'" />'.PHP_EOL.
 			  '<meta name="twitter:card" content="summary" />'.PHP_EOL.
 			  '<meta name="twitter:site" content="@Wouaf_IT" />'.PHP_EOL.
@@ -320,8 +320,8 @@ function getWouafHTML($data) {
 			  '	'.$t['to'].' <time class="dt-end" datetime="'.$end->format('c').'">'.
 			  strftime('%c', intval($data['dates'][$lastDate]['end'])).'</time>'.PHP_EOL.
 			  '	'.$t['at'].' <span class="p-location h-geo">'.PHP_EOL.
-			  '		<span class="p-latitude">'.$data['loc'][0].'</span>, '.PHP_EOL.
-			  '		<span class="p-longitude">'.$data['loc'][1].'</span>'.PHP_EOL.
+			  '		<span class="p-latitude">'.$data['geo'][0].'</span>, '.PHP_EOL.
+			  '		<span class="p-longitude">'.$data['geo'][1].'</span>'.PHP_EOL.
 			  '	</span></p>'.PHP_EOL.
 			  '<p class="p-description">'.$data['html'].'</p>'.PHP_EOL;
 	if (!empty($data['tags']) && is_array($data['tags'])) {
@@ -340,7 +340,6 @@ function getWouafHTML($data) {
 		$return .= '</p>';
 	}
 	$return .= '</div>';
-
 	if (!empty($data['location'])) {
 		//microformat
 		$microformat = array(
@@ -397,7 +396,7 @@ function getUserMeta($data) {
 				   '<meta property="og:type" content="profile" />'.PHP_EOL.
 				   '<meta property="og:url" content="https://'.$_SERVER['HTTP_HOST'].'/user/'.$data['username'].'/" />'.PHP_EOL.
 				   '<meta property="og:site_name" content="Wouaf IT" />'.PHP_EOL.
-				   '<meta property="og:locale" content="'.$data['lang'].'" />'.PHP_EOL;
+				   '<meta property="og:locale" content="'.$data['locale'].'" />'.PHP_EOL;
 	if (!empty($data['fid'])) {
 		$return .= '<meta property="fb:profile_id" content="'.htmlspecialchars($data['fid']).'" />'.PHP_EOL;
 	}

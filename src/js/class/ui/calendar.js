@@ -41,7 +41,7 @@ module.exports = (function() {
 				var wouafUrl = url.getAbsoluteURLForStates([{name: 'wouaf', value: obj.id}], true);
 				var start = new Date(obj.dates[0].start * 1000);
 				var end = new Date(obj.dates[0].end * 1000);
-				var location = 'https://maps.google.com/?q='+ obj.loc[0] +','+ obj.loc[1];
+				var location = 'https://maps.google.com/?q='+ obj.geo[0] +','+ obj.geo[1];
 				$calendarDetails.html(i18n.t('Choose your type of calendar below to insert the Wouaf {{title}}', {title: title}));
 
 				$btnGoogle.on('click', function () {
