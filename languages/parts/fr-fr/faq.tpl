@@ -286,15 +286,15 @@
 				<div class="card-block">
 					<p>L'idée derrière Wouaf IT remonte à 2012, lors d'un trajet en voiture à la campagne en famille. Nous avons croisé
 						un chien errant sur la route. Il semblait visiblement perdu et a pris la fuite lorsque nous avons voulu l'approcher.
-						Nous avons alors pensé que son maitre n'était peut-être qu'à quelques minutes de là en train de le chercher mais nous n'avions
+						Nous avons alors pensé que son maître n'était peut-être qu'à quelques minutes de là en train de le chercher mais nous n'avions
 						aucun moyen simple de pouvoir l'avertir.
 						<br />
 						C'est de cette histoire qu'est née l'idée derrière Wouaf IT : Proposer un service qui permette à tout un chacun
 						de pouvoir dire aux gens géographiquement proches "Hey, ici il se passe quelque chose !".
 						<br />
-						Cette idée a pris le temps de murir pour devenir le site actuel après quelques mois de développement.
+						Cette idée a pris le temps de mûrir pour devenir le site actuel après quelques mois de développement.
 						Nous avons donc nommé "Wouaf" une publication sur le site en référence à ce chien qui, nous l'espérons, a retrouvé
-						son maitre.
+						son maître.
 					</p>
 				</div>
 			</div>
