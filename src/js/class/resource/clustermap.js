@@ -353,7 +353,7 @@ clustermap.ClusterMarker.prototype.onAdd = function () {
 		iw.setPosition(me._params.latlng);
 		iw.setOptions({pixelOffset: new google.maps.Size(0, (me._params.cat ? -me._params.width : me._params.width / -2))});
 		//trigger handler to open info window with wouaf content
-		$document.triggerHandler('map.infowindow-open', {ids: me._params.ids});
+		$document.triggerHandler('map.infowindow-open', {ids: me._params.ids, pin: div});
 	});
 };
 

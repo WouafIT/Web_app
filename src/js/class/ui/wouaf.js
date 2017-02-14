@@ -146,7 +146,7 @@ module.exports = (function() {
 		return [
 			'<div',
 				(collapse
-					? ' data-toggle="collapse" data-parent=".w-accordion" data-target="#collapse-'+ obj.id +'" class="panel-title collapsed w-title '+ obj.state +'"'
+					? ' data-toggle="collapse" data-parent=".w-accordion" data-target="#collapse-'+ obj.id +'" class="card-header collapsed w-title '+ obj.state +'"'
 					: ' class="w-title '+ obj.state +'"'),
 				' style="border-color:', categories.getColor(obj.cat) ,';">',
 				'<div class="w-cat w-cat'+ categories.getRootId(obj.cat) +'"', locale ,'>',
@@ -183,10 +183,10 @@ module.exports = (function() {
 			locale += ' dir="rtl"';
 		}
 		var content = ['<div data-id="'+ obj.id +'"',
-			 	(collapse ? ' class="panel panel-default w-container">' : ' class="w-container">'),
+			 	(collapse ? ' class="card w-container">' : ' class="w-container">'),
 			self.getHeader(obj, collapse),
 			'<div',
-				(collapse ? ' id="collapse-'+ obj.id +'" class="panel-collapse collapse w-content">' : ' class="w-content">'),
+				(collapse ? ' id="collapse-'+ obj.id +'" class="collapse w-content">' : ' class="w-content">'),
 				'<button class="w-menu" data-id="'+ obj.id +'" type="button" data-menu="wouaf">',
 					'<i class="fa fa-bars"></i> '+ i18n.t('Menu'),
 				'</button>',

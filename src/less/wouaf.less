@@ -5,7 +5,8 @@
 		text-decoration: none;
 	}
 	.w-title {
-		font-weight: bold;
+		color: @text-dark;
+		font-weight: 700;
 		font-size: 0.8rem;
 		padding: .4rem .4rem .5rem .4rem;
 		background-color: @lighter-grey;
@@ -15,7 +16,7 @@
 		border-left: 7px solid @green;
 		position: relative;
 
-		&.panel-title {
+		&.card-header {
 			cursor: pointer;
 		}
 
@@ -119,11 +120,19 @@
 			}
 		}
 	}
-	.panel:not(:first-child) .w-title {
+	.card {
+		margin-bottom: 0;
+		border: 0;
+		background-color: transparent;
+	}
+	.card:not(:first-child) .w-title {
 		border-radius: 0;
 	}
-	.panel:last-child .w-title.collapsed {
+	.card:last-child .w-title.collapsed {
 		border-radius: 0 0 10px 10px;
+	}
+	.card-header {
+		border-bottom: 0;
 	}
 }
 .w-more {
