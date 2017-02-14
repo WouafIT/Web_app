@@ -8,14 +8,29 @@ module.exports = (function() {
 	var $document = $(document);
 	var $mapArea = $('#sb-site');
 	var $addZone = $('#add-zone');
-	var $addBtn = $addZone.find('.add-btn');
-	var $addOkBtn = $addZone.find('button.btn-primary.add');
-	var $locationBtn = $addZone.find('button.btn-primary.location');
-	var $addCancelBtn = $addZone.find('button.btn-secondary.cancel');
-	$addOkBtn.hide();
-	$locationBtn.hide();
-	$addCancelBtn.hide();
+
+	var $mapBtns = $addZone.find('.map-btns');
+	var $searchBtn = $mapBtns.find('.search');
+	var $addBtn = $mapBtns.find('.add');
+
+	var $addBtns = $addZone.find('.add-btns');
+	var $addOkBtn = $addBtns.find('.add');
+	var $locationBtn = $addBtns.find('.location');
+	var $addCancelBtn = $addBtns.find('.cancel');
+
+	$addBtns.hide();
+	if (!data.getBool('userGeolocation')) {
+		$locationBtn.hide();
+	}
 	$addZone.removeAttr('hidden');
+
+	$searchBtn.on('click', function () {
+		//show results tabs
+		$document.triggerHandler('tabs.show', 'search');
+		//open sidebar
+		$document.triggerHandler('slide.open');
+	});
+
 	$addOkBtn.popover({
 		title: 		i18n.t('Add a new Wouaf'),
 		content: 	i18n.t('Add_wouaf_popover_2', {interpolation: {escapeValue: false}}),
@@ -122,15 +137,11 @@ module.exports = (function() {
 		if (!data.getString('uid')) { //user is not logged, show login window
 			windows.login(i18n.t('Login to create a new wouaf'));
 		} else {
-			$addBtn.hide();
 			if (!slidebars.isDualView()) {
 				$document.triggerHandler('slide.close');
 			}
-			$addOkBtn.show();
-			if (data.getBool('userGeolocation')) {
-				$locationBtn.show();
-			}
-			$addCancelBtn.show();
+			$mapBtns.hide();
+			$addBtns.show();
 			showCrosshair();
 			if (data.getBool('showPopover') !== false) {
 				$addOkBtn.popover('show');
@@ -138,17 +149,15 @@ module.exports = (function() {
 		}
 	};
 	var cancelAdd = function() {
-		$addOkBtn.hide();
-		$locationBtn.hide();
-		$addCancelBtn.hide();
-		$addBtn.show();
+		$addBtns.hide();
+		$mapBtns.show();
 		$addOkBtn.popover('hide');
 		hideCrosshair();
 	};
 
 	var self = {};
 	self.init = function() {
-		$addBtn.show();
+		$mapBtns.show();
 		$addBtn.on('click', addWouaf);
 		$addOkBtn.on('click', function() {
 			var zoom = map.getMap().getZoom();

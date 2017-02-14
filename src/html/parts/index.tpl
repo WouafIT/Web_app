@@ -1,10 +1,15 @@
 <div id="sb-site">
 	<div id="menu" title="<%= htmlWebpackPlugin.options.i18n['Menu'] %>" class="sb-toggle-left"><i class="fa fa-bars fa-lg"></i></div>
 	<div id="add-zone" hidden>
-		<div class="add-btn" title="<%= htmlWebpackPlugin.options.i18n['Add a Wouaf'] %>"><i class="fa fa-plus-circle" aria-hidden="true"></i></div>
-		<button class="btn btn-lg btn-secondary cancel"><%= htmlWebpackPlugin.options.i18n['Cancel'] %></button>
-		<button class="btn btn-lg btn-primary location" title="<%= htmlWebpackPlugin.options.i18n['Center on your position'] %>"><i class="fa fa-crosshairs"></i></button>
-		<button class="btn btn-lg btn-primary add"><%= htmlWebpackPlugin.options.i18n['OK'] %></button>
+		<div class="map-btns">
+			<div class="map-btn search" title="<%= htmlWebpackPlugin.options.i18n['Search'] %>"><i class="fa fa-search" aria-hidden="true"></i></div>
+			<div class="map-btn add" title="<%= htmlWebpackPlugin.options.i18n['Add a Wouaf'] %>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></div>
+		</div>
+		<div class="add-btns">
+			<button class="btn btn-lg btn-secondary cancel"><%= htmlWebpackPlugin.options.i18n['Cancel'] %></button>
+			<button class="btn btn-lg btn-primary location" title="<%= htmlWebpackPlugin.options.i18n['Center on your position'] %>"><i class="fa fa-crosshairs"></i></button>
+			<button class="btn btn-lg btn-primary add"><%= htmlWebpackPlugin.options.i18n['OK'] %></button>
+		</div>
 	</div>
 	<div id="search-zone" hidden>
 		<div class="search-btn" title="<%= htmlWebpackPlugin.options.i18n['Update your search'] %>"><i class="fa fa-search" aria-hidden="true"></i></div>

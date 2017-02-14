@@ -13,24 +13,22 @@ module.exports = (function() {
 		for(var i = 0, l = obj.dates.length; i < l; i++) {
 			timeStart 	= obj.dates[i].start * 1000;
 			timeEnd 	= obj.dates[i].end * 1000;
-			content.push(self.getDateLabel(obj, timeStart, timeEnd, false));
+			content.push(self.getDateLabel(obj, timeStart, timeEnd));
 		}
 		return content;
 	};
-	self.getDateLabel = function (obj, timeStart, timeEnd, moreDate) {
+	self.getDateLabel = function (obj, timeStart, timeEnd) {
 		var storeResult = !timeStart || !timeEnd;
-		moreDate = (typeof moreDate === 'undefined' || !!moreDate);
 		if (storeResult && obj.dateLabel) {
 			return obj.dateLabel;
 		}
 		//state
 		var time = new Date();
 		var timestamp = time.getTime();
-		var datesLength = obj.dates.length;
 		if (!timeStart || !timeEnd) {
 			timeStart 	= obj.dates[0].start * 1000;
 			timeEnd 	= obj.dates[0].end * 1000;
-			if (datesLength > 1) {
+			if (obj.dates.length > 1) {
 				var s, e, i, l = obj.dates.length;
 				//get the closest period
 				for(i = 0; i < l; i++) {
@@ -129,9 +127,6 @@ module.exports = (function() {
 				dateLabel = '<i class="fa fa-play w-green" title="'+ i18n.t('Currently') +'"></i> '+ dateLabel;
 				break;
 		}
-		if (moreDate && datesLength > 1) {
-			dateLabel += '<br /><i class="fa fa-calendar-plus-o" aria-hidden="true"></i> <a href="" data-action="date-list" data-id="'+ obj.id +'">'+ i18n.t('{{count}} more date', {count: (datesLength - 1)}) +'</a>';
-		}
 		if (storeResult) {
 			obj.state 		= state;
 			obj.dateLabel 	= dateLabel;
@@ -182,6 +177,7 @@ module.exports = (function() {
 						utils.escapeHtml(obj.author[2] || obj.author[1]) +' '+ authorAvatar +'</a>',
 				interpolation: {escapeValue: false}
 		});
+		var datesCount  = obj.dates.length;
 		var locale 		= ' lang="'+ (obj.locale ? obj.locale.substr(0, 2) : i18n.t('languageShort')) +'"';
 		if (obj.rtl) {
 			locale += ' dir="rtl"';
@@ -196,8 +192,15 @@ module.exports = (function() {
 				'</button>',
 				'<div class="w-subTitle">', author ,'</div>',
 					'<p class="w-text"', locale ,'>', text ,'</p>'];
-		if (obj.url) {
-			content.push('<p class="w-link"><a href="'+ obj.url +'" target="_blank"><i class="fa fa-external-link"></i> '+ i18n.t('More info') +'</a></p>');
+		if (obj.url || datesCount > 1) {
+			content.push('<div class="w-links">');
+			if (datesCount > 1) {
+				content.push('<a href="#" class="w-dates" data-action="date-list" data-id="'+ obj.id +'"><i class="fa fa-calendar-plus-o"></i> '+ i18n.t('{{count}} more date', {count: (datesCount - 1)}) +'</a>');
+			}
+			if (obj.url) {
+				content.push('<a href="'+ obj.url +'" class="w-infos" target="_blank"><i class="fa fa-external-link"></i> '+ i18n.t('More info') +'</a>');
+			}
+			content.push('</div>');
 		}
 		if (obj.pics && obj.pics.length) {
 			content.push('<div class="w-pics">');
