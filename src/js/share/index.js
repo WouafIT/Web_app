@@ -21,14 +21,28 @@ if (typeof jQuery === 'undefined') {
 		var username = params.username || 'unknown';
 		var displayname = params.displayname || params.username;
 		var url = 'https://wouaf.it/user/'+ username +'/';
+		var title, link;
+		if (displayname.length > 13) {
+			title = '<text font-weight="600" font-size="36px" y="60px" x="500px" fill="#ffffff" text-anchor="end">'+
+					i18n.t('{{user}} est sur', {user: displayname})+
+					'</text>';
+		} else {
+			title = '<text font-weight="600" font-size="36px" y="60px" x="335px" fill="#ffffff" text-anchor="middle">'+
+					i18n.t('{{user}} est sur', {user: displayname})+
+					'</text>';
+		}
+		if (username.length > 17) {
+			link = '<text font-size="18px" y="275px" x="500px" fill="#ffffff" text-anchor="end">'+ utils.escapeHtml(url) +'</text>';
+		} else {
+			link = '<text font-size="18px" y="275px" x="335px" fill="#ffffff" text-anchor="middle">'+ utils.escapeHtml(url) +'</text>';
+		}
+
 		$('svg').html(
-			'<text font-weight="600" font-size="36px" y="60px" x="335px" fill="#ffffff" text-anchor="middle">'+
-				i18n.t('{{user}} est sur', {user: displayname})+
-			'</text>'+
+			title +
 			'<text font-weight="600" font-size="18px" y="240px" x="335px" fill="#ffffff" text-anchor="middle">'+
 				i18n.t('Find all our events!')+
 			'</text>'+
-			'<text font-size="18px" y="275px" x="335px" fill="#ffffff" text-anchor="middle">'+ utils.escapeHtml(url) +'</text>'
+			link
 		);
 		$('.qrcode').qrcode({
 			width: 160,
