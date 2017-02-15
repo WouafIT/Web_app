@@ -75,6 +75,8 @@ module.exports = (function() {
 					'<i class="fa fa-facebook-square"></i></a></span>'+
 				'<span class="share twitter"><a href="https://twitter.com/intent/tweet?text='+ encodeURIComponent(i18n.t('{{user}} is on Wouaf IT', {'user': username, interpolation: {escapeValue: false}})) +'&url='+ encodeURIComponent(profileLocaleUrl) +'&via=Wouaf_IT" target="_blank" title="'+ i18n.t('Share on Twitter') +'">'+
 					'<i class="fa fa-twitter-square"></i></a></span>'+
+				'<span class="share print"><a href="/pages/share.html?displayname='+ encodeURIComponent(username) +'&username='+ encodeURIComponent(user.username) +'" target="_blank" title="'+ i18n.t('Print this profile') +'">'+
+					'<i class="fa fa-print"></i></a></span>'+
 			'</p>';
 
 				content += '</div></div>';

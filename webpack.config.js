@@ -55,13 +55,18 @@ var common = Object.keys(languages).map(function(language) {
 		facebookAppId:	FACEBOOK_APP_KEY
 	};
 	var languageData = require(languages[language]);
+	var rootpath = 'js';
+	var entry = {};
+	entry[rootpath] = './index.js';
+	entry[rootpath+ '/share'] = './share/index.js';
+
 	return {
 		name: language,
 		context: __dirname + '/src/js',
-		entry: './index.js',
+		entry: entry,
 		output: {
 			path: __dirname + '/build/www-' + language + '/',
-			filename: './js/build.js'
+			filename: './[name]/build.js'
 		},
 		module: {
 			loaders: [
@@ -225,6 +230,13 @@ var common = Object.keys(languages).map(function(language) {
 			new HtmlWebpackPlugin({
 				filename: 'parts/user.html',
 				template: __dirname + '/src/html/parts/user.tpl',
+				data: htmlData,
+				i18n: languageData,
+				inject: false
+			}),
+			new HtmlWebpackPlugin({
+				filename: 'pages/share.html',
+				template: __dirname + '/src/html/pages/share.tpl',
 				data: htmlData,
 				i18n: languageData,
 				inject: false

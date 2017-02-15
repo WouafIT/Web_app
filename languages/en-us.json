@@ -338,6 +338,7 @@
 	"Share on Twitter": "Share on Twitter",
 	"Share on Reddit": "Share on Reddit",
 	"Share by Email": "Share by Email",
+	"Print this profile": "Print this profile",
 
 	"Contact an author": "Contact an author",
 	"Use the form below to contact {{author}}, author of Wouaf {{title}}": "Use the form below to contact {{author}}, author of Wouaf \"{{title}}\".",
@@ -477,6 +478,9 @@
 	"Validate your username": "Validate your username",
 	"Edit your username_details": "Your username must not contain spaces or special characters. Be careful if you change your username, the link URL to your profile will be modified accordingly.",
 	"Username updated": "Your username has been updated!",
+
+	"{{user}} is on": "{{user}} is on",
+	"Find all our events!": "Find all our events!",
 
 	"Import error: Your profile has no valid email address.": "Your profile does not have a valid e-mail address. Add your email address to <a href=\"/profile/\" data-href=\"profile\" data-show=\"modal\" data-target=\"#modalWindow\">your profile</a> before importing your Facebook events.",
 	"Login and password mismatch.": "Your username and password do not match.",

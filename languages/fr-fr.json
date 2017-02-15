@@ -337,6 +337,7 @@
 	"Share on Twitter": "Partager sur Twitter",
 	"Share on Reddit": "Partager sur Reddit",
 	"Share by Email": "Partager par Email",
+	"Print this profile": "Imprimer ce profil",
 
 	"Contact an author": "Contacter un auteur",
 	"Use the form below to contact {{author}}, author of Wouaf {{title}}": "Utilisez le formulaire ci-dessous pour contacter {{author}}, auteur du Wouaf \"{{title}}\".",
@@ -476,6 +477,9 @@
 	"Validate your username": "Valider votre identifiant",
 	"Edit your username_details": "Votre identifiant ne doit pas contenir d'espace ou de caractères spéciaux. Attention si vous modifiez votre identifiant, l'adresse URL vers votre profil sera modifiée en conséquence.",
 	"Username updated": "Votre identifiant a bien été mis à jour !",
+
+	"{{user}} is on": "{{user}} est sur",
+	"Find all our events!": "Retrouvez-y tous nos événements !",
 
 	"Import error: Your profile has no valid email address.": "Votre profil n'a pas d'adresse e-mail valide. Ajoutez votre adresse email à <a href=\"/profile/\" data-href=\"profile\" data-show=\"modal\" data-target=\"#modalWindow\">votre profil</a> pour permettre l'importation de vos événements Facebook.",
 	"Login and password mismatch.": "Votre identifiant ou votre mot de passe sont incorrect ...",

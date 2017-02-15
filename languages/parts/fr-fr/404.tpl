@@ -5,15 +5,16 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-	<meta name="theme-color" content="#2B9D48" />
-
-	<meta name="msapplication-navbutton-color" content="#2B9D48" />
-	<meta name="msapplication-TileImage" content="apple-touch-icon-144x144-precomposed.png" />
-	<meta name="msapplication-TileColor" content="#2B9D48" />
-
-	<meta name="apple-mobile-web-app-capable" content="yes" />
-	<meta name="apple-mobile-web-app-status-bar-style" content="#2B9D48" />
-	<link rel="apple-touch-icon-precomposed" href="apple-touch-icon.png" />
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+	<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32" />
+	<link rel="icon" type="image/png" href="/favicon-194x194.png" sizes="194x194" />
+	<link rel="icon" type="image/png" href="/android-chrome-192x192.png" sizes="192x192" />
+	<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16" />
+	<link rel="manifest" href="/manifest.json" />
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#2b9d48" />
+	<meta name="msapplication-TileColor" content="#2b9d48" />
+	<meta name="msapplication-TileImage" content="/mstile-144x144.png" />
+	<meta name="theme-color" content="#2b9d48" />
 
 	<meta name="robots" content="noindex,nofollow" />
 	<title><%= htmlWebpackPlugin.options.i18n['Wouaf IT'] %><%= htmlWebpackPlugin.options.data.devTitle %> -
@@ -22,7 +23,6 @@
 		<%= htmlWebpackPlugin.options.i18n['Wouaf_IT_description'] %>" />
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" />
-	<link rel="apple-touch-icon-precomposed" href="apple-touch-icon.png" />
 	<style>body{background: #2B9D48 url(https://<%= htmlWebpackPlugin.options.data.imgDomain %>/logo.png) 20% 0 no-repeat;color: #FFF;}
 		.container{margin-top: 20vh;} a, a:hover{color: #FFF;}
 		.mask{background-color: rgba(43, 157, 72, 0.5);padding:5px;}

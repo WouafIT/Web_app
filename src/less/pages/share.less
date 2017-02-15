@@ -1,0 +1,39 @@
+@import '../common.less';
+
+body {
+	background-color: @white;
+	color: @white;
+}
+* {
+	z-index: 10;
+}
+#background {
+	position: absolute;
+	height: 512px;
+	width: 512px;
+
+	img {
+		z-index: 1;
+		border-radius: 30px;
+	}
+}
+#main {
+	padding-right: 0;
+	padding-left: 0;
+	height: 512px;
+	width: 512px;
+}
+.row {
+	margin-right: 0;
+	margin-left: 0;
+	padding-right: 12px;
+	float: right;
+}
+.qrcode {
+	width: 512px;
+	text-align: right;
+
+	canvas {
+		border: 3px solid @white;
+	}
+}
