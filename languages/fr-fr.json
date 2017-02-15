@@ -479,7 +479,7 @@
 	"Username updated": "Votre identifiant a bien été mis à jour !",
 
 	"{{user}} is on": "{{user}} est sur",
-	"Find all our events!": "Retrouvez-y tous nos événements !",
+	"Find all the events!": "Retrouvez-y tous ses événements !",
 
 	"Import error: Your profile has no valid email address.": "Votre profil n'a pas d'adresse e-mail valide. Ajoutez votre adresse email à <a href=\"/profile/\" data-href=\"profile\" data-show=\"modal\" data-target=\"#modalWindow\">votre profil</a> pour permettre l'importation de vos événements Facebook.",
 	"Login and password mismatch.": "Votre identifiant ou votre mot de passe sont incorrect ...",

@@ -480,7 +480,7 @@
 	"Username updated": "Your username has been updated!",
 
 	"{{user}} is on": "{{user}} is on",
-	"Find all our events!": "Find all our events!",
+	"Find all the events!": "Find all the events!",
 
 	"Import error: Your profile has no valid email address.": "Your profile does not have a valid e-mail address. Add your email address to <a href=\"/profile/\" data-href=\"profile\" data-show=\"modal\" data-target=\"#modalWindow\">your profile</a> before importing your Facebook events.",
 	"Login and password mismatch.": "Your username and password do not match.",

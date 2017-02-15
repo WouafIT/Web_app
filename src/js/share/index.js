@@ -40,7 +40,7 @@ if (typeof jQuery === 'undefined') {
 		$('svg').html(
 			title +
 			'<text font-weight="600" font-size="18px" y="240px" x="335px" fill="#ffffff" text-anchor="middle">'+
-				i18n.t('Find all our events!')+
+				i18n.t('Find all the events!')+
 			'</text>'+
 			link
 		);
