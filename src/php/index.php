@@ -171,9 +171,9 @@ function getDefaultMeta() {
 		   '<meta property="og:type" content="website" />'.PHP_EOL.
 		   '<meta property="og:url" content="https://'.$_SERVER['HTTP_HOST'].$requestURI.'" />'.PHP_EOL.
 		   '<meta property="fb:app_id" content="<%= htmlWebpackPlugin.options.data.facebookAppId %>" />'.PHP_EOL.
-		   '<meta property="og:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/600-315.png" />'.PHP_EOL.
-		   '<meta property="og:image:width" content="600" />'.PHP_EOL.
-		   '<meta property="og:image:height" content="315" />'.PHP_EOL.
+		   '<meta property="og:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/1200-630.png" />'.PHP_EOL.
+		   '<meta property="og:image:width" content="1200" />'.PHP_EOL.
+		   '<meta property="og:image:height" content="630" />'.PHP_EOL.
 		   '<meta name="twitter:card" content="summary" />'.PHP_EOL.
 		   '<meta name="twitter:site" content="@Wouaf_IT" />'.PHP_EOL.
 		   "<meta name=\"twitter:title\" content=\"<%= htmlWebpackPlugin.options.i18n['Wouaf IT'] %>\" />".PHP_EOL.
@@ -230,9 +230,9 @@ function getWouafMeta($data) {
 			}
 		}
 	} else {
-		$return .= '<meta property="og:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/600-315.png" />'.PHP_EOL.
-				   '<meta property="og:image:width" content="600" />'.PHP_EOL.
-				   '<meta property="og:image:height" content="315" />'.PHP_EOL.
+		$return .= '<meta property="og:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/1200-630.png" />'.PHP_EOL.
+				   '<meta property="og:image:width" content="1200" />'.PHP_EOL.
+				   '<meta property="og:image:height" content="630" />'.PHP_EOL.
 				   '<meta name="twitter:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/icon.png" />'.PHP_EOL;
 	}
 	if (!empty($data['tags']) && is_array($data['tags'])) {
@@ -424,9 +424,9 @@ function getUserMeta($data) {
 		$return .= '<meta property="og:image" content="'.htmlspecialchars($data['avatar']).'" />'.PHP_EOL.
 				   '<meta name="twitter:image" content="'.htmlspecialchars($data['avatar']).'" />'.PHP_EOL;
 	} else {
-		$return .= '<meta property="og:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/600-315.png" />'.PHP_EOL.
-				   '<meta property="og:image:width" content="600" />'.PHP_EOL.
-				   '<meta property="og:image:height" content="315" />'.PHP_EOL.
+		$return .= '<meta property="og:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/1200-630.png" />'.PHP_EOL.
+				   '<meta property="og:image:width" content="1200" />'.PHP_EOL.
+				   '<meta property="og:image:height" content="630" />'.PHP_EOL.
 				   '<meta name="twitter:image" content="https://<%= htmlWebpackPlugin.options.data.imgDomain %>/icon.png" />'.PHP_EOL;
 	}
 	return $return;
