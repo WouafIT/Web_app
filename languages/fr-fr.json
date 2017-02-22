@@ -463,6 +463,7 @@
 
 	"Incompatible browser": "Navigateur incompatible ...",
 	"Incompatible browser_details": "Navré, votre navigateur internet est obsolète.\nIl ne peut faire fonctionner Wouaf IT convenablement ...",
+	"No script warning": "Vous avez désactivé Javascript sur votre navigateur et Wouaf IT requiert l'usage de Javascript pour fonctionner ... Navré, vous ne pouvez pas aller plus loin.",
 
 	"Update your password": "Mettre à jour votre mot de passe",
 	"Enter and confirm your new password below": "Saisissez et confirmez votre nouveau mot de passe ci-dessous",

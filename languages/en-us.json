@@ -464,6 +464,7 @@
 
 	"Incompatible browser": "Incompatible browser...",
 	"Incompatible browser_details": "Sorry, your browser is too old.\nIt can not run Wouaf IT properly...",
+	"No script warning": "You have Javascript disabled on your browser and Wouaf IT requires the use of Javascript to work ... Sorry, you can not go further.",
 
 	"Update your password": "Update your password",
 	"Enter and confirm your new password below": "Enter and confirm your new password below",
