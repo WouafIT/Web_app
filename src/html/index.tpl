@@ -26,6 +26,8 @@
 	<link rel="preconnect" href="//api.wouaf.it" pr="1.0" />
 	<link rel="preconnect" href="//cdnjs.cloudflare.com" pr="1.0" />
 	<link rel="preconnect" href="//maps.googleapis.com" pr="1.0" />
+	<link rel="preconnect" href="//platform.twitter.com" pr="1.0" />
+	<link rel="preconnect" href="//connect.facebook.net" pr="1.0" />
 	<link rel="preconnect" href="//www.google-analytics.com" pr="1.0" />
 	<link rel="preconnect" href="//maps.gstatic.com" pr="1.0" />
 	<link rel="preconnect" href="//fonts.gstatic.com" pr="1.0" />
