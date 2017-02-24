@@ -92,7 +92,7 @@
 				<label for="more-infos"><%= htmlWebpackPlugin.options.i18n['More info link'] %></label>
 				<div class="input-group">
 					<div class="input-group-addon"><i class="fa fa-link"></i></div>
-					<input type="text" class="form-control" placeholder="http://..." id="more-infos" name="url" />
+					<input type="url" class="form-control" placeholder="http://..." id="more-infos" name="url" />
 				</div>
 			</fieldset>
 			<fieldset class="form-group">

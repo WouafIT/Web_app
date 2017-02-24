@@ -66,7 +66,7 @@
 
 			<fieldset class="form-group">
 				<label><%= htmlWebpackPlugin.options.i18n['More info link'] %></label>
-				<input type="text" class="form-control" placeholder="http://..." name="url" />
+				<input type="url" class="form-control" placeholder="http://..." name="url" />
 			</fieldset>
 
 			<div class="row">
