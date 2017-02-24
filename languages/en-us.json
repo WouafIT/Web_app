@@ -355,7 +355,7 @@
 	"Your message is sent to the author of this Wouaf": "Your message has been sent to the author of this Wouaf.",
 
 	"Login to contact a Wouaffer": "Login to contact a Wouaffer!",
-	"Login to create a new wouaf": "Login to create a new Wouaf!",
+	"Login to create a new wouaf": "<a href=\"/login/\" data-href=\"login\" data-show=\"modal\" data-target=\"#modalWindow\">Login</a> to create a new Wouaf!",
 	"Login to favorite a wouaf": "Login to add this Wouaf to your favorites!",
 	"Login to contact author": "Login to contact the author of this Wouaf!",
 	"Login to comment a wouaf": "Login to write a comment for this Wouaf!",

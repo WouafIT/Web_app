@@ -135,7 +135,33 @@ module.exports = (function() {
 
 	var addWouaf = function() {
 		if (!data.getString('uid')) { //user is not logged, show login window
-			windows.login(i18n.t('Login to create a new wouaf'));
+			$addBtn.popover({
+				title: 		i18n.t('Add a new Wouaf'),
+				content: 	i18n.t('Login to create a new wouaf', {interpolation: {escapeValue: false}}),
+				html:		true,
+				trigger: 	'manual',
+				placement: 	'top',
+				offset: 	'0 100',
+				template: ['<div class="popover offset" role="tooltip">',
+						 '<button type="button" class="close" aria-label="'+ i18n.t('Close') +'">',
+						 '<span aria-hidden="true">&times;</span>',
+						 '</button>',
+						 '<h3 class="popover-title"></h3>',
+						 '<div class="popover-content"></div>',
+						 '</div>'].join('')
+			});
+			$addBtn.on('shown.bs.popover', function () {
+				$('.popover .close').one('click', function () {
+					$addBtn.popover('hide');
+				});
+			});
+			$addBtn.on('hidden.bs.popover', function () {
+				$addBtn.popover('dispose');
+			});
+			$document.one('windows.opened', function () {
+				$addBtn.popover('hide');
+			});
+			$addBtn.popover('show');
 		} else {
 			if (!slidebars.isDualView()) {
 				$document.triggerHandler('slide.close');

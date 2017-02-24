@@ -354,7 +354,7 @@
 	"Your message is sent to the author of this Wouaf": "Votre message est envoyé à l'auteur de ce Wouaf.",
 
 	"Login to contact a Wouaffer": "Connectez-vous pour pouvoir contacter un Wouaffeur !",
-	"Login to create a new wouaf": "Connectez-vous pour pouvoir créer un nouveau Wouaf !",
+	"Login to create a new wouaf": "<a href=\"/login/\" data-href=\"login\" data-show=\"modal\" data-target=\"#modalWindow\">Connectez-vous</a> pour pouvoir ajouter un nouveau Wouaf !",
 	"Login to favorite a wouaf": "Connectez-vous pour pouvoir ajouter ce Wouaf à vos favoris !",
 	"Login to contact author": "Connectez-vous pour pouvoir contacter l'auteur de ce Wouaf !",
 	"Login to comment a wouaf": "Connectez-vous pour pouvoir ajouter un commentaire sur ce Wouaf !",
