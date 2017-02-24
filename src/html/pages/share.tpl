@@ -21,7 +21,7 @@
 		<%= htmlWebpackPlugin.options.i18n['Your social network for your local events'] %></title>
 	<meta name="description" content="<%= htmlWebpackPlugin.options.i18n['Wouaf IT'] %> -
 		<%= htmlWebpackPlugin.options.i18n['Wouaf_IT_description'] %>" />
-	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" />
 	<script>
 		window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 		ga('create', '<%= htmlWebpackPlugin.options.data.googleAnalytics %>', {
@@ -40,8 +40,7 @@
 		<div class="qrcode"></div>
 	</div>
 </div>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/i18next/4.2.0/i18next.min.js"></script>
+<script src="//cdn.jsdelivr.net/g/jquery@3.1.1,i18next@7.0.1"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
 <script src="//www.google-analytics.com/analytics.js"></script>
 <script src="/js/share/build.js?v=<%= htmlWebpackPlugin.options.data.timestamp %>" charset="utf-8"></script>
