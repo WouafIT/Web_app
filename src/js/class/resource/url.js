@@ -5,9 +5,6 @@ module.exports = (function() {
 	var self = {};
 	self.getPath = function(states) {
 		var href = '/';
-		if (states.map) {
-			href += '@'+ states.map.center +','+ states.map.zoom +'z/';
-		}
 		if (states.tag) {
 			href += 'tag/'+ states.tag.toLowerCase() +'/';
 		}
@@ -18,14 +15,14 @@ module.exports = (function() {
 			href += 'user/'+ states.user +'/';
 		} else if (states.windows) {
 			href += states.windows +'/';
+		}
+		if (states.map) {
+			href += '#@'+ states.map.center +','+ states.map.zoom +'z';
 		}
 		return href;
 	};
 	self.getAnalyticsPath = function(states) {
 		var href = '/';
-		if (states.map) {
-			href += '@location/';
-		}
 		if (states.tag) {
 			href += 'tag/'+ states.tag.toLowerCase() +'/';
 		}
@@ -36,6 +33,9 @@ module.exports = (function() {
 			href += 'user/'+ states.user +'/';
 		} else if (states.windows) {
 			href += states.windows +'/';
+		}
+		if (states.map) {
+			href += '#@location';
 		}
 		return href;
 	};

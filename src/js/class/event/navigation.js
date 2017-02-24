@@ -140,16 +140,7 @@ module.exports = (function() {
 			for (var i = 0, l = parts.length; i < l; i++) {
 				part = parts[i];
 				if (part) {
-					if (part.substr(0, 1) === '@' && part.substr(-1) === 'z') {
-						var coordinates = part.substr(1, (part.length - 1)).split(',');
-						if (coordinates.length === 3) {
-							var position = {lat: parseFloat(coordinates[0]), lng: parseFloat(coordinates[1])};
-							map.setCenter(position, true);
-							map.getMap().setZoom(parseInt(coordinates[2].substr(0, (coordinates[2].length - 1)), 10));
-							//store map position: url
-							data.setObject('position', position);
-						}
-					} else if (part === 'wouaf' && utils.isId(parts[i + 1])) {
+					if (part === 'wouaf' && utils.isId(parts[i + 1])) {
 						var wouafId = parts[++i];
 						//check if wouaf data exists in html
 						if (window.wouafit.wouaf && window.wouafit.wouaf.id === wouafId) {
@@ -175,6 +166,29 @@ module.exports = (function() {
 					} else if(utils.isValidPageName(part)) {
 						//load queried windows
 						windows.show({href: part});
+					}
+				}
+			}
+		}
+		var hash = window.location.hash;
+		if (hash) {
+			part = null;
+			parts = hash.substr(1, hash.length).split('/');
+			for (i = 0, l = parts.length; i < l; i++) {
+				part = parts[i];
+				if (part) {
+					if (part.substr(0, 1) === '@' && part.substr(-1) === 'z') {
+						var coordinates = part.substr(1, (part.length - 1)).split(',');
+						if (coordinates.length === 3) {
+							var position = {lat: parseFloat(coordinates[0]), lng: parseFloat(coordinates[1])};
+							map.setCenter(position, true);
+							map.getMap().setZoom(parseInt(coordinates[2].substr(0, (coordinates[2].length - 1)), 10));
+							//store map position: url
+							data.setObject('position', position);
+						}
+					} else if (part === 'events') {
+						//TODO: handle #events hash here. Actually it is captured in app.js
+						//This needs a better hash handling (hash can be used to track all UI effects)
 					}
 				}
 			}
