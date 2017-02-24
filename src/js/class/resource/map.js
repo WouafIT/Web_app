@@ -240,7 +240,7 @@ module.exports = (function () {
 					if (debug) {
 						console.info('showIW2');
 					}
-					setTimeout(showIW, 400);
+					setTimeout(showIW, 200);
 				}
 			} else if (zoom === 21) {
 				$pin = $map.find('.baseMarker[data-id*="'+ obj.id +'"]');
@@ -256,11 +256,11 @@ module.exports = (function () {
 					}
 					//avoid bug after setCenter : sometimes pins are not refreshed.
 					google.maps.event.trigger(map, 'dragend');
-					setTimeout(showIW, 400);
+					setTimeout(showIW, 200);
 				}
 			}
 		};
-		setTimeout(function () {
+		//setTimeout(function () {
 			var center = map.getCenter();
 			if ((!center || !center.toUrlValue)) {
 				checkMapError();
@@ -302,7 +302,7 @@ module.exports = (function () {
 					});
 				}
 			}
-		}, 100);
+		//}, 100);
 	};
 
 	//Custom marker for user location
@@ -733,6 +733,7 @@ module.exports = (function () {
 		if (params.pin) {
 			params.pin.classList.add('opened');
 		}
+		$document.triggerHandler('menu.close');
 		$document.triggerHandler('map.infowindow-opened');
 		$document.triggerHandler('navigation.enable-state');
 	});
