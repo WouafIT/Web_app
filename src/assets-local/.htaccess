@@ -3,7 +3,7 @@ ErrorDocument 403 /404.html
 DirectoryIndex index.php
 
 <IfModule mod_expires.c>
-	<FilesMatch "\.(ico|jpe?g|png|gif|css|eot|svg|svgz|ttf|woff|js|html)$">
+	<FilesMatch "\.(ico|jpe?g|png|gif|css|eot|svg|svgz|ttf|woff|js|html|json)$">
 		ExpiresDefault "access plus 1 year"
 	</FilesMatch>
 </IfModule>
@@ -11,7 +11,7 @@ DirectoryIndex index.php
 <IfModule mod_headers.c>
 	FileETag None
     Header unset ETag
-    <FilesMatch "\.(ico|jpe?g|png|gif|css|eot|svg|svgz|ttf|woff|js|html)$">
+    <FilesMatch "\.(ico|jpe?g|png|gif|css|eot|svg|svgz|ttf|woff|js|html|json)$">
 		Header set Cache-Control "public, s-maxage=30672000, max-age=30672000"
 	</FilesMatch>
 </IfModule>

@@ -22,6 +22,7 @@ module.exports = (function() {
 		if (!obj) {
 			return;
 		}
+		var cluster		= !!(+$el.data('cluster'));
 		var offset 		= $el.offset();
 		var uid 		= data.getString('uid');
 		var title 		= utils.getWouafTitle(obj);
@@ -84,8 +85,12 @@ module.exports = (function() {
 			menu = menu.concat([]);
 		}
 		menu = menu.concat(['<a class="dropdown-item" href="#" data-action="calendar">',
-			'	<i class="fa fa-calendar"></i> ' + i18n.t('Add to calendar') + '</a>',
-			'<a class="dropdown-item" href="https://maps.google.com/?q='+ obj.geo[0] +','+ obj.geo[1] +'" target="_blank">',
+			'	<i class="fa fa-calendar"></i> ' + i18n.t('Add to calendar') + '</a>']);
+		if (cluster) {
+			menu = menu.concat(['<a class="dropdown-item" href="#" data-action="zoom">',
+								'	<i class="fa fa-map-marker"></i> '+ i18n.t('Zoom on this event') +'</a>']);
+		}
+		menu = menu.concat(['<a class="dropdown-item" href="https://maps.google.com/?q='+ obj.geo[0] +','+ obj.geo[1] +'" target="_blank">',
 			'	<i class="fa fa-map"></i> '+ i18n.t('View on Google Map') +'</a>',
 			'<a class="dropdown-item" href="https://www.google.com/maps/dir//'+ obj.geo[0] +','+ obj.geo[1] +'/" target="_blank">',
 			'	<i class="fa fa-location-arrow"></i> '+ i18n.t('Itinerary to this place') +'</a>',

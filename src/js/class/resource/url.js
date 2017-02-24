@@ -34,9 +34,6 @@ module.exports = (function() {
 		} else if (states.windows) {
 			href += states.windows +'/';
 		}
-		if (states.map) {
-			href += '#@location';
-		}
 		return href;
 	};
 	self.isStateValid = function(state) {

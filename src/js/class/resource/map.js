@@ -142,16 +142,20 @@ module.exports = (function () {
 		return deferred.promise();
 	};
 
-	var showPin = function (id, obj) {
+	var showPin = function (id, obj, zoomIn) {
+		if (debug) {
+			console.info('showPin0');
+		}
 		if (!id || !utils.isId(id)) {
 			return;
 		}
+		zoomIn = zoomIn === 'undefined' ? false : !!zoomIn;
 		$document.triggerHandler('navigation.disable-state');
 		if (obj) {
 			if (debug) {
 				console.info('showPin1');
 			}
-			openPin(obj);
+			openPin(obj, zoomIn);
 			return;
 		}
 		//get wouaf data then open it
@@ -159,7 +163,7 @@ module.exports = (function () {
 			if (debug) {
 				console.info('showPin2');
 			}
-			openPin(obj);
+			openPin(obj, zoomIn);
 		}).fail(function() {
 			$document.triggerHandler('navigation.enable-state');
 			windows.show({
@@ -168,13 +172,56 @@ module.exports = (function () {
 			});
 		});
 	};
-	var openPin = function (obj) {
+	var openPin = function (obj, zoomIn) {
+		zoomIn = typeof zoomIn === 'undefined' ? false : !!zoomIn;
+		if (debug) {
+			console.info('openPin0', zoomIn);
+		}
 		$document.triggerHandler('navigation.disable-state');
+		var $pin;
+		if (!zoomIn) {
+			$pin = $map.find('.opened.baseMarker[data-id*="'+ obj.id +'"]');
+			if ($pin.length) {
+				var $wouaf = $map.find('.w-accordion .w-container[data-id="'+ obj.id +'"] .w-title');
+				if ($wouaf.length) {
+					if (debug) {
+						console.info('In an opened marker => show content');
+					}
+					$wouaf.click();
+					return;
+				}
+			}
+			if(debug) {
+				console.info('Not in an opened marker');
+			}
+		}
+		closePin();
 		var count = 0;
 		var showIW = function() {
+			if (!zoomIn) {
+				$pin = $map.find('.baseMarker[data-id*="'+ obj.id +'"]');
+				if ($pin.length) {
+					if (debug) {
+						console.info('showIW3');
+					}
+					$document.one('map.infowindow-opened', function () {
+						var $wouaf = $map.find('.w-accordion .w-container[data-id="'+ obj.id +'"] .w-title');
+						if ($wouaf.length) {
+							$wouaf.click();
+							return;
+						}
+						openPin(obj, true);
+					});
+					google.maps.event.trigger($pin.get(0), 'click');
+					return;
+				} else {
+					zoomIn = true;
+				}
+			}
+
 			count++;
 			var zoom = map.getZoom();
-			var $pin = $map.find('.baseMarker[data-id="'+ obj.id +'"]');
+			$pin = $map.find('.baseMarker[data-id="'+ obj.id +'"]');
 			if ($pin.length) {
 				google.maps.event.trigger($pin.get(0), 'click');
 			} else if (zoom < 21) {
@@ -255,7 +302,7 @@ module.exports = (function () {
 					});
 				}
 			}
-		}, 200);
+		}, 100);
 	};
 
 	//Custom marker for user location
@@ -628,6 +675,7 @@ module.exports = (function () {
 		if (!infowindow.opened) {
 			return;
 		}
+		$map.find('.baseMarker.opened').removeClass('opened');
 		infowindow.close();
 		infowindow.opened = false;
 		if (!data.getBool('mapFollow')) {
@@ -658,12 +706,12 @@ module.exports = (function () {
 		circles = [];
 	};
 
-	$document.on('map.infowindow-open', function(e, wouafs) {
-		if (!wouafs.ids) {
+	$document.on('map.infowindow-open', function(e, params) {
+		if (!params.ids) {
 			return;
 		}
 		//grab results
-		var results = getResults(wouafs.ids);
+		var results = getResults(params.ids);
 		var length = results.length;
 		var content = '';
 		if (!length) {
@@ -682,6 +730,9 @@ module.exports = (function () {
 		$crosshairs.hide();
 		infowindow.open(map);
 		infowindow.opened = true;
+		if (params.pin) {
+			params.pin.classList.add('opened');
+		}
 		$document.triggerHandler('map.infowindow-opened');
 		$document.triggerHandler('navigation.enable-state');
 	});

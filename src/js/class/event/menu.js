@@ -264,6 +264,10 @@ module.exports = (function() {
 							data: (id ? {wouafId: id} : null)
 						});
 						break;
+					case 'zoom':
+						id = $target.parents('.w-menu-dropdown, .w-container').data('id');
+						map.showResult(id, null, true);
+						break;
 					case 'report':
 						if (!uid) { //user is not logged, show login window
 							windows.login(i18n.t('Login to report a wouaf'));

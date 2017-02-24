@@ -255,7 +255,6 @@ module.exports = (function() {
 			var wouafId = $parent.data('id');
 			if (wouafId) {
 				$document.triggerHandler('navigation.disable-state');
-				map.hideResult();
 				map.showResult(wouafId);
 				if (!slidebars.isDualView()) {
 					$document.triggerHandler('slide.close');

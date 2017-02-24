@@ -187,7 +187,7 @@ module.exports = (function() {
 			self.getHeader(obj, collapse),
 			'<div',
 				(collapse ? ' id="collapse-'+ obj.id +'" class="collapse w-content">' : ' class="w-content">'),
-				'<button class="w-menu" data-id="'+ obj.id +'" type="button" data-menu="wouaf">',
+				'<button class="w-menu" data-id="'+ obj.id +'" type="button" data-menu="wouaf" data-cluster="'+ (collapse ? 1 : 0) +'">',
 					'<i class="fa fa-bars"></i> '+ i18n.t('Menu'),
 				'</button>',
 				'<div class="w-subTitle">', author ,'</div>',
