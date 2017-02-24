@@ -188,7 +188,7 @@ module.exports = (function() {
 						}
 					} else if (part === 'events') {
 						//TODO: handle #events hash here. Actually it is captured in app.js
-						//This needs a better hash handling (hash can be used to track all UI effects)
+						//This needs a better hash handling (hash can be used to track all UI effects and/or search parameters)
 					}
 				}
 			}
