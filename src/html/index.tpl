@@ -39,7 +39,7 @@
 		#noscript{position: absolute;z-index: 101;color: white;padding: 5px;}</style>
 	<link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="//cdn.jsdelivr.net/fontawesome/4.7.0/css/font-awesome.min.css" />
-	<link rel="stylesheet" href="//cdn.jsdelivr.net/dropzone/4.3.0/basic.min.css" />
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/dropzone/4.3.0/dropzone.min.css" />
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery.swipebox/1.4.4/css/swipebox.min.css" />
 </head>
 <body>
