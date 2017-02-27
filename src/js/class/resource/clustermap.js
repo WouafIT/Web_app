@@ -187,7 +187,7 @@ var clustermap = (function () {
 				selectedNodes.push(hcmap._tree);
 			}
 			for (var j = 0, l = selectedNodes.length; j < l; j++) {
-				if (selectedNodes[j].label !== -1
+				if (selectedNodes[j] && selectedNodes[j].label !== -1
 					&& hcmap._elements[ selectedNodes[j].label ].id === id
 					&& selectedNodes[j].isLeaf()) {
 					return i;

@@ -300,11 +300,10 @@ module.exports = (function() {
 	};
 
 	self.getAuthorization = function() {
-		var key = '';
-		if (data.getString('uid')) {
-			key = ', uid="'+ data.getString('uid') +'", token="'+ data.getString('token') +'"';
+		if (!data.getString('uid')) {
+			return null;
 		}
-		return 'WouafIt version="1", key="'+ (data.getString('apiKey') ? data.getString('apiKey') : API_KEY) +'"'+ key;
+		return 'WouafIt uid="'+ data.getString('uid') +'", token="'+ data.getString('token') +'"';
 	};
 	self.getWouafTitle = function (obj) {
 		if (obj.title) {

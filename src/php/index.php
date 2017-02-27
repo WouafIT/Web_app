@@ -31,7 +31,7 @@ if (preg_match('#\/user\/([^/]*)\/.*#', $requestURI, $matches)) {
 //=> Last-modified should be checked from api server
 
 if ($wouafId || $userId) {
-	header("Cache-Control: private, max-age=3600");
+	header("Cache-Control: max-age=120, s-maxage=1800, must-revalidate");
 	header("Last-Modified: ".gmdate("D, d M Y H:i:s", time())." GMT"); //TODO => remove time() and use Last modified data from API
 } else {
 	header("Cache-Control: max-age=1800, s-maxage=86400, must-revalidate");
@@ -45,25 +45,25 @@ if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) &&
 }
 //microformat
 $microformat = array(
-		array(
-		"@context" 		=> "http://schema.org",
-		"@type" 		=> "Organization",
-		"name" 			=> 'Wouaf IT',
-		"logo"			=> "https://img.wouaf.it/icon-512.png",
-		"description" 	=> "<%= htmlWebpackPlugin.options.i18n['Wouaf_IT_description'] %>",
-		"url" 			=> 'https://wouaf.it/',
-		"SameAs"		=> array(
+	array(
+		"@context"    => "http://schema.org",
+		"@type"       => "Organization",
+		"name"        => 'Wouaf IT',
+		"logo"        => "https://img.wouaf.it/icon-512.png",
+		"description" => "<%= htmlWebpackPlugin.options.i18n['Wouaf_IT_description'] %>",
+		"url"         => 'https://wouaf.it/',
+		"SameAs"      => array(
 			"https://www.facebook.com/wouafit/",
 			"https://twitter.com/Wouaf_IT",
 		),
 	), array(
-		"@context" 		=> "http://schema.org",
-		"@type" 		=> "WebSite",
-		"name" 			=> 'Wouaf IT',
-		"url" 			=> 'https://wouaf.it/',
+		"@context" => "http://schema.org",
+		"@type"    => "WebSite",
+		"name"     => 'Wouaf IT',
+		"url"      => 'https://wouaf.it/',
 	),
 );
-$data = array(
+$data        = array(
 	'content'   => '<script type="application/ld+json">'.json_encode($microformat).'</script>',
 	'canonical' => 'https://'.$_SERVER['HTTP_HOST'].$requestURI,
 	'head'      => (getDefaultMeta().PHP_EOL.
@@ -190,37 +190,37 @@ function getDefaultMeta() {
 function getWouafMeta($data) {
 	global $locale;
 
-	$description 	  = strip_tags($data['text']);
+	$description      = strip_tags($data['text']);
 	$safe_description = htmlspecialchars(str_replace(PHP_EOL, ' ', mb_substr($description, 0, 299).(mb_strlen($description) > 299 ? '…' : '')));
-	$lastDate    	  = count($data['dates']) - 1;
-	$start       	  = new DateTime();
+	$lastDate         = count($data['dates']) - 1;
+	$start            = new DateTime();
+	$end              = new DateTime();
 	$start->setTimestamp(intval($data['dates'][0]['start']));
-	$end = new DateTime();
 	$end->setTimestamp(intval($data['dates'][$lastDate]['end']));
 	if (!empty($data['tz'])) {
 		$timeZone = new DateTimeZone(timezone_name_from_abbr("", $data['tz'] * 60, 0));
 		$start->setTimezone($timeZone);
 		$end->setTimezone($timeZone);
 	}
-	$safe_title  = htmlspecialchars(getWouafTitle($data));
-	$return = "<title>".$safe_title." - <%= htmlWebpackPlugin.options.i18n['Wouaf IT'] %><%= htmlWebpackPlugin.options.data.devTitle %></title>".PHP_EOL.
-			  '<meta name="description" content="'.$safe_description.'" />'.PHP_EOL.
-			  "<meta property=\"og:title\" content=\"".$safe_title." - <%= htmlWebpackPlugin.options.i18n['Wouaf IT'] %>\" />".PHP_EOL.
-			  '<meta property="fb:app_id" content="<%= htmlWebpackPlugin.options.data.facebookAppId %>" />'.PHP_EOL.
-			  '<meta property="og:type" content="article" />'.PHP_EOL.
+	$safe_title = htmlspecialchars(getWouafTitle($data));
+	$return     = "<title>".$safe_title." - <%= htmlWebpackPlugin.options.i18n['Wouaf IT'] %><%= htmlWebpackPlugin.options.data.devTitle %></title>".PHP_EOL.
+				  '<meta name="description" content="'.$safe_description.'" />'.PHP_EOL.
+				  "<meta property=\"og:title\" content=\"".$safe_title." - <%= htmlWebpackPlugin.options.i18n['Wouaf IT'] %>\" />".PHP_EOL.
+				  '<meta property="fb:app_id" content="<%= htmlWebpackPlugin.options.data.facebookAppId %>" />'.PHP_EOL.
+				  '<meta property="og:type" content="article" />'.PHP_EOL.
 
-			  '<meta property="article:published_time" content="'.$start->format('c').'" />'.PHP_EOL.
-			  '<meta property="article:expiration_time" content="'.$end->format('c').'" />'.PHP_EOL.
-			  '<meta property="article:author" content="https://'.$_SERVER['HTTP_HOST'].'/user/'.htmlspecialchars($data['author'][1]).'/" />'.PHP_EOL.
+				  '<meta property="article:published_time" content="'.$start->format('c').'" />'.PHP_EOL.
+				  '<meta property="article:expiration_time" content="'.$end->format('c').'" />'.PHP_EOL.
+				  '<meta property="article:author" content="https://'.$_SERVER['HTTP_HOST'].'/user/'.htmlspecialchars($data['author'][1]).'/" />'.PHP_EOL.
 
-			  '<meta property="og:url" content="https://'.$_SERVER['HTTP_HOST'].'/wouaf/'.$data['id'].'/" />'.PHP_EOL.
-			  '<meta property="og:site_name" content="Wouaf IT" />'.PHP_EOL.
-			  '<meta property="og:locale" content="'.(isset($data['locale']) ? $data['locale'] : $locale).'" />'.PHP_EOL.
-			  '<meta property="og:description" content="'.$safe_description.'" />'.PHP_EOL.
-			  '<meta name="twitter:card" content="summary" />'.PHP_EOL.
-			  '<meta name="twitter:site" content="@Wouaf_IT" />'.PHP_EOL.
-			  "<meta name=\"twitter:title\" content=\"".$safe_title." - <%= htmlWebpackPlugin.options.i18n['Wouaf IT'] %>\" />".PHP_EOL.
-			  '<meta name="twitter:description" content="'.$safe_description.'" />'.PHP_EOL;
+				  '<meta property="og:url" content="https://'.$_SERVER['HTTP_HOST'].'/wouaf/'.$data['id'].'/" />'.PHP_EOL.
+				  '<meta property="og:site_name" content="Wouaf IT" />'.PHP_EOL.
+				  '<meta property="og:locale" content="'.(isset($data['locale']) ? $data['locale'] : $locale).'" />'.PHP_EOL.
+				  '<meta property="og:description" content="'.$safe_description.'" />'.PHP_EOL.
+				  '<meta name="twitter:card" content="summary" />'.PHP_EOL.
+				  '<meta name="twitter:site" content="@Wouaf_IT" />'.PHP_EOL.
+				  "<meta name=\"twitter:title\" content=\"".$safe_title." - <%= htmlWebpackPlugin.options.i18n['Wouaf IT'] %>\" />".PHP_EOL.
+				  '<meta name="twitter:description" content="'.$safe_description.'" />'.PHP_EOL;
 
 	if (!empty($data['pics']) && is_array($data['pics'])) {
 		foreach ($data['pics'] as $k => $pic) {
@@ -266,10 +266,10 @@ function getWouafTitle($data) {
  * @return string
  */
 function iso8601_duration($seconds) {
-	$days = floor($seconds / 86400);
+	$days    = floor($seconds / 86400);
 	$seconds = $seconds % 86400;
 
-	$hours = floor($seconds / 3600);
+	$hours   = floor($seconds / 3600);
 	$seconds = $seconds % 3600;
 
 	$minutes = floor($seconds / 60);
@@ -305,25 +305,25 @@ function getWouafHTML($data) {
 		$start->setTimezone($timeZone);
 		$end->setTimezone($timeZone);
 	}
-	$title 		= getWouafTitle($data);
+	$title      = getWouafTitle($data);
 	$safe_title = htmlspecialchars($title);
-	$return = '<div class="h-event">'.PHP_EOL.
-			  '<h1><a href="https://<%= htmlWebpackPlugin.options.data.domain %>/wouaf/'.$data['id'].'/" class="u-url p-name">'.
-			  $safe_title.'</a></h1>'.PHP_EOL.
-			  '<p>'.$t['By'].' '.PHP_EOL.
-			  '	<a class="p-author h-card" href="https://<%= htmlWebpackPlugin.options.data.domain %>/user/'.htmlspecialchars($data['author'][1]).'/">'.PHP_EOL.
-			  '	'.htmlspecialchars(!empty($data['author'][2]) ? $data['author'][2] : $data['author'][1]).PHP_EOL.
-			  ' </a>'.PHP_EOL.
-			  '</p>'.PHP_EOL.
-			  '<p>'.$t['From'].' <time class="dt-start" datetime="'.$start->format('c').'">'.
-			  strftime('%c', intval($data['dates'][0]['start'])).'</time>'.PHP_EOL.
-			  '	'.$t['to'].' <time class="dt-end" datetime="'.$end->format('c').'">'.
-			  strftime('%c', intval($data['dates'][$lastDate]['end'])).'</time>'.PHP_EOL.
-			  '	'.$t['at'].' <span class="p-location h-geo">'.PHP_EOL.
-			  '		<span class="p-latitude">'.$data['geo'][0].'</span>, '.PHP_EOL.
-			  '		<span class="p-longitude">'.$data['geo'][1].'</span>'.PHP_EOL.
-			  '	</span></p>'.PHP_EOL.
-			  '<p class="p-description">'.$data['html'].'</p>'.PHP_EOL;
+	$return     = '<div class="h-event">'.PHP_EOL.
+				  '<h1><a href="https://<%= htmlWebpackPlugin.options.data.domain %>/wouaf/'.$data['id'].'/" class="u-url p-name">'.
+				  $safe_title.'</a></h1>'.PHP_EOL.
+				  '<p>'.$t['By'].' '.PHP_EOL.
+				  '	<a class="p-author h-card" href="https://<%= htmlWebpackPlugin.options.data.domain %>/user/'.htmlspecialchars($data['author'][1]).'/">'.PHP_EOL.
+				  '	'.htmlspecialchars(!empty($data['author'][2]) ? $data['author'][2] : $data['author'][1]).PHP_EOL.
+				  ' </a>'.PHP_EOL.
+				  '</p>'.PHP_EOL.
+				  '<p>'.$t['From'].' <time class="dt-start" datetime="'.$start->format('c').'">'.
+				  strftime('%c', intval($data['dates'][0]['start'])).'</time>'.PHP_EOL.
+				  '	'.$t['to'].' <time class="dt-end" datetime="'.$end->format('c').'">'.
+				  strftime('%c', intval($data['dates'][$lastDate]['end'])).'</time>'.PHP_EOL.
+				  '	'.$t['at'].' <span class="p-location h-geo">'.PHP_EOL.
+				  '		<span class="p-latitude">'.$data['geo'][0].'</span>, '.PHP_EOL.
+				  '		<span class="p-longitude">'.$data['geo'][1].'</span>'.PHP_EOL.
+				  '	</span></p>'.PHP_EOL.
+				  '<p class="p-description">'.$data['html'].'</p>'.PHP_EOL;
 	if (!empty($data['tags']) && is_array($data['tags'])) {
 		$return .= '<p>';
 		foreach ($data['tags'] as $tag) {
@@ -343,25 +343,25 @@ function getWouafHTML($data) {
 	if (!empty($data['location'])) {
 		//microformat
 		$microformat = array(
-			"@context" 		=> "http://schema.org",
-			"@type" 		=> "Event",
-			"name" 			=> $title,
-			"description" 	=> $data['text'],
-			"url" 			=> 'https://<%= htmlWebpackPlugin.options.data.domain %>/wouaf/'.$data['id'].'/',
-			"startDate" 	=> $start->format('c'),
-			"endDate" 		=> $end->format('c'),
-			"duration" 		=> iso8601_duration($end->getTimestamp() - $start->getTimestamp()),
-			"location"		=> array(
-				"@type" 		=> "Place",
-				"name"			=> $data['location']['name'],
-				"address"		=> ($data['location']['address'].', '.
-									$data['location']['zip'].' '.
-									$data['location']['city'].', '.
-									$data['location']['country']),
-				"geo" 			=>  [
-					"@type"  		=>  "GeoCoordinates",
-					"latitude"  	=>  $data['geo'][0],
-					"longitude"  	=>  $data['geo'][1]
+			"@context"    => "http://schema.org",
+			"@type"       => "Event",
+			"name"        => $title,
+			"description" => $data['text'],
+			"url"         => 'https://<%= htmlWebpackPlugin.options.data.domain %>/wouaf/'.$data['id'].'/',
+			"startDate"   => $start->format('c'),
+			"endDate"     => $end->format('c'),
+			"duration"    => iso8601_duration($end->getTimestamp() - $start->getTimestamp()),
+			"location"    => array(
+				"@type"   => "Place",
+				"name"    => $data['location']['name'],
+				"address" => ($data['location']['address'].', '.
+							  $data['location']['zip'].' '.
+							  $data['location']['city'].', '.
+							  $data['location']['country']),
+				"geo"     => [
+					"@type"     => "GeoCoordinates",
+					"latitude"  => $data['geo'][0],
+					"longitude" => $data['geo'][1]
 				]
 			),
 		);
@@ -384,19 +384,19 @@ function getWouafHTML($data) {
  * @return string
  */
 function getUserMeta($data) {
-	$t           = array(
+	$t                = array(
 		'{{user}} is on Wouaf IT' => "<%= htmlWebpackPlugin.options.i18n['{{user}} is on Wouaf IT'] %>",
 	);
 	$safe_title       = htmlspecialchars(str_replace('{{user}}', getUserDisplayName($data), $t['{{user}} is on Wouaf IT']));
 	$safe_description = htmlspecialchars(str_replace(PHP_EOL, ' ', mb_substr(strip_tags($data['description']), 0, 300)));
-	$return      = "<title><%= htmlWebpackPlugin.options.i18n['Wouaf IT'] %><%= htmlWebpackPlugin.options.data.devTitle %> - ".$safe_title."</title>".PHP_EOL.
-				   '<meta name="description" content="'.$safe_description.'" />'.PHP_EOL.
-				   '<meta property="fb:app_id" content="<%= htmlWebpackPlugin.options.data.facebookAppId %>" />'.PHP_EOL.
-				   '<meta property="og:title" content="'.$safe_title.'" />'.PHP_EOL.
-				   '<meta property="og:type" content="profile" />'.PHP_EOL.
-				   '<meta property="og:url" content="https://'.$_SERVER['HTTP_HOST'].'/user/'.$data['username'].'/" />'.PHP_EOL.
-				   '<meta property="og:site_name" content="Wouaf IT" />'.PHP_EOL.
-				   '<meta property="og:locale" content="'.$data['locale'].'" />'.PHP_EOL;
+	$return           = "<title><%= htmlWebpackPlugin.options.i18n['Wouaf IT'] %><%= htmlWebpackPlugin.options.data.devTitle %> - ".$safe_title."</title>".PHP_EOL.
+						'<meta name="description" content="'.$safe_description.'" />'.PHP_EOL.
+						'<meta property="fb:app_id" content="<%= htmlWebpackPlugin.options.data.facebookAppId %>" />'.PHP_EOL.
+						'<meta property="og:title" content="'.$safe_title.'" />'.PHP_EOL.
+						'<meta property="og:type" content="profile" />'.PHP_EOL.
+						'<meta property="og:url" content="https://'.$_SERVER['HTTP_HOST'].'/user/'.$data['username'].'/" />'.PHP_EOL.
+						'<meta property="og:site_name" content="Wouaf IT" />'.PHP_EOL.
+						'<meta property="og:locale" content="'.$data['locale'].'" />'.PHP_EOL;
 	if (!empty($data['fid'])) {
 		$return .= '<meta property="fb:profile_id" content="'.htmlspecialchars($data['fid']).'" />'.PHP_EOL;
 	}
@@ -439,7 +439,7 @@ function getUserMeta($data) {
  * @return string
  */
 function getUserHTML($data) {
-	$name 	= getUserDisplayName($data);
+	$name   = getUserDisplayName($data);
 	$return = '<div class="h-card">'.PHP_EOL.
 			  '<h1><a class="p-name u-url" href="https://<%= htmlWebpackPlugin.options.data.domain %>/user/'.$data['username'].'/">'.htmlspecialchars($name).'</a></h1>'.PHP_EOL;
 	if (!empty($data['html'])) {
@@ -453,11 +453,11 @@ function getUserHTML($data) {
 	$type = empty($data['type']) || $data['type'] === 'individual' ? 'Person' : 'Organization';
 	//microformat
 	$microformat = array(
-		"@context" 		=> "http://schema.org",
-		"@type" 		=> $type,
-		"name" 			=> $name,
-		"description" 	=> $data['description'],
-		"url" 			=> 'https://<%= htmlWebpackPlugin.options.data.domain %>/user/'.$data['username'].'/',
+		"@context"    => "http://schema.org",
+		"@type"       => $type,
+		"name"        => $name,
+		"description" => $data['description'],
+		"url"         => 'https://<%= htmlWebpackPlugin.options.data.domain %>/user/'.$data['username'].'/',
 	);
 	if (!empty($data['avatar'])) {
 		$microformat['image'] = $data['avatar'];

@@ -37,13 +37,19 @@ module.exports = (function() {
 		}
 		var start = new Date().getTime();
 		var caller = arguments.callee.caller.name;
+		var is_authenticated = !!data.getString('uid');
+		if (!params.data) {
+			params.data = {};
+		}
+		params.data.key = data.getString('apiKey') ? data.getString('apiKey') : API_KEY;
+		params.data.version = 1;
 		var xhr_params = {
-			url: params.url,
-			type: params.method,
-			data: params.data,
-			dataType: 'json',
-			timeout: 10000,
-			cache: true,
+			url: 		params.url,
+			type: 		params.method,
+			data: 		params.data,
+			dataType: 	'json',
+			timeout: 	10000, //10 sec.
+			cache: 		!is_authenticated, //no cache for authenticated users
 			success: function(result) {
 				if (params.success) {
 					params.success.apply(this, [result]);
@@ -57,7 +63,6 @@ module.exports = (function() {
 					}
 				}
 			},
-			headers: {'Authorization': utils.getAuthorization()},
 			error: function(xhr) {
 				if (__DEV__) {
 					console.error('Query error', params, xhr);
@@ -79,6 +84,9 @@ module.exports = (function() {
 				$document.triggerHandler('app.query', {time: (new Date().getTime() - start), caller: caller});
 			}
 		};
+		if (is_authenticated) {
+			xhr_params.headers = {Authorization: utils.getAuthorization()};
+		}
 		if (__DEV__) {
 			console.info('New query', xhr_params);
 		}
@@ -147,7 +155,7 @@ module.exports = (function() {
 		},
 		init: function init(callback) {
 			query({
-				method: 'POST',
+				method: (data.getString('uid') ? 'POST' : 'GET'),
 				url: 	ENDPOINT + '/init',
 				data:	{
 					locale:	 	LANGUAGE,
