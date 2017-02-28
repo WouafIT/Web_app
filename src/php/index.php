@@ -92,7 +92,11 @@ if ($wouafId) {
 		//Get wouaf data from API
 		$wouafData = curlGet(
 			'https://<%= htmlWebpackPlugin.options.data.apiDomain %>/wouafs/'.$wouafId,
-			array('html' => 1)
+			array(
+				'html' 		=> 1,
+				'version'	=> 1,
+				'key'		=> API_KEY
+			)
 		);
 		if ($wouafData) {
 			$wouafData = json_decode($wouafData, true);
@@ -125,7 +129,11 @@ if ($wouafId) {
 		//Get user data from API
 		$userData = curlGet(
 			'https://<%= htmlWebpackPlugin.options.data.apiDomain %>/users/'.$userId,
-			array('html' => 1)
+			array(
+				'html' 		=> 1,
+				'version'	=> 1,
+				'key'		=> API_KEY
+			)
 		);
 		if ($userData) {
 			$userData = json_decode($userData, true);
@@ -495,7 +503,6 @@ function curlGet($url, array $get = null, array $options = array()) {
 		CURLOPT_URL            => $url,
 		CURLOPT_HTTPHEADER     => array(
 			'Origin: https://'.$_SERVER['HTTP_HOST'],
-			'Authorization: WouafIt version="1", key="'.API_KEY.'"'
 		),
 	);
 	if ($get) {
