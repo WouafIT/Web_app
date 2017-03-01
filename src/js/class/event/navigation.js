@@ -144,13 +144,17 @@ module.exports = (function() {
 						var wouafId = parts[++i];
 						//check if wouaf data exists in html
 						if (window.wouafit.wouaf && window.wouafit.wouaf.id === wouafId) {
-							wouafs.set(wouafId, window.wouafit.wouaf);
+							//only if user is anonymous, otherwise, get fresh data from server
+							if (!data.getString('uid')) {
+								wouafs.set(wouafId, window.wouafit.wouaf);
+							}
 							data.setObject('position', {lat: window.wouafit.wouaf.geo[0], lng: window.wouafit.wouaf.geo[1]});
 						}
 						$document.triggerHandler('navigation.set-state', {name: 'wouaf', value: wouafId});
 					} else if (part === 'user' && utils.isValidUsername(parts[i + 1])) {
 						var username = parts[++i];
-						if (window.wouafit.user && window.wouafit.user.username === username) {
+						if (window.wouafit.user && window.wouafit.user.username === username && !data.getString('uid')) {
+							//only if user is anonymous, otherwise, get fresh data from server
 							users.set(window.wouafit.user.uid, window.wouafit.user);
 						}
 						windows.show({

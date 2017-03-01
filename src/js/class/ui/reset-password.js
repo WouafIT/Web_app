@@ -39,8 +39,8 @@ module.exports = (function() {
 			}
 			//Query
 			query.resetPassword({
-				pass: 		$pass.val(),
-				key: 		$key.val()
+				pass: 		 $pass.val(),
+				'reset-key': $key.val()
 			}, function() { //success
 				windows.close();
 
