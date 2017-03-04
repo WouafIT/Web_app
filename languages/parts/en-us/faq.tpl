@@ -306,7 +306,7 @@
 			</div>
 			<div id="collapseEighteen" class="collapse" role="tabpanel" aria-labelledby="headingEighteen">
 				<div class="card-block">
-					<p>Simply "woaf it" ?</p>
+					<p>Simply "woaf it" 😋</p>
 				</div>
 			</div>
 		</div>
