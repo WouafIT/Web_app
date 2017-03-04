@@ -297,6 +297,20 @@
 			</div>
 		</div>
 		<div class="card">
+			<div class="card-header" role="tab" id="headingEighteen">
+				<h5>
+					<a data-toggle="collapse" data-parent="#accordion" href="#collapseEighteen" aria-expanded="true" aria-controls="collapseEighteen">
+						How is Wouaf IT pronounced?
+					</a>
+				</h5>
+			</div>
+			<div id="collapseEighteen" class="collapse" role="tabpanel" aria-labelledby="headingEighteen">
+				<div class="card-block">
+					<p>Simply "woaf it" ?</p>
+				</div>
+			</div>
+		</div>
+		<div class="card">
 			<div class="card-header" role="tab" id="headingEleven">
 				<h5>
 					<a data-toggle="collapse" data-parent="#accordion" href="#collapseEleven" aria-expanded="true" aria-controls="collapseEleven">
