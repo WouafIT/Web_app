@@ -36,11 +36,11 @@ module.exports = (function() {
 			'<div class="dropdown-item sharing"><i class="fa fa-share-alt"></i> ', i18n.t('Share'),
 				' <span class="share facebook"><a href="#" data-action="facebook-share" data-href="', encodeURIComponent(wouafLocaleUrl) ,'" title="'+ i18n.t('Share on Facebook') +'">',
 					'<i class="fa fa-facebook-square"></i></a></span>',
-				'<span class="share twitter"><a href="https://twitter.com/intent/tweet?text='+ encodeURIComponent(title) +'&url='+ encodeURIComponent(wouafLocaleUrl) +'&via=Wouaf_IT" target="_blank" title="'+ i18n.t('Share on Twitter') +'">',
+				'<span class="share twitter"><a href="https://twitter.com/intent/tweet?text='+ encodeURIComponent(title) +'&url='+ encodeURIComponent(wouafLocaleUrl) +'&via=Wouaf_IT" target="_blank" rel="noopener" title="'+ i18n.t('Share on Twitter') +'">',
 					'<i class="fa fa-twitter-square"></i></a></span>',
-				'<span class="share reddit"><a href="https://www.reddit.com/submit?url='+ encodeURIComponent(wouafLocaleUrl) +'&title='+ encodeURIComponent(title) +'" target="_blank" title="'+ i18n.t('Share on Reddit') +'">',
+				'<span class="share reddit"><a href="https://www.reddit.com/submit?url='+ encodeURIComponent(wouafLocaleUrl) +'&title='+ encodeURIComponent(title) +'" target="_blank" rel="noopener" title="'+ i18n.t('Share on Reddit') +'">',
 					'<i class="fa fa-reddit-square"></i></a></span>',
-				'<span class="share email"><a href="mailto:?subject='+ i18n.t('Shared from Wouaf IT:') +' '+ encodeURIComponent(title) +'&body='+ encodeURIComponent(wouafLocaleUrl) +'" target="_blank" title="'+ i18n.t('Share by Email') +'">',
+				'<span class="share email"><a href="mailto:?subject='+ i18n.t('Shared from Wouaf IT:') +' '+ encodeURIComponent(title) +'&body='+ encodeURIComponent(wouafLocaleUrl) +'" target="_blank" rel="noopener" title="'+ i18n.t('Share by Email') +'">',
 					'<i class="fa fa-envelope-o"></i></a></span>',
 			'</div>',
 			'<div class="dropdown-item"><i class="fa fa-link"></i> <input type="text" class="form-control link" value="'+ wouafUrl +'" /></div>'];
@@ -90,9 +90,9 @@ module.exports = (function() {
 			menu = menu.concat(['<a class="dropdown-item" href="#" data-action="zoom">',
 								'	<i class="fa fa-map-marker"></i> '+ i18n.t('Zoom on this event') +'</a>']);
 		}
-		menu = menu.concat(['<a class="dropdown-item" href="https://maps.google.com/?q='+ obj.geo[0] +','+ obj.geo[1] +'" target="_blank">',
+		menu = menu.concat(['<a class="dropdown-item" href="https://maps.google.com/?q='+ obj.geo[0] +','+ obj.geo[1] +'" target="_blank" rel="noopener">',
 			'	<i class="fa fa-map"></i> '+ i18n.t('View on Google Map') +'</a>',
-			'<a class="dropdown-item" href="https://www.google.com/maps/dir//'+ obj.geo[0] +','+ obj.geo[1] +'/" target="_blank">',
+			'<a class="dropdown-item" href="https://www.google.com/maps/dir//'+ obj.geo[0] +','+ obj.geo[1] +'/" target="_blank" rel="noopener">',
 			'	<i class="fa fa-location-arrow"></i> '+ i18n.t('Itinerary to this place') +'</a>',
 			'<a class="dropdown-item" href="#" data-action="report"><i class="fa fa-ban"></i> '+ i18n.t('Report Abuse') +'</a>',
 			'</div>']);

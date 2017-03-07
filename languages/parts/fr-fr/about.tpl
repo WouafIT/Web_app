@@ -64,7 +64,7 @@
 					<p>Nous sommes basés dans la technopole de Sophia Antipolis, près de Nice.</p>
 
 					<p>L'utilisation et la publication sur Wouaf IT sont gratuites. Son code source est distribué sous licence libre Apache et
-						est disponible sur <i class="fa fa-github"></i> <a href="https://github.com/WouafIT" target="_blank">Github</a>.</p>
+						est disponible sur <i class="fa fa-github"></i> <a href="https://github.com/WouafIT" target="_blank" rel="noopener">Github</a>.</p>
 				</div>
 			</div>
 		</div>
@@ -87,25 +87,25 @@
 					<p>En voici la liste, merci pour leur contribution !</p>
 					<ul>
 						<li>
-							<i class="fa fa-facebook-official"></i> <a href="https://facebook.com" target="_blank">Facebook</a>,
+							<i class="fa fa-facebook-official"></i> <a href="https://facebook.com" target="_blank" rel="noopener">Facebook</a>,
 							grâce à son immense réseau d'utilisateurs dispose d'une base événementielle très importante.
 							Nous importons les événements public de Facebook au moins une fois par semaine.
 						</li>
 						<li>
 							<a href="/user/Fnac_Spectacles/" data-user="Fnac_Spectacles">Fnac Spectacles</a>, propose plus
 							de 60.000 événements par an en France, Suisse et Belgique. Tous les spectacles
-							sont sur <a href="http://www.fnacspectacles.com" target="_blank">www.fnacspectacles.com</a>.
+							sont sur <a href="http://www.fnacspectacles.com" target="_blank" rel="noopener">www.fnacspectacles.com</a>.
 						</li>
 						<li>
 							<a href="/user/Open_Agenda/" data-user="Open_Agenda">Open Agenda</a>, propose des agendas
-							ouverts pour tous sur <a href="https://openagenda.com" target="_blank">openagenda.com</a>.
+							ouverts pour tous sur <a href="https://openagenda.com" target="_blank" rel="noopener">openagenda.com</a>.
 						</li>
-						<li><a href="http://www.infolocale.fr" target="_blank">Infolocale.fr</a>, la solution gratuite pour
-							annoncer vos événements proposé par le <a href="http://www.ouest-france.fr/" target="_blank">
+						<li><a href="http://www.infolocale.fr" target="_blank" rel="noopener">Infolocale.fr</a>, la solution gratuite pour
+							annoncer vos événements proposé par le <a href="http://www.ouest-france.fr/" target="_blank" rel="noopener">
 								Groupe Ouest-France</a>.<br />
 							Retrouvez l’intégralité de ces données sur <a href="http://datainfolocale.opendatasoft.com"
-																		  target="_blank">http://datainfolocale.opendatasoft.com</a>.
-							Le nom <a href="http://www.infolocale.fr" target="_blank">"Infolocale.fr"</a> est une marque déposée du
+																		  target="_blank" rel="noopener">http://datainfolocale.opendatasoft.com</a>.
+							Le nom <a href="http://www.infolocale.fr" target="_blank" rel="noopener">"Infolocale.fr"</a> est une marque déposée du
 							Groupe Ouest-France.
 						</li>
 						<li><a href="/user/Chat_Perdu/" data-user="Chat_Perdu">Chat Perdu</a> et
@@ -121,8 +121,8 @@
 			</div>
 		</div>
 	</div>
-	<p>Suivez Wouaf IT sur <i class="fa fa-twitter"></i> <a href="https://twitter.com/Wouaf_IT" target="_blank">Twitter</a> et
-		<i class="fa fa-facebook-official"></i> <a href="https://www.facebook.com/wouafit/" target="_blank">Facebook</a> pour plus d'informations !</p>
+	<p>Suivez Wouaf IT sur <i class="fa fa-twitter"></i> <a href="https://twitter.com/Wouaf_IT" target="_blank" rel="noopener">Twitter</a> et
+		<i class="fa fa-facebook-official"></i> <a href="https://www.facebook.com/wouafit/" target="_blank" rel="noopener">Facebook</a> pour plus d'informations !</p>
 	<div class="text-right">
 		<div class="fb-like" data-href="https://www.facebook.com/wouafit/" data-layout="button_count" data-action="like"
 			 data-size="small" data-show-faces="true" data-share="true"></div>

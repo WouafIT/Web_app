@@ -112,9 +112,9 @@
 			</div>
 			<div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour">
 				<div class="card-block">
-					<p>Wouaf IT utilise <a href="http://gravatar.com" target="_blank">Gravatar</a> pour la gestion des avatars de ses utilisateurs.
+					<p>Wouaf IT utilise <a href="http://gravatar.com" target="_blank" rel="noopener">Gravatar</a> pour la gestion des avatars de ses utilisateurs.
 					Pour ajouter un avatar à votre compte, vous n'avez qu'à créer un compte
-					<a href="http://gravatar.com" target="_blank">Gravatar</a> avec la même adresse email que vous employez sur Wouaf IT.</p>
+					<a href="http://gravatar.com" target="_blank" rel="noopener">Gravatar</a> avec la même adresse email que vous employez sur Wouaf IT.</p>
 				</div>
 			</div>
 		</div>
@@ -348,14 +348,14 @@
 					<p>Nous avons aussi besoin de bonnes volontés pour traduire le site en différentes langues, notamment Espagnol, Allemand, Italien, etc.
 						Si vous souhaitez contribuer aux traductions,
 						<a href="/contact/" data-href="contact" data-show="modal" data-target="#modalWindow">contactez-nous</a>.</p>
-					<p>Enfin, vous pouvez aller voir la page <i class="fa fa-github"></i> <a href="https://github.com/WouafIT" target="_blank">Github</a>
+					<p>Enfin, vous pouvez aller voir la page <i class="fa fa-github"></i> <a href="https://github.com/WouafIT" target="_blank" rel="noopener">Github</a>
 						du projet, certaines informations techniques complémentaires s'y trouvent.</p>
 				</div>
 			</div>
 		</div>
 	</div>
-	<p>Suivez Wouaf IT sur <i class="fa fa-twitter"></i> <a href="https://twitter.com/Wouaf_IT" target="_blank">Twitter</a> et
-		<i class="fa fa-facebook-official"></i> <a href="https://www.facebook.com/wouafit/" target="_blank">Facebook</a> pour plus d'informations !</p>
+	<p>Suivez Wouaf IT sur <i class="fa fa-twitter"></i> <a href="https://twitter.com/Wouaf_IT" target="_blank" rel="noopener">Twitter</a> et
+		<i class="fa fa-facebook-official"></i> <a href="https://www.facebook.com/wouafit/" target="_blank" rel="noopener">Facebook</a> pour plus d'informations !</p>
 	<div class="text-right">
 		<div class="fb-like" data-href="https://www.facebook.com/wouafit/" data-layout="button_count" data-action="like"
 			 data-size="small" data-show-faces="true" data-share="true"></div>

@@ -198,7 +198,7 @@ module.exports = (function() {
 				content.push('<a href="#" class="w-dates" data-action="date-list" data-id="'+ obj.id +'"><i class="fa fa-calendar-plus-o"></i> '+ i18n.t('{{count}} more date', {count: (datesCount - 1)}) +'</a>');
 			}
 			if (obj.url) {
-				content.push('<a href="'+ obj.url +'" class="w-infos" target="_blank"><i class="fa fa-external-link"></i> '+ i18n.t('More info') +'</a>');
+				content.push('<a href="'+ obj.url +'" class="w-infos" target="_blank" rel="noopener"><i class="fa fa-external-link"></i> '+ i18n.t('More info') +'</a>');
 			}
 			content.push('</div>');
 		}

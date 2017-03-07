@@ -250,7 +250,7 @@ module.exports = (function() {
 			} else if (hashtag) { //hashtag
 			 	formattedText += '<a href="'+ url.getAbsoluteURLForStates([{name: 'tag', value: hashtag}]) +'" data-tag="'+ self.escapeHtml(hashtag) +'">#'+ self.escapeHtml(hashtag) +'</a>';
 			} else if (entityUrl) { //link
-				formattedText += '<a href="'+ (entityUrl.substr(0, 4).toLowerCase() !== 'http' ? 'http://' : '') + entityUrl +'" target="_blank">' + self.escapeHtml(entityUrl) + '</a>';
+				formattedText += '<a href="'+ (entityUrl.substr(0, 4).toLowerCase() !== 'http' ? 'http://' : '') + entityUrl +'" target="_blank" rel="noopener">' + self.escapeHtml(entityUrl) + '</a>';
 			}
 			pos = indices[1];
 		}

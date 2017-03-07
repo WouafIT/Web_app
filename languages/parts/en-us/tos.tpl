@@ -49,7 +49,7 @@
 		you have the right to access and rectify any information concerning you. To enforce this right,
 		<a href="/contact/" data-href="contact" data-show="modal" data-target="#modalWindow">contact us</a>.</p>
 	<p>You may also, for legitimate reasons, <a href="https://www.cnil.fr/fr/le-droit-dopposition">object to the processing of your personal data</a>.</p>
-	<p>To find out more, <a href="https://www.cnil.fr/fr/comprendre-vos-droits" target="_blank"> consult your rights on the CNIL website</a>.</p>
+	<p>To find out more, <a href="https://www.cnil.fr/fr/comprendre-vos-droits" target="_blank" rel="noopener"> consult your rights on the CNIL website</a>.</p>
 	<p>This site is registered with the CNIL under the n° 2007773.</p>
 
 	<h5>Intellectual Property and Counterfeiting:</h5>
@@ -74,8 +74,8 @@
 		<li>Hosting: OVH, 2 rue Kellermann - 59100 Roubaix - France.</li>
 	</ul>
 
-	<p>Follow Wouaf IT on <i class="fa fa-twitter"></i> <a href="https://twitter.com/Wouaf_IT" target="_blank">Twitter</a> and
-		<i class="fa fa-facebook-official"></i> <a href="https://www.facebook.com/wouafit/" target="_blank">Facebook</a> to get more informations!</p>
+	<p>Follow Wouaf IT on <i class="fa fa-twitter"></i> <a href="https://twitter.com/Wouaf_IT" target="_blank" rel="noopener">Twitter</a> and
+		<i class="fa fa-facebook-official"></i> <a href="https://www.facebook.com/wouafit/" target="_blank" rel="noopener">Facebook</a> to get more informations!</p>
 	<div class="text-right">
 		<div class="fb-like" data-href="https://www.facebook.com/wouafit/" data-layout="button_count" data-action="like"
 			 data-size="small" data-show-faces="true" data-share="true"></div>

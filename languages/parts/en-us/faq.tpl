@@ -112,8 +112,8 @@
 			</div>
 			<div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour">
 				<div class="card-block">
-					<p>Wouaf IT uses <a href="http://gravatar.com" target="_blank">Gravatar</a> to manage avatars of users.
-						To add an avatar to your account, simply create a <a href="http://gravatar.com" target="_blank">Gravatar</a> account
+					<p>Wouaf IT uses <a href="http://gravatar.com" target="_blank" rel="noopener">Gravatar</a> to manage avatars of users.
+						To add an avatar to your account, simply create a <a href="http://gravatar.com" target="_blank" rel="noopener">Gravatar</a> account
 						with the same email address you use on Wouaf IT.</p>
 				</div>
 			</div>
@@ -345,14 +345,14 @@
 						If you would like to contribute to the translations, please
 						<a href="/contact/" data-href="contact" data-show="modal" data-target="#modalWindow">contact us</a></p>
 					<p>Finally, you can check out the
-						<i class="fa fa-github"></i> <a href="https://github.com/WouafIT" target="_blank">Github</a> project page,
+						<i class="fa fa-github"></i> <a href="https://github.com/WouafIT" target="_blank" rel="noopener">Github</a> project page,
 						some additional technical infos are in it.</p>
 				</div>
 			</div>
 		</div>
 	</div>
-	<p>Follow Wouaf IT on <i class="fa fa-twitter"></i> <a href="https://twitter.com/Wouaf_IT" target="_blank">Twitter</a> and
-		<i class="fa fa-facebook-official"></i> <a href="https://www.facebook.com/wouafit/" target="_blank">Facebook</a> to get more informations!</p>
+	<p>Follow Wouaf IT on <i class="fa fa-twitter"></i> <a href="https://twitter.com/Wouaf_IT" target="_blank" rel="noopener">Twitter</a> and
+		<i class="fa fa-facebook-official"></i> <a href="https://www.facebook.com/wouafit/" target="_blank" rel="noopener">Facebook</a> to get more informations!</p>
 	<div class="text-right">
 		<div class="fb-like" data-href="https://www.facebook.com/wouafit/" data-layout="button_count" data-action="like"
 			 data-size="small" data-show-faces="true" data-share="true"></div>

@@ -67,15 +67,15 @@ module.exports = (function() {
 				content += '<p><i class="fa fa-venus-mars"></i> '+ i18n.t(utils.ucfirst(user.gender)) +'</p>';
 			}
 			if (user.url) {
-				content += '<p><i class="fa fa-external-link"></i> <a href="'+ user.url +'" target="_blank"> '+ i18n.t('More info') +'</a></p>';
+				content += '<p><i class="fa fa-external-link"></i> <a href="'+ user.url +'" target="_blank" rel="noopener"> '+ i18n.t('More info') +'</a></p>';
 			}
 
 			content += '<p class="sharing"><i class="fa fa-share-alt"></i> '+ i18n.t('Share') +
 				' <span class="share facebook"><a href="#" data-action="facebook-share" data-href="'+ encodeURIComponent(profileLocaleUrl) +'" title="'+ i18n.t('Share on Facebook') +'">'+
 					'<i class="fa fa-facebook-square"></i></a></span>'+
-				'<span class="share twitter"><a href="https://twitter.com/intent/tweet?text='+ encodeURIComponent(i18n.t('{{user}} is on Wouaf IT', {'user': username, interpolation: {escapeValue: false}})) +'&url='+ encodeURIComponent(profileLocaleUrl) +'&via=Wouaf_IT" target="_blank" title="'+ i18n.t('Share on Twitter') +'">'+
+				'<span class="share twitter"><a href="https://twitter.com/intent/tweet?text='+ encodeURIComponent(i18n.t('{{user}} is on Wouaf IT', {'user': username, interpolation: {escapeValue: false}})) +'&url='+ encodeURIComponent(profileLocaleUrl) +'&via=Wouaf_IT" target="_blank" rel="noopener" title="'+ i18n.t('Share on Twitter') +'">'+
 					'<i class="fa fa-twitter-square"></i></a></span>'+
-				'<span class="share print"><a href="/pages/share.html?displayname='+ encodeURIComponent(username) +'&username='+ encodeURIComponent(user.username) +'" target="_blank" title="'+ i18n.t('Print this profile') +'">'+
+				'<span class="share print"><a href="/pages/share.html?displayname='+ encodeURIComponent(username) +'&username='+ encodeURIComponent(user.username) +'" target="_blank" rel="noopener" title="'+ i18n.t('Print this profile') +'">'+
 					'<i class="fa fa-print"></i></a></span>'+
 			'</p>';
 

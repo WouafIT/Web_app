@@ -63,7 +63,7 @@
 		<a href="/contact/" data-href="contact" data-show="modal" data-target="#modalWindow">contactez-nous</a>.</p>
 	<p>Vous pouvez également, pour des motifs légitimes, <a href="https://www.cnil.fr/fr/le-droit-dopposition">vous
 			opposer au traitement des données vous concernant</a>.</p>
-	<p>Pour en savoir plus, <a href="https://www.cnil.fr/fr/comprendre-vos-droits" target="_blank">consultez vos droits
+	<p>Pour en savoir plus, <a href="https://www.cnil.fr/fr/comprendre-vos-droits" target="_blank" rel="noopener">consultez vos droits
 			sur le site de la CNIL</a>.</p>
 	<p>Ce site est enregistré à la CNIL sous le n°2007773.</p>
 
@@ -93,8 +93,8 @@
 		<li>Hébergeur : OVH, 2 rue Kellermann - 59100 Roubaix - France.</li>
 	</ul>
 
-	<p>Suivez Wouaf IT sur <i class="fa fa-twitter"></i> <a href="https://twitter.com/Wouaf_IT" target="_blank">Twitter</a> et
-		<i class="fa fa-facebook-official"></i> <a href="https://www.facebook.com/wouafit/" target="_blank">Facebook</a> pour plus d'informations !</p>
+	<p>Suivez Wouaf IT sur <i class="fa fa-twitter"></i> <a href="https://twitter.com/Wouaf_IT" target="_blank" rel="noopener">Twitter</a> et
+		<i class="fa fa-facebook-official"></i> <a href="https://www.facebook.com/wouafit/" target="_blank" rel="noopener">Facebook</a> pour plus d'informations !</p>
 	<div class="text-right">
 		<div class="fb-like" data-href="https://www.facebook.com/wouafit/" data-layout="button_count" data-action="like"
 			 data-size="small" data-show-faces="true" data-share="true"></div>
