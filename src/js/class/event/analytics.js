@@ -133,9 +133,7 @@ module.exports = (function() {
 		var logEvent = function () {
 			if (__DEV__)
 				console.info('Analytics - Event - App - Start - '+ (data.getString('uid') ? 'Logged ' : 'Not logged ')+ language);
-			ga('send', 'event', 'app', 'start', (data.getString('uid') ? 'Logged ' : 'Not logged ') + language, '', {
-				nonInteraction: true
-			});
+			ga('send', 'event', 'app', 'start', (data.getString('uid') ? 'Logged ' : 'Not logged ') + language);
 		};
 		if (started) {
 			logEvent();
@@ -184,9 +182,7 @@ module.exports = (function() {
 			var logEvent = function () {
 				if (__DEV__)
 					console.info('Analytics - Event - App - Screen install - '+ (choiceResult.outcome === 'dismissed' ? 'Cancelled ' : 'Added '));
-				ga('send', 'event', 'app', 'Screen install', (choiceResult.outcome === 'dismissed' ? 'Cancelled ' : 'Added '), '', {
-					nonInteraction: true
-				});
+				ga('send', 'event', 'app', 'Screen install', (choiceResult.outcome === 'dismissed' ? 'Cancelled ' : 'Added '));
 			};
 			if (started) {
 				logEvent();
