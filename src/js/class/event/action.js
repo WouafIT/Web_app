@@ -64,7 +64,7 @@ module.exports = (function() {
 						mobile_iframe: true,
 						href: decodeURIComponent($this.data('href')),
 						hashtag: '#wouafit',
-						quote: i18n.t('{{user}} is on @WouafIT', {'user': $this.data('username'), interpolation: {escapeValue: false}})
+						quote: i18n.t('{{user}} is on @WouafIT', {'user': decodeURIComponent($this.data('username')), interpolation: {escapeValue: false}})+' - '+i18n.t('Wouaf_IT_description')
 					}, function(response){});
 				}
 				break;
