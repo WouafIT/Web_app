@@ -63,7 +63,8 @@ module.exports = (function() {
 						method: 'share',
 						mobile_iframe: true,
 						href: decodeURIComponent($this.data('href')),
-						quote: i18n.t('{{user}} is on @WouafIT', {'user': decodeURIComponent($this.data('username')), interpolation: {escapeValue: false}})+' - '+i18n.t('Wouaf_IT_description')
+						quote: i18n.t('{{user}} is on @WouafIT', {'user': decodeURIComponent($this.data('username')), interpolation: {escapeValue: false}})
+							   +' https://wouaf.it - '+i18n.t('Wouaf_IT_description')
 					}, function(response){});
 				}
 				break;
