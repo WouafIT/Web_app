@@ -62,7 +62,9 @@ module.exports = (function() {
 					window.FB.ui({
 						method: 'share',
 						mobile_iframe: true,
-						href: decodeURIComponent($this.data('href'))
+						href: decodeURIComponent($this.data('href')),
+						hashtag: '#wouafit',
+						quote: i18n.t('{{user}} is on @WouafIT', {'user': $this.data('username'), interpolation: {escapeValue: false}})
 					}, function(response){});
 				}
 				break;
