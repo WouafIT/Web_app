@@ -34,7 +34,7 @@ module.exports = (function() {
 		var following 	= data.getArray('following');
 		var menu = ['<div class="w-menu-dropdown dropdown-menu" data-id="'+ obj.id +'" data-menu="wouaf" hidden>',
 			'<div class="dropdown-item sharing"><i class="fa fa-share-alt"></i> ', i18n.t('Share'),
-				' <span class="share facebook"><a href="#" data-action="facebook-share" data-href="', encodeURIComponent(wouafLocaleUrl) ,'" title="'+ i18n.t('Share on Facebook') +'">',
+				' <span class="share facebook"><a href="#" data-action="facebook-share" data-href="', encodeURIComponent(wouafLocaleUrl) ,'" data-username="', encodeURIComponent(obj.author[2] || obj.author[1]) ,'" title="'+ i18n.t('Share on Facebook') +'">',
 					'<i class="fa fa-facebook-square"></i></a></span>',
 				'<span class="share twitter"><a href="https://twitter.com/intent/tweet?text='+ encodeURIComponent(title) +'&url='+ encodeURIComponent(wouafLocaleUrl) +'&via=Wouaf_IT" target="_blank" rel="noopener" title="'+ i18n.t('Share on Twitter') +'">',
 					'<i class="fa fa-twitter-square"></i></a></span>',
