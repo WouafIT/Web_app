@@ -76,6 +76,16 @@ module.exports = (function() {
 			}
 			galleryImg.push({href: $that.attr('href')});
 		});
-		$.swipebox(galleryImg, {hideBarsDelay: 0, loopAtEnd: true, initialIndexOnArray: initialIndex });
+		$.swipebox(galleryImg, {
+			hideBarsDelay: 0,
+			loopAtEnd: true,
+			initialIndexOnArray: initialIndex,
+			afterClose: function() {
+				//avoid closing of infowindow on mobile devices
+				var e = window.event || arguments.callee.caller.arguments[0];
+				e.preventDefault();
+				e.stopPropagation();
+			}
+		});
 	});
 }());
