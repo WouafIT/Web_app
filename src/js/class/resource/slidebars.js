@@ -7,6 +7,7 @@ var dtp = require('./datetimepicker.js');
 var utils = require('../utils.js');
 var windows = require('./windows.js');
 var data = require('./data.js');
+var alert = require('./alert.js');
 
 module.exports = (function() {
 	var $document = $(document);
@@ -22,6 +23,7 @@ module.exports = (function() {
 	var $where = $('#where');
 	var $whereLoc = $('#where-loc');
 	var $hashtag = $('#hashtag');
+	var $textContent = $('#text-content');
 	var $start = $('#start');
 	var $end = $('#end');
 	$search.find('.sub-what').hide().removeAttr('hidden');
@@ -29,6 +31,8 @@ module.exports = (function() {
 	$emptyHashtag.hide().removeAttr('hidden');
 	var $emptyWhere = $('#where-empty');
 	$emptyWhere.hide().removeAttr('hidden');
+	var $emptyTextContent = $('#text-content-empty');
+	$emptyTextContent.hide().removeAttr('hidden');
 	var width;
 	var oSlidebar;
 
@@ -97,13 +101,36 @@ module.exports = (function() {
 		});
 		showHideCustomDates();
 		$hashtag.on({
-			'change, keyup': function() {
+			'change keyup keydown keypress paste': function(e) {
+				var invalidChars = /[^0-9a-z]/gi;
+				if (e.type === 'keypress') {
+					var char = String.fromCharCode(e.keyCode || e.which);
+					if (char && invalidChars.test(char)) {
+						e.preventDefault();
+					}
+				}
+				var value = $hashtag.val();
+				if(value && invalidChars.test(value)) {
+					$hashtag.val(value.replace(invalidChars, ''));
+				}
 				$emptyHashtag.toggle(!!$hashtag.val());
+
+				$hashtag.removeClass('form-control-warning');
+				$hashtag.parents('fieldset').removeClass('has-warning');
 			}
 		});
 		$emptyHashtag.find('button').click(function() {
 			$hashtag.val('');
 			$emptyHashtag.hide();
+		});
+		$textContent.on({
+			'change, keyup': function() {
+				$emptyTextContent.toggle(!!$textContent.val());
+			}
+		});
+		$emptyTextContent.find('button').click(function() {
+			$textContent.val('');
+			$emptyTextContent.hide();
 		});
 		$where.on({
 			'change, keyup': function() {
@@ -114,6 +141,8 @@ module.exports = (function() {
 			$where.val('');
 			$whereLoc.val('');
 			$emptyWhere.hide();
+			$where.removeClass('form-control-warning');
+			$where.parents('fieldset').removeClass('has-warning');
 		});
 
 		var showSelectedTypesLabel = function () {
@@ -239,17 +268,28 @@ module.exports = (function() {
 				event.preventDefault();
 				//cleanup
 				if ($where.val() && !$whereLoc.val()) {
-					$where.val('');
-					$whereLoc.val('');
+					alert.show(i18n.t('Invalid location. Please select a proposal from the drop-down list'), $form);
+					$where.addClass('form-control-warning');
+					$where.parents('fieldset').addClass('has-warning');
+					return;
+				} else {
+					$where.removeClass('form-control-warning');
+					$where.parents('fieldset').removeClass('has-warning');
 				}
 				if ($hashtag.val()) {
 					if ($hashtag.val().substr(0,1) === '#') {
 						$hashtag.val($hashtag.val().substr(1));
 					}
 					if (!utils.isValidHashtag($hashtag.val())) {
-						$hashtag.val('');
+						alert.show(i18n.t('Invalid Hashtag. Enter a single word consisting of letters and numbers only'), $form);
+						$hashtag.addClass('form-control-warning');
+						$hashtag.parents('fieldset').addClass('has-warning');
+						return;
 					}
 				}
+				$form.find('.alert').hide("fast", function() {
+					$(this).remove();
+				});
 				if ($when.val() === 'custom') {
 					var start = dtp.getInputDate($start);
 					var end = dtp.getInputDate($end);
@@ -284,6 +324,8 @@ module.exports = (function() {
 			var place = autocomplete.getPlace();
 			if (place.geometry) {
 				$whereLoc.val(JSON.stringify(place.geometry.location.toJSON()));
+				$where.removeClass('form-control-warning');
+				$where.parents('fieldset').removeClass('has-warning');
 			}
 		});
 		$where.on('change', function() {
@@ -395,6 +437,7 @@ module.exports = (function() {
 		return {
 			cat: $category.val() || null,
 			tag: $hashtag.val() || null,
+			text: $textContent.val() || null,
 			children: $children.prop('checked'),
 			geo: geo,
 			date: date,
@@ -443,6 +486,9 @@ module.exports = (function() {
 			}
 			if (params.tag) {
 				description += ', '+ utils.ucfirst(utils.escapeHtml(params.tag).toLowerCase());
+			}
+			if (params.text) {
+				description += ' '+ i18n.t('and keywords');
 			}
 			return description;
 		}
