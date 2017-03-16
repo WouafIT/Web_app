@@ -150,15 +150,15 @@ module.exports = (function() {
 		var id = $el.parents('.tab-pane').attr('id');
 		var sort = $el.data('sort');
 		var filter = $el.data('filter');
-		var proximity = $el.data('proximity');
+		var relevance = $el.data('relevance');
 		if (!id) {
 			return;
 		}
 		var offset = $el.offset();
 		var menu = ['<div class="w-menu-dropdown dropdown-menu" data-id="'+ id +'" data-menu="listing" hidden>',
 			'<a class="dropdown-item'+ (filter === 'yes' ? ' active' : '') +'" href="#" data-action="filter-active"><i class="fa fa-filter"></i> '+i18n.t('Hide Wouafs gone') + (filter === 'yes' ? ' <i class="fa fa-check"></i>' : '') +'</a>',
-			(proximity === 'yes'
-				? '<a class="dropdown-item'+ (sort === 'proximity' ? ' active' : '') +'" href="#" data-action="sort-proximity"><i class="fa fa-sort-amount-desc"></i> '+i18n.t('Sort by Proximity') + (sort === 'proximity' ? ' <i class="fa fa-check"></i>' : '') +'</a>'
+			(relevance === 'yes'
+				? '<a class="dropdown-item'+ (sort === 'relevance' ? ' active' : '') +'" href="#" data-action="sort-relevance"><i class="fa fa-sort-amount-desc"></i> '+i18n.t('Sort by Relevance') + (sort === 'relevance' ? ' <i class="fa fa-check"></i>' : '') +'</a>'
 				: ''),
 			'<a class="dropdown-item'+ (sort === 'date-desc' ? ' active' : '') +'" href="#" data-action="sort-date-desc"><i class="fa fa-sort-numeric-desc"></i> '+i18n.t('Sort by Starting Date descending') + (sort === 'date-desc' ? ' <i class="fa fa-check"></i>' : '') +'</a>',
 			'<a class="dropdown-item'+ (sort === 'date-asc' ? ' active' : '') +'" href="#" data-action="sort-date-asc"><i class="fa fa-sort-numeric-asc"></i> '+ i18n.t('Sort by Starting Date ascending') + (sort === 'date-asc' ? ' <i class="fa fa-check"></i>' : '') +'</a>',

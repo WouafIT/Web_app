@@ -14,7 +14,7 @@ module.exports = (function() {
 			if (l) {
 				content = content.concat([
 					'<div class="tab-head">',
-						'<button class="w-menu" type="button" data-menu="listing" data-proximity="yes" data-sort="proximity" data-filter="no">',
+						'<button class="w-menu" type="button" data-menu="listing" data-relevance="yes" data-sort="relevance" data-filter="no">',
 							'<i class="fa fa-bars"></i> ', i18n.t('Menu'),
 						'</button>',
 						'<p class="lead">',
@@ -29,7 +29,7 @@ module.exports = (function() {
 				for(i = 0; i < l; i++) {
 					obj = data.data.results[i];
 					content = content.concat([
-					'<div class="w-container" data-id="', obj.id ,'" data-proximity="', i ,'" data-date="', obj.dates[0].start ,'" data-comments="', obj.com ,'" data-fav="', obj.fav ,'" data-interest="', obj.interest ,'" data-type="', obj.cat ,'">',
+					'<div class="w-container" data-id="', obj.id ,'" data-relevance="', i ,'" data-date="', obj.dates[0].start ,'" data-comments="', obj.com ,'" data-fav="', obj.fav ,'" data-interest="', obj.interest ,'" data-type="', obj.cat ,'">',
 							wouaf.getHeader(obj),
 						'</div>'
 					]);
@@ -56,7 +56,7 @@ module.exports = (function() {
 			if (l) {
 				content = content.concat([
 					'<div class="tab-head">',
-						'<button class="w-menu" type="button" data-menu="listing" data-proximity="no" data-sort="date-desc" data-filter="no">',
+						'<button class="w-menu" type="button" data-menu="listing" data-relevance="no" data-sort="date-desc" data-filter="no">',
 							'<i class="fa fa-bars"></i> ', i18n.t('Menu'),
 						'</button>',
 						'<p class="lead">', (title ? title : i18n.t('{{count}} Wouaf', {count: l})) ,'</p>',

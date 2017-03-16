@@ -113,22 +113,22 @@
 							</div>
 						</div>
 					</fieldset>
-					<!--fieldset class="form-group row">
-						<label for="text-content"><%= htmlWebpackPlugin.options.i18n['Content?'] %></label>
+					<fieldset class="form-group row">
+						<label for="text-content"><%= htmlWebpackPlugin.options.i18n['Keywords?'] %></label>
 						<div class="input-group">
 							<div class="input-group-addon"><i class="fa fa-i-cursor"></i></div>
-							<input type="text" class="form-control" id="text-content"
+							<input type="text" class="form-control" id="text-content" maxlength="100"
 								   placeholder="<%= htmlWebpackPlugin.options.i18n['Keyword Theme'] %>" />
 							<div id="text-content-empty" class="input-group-addon" hidden>
 								<button type="button" class="close">&times;</button>
 							</div>
 						</div>
-					</fieldset-->
+					</fieldset>
 					<fieldset class="form-group row">
 						<label for="hashtag"><%= htmlWebpackPlugin.options.i18n['Hashtag?'] %></label>
 						<div class="input-group">
 							<div class="input-group-addon"><i class="fa fa-hashtag"></i></div>
-							<input type="text" class="form-control" id="hashtag"
+							<input type="text" class="form-control" id="hashtag" maxlength="100"
 								   placeholder="<%= htmlWebpackPlugin.options.i18n['Hashtag'] %>" />
 							<div id="hashtag-empty" class="input-group-addon" hidden>
 								<button type="button" class="close">&times;</button>

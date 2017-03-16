@@ -373,11 +373,11 @@ module.exports = (function() {
 					case 'filter-active':
 						$document.triggerHandler('tabs.filter', {id: listingId, action: !$target.hasClass('active')});
 						break;
-					case 'sort-proximity':
+					case 'sort-relevance':
 						if ($target.hasClass('active')) {
 							return;
 						}
-						$document.triggerHandler('tabs.sort', {id: listingId, action: 'proximity'});
+						$document.triggerHandler('tabs.sort', {id: listingId, action: 'relevance'});
 						break;
 					case 'sort-date-desc':
 						if ($target.hasClass('active')) {

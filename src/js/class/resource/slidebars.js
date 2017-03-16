@@ -126,11 +126,15 @@ module.exports = (function() {
 		$textContent.on({
 			'change, keyup': function() {
 				$emptyTextContent.toggle(!!$textContent.val());
+				$textContent.removeClass('form-control-warning');
+				$textContent.parents('fieldset').removeClass('has-warning');
 			}
 		});
 		$emptyTextContent.find('button').click(function() {
 			$textContent.val('');
 			$emptyTextContent.hide();
+			$textContent.removeClass('form-control-warning');
+			$textContent.parents('fieldset').removeClass('has-warning');
 		});
 		$where.on({
 			'change, keyup': function() {
@@ -287,6 +291,12 @@ module.exports = (function() {
 						return;
 					}
 				}
+				if ($textContent.val() && $textContent.val().length < 3) {
+					alert.show(i18n.t('Invalid Text content. Please enter minimum 3 characters'), $form);
+					$textContent.addClass('form-control-warning');
+					$textContent.parents('fieldset').addClass('has-warning');
+					return;
+				}
 				$form.find('.alert').hide("fast", function() {
 					$(this).remove();
 				});
@@ -438,6 +448,7 @@ module.exports = (function() {
 			cat: $category.val() || null,
 			tag: $hashtag.val() || null,
 			text: $textContent.val() || null,
+			language: $textContent.val() ? i18n.t('languageShort') : null,
 			children: $children.prop('checked'),
 			geo: geo,
 			date: date,
