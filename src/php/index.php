@@ -501,6 +501,7 @@ function curlGet($url, array $get = null, array $options = array()) {
 		CURLOPT_RETURNTRANSFER => true,
 		CURLOPT_TIMEOUT        => 10,
 		CURLOPT_URL            => $url,
+		CURLOPT_SSL_VERIFYPEER => false,
 		CURLOPT_HTTPHEADER     => array(
 			'Origin: https://'.$_SERVER['HTTP_HOST'],
 		),
