@@ -27,7 +27,7 @@
 						"Connexion avec Facebook" et saisissez vos information de connexion dans la fenêtre Facebook qui s'est ouverte.
 						Sinon, vous pouvez créer un compte Wouaf IT en cliquant sur le bouton vert "Nouveau Wouaffeur ? Créez votre compte !"
 						puis en saisissant vos informations d'identification.</p>
-					<p>Une fois votre compte créé, vous pouvez créer un Wouaf en cliquant sur l'icone <i class="fa fa-plus-circle"></i>
+					<p>Une fois votre compte créé, vous pouvez créer un Wouaf en cliquant sur l'icone <i class="fa fa-pencil-square-o"></i>
 						en bas à droite de la carte. Positionnez d'abord la carte à l'endroit de votre événement et cliquez sur "OK".
 						Une page s'ouvrira alors qui vous permettra de renseigner toutes les informations de votre événement.</p>
 				</div>

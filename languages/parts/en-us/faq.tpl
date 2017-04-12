@@ -28,7 +28,7 @@
 						and enter your login information in the Facebook window that opened.
 						Alternatively, you can create a Wouaf IT account by clicking on the green button "New Wouaffer? Create your profile!"
 						and then, enter your credentials.</p>
-					<p>Once you have created your account, you can create a Wouaf by clicking on the <i class="fa fa-plus-circle"></i> icon at
+					<p>Once you have created your account, you can create a Wouaf by clicking on the <i class="fa fa-pencil-square-o"></i> icon at
 						the bottom right of the map. First place the map at the location of your event and click "OK".
 						A page will then open which will allow you to fill in all the information of your event.</p>
 				</div>
