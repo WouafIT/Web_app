@@ -5,6 +5,8 @@
 	</button>
 </div>
 <div class="modal-body">
+	<p class="blockquote">For sharing local events between users, Wouaf IT makes possible to
+		quickly identify on its map all the events nearby.</p>
 
 	<div id="accordionAbout" role="tablist" aria-multiselectable="true">
 		<div class="card">
@@ -60,9 +62,9 @@
 			</div>
 			<div id="collapseAboutTwo" class="collapse" role="tabpanel" aria-labelledby="headingAboutTwo">
 				<div class="card-block">
-					<p>Wouaf IT is the initiative of a family man helped by close friends.
-						We want to provide a new quality Internet service that will identify all events nearby.</p>
-					<p>We are based in the technology park of Sophia Antipolis, near Nice - France.</p>
+					<p>Wouaf IT was created by Sébastien PAUCHET in the technology park of Sophia Antipolis, near Nice - France.</p>
+
+					<p>We want to provide a new quality Internet service that will identify all events nearby.</p>
 
 					<p>The use and publication on Wouaf IT are free of charge. Its source code is released under the Apache license and is
 						available on <i class="fa fa-github"></i> <a href="https://github.com/WouafIT" target="_blank" rel="noopener">Github</a>.</p>

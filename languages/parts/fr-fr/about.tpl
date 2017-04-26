@@ -5,6 +5,9 @@
 	</button>
 </div>
 <div class="modal-body">
+	<p class="blockquote">Destiné au partage des événements locaux entre internautes, Wouaf IT permet d’identifier
+		rapidement sur sa carte tous les événements à proximité.</p>
+
 	<div id="accordionAbout" role="tablist" aria-multiselectable="true">
 		<div class="card">
 			<div class="card-header" role="tab" id="headingAboutOne">
@@ -59,9 +62,9 @@
 			</div>
 			<div id="collapseAboutTwo" class="collapse" role="tabpanel" aria-labelledby="headingAboutTwo">
 				<div class="card-block">
-					<p>Wouaf IT est à l'initiative d'un père de famille aidé par des amis proches.
-						Nous voulons fournir un nouveau service de qualité qui recensera tous les événements de proximité.</p>
-					<p>Nous sommes basés dans la technopole de Sophia Antipolis, près de Nice.</p>
+					<p>Wouaf IT a été créé par Sébastien PAUCHET dans la technopole de Sophia Antipolis, près de Nice.</p>
+
+					<p>Nous voulons fournir un nouveau service de qualité qui recensera tous les événements de proximité.</p>
 
 					<p>L'utilisation et la publication sur Wouaf IT sont gratuites. Son code source est distribué sous licence libre Apache et
 						est disponible sur <i class="fa fa-github"></i> <a href="https://github.com/WouafIT" target="_blank" rel="noopener">Github</a>.</p>
