@@ -170,8 +170,8 @@ module.exports = (function() {
 			},
 			'sending': function(file, xhr, formData) {
 				if (formData && formData.has && !formData.has('uid')) {
-					formData.append("uid", data.getString('uid'));
-					formData.append("token", data.getString('token'));
+					formData.append('key', data.getString('apiKey') ? data.getString('apiKey') : API_KEY);
+					formData.append('version', 1);
 				}
 			},
 			'success': function(file, response) {
